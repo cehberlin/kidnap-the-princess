@@ -13,19 +13,20 @@ namespace KidnapThePrincess
             base(tex, area,enemies)
         {
             Speed = 0.5f;
+            attackDelay = 400;
         }
 
 
         /// <summary>
         /// he throws the enemy to the top
         /// </summary>
-        public override void attack()
+        protected override void attack()
         {
             foreach (Enemy e in enemies)
             {
                 if (GeometryHelper.Intersects(this.Bounds, e.Bounds))
                 {
-                    e.Position += new Vector2(0, -100);                    
+                    e.Position += new Vector2(0, -140);                    
                 }
             }
 

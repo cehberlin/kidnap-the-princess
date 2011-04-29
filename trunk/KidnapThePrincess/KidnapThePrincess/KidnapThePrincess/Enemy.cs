@@ -11,6 +11,7 @@ namespace KidnapThePrincess
     {
         List<Hero> heroes;
 
+        //enemy is asleep
         public Boolean Asleep = false;
 
         public Enemy(Texture2D tex, List<Hero> heroes)
@@ -19,14 +20,20 @@ namespace KidnapThePrincess
             this.heroes = heroes;
         }
 
-        public override void Update()
+        public override void Update(GameTime time)
         {
             if (!Asleep)
             {
                 Direction = heroes[0].Position - Position;
                 Direction = Vector2.Normalize(Direction);
-                base.Update();
+                base.Update(time);
             }
+        }
+
+
+        public Boolean IsDangerous()
+        {
+            return !Asleep; //add more properties here if you add some more above
         }
 
     }

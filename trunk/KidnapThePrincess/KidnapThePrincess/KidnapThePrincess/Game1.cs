@@ -114,7 +114,7 @@ namespace KidnapThePrincess
             }
             else if (stateMachine.Status == GameState.State.RUN)
             {
-                level.Update();
+                level.Update(gameTime);
                 stateMachine.Update(gameTime);
 
                 elapsedtime += gameTime.ElapsedGameTime.TotalMilliseconds;

@@ -34,6 +34,7 @@ namespace KidnapThePrincess
         Texture2D P1MarkerTex;
         Texture2D P2MarkerTex;
         Texture2D templarTex;
+        Texture2D attackTex;
         private Camera2d camera;
 
         public Camera2d Camera
@@ -145,6 +146,8 @@ namespace KidnapThePrincess
             P1MarkerTex = c.Load<Texture2D>("P1Marker");
             P2MarkerTex = c.Load<Texture2D>("P2Marker");
 
+            attackTex = c.Load<Texture2D>("attack");
+
             carriagRec = new Rectangle(0, 2000, carriageTex.Width, carriageTex.Height);
 
             //Load textures for heroes
@@ -157,30 +160,30 @@ namespace KidnapThePrincess
         private void addHeroes()
         {
             //add heroes to list
-            Goblin g = new Goblin(goblinTex, playArea,enemies);
+            Goblin g = new Goblin(goblinTex, playArea, enemies);
             g.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
-            g.Destination = new Vector2(carriagRec.Center.X,carriagRec.Center.Y);
+            g.Destination = new Vector2(carriagRec.Center.X, carriagRec.Center.Y);
             heroes.Add(g);
 
             princessCarrier = g; //makes it easier for reference
 
-            Hero h = new Brute(bruteTex, playArea,enemies);
+            Hero h = new Brute(bruteTex, playArea, enemies);
             h.Position = new Vector2(castlePosition.X - 2 * h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Knight(darknightTex, playArea,enemies);
+            h = new Knight(darknightTex, playArea, enemies);
             h.Position = new Vector2(castlePosition.X + h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Widow(widowTex, playArea,enemies);
+            h = new Widow(widowTex, playArea, enemies);
             h.Position = new Vector2(castlePosition.X - h.sprite.Width, castlePosition.Y + castleTex.Height);
             heroes.Add(h);
 
         }
 
-        #endregion LoadLevelContent 
+        #endregion LoadLevelContent
 
         #region UpdateLevelContent
 
@@ -196,7 +199,25 @@ namespace KidnapThePrincess
             sb.Draw(carriageTex, carriagRec, Color.White);
             foreach (Hero h in heroes)
             {
-                sb.Draw(h.sprite, h.Position, Color.White);
+                if (h.Freezed)
+                {
+                    sb.Draw(h.sprite, h.Position, Color.Blue);
+                }
+                else
+                {
+                    if (h.IsAttacking)
+                    {
+                        //draw text
+                        sb.Draw(attackTex, h.Position + new Vector2(10, 10), Color.White);
+                        sb.Draw(h.sprite, h.Position, Color.Red);
+                    }
+                    else
+                    {
+                        sb.Draw(h.sprite, h.Position, Color.White);
+                    }
+                }
+
+
             }
             sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position, Color.White);
             sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position, Color.White);
@@ -210,16 +231,16 @@ namespace KidnapThePrincess
         Random spawnRandom = new Random();
         public void SpawnEnemy()
         {
-           //check if temple is still visible
+            //check if temple is still visible
             Enemy e = new Templar(templarTex, heroes);
-            if (camera.Pos.Y>(game.Window.ClientBounds.Height))
+            if (camera.Pos.Y > (game.Window.ClientBounds.Height))
             {
                 e.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
             }
             else
             {
                 //enemies can come from top and bottom
-                if (spawnRandom.Next(1) == 1)
+                if (spawnRandom.Next(2) == 1)
                 {
                     e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), camera._pos.Y + (game.Window.ClientBounds.Height / 2));
                 }
@@ -227,24 +248,25 @@ namespace KidnapThePrincess
                 {
                     e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), camera._pos.Y - (game.Window.ClientBounds.Height / 2));
                 }
-                }            
+            }
             enemies.Add(e);
         }
 
-        public void Update()
+        public void Update(GameTime time)
         {
             if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
                 camera.Pos = heroes[0].Position;
 
 
+                //let the enemies carry our princess to the castle
                 if (princessCarrier.Attacked)
                 {
                     princessCarrier.Destination = castlePosition;
                 }
                 else
                 {
-                    princessCarrier.Destination = new Vector2(carriagRec.Center.X,carriagRec.Center.Y);
+                    princessCarrier.Destination = new Vector2(carriagRec.Center.X, carriagRec.Center.Y);
                 }
 
                 for (int i = 0; i < heroes.Count; i++)
@@ -255,14 +277,14 @@ namespace KidnapThePrincess
                     {
                         h.Destination = heroes[0].Position + new Vector2(40, -80);
                     }
-                    h.Update();
+                    h.Update(time);
                     if (h.IsActive) h.Direction = Vector2.Zero;
                 }
 
 
                 foreach (Enemy e in enemies)
                 {
-                    e.Update();
+                    e.Update(time);
                 }
             }
         }
@@ -270,38 +292,58 @@ namespace KidnapThePrincess
         public void MoveHeroLeft(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(-1, heroes[P1HeroIndex].Direction.Y);
+            {
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(-1, heroes[P1HeroIndex].Direction.Y);
+            }
             else
-                heroes[P2HeroIndex].Direction = new Vector2(-1, heroes[P2HeroIndex].Direction.Y);
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(-1, heroes[P2HeroIndex].Direction.Y);
         }
         public void MoveHeroRight(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(1, heroes[P1HeroIndex].Direction.Y);
-            else heroes[P2HeroIndex].Direction = new Vector2(1, heroes[P2HeroIndex].Direction.Y);
+            {
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(1, heroes[P1HeroIndex].Direction.Y);
+            }
+            else
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(1, heroes[P2HeroIndex].Direction.Y);
         }
         public void MoveHeroUp(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, -1);
+            {
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, -1);
+            }
             else
-                heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, -1);
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, -1);
         }
         public void MoveHeroDown(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
-            else heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
+            {
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
+            }
+            else
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
         }
         public void HeroAttack(int player)
         {
             if (player == 0)
             {
-                heroes[P1HeroIndex].attack();                
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].IsAttacking = true;
             }
             else
             {
-                heroes[P2HeroIndex].attack();     
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].IsAttacking = true;
             }
         }
 
@@ -324,7 +366,11 @@ namespace KidnapThePrincess
                 P2HeroIndex++;
                 P2HeroIndex %= 4;
                 if (P2HeroIndex == 0) P2HeroIndex++;
-                if (P2HeroIndex == P1HeroIndex) P2HeroIndex++;
+                if (P2HeroIndex == P1HeroIndex)
+                {
+                    P2HeroIndex++;
+                    P2HeroIndex %= 4;
+                }
                 heroes[P2HeroIndex].IsActive = true;
             }
         }
