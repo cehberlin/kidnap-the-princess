@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace KidnapThePrincess
 {
-    class Hero:Person
+    class Hero : Person
     {
         private Rectangle area;
 
@@ -28,14 +28,32 @@ namespace KidnapThePrincess
             get { return type; }
             set { type = value; }
         }
-        
+
+        private bool isActive;
+
+        public bool IsActive
+        {
+            get { return isActive; }
+            set { isActive = value; }
+        }
+
+        private Vector2 dest;
+
+        public Vector2 Destination
+        {
+            get { return dest; }
+            set { dest = value; }
+        }
+
+
         /// <summary>
         /// Constructor for a hero
         /// </summary>
         /// <param name="tex">The texture that will represent the hero in game.</param>
         /// <param name="type">0 = brute, 1 = goblin , 2 = Knight, 3 = widow</param>
         /// <param name="area">For the goblin its the rectangle of the carriage, for the others it's the playArea</param>
-        public Hero(Texture2D tex, int type,Rectangle area):base(tex)
+        public Hero(Texture2D tex, int type, Rectangle area)
+            : base(tex)
         {
             switch (type)
             {
@@ -54,8 +72,9 @@ namespace KidnapThePrincess
             }
             this.type = type;
             this.area = area;
+            isActive = false;
         }
-        
+
         public override void Draw(SpriteBatch sb)
         {
             base.Draw(sb);
@@ -64,12 +83,19 @@ namespace KidnapThePrincess
         public override void Update()
         {
             base.Update();
-            if (type != 0)
+            if (type != 0 && isActive)
             {
                 if (area.X > Position.X) X++;
                 if (area.Right < Position.X) X--;
                 if (area.Y > Position.Y) Y++;
                 if (area.Bottom < Position.Y) Y--;
+            }
+            else if (type != 0 && !isActive)
+            {
+                if (dest.X > Position.X) X += 1;
+                if (dest.X < Position.X) X -= 1;
+                if (dest.Y > Position.Y) Y += 1;
+                if (dest.Y < Position.Y) Y -= 1;
             }
         }
     }

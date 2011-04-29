@@ -40,7 +40,7 @@ namespace KidnapThePrincess
         public float Y
         {
             get { return position.Y; }
-            set { position.X = value; }
+            set { position.Y = value; }
         }
         public Person(Texture2D tex)
         {
