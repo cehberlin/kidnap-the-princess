@@ -11,12 +11,7 @@ namespace KidnapThePrincess
     {
         List<Hero> heroes;
 
-        private Vector2 dest;
-        public Vector2 Destination
-        {
-            get { return dest; }
-            set { dest = value; }
-        }
+        public Boolean Asleep = false;
 
         public Enemy(Texture2D tex, List<Hero> heroes)
             : base(tex)
@@ -26,10 +21,12 @@ namespace KidnapThePrincess
 
         public override void Update()
         {
-
-            Direction = Destination - Position;
-            Direction = Vector2.Normalize(Direction);
-            base.Update();
+            if (!Asleep)
+            {
+                Direction = heroes[0].Position - Position;
+                Direction = Vector2.Normalize(Direction);
+                base.Update();
+            }
         }
 
     }

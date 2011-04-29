@@ -37,12 +37,27 @@ namespace KidnapThePrincess
             set { dest = value; }
         }
 
+        protected List<Enemy> enemies;
+
 
         /// <summary>
         /// Constructor for a hero
         /// </summary>
         /// <param name="tex">The texture that will represent the hero in game.</param>
-        /// <param name="type">0 = brute, 1 = goblin , 2 = knight, 3 = widow</param>
+        /// <param name="area">For the goblin the rectangle equals the carriage, for the others it's the playArea</param>
+        public Hero(Texture2D tex, Rectangle area,List<Enemy> enemies)
+            : base(tex)
+        {
+            this.area = area;
+            this.enemies = enemies;
+            isActive = false;
+        }
+
+
+        /// <summary>
+        /// Constructor for a hero
+        /// </summary>
+        /// <param name="tex">The texture that will represent the hero in game.</param>
         /// <param name="area">For the goblin the rectangle equals the carriage, for the others it's the playArea</param>
         public Hero(Texture2D tex, Rectangle area)
             : base(tex)
@@ -67,5 +82,12 @@ namespace KidnapThePrincess
             }            
             base.Update();
         }
+
+
+        public virtual void attack()
+        {
+
+        }
+
     }
 }

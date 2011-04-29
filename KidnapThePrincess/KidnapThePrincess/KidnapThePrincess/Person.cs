@@ -30,7 +30,9 @@ namespace KidnapThePrincess
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set { position = value;
+            OnPositionUpdate();
+            }
         }
         public float X
         {
@@ -47,6 +49,25 @@ namespace KidnapThePrincess
             sprite = tex;
             direction = Vector2.Zero;
             position = Vector2.Zero;
+            boundPosition = new Vector3(position, 0f);
+
+            bounds = new BoundingSphere(boundPosition, 20); //20 is hacked TODO calculate or parameter
+        }
+
+        BoundingSphere bounds;
+
+        public BoundingSphere Bounds
+        {
+            get { return bounds; }
+            set { bounds = value; }
+        }
+        Vector3 boundPosition;
+
+        protected virtual void OnPositionUpdate()
+        {
+            boundPosition.X = Position.X;
+            boundPosition.Y = Position.Y;
+            bounds.Center = boundPosition;
         }
 
         public virtual void Initialize() { }
