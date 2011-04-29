@@ -76,14 +76,10 @@ namespace KidnapThePrincess
             // Allows the game to exit
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-            /*
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)) level.Camera.Move(new Vector2(-10, 0));
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)) level.Camera.Move(new Vector2(10, 0));
-            if (Keyboard.GetState().IsKeyDown(Keys.Up)) level.Camera.Move(new Vector2(0, -10));
-            if (Keyboard.GetState().IsKeyDown(Keys.Down)) level.Camera.Move(new Vector2(0, 10));
-            */
+
             GetInput();
             level.Update();
+            if (level.Heroes[0].IsActive) this.Exit();//The goblin turns active when he has reached the carriage->Level complete
 
             base.Update(gameTime);
         }
@@ -94,7 +90,7 @@ namespace KidnapThePrincess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.SaddleBrown);
+            GraphicsDevice.Clear(Color.Green);
 
             spriteBatch.Begin(SpriteSortMode.Immediate,
                 BlendState.AlphaBlend,

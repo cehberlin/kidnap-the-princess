@@ -50,8 +50,8 @@ namespace KidnapThePrincess
         /// Constructor for a hero
         /// </summary>
         /// <param name="tex">The texture that will represent the hero in game.</param>
-        /// <param name="type">0 = brute, 1 = goblin , 2 = Knight, 3 = widow</param>
-        /// <param name="area">For the goblin its the rectangle of the carriage, for the others it's the playArea</param>
+        /// <param name="type">0 = brute, 1 = goblin , 2 = knight, 3 = widow</param>
+        /// <param name="area">For the goblin the rectangle equals the carriage, for the others it's the playArea</param>
         public Hero(Texture2D tex, int type, Rectangle area)
             : base(tex)
         {
@@ -82,13 +82,13 @@ namespace KidnapThePrincess
 
         public override void Update()
         {
-            base.Update();
+            
             if (type != 0 && isActive)
             {
-                if (area.X > Position.X) X++;
-                if (area.Right < Position.X) X--;
-                if (area.Y > Position.Y) Y++;
-                if (area.Bottom < Position.Y) Y--;
+                if (area.X > Position.X) Position=new Vector2(area.X,Position.Y);
+                if (area.Right-sprite.Width < Position.X) Position = new Vector2(area.Right-sprite.Width, Position.Y);
+                if (area.Y > Position.Y) Position = new Vector2(Position.X, area.Y);
+                if (area.Bottom < Position.Y) Position = new Vector2(Position.X, area.Bottom);
             }
             else if (type != 0 && !isActive)
             {
@@ -97,6 +97,16 @@ namespace KidnapThePrincess
                 if (dest.Y > Position.Y) Y += 1;
                 if (dest.Y < Position.Y) Y -= 1;
             }
+            else if (type == 0)
+            {
+                //are we at the carriage yet?
+                if (area.Contains((int)Position.X, (int)Position.Y))
+                {
+                    isActive = true;
+                    return;
+                }
+            }
+            base.Update();
         }
     }
 }
