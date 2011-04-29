@@ -23,6 +23,9 @@ namespace KidnapThePrincess
         private Level level;
 
 
+        public int SpwanTimeDiff = 8000;
+
+
         private GameState(Level level)
         {
             this.level = level;
@@ -47,7 +50,10 @@ namespace KidnapThePrincess
                 {
                     Status = State.WIN;
                 }
-            
+                else if (level.PrincessCarrier.Bounds.Contains(new Vector3(level.CastlePosition.X, level.CastlePosition.Y, 0)) == ContainmentType.Contains)
+                {
+                    Status = State.GAMEOVER;
+                }            
         }
 
     }

@@ -9,10 +9,33 @@ namespace KidnapThePrincess
 {
     class Goblin:Hero
     {
-        public Goblin(Texture2D tex,Rectangle area) :
-            base(tex, area)
+        Boolean attacked = false;
+
+        public Boolean Attacked
+        {
+            get { return attacked; }
+            set { attacked = value; }
+        }
+
+
+        public Goblin(Texture2D tex,Rectangle area,List<Enemy> enemies) :
+            base(tex, area,enemies)
         {
             Speed = 0.4f;
         }
+
+
+         public override void Update()
+        {
+            attacked = false;
+             foreach(Enemy e in enemies){
+                   if(GeometryHelper.Intersects(Bounds,e.Bounds)){
+                       attacked = true;
+                       break;
+                   }
+            }
+             base.Update();              
+
+         }
     }
 }

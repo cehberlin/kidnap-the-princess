@@ -47,12 +47,12 @@ namespace KidnapThePrincess
 
             center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
 
-            level = new Level();
+            level = new Level(this);
             stateMachine = GameState.getInstance(level);
-                       
+
             textOverlay = new ScreenOverlay(this);
 
-             Components.Add(textOverlay);
+            Components.Add(textOverlay);
         }
 
         /// <summary>
@@ -89,6 +89,9 @@ namespace KidnapThePrincess
             // TODO: Unload any non ContentManager content here
         }
 
+
+        private double elapsedtime = 0;
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -114,6 +117,12 @@ namespace KidnapThePrincess
                 level.Update();
                 stateMachine.Update(gameTime);
 
+                elapsedtime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (elapsedtime > stateMachine.SpwanTimeDiff)
+                {
+                    level.SpawnEnemy();
+                    elapsedtime = 0;
+                }          
             }
 
             GetInput();
@@ -157,7 +166,7 @@ namespace KidnapThePrincess
             if (keyboard.IsKeyDown(Keys.Escape))
                 stateMachine.Status = GameState.State.EXIT;
 
-            if (stateMachine.Status == GameState.State.WIN)
+            if (stateMachine.Status == GameState.State.WIN || stateMachine.Status == GameState.State.GAMEOVER)
             {
                 if (keyboard.IsKeyDown(Keys.Enter))
                 {
@@ -191,7 +200,11 @@ namespace KidnapThePrincess
             {
                 level.MoveHeroDown(0);
             }
-            if (keyboard.IsKeyUp(Keys.I)&&oldState.IsKeyDown(Keys.I))
+            if (keyboard.IsKeyDown(Keys.P))
+            {
+                level.HeroAttack(0);
+            }
+            if (keyboard.IsKeyUp(Keys.I) && oldState.IsKeyDown(Keys.I))
             {
                 level.SwitchHero(0);
             }
@@ -212,6 +225,10 @@ namespace KidnapThePrincess
             if (keyboard.IsKeyDown(Keys.S))
             {
                 level.MoveHeroDown(1);
+            }
+            if (keyboard.IsKeyDown(Keys.B))
+            {
+                level.HeroAttack(1);
             }
             if (keyboard.IsKeyUp(Keys.Space) && oldState.IsKeyDown(Keys.Space))
             {

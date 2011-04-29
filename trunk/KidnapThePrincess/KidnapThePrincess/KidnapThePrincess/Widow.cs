@@ -9,10 +9,26 @@ namespace KidnapThePrincess
 {
     class Widow:Hero
     {
-        public Widow(Texture2D tex, Rectangle area) :
-            base(tex, area)
+        public Widow(Texture2D tex, Rectangle area,List<Enemy> enemies) :
+            base(tex, area, enemies)
         {
             Speed = 0.8f;
+        }
+
+        /// <summary>
+        /// she let the enemy fall asleep
+        /// </summary>
+        public override void attack()
+        {
+            foreach (Enemy e in enemies)
+            {
+                if(GeometryHelper.Intersects(this.Bounds,e.Bounds)){
+                    e.Asleep = true;
+                }
+            }
+
+
+            base.attack();
         }
     }
 }

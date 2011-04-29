@@ -109,8 +109,11 @@
   <ItemGroup>
     <Compile Include="Brute.cs" />
     <Compile Include="Camera2d.cs" />
+    <Compile Include="Circle.cs" />
     <Compile Include="Enemy.cs" />
+    <Compile Include="Entity.cs" />
     <Compile Include="GameState.cs" />
+    <Compile Include="GeometryHelper.cs" />
     <Compile Include="Goblin.cs" />
     <Compile Include="Hero.cs" />
     <Compile Include="Knight.cs" />
@@ -120,6 +123,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ScreenOverlay.cs" />
+    <Compile Include="Square.cs" />
+    <Compile Include="Templar.cs" />
     <Compile Include="Widow.cs" />
   </ItemGroup>
   <ItemGroup>

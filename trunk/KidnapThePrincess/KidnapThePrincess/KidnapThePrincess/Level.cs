@@ -33,6 +33,7 @@ namespace KidnapThePrincess
         Texture2D playAreaTex;
         Texture2D P1MarkerTex;
         Texture2D P2MarkerTex;
+        Texture2D templarTex;
         private Camera2d camera;
 
         public Camera2d Camera
@@ -41,12 +42,28 @@ namespace KidnapThePrincess
             set { camera = value; }
         }
 
+        Goblin princessCarrier;
+
+        internal Goblin PrincessCarrier
+        {
+            get { return princessCarrier; }
+            set { princessCarrier = value; }
+        }
+
         private List<Hero> heroes;
 
         public List<Hero> Heroes
         {
             get { return heroes; }
             set { heroes = value; }
+        }
+
+        private List<Enemy> enemies;
+
+        internal List<Enemy> Enemies
+        {
+            get { return enemies; }
+            set { enemies = value; }
         }
 
         private List<Vector2> treePositions;
@@ -67,12 +84,16 @@ namespace KidnapThePrincess
 
         #region LoadLevelContent //Constructor, Init Methods...
 
-        public Level()
+        Game1 game;
+
+        public Level(Game1 game)
         {
+            this.game = game;
             P1HeroIndex = 1;
             P2HeroIndex = 2;
             castlePosition = new Vector2(0, 0);
             heroes = new List<Hero>();
+            enemies = new List<Enemy>();
             camera = new Camera2d();
             camera.Pos = new Vector2(0, 300);
             treePositions = new List<Vector2>();
@@ -91,6 +112,8 @@ namespace KidnapThePrincess
             addTrees();
             heroes.Clear();
             addHeroes();
+
+            enemies.Clear();
         }
 
         private void addTrees()
@@ -114,6 +137,7 @@ namespace KidnapThePrincess
             castleTex = c.Load<Texture2D>("castle");
             carriageTex = c.Load<Texture2D>("carriage");
             treeTex = c.Load<Texture2D>("tree");
+            templarTex = c.Load<Texture2D>("templar");
             crateTex = c.Load<Texture2D>("crate");
             hut1Tex = c.Load<Texture2D>("hut1");
             hut2Tex = c.Load<Texture2D>("hut2");
@@ -133,24 +157,27 @@ namespace KidnapThePrincess
         private void addHeroes()
         {
             //add heroes to list
-            Hero h = new Goblin(goblinTex, playArea);
-            h.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
-            h.Destination = new Vector2(carriagRec.Center.X,carriagRec.Center.Y);
-            heroes.Add(h);
+            Goblin g = new Goblin(goblinTex, playArea,enemies);
+            g.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
+            g.Destination = new Vector2(carriagRec.Center.X,carriagRec.Center.Y);
+            heroes.Add(g);
 
-            h = new Brute(bruteTex, playArea);
+            princessCarrier = g; //makes it easier for reference
+
+            Hero h = new Brute(bruteTex, playArea,enemies);
             h.Position = new Vector2(castlePosition.X - 2 * h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Knight(darknightTex, playArea);
+            h = new Knight(darknightTex, playArea,enemies);
             h.Position = new Vector2(castlePosition.X + h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Widow(widowTex, playArea);
+            h = new Widow(widowTex, playArea,enemies);
             h.Position = new Vector2(castlePosition.X - h.sprite.Width, castlePosition.Y + castleTex.Height);
             heroes.Add(h);
+
         }
 
         #endregion LoadLevelContent 
@@ -173,6 +200,35 @@ namespace KidnapThePrincess
             }
             sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position, Color.White);
             sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position, Color.White);
+
+            foreach (Enemy e in enemies)
+            {
+                sb.Draw(e.sprite, e.Position, Color.White);
+            }
+        }
+
+        Random spawnRandom = new Random();
+        public void SpawnEnemy()
+        {
+           //check if temple is still visible
+            Enemy e = new Templar(templarTex, heroes);
+            if (camera.Pos.Y>(game.Window.ClientBounds.Height))
+            {
+                e.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
+            }
+            else
+            {
+                //enemies can come from top and bottom
+                if (spawnRandom.Next(1) == 1)
+                {
+                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), camera._pos.Y + (game.Window.ClientBounds.Height / 2));
+                }
+                else
+                {
+                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), camera._pos.Y - (game.Window.ClientBounds.Height / 2));
+                }
+                }            
+            enemies.Add(e);
         }
 
         public void Update()
@@ -180,6 +236,16 @@ namespace KidnapThePrincess
             if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
                 camera.Pos = heroes[0].Position;
+
+
+                if (princessCarrier.Attacked)
+                {
+                    princessCarrier.Destination = castlePosition;
+                }
+                else
+                {
+                    princessCarrier.Destination = new Vector2(carriagRec.Center.X,carriagRec.Center.Y);
+                }
 
                 for (int i = 0; i < heroes.Count; i++)
                 {
@@ -191,6 +257,12 @@ namespace KidnapThePrincess
                     }
                     h.Update();
                     if (h.IsActive) h.Direction = Vector2.Zero;
+                }
+
+
+                foreach (Enemy e in enemies)
+                {
+                    e.Update();
                 }
             }
         }
@@ -221,6 +293,18 @@ namespace KidnapThePrincess
                 heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
             else heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
         }
+        public void HeroAttack(int player)
+        {
+            if (player == 0)
+            {
+                heroes[P1HeroIndex].attack();                
+            }
+            else
+            {
+                heroes[P2HeroIndex].attack();     
+            }
+        }
+
         public void SwitchHero(int player)
         {
             if (player == 0)
