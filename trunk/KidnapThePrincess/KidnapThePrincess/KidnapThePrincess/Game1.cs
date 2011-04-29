@@ -18,11 +18,17 @@ namespace KidnapThePrincess
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        KeyboardState oldState;
+        Level level;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferHeight = 700;
+
+            level = new Level();
         }
 
         /// <summary>
@@ -33,7 +39,7 @@ namespace KidnapThePrincess
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
 
             base.Initialize();
         }
@@ -47,7 +53,8 @@ namespace KidnapThePrincess
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //Load the level
+            level.Load(Content);
         }
 
         /// <summary>
@@ -67,10 +74,16 @@ namespace KidnapThePrincess
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-
-            // TODO: Add your update logic here
+            /*
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)) level.Camera.Move(new Vector2(-10, 0));
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)) level.Camera.Move(new Vector2(10, 0));
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) level.Camera.Move(new Vector2(0, -10));
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) level.Camera.Move(new Vector2(0, 10));
+            */
+            GetInput();
+            level.Update();
 
             base.Update(gameTime);
         }
@@ -81,11 +94,72 @@ namespace KidnapThePrincess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.SaddleBrown);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                level.Camera.get_transformation(graphics.GraphicsDevice));
+            level.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Grabs and processes the user input.
+        /// </summary>
+        private void GetInput()
+        {
+            // Grab some info from the keyboard
+            KeyboardState keyboard = Keyboard.GetState();
+            //Player One Input
+            if (keyboard.IsKeyDown(Keys.Right))
+            {
+                level.MoveHeroRight(0);
+            }
+            if (keyboard.IsKeyDown(Keys.Left))
+            {
+                level.MoveHeroLeft(0);
+            }
+            if (keyboard.IsKeyDown(Keys.Up))
+            {
+                level.MoveHeroUp(0);
+            }
+            if (keyboard.IsKeyDown(Keys.Down))
+            {
+                level.MoveHeroDown(0);
+            }
+            if (keyboard.IsKeyUp(Keys.I)&&oldState.IsKeyDown(Keys.I))
+            {
+                level.SwitchHero(0);
+            }
+            //Player Two Input
+            if (keyboard.IsKeyDown(Keys.D))
+            {
+                level.MoveHeroRight(1);
+            }
+            if (keyboard.IsKeyDown(Keys.A))
+            {
+                level.MoveHeroLeft(1);
+            }
+            if (keyboard.IsKeyDown(Keys.W))
+            {
+                level.MoveHeroUp(1);
+            }
+            if (keyboard.IsKeyDown(Keys.S))
+            {
+                level.MoveHeroDown(1);
+            }
+            if (keyboard.IsKeyUp(Keys.Space) && oldState.IsKeyDown(Keys.Space))
+            {
+                level.SwitchHero(1);
+            }
+
+            oldState = keyboard;
         }
     }
 }
