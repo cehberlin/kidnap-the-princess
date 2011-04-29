@@ -108,10 +108,12 @@ namespace KidnapThePrincess
 
             h = new Hero(bruteTex, 1, playArea);
             h.Position = new Vector2(castlePosition.X - 2 * h.sprite.Width, castlePosition.Y + castleTex.Height);
+            h.IsActive = true;
             heroes.Add(h);
 
             h = new Hero(darknightTex, 2, playArea);
             h.Position = new Vector2(castlePosition.X + h.sprite.Width, castlePosition.Y + castleTex.Height);
+            h.IsActive = true;
             heroes.Add(h);
 
             h = new Hero(widowTex, 3, playArea);
@@ -149,9 +151,13 @@ namespace KidnapThePrincess
 
         public void Update()
         {
-            camera.Pos = heroes[1].Position;
+            camera.Pos = heroes[0].Position;
             foreach (Hero h in heroes)
             {
+                if (!h.IsActive && h.Type != 0)
+                {
+                    h.Destination = heroes[P1HeroIndex].Position+new Vector2(40,-80);
+                }
                 h.Update();
             }
         }
@@ -165,21 +171,21 @@ namespace KidnapThePrincess
         }
         public void MoveHeroRight(int player)
         {
-            if(player==0)
-            heroes[P1HeroIndex].Direction = new Vector2(1, 0);
+            if (player == 0)
+                heroes[P1HeroIndex].Direction = new Vector2(1, 0);
             else heroes[P2HeroIndex].Direction = new Vector2(1, 0);
         }
         public void MoveHeroUp(int player)
         {
             if (player == 0)
-            heroes[P1HeroIndex].Direction = new Vector2(0, -1);
+                heroes[P1HeroIndex].Direction = new Vector2(0, -1);
             else
-            heroes[P2HeroIndex].Direction = new Vector2(0, -1);
+                heroes[P2HeroIndex].Direction = new Vector2(0, -1);
         }
         public void MoveHeroDown(int player)
         {
             if (player == 0)
-            heroes[P1HeroIndex].Direction = new Vector2(0, 1);
+                heroes[P1HeroIndex].Direction = new Vector2(0, 1);
             else heroes[P2HeroIndex].Direction = new Vector2(0, 1);
         }
         public void SwitchHero(int player)
@@ -187,18 +193,22 @@ namespace KidnapThePrincess
             if (player == 0)
             {
                 heroes[P1HeroIndex].Direction = Vector2.Zero;
+                heroes[P1HeroIndex].IsActive = false;
                 P1HeroIndex++;
                 P1HeroIndex %= 4;
                 if (P1HeroIndex == 0) P1HeroIndex++;
                 if (P1HeroIndex == P2HeroIndex) P1HeroIndex++;
+                heroes[P1HeroIndex].IsActive = true;
             }
             else
             {
                 heroes[P2HeroIndex].Direction = Vector2.Zero;
+                heroes[P2HeroIndex].IsActive = false;
                 P2HeroIndex++;
                 P2HeroIndex %= 4;
                 if (P2HeroIndex == 0) P2HeroIndex++;
                 if (P2HeroIndex == P1HeroIndex) P2HeroIndex++;
+                heroes[P2HeroIndex].IsActive = true;
             }
         }
 
