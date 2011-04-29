@@ -21,6 +21,23 @@ namespace KidnapThePrincess
         KeyboardState oldState;
         Level level;
 
+        Vector2 center;
+
+        ScreenOverlay textOverlay;
+
+        public Vector2 Center
+        {
+            get { return center; }
+        }
+
+        GameState stateMachine;
+
+        internal GameState StateMachine
+        {
+            get { return stateMachine; }
+            set { stateMachine = value; }
+        }
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -28,7 +45,14 @@ namespace KidnapThePrincess
             graphics.PreferredBackBufferWidth = 800;
             graphics.PreferredBackBufferHeight = 700;
 
+            center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
+
             level = new Level();
+            stateMachine = GameState.getInstance(level);
+                       
+            textOverlay = new ScreenOverlay(this);
+
+             Components.Add(textOverlay);
         }
 
         /// <summary>
@@ -39,9 +63,8 @@ namespace KidnapThePrincess
         /// </summary>
         protected override void Initialize()
         {
-
-
             base.Initialize();
+            textOverlay.TitleSafe = GetTitleSafeArea(0.92f);
         }
 
         /// <summary>
@@ -73,13 +96,28 @@ namespace KidnapThePrincess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+            if (stateMachine.Status == GameState.State.EXIT)
+            {
                 this.Exit();
+            }
+            else if (stateMachine.Status == GameState.State.START)
+            {
+            }
+            else if (stateMachine.Status == GameState.State.INIT)
+            {
+                level.Init();
+                stateMachine.Status = GameState.State.START;
+            }
+            else if (stateMachine.Status == GameState.State.RUN)
+            {
+                level.Update();
+                stateMachine.Update(gameTime);
+
+            }
 
             GetInput();
-            level.Update();
-            if (level.Heroes[0].IsActive) this.Exit();//The goblin turns active when he has reached the carriage->Level complete
+
 
             base.Update(gameTime);
         }
@@ -112,6 +150,30 @@ namespace KidnapThePrincess
         {
             // Grab some info from the keyboard
             KeyboardState keyboard = Keyboard.GetState();
+
+
+            //general controls
+            // Allows the game to exit
+            if (keyboard.IsKeyDown(Keys.Escape))
+                stateMachine.Status = GameState.State.EXIT;
+
+            if (stateMachine.Status == GameState.State.WIN)
+            {
+                if (keyboard.IsKeyDown(Keys.Enter))
+                {
+                    stateMachine.Status = GameState.State.INIT;
+                }
+            }
+
+            if (stateMachine.Status == GameState.State.START)
+            {
+                if (keyboard.IsKeyDown(Keys.Enter))
+                {
+                    stateMachine.Status = GameState.State.RUN;
+                }
+            }
+
+
             //Player One Input
             if (keyboard.IsKeyDown(Keys.Right))
             {
@@ -133,6 +195,7 @@ namespace KidnapThePrincess
             {
                 level.SwitchHero(0);
             }
+
             //Player Two Input
             if (keyboard.IsKeyDown(Keys.D))
             {
@@ -157,5 +220,30 @@ namespace KidnapThePrincess
 
             oldState = keyboard;
         }
+
+        /// <summary>
+        /// Returns the viewport rectangle, scaled down by the passed in parameter if 
+        /// developed on the Xbox 360.
+        /// </summary>
+        /// <param name="percent">The amount of visible screen space on the Xbox 360.</param>
+        public Rectangle GetTitleSafeArea(float percent)
+        {
+            Rectangle retval = new Rectangle(graphics.GraphicsDevice.Viewport.X,
+                graphics.GraphicsDevice.Viewport.Y,
+                graphics.GraphicsDevice.Viewport.Width,
+                graphics.GraphicsDevice.Viewport.Height);
+#if XBOX
+            // Find Title Safe area of Xbox 360.
+            float border = (1 - percent) / 2;
+            retval.X = (int)(border * retval.Width);
+            retval.Y = (int)(border * retval.Height);
+            retval.Width = (int)(percent * retval.Width);
+            retval.Height = (int)(percent * retval.Height);
+            return retval;
+#else
+            return retval;
+#endif
+        }
     }
+
 }

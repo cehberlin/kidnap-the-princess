@@ -65,6 +65,8 @@ namespace KidnapThePrincess
         int P1HeroIndex;
         int P2HeroIndex;
 
+        #region LoadLevelContent //Constructor, Init Methods...
+
         public Level()
         {
             P1HeroIndex = 1;
@@ -78,6 +80,33 @@ namespace KidnapThePrincess
         }
 
         public void Load(ContentManager c)
+        {
+            addTextures(c);
+            Init();
+        }
+
+        public void Init()
+        {
+            treePositions.Clear();
+            addTrees();
+            heroes.Clear();
+            addHeroes();
+        }
+
+        private void addTrees()
+        {
+            //add trees limiting the scenery
+            for (int i = 0; i < 500; i++)
+            {
+                treePositions.Add(new Vector2(playArea.Location.X - treeTex.Width / 2, i * treeTex.Height));
+                treePositions.Add(new Vector2(playArea.Location.X - treeTex.Width / 2, i * treeTex.Height / 2));
+
+                treePositions.Add(new Vector2(playArea.Location.X + playArea.Width - treeTex.Width / 2, i * treeTex.Height));
+                treePositions.Add(new Vector2(playArea.Location.X + playArea.Width - treeTex.Width / 2, i * treeTex.Height / 2));
+            }
+        }
+
+        private void addTextures(ContentManager c)
         {
             //Debug texture
             playAreaTex = c.Load<Texture2D>("brown");
@@ -99,37 +128,34 @@ namespace KidnapThePrincess
             darknightTex = c.Load<Texture2D>("darkknight");
             widowTex = c.Load<Texture2D>("widow");
             bruteTex = c.Load<Texture2D>("brute");
+        }
 
+        private void addHeroes()
+        {
             //add heroes to list
-            Hero h = new Hero(goblinTex, 0, carriagRec);
+            Hero h = new Goblin(goblinTex, playArea);
             h.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
-            h.Direction = new Vector2(0, 1);
+            h.Destination = new Vector2(carriagRec.Center.X,carriagRec.Center.Y);
             heroes.Add(h);
 
-            h = new Hero(bruteTex, 1, playArea);
+            h = new Brute(bruteTex, playArea);
             h.Position = new Vector2(castlePosition.X - 2 * h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Hero(darknightTex, 2, playArea);
+            h = new Knight(darknightTex, playArea);
             h.Position = new Vector2(castlePosition.X + h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Hero(widowTex, 3, playArea);
+            h = new Widow(widowTex, playArea);
             h.Position = new Vector2(castlePosition.X - h.sprite.Width, castlePosition.Y + castleTex.Height);
             heroes.Add(h);
-
-            //add trees limiting the scenery
-            for (int i = 0; i < 500; i++)
-            {
-                treePositions.Add(new Vector2(playArea.Location.X - treeTex.Width / 2, i * treeTex.Height));
-                treePositions.Add(new Vector2(playArea.Location.X - treeTex.Width / 2, i * treeTex.Height / 2));
-
-                treePositions.Add(new Vector2(playArea.Location.X + playArea.Width - treeTex.Width / 2, i * treeTex.Height));
-                treePositions.Add(new Vector2(playArea.Location.X + playArea.Width - treeTex.Width / 2, i * treeTex.Height / 2));
-            }
         }
+
+        #endregion LoadLevelContent 
+
+        #region UpdateLevelContent
 
         public void Draw(SpriteBatch sb)
         {
@@ -151,15 +177,21 @@ namespace KidnapThePrincess
 
         public void Update()
         {
-            camera.Pos = heroes[0].Position;
-            foreach (Hero h in heroes)
+            if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
-                if (!h.IsActive && h.Type != 0)//makes the inactive heroes follow the princess
+                camera.Pos = heroes[0].Position;
+
+                for (int i = 0; i < heroes.Count; i++)
                 {
-                    h.Destination = heroes[0].Position+new Vector2(40,-80);
+
+                    Hero h = heroes[i];
+                    if (!h.IsActive && i != 0)//makes the inactive heroes follow the princess
+                    {
+                        h.Destination = heroes[0].Position + new Vector2(40, -80);
+                    }
+                    h.Update();
+                    if (h.IsActive) h.Direction = Vector2.Zero;
                 }
-                h.Update();
-                if (h.IsActive) h.Direction = Vector2.Zero;
             }
         }
 
@@ -213,5 +245,6 @@ namespace KidnapThePrincess
             }
         }
 
+        #endregion UpdateLevelContent
     }
 }
