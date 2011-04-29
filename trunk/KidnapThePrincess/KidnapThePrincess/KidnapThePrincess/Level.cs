@@ -154,39 +154,40 @@ namespace KidnapThePrincess
             camera.Pos = heroes[0].Position;
             foreach (Hero h in heroes)
             {
-                if (!h.IsActive && h.Type != 0)
+                if (!h.IsActive && h.Type != 0)//makes the inactive heroes follow the princess
                 {
-                    h.Destination = heroes[P1HeroIndex].Position+new Vector2(40,-80);
+                    h.Destination = heroes[0].Position+new Vector2(40,-80);
                 }
                 h.Update();
+                if (h.IsActive) h.Direction = Vector2.Zero;
             }
         }
 
         public void MoveHeroLeft(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(-1, 0);
+                heroes[P1HeroIndex].Direction = new Vector2(-1, heroes[P1HeroIndex].Direction.Y);
             else
-                heroes[P2HeroIndex].Direction = new Vector2(-1, 0);
+                heroes[P2HeroIndex].Direction = new Vector2(-1, heroes[P2HeroIndex].Direction.Y);
         }
         public void MoveHeroRight(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(1, 0);
-            else heroes[P2HeroIndex].Direction = new Vector2(1, 0);
+                heroes[P1HeroIndex].Direction = new Vector2(1, heroes[P1HeroIndex].Direction.Y);
+            else heroes[P2HeroIndex].Direction = new Vector2(1, heroes[P2HeroIndex].Direction.Y);
         }
         public void MoveHeroUp(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(0, -1);
+                heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, -1);
             else
-                heroes[P2HeroIndex].Direction = new Vector2(0, -1);
+                heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, -1);
         }
         public void MoveHeroDown(int player)
         {
             if (player == 0)
-                heroes[P1HeroIndex].Direction = new Vector2(0, 1);
-            else heroes[P2HeroIndex].Direction = new Vector2(0, 1);
+                heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
+            else heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
         }
         public void SwitchHero(int player)
         {
