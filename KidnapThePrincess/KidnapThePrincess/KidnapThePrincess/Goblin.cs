@@ -22,10 +22,11 @@ namespace KidnapThePrincess
             base(tex, area,enemies)
         {
             Speed = 0.4f;
+            canMoveFreezed = true; //necessary for carrieing to castle 
         }
 
 
-         public override void Update()
+         public override void Update(GameTime time)
         {
             attacked = false;
              foreach(Enemy e in enemies){
@@ -34,7 +35,7 @@ namespace KidnapThePrincess
                        break;
                    }
             }
-             base.Update();              
+             base.Update(time);              
 
          }
     }

@@ -73,7 +73,7 @@ namespace KidnapThePrincess
         public virtual void Initialize() { }
         public virtual void Load() { }
         public virtual void UnLoad() { }
-        public virtual void Update() 
+        public virtual void Update(GameTime time) 
         {
             Position += Speed * Direction;
         }

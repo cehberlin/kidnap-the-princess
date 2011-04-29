@@ -13,12 +13,13 @@ namespace KidnapThePrincess
             base(tex, area, enemies)
         {
             Speed = 0.8f;
+            attackDelay = 750;
         }
 
         /// <summary>
         /// she let the enemy fall asleep
         /// </summary>
-        public override void attack()
+        protected override void attack()
         {
             foreach (Enemy e in enemies)
             {
