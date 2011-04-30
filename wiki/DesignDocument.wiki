@@ -1,0 +1,52 @@
+#summary The design document for our game
+
+= Introduction =
+
+The following lines are a description of the game we want to make.
+(Inspired by http://en.wikipedia.org/wiki/Game_design_document)
+
+If you want to know what to implement next have a read and conclude what is missing or come up with a cool new feature.
+Feel free to edit this page.
+
+
+= Design Document =
+
+==Story==
+
+The Story is simple: The players team of misfits has been hired by an evil villian to kidnap the princess.
+
+==Characters==
+
+Brute - A strong but slow guy.
+Widow - A beautiful and selfish hottie that enchants the enemy easily.
+Dark knight - A good and quick fighter.
+Goblin - An immigrant worker used for hard labor by the above team.
+
+==Level/environment design==
+
+For the first prototype one level is enough!
+
+Each level represents a kingdom, with housing facilities and other stuff that the players can destroy.
+
+==Gameplay==
+
+The goal is to reach the carriage at the end of the level with the goblin carring the princess. The goblin moves down by its own.
+Enemies will try to carry the princess back to the castle.
+At the end of each level a ranking of how well the player has been doing will be given.
+
+==Sound and Music==
+Can be added later on. It will fit the kindom you are in.
+
+==User Interface, Game Controls==
+1-4 local players
+Splitscreen functionality in the event that a player distances himself to much from the princess.
+
+==Ideas==
+===Ranking example===
+
+||Category||||Rank||
+||Time||2:12||S||
+||Destruction||80%||B||
+||Gold||120||A||
+
+and so on...
