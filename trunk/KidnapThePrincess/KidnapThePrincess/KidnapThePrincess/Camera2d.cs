@@ -17,12 +17,42 @@ namespace KidnapThePrincess
         public Matrix _transform; // Matrix Transform
         public Vector2 _pos; // Camera Position
         protected float _rotation; // Camera Rotation
+        private int width;
 
-        public Camera2d()
+        public int Width
+        {
+            get { return width; }
+            set { width = value; }
+        }
+
+        private int height;
+
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
+        /// <summary>
+        /// The area the camera covers.
+        /// </summary>
+        public Rectangle Area
+        {
+            get { return new Rectangle((int)_pos.X-width/2,(int) _pos.Y-height/2, width, height); }
+        }
+        
+        /// <summary>
+        /// Constructor for camera class
+        /// </summary>
+        /// <param name="height">Height of the clientbounds of the game</param>
+        /// <param name="width">Width of the clientbounds of the game</param>
+        public Camera2d(int width,int height)
         {
             _zoom = 1.0f;
             _rotation = 0.0f;
             _pos = Vector2.Zero;
+            this.width = width;
+            this.height = height;
         }
 
         public void Update(GameTime time)

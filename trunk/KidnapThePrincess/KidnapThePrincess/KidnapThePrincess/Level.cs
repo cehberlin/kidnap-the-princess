@@ -35,13 +35,38 @@ namespace KidnapThePrincess
         Texture2D P2MarkerTex;
         Texture2D templarTex;
         Texture2D attackTex;
-        private Camera2d camera;
+        private List<Camera2d> cams;
 
-        public Camera2d Camera
+        public List<Camera2d> Cameras
         {
-            get { return camera; }
-            set { camera = value; }
+            get { return cams; }
+            set { cams = value; }
         }
+        
+        private Camera2d cameraP1;
+
+        public Camera2d CameraP1
+        {
+            get { return cameraP1; }
+            set { cameraP1 = value; }
+        }
+
+        public Camera2d CameraP2
+        {
+            get { return cameraP2; }
+            set { cameraP2 = value; }
+        }
+
+        private Camera2d princessCam;
+
+        public Camera2d PrincessCamera
+        {
+            get { return princessCam; }
+            set { princessCam = value; }
+        }
+
+        private Camera2d cameraP2;
+
 
         Goblin princessCarrier;
 
@@ -83,6 +108,20 @@ namespace KidnapThePrincess
         int P1HeroIndex;
         int P2HeroIndex;
 
+        //Used for Splitscreen gaming
+        private bool isP1Offscreen;
+        public bool IsP1Offscreen
+        {
+            get { return isP1Offscreen; }
+            set { isP1Offscreen = value; }
+        }
+        private bool isP2Offscreen;
+        public bool IsP2Offscreen
+        {
+            get { return isP2Offscreen; }
+            set { isP2Offscreen = value; }
+        }
+
         #region LoadLevelContent //Constructor, Init Methods...
 
         Game1 game;
@@ -95,14 +134,23 @@ namespace KidnapThePrincess
             castlePosition = new Vector2(0, 0);
             heroes = new List<Hero>();
             enemies = new List<Enemy>();
-            camera = new Camera2d();
-            camera.Pos = new Vector2(0, 300);
             treePositions = new List<Vector2>();
             playArea = new Rectangle((int)castlePosition.X - 300, (int)castlePosition.Y, 600, 2000);
+            isP1Offscreen = false;
+            isP2Offscreen = false;
+            cams = new List<Camera2d>();
         }
 
         public void Load(ContentManager c)
         {
+            princessCam = new Camera2d(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+            cameraP2 = new Camera2d(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+            cameraP1 = new Camera2d(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
+            cameraP1.Pos = new Vector2(0, 300);
+            CameraP2.Pos = new Vector2(0, 300);
+            cams.Add(princessCam);
+            cams.Add(cameraP1);
+            cams.Add(cameraP2);
             addTextures(c);
             Init();
         }
@@ -233,7 +281,7 @@ namespace KidnapThePrincess
         {
             //check if temple is still visible
             Enemy e = new Templar(templarTex, heroes);
-            if (camera.Pos.Y > (game.Window.ClientBounds.Height))
+            if (princessCam.Pos.Y > (game.Window.ClientBounds.Height))
             {
                 e.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
             }
@@ -242,11 +290,11 @@ namespace KidnapThePrincess
                 //enemies can come from top and bottom
                 if (spawnRandom.Next(2) == 1)
                 {
-                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), camera._pos.Y + (game.Window.ClientBounds.Height / 2));
+                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), cameraP1._pos.Y + (game.Window.ClientBounds.Height / 2));
                 }
                 else
                 {
-                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), camera._pos.Y - (game.Window.ClientBounds.Height / 2));
+                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), cameraP1._pos.Y - (game.Window.ClientBounds.Height / 2));
                 }
             }
             enemies.Add(e);
@@ -256,9 +304,27 @@ namespace KidnapThePrincess
         {
             if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
-                camera.Pos = heroes[0].Position;
+                //camera update
+                cameraP1.Pos = heroes[P1HeroIndex].Position;
+                cameraP2.Pos = heroes[P2HeroIndex].Position;
+                princessCam.Pos = heroes[0].Position;
 
-
+                isP1Offscreen = !princessCam.Area.Contains((int)heroes[P1HeroIndex].X, (int)heroes[P1HeroIndex].Y);
+                isP2Offscreen = !princessCam.Area.Contains((int)heroes[P2HeroIndex].X, (int)heroes[P2HeroIndex].Y);
+                //camera order change
+                if (isP1Offscreen && isP2Offscreen) 
+                {
+                    Cameras[1] = cameraP1;
+                    Cameras[2]=cameraP2;
+                }
+                else if (isP1Offscreen)
+                {
+                    Cameras[1] = cameraP1;
+                }
+                else if(IsP2Offscreen)
+                {
+                    Cameras[1] = CameraP2;
+                }
                 //let the enemies carry our princess to the castle
                 if (princessCarrier.Attacked)
                 {
