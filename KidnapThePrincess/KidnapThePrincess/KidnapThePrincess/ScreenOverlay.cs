@@ -45,7 +45,7 @@ namespace KidnapThePrincess
         Vector2 gameoverPos;
         Vector2 beginPos;
         Vector2 winPos;
-       
+
         // For the frame rate counter
         int frameRate = 0;
         int frameCounter = 0;
@@ -62,6 +62,13 @@ namespace KidnapThePrincess
             set { titleSafe = value; }
         }
 
+
+        Texture2D outlineTex;
+        Rectangle top;
+        Rectangle bottom;
+        Rectangle left;
+        Rectangle right;
+        int borderWidth = 3;
         #endregion
 
         #region Construction and Initialization
@@ -75,13 +82,13 @@ namespace KidnapThePrincess
         }
 
         public override void Initialize()
-        {          
+        {
 
             // The center of the string
             xnaStringPos = new Vector2(TitleSafe.Width - 10, TitleSafe.Height);
             titleSafeUpperLeft = new Vector2(TitleSafe.X + 10, TitleSafe.Y + 5);
-         
-            pointsPos = new Vector2(TitleSafe.X + 10, TitleSafe.Y + 75);        
+
+            pointsPos = new Vector2(TitleSafe.X + 10, TitleSafe.Y + 75);
             gameoverPos = game.Center + new Vector2(-320, 0);
             pausePos = game.Center + new Vector2(-240, 0);
             beginPos = game.Center + new Vector2(-320, 0);
@@ -98,6 +105,12 @@ namespace KidnapThePrincess
             font.Spacing = fontSpacing;
             xnaStringOrigin = font.MeasureString(xnaString);
             smallFont = content.Load<SpriteFont>("Fonts\\FontSmall");
+            outlineTex = content.Load<Texture2D>("white");
+
+            top = new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, borderWidth);
+            left = new Rectangle(0, 0, borderWidth, game.GraphicsDevice.Viewport.Height);
+            right = new Rectangle(game.GraphicsDevice.Viewport.Width - borderWidth, 0, borderWidth, game.GraphicsDevice.Viewport.Height);
+            bottom = new Rectangle(0, game.GraphicsDevice.Viewport.Height-borderWidth, game.GraphicsDevice.Viewport.Width, borderWidth);
         }
 
 
@@ -132,7 +145,7 @@ namespace KidnapThePrincess
         {
             // Draw text
             spriteBatch.Begin();
-                        
+
             // Font color
             Color fontColor = Color.DarkBlue;
 
@@ -148,7 +161,7 @@ namespace KidnapThePrincess
 
                 // Format data strings
                 string fps = string.Format(fpsString, frameRate);
-               
+
                 // Draw data strings
                 spriteBatch.DrawString(font, string.Format(fpsString, frameRate),
                     titleSafeUpperLeft, fontColor, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
@@ -157,7 +170,7 @@ namespace KidnapThePrincess
                 spriteBatch.DrawString(smallFont, string.Format(pointsString, game.StateMachine.Points),
                 pointsPos, fontColor, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
 
-            }            
+            }
             else if (game.StateMachine.Status == GameState.State.GAMEOVER)
             {
                 spriteBatch.DrawString(font, gameoverString,
@@ -173,7 +186,11 @@ namespace KidnapThePrincess
                 spriteBatch.DrawString(font, winString,
                 winPos, Color.Yellow, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
             }
-
+            //Draw screen outline
+            spriteBatch.Draw(outlineTex, top, Color.White);
+            spriteBatch.Draw(outlineTex, left, Color.White);
+            spriteBatch.Draw(outlineTex, right, Color.White);
+            spriteBatch.Draw(outlineTex,bottom,Color.White);
             spriteBatch.End();
         }
 

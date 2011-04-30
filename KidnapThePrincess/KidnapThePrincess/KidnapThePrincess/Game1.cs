@@ -16,7 +16,18 @@ namespace KidnapThePrincess
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        Texture2D debugTex;
         GraphicsDeviceManager graphics;
+        List<Viewport> currentViewports;
+        List<Viewport> oneView;
+        List<Viewport> twoViews;
+        List<Viewport> threeViews;
+        Viewport completeViewport;
+        Viewport leftHalfViewport;
+        Viewport rightHalfViewport;
+        Viewport leftThirdViewport;
+        Viewport middleThirdViewport;
+        Viewport rightThirdViewport;
         SpriteBatch spriteBatch;
         KeyboardState oldState;
         Level level;
@@ -42,9 +53,9 @@ namespace KidnapThePrincess
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferWidth = 800;
+            graphics.PreferredBackBufferWidth = 1200;
             graphics.PreferredBackBufferHeight = 700;
-
+            
             center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
 
             level = new Level(this);
@@ -73,8 +84,38 @@ namespace KidnapThePrincess
         /// </summary>
         protected override void LoadContent()
         {
+            debugTex = Content.Load<Texture2D>("brown");
+            
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            //Set up Viewports for Splitscreen gaming
+            completeViewport = GraphicsDevice.Viewport;
+            leftHalfViewport = GraphicsDevice.Viewport;
+            rightHalfViewport = GraphicsDevice.Viewport;
+            leftThirdViewport = GraphicsDevice.Viewport;
+            middleThirdViewport = GraphicsDevice.Viewport;
+            rightThirdViewport = GraphicsDevice.Viewport;
+            leftHalfViewport.Width /= 2;
+            rightHalfViewport.Width /= 2;
+            leftThirdViewport.Width /= 3;
+            middleThirdViewport.Width /= 3;
+            rightThirdViewport.Width /= 3;
+            rightHalfViewport.X = leftHalfViewport.Width;
+            middleThirdViewport.X = rightThirdViewport.Width;
+            rightThirdViewport.X = middleThirdViewport.X + middleThirdViewport.Width;
+
+            currentViewports = new List<Viewport>();
+            oneView = new List<Viewport>();
+            oneView.Add(completeViewport);
+            twoViews = new List<Viewport>();
+            twoViews.Add(leftHalfViewport);
+            twoViews.Add(rightHalfViewport);
+            threeViews = new List<Viewport>();
+            threeViews.Add(leftThirdViewport);
+            threeViews.Add(middleThirdViewport);
+            threeViews.Add(rightThirdViewport);
+            currentViewports = oneView;
 
             //Load the level
             level.Load(Content);
@@ -114,15 +155,32 @@ namespace KidnapThePrincess
             }
             else if (stateMachine.Status == GameState.State.RUN)
             {
+                //Viewport update
+                if (level.IsP1Offscreen && level.IsP2Offscreen)//both are offscreen
+                {
+                    //3 screens
+                    currentViewports = threeViews;
+                }
+                else if (level.IsP1Offscreen || level.IsP2Offscreen)//one player is offscreen
+                {
+                    //2 screens
+                    currentViewports = twoViews;
+                }
+                else if (!level.IsP1Offscreen && !level.IsP2Offscreen)//noone is offscreen
+                {
+                    //screen
+                    currentViewports = oneView;
+                }
+
                 level.Update(gameTime);
                 stateMachine.Update(gameTime);
 
                 elapsedtime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (elapsedtime > stateMachine.SpwanTimeDiff)
+                if (elapsedtime > stateMachine.SpawnTimeDiff)
                 {
                     level.SpawnEnemy();
                     elapsedtime = 0;
-                }          
+                }
             }
 
             GetInput();
@@ -138,18 +196,21 @@ namespace KidnapThePrincess
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Green);
-
-            spriteBatch.Begin(SpriteSortMode.Immediate,
+            for (int i = 0; i < currentViewports.Count; i++)
+            {
+                GraphicsDevice.Viewport = currentViewports[i];
+                spriteBatch.Begin(SpriteSortMode.Immediate,
                 BlendState.AlphaBlend,
                 null,
                 null,
                 null,
                 null,
-                level.Camera.get_transformation(graphics.GraphicsDevice));
-            level.Draw(spriteBatch);
-            spriteBatch.End();
+                level.Cameras[i].get_transformation(graphics.GraphicsDevice));
+                level.Draw(spriteBatch);
+                spriteBatch.End();
 
-            base.Draw(gameTime);
+                base.Draw(gameTime);
+            }
         }
 
         /// <summary>

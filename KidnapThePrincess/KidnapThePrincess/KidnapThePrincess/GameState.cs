@@ -23,7 +23,7 @@ namespace KidnapThePrincess
         private Level level;
 
 
-        public int SpwanTimeDiff = 8000;
+        public int SpawnTimeDiff = 8000;
 
 
         private GameState(Level level)
