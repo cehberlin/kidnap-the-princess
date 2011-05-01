@@ -8,8 +8,8 @@ namespace KidnapThePrincess
 {
     class Templar:Enemy
     {
-        public Templar(Texture2D tex, List<Hero> heroes)
-            : base(tex,heroes)
+        public Templar(Texture2D tex)
+            : base(tex)
         {
             Speed = 0.8f;
         }

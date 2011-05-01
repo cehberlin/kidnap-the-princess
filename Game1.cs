@@ -176,11 +176,6 @@ namespace KidnapThePrincess
                 stateMachine.Update(gameTime);
 
                 elapsedtime += gameTime.ElapsedGameTime.TotalMilliseconds;
-                if (elapsedtime > stateMachine.SpawnTimeDiff)
-                {
-                    level.SpawnEnemy();
-                    elapsedtime = 0;
-                }
             }
 
             GetInput();
@@ -267,11 +262,6 @@ namespace KidnapThePrincess
             if (keyboard.IsKeyUp(Keys.I) && oldState.IsKeyDown(Keys.I))
             {
                 level.SwitchHero(0);
-            }
-
-            if (keyboard.IsKeyUp(Keys.F3) && oldState.IsKeyDown(Keys.F3))
-            {
-                GameState.DEBUG = !GameState.DEBUG;
             }
 
             //Player Two Input

@@ -7,27 +7,30 @@ using Microsoft.Xna.Framework;
 
 namespace KidnapThePrincess
 {
-    class Widow:Hero
+    class Knight:Hero
     {
-        public Widow(Texture2D tex, Rectangle area,List<Enemy> enemies) :
-            base(tex, area, enemies, 3000, 500)
+        public Knight(Texture2D tex, Rectangle area) :
+            base(tex, area)
         {
-            Speed = 1.6f;
-            //attackDelay = 750;
+            Speed = 1.7f;
+            attackDelay = new TimeSpan(0,0,0,0,600);
+            Strength = 5;
         }
 
         /// <summary>
-        /// she let the enemy fall asleep
+        /// he could kill the enemy
         /// </summary>
         protected override void attack()
         {
+            /*
             foreach (Enemy e in enemies)
             {
-                if(GeometryHelper.Intersects(this.Bounds,e.Bounds)){
-                    e.Asleep = true;
+                if (GeometryHelper.Intersects(this.Bounds, e.Bounds))
+                {
+                    enemies.Remove(e);
+                    break;
                 }
-            }
-
+            }*/
 
             base.attack();
         }
