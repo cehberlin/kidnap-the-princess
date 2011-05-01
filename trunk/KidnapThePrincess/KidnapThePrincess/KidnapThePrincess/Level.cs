@@ -403,45 +403,37 @@ namespace KidnapThePrincess
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(-1, heroes[P1HeroIndex].Direction.Y);
+                heroes[P1HeroIndex].moveLeft();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(-1, heroes[P2HeroIndex].Direction.Y);
+                heroes[P2HeroIndex].moveLeft();
         }
         public void MoveHeroRight(int player)
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(1, heroes[P1HeroIndex].Direction.Y);
+                heroes[P1HeroIndex].moveRight();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(1, heroes[P2HeroIndex].Direction.Y);
+                heroes[P2HeroIndex].moveRight();
         }
         public void MoveHeroUp(int player)
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, -1);
+                heroes[P1HeroIndex].moveUp();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, -1);
+                heroes[P2HeroIndex].moveUp();
         }
         public void MoveHeroDown(int player)
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
+                heroes[P1HeroIndex].moveDown();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
+                heroes[P2HeroIndex].moveDown();
         }
         public void HeroAttack(int player)
         {
