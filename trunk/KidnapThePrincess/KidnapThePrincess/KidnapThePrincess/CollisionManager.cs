@@ -23,16 +23,18 @@ namespace KidnapThePrincess
                     if (go.CollisionArea.Intersects(h.CollisionArea))//collision check
                     {
                         Vector2 correctionVector;
+                        Vector2 helper;
                         int x1 = Math.Abs(h.CollisionArea.Right - go.CollisionArea.Left);
                         int x2 = Math.Abs(h.CollisionArea.Left - go.CollisionArea.Right);
                         int y1 = Math.Abs(h.CollisionArea.Bottom - go.CollisionArea.Top);
                         int y2 = Math.Abs(h.CollisionArea.Top - go.CollisionArea.Bottom);
 
-                        correctionVector.X = x1 < x2 ? x1 : x2;
-                        correctionVector.Y = y1 < y2 ? y1 : y2;
-
+                        helper.X = x1 < x2 ? -x1 : x2;
+                        helper.Y = y1 < y2 ? -y1 : y2;
+                        correctionVector.X = Math.Abs(helper.X) > Math.Abs(helper.Y) ? 0 : helper.X;
+                        correctionVector.Y = Math.Abs(helper.X) < Math.Abs(helper.Y) ? 0 : helper.Y;
                         h.Position += correctionVector;
-                    }   
+                    }
                 }
             }
         }
