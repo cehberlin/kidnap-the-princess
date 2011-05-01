@@ -164,5 +164,39 @@ namespace KidnapThePrincess
 
         }
 
+
+        public virtual void moveRight()
+        {
+            if (!freezed)
+            {
+                Direction = new Vector2(1, Direction.Y);
+            }
+        }
+
+
+        public virtual void moveLeft()
+        {
+            if (!freezed)
+            {
+                Direction = new Vector2(-1, Direction.Y);
+            }
+        }
+
+        public virtual void moveUp()
+        {
+            if (!freezed)
+            {
+                Direction = new Vector2(Direction.X, -1);
+            }
+        }
+
+        public virtual void moveDown()
+        {
+            if (!freezed)
+            {
+                Direction = new Vector2(Direction.X, 1);
+            }
+        }
+
     }
 }

@@ -8,6 +8,8 @@ namespace KidnapThePrincess
 {
     class GameState
     {
+        public static Boolean DEBUG = true;
+
         public enum State { START,RUN, GAMEOVER, WIN, EXIT,INIT };
 
         private State status;
