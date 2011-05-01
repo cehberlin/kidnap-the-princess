@@ -13,7 +13,7 @@ namespace KidnapThePrincess
 {
     class Level
     {
-        Vector2 v=Vector2.Zero;
+        Vector2 v = Vector2.Zero;
         SpriteFont aFont;
 
         #region Declarations
@@ -203,18 +203,18 @@ namespace KidnapThePrincess
                 c = new Crate(crateTex, new Vector2(-80 - crateTex.Width / 2, 450 * i + 200 - crateTex.Height));
                 gameObjectManager.AddObject(c);
             }
-            Haystack aHaystack=new Haystack(haystackTex,new Vector2(-273,446));
+            Haystack aHaystack = new Haystack(haystackTex, new Vector2(-273, 446));
             gameObjectManager.AddObject(aHaystack);
-            Hut aHut = new Hut(hut2Tex, new Vector2(17,962));
+            Hut aHut = new Hut(hut2Tex, new Vector2(17, 962));
             gameObjectManager.AddObject(aHut);
             aHut = new Hut(hut2Tex, new Vector2(17, 1362));
             gameObjectManager.AddObject(aHut);
-            Crate aCrate = new Crate(crateTex, new Vector2(17,1362+hut2Tex.Height-crateTex.Height));
+            Crate aCrate = new Crate(crateTex, new Vector2(17, 1362 + hut2Tex.Height - crateTex.Height));
             gameObjectManager.AddObject(aCrate);
 
             aHut = new Hut(hut1Tex, new Vector2(97, 953));
             gameObjectManager.AddObject(aHut);
-            aHut=new Hut(hut2Tex,new Vector2(63,997));
+            aHut = new Hut(hut2Tex, new Vector2(63, 997));
             gameObjectManager.AddObject(aHut);
             aHut = new Hut(hut2Tex, new Vector2(132, 997));
             gameObjectManager.AddObject(aHut);
@@ -236,7 +236,7 @@ namespace KidnapThePrincess
             gameObjectManager.AddObject(aCrate);
             aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width * 2, 1713));
             gameObjectManager.AddObject(aCrate);
-            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713- crateTex.Height));
+            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713 - crateTex.Height));
             gameObjectManager.AddObject(aCrate);
         }
 
@@ -353,18 +353,20 @@ namespace KidnapThePrincess
                 sb.Draw(debugTex, e.CollisionArea, Color.Wheat);
             }
 
-
-            //DEBUG Drawing
-            foreach (Hero h in heroes)
+            if (GameState.DEBUG)
             {
-                sb.Draw(debugTex, h.CollisionArea, Color.White);
+                //DEBUG Drawing
+                foreach (Hero h in heroes)
+                {
+                    sb.Draw(debugTex, h.CollisionArea, Color.White);
+                }
+                sb.DrawString(aFont, v.ToString(), cameraP1._pos, Color.White);
+                foreach (GameObject go in gameObjectManager.GameObjects)
+                {
+                    sb.Draw(debugTex, go.CollisionArea, Color.White);
+                }
+                ///////////////////////
             }
-            sb.DrawString(aFont, v.ToString(), cameraP1._pos, Color.White);
-            foreach (GameObject go in gameObjectManager.GameObjects)
-            {
-                sb.Draw(debugTex, go.CollisionArea, Color.White);
-            }
-            ///////////////////////
         }
 
         Random spawnRandom = new Random();
@@ -432,9 +434,9 @@ namespace KidnapThePrincess
                     princessCarrier.Destination = new Vector2(carriagRec.Center.X, carriagRec.Center.Y);
                 }
 
+                //update the heroes
                 for (int i = 0; i < heroes.Count; i++)
                 {
-
                     Hero h = heroes[i];
                     if (!h.IsActive && i != 0)//makes the inactive heroes follow the princess
                     {
@@ -443,7 +445,7 @@ namespace KidnapThePrincess
                     h.Update(time);
                     if (h.IsActive) h.Direction = Vector2.Zero;
                 }
-                
+
                 //Update enemies
                 foreach (Enemy e in enemies)
                 {
@@ -456,46 +458,39 @@ namespace KidnapThePrincess
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(-1, heroes[P1HeroIndex].Direction.Y);
+                heroes[P1HeroIndex].moveLeft();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(-1, heroes[P2HeroIndex].Direction.Y);
+                heroes[P2HeroIndex].moveLeft();
         }
         public void MoveHeroRight(int player)
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(1, heroes[P1HeroIndex].Direction.Y);
+                heroes[P1HeroIndex].moveRight();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(1, heroes[P2HeroIndex].Direction.Y);
+                heroes[P2HeroIndex].moveRight();
         }
         public void MoveHeroUp(int player)
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, -1);
+                heroes[P1HeroIndex].moveUp();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, -1);
+                heroes[P2HeroIndex].moveUp();
         }
         public void MoveHeroDown(int player)
         {
             if (player == 0)
             {
-                if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
+                heroes[P1HeroIndex].moveDown();
             }
             else
-                if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
+                heroes[P2HeroIndex].moveDown();
         }
+
         public void HeroAttack(int player)
         {
             if (player == 0)
