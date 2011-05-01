@@ -12,7 +12,7 @@ namespace KidnapThePrincess
         public Knight(Texture2D tex, Rectangle area, List<Enemy> enemies) :
             base(tex, area,enemies)
         {
-            Speed = 0.7f;
+            Speed = 1.7f;
             attackDelay = 1500;
         }
 

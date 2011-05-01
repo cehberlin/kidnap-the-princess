@@ -12,7 +12,7 @@ namespace KidnapThePrincess
         public Widow(Texture2D tex, Rectangle area,List<Enemy> enemies) :
             base(tex, area, enemies)
         {
-            Speed = 0.8f;
+            Speed = 1.6f;
             attackDelay = 750;
         }
 

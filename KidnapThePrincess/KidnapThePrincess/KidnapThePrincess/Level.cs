@@ -13,12 +13,17 @@ namespace KidnapThePrincess
 {
     class Level
     {
+        Vector2 v=Vector2.Zero;
+        SpriteFont aFont;
+
+        #region Declarations
         private Vector2 castlePosition;
         public Vector2 CastlePosition
         {
             get { return castlePosition; }
             set { castlePosition = value; }
         }
+        Texture2D debugTex;
         Texture2D castleTex;
         Texture2D carriageTex;
         Texture2D bruteTex;
@@ -42,7 +47,7 @@ namespace KidnapThePrincess
             get { return cams; }
             set { cams = value; }
         }
-        
+
         private Camera2d cameraP1;
 
         public Camera2d CameraP1
@@ -122,6 +127,10 @@ namespace KidnapThePrincess
             set { isP2Offscreen = value; }
         }
 
+        GameObjectManager gameObjectManager;
+        CollisionManager collisionManager;
+        #endregion
+
         #region LoadLevelContent //Constructor, Init Methods...
 
         Game1 game;
@@ -139,10 +148,13 @@ namespace KidnapThePrincess
             isP1Offscreen = false;
             isP2Offscreen = false;
             cams = new List<Camera2d>();
+            gameObjectManager = new GameObjectManager();
+            collisionManager = new CollisionManager();
         }
 
         public void Load(ContentManager c)
         {
+            aFont = c.Load<SpriteFont>("Fonts\\Font");
             princessCam = new Camera2d(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
             cameraP2 = new Camera2d(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
             cameraP1 = new Camera2d(game.Window.ClientBounds.Width, game.Window.ClientBounds.Height);
@@ -153,16 +165,79 @@ namespace KidnapThePrincess
             cams.Add(cameraP2);
             addTextures(c);
             Init();
+            debugTex = c.Load<Texture2D>("white");
         }
 
         public void Init()
         {
             treePositions.Clear();
             addTrees();
+            AddGameObjects();
             heroes.Clear();
             addHeroes();
 
             enemies.Clear();
+        }
+
+        private void AddGameObjects()
+        {
+            //Long term goal: Level editor ;)
+            for (int i = 0; i < 10; i++)
+            {
+                Haystack h = new Haystack(haystackTex, new Vector2(200, 200 + i * 600));
+                gameObjectManager.AddObject(h);
+                Hut hut = new Hut(hut1Tex, new Vector2(200 - haystackTex.Width, 200 + i * 600));
+                gameObjectManager.AddObject(hut);
+                Crate c = new Crate(crateTex, new Vector2(200 - crateTex.Width - haystackTex.Width, 200 + i * 600 + hut1Tex.Height - crateTex.Height));
+                gameObjectManager.AddObject(c);
+
+                hut = new Hut(hut2Tex, new Vector2(-250, 400 + i * 400));
+                gameObjectManager.AddObject(hut);
+
+                c = new Crate(crateTex, new Vector2(-80, 450 * i + 200));
+                gameObjectManager.AddObject(c);
+                c = new Crate(crateTex, new Vector2(-80 - crateTex.Width, 450 * i + 200));
+                gameObjectManager.AddObject(c);
+                c = new Crate(crateTex, new Vector2(-80 - crateTex.Width * 2, 450 * i + 200));
+                gameObjectManager.AddObject(c);
+                c = new Crate(crateTex, new Vector2(-80 - crateTex.Width / 2, 450 * i + 200 - crateTex.Height));
+                gameObjectManager.AddObject(c);
+            }
+            Haystack aHaystack=new Haystack(haystackTex,new Vector2(-273,446));
+            gameObjectManager.AddObject(aHaystack);
+            Hut aHut = new Hut(hut2Tex, new Vector2(17,962));
+            gameObjectManager.AddObject(aHut);
+            aHut = new Hut(hut2Tex, new Vector2(17, 1362));
+            gameObjectManager.AddObject(aHut);
+            Crate aCrate = new Crate(crateTex, new Vector2(17,1362+hut2Tex.Height-crateTex.Height));
+            gameObjectManager.AddObject(aCrate);
+
+            aHut = new Hut(hut1Tex, new Vector2(97, 953));
+            gameObjectManager.AddObject(aHut);
+            aHut=new Hut(hut2Tex,new Vector2(63,997));
+            gameObjectManager.AddObject(aHut);
+            aHut = new Hut(hut2Tex, new Vector2(132, 997));
+            gameObjectManager.AddObject(aHut);
+
+            aHut = new Hut(hut1Tex, new Vector2(-297, 200));
+            gameObjectManager.AddObject(aHut);
+
+            aHaystack = new Haystack(haystackTex, new Vector2(-142, 1750));
+            gameObjectManager.AddObject(aHaystack);
+            aHut = new Hut(hut1Tex, new Vector2(-132, 1750));
+            gameObjectManager.AddObject(aHut);
+
+            aHut = new Hut(hut1Tex, new Vector2(166, 1240));
+            gameObjectManager.AddObject(aHut);
+            //166 1713
+            aCrate = new Crate(crateTex, new Vector2(166, 1713));
+            gameObjectManager.AddObject(aCrate);
+            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width, 1713));
+            gameObjectManager.AddObject(aCrate);
+            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width * 2, 1713));
+            gameObjectManager.AddObject(aCrate);
+            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713- crateTex.Height));
+            gameObjectManager.AddObject(aCrate);
         }
 
         private void addTrees()
@@ -237,14 +312,18 @@ namespace KidnapThePrincess
 
         public void Draw(SpriteBatch sb)
         {
+            //Draw ground
             sb.Draw(playAreaTex, playArea, Color.White);
             //Draw scenery
+            gameObjectManager.Draw(sb);
             foreach (Vector2 pos in treePositions)
             {
                 sb.Draw(treeTex, pos, Color.White);
             }
             sb.Draw(castleTex, castlePosition, Color.White);
             sb.Draw(carriageTex, carriagRec, Color.White);
+
+            //draw heroes
             foreach (Hero h in heroes)
             {
                 if (h.Freezed)
@@ -264,8 +343,6 @@ namespace KidnapThePrincess
                         sb.Draw(h.sprite, h.Position, Color.White);
                     }
                 }
-
-
             }
             sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position, Color.White);
             sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position, Color.White);
@@ -273,7 +350,21 @@ namespace KidnapThePrincess
             foreach (Enemy e in enemies)
             {
                 sb.Draw(e.sprite, e.Position, Color.White);
+                sb.Draw(debugTex, e.CollisionArea, Color.Wheat);
             }
+
+
+            //DEBUG Drawing
+            foreach (Hero h in heroes)
+            {
+                sb.Draw(debugTex, h.CollisionArea, Color.White);
+            }
+            sb.DrawString(aFont, v.ToString(), cameraP1._pos, Color.White);
+            foreach (GameObject go in gameObjectManager.GameObjects)
+            {
+                sb.Draw(debugTex, go.CollisionArea, Color.White);
+            }
+            ///////////////////////
         }
 
         Random spawnRandom = new Random();
@@ -304,7 +395,11 @@ namespace KidnapThePrincess
         {
             if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
-                //camera update
+                //Collision detection
+                collisionManager.ObstacleCollisionResolution(gameObjectManager.GameObjects, heroes);
+                gameObjectManager.Update(time);
+
+                #region camera update
                 cameraP1.Pos = heroes[P1HeroIndex].Position;
                 cameraP2.Pos = heroes[P2HeroIndex].Position;
                 princessCam.Pos = heroes[0].Position;
@@ -312,19 +407,21 @@ namespace KidnapThePrincess
                 isP1Offscreen = !princessCam.Area.Contains((int)heroes[P1HeroIndex].X, (int)heroes[P1HeroIndex].Y);
                 isP2Offscreen = !princessCam.Area.Contains((int)heroes[P2HeroIndex].X, (int)heroes[P2HeroIndex].Y);
                 //camera order change
-                if (isP1Offscreen && isP2Offscreen) 
+                if (isP1Offscreen && isP2Offscreen)
                 {
                     Cameras[1] = cameraP1;
-                    Cameras[2]=cameraP2;
+                    Cameras[2] = cameraP2;
                 }
                 else if (isP1Offscreen)
                 {
                     Cameras[1] = cameraP1;
                 }
-                else if(IsP2Offscreen)
+                else if (IsP2Offscreen)
                 {
                     Cameras[1] = CameraP2;
                 }
+                #endregion
+
                 //let the enemies carry our princess to the castle
                 if (princessCarrier.Attacked)
                 {
@@ -346,8 +443,8 @@ namespace KidnapThePrincess
                     h.Update(time);
                     if (h.IsActive) h.Direction = Vector2.Zero;
                 }
-
-
+                
+                //Update enemies
                 foreach (Enemy e in enemies)
                 {
                     e.Update(time);
@@ -442,5 +539,10 @@ namespace KidnapThePrincess
         }
 
         #endregion UpdateLevelContent
+
+        public void PosInfo()
+        {
+            v = heroes[P1HeroIndex].Position;
+        }
     }
 }
