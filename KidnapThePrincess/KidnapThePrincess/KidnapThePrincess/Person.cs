@@ -46,6 +46,13 @@ namespace KidnapThePrincess
             get { return position.Y; }
             set { position.Y = value; }
         }
+        private int hitPoints;
+        public int Hitpoints
+        {
+            get { return hitPoints; }
+            set { hitPoints = value; }
+        }
+        
         public Person(Texture2D tex)
         {
             sprite = tex;

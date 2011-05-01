@@ -25,6 +25,7 @@ namespace KidnapThePrincess
 
         public void Update(GameTime gameTime)
         {
+            RemoveDestroyedObjects();
             foreach (GameObject go in gameObjects)
             {
                 go.Update(gameTime);
@@ -40,8 +41,20 @@ namespace KidnapThePrincess
         }
 
         public void AddObject(GameObject g)
-        { 
-            gameObjects.Add(g); 
+        {
+            gameObjects.Add(g);
+        }
+
+        public void RemoveDestroyedObjects()
+        {
+            for (int i=0;i<gameObjects.Count;i++)
+            {
+                if (gameObjects[i].Hitpoints < 0)
+                {
+                    //SpawnCoin(gameObjects[i].Position);
+                    gameObjects.Remove(gameObjects[i]);
+                }
+            }
         }
     }
 }
