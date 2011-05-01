@@ -10,10 +10,10 @@ namespace KidnapThePrincess
     class Widow:Hero
     {
         public Widow(Texture2D tex, Rectangle area,List<Enemy> enemies) :
-            base(tex, area, enemies)
+            base(tex, area, enemies, 3000, 500)
         {
             Speed = 1.6f;
-            attackDelay = 750;
+            //attackDelay = 750;
         }
 
         /// <summary>

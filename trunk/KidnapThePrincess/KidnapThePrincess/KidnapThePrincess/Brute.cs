@@ -10,10 +10,10 @@ namespace KidnapThePrincess
     class Brute:Hero
     {
         public Brute(Texture2D tex, Rectangle area, List<Enemy> enemies) :
-            base(tex, area,enemies)
+            base(tex, area,enemies, 500, 500)
         {
             Speed = 1.5f;
-            attackDelay = 400;
+            //attackDelay = 400;
         }
 
 
@@ -29,7 +29,7 @@ namespace KidnapThePrincess
                     e.Position += new Vector2(0, -140);                    
                 }
             }
-
+            
             base.attack();
         }
 

@@ -19,7 +19,7 @@ namespace KidnapThePrincess
 
 
         public Goblin(Texture2D tex, Rectangle area, List<Enemy> enemies) :
-            base(tex, area, enemies)
+            base(tex, area, enemies, 500,500)
         {
             Speed = 0.4f;
             canMoveFreezed = true; //necessary for carrieing to castle 
