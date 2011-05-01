@@ -466,7 +466,11 @@ namespace KidnapThePrincess
                 P1HeroIndex++;
                 P1HeroIndex %= 4;
                 if (P1HeroIndex == 0) P1HeroIndex++;
-                if (P1HeroIndex == P2HeroIndex) P1HeroIndex++;
+                if (P1HeroIndex == P2HeroIndex)
+                {
+                    P2HeroIndex++;
+                    P2HeroIndex %= 4;
+                }
                 heroes[P1HeroIndex].IsActive = true;
             }
             else
