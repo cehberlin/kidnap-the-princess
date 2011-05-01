@@ -76,8 +76,8 @@ namespace KidnapThePrincess
 
 
         //must be stored to endfreeze at some time
-        private TimeSpan lastFreezeTime;
-
+        private TimeSpan freezeDuration;
+        private TimeSpan freezeLifespan=TimeSpan.FromSeconds(1);
 
         //you could specify if a hero only could attack with some delay between
         public TimeSpan attackDelay;
@@ -121,13 +121,18 @@ namespace KidnapThePrincess
             //    }
             //}
 
-            //if (freezed)
-            //{
-            //    if (lastUpdateTimeSave > lastFreezeTime + 500)
-            //    {
-            //        freezed = false; //attack is over
-            //    }
-            //}
+            if (freezed)
+            {
+                if (freezeLifespan.Subtract(freezeDuration) > TimeSpan.Zero)
+                {
+                    freezeDuration = freezeDuration.Add(time.ElapsedGameTime);
+                }
+                else
+                {
+                    freezed = false;
+                    freezeDuration = TimeSpan.Zero;
+                }
+            }
 
 
             if (!freezed || canMoveFreezed) //if hero was hit by enemy he can move some time
