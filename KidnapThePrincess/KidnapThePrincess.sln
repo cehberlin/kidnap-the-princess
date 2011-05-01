@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidnapThePrincess", "KidnapThePrincess\KidnapThePrincess\KidnapThePrincess.csproj", "{5BD64FE5-FFAA-4E4B-8AC5-17B2EA9BFCC5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidnapThePrincessContent", "KidnapThePrincess\KidnapThePrincessContent\KidnapThePrincessContent.contentproj", "{43E26069-922A-4FDB-A616-DAF12C0683AF}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86

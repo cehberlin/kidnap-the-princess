@@ -52,21 +52,32 @@ namespace KidnapThePrincess
         protected Boolean canMoveFreezed = false;
 
         //specifies how long the attack is visualised
-        private int showAttackTimeSave;
+        //private int showAttackTimeSave;
         private Boolean isAttacking = false;
 
         public Boolean IsAttacking
         {
             get { return isAttacking; }
             set {
-                if (lastAttack + attackDelay <= lastUpdateTimeSave)
+                if (!IsAttacking && !IsAttackCoolDownActive)
                 {
-                    isAttacking = value;
-                    showAttackTimeSave = lastUpdateTimeSave;
-                    lastAttack = showAttackTimeSave;
+                    isAttacking = true;
                 }
+                //if (lastAttack + attackDelay <= lastUpdateTimeSave)
+                //{
+                //    isAttacking = value;
+                //    showAttackTimeSave = lastUpdateTimeSave;
+                //    lastAttack = showAttackTimeSave;
+                //}
             }
         }
+
+        public int AttackTime { get; set; } // duaration of attack (in ms)
+        public int CurrentAttackDuration { get; set; } // current duaration of attack (in ms)
+
+        public Boolean IsAttackCoolDownActive { get; set; } // true if Attack cool down is Active
+        public int CurrentAttackCoolDownDuration { get; set; } //current duration of cooldown (in ms)
+        public int AttackCoolDownTime { get; set; } // cooldown after an attack (in ms)
 
         //last time this hero was updated
         private int lastUpdateTimeSave;
@@ -75,11 +86,7 @@ namespace KidnapThePrincess
         //must be stored to endfreeze at some time
         private int lastFreezeTime;
 
-
-        //you could specify if a hero only could attack with some delay between
-        protected int attackDelay = 0;
-
-        protected int lastAttack;
+       // protected int lastAttack;
 
 
         /// <summary>
@@ -87,12 +94,23 @@ namespace KidnapThePrincess
         /// </summary>
         /// <param name="tex">The texture that will represent the hero in game.</param>
         /// <param name="area">For the goblin the rectangle equals the carriage, for the others it's the playArea</param>
-        public Hero(Texture2D tex, Rectangle area,List<Enemy> enemies)
+        /// <param name="attackCooldown"> cooldown after an attack in ms </param>
+        /// <param name="attackTime"> duration of an attack in ms </param>
+        public Hero(Texture2D tex, Rectangle area,List<Enemy> enemies, int attackTime, int attackCooldown)
             : base(tex)
         {
             this.area = area;
             this.enemies = enemies;
             isActive = false;
+
+            AttackTime = attackTime;
+            AttackCoolDownTime = attackCooldown;
+
+            IsAttackCoolDownActive = false;
+            isAttacking = false;
+            CurrentAttackCoolDownDuration = 0;
+            CurrentAttackDuration = 0;
+
         }
 
 
@@ -110,12 +128,33 @@ namespace KidnapThePrincess
 
         public override void Update(GameTime time)
         {
+            // attack/cooldown
+            if (IsAttacking)
+            {
+                CurrentAttackDuration += time.ElapsedGameTime.Milliseconds;
+                if (CurrentAttackDuration >= AttackTime)
+                {
+                    isAttacking = false;
+                    IsAttackCoolDownActive = true;
+                    CurrentAttackCoolDownDuration = 0;
+                }
+            }
+            else if (IsAttackCoolDownActive)
+            {
+                CurrentAttackCoolDownDuration += time.ElapsedGameTime.Milliseconds;
+                if (CurrentAttackCoolDownDuration >= AttackCoolDownTime)
+                {
+                    IsAttackCoolDownActive = false;
+                    CurrentAttackDuration = 0;
+                }
+            }
+
             //reset show attack flag after a moment 
             if (IsAttacking)
             {
-                if(lastUpdateTimeSave > showAttackTimeSave + 70){
-                    IsAttacking = false; //attack is over
-                }                
+            //    if(lastUpdateTimeSave > showAttackTimeSave + 70){
+            //        IsAttacking = false; //attack is over
+            //    }                
                 attack();
             }
 

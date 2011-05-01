@@ -513,8 +513,8 @@ namespace KidnapThePrincess
                 heroes[P1HeroIndex].IsActive = false;
                 P1HeroIndex++;
                 P1HeroIndex %= 4;
-                if (P1HeroIndex == 0) P1HeroIndex++;
-                if (P1HeroIndex == P2HeroIndex) P1HeroIndex++;
+               // if (P1HeroIndex == 0) P1HeroIndex++;
+                if (P1HeroIndex == P2HeroIndex) { P1HeroIndex++; P1HeroIndex %= 4; }
                 heroes[P1HeroIndex].IsActive = true;
             }
             else
@@ -523,7 +523,7 @@ namespace KidnapThePrincess
                 heroes[P2HeroIndex].IsActive = false;
                 P2HeroIndex++;
                 P2HeroIndex %= 4;
-                if (P2HeroIndex == 0) P2HeroIndex++;
+                //if (P2HeroIndex == 0) P2HeroIndex++;
                 if (P2HeroIndex == P1HeroIndex)
                 {
                     P2HeroIndex++;
