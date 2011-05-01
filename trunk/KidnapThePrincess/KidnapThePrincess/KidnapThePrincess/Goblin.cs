@@ -9,6 +9,14 @@ namespace KidnapThePrincess
 {
     class Goblin : Hero
     {
+        private int enemiesAttached;
+
+        public int EnemiesAttached
+        {
+            get { return enemiesAttached; }
+            set { enemiesAttached = value; }
+        }
+        
         Boolean attacked = false;
 
         public Boolean Attacked
@@ -18,17 +26,18 @@ namespace KidnapThePrincess
         }
 
 
-        public Goblin(Texture2D tex, Rectangle area, List<Enemy> enemies) :
-            base(tex, area, enemies, 500,500)
+        public Goblin(Texture2D tex, Rectangle area) :
+            base(tex, area)
         {
             Speed = 0.4f;
             canMoveFreezed = true; //necessary for carrieing to castle 
+            enemiesAttached = 0;
         }
 
 
         public override void Update(GameTime time)
         {
-            attacked = false;
+            /*attacked = false;
             foreach (Enemy e in enemies)
             {
                 if (GeometryHelper.Intersects(Bounds, e.Bounds))
@@ -36,7 +45,7 @@ namespace KidnapThePrincess
                     attacked = true;
                     break;
                 }
-            }
+            }*/
             base.Update(time);
 
         }

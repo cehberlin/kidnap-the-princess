@@ -9,22 +9,27 @@ namespace KidnapThePrincess
 {
     class Enemy : Person
     {
-        List<Hero> heroes;
-
         //enemy is asleep
         public Boolean Asleep = false;
+        private Vector2 destination;
 
-        public Enemy(Texture2D tex, List<Hero> heroes)
+        public Vector2 Destination
+        {
+            get { return destination; }
+            set { destination = value; }
+        }
+        
+
+        public Enemy(Texture2D tex)
             : base(tex)
         {
-            this.heroes = heroes;
         }
 
         public override void Update(GameTime time)
         {
             if (!Asleep)
             {
-                Direction = heroes[0].Position - Position;
+                Direction = Destination - Position;
                 Direction = Vector2.Normalize(Direction);
                 base.Update(time);
             }

@@ -13,7 +13,7 @@ namespace KidnapThePrincess
 {
     class Level
     {
-        Vector2 v = Vector2.Zero;
+        Vector2 v=Vector2.Zero;
         SpriteFont aFont;
 
         #region Declarations
@@ -40,6 +40,7 @@ namespace KidnapThePrincess
         Texture2D P2MarkerTex;
         Texture2D templarTex;
         Texture2D attackTex;
+        Texture2D powTex;
         private List<Camera2d> cams;
 
         public List<Camera2d> Cameras
@@ -89,15 +90,8 @@ namespace KidnapThePrincess
             set { heroes = value; }
         }
 
-        private List<Enemy> enemies;
-
-        internal List<Enemy> Enemies
-        {
-            get { return enemies; }
-            set { enemies = value; }
-        }
-
         private List<Vector2> treePositions;
+        private Vector2 markerOffset;
 
         private Rectangle playArea;
         /// <summary>
@@ -129,6 +123,8 @@ namespace KidnapThePrincess
 
         GameObjectManager gameObjectManager;
         CollisionManager collisionManager;
+        AttackManager attackManager;
+        EnemyManager enemyManager;
         #endregion
 
         #region LoadLevelContent //Constructor, Init Methods...
@@ -142,7 +138,7 @@ namespace KidnapThePrincess
             P2HeroIndex = 2;
             castlePosition = new Vector2(0, 0);
             heroes = new List<Hero>();
-            enemies = new List<Enemy>();
+            //enemies = new List<Enemy>();
             treePositions = new List<Vector2>();
             playArea = new Rectangle((int)castlePosition.X - 300, (int)castlePosition.Y, 600, 2000);
             isP1Offscreen = false;
@@ -175,8 +171,7 @@ namespace KidnapThePrincess
             AddGameObjects();
             heroes.Clear();
             addHeroes();
-
-            enemies.Clear();
+            enemyManager.Init();
         }
 
         private void AddGameObjects()
@@ -203,18 +198,18 @@ namespace KidnapThePrincess
                 c = new Crate(crateTex, new Vector2(-80 - crateTex.Width / 2, 450 * i + 200 - crateTex.Height));
                 gameObjectManager.AddObject(c);
             }
-            Haystack aHaystack = new Haystack(haystackTex, new Vector2(-273, 446));
+            Haystack aHaystack=new Haystack(haystackTex,new Vector2(-273,446));
             gameObjectManager.AddObject(aHaystack);
-            Hut aHut = new Hut(hut2Tex, new Vector2(17, 962));
+            Hut aHut = new Hut(hut2Tex, new Vector2(17,962));
             gameObjectManager.AddObject(aHut);
             aHut = new Hut(hut2Tex, new Vector2(17, 1362));
             gameObjectManager.AddObject(aHut);
-            Crate aCrate = new Crate(crateTex, new Vector2(17, 1362 + hut2Tex.Height - crateTex.Height));
+            Crate aCrate = new Crate(crateTex, new Vector2(17,1362+hut2Tex.Height-crateTex.Height));
             gameObjectManager.AddObject(aCrate);
 
             aHut = new Hut(hut1Tex, new Vector2(97, 953));
             gameObjectManager.AddObject(aHut);
-            aHut = new Hut(hut2Tex, new Vector2(63, 997));
+            aHut=new Hut(hut2Tex,new Vector2(63,997));
             gameObjectManager.AddObject(aHut);
             aHut = new Hut(hut2Tex, new Vector2(132, 997));
             gameObjectManager.AddObject(aHut);
@@ -236,7 +231,7 @@ namespace KidnapThePrincess
             gameObjectManager.AddObject(aCrate);
             aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width * 2, 1713));
             gameObjectManager.AddObject(aCrate);
-            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713 - crateTex.Height));
+            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713- crateTex.Height));
             gameObjectManager.AddObject(aCrate);
         }
 
@@ -269,7 +264,13 @@ namespace KidnapThePrincess
             P1MarkerTex = c.Load<Texture2D>("P1Marker");
             P2MarkerTex = c.Load<Texture2D>("P2Marker");
 
+            markerOffset = new Vector2(-P1MarkerTex.Width/2, -P1MarkerTex.Height/2);
+
             attackTex = c.Load<Texture2D>("attack");
+            powTex = c.Load<Texture2D>("pow");
+
+            attackManager = new AttackManager(powTex);
+            enemyManager = new EnemyManager(templarTex, castlePosition, heroes);
 
             carriagRec = new Rectangle(0, 2000, carriageTex.Width, carriageTex.Height);
 
@@ -283,27 +284,27 @@ namespace KidnapThePrincess
         private void addHeroes()
         {
             //add heroes to list
-            Goblin g = new Goblin(goblinTex, playArea, enemies);
+            Goblin g = new Goblin(goblinTex, playArea);
             g.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
             g.Destination = new Vector2(carriagRec.Center.X, carriagRec.Center.Y);
+            g.IsActive = true;
             heroes.Add(g);
 
             princessCarrier = g; //makes it easier for reference
 
-            Hero h = new Brute(bruteTex, playArea, enemies);
+            Hero h = new Brute(bruteTex, playArea);
             h.Position = new Vector2(castlePosition.X - 2 * h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Knight(darknightTex, playArea, enemies);
+            h = new Knight(darknightTex, playArea);
             h.Position = new Vector2(castlePosition.X + h.sprite.Width, castlePosition.Y + castleTex.Height);
             h.IsActive = true;
             heroes.Add(h);
 
-            h = new Widow(widowTex, playArea, enemies);
+            h = new Widow(widowTex, playArea);
             h.Position = new Vector2(castlePosition.X - h.sprite.Width, castlePosition.Y + castleTex.Height);
             heroes.Add(h);
-
         }
 
         #endregion LoadLevelContent
@@ -316,6 +317,7 @@ namespace KidnapThePrincess
             sb.Draw(playAreaTex, playArea, Color.White);
             //Draw scenery
             gameObjectManager.Draw(sb);
+            attackManager.Draw(sb);
             foreach (Vector2 pos in treePositions)
             {
                 sb.Draw(treeTex, pos, Color.White);
@@ -332,65 +334,12 @@ namespace KidnapThePrincess
                 }
                 else
                 {
-                    if (h.IsAttacking)
-                    {
-                        //draw text
-                        sb.Draw(attackTex, h.Position + new Vector2(10, 10), Color.White);
-                        sb.Draw(h.sprite, h.Position, Color.Red);
-                    }
-                    else
-                    {
-                        sb.Draw(h.sprite, h.Position, Color.White);
-                    }
+                    sb.Draw(h.sprite, h.Position, Color.White);
                 }
             }
-            sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position, Color.White);
-            sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position, Color.White);
-
-            foreach (Enemy e in enemies)
-            {
-                sb.Draw(e.sprite, e.Position, Color.White);
-                sb.Draw(debugTex, e.CollisionArea, Color.Wheat);
-            }
-
-            if (GameState.DEBUG)
-            {
-                //DEBUG Drawing
-                foreach (Hero h in heroes)
-                {
-                    sb.Draw(debugTex, h.CollisionArea, Color.White);
-                }
-                sb.DrawString(aFont, v.ToString(), cameraP1._pos, Color.White);
-                foreach (GameObject go in gameObjectManager.GameObjects)
-                {
-                    sb.Draw(debugTex, go.CollisionArea, Color.White);
-                }
-                ///////////////////////
-            }
-        }
-
-        Random spawnRandom = new Random();
-        public void SpawnEnemy()
-        {
-            //check if temple is still visible
-            Enemy e = new Templar(templarTex, heroes);
-            if (princessCam.Pos.Y > (game.Window.ClientBounds.Height))
-            {
-                e.Position = new Vector2(castlePosition.X, castlePosition.Y + castleTex.Height);
-            }
-            else
-            {
-                //enemies can come from top and bottom
-                if (spawnRandom.Next(2) == 1)
-                {
-                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), cameraP1._pos.Y + (game.Window.ClientBounds.Height / 2));
-                }
-                else
-                {
-                    e.Position = new Vector2(castlePosition.X + spawnRandom.Next(-100, 100), cameraP1._pos.Y - (game.Window.ClientBounds.Height / 2));
-                }
-            }
-            enemies.Add(e);
+            sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position+markerOffset, Color.White);
+            sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position + markerOffset, Color.White);
+            enemyManager.Draw(sb);
         }
 
         public void Update(GameTime time)
@@ -400,6 +349,14 @@ namespace KidnapThePrincess
                 //Collision detection
                 collisionManager.ObstacleCollisionResolution(gameObjectManager.GameObjects, heroes);
                 gameObjectManager.Update(time);
+                attackManager.Update(time);
+                //let the enemies carry our princess to the castle
+                collisionManager.PrincessCollisionCheck(enemyManager.Enemies, heroes[0]);
+                //Enemies and heroes should not overlap
+                collisionManager.HeroEnemyCollisionResolution(enemyManager.Enemies, heroes);
+                //
+                attackManager.Attacks.Remove(collisionManager.AttackEnemyCollision(enemyManager.Enemies, attackManager.Attacks));
+                attackManager.Attacks.Remove(collisionManager.AttackGameObjectCollision(gameObjectManager.GameObjects, attackManager.Attacks));
 
                 #region camera update
                 cameraP1.Pos = heroes[P1HeroIndex].Position;
@@ -424,33 +381,21 @@ namespace KidnapThePrincess
                 }
                 #endregion
 
-                //let the enemies carry our princess to the castle
-                if (princessCarrier.Attacked)
-                {
-                    princessCarrier.Destination = castlePosition;
-                }
-                else
-                {
-                    princessCarrier.Destination = new Vector2(carriagRec.Center.X, carriagRec.Center.Y);
-                }
-
-                //update the heroes
                 for (int i = 0; i < heroes.Count; i++)
                 {
+
                     Hero h = heroes[i];
                     if (!h.IsActive && i != 0)//makes the inactive heroes follow the princess
                     {
                         h.Destination = heroes[0].Position + new Vector2(40, -80);
                     }
                     h.Update(time);
+                    //hero stops following the princess when he becomes active
                     if (h.IsActive) h.Direction = Vector2.Zero;
                 }
-
+                
                 //Update enemies
-                foreach (Enemy e in enemies)
-                {
-                    e.Update(time);
-                }
+                enemyManager.Update(time);
             }
         }
 
@@ -458,53 +403,60 @@ namespace KidnapThePrincess
         {
             if (player == 0)
             {
-                heroes[P1HeroIndex].moveLeft();
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(-1, heroes[P1HeroIndex].Direction.Y);
             }
             else
-                heroes[P2HeroIndex].moveLeft();
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(-1, heroes[P2HeroIndex].Direction.Y);
         }
         public void MoveHeroRight(int player)
         {
             if (player == 0)
             {
-                heroes[P1HeroIndex].moveRight();
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(1, heroes[P1HeroIndex].Direction.Y);
             }
             else
-                heroes[P2HeroIndex].moveRight();
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(1, heroes[P2HeroIndex].Direction.Y);
         }
         public void MoveHeroUp(int player)
         {
             if (player == 0)
             {
-                heroes[P1HeroIndex].moveUp();
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, -1);
             }
             else
-                heroes[P2HeroIndex].moveUp();
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, -1);
         }
         public void MoveHeroDown(int player)
         {
             if (player == 0)
             {
-                heroes[P1HeroIndex].moveDown();
+                if (!heroes[P1HeroIndex].Freezed)
+                    heroes[P1HeroIndex].Direction = new Vector2(heroes[P1HeroIndex].Direction.X, 1);
             }
             else
-                heroes[P2HeroIndex].moveDown();
+                if (!heroes[P2HeroIndex].Freezed)
+                    heroes[P2HeroIndex].Direction = new Vector2(heroes[P2HeroIndex].Direction.X, 1);
         }
-
         public void HeroAttack(int player)
         {
             if (player == 0)
             {
                 if (!heroes[P1HeroIndex].Freezed)
-                    heroes[P1HeroIndex].IsAttacking = true;
+                    attackManager.AddAttack(heroes[P1HeroIndex]);
+                
             }
             else
             {
                 if (!heroes[P2HeroIndex].Freezed)
-                    heroes[P2HeroIndex].IsAttacking = true;
+                    attackManager.AddAttack(heroes[P2HeroIndex]);
             }
         }
-
         public void SwitchHero(int player)
         {
             if (player == 0)
@@ -513,8 +465,8 @@ namespace KidnapThePrincess
                 heroes[P1HeroIndex].IsActive = false;
                 P1HeroIndex++;
                 P1HeroIndex %= 4;
-               // if (P1HeroIndex == 0) P1HeroIndex++;
-                if (P1HeroIndex == P2HeroIndex) { P1HeroIndex++; P1HeroIndex %= 4; }
+                if (P1HeroIndex == 0) P1HeroIndex++;
+                if (P1HeroIndex == P2HeroIndex) P1HeroIndex++;
                 heroes[P1HeroIndex].IsActive = true;
             }
             else
@@ -523,7 +475,7 @@ namespace KidnapThePrincess
                 heroes[P2HeroIndex].IsActive = false;
                 P2HeroIndex++;
                 P2HeroIndex %= 4;
-                //if (P2HeroIndex == 0) P2HeroIndex++;
+                if (P2HeroIndex == 0) P2HeroIndex++;
                 if (P2HeroIndex == P1HeroIndex)
                 {
                     P2HeroIndex++;
@@ -537,6 +489,7 @@ namespace KidnapThePrincess
 
         public void PosInfo()
         {
+            //I used this to get an idea where my hero is, in order to place some Gameobjects nicely
             v = heroes[P1HeroIndex].Position;
         }
     }

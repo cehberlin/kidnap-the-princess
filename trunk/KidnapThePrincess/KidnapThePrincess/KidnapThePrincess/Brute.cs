@@ -9,11 +9,12 @@ namespace KidnapThePrincess
 {
     class Brute:Hero
     {
-        public Brute(Texture2D tex, Rectangle area, List<Enemy> enemies) :
-            base(tex, area,enemies, 500, 500)
+        public Brute(Texture2D tex, Rectangle area) :
+            base(tex, area)
         {
-            Speed = 1.5f; 
-            //attackDelay = 400;
+            Speed = 1.5f;
+            attackDelay = new TimeSpan(0,0,0,1);
+            Strength = 10;
         }
 
 
@@ -22,6 +23,7 @@ namespace KidnapThePrincess
         /// </summary>
         protected override void attack()
         {
+            /*
             foreach (Enemy e in enemies)
             {
                 if (GeometryHelper.Intersects(this.Bounds, e.Bounds))
@@ -29,8 +31,8 @@ namespace KidnapThePrincess
                     e.Position += new Vector2(0, -140);                    
                 }
             }
-            
-            base.attack();
+
+            base.attack();*/
         }
 
     }

@@ -23,6 +23,17 @@ namespace KidnapThePrincess
 
         private bool isActive;
 
+        bool canAttack;
+
+        private int strength;
+
+        public int Strength
+        {
+            get { return strength; }
+            set { strength = value; }
+        }
+        
+
         public bool IsActive
         {
             get { return isActive; }
@@ -37,9 +48,6 @@ namespace KidnapThePrincess
             set { dest = value; }
         }
 
-        protected List<Enemy> enemies;
-
-
         Boolean freezed = false;
 
         public Boolean Freezed
@@ -48,70 +56,33 @@ namespace KidnapThePrincess
             set { freezed = value; }
         }
 
+        private TimeSpan coolDown;
+
+        public TimeSpan CoolDown
+        {
+            get { return coolDown; }
+            set { coolDown = value; }
+        }
+        
+
         //flag that says: hero can move during freezing
         protected Boolean canMoveFreezed = false;
 
         //specifies how long the attack is visualised
-        //private int showAttackTimeSave;
-        private Boolean isAttacking = false;
-
-        public Boolean IsAttacking
-        {
-            get { return isAttacking; }
-            set {
-                if (!IsAttacking && !IsAttackCoolDownActive)
-                {
-                    isAttacking = true;
-                }
-                //if (lastAttack + attackDelay <= lastUpdateTimeSave)
-                //{
-                //    isAttacking = value;
-                //    showAttackTimeSave = lastUpdateTimeSave;
-                //    lastAttack = showAttackTimeSave;
-                //}
-            }
-        }
-
-        public int AttackTime { get; set; } // duaration of attack (in ms)
-        public int CurrentAttackDuration { get; set; } // current duaration of attack (in ms)
-
-        public Boolean IsAttackCoolDownActive { get; set; } // true if Attack cool down is Active
-        public int CurrentAttackCoolDownDuration { get; set; } //current duration of cooldown (in ms)
-        public int AttackCoolDownTime { get; set; } // cooldown after an attack (in ms)
+        public TimeSpan showAttackTimeSave;
 
         //last time this hero was updated
-        private int lastUpdateTimeSave;
+        public TimeSpan lastUpdateTimeSave;
 
 
         //must be stored to endfreeze at some time
-        private int lastFreezeTime;
-
-       // protected int lastAttack;
+        private TimeSpan lastFreezeTime;
 
 
-        /// <summary>
-        /// Constructor for a hero
-        /// </summary>
-        /// <param name="tex">The texture that will represent the hero in game.</param>
-        /// <param name="area">For the goblin the rectangle equals the carriage, for the others it's the playArea</param>
-        /// <param name="attackCooldown"> cooldown after an attack in ms </param>
-        /// <param name="attackTime"> duration of an attack in ms </param>
-        public Hero(Texture2D tex, Rectangle area,List<Enemy> enemies, int attackTime, int attackCooldown)
-            : base(tex)
-        {
-            this.area = area;
-            this.enemies = enemies;
-            isActive = false;
+        //you could specify if a hero only could attack with some delay between
+        public TimeSpan attackDelay;
 
-            AttackTime = attackTime;
-            AttackCoolDownTime = attackCooldown;
-
-            IsAttackCoolDownActive = false;
-            isAttacking = false;
-            CurrentAttackCoolDownDuration = 0;
-            CurrentAttackDuration = 0;
-
-        }
+        public TimeSpan lastAttack;
 
 
         /// <summary>
@@ -124,58 +95,39 @@ namespace KidnapThePrincess
         {
             this.area = area;
             isActive = false;
+            coolDown = TimeSpan.Zero;
         }
 
         public override void Update(GameTime time)
         {
-            // attack/cooldown
-            if (IsAttacking)
-            {
-                CurrentAttackDuration += time.ElapsedGameTime.Milliseconds;
-                if (CurrentAttackDuration >= AttackTime)
-                {
-                    isAttacking = false;
-                    IsAttackCoolDownActive = true;
-                    CurrentAttackCoolDownDuration = 0;
-                }
-            }
-            else if (IsAttackCoolDownActive)
-            {
-                CurrentAttackCoolDownDuration += time.ElapsedGameTime.Milliseconds;
-                if (CurrentAttackCoolDownDuration >= AttackCoolDownTime)
-                {
-                    IsAttackCoolDownActive = false;
-                    CurrentAttackDuration = 0;
-                }
-            }
-
             //reset show attack flag after a moment 
+            /*
             if (IsAttacking)
             {
-            //    if(lastUpdateTimeSave > showAttackTimeSave + 70){
-            //        IsAttacking = false; //attack is over
-            //    }                
+                if(lastUpdateTimeSave > showAttackTimeSave + TimeSpan.FromMilliseconds(70)){
+                    IsAttacking = false; //attack is over
+                }                
                 attack();
             }
-
+            */
             //check if an enemy collidates with the hero
-            foreach (Enemy e in enemies)
-            {
-                if (e.IsDangerous() && GeometryHelper.Intersects(this.Bounds, e.Bounds))
-                {
-                    freezed = true;
-                    lastFreezeTime = (int)time.TotalGameTime.TotalMilliseconds;
-                    break;
-                }
-            }
+            //foreach (Enemy e in enemies)
+            //{
+            //    if (e.IsDangerous() && GeometryHelper.Intersects(this.Bounds, e.Bounds))
+            //    {
+            //        freezed = true;
+            //        lastFreezeTime = (int)time.TotalGameTime.TotalMilliseconds;
+            //        break;
+            //    }
+            //}
 
-            if (freezed)
-            {
-                if (lastUpdateTimeSave > lastFreezeTime + 500)
-                {
-                    freezed = false; //attack is over
-                }
-            }
+            //if (freezed)
+            //{
+            //    if (lastUpdateTimeSave > lastFreezeTime + 500)
+            //    {
+            //        freezed = false; //attack is over
+            //    }
+            //}
 
 
             if (!freezed || canMoveFreezed) //if hero was hit by enemy he can move some time
@@ -193,16 +145,19 @@ namespace KidnapThePrincess
                     Direction = Vector2.Normalize(Direction);
                 }
             }
-            lastUpdateTimeSave = (int)time.TotalGameTime.TotalMilliseconds;
+            coolDown = coolDown.Subtract(time.ElapsedGameTime);
             base.Update(time);
         }
 
-        //save time when attack was pressed
-        protected virtual void attack()
+        public bool CanAttack
         {
-
+            get
+            {
+                return coolDown<=TimeSpan.Zero?true:false;
+            }
         }
 
+        protected virtual void attack() { }
 
         public virtual void moveRight()
         {

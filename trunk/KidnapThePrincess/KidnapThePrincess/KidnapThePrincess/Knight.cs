@@ -9,11 +9,12 @@ namespace KidnapThePrincess
 {
     class Knight:Hero
     {
-        public Knight(Texture2D tex, Rectangle area, List<Enemy> enemies) :
-            base(tex, area,enemies, 100, 1000)
+        public Knight(Texture2D tex, Rectangle area) :
+            base(tex, area)
         {
             Speed = 1.7f;
-           // attackDelay = 1500;
+            attackDelay = new TimeSpan(0,0,0,0,600);
+            Strength = 5;
         }
 
         /// <summary>
@@ -21,6 +22,7 @@ namespace KidnapThePrincess
         /// </summary>
         protected override void attack()
         {
+            /*
             foreach (Enemy e in enemies)
             {
                 if (GeometryHelper.Intersects(this.Bounds, e.Bounds))
@@ -28,7 +30,7 @@ namespace KidnapThePrincess
                     enemies.Remove(e);
                     break;
                 }
-            }
+            }*/
 
             base.attack();
         }
