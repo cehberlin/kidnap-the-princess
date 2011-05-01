@@ -55,7 +55,7 @@ namespace KidnapThePrincess
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1200;
             graphics.PreferredBackBufferHeight = 700;
-            
+
             center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
 
             level = new Level(this);
@@ -85,7 +85,7 @@ namespace KidnapThePrincess
         protected override void LoadContent()
         {
             debugTex = Content.Load<Texture2D>("brown");
-            
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -221,7 +221,6 @@ namespace KidnapThePrincess
             // Grab some info from the keyboard
             KeyboardState keyboard = Keyboard.GetState();
 
-
             //general controls
             // Allows the game to exit
             if (keyboard.IsKeyDown(Keys.Escape))
@@ -294,6 +293,11 @@ namespace KidnapThePrincess
             if (keyboard.IsKeyUp(Keys.Space) && oldState.IsKeyDown(Keys.Space))
             {
                 level.SwitchHero(1);
+            }
+
+            if (keyboard.IsKeyDown(Keys.N))
+            {
+                level.PosInfo();
             }
 
             oldState = keyboard;

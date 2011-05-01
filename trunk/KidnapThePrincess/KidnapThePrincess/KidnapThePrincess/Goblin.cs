@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace KidnapThePrincess
 {
-    class Goblin:Hero
+    class Goblin : Hero
     {
         Boolean attacked = false;
 
@@ -18,25 +18,27 @@ namespace KidnapThePrincess
         }
 
 
-        public Goblin(Texture2D tex,Rectangle area,List<Enemy> enemies) :
-            base(tex, area,enemies)
+        public Goblin(Texture2D tex, Rectangle area, List<Enemy> enemies) :
+            base(tex, area, enemies)
         {
             Speed = 0.4f;
             canMoveFreezed = true; //necessary for carrieing to castle 
         }
 
 
-         public override void Update(GameTime time)
+        public override void Update(GameTime time)
         {
             attacked = false;
-             foreach(Enemy e in enemies){
-                   if(GeometryHelper.Intersects(Bounds,e.Bounds)){
-                       attacked = true;
-                       break;
-                   }
+            foreach (Enemy e in enemies)
+            {
+                if (GeometryHelper.Intersects(Bounds, e.Bounds))
+                {
+                    attacked = true;
+                    break;
+                }
             }
-             base.Update(time);              
+            base.Update(time);
 
-         }
+        }
     }
 }

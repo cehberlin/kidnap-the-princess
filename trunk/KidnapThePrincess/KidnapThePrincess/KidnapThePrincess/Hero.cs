@@ -51,8 +51,6 @@ namespace KidnapThePrincess
         //flag that says: hero can move during freezing
         protected Boolean canMoveFreezed = false;
 
-
-
         //specifies how long the attack is visualised
         private int showAttackTimeSave;
         private Boolean isAttacking = false;
