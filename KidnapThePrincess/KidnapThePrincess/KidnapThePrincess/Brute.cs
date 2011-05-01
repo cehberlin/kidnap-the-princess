@@ -12,7 +12,7 @@ namespace KidnapThePrincess
         public Brute(Texture2D tex, Rectangle area, List<Enemy> enemies) :
             base(tex, area,enemies)
         {
-            Speed = 11.5f;
+            Speed = 1.5f;
             attackDelay = 400;
         }
 
