@@ -237,6 +237,10 @@ namespace KidnapThePrincess
                 }
             }
 
+            if (keyboard.IsKeyUp(Keys.F3) && oldState.IsKeyDown(Keys.F3))
+            {
+                GameState.DEBUG = !GameState.DEBUG;
+            }
 
             //Player One Input
             if (keyboard.IsKeyDown(Keys.Right))
