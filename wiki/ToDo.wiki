@@ -1,5 +1,4 @@
 #labels ToDo,Task
-
 please cut and paste your current task from ToDo to current task and if you finished your task cut and paste it to done
 
 current tasks -> implementation in progress
@@ -7,8 +6,6 @@ todo -> next thing to do (with priority)
 
 
 =current tasks=
-
-# current tasks
   * better enemy AI -> Pascal
   * random enemy spawing -> Marian
   * spring follow camera -> Amauri
@@ -16,8 +13,7 @@ todo -> next thing to do (with priority)
   
   
 
-=TOdo=
-# Todo
+=ToDo=
   * speed adjustment
   * Full Screen -> Christopher
   * Controller -> Christopher
