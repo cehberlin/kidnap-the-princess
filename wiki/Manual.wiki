@@ -10,7 +10,7 @@ the villains can fight knights and destroy buildings and crates
 * start Game → “Enter”
 * exit Game → “Escape”
 
-  ||                  || *player 1*      || *player 2*         ||
+  || *action        * || *player 1*      || *player 2*         ||
   || *move up*        || arrow  up       ||   w                ||
   || *move down*      || arrow  down     ||   s                ||
   || *move right*     || arrow  right    ||   d                ||
