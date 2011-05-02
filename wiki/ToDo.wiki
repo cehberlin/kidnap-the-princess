@@ -1,6 +1,33 @@
 #labels ToDo,Task
-# current tasks
 
-  * spring follow camera
-  * fullscreen
-  * einspielersupport
+please cut and paste your current task from ToDo to current task and if you finished your task cut and paste it to done
+
+current tasks -> implementation in progress
+todo -> next thing to do (with priority)
+
+
+=current tasks=
+
+# current tasks
+  * better enemy AI -> Pascal
+  * random enemy spawing -> Marian
+  * spring follow camera -> Amauri
+  * Skill implementation -> Christopher
+  
+  
+
+=TOdo=
+# Todo
+  * speed adjustment
+  * Full Screen -> Christopher
+  * Controller -> Christopher
+  * Music -> Pascal
+  * single player support
+  * point system
+  * flames on House
+  * power ups
+  * gold
+  * Animation
+
+
+=done=
