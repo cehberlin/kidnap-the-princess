@@ -7,7 +7,6 @@ todo -> next thing to do (with priority)
 
 =current tasks=
   * improved enemy AI -> Pascal
-  * random enemy spawing -> Marian
   * spring follow camera -> Amauri
   * Skill implementation -> Christopher
   
@@ -27,3 +26,4 @@ todo -> next thing to do (with priority)
 
 
 =done=
+  * random enemy spawing -> Marian
