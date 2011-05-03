@@ -19,7 +19,7 @@ namespace KidnapThePrincess
             get { return aiNumber; }
             set { aiNumber = value; }
         }
-        
+
         private bool isCarrying;
 
         public bool IsCarrying
