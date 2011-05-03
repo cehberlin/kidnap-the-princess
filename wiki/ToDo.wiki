@@ -11,8 +11,7 @@ todo -> next thing to do (with priority)
   * spring follow camera -> Amauri
   * Skill implementation -> Christopher
   
-  
-
+ 
 =ToDo=
   * speed adjustment
   * Full Screen -> Christopher
