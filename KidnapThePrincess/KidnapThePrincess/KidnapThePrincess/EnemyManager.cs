@@ -202,15 +202,13 @@ namespace KidnapThePrincess
                     if (enemies[i].IsCarrying)
                     {
                         carriers--;
-                        carrierAssigned[i] = false;
+                        carrierAssigned[enemies[i].AINumber] = false;
                     }
                     else if (enemies[i].IsEscorting)
                     {
                         escorts--;
-                        escortAssigned[i] = false;
+                        escortAssigned[enemies[i].AINumber] = false;
                     }
-                    //carriers -= enemies[i].IsCarrying ? 1 : 0;//if the enemy was a carrier reduce current counter
-                    //escorts -= enemies[i].IsEscorting ? 1 : 0;//if the enemy was a escort reduce escort counter
                     enemies.Remove(enemies[i]);
                     //SpawnCoin(gameObjects[i].Position);
                 }
