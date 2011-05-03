@@ -6,7 +6,7 @@ todo -> next thing to do (with priority)
 
 
 =current tasks=
-  * spring follow camera -> Amauri
+  
   * Skill implementation -> Christopher
   * improve attacking -> Pascal
  
@@ -28,3 +28,4 @@ todo -> next thing to do (with priority)
   * random enemy spawing -> Marian
   * Let Enemies not overlap each other if they carry the princess ->Pascal
   * improved enemy AI -> Pascal
+  * spring follow camera -> Amauri
