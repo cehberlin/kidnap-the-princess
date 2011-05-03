@@ -92,7 +92,7 @@ namespace KidnapThePrincess
             {
                 GetClosestVillian(e);
                 dest = heroes[e.AINumber].Position;
-                //Stop attacking
+                MakeCarrier(e);
             }
             return dest;
         }
@@ -118,7 +118,6 @@ namespace KidnapThePrincess
         /// <param name="e">The enemy asking for a role or assignment.</param>
         private void GetAI(Enemy e)
         {
-            Vector2 dest = new Vector2();
             if (carriers < 4)//carry the princess
             {
                 e.Destination = carrierPositions[carriers];
@@ -148,10 +147,6 @@ namespace KidnapThePrincess
                     if (!carrierAssigned[counter])
                     {
                         carrierAssigned[counter] = true;
-                        if (counter < 0) { 
-                            int asaaa=0;
-                            asaaa++;
-                        }
                         return counter;
                     }
                     counter++;
@@ -164,11 +159,6 @@ namespace KidnapThePrincess
                     if (!escortAssigned[counter])
                     {
                         escortAssigned[counter] = true;
-                        if (counter < 0) {
-                            int asaa=0;
-                            asaa++;
-                        }
-
                         return counter;
                     }
                     counter++;
@@ -337,12 +327,17 @@ namespace KidnapThePrincess
         /// <param name="e">The enemy switching states</param>
         private void MakeCarrier(Enemy e)
         {
-            e.IsEscorting = false;
-            e.IsCarrying = true;
-            e.AINumber = GetAINumber(false, true);
-            carriers++;
-            escorts--;
-            e.Destination = GetDestination(e);
+            if (carriers < 4)
+            {
+                e.IsEscorting = false;
+                e.IsCarrying = true;
+                e.AINumber = GetAINumber(false, true);
+                carriers++;
+                carrierAssigned[e.AINumber] = true;
+                escortAssigned[e.AINumber] = false;
+                escorts--;
+                e.Destination = GetDestination(e);
+            }
         }
 
         /// <summary>
@@ -359,14 +354,6 @@ namespace KidnapThePrincess
                     escortAssigned[e.AINumber] = false;
                     escorts--;
                 }
-            }
-        }
-
-        private void StopAttacking(Enemy e)
-        {
-            if (e.Destination == e.Position)//We attacked sucessfully?
-            {
-                GetAI(e);
             }
         }
 
