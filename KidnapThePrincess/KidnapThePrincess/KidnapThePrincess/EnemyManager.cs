@@ -62,6 +62,9 @@ namespace KidnapThePrincess
             enemies.Clear();
         }
 
+
+        private Boolean spawnFromCastle = false;
+
         /// <summary>
         /// randomly spawns a new enemy slightly outside the maximum camera zoom out position
         /// </summary>
@@ -69,7 +72,7 @@ namespace KidnapThePrincess
         public void SpawnEnemy(GameTime time)
         {
             Enemy e = new Templar(sprite);
-            if (new Random().NextDouble() > 0.5) // randomly spawn enemies from castle or frome some point on the map
+            if (spawnFromCastle) // spawn enemies from castle or frome some point on the map
             {
                 e.Position = getRandomSpawningPoint();
             }
@@ -77,6 +80,7 @@ namespace KidnapThePrincess
             {
                 e.Position = spawnPoint;
             }
+            spawnFromCastle = !spawnFromCastle;
 
             enemies.Add(e);
             lastWave = time.TotalGameTime;
