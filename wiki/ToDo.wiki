@@ -32,4 +32,4 @@ todo -> next thing to do (with priority)
   * improved enemy AI -> Pascal
   * spring follow camera -> Amauri
   * Skill implementation -> Christopher
-  * point system (basics is done)
+  * point system (basics is done) -> Christopher
