@@ -18,6 +18,7 @@ todo -> next thing to do (with priority)
   * power ups
   * gold
   * Animation
+  * Remove or center white border in fullscreen mode ->Pascal?
 
 
 =done=
