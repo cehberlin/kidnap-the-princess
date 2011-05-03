@@ -122,6 +122,12 @@ namespace KidnapThePrincess
         }
 
         GameObjectManager gameObjectManager;
+        public GameObjectManager GameObjectManager 
+        {
+            get { return gameObjectManager; }
+            set { gameObjectManager = value; }
+        }
+
         CollisionManager collisionManager;
         AttackManager attackManager;
         EnemyManager enemyManager;
@@ -270,7 +276,7 @@ namespace KidnapThePrincess
             powTex = c.Load<Texture2D>("pow");
 
             attackManager = new AttackManager(powTex);
-            enemyManager = new EnemyManager(templarTex, castlePosition, heroes);
+            enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
 
             carriagRec = new Rectangle(0, 2000, carriageTex.Width, carriageTex.Height);
 
