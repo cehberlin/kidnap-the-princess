@@ -9,12 +9,20 @@ namespace KidnapThePrincess
 {
     class EnemyManager
     {
+        //Counters for enemy AI
+        Texture2D debugTex;
+        int carriers;
+        Vector2[] carrierPositions;
+        int escorts;
+        Vector2[] escortPositions;
+        Vector2[] escortOffsets;
+        
         List<Hero> heroes;
         Texture2D sprite;
         Vector2 spawnPoint;
         Vector2 destOffset;
         TimeSpan lastWave;
-        TimeSpan spawnIntervall=TimeSpan.FromSeconds(3);
+        TimeSpan spawnIntervall=TimeSpan.FromSeconds(1);
         private List<Enemy> enemies;
 
         public List<Enemy> Enemies
@@ -34,26 +42,91 @@ namespace KidnapThePrincess
             lastWave = TimeSpan.Zero;
             this.heroes = heroes;
             destOffset = new Vector2(30, 66);
+            carriers = 0;
+            escorts = 0;
+            carrierPositions=new Vector2[4];
+            escortPositions= new Vector2[8];
+            escortOffsets=new Vector2[8];
+            InitEscortOffsets();
             this.level = level;
         }
 
         public void Update(GameTime time)
         {
             RemoveDeadEnemies();
+            UpdateAIPositions();
             if (lastWave.Add(spawnIntervall) <= time.TotalGameTime)
                 SpawnEnemy(time);
             foreach (Enemy e in enemies)
             {
-                e.Destination = heroes[0].Position+destOffset;
+                e.Destination = GetDestination(e);
                 e.Update(time);
             }
+        }
+
+        private void InitEscortOffsets()
+        {
+            escortOffsets[0]=new Vector2(80,0);
+            escortOffsets[1]=new Vector2(-80,0);
+            escortOffsets[2]=new Vector2(0,80);
+            escortOffsets[3]=new Vector2(0,-80);
+            escortOffsets[4]=new Vector2(80,80);
+            escortOffsets[5]=new Vector2(-80,80);
+            escortOffsets[6]=new Vector2(80,-80);
+            escortOffsets[7] = new Vector2(-80,-80);
+        }
+
+        private Vector2 GetDestination(Enemy e)
+        {
+            Vector2 dest = new Vector2();
+            if (e.IsCarrying) dest = carrierPositions[e.AiNumber];
+            else if (e.IsEscorting) dest = escortPositions[e.AiNumber];
+            else dest = heroes[1].Position;//improvement needed
+            return dest;
+        }
+
+        private void UpdateAIPositions()
+        {
+            for (int i = 0; i < carrierPositions.Length; i++)//0-3
+            {
+                carrierPositions[i] = heroes[0].Position + new Vector2(-15+i%2*45,(i/2)*60-40);
+            }
+            for (int j = 0; j < escortPositions.Length; j++)//0-8
+            {
+                escortPositions[j] = heroes[0].Position+escortOffsets[j];
+            }
+        }
+
+        private Vector2 GetAI(Enemy e)
+        {
+            Vector2 dest = new Vector2();
+            if (carriers < 4)//carry the princess
+            {
+                dest=carrierPositions[carriers];
+                e.IsCarrying = true;
+                e.IsEscorting = false;
+                e.AiNumber = carriers;//////////////////////////////////prob
+                carriers++;
+            }
+            else if (carriers == 4 && escorts < 8)//escort the princess
+            {
+                dest=escortPositions[escorts];
+                e.IsEscorting = true;
+                e.AiNumber = escorts;/////////////////////////////////prob
+                escorts++;
+            }
+            else if (escorts == 16)//attack heroes
+            {
+                dest=heroes[1].Position;
+            }
+            return dest;
         }
 
         public void Draw(SpriteBatch sb)
         {
             foreach (Enemy e in enemies)
             {
-                e.Draw(sb);
+                e.Draw(sb);               
             }
         }
 
@@ -82,6 +155,7 @@ namespace KidnapThePrincess
             }
             spawnFromCastle = !spawnFromCastle;
 
+            GetAI(e);
             enemies.Add(e);
             lastWave = time.TotalGameTime;
         }
@@ -91,8 +165,12 @@ namespace KidnapThePrincess
             for (int i = 0; i < enemies.Count; i++)
             {
                 if (enemies[i].Hitpoints < 0)
+                {
+                    carriers -= enemies[i].IsCarrying ? 1 : 0;//if the enemy was a carrier reduce current counter
+                    escorts -= enemies[i].IsEscorting ? 1 : 0;//if the enemy was a escort reduce escort counter
                     enemies.Remove(enemies[i]);
-                //SpawnCoin(gameObjects[i].Position);
+                    //SpawnCoin(gameObjects[i].Position);
+                }
             }
         }
 

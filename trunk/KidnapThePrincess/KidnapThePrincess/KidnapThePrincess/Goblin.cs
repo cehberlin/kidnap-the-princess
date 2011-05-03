@@ -29,7 +29,7 @@ namespace KidnapThePrincess
         public Goblin(Texture2D tex, Rectangle area) :
             base(tex, area)
         {
-            Speed = 0.4f;
+            Speed = 1.3f;
             canMoveFreezed = true; //necessary for carrieing to castle 
             enemiesAttached = 0;
         }
@@ -47,7 +47,6 @@ namespace KidnapThePrincess
                 }
             }*/
             base.Update(time);
-
         }
     }
 }

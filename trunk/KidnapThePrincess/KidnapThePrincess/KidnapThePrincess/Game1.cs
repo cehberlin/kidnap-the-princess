@@ -140,7 +140,6 @@ namespace KidnapThePrincess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-
             if (stateMachine.Status == GameState.State.EXIT)
             {
                 this.Exit();
