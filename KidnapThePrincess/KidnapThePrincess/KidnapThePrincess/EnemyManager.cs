@@ -83,15 +83,23 @@ namespace KidnapThePrincess
         {
             Vector2 dest = new Vector2();
             if (e.IsCarrying) dest = carrierPositions[e.AINumber];
-            else if (e.IsEscorting) dest = escortPositions[e.AINumber];
+            else if (e.IsEscorting)
+            {
+                dest = escortPositions[e.AINumber];
+                StartAttack(e);
+            }
             else
             {
                 GetClosestVillian(e);
                 dest = heroes[e.AINumber].Position;
+                //Stop attacking
             }
             return dest;
         }
 
+        /// <summary>
+        /// Updates the escort und carrying positions.
+        /// </summary>
         private void UpdateAIPositions()
         {
             for (int i = 0; i < carrierPositions.Length; i++)//0-3
@@ -113,7 +121,7 @@ namespace KidnapThePrincess
             Vector2 dest = new Vector2();
             if (carriers < 4)//carry the princess
             {
-                dest = carrierPositions[carriers];
+                e.Destination = carrierPositions[carriers];
                 e.IsCarrying = true;
                 e.IsEscorting = false;
                 e.AINumber = GetAINumber(false, true);
@@ -121,7 +129,7 @@ namespace KidnapThePrincess
             }
             else if (carriers == 4 && escorts < 8)//escort the princess
             {
-                dest = escortPositions[escorts];
+                e.Destination = escortPositions[escorts];
                 e.IsEscorting = true;
                 e.AINumber = GetAINumber(true, false);
                 escorts++;
@@ -140,6 +148,10 @@ namespace KidnapThePrincess
                     if (!carrierAssigned[counter])
                     {
                         carrierAssigned[counter] = true;
+                        if (counter < 0) { 
+                            int asaaa=0;
+                            asaaa++;
+                        }
                         return counter;
                     }
                     counter++;
@@ -152,12 +164,17 @@ namespace KidnapThePrincess
                     if (!escortAssigned[counter])
                     {
                         escortAssigned[counter] = true;
+                        if (counter < 0) {
+                            int asaa=0;
+                            asaa++;
+                        }
+
                         return counter;
                     }
                     counter++;
                 }
             }
-            return -1;
+            return -1;///////////////////
         }
 
         public void Draw(SpriteBatch sb)
@@ -332,12 +349,16 @@ namespace KidnapThePrincess
         /// Used to switch state from escorting to attacking.
         /// </summary>
         /// <param name="e">The enemy switching states</param>
-        private void MakeAttacker(Enemy e)
+        private void StartAttack(Enemy e)
         {
-            if (e.Destination == e.Position)//Are we already on the escort position?
+            if (e.Destination.Length() - e.Position.Length() < 3)//Are we already on the escort position?
             {
-                e.IsEscorting = false;
-                escorts--;
+                if (DistanceToVillian(ClosestVillianIndex(e), e.Position) < 120)
+                {
+                    e.IsEscorting = false;
+                    escortAssigned[e.AINumber] = false;
+                    escorts--;
+                }
             }
         }
 
@@ -356,9 +377,6 @@ namespace KidnapThePrincess
         /// <returns>The index of the villian that is closest to the enemy.</returns>
         private void GetClosestVillian(Enemy e)
         {
-            //float a = Math.Abs(heroes[1].Position.X - e.Position.X) + Math.Abs(heroes[1].Position.Y - e.Position.Y);
-            //float b = Math.Abs(heroes[2].Position.X - e.Position.X) + Math.Abs(heroes[2].Position.Y - e.Position.Y);
-            //float c = Math.Abs(heroes[3].Position.X - e.Position.X) + Math.Abs(heroes[3].Position.Y - e.Position.Y);
             float a = (heroes[1].Position - e.Position).Length();
             float b = (heroes[2].Position - e.Position).Length();
             float c = (heroes[3].Position - e.Position).Length();
@@ -368,6 +386,31 @@ namespace KidnapThePrincess
                 e.AINumber = 2;
             else if (c < a && c < b)
                 e.AINumber = 3;
+        }
+
+        private int ClosestVillianIndex(Enemy e)
+        {
+            float a = (heroes[1].Position - e.Position).Length();
+            float b = (heroes[2].Position - e.Position).Length();
+            float c = (heroes[3].Position - e.Position).Length();
+            if (a < b && a < c)
+                return 1;
+            else if (b < a && b < c)
+                return 2;
+            else if (c < a && c < b)
+                return 3;
+            else return -1;
+        }
+
+        /// <summary>
+        /// Returns the distance in coordinates between a villian and a vector.
+        /// </summary>
+        /// <param name="villianIndex">Index of the villian</param>
+        /// <param name="point">Vector of the point.</param>
+        /// <returns></returns>
+        private float DistanceToVillian(int villianIndex, Vector2 point)
+        {
+            return (heroes[villianIndex].Position - point).Length();
         }
     }
 }
