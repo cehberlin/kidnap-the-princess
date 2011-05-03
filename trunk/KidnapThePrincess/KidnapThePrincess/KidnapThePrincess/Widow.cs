@@ -20,17 +20,22 @@ namespace KidnapThePrincess
         /// <summary>
         /// she let the enemy fall asleep
         /// </summary>
-        protected override void attack()
+        public override void attack(Enemy e,Attack attack)
         {
-            /*foreach (Enemy e in enemies)
-            {
-                if(GeometryHelper.Intersects(this.Bounds,e.Bounds)){
-                    e.Asleep = true;
-                }
-            }
+            e.Asleep = true;
+
+            base.attack(e,attack);
+        }
 
 
-            base.attack();*/
+        /// <summary>
+        /// she let the enemy fall asleep
+        /// </summary>
+        public override void attack(GameObject go, Attack attack)
+        {
+            go.Hitpoints -= Strength * 10; //witch could burn houses
+
+            base.attack(go, attack);
         }
     }
 }

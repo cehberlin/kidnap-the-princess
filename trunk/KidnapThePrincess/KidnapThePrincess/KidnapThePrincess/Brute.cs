@@ -14,25 +14,37 @@ namespace KidnapThePrincess
         {
             Speed = 1.5f;
             attackDelay = new TimeSpan(0,0,0,1);
-            Strength = 10;
+            Strength = 20;
         }
 
 
         /// <summary>
-        /// he throws the enemy to the top
+        /// he throws the enemy to the top but gives less damage
         /// </summary>
-        protected override void attack()
+        public override void attack(Enemy e,Attack attack)
         {
-            /*
-            foreach (Enemy e in enemies)
-            {
-                if (GeometryHelper.Intersects(this.Bounds, e.Bounds))
-                {
-                    e.Position += new Vector2(0, -140);                    
-                }
-            }
 
-            base.attack();*/
+            e.Position += new Vector2(0, -140);
+
+            e.Hitpoints -= Strength / 20;
+
+            base.attack(e,attack);
+        }
+
+
+        /// <summary>
+        /// on objects he did big damage
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="attack"></param>
+        public override void attack(GameObject go,Attack attack)
+        {
+
+            go.Position += new Vector2(0, -50);
+
+            go.Hitpoints -= this.Strength;
+
+            base.attack(go,attack);
         }
 
     }

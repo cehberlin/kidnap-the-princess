@@ -52,6 +52,7 @@ namespace KidnapThePrincess
                 if (gameObjects[i].Hitpoints < 0)
                 {
                     //SpawnCoin(gameObjects[i].Position);
+                    GameState.getInstance(null).Points += gameObjects[i].HitpoitsMax; //null parameter is a little bit dirty but works
                     gameObjects.Remove(gameObjects[i]);
                 }
             }

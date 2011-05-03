@@ -23,8 +23,6 @@ namespace KidnapThePrincess
 
         private bool isActive;
 
-        bool canAttack;
-
         private int strength;
 
         public int Strength
@@ -68,22 +66,12 @@ namespace KidnapThePrincess
         //flag that says: hero can move during freezing
         protected Boolean canMoveFreezed = false;
 
-        //specifies how long the attack is visualised
-        public TimeSpan showAttackTimeSave;
-
-        //last time this hero was updated
-        public TimeSpan lastUpdateTimeSave;
-
-
         //must be stored to endfreeze at some time
         private TimeSpan freezeDuration;
         private TimeSpan freezeLifespan=TimeSpan.FromSeconds(1);
 
         //you could specify if a hero only could attack with some delay between
         public TimeSpan attackDelay;
-
-        public TimeSpan lastAttack;
-
 
         /// <summary>
         /// Constructor for a hero
@@ -141,7 +129,9 @@ namespace KidnapThePrincess
             }
         }
 
-        protected virtual void attack() { }
+        public virtual void attack(Enemy e,Attack attack) { }
+
+        public virtual void attack(GameObject e, Attack attack) { }
 
         public virtual void moveRight()
         {

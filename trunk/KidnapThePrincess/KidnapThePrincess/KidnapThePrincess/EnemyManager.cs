@@ -91,7 +91,7 @@ namespace KidnapThePrincess
             else
             {
                 GetClosestVillian(e);
-                dest = heroes[e.AINumber].Position;
+                dest = heroes[e.AINumber%4].Position; // %4 is a quick and dirty hack but should fix problem and I dont know where wrong values comes from
                 MakeCarrier(e);
             }
             return dest;
@@ -220,6 +220,7 @@ namespace KidnapThePrincess
                         escorts--;
                         escortAssigned[enemies[i].AINumber] = false;
                     }
+                    GameState.getInstance(null).Points += enemies[i].HitpoitsMax; //null parameter is a little bit dirty but works
                     enemies.Remove(enemies[i]);
                     //SpawnCoin(gameObjects[i].Position);
                 }
