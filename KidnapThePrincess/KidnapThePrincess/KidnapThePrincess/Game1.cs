@@ -29,7 +29,9 @@ namespace KidnapThePrincess
         Viewport middleThirdViewport;
         Viewport rightThirdViewport;
         SpriteBatch spriteBatch;
-        KeyboardState oldState;
+        KeyboardState oldStateKeyboard;
+        GamePadState oldStateGamepadOne;
+        GamePadState oldStateGamepadTwo;
         Level level;
 
         Vector2 center;
@@ -55,6 +57,7 @@ namespace KidnapThePrincess
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferWidth = 1200;
             graphics.PreferredBackBufferHeight = 700;
+            this.graphics.IsFullScreen = false;
 
             center = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
 
@@ -214,6 +217,7 @@ namespace KidnapThePrincess
         {
             // Grab some info from the keyboard
             KeyboardState keyboard = Keyboard.GetState();
+            GamePadState gamepadTwo = GamePad.GetState(PlayerIndex.One);
 
             //general controls
             // Allows the game to exit
@@ -236,9 +240,20 @@ namespace KidnapThePrincess
                 }
             }
 
-            if (keyboard.IsKeyUp(Keys.F3) && oldState.IsKeyDown(Keys.F3))
+            if (keyboard.IsKeyUp(Keys.F2) && oldStateKeyboard.IsKeyDown(Keys.F2))
+            {
+                level.toggleOnePlayerTwoPlayer();
+            }
+
+
+            if (keyboard.IsKeyUp(Keys.F3) && oldStateKeyboard.IsKeyDown(Keys.F3))
             {
                 GameState.DEBUG = !GameState.DEBUG;
+            }
+
+            if (keyboard.IsKeyUp(Keys.F11) && oldStateKeyboard.IsKeyDown(Keys.F11))
+            {
+                this.graphics.ToggleFullScreen();
             }
 
             //Player One Input
@@ -262,12 +277,12 @@ namespace KidnapThePrincess
             {
                 level.HeroAttack(0);
             }
-            if (keyboard.IsKeyUp(Keys.I) && oldState.IsKeyDown(Keys.I))
+            if (keyboard.IsKeyUp(Keys.I) && oldStateKeyboard.IsKeyDown(Keys.I))
             {
                 level.SwitchHero(0);
             }
 
-            //Player Two Input
+            //Player Two Input keyboard
             if (keyboard.IsKeyDown(Keys.D))
             {
                 level.MoveHeroRight(1);
@@ -288,17 +303,73 @@ namespace KidnapThePrincess
             {
                 level.HeroAttack(1);
             }
-            if (keyboard.IsKeyUp(Keys.Space) && oldState.IsKeyDown(Keys.Space))
+            if (keyboard.IsKeyUp(Keys.Space) && oldStateKeyboard.IsKeyDown(Keys.Space))
             {
                 level.SwitchHero(1);
             }
 
+            //Player One Input gamepad
+            if (gamepadTwo.IsButtonDown(Buttons.DPadRight))
+            {
+                level.MoveHeroRight(0);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.DPadLeft))
+            {
+                level.MoveHeroLeft(0);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.DPadUp))
+            {
+                level.MoveHeroUp(0);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.DPadDown))
+            {
+                level.MoveHeroDown(0);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.A))
+            {
+                level.HeroAttack(0);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.LeftShoulder) && oldStateGamepadTwo.IsButtonDown(Buttons.LeftShoulder))
+            {
+                level.SwitchHero(0);
+            }
+
+
+            //Player Two Input gamepad
+            if (gamepadTwo.IsButtonDown(Buttons.DPadRight))
+            {
+                level.MoveHeroRight(1);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.DPadLeft))
+            {
+                level.MoveHeroLeft(1);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.DPadUp))
+            {
+                level.MoveHeroUp(1);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.DPadDown))
+            {
+                level.MoveHeroDown(1);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.A))
+            {
+                level.HeroAttack(1);
+            }
+            if (gamepadTwo.IsButtonDown(Buttons.LeftShoulder) && oldStateGamepadTwo.IsButtonDown(Buttons.LeftShoulder))
+            {
+                level.SwitchHero(1);
+            }
+
+
+            //debug
             if (keyboard.IsKeyDown(Keys.N))
             {
                 level.PosInfo();
             }
 
-            oldState = keyboard;
+            oldStateKeyboard = keyboard;
+            oldStateGamepadTwo = gamepadTwo;
         }
 
         /// <summary>

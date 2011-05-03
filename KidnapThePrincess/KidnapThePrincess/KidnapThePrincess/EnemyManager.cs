@@ -382,11 +382,14 @@ namespace KidnapThePrincess
             float c = (heroes[3].Position - e.Position).Length();
             if (a < b && a < c)
                 return 1;
-            else if (b < a && b < c)
+            else if (b <= a && b <= c)
                 return 2;
-            else if (c < a && c < b)
+            else if (c <= a && c <= b)
                 return 3;
-            else return -1;
+            else
+            {
+                return -1;
+            }
         }
 
         /// <summary>

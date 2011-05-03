@@ -144,7 +144,7 @@ namespace KidnapThePrincess
         {
             this.game = game;
             P1HeroIndex = 1;
-            P2HeroIndex = 2;
+            P2HeroIndex = -1;
             castlePosition = new Vector2(0, 0);
             heroes = new List<Hero>();
             //enemies = new List<Enemy>();
@@ -307,7 +307,7 @@ namespace KidnapThePrincess
 
             h = new Knight(darknightTex, playArea);
             h.Position = new Vector2(castlePosition.X + h.sprite.Width, castlePosition.Y + castleTex.Height);
-            h.IsActive = true;
+            h.IsActive = false;
             heroes.Add(h);
 
             h = new Widow(widowTex, playArea);
@@ -322,7 +322,7 @@ namespace KidnapThePrincess
         public void Draw(SpriteBatch sb)
         {
             //Draw ground
-            sb.Draw(playAreaTex, playArea, Color.White);
+           sb.Draw(playAreaTex, playArea, Color.White); 
             //Draw scenery
             gameObjectManager.Draw(sb);
             attackManager.Draw(sb);
@@ -343,11 +343,14 @@ namespace KidnapThePrincess
                 else
                 {
                     sb.Draw(h.sprite, h.Position, Color.White);
-                    //sb.Draw(debugTex, h.CollisionArea, Color.Red);
+
+                    if(GameState.DEBUG)
+                        sb.Draw(debugTex, h.CollisionArea, Color.Red);
                 }
             }
             sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position+markerOffset, Color.White);
-            sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position + markerOffset, Color.White);
+            if(P2HeroIndex>0)
+                sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position + markerOffset, Color.White);
             enemyManager.Draw(sb);
         }
 
@@ -369,21 +372,31 @@ namespace KidnapThePrincess
                 attackManager.Attacks.Remove(collisionManager.AttackGameObjectCollision(gameObjectManager.GameObjects, attackManager.Attacks));
 
                 #region camera update
+
                 
                 //focus the camera in the middle and adjust the zoom until it fits the heroes
                 // the camera doesn't move in the x direction, just in the middle of the princess and both heroes
 
-
                 //Adjust position
                 camPos.X = 0;
-                camPos.Y = (heroes[P1HeroIndex].Position.Y + heroes[P2HeroIndex].Position.Y) / 2;
+
+                if (P2HeroIndex > 0)
+                {
+                    camPos.Y = (heroes[P1HeroIndex].Position.Y + heroes[P2HeroIndex].Position.Y) / 2;
+                }
+                else
+                {
+                    camPos.Y = (heroes[P1HeroIndex].Position.Y);
+                }
                 princessCam.Pos = camPos;
 
                 isP1Offscreen = !princessCam.Area.Contains((int)heroes[P1HeroIndex].X, (int)heroes[P1HeroIndex].Y + 50);
-                isP2Offscreen = !princessCam.Area.Contains((int)heroes[P2HeroIndex].X, (int)heroes[P2HeroIndex].Y + 50);
+                if (P2HeroIndex > 0)
+                    isP2Offscreen = !princessCam.Area.Contains((int)heroes[P2HeroIndex].X, (int)heroes[P2HeroIndex].Y + 50);
 
                 //Adjust Zoom
                 if (isP1Offscreen || isP2Offscreen)
+
                 {
                     princessCam.Zoom = princessCam.Zoom - 0.001f;
                     princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);                    
@@ -398,7 +411,6 @@ namespace KidnapThePrincess
                     }
                 }
                                
-                
                 #endregion
 
                 for (int i = 0; i < heroes.Count; i++)
@@ -425,7 +437,7 @@ namespace KidnapThePrincess
             {
                 heroes[P1HeroIndex].moveLeft();
             }
-            else
+            else if (P2HeroIndex > 0)
                 heroes[P2HeroIndex].moveLeft();
         }
         public void MoveHeroRight(int player)
@@ -434,7 +446,7 @@ namespace KidnapThePrincess
             {
                 heroes[P1HeroIndex].moveRight();
             }
-            else
+            else if (P2HeroIndex > 0)
                 heroes[P2HeroIndex].moveRight();
         }
         public void MoveHeroUp(int player)
@@ -443,7 +455,7 @@ namespace KidnapThePrincess
             {
                 heroes[P1HeroIndex].moveUp();
             }
-            else
+            else if (P2HeroIndex > 0)
                 heroes[P2HeroIndex].moveUp();
         }
         public void MoveHeroDown(int player)
@@ -452,7 +464,7 @@ namespace KidnapThePrincess
             {
                 heroes[P1HeroIndex].moveDown();
             }
-            else
+            else if (P2HeroIndex > 0)
                 heroes[P2HeroIndex].moveDown();
         }
         public void HeroAttack(int player)
@@ -463,7 +475,7 @@ namespace KidnapThePrincess
                     attackManager.AddAttack(heroes[P1HeroIndex]);
                 
             }
-            else
+            else if (P2HeroIndex > 0)
             {
                 if (!heroes[P2HeroIndex].Freezed)
                     attackManager.AddAttack(heroes[P2HeroIndex]);
@@ -487,7 +499,7 @@ namespace KidnapThePrincess
                 }
                 heroes[P1HeroIndex].IsActive = true;
             }
-            else
+            else if (P2HeroIndex > 0)
             {
                 heroes[P2HeroIndex].Direction = Vector2.Zero;
                 heroes[P2HeroIndex].IsActive = false;
@@ -511,6 +523,24 @@ namespace KidnapThePrincess
         {
             //I used this to get an idea where my hero is, in order to place some Gameobjects nicely
             v = heroes[P1HeroIndex].Position;
+        }
+
+
+        public void toggleOnePlayerTwoPlayer()
+        {
+            if (P2HeroIndex > 0)
+            {
+                heroes[P2HeroIndex].IsActive = false;
+                heroes[P2HeroIndex].Direction = Vector2.Zero;
+                P2HeroIndex = -1;
+            }
+            else
+            {
+                P2HeroIndex = P1HeroIndex+1;
+                P2HeroIndex %= 4;
+                if (P2HeroIndex == 0) P2HeroIndex++;
+                heroes[P2HeroIndex].IsActive = true;
+            }
         }
     }
 }
