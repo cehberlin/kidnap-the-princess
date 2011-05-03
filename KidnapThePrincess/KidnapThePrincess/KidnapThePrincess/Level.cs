@@ -131,12 +131,13 @@ namespace KidnapThePrincess
         CollisionManager collisionManager;
         AttackManager attackManager;
         EnemyManager enemyManager;
+        
         #endregion
 
         #region LoadLevelContent //Constructor, Init Methods...
 
         Game1 game;
-
+        
         public Level(Game1 game)
         {
             this.game = game;
@@ -167,7 +168,6 @@ namespace KidnapThePrincess
             cams.Add(cameraP2);
             addTextures(c);
             Init();
-            debugTex = c.Load<Texture2D>("white");
         }
 
         public void Init()
@@ -269,11 +269,11 @@ namespace KidnapThePrincess
             haystackTex = c.Load<Texture2D>("haystack");
             P1MarkerTex = c.Load<Texture2D>("P1Marker");
             P2MarkerTex = c.Load<Texture2D>("P2Marker");
-
             markerOffset = new Vector2(-P1MarkerTex.Width/2, -P1MarkerTex.Height/2);
 
             attackTex = c.Load<Texture2D>("attack");
             powTex = c.Load<Texture2D>("pow");
+            debugTex = c.Load<Texture2D>("white");
 
             attackManager = new AttackManager(powTex);
             enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
@@ -341,6 +341,7 @@ namespace KidnapThePrincess
                 else
                 {
                     sb.Draw(h.sprite, h.Position, Color.White);
+                    //sb.Draw(debugTex, h.CollisionArea, Color.Red);
                 }
             }
             sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position+markerOffset, Color.White);
@@ -352,6 +353,7 @@ namespace KidnapThePrincess
         {
             if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
+                
                 //Collision detection
                 collisionManager.ObstacleCollisionResolution(gameObjectManager.GameObjects, heroes);
                 gameObjectManager.Update(time);
@@ -359,7 +361,7 @@ namespace KidnapThePrincess
                 //let the enemies carry our princess to the castle
                 collisionManager.PrincessCollisionCheck(enemyManager.Enemies, heroes[0]);
                 //Enemies and heroes should not overlap
-                collisionManager.HeroEnemyCollisionResolution(enemyManager.Enemies, heroes);
+                //collisionManager.HeroEnemyCollisionResolution(enemyManager.Enemies, heroes);
                 //
                 attackManager.Attacks.Remove(collisionManager.AttackEnemyCollision(enemyManager.Enemies, attackManager.Attacks));
                 attackManager.Attacks.Remove(collisionManager.AttackGameObjectCollision(gameObjectManager.GameObjects, attackManager.Attacks));

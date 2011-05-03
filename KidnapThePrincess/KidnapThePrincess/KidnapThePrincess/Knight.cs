@@ -12,7 +12,7 @@ namespace KidnapThePrincess
         public Knight(Texture2D tex, Rectangle area) :
             base(tex, area)
         {
-            Speed = 1.7f;
+            Speed = 2f;
             attackDelay = new TimeSpan(0,0,0,0,600);
             Strength = 5;
         }

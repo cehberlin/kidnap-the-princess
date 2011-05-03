@@ -133,6 +133,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="ScreenOverlay.cs" />
+    <Compile Include="SpriteSheet.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="Templar.cs" />
     <Compile Include="Widow.cs" />

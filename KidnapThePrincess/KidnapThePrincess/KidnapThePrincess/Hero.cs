@@ -100,27 +100,6 @@ namespace KidnapThePrincess
 
         public override void Update(GameTime time)
         {
-            //reset show attack flag after a moment 
-            /*
-            if (IsAttacking)
-            {
-                if(lastUpdateTimeSave > showAttackTimeSave + TimeSpan.FromMilliseconds(70)){
-                    IsAttacking = false; //attack is over
-                }                
-                attack();
-            }
-            */
-            //check if an enemy collidates with the hero
-            //foreach (Enemy e in enemies)
-            //{
-            //    if (e.IsDangerous() && GeometryHelper.Intersects(this.Bounds, e.Bounds))
-            //    {
-            //        freezed = true;
-            //        lastFreezeTime = (int)time.TotalGameTime.TotalMilliseconds;
-            //        break;
-            //    }
-            //}
-
             if (freezed)
             {
                 if (freezeLifespan.Subtract(freezeDuration) > TimeSpan.Zero)

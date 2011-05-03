@@ -37,6 +37,7 @@ namespace KidnapThePrincess
                     enemyCarriers++;
             }
             princessCarrier.Direction = new Vector2(0, 1 - (enemyCarriers * 0.5f));
+            //princessCarrier.Direction = new Vector2(0,1);
         }
 
         public void HeroEnemyCollisionResolution(List<Enemy> enemies, List<Hero> heroes)

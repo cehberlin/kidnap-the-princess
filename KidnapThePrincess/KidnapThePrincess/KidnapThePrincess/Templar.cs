@@ -11,7 +11,7 @@ namespace KidnapThePrincess
         public Templar(Texture2D tex)
             : base(tex)
         {
-            Speed = 0.8f;
+            Speed = 1.75f;
         }
     }
 }
