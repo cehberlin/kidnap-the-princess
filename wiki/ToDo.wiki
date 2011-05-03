@@ -6,7 +6,7 @@ todo -> next thing to do (with priority)
 
 
 =current tasks=
-  * better enemy AI -> Pascal
+  * improved enemy AI -> Pascal
   * random enemy spawing -> Marian
   * spring follow camera -> Amauri
   * Skill implementation -> Christopher
@@ -15,15 +15,15 @@ todo -> next thing to do (with priority)
 =ToDo=
   * speed adjustment
   * Full Screen -> Christopher
-  * Controller -> Christopher
-  * Music -> Pascal
+  * XBOX Controller -> Christopher
+  * Music/Sound -> Pascal
   * single player support
   * point system
-  * flames on House
+  * flames on Houses
   * power ups
   * gold
   * Animation
-  * Let Enemies not overlap each other if they carry the princess 
+  * Let Enemies not overlap each other if they carry the princess ->should be fixed once the improved ai is complete(Pascal)
 
 
 =done=
