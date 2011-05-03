@@ -14,7 +14,7 @@ namespace KidnapThePrincess
         //AI options
         private int aiNumber;
 
-        public int AiNumber
+        public int AINumber
         {
             get { return aiNumber; }
             set { aiNumber = value; }
