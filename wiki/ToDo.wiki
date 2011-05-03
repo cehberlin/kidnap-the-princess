@@ -24,6 +24,7 @@ todo -> next thing to do (with priority)
   * power ups
   * gold
   * Animation
+  * Let Enemies not overlap each other if they carry the princess 
 
 
 =done=
