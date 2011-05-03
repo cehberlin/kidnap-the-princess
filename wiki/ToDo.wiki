@@ -22,8 +22,9 @@ todo -> next thing to do (with priority)
   * power ups
   * gold
   * Animation
-  * Let Enemies not overlap each other if they carry the princess ->should be fixed once the improved ai is complete(Pascal)
+
 
 
 =done=
   * random enemy spawing -> Marian
+  * Let Enemies not overlap each other if they carry the princess ->Pascal
