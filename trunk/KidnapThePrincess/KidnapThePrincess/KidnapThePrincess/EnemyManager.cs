@@ -10,12 +10,13 @@ namespace KidnapThePrincess
     class EnemyManager
     {
         //Counters for enemy AI
-        Texture2D debugTex;
         int carriers;
         Vector2[] carrierPositions;
         int escorts;
         Vector2[] escortPositions;
         Vector2[] escortOffsets;
+        bool[] carrierAssigned;
+        bool[] escortAssigned;
         
         List<Hero> heroes;
         Texture2D sprite;
@@ -45,8 +46,10 @@ namespace KidnapThePrincess
             carriers = 0;
             escorts = 0;
             carrierPositions=new Vector2[4];
+            carrierAssigned = new bool[4];
             escortPositions= new Vector2[8];
             escortOffsets=new Vector2[8];
+            escortAssigned=new bool[8];
             InitEscortOffsets();
             this.level = level;
         }
@@ -79,9 +82,9 @@ namespace KidnapThePrincess
         private Vector2 GetDestination(Enemy e)
         {
             Vector2 dest = new Vector2();
-            if (e.IsCarrying) dest = carrierPositions[e.AiNumber];
-            else if (e.IsEscorting) dest = escortPositions[e.AiNumber];
-            else dest = heroes[1].Position;//improvement needed
+            if (e.IsCarrying) dest = carrierPositions[e.AINumber];
+            else if (e.IsEscorting) dest = escortPositions[e.AINumber];
+            else dest = heroes[1].Position;//improvement needed right now they constantly only attack Player ONE
             return dest;
         }
 
@@ -91,7 +94,7 @@ namespace KidnapThePrincess
             {
                 carrierPositions[i] = heroes[0].Position + new Vector2(-15+i%2*45,(i/2)*60-40);
             }
-            for (int j = 0; j < escortPositions.Length; j++)//0-8
+            for (int j = 0; j < escortPositions.Length; j++)//0-7
             {
                 escortPositions[j] = heroes[0].Position+escortOffsets[j];
             }
@@ -105,21 +108,51 @@ namespace KidnapThePrincess
                 dest=carrierPositions[carriers];
                 e.IsCarrying = true;
                 e.IsEscorting = false;
-                e.AiNumber = carriers;//////////////////////////////////prob
+                e.AINumber = GetAINumber(false,true);//////////////////////////////////prob
                 carriers++;
             }
             else if (carriers == 4 && escorts < 8)//escort the princess
             {
                 dest=escortPositions[escorts];
                 e.IsEscorting = true;
-                e.AiNumber = escorts;/////////////////////////////////prob
+                e.AINumber = GetAINumber(true,false);/////////////////////////////////prob
                 escorts++;
             }
-            else if (escorts == 16)//attack heroes
+            else//attack heroes
             {
                 dest=heroes[1].Position;
             }
             return dest;
+        }
+
+        private int GetAINumber(bool escort, bool carrier)
+        {
+            int counter=0;
+            if (carrier)
+            {
+                while (counter < 4)
+                {
+                    if (!carrierAssigned[counter])
+                    {
+                        carrierAssigned[counter] = true;
+                        return counter;
+                    }
+                    counter++;
+                }
+            }
+            else if (escort)
+            {
+                while (counter < 8)
+                {
+                    if (!escortAssigned[counter])
+                    {
+                        escortAssigned[counter] = true;
+                        return counter;
+                    }
+                    counter++;
+                }
+            }
+            return -1;
         }
 
         public void Draw(SpriteBatch sb)
@@ -166,8 +199,18 @@ namespace KidnapThePrincess
             {
                 if (enemies[i].Hitpoints < 0)
                 {
-                    carriers -= enemies[i].IsCarrying ? 1 : 0;//if the enemy was a carrier reduce current counter
-                    escorts -= enemies[i].IsEscorting ? 1 : 0;//if the enemy was a escort reduce escort counter
+                    if (enemies[i].IsCarrying)
+                    {
+                        carriers--;
+                        carrierAssigned[i] = false;
+                    }
+                    else if (enemies[i].IsEscorting)
+                    {
+                        escorts--;
+                        escortAssigned[i] = false;
+                    }
+                    //carriers -= enemies[i].IsCarrying ? 1 : 0;//if the enemy was a carrier reduce current counter
+                    //escorts -= enemies[i].IsEscorting ? 1 : 0;//if the enemy was a escort reduce escort counter
                     enemies.Remove(enemies[i]);
                     //SpawnCoin(gameObjects[i].Position);
                 }
