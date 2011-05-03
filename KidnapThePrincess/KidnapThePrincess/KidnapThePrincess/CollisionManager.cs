@@ -73,7 +73,7 @@ namespace KidnapThePrincess
                 {
                     if (a.CollisionArea.Intersects(e.CollisionArea))
                     {
-                        e.Hitpoints -= a.Damage;
+                        a.Hero.attack(e,a);
                         return a;
                     }
                 }
@@ -94,8 +94,8 @@ namespace KidnapThePrincess
                 foreach (GameObject go in gameObjects)
                 {
                     if (a.CollisionArea.Intersects(go.CollisionArea))
-                    {
-                        go.Hitpoints -= a.Damage;
+                    {            
+                        a.Hero.attack(go,a);
                         return a;
                     }
                 }

@@ -217,7 +217,9 @@ namespace KidnapThePrincess
         {
             // Grab some info from the keyboard
             KeyboardState keyboard = Keyboard.GetState();
-            GamePadState gamepadTwo = GamePad.GetState(PlayerIndex.One);
+            
+            GamePadState gamepadOne = GamePad.GetState(PlayerIndex.One);
+            GamePadState gamepadTwo = GamePad.GetState(PlayerIndex.Two);
 
             //general controls
             // Allows the game to exit
@@ -309,27 +311,27 @@ namespace KidnapThePrincess
             }
 
             //Player One Input gamepad
-            if (gamepadTwo.IsButtonDown(Buttons.DPadRight))
+            if (gamepadOne.IsButtonDown(Buttons.DPadRight))
             {
                 level.MoveHeroRight(0);
             }
-            if (gamepadTwo.IsButtonDown(Buttons.DPadLeft))
+            if (gamepadOne.IsButtonDown(Buttons.DPadLeft))
             {
                 level.MoveHeroLeft(0);
             }
-            if (gamepadTwo.IsButtonDown(Buttons.DPadUp))
+            if (gamepadOne.IsButtonDown(Buttons.DPadUp))
             {
                 level.MoveHeroUp(0);
             }
-            if (gamepadTwo.IsButtonDown(Buttons.DPadDown))
+            if (gamepadOne.IsButtonDown(Buttons.DPadDown))
             {
                 level.MoveHeroDown(0);
             }
-            if (gamepadTwo.IsButtonDown(Buttons.A))
+            if (gamepadOne.IsButtonDown(Buttons.A))
             {
                 level.HeroAttack(0);
             }
-            if (gamepadTwo.IsButtonDown(Buttons.LeftShoulder) && oldStateGamepadTwo.IsButtonDown(Buttons.LeftShoulder))
+            if (gamepadOne.IsButtonDown(Buttons.LeftShoulder) && oldStateGamepadOne.IsButtonDown(Buttons.LeftShoulder))
             {
                 level.SwitchHero(0);
             }
@@ -369,6 +371,7 @@ namespace KidnapThePrincess
             }
 
             oldStateKeyboard = keyboard;
+            oldStateGamepadOne = gamepadOne;
             oldStateGamepadTwo = gamepadTwo;
         }
 

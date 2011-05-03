@@ -39,17 +39,34 @@ namespace KidnapThePrincess
             set { area = value; }
         }
 
-        private int hitpoints;
-
+        private int hitPoints;
         public int Hitpoints
         {
-            get { return hitpoints; }
-            set { hitpoints = value; }
+            get { return hitPoints; }
+            set
+            {
+                hitPoints = value;
+                if (hitPoints <= value && value>0)
+                {
+                    hitpoitsStore = hitPoints;
+                }
+            }
+        }
+
+        /// <summary>
+        /// store highest hitpoints
+        /// </summary>
+        private int hitpoitsStore;
+
+        public int HitpoitsMax
+        {
+            get { return hitpoitsStore; }
         }
 
         public GameObject(Texture2D tex)
         {
             sprite = tex;
+            Hitpoints = 1;
         }
         public virtual void Draw(SpriteBatch sb) 
         {

@@ -11,12 +11,15 @@ namespace KidnapThePrincess
     {
         Texture2D sprite;
 
-        private int dmg;
+        /// <summary>
+        /// the attacking hero
+        /// </summary>
+        private Hero hero;
 
-        public int Damage
+        internal Hero Hero
         {
-            get { return dmg; }
-            set { dmg = value; }
+            get { return hero; }
+            set { hero = value; }
         }
 
         private Vector2 pos;
@@ -43,12 +46,12 @@ namespace KidnapThePrincess
             set { duration = value; }
         }
 
-        public Attack(Texture2D tex,Vector2 position,int dmg)
+        public Attack(Texture2D tex,Vector2 position,Hero h)
         {
             sprite=tex;
             pos=position;
             collisionArea = new Rectangle((int)pos.X, (int)pos.Y, sprite.Width, sprite.Height);
-            this.dmg=dmg;
+            this.hero=h;
         }
 
         public void Update(GameTime time)

@@ -37,15 +37,6 @@ namespace KidnapThePrincess
 
         public override void Update(GameTime time)
         {
-            /*attacked = false;
-            foreach (Enemy e in enemies)
-            {
-                if (GeometryHelper.Intersects(Bounds, e.Bounds))
-                {
-                    attacked = true;
-                    break;
-                }
-            }*/
             base.Update(time);
         }
     }

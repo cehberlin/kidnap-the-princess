@@ -50,7 +50,23 @@ namespace KidnapThePrincess
         public int Hitpoints
         {
             get { return hitPoints; }
-            set { hitPoints = value; }
+            set { 
+                hitPoints = value;
+                if (hitPoints <= value && value > 0)
+                {
+                    hitpoitsStore = hitPoints;
+                }
+            }
+        }
+
+        /// <summary>
+        /// store highest hitpoints
+        /// </summary>
+        private int hitpoitsStore;
+
+        public int HitpoitsMax
+        {
+            get { return hitpoitsStore; }
         }
         
         public Person(Texture2D tex)

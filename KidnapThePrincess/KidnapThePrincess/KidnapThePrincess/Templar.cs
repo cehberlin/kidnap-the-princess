@@ -12,6 +12,7 @@ namespace KidnapThePrincess
             : base(tex)
         {
             Speed = 1.75f;
+            Hitpoints = 5;
         }
     }
 }

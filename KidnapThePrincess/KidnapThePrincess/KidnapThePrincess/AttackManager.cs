@@ -60,7 +60,7 @@ namespace KidnapThePrincess
         {
             if (h.CanAttack)
             {
-                attacks.Add(new Attack(sprite, h.Position + h.Direction * 30,h.Strength));
+                attacks.Add(new Attack(sprite, h.Position + h.Direction * 30,h));
                 h.CoolDown = h.attackDelay;
             }
         }

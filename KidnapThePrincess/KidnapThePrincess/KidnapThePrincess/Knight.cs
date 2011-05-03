@@ -20,19 +20,22 @@ namespace KidnapThePrincess
         /// <summary>
         /// he could kill the enemy
         /// </summary>
-        protected override void attack()
+        public override void attack(Enemy e, Attack attack)
         {
-            /*
-            foreach (Enemy e in enemies)
-            {
-                if (GeometryHelper.Intersects(this.Bounds, e.Bounds))
-                {
-                    enemies.Remove(e);
-                    break;
-                }
-            }*/
+            e.Hitpoints -= this.Strength;
 
-            base.attack();
+            base.attack(e,attack);
+        }
+
+
+        /// <summary>
+        /// he could kill the enemy
+        /// </summary>
+        public override void attack(GameObject go, Attack attack)
+        {
+            go.Hitpoints -= this.Strength;
+
+            base.attack(go, attack);
         }
     }
 }
