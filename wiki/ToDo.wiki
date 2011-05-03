@@ -12,10 +12,7 @@ todo -> next thing to do (with priority)
  
 =ToDo=
   * speed adjustment
-  * Full Screen -> Christopher
-  * XBOX Controller -> Christopher
   * Music/Sound -> Pascal
-  * single player support
   * point system
   * flames on Houses
   * power ups
@@ -23,8 +20,10 @@ todo -> next thing to do (with priority)
   * Animation
 
 
-
 =done=
+  * Full Screen -> Christopher
+  * XBOX Controller -> Christopher
+  * single player support -> Christopher
   * random enemy spawing -> Marian
   * Let Enemies not overlap each other if they carry the princess ->Pascal
   * improved enemy AI -> Pascal
