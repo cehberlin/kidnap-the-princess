@@ -17,13 +17,13 @@ namespace KidnapThePrincess
         Vector2[] escortOffsets;
         bool[] carrierAssigned;
         bool[] escortAssigned;
-        
+
         List<Hero> heroes;
         Texture2D sprite;
         Vector2 spawnPoint;
         Vector2 destOffset;
         TimeSpan lastWave;
-        TimeSpan spawnIntervall=TimeSpan.FromSeconds(1);
+        TimeSpan spawnIntervall = TimeSpan.FromSeconds(1);
         private List<Enemy> enemies;
 
         public List<Enemy> Enemies
@@ -39,17 +39,17 @@ namespace KidnapThePrincess
             enemies = new List<Enemy>();
             sprite = tex;
             spawnPoint = new Vector2();
-            spawnPoint= castlePos;
+            spawnPoint = castlePos;
             lastWave = TimeSpan.Zero;
             this.heroes = heroes;
             destOffset = new Vector2(30, 66);
             carriers = 0;
             escorts = 0;
-            carrierPositions=new Vector2[4];
+            carrierPositions = new Vector2[4];
             carrierAssigned = new bool[4];
-            escortPositions= new Vector2[8];
-            escortOffsets=new Vector2[8];
-            escortAssigned=new bool[8];
+            escortPositions = new Vector2[8];
+            escortOffsets = new Vector2[8];
+            escortAssigned = new bool[8];
             InitEscortOffsets();
             this.level = level;
         }
@@ -69,14 +69,14 @@ namespace KidnapThePrincess
 
         private void InitEscortOffsets()
         {
-            escortOffsets[0]=new Vector2(80,0);
-            escortOffsets[1]=new Vector2(-80,0);
-            escortOffsets[2]=new Vector2(0,80);
-            escortOffsets[3]=new Vector2(0,-80);
-            escortOffsets[4]=new Vector2(80,80);
-            escortOffsets[5]=new Vector2(-80,80);
-            escortOffsets[6]=new Vector2(80,-80);
-            escortOffsets[7] = new Vector2(-80,-80);
+            escortOffsets[0] = new Vector2(80, 0);
+            escortOffsets[1] = new Vector2(-80, 0);
+            escortOffsets[2] = new Vector2(0, 80);
+            escortOffsets[3] = new Vector2(0, -80);
+            escortOffsets[4] = new Vector2(80, 80);
+            escortOffsets[5] = new Vector2(-80, 80);
+            escortOffsets[6] = new Vector2(80, -80);
+            escortOffsets[7] = new Vector2(-80, -80);
         }
 
         private Vector2 GetDestination(Enemy e)
@@ -84,7 +84,11 @@ namespace KidnapThePrincess
             Vector2 dest = new Vector2();
             if (e.IsCarrying) dest = carrierPositions[e.AINumber];
             else if (e.IsEscorting) dest = escortPositions[e.AINumber];
-            else dest = heroes[1].Position;//improvement needed right now they constantly only attack Player ONE
+            else
+            {
+                GetClosestVillian(e);
+                dest = heroes[e.AINumber].Position;
+            }
             return dest;
         }
 
@@ -92,42 +96,43 @@ namespace KidnapThePrincess
         {
             for (int i = 0; i < carrierPositions.Length; i++)//0-3
             {
-                carrierPositions[i] = heroes[0].Position + new Vector2(-15+i%2*45,(i/2)*60-40);
+                carrierPositions[i] = heroes[0].Position + new Vector2(-15 + i % 2 * 45, (i / 2) * 60 - 40);
             }
             for (int j = 0; j < escortPositions.Length; j++)//0-7
             {
-                escortPositions[j] = heroes[0].Position+escortOffsets[j];
+                escortPositions[j] = heroes[0].Position + escortOffsets[j];
             }
         }
 
-        private Vector2 GetAI(Enemy e)
+        /// <summary>
+        /// Determines the role of the enemy.
+        /// </summary>
+        /// <param name="e">The enemy asking for a role or assignment.</param>
+        private void GetAI(Enemy e)
         {
             Vector2 dest = new Vector2();
             if (carriers < 4)//carry the princess
             {
-                dest=carrierPositions[carriers];
+                dest = carrierPositions[carriers];
                 e.IsCarrying = true;
                 e.IsEscorting = false;
-                e.AINumber = GetAINumber(false,true);//////////////////////////////////prob
+                e.AINumber = GetAINumber(false, true);
                 carriers++;
             }
             else if (carriers == 4 && escorts < 8)//escort the princess
             {
-                dest=escortPositions[escorts];
+                dest = escortPositions[escorts];
                 e.IsEscorting = true;
-                e.AINumber = GetAINumber(true,false);/////////////////////////////////prob
+                e.AINumber = GetAINumber(true, false);
                 escorts++;
             }
-            else//attack heroes
-            {
-                dest=heroes[1].Position;
-            }
-            return dest;
+            else
+                GetClosestVillian(e);
         }
 
         private int GetAINumber(bool escort, bool carrier)
         {
-            int counter=0;
+            int counter = 0;
             if (carrier)
             {
                 while (counter < 4)
@@ -159,7 +164,7 @@ namespace KidnapThePrincess
         {
             foreach (Enemy e in enemies)
             {
-                e.Draw(sb);               
+                e.Draw(sb);
             }
         }
 
@@ -167,7 +172,6 @@ namespace KidnapThePrincess
         {
             enemies.Clear();
         }
-
 
         private Boolean spawnFromCastle = false;
 
@@ -239,7 +243,8 @@ namespace KidnapThePrincess
             {
                 spawnDownside = true;
             }
-            else if (maxY > level.PlayArea.Bottom) {  // view at end (goal)
+            else if (maxY > level.PlayArea.Bottom)
+            {  // view at end (goal)
                 spawnDownside = false;
             }
             else
@@ -307,6 +312,62 @@ namespace KidnapThePrincess
         {
             Random random = new Random();
             return (min + random.NextDouble() * (max - min));
+        }
+
+        /// <summary>
+        /// Used to switch state of enemy from escorting to carrying.
+        /// </summary>
+        /// <param name="e">The enemy switching states</param>
+        private void MakeCarrier(Enemy e)
+        {
+            e.IsEscorting = false;
+            e.IsCarrying = true;
+            e.AINumber = GetAINumber(false, true);
+            carriers++;
+            escorts--;
+            e.Destination = GetDestination(e);
+        }
+
+        /// <summary>
+        /// Used to switch state from escorting to attacking.
+        /// </summary>
+        /// <param name="e">The enemy switching states</param>
+        private void MakeAttacker(Enemy e)
+        {
+            if (e.Destination == e.Position)//Are we already on the escort position?
+            {
+                e.IsEscorting = false;
+                escorts--;
+            }
+        }
+
+        private void StopAttacking(Enemy e)
+        {
+            if (e.Destination == e.Position)//We attacked sucessfully?
+            {
+                GetAI(e);
+            }
+        }
+
+        /// <summary>
+        /// Detects the nearest villian.
+        /// </summary>
+        /// <param name="e">The enemy that wants to know where the nearest enemy is.</param>
+        /// <returns>The index of the villian that is closest to the enemy.</returns>
+        private void GetClosestVillian(Enemy e)
+        {
+            //float a = Math.Abs(heroes[1].Position.X - e.Position.X) + Math.Abs(heroes[1].Position.Y - e.Position.Y);
+            //float b = Math.Abs(heroes[2].Position.X - e.Position.X) + Math.Abs(heroes[2].Position.Y - e.Position.Y);
+            //float c = Math.Abs(heroes[3].Position.X - e.Position.X) + Math.Abs(heroes[3].Position.Y - e.Position.Y);
+            float a = (heroes[1].Position - e.Position).Length();
+            float b = (heroes[2].Position - e.Position).Length();
+            float c = (heroes[3].Position - e.Position).Length();
+            if (a < b && a < c)
+                e.AINumber = 1;
+            else if (b < a && b < c)
+                e.AINumber = 2;
+            else if (c < a && c < b)
+                e.AINumber = 3;
         }
     }
 }
