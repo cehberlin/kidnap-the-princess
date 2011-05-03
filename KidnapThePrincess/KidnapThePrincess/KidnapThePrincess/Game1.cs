@@ -158,12 +158,12 @@ namespace KidnapThePrincess
                 if (level.IsP1Offscreen && level.IsP2Offscreen)//both are offscreen
                 {
                     //3 screens
-                    currentViewports = threeViews;
+                    //currentViewports = threeViews;
                 }
                 else if (level.IsP1Offscreen || level.IsP2Offscreen)//one player is offscreen
                 {
                     //2 screens
-                    currentViewports = twoViews;
+                    //currentViewports = twoViews;
                 }
                 else if (!level.IsP1Offscreen && !level.IsP2Offscreen)//noone is offscreen
                 {

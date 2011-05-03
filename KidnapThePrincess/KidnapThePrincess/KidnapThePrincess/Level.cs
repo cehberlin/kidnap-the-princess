@@ -15,6 +15,8 @@ namespace KidnapThePrincess
     {
         Vector2 v=Vector2.Zero;
         SpriteFont aFont;
+        //vector used temporarely tho set the camera position
+        Vector2 camPos = Vector2.Zero;
 
         #region Declarations
         private Vector2 castlePosition;
@@ -367,26 +369,36 @@ namespace KidnapThePrincess
                 attackManager.Attacks.Remove(collisionManager.AttackGameObjectCollision(gameObjectManager.GameObjects, attackManager.Attacks));
 
                 #region camera update
-                cameraP1.Pos = heroes[P1HeroIndex].Position;
-                cameraP2.Pos = heroes[P2HeroIndex].Position;
-                princessCam.Pos = heroes[0].Position;
+                
+                //focus the camera in the middle and adjust the zoom until it fits the heroes
+                // the camera doesn't move in the x direction, just in the middle of the princess and both heroes
 
-                isP1Offscreen = !princessCam.Area.Contains((int)heroes[P1HeroIndex].X, (int)heroes[P1HeroIndex].Y);
-                isP2Offscreen = !princessCam.Area.Contains((int)heroes[P2HeroIndex].X, (int)heroes[P2HeroIndex].Y);
-                //camera order change
-                if (isP1Offscreen && isP2Offscreen)
+
+                //Adjust position
+                camPos.X = 0;
+                camPos.Y = (heroes[P1HeroIndex].Position.Y + heroes[P2HeroIndex].Position.Y) / 2;
+                princessCam.Pos = camPos;
+
+                isP1Offscreen = !princessCam.Area.Contains((int)heroes[P1HeroIndex].X, (int)heroes[P1HeroIndex].Y + 50);
+                isP2Offscreen = !princessCam.Area.Contains((int)heroes[P2HeroIndex].X, (int)heroes[P2HeroIndex].Y + 50);
+
+                //Adjust Zoom
+                if (isP1Offscreen || isP2Offscreen)
                 {
-                    Cameras[1] = cameraP1;
-                    Cameras[2] = cameraP2;
+                    princessCam.Zoom = princessCam.Zoom - 0.001f;
+                    princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);                    
                 }
-                else if (isP1Offscreen)
+                else
                 {
-                    Cameras[1] = cameraP1;
+                    //adjust the zoom back if the players are in the bounds
+                    if (princessCam.Height > game.GraphicsDevice.Viewport.Height * princessCam.Zoom)
+                    {
+                        princessCam.Zoom = princessCam.Zoom + 0.001f;
+                        princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);                        
+                    }
                 }
-                else if (IsP2Offscreen)
-                {
-                    Cameras[1] = CameraP2;
-                }
+                               
+                
                 #endregion
 
                 for (int i = 0; i < heroes.Count; i++)
