@@ -10,12 +10,11 @@ namespace KidnapThePrincess
 {
     class Haystack:GameObject
     {
-        public Haystack(Texture2D tex, Vector2 pos)
-            : base(tex)
+        public Haystack(SpriteFont defaultTextFont,Texture2D tex, Vector2 pos)
+            : base(5,defaultTextFont,tex, tex, tex)
         {
             Position = pos;
             Area = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
-            Hitpoints = 5;
         }
     }
 }

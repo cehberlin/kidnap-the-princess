@@ -10,12 +10,11 @@ namespace KidnapThePrincess
 {
     class Hut : GameObject
     {
-        public Hut(Texture2D tex, Vector2 pos)
-            : base(tex)
+        public Hut(SpriteFont defaultTextFont,Texture2D textureFullHitPoints, Texture2D textureMediumHitPoints, Texture2D textureLowHitPoints, Vector2 pos)
+            : base(20, defaultTextFont,textureFullHitPoints, textureMediumHitPoints, textureLowHitPoints)
         {
             Position = pos;
-            Area = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
-            Hitpoints = 20;
+            Area = new Rectangle((int)pos.X, (int)pos.Y, textureFullHitPoints.Width, textureFullHitPoints.Height);
         }
     }
 }
