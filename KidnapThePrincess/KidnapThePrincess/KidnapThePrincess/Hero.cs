@@ -13,6 +13,14 @@ namespace KidnapThePrincess
 {
     class Hero : Person
     {
+        private int type;
+
+        public int Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+        
         private Rectangle area;
 
         public Rectangle Area

@@ -15,6 +15,7 @@ namespace KidnapThePrincess
             Speed = 2f;
             attackDelay = new TimeSpan(0,0,0,0,800);
             Strength = 3;
+            Type = 3;
         }
 
         /// <summary>

@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 
 namespace KidnapThePrincess
 {
     class AttackManager
     {
         Texture2D sprite;
+        SoundEffect[] attackSound;
         
         private TimeSpan lifeSpan = new TimeSpan(0, 0, 0, 0, 200);
 
@@ -21,10 +23,11 @@ namespace KidnapThePrincess
             set { attacks = value; }
         }
 
-        public AttackManager(Texture2D tex)
+        public AttackManager(Texture2D tex, SoundEffect[] e)
         {
             attacks = new List<Attack>();
             sprite = tex;
+            attackSound = e;
         }
 
         public void Update(GameTime time)
@@ -62,6 +65,7 @@ namespace KidnapThePrincess
             {
                 attacks.Add(new Attack(sprite, h.Position + h.Direction * 30,h));
                 h.CoolDown = h.attackDelay;
+                attackSound[h.Type-1].Play();
             }
         }
     }
