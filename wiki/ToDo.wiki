@@ -17,7 +17,6 @@ todo -> next thing to do (with priority)
   * power ups
   * gold
   * Animation
-  * Remove or center white border in fullscreen mode ->Pascal?
   * It still a bug in one player mode that sometime after switching the hero runs into upper corner...
   * maybe improve skill balance and point balance
   
@@ -33,3 +32,4 @@ todo -> next thing to do (with priority)
   * spring follow camera -> Amauri
   * Skill implementation -> Christopher
   * point system (basics is done) -> Christopher
+  * Remove or center white border in fullscreen mode ->Pascal
