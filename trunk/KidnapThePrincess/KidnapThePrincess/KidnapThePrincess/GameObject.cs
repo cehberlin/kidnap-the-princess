@@ -10,10 +10,10 @@ namespace KidnapThePrincess
 {
     class GameObject
     {
-        Texture2D spriteFullHitPoints;
-        Texture2D spriteMediumHitPoints;
-        Texture2D spriteLowHitPoints;
-        SpriteFont defaultTextFont;
+        protected Texture2D spriteFullHitPoints;
+        protected Texture2D spriteMediumHitPoints;
+        protected Texture2D spriteLowHitPoints;
+        protected SpriteFont defaultTextFont;
 
         private Vector2 pos;
 
@@ -42,14 +42,14 @@ namespace KidnapThePrincess
             set { area = value; }
         }
 
-        private int hitPoints;
+        private int hitPoints=Int32.MinValue;
         public int Hitpoints
         {
             get { return hitPoints; }
             set
             {
                 hitPoints = value;
-                if (hitPoints <= value && value>0)
+                if (hitPoints == Int32.MinValue)
                 {
                     hitpoitsStore = hitPoints;
                 }
@@ -85,14 +85,17 @@ namespace KidnapThePrincess
         {
             if (hitPoints == START_HIT_POINTS)
             {
+                Area = new Rectangle((int)Position.X, (int)Position.Y, spriteFullHitPoints.Width, spriteFullHitPoints.Height);
                 sb.Draw(spriteFullHitPoints, Area, Color.White);
             }
             else if (hitPoints > this.HALF_HIT_POINTS)
             {
-                sb.Draw(spriteMediumHitPoints, Area, Color.White);
+                Area = new Rectangle((int)Position.X, (int)Position.Y, spriteMediumHitPoints.Width, spriteMediumHitPoints.Height);
+                sb.Draw(spriteMediumHitPoints, Area, Color.White);               
             }
             else
             {
+                Area = new Rectangle((int)Position.X, (int)Position.Y, spriteLowHitPoints.Width, spriteLowHitPoints.Height);
                 sb.Draw(spriteLowHitPoints, Area, Color.White);
             }
             if (GameState.DEBUG)

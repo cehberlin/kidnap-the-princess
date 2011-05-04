@@ -160,7 +160,7 @@ namespace KidnapThePrincess
         {
             this.game = game;
             P1HeroIndex = 1;
-            P2HeroIndex = -1;
+            P2HeroIndex = -1;           
             castlePosition = new Vector2(0, 0);
             heroes = new List<Hero>();
             //enemies = new List<Enemy>();
@@ -207,8 +207,8 @@ namespace KidnapThePrincess
             AddGameObjects();
             heroes.Clear();
             addHeroes();
-
             enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
+
         }
 
         private void AddGameObjects()
@@ -582,6 +582,7 @@ namespace KidnapThePrincess
                 heroes[P2HeroIndex].IsActive = false;
                 heroes[P2HeroIndex].Direction = Vector2.Zero;
                 P2HeroIndex = -1;
+                enemyManager.setSpawnIntervallOnePlayer();
             }
             else
             {
@@ -589,6 +590,7 @@ namespace KidnapThePrincess
                 P2HeroIndex %= 4;
                 if (P2HeroIndex == 0) P2HeroIndex++;
                 heroes[P2HeroIndex].IsActive = true;
+                enemyManager.setSpawnIntervallTwoPlayer();
             }
         }
     }

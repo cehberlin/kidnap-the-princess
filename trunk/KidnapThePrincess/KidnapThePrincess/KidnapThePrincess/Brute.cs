@@ -27,7 +27,7 @@ namespace KidnapThePrincess
 
             e.Position += new Vector2(0, -140);
 
-            e.Hitpoints -= Strength / 20;
+            e.Hitpoints -= Strength / 10;
 
             base.attack(e,attack);
         }
@@ -40,9 +40,7 @@ namespace KidnapThePrincess
         /// <param name="attack"></param>
         public override void attack(GameObject go,Attack attack)
         {
-
-            go.Position += new Vector2(0, -50);
-
+                    
             go.Hitpoints -= this.Strength;
 
             base.attack(go,attack);
