@@ -10,9 +10,7 @@ namespace KidnapThePrincess
     class EnemyManager
     {
         List<Enemy> carriers;
-
         //Counters for enemy AI
-        //public int carriers;
         Vector2[] carrierPositions;
         int escorts;
         Vector2[] escortPositions;
@@ -167,7 +165,7 @@ namespace KidnapThePrincess
                     counter++;
                 }
             }
-            return -1;///////////////////
+            return -1;
         }
 
         public void Draw(SpriteBatch sb)
@@ -333,12 +331,15 @@ namespace KidnapThePrincess
         {
             if (carriers.Count < 4)
             {
-                e.IsEscorting = false;
-                e.IsCarrying = true;
                 e.AINumber = GetAINumber(false, true);
                 carrierAssigned[e.AINumber] = true;
                 escortAssigned[e.AINumber] = false;
-                escorts--;
+                if (e.IsEscorting)//check if an escort or an attack is becoming the new carrier
+                {
+                    escorts--;
+                    e.IsEscorting = false;
+                }
+                e.IsCarrying = true;
                 e.Destination = GetDestination(e);
                 carriers.Add(e);
             }
@@ -356,6 +357,8 @@ namespace KidnapThePrincess
                 {
                     e.IsEscorting = false;
                     escortAssigned[e.AINumber] = false;
+                    e.AINumber = 0;
+                    GetClosestVillian(e);
                     escorts--;
                 }
             }

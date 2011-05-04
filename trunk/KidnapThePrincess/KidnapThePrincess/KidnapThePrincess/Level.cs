@@ -438,11 +438,17 @@ namespace KidnapThePrincess
 
                 //Update enemies
                 enemyManager.Update(time);
-                
+
                 if (enemyManager.princessReached() && MediaPlayer.Queue.ActiveSong.Equals(normalSong))
+                {
+                    MediaPlayer.Stop();
                     MediaPlayer.Play(hurrySong);
+                }
                 else if (!enemyManager.princessReached() && MediaPlayer.Queue.ActiveSong.Equals(hurrySong))
+                {
+                    MediaPlayer.Stop();
                     MediaPlayer.Play(normalSong);
+                }
             }
         }
 
