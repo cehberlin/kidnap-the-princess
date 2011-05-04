@@ -35,7 +35,9 @@ namespace KidnapThePrincess
         const string startString = "Start \nPress Enter to continue";
         const string gameoverString = "GAMEOVER \nPress ENTER to continue";
         const string winString = "CONGRATULATION \nPress ENTER to continue";
-
+        
+        const string debugString = "Debug {0}";
+        Vector2 debugPos;
 
         Vector2 xnaStringPos;
         Vector2 xnaStringOrigin;
@@ -82,6 +84,7 @@ namespace KidnapThePrincess
             titleSafeUpperLeft = new Vector2(TitleSafe.X + 10, TitleSafe.Y + 5);
 
             pointsPos = new Vector2(TitleSafe.X + 10, TitleSafe.Y + 75);
+            debugPos = new Vector2(TitleSafe.X + 10, TitleSafe.Y + 100);
             gameoverPos = game.Center + new Vector2(-320, 0);
             pausePos = game.Center + new Vector2(-240, 0);
             beginPos = game.Center + new Vector2(-320, 0);
@@ -156,6 +159,13 @@ namespace KidnapThePrincess
 
                 spriteBatch.DrawString(smallFont, string.Format(pointsString, game.StateMachine.Points),
                 pointsPos, fontColor, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
+
+                //draw debug string
+                if (GameState.DEBUG)
+                {
+                    spriteBatch.DrawString(smallFont, string.Format(debugString, game.debugString),
+                    debugPos, fontColor, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
+                }
 
             }
             else if (game.StateMachine.Status == GameState.State.GAMEOVER)
