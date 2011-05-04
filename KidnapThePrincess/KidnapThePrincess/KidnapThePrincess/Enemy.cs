@@ -9,6 +9,10 @@ namespace KidnapThePrincess
 {
     class Enemy : Person
     {
+
+        private TimeSpan SLEEP_TIME = new TimeSpan(0,0,3); // the time a enemy sleeps
+        private TimeSpan sleepDuration; // current sleep duration
+
         //used for a more detailed collision detection
         private Vector2 colOffset;
         //AI options
@@ -51,14 +55,25 @@ namespace KidnapThePrincess
             colOffset=new Vector2(3,0);
         }
 
+
+        
+
         public override void Update(GameTime time)
         {
+            if (Asleep)
+            {
+                sleepDuration = sleepDuration.Add(time.ElapsedGameTime);
+                if(sleepDuration.CompareTo(SLEEP_TIME) > 0) {
+                    Asleep = false;
+                    sleepDuration = new TimeSpan(0, 0, 0);
+                }
+            }
             if (!Asleep)
             {
                 Direction = Destination - Position;
                 Direction = Vector2.Normalize(Direction);
                 base.Update(time);
-                CollisionArea = new Rectangle((int)colOffset.X+CollisionArea.X,(int) colOffset.Y+CollisionArea.Y, CollisionArea.Width, CollisionArea.Height);
+                CollisionArea = new Rectangle((int)colOffset.X + CollisionArea.X, (int)colOffset.Y + CollisionArea.Y, CollisionArea.Width, CollisionArea.Height);
             }
         }
 
