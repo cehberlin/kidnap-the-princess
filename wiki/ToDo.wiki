@@ -6,8 +6,6 @@ todo -> next thing to do (with priority)
 
 
 =current tasks=
-  
-  * improve attacking -> Pascal
  
 =ToDo=
 
@@ -35,3 +33,4 @@ todo -> next thing to do (with priority)
   * unfreeze enemies after some time (the widow is way to strong otherwise)-> Marian
  * flames on Houses/brakeing house -> marian done
  * change textures of destroyed houses and crates ->marian has done
+ * improve attacking -> Pascal
