@@ -7,16 +7,18 @@ todo -> next thing to do (with priority)
 
 =current tasks=
   
-  
   * improve attacking -> Pascal
  
 =ToDo=
   * speed adjustment
+  * maybe improve skill balance and point balance
+  * unfreeze enemies after some time (the widow is way to strong otherwise)-> Christopher?
+  * play the game and check if it's fun and stable ->everyone
   * flames on Houses
   * power ups
   * gold
   * Animation
-  * maybe improve skill balance and point balance
+  
 
 =done=
   * Full Screen -> Christopher
