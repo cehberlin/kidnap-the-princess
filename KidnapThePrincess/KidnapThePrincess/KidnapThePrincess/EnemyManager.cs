@@ -9,6 +9,9 @@ namespace KidnapThePrincess
 {
     class EnemyManager
     {
+        const int SPAWNINTERVALLTWOPLAYER =2;
+        const int SPAWNINTERVALLONEPLAYER = 3;
+
         List<Enemy> carriers;
         //Counters for enemy AI
         Vector2[] carrierPositions;
@@ -23,7 +26,7 @@ namespace KidnapThePrincess
         Vector2 spawnPoint;
         Vector2 destOffset;
         TimeSpan lastWave;
-        TimeSpan spawnIntervall = TimeSpan.FromSeconds(2);
+        TimeSpan spawnIntervall = TimeSpan.FromSeconds(SPAWNINTERVALLONEPLAYER);
         private List<Enemy> enemies;
 
         public List<Enemy> Enemies
@@ -420,6 +423,17 @@ namespace KidnapThePrincess
                 }
             }
             return false;
+        }
+
+
+        public void setSpawnIntervallOnePlayer()
+        {
+            TimeSpan.FromSeconds(SPAWNINTERVALLONEPLAYER);
+        }
+
+        public void setSpawnIntervallTwoPlayer()
+        {
+            TimeSpan.FromSeconds(SPAWNINTERVALLTWOPLAYER);
         }
     }
 }
