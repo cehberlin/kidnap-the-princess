@@ -207,6 +207,8 @@ namespace KidnapThePrincess
             AddGameObjects();
             heroes.Clear();
             addHeroes();
+
+            enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
         }
 
         private void AddGameObjects()
