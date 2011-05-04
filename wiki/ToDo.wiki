@@ -13,9 +13,9 @@ todo -> next thing to do (with priority)
   * change textures of destroyed houses and crates
   * speed adjustment
   * maybe improve skill balance and point balance
-  * unfreeze enemies after some time (the widow is way to strong otherwise)-> Christopher?
+  * unfreeze enemies after some time (the widow is way to strong otherwise)-> Christopher? Is that task not done by marian?
   * play the game and check if it's fun and stable ->everyone
-  * flames on Houses
+  * flames on Houses/braking house -> christopher
   * power ups
   * gold
   * Animation
