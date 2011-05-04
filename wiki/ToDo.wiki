@@ -12,15 +12,11 @@ todo -> next thing to do (with priority)
  
 =ToDo=
   * speed adjustment
-  * Music/Sound -> Pascal
   * flames on Houses
   * power ups
   * gold
   * Animation
-  * It still a bug in one player mode that sometime after switching the hero runs into upper corner...
   * maybe improve skill balance and point balance
-  
-
 
 =done=
   * Full Screen -> Christopher
@@ -33,3 +29,5 @@ todo -> next thing to do (with priority)
   * Skill implementation -> Christopher
   * point system (basics is done) -> Christopher
   * Remove or center white border in fullscreen mode ->Pascal
+  * Music/Sound -> Pascal
+  * Bug in one player mode: Switching the heros-> inactive hero does not follow player one->Pascal
