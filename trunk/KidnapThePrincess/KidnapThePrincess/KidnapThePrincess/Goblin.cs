@@ -32,6 +32,7 @@ namespace KidnapThePrincess
             Speed = 1.3f;
             canMoveFreezed = true; //necessary for carrieing to castle 
             enemiesAttached = 0;
+            Type = 0;
         }
 
 

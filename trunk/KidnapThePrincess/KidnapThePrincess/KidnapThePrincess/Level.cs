@@ -13,7 +13,10 @@ namespace KidnapThePrincess
 {
     class Level
     {
-        Vector2 v=Vector2.Zero;
+        Song normalSong;
+        Song hurrySong;
+        SoundEffect[] attackSounds;
+        Vector2 v = Vector2.Zero;
         SpriteFont aFont;
         //vector used temporarely tho set the camera position
         Vector2 camPos = Vector2.Zero;
@@ -124,7 +127,7 @@ namespace KidnapThePrincess
         }
 
         GameObjectManager gameObjectManager;
-        public GameObjectManager GameObjectManager 
+        public GameObjectManager GameObjectManager
         {
             get { return gameObjectManager; }
             set { gameObjectManager = value; }
@@ -133,13 +136,13 @@ namespace KidnapThePrincess
         CollisionManager collisionManager;
         AttackManager attackManager;
         EnemyManager enemyManager;
-        
+
         #endregion
 
         #region LoadLevelContent //Constructor, Init Methods...
 
         Game1 game;
-        
+
         public Level(Game1 game)
         {
             this.game = game;
@@ -155,6 +158,7 @@ namespace KidnapThePrincess
             cams = new List<Camera2d>();
             gameObjectManager = new GameObjectManager();
             collisionManager = new CollisionManager();
+            attackSounds=new SoundEffect[3];
         }
 
         public void Load(ContentManager c)
@@ -170,6 +174,17 @@ namespace KidnapThePrincess
             cams.Add(cameraP2);
             addTextures(c);
             Init();
+
+            normalSong = c.Load<Song>("normal");
+            hurrySong = c.Load<Song>("hurry");
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(normalSong);
+            attackSounds[0] = c.Load<SoundEffect>("thump");
+            attackSounds[1] = c.Load<SoundEffect>("kill");
+            attackSounds[2] = c.Load<SoundEffect>("whip");
+            attackManager = new AttackManager(powTex, attackSounds);
+            enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
+            enemyManager.Init();
         }
 
         public void Init()
@@ -179,7 +194,6 @@ namespace KidnapThePrincess
             AddGameObjects();
             heroes.Clear();
             addHeroes();
-            enemyManager.Init();
         }
 
         private void AddGameObjects()
@@ -206,18 +220,18 @@ namespace KidnapThePrincess
                 c = new Crate(crateTex, new Vector2(-80 - crateTex.Width / 2, 450 * i + 200 - crateTex.Height));
                 gameObjectManager.AddObject(c);
             }
-            Haystack aHaystack=new Haystack(haystackTex,new Vector2(-273,446));
+            Haystack aHaystack = new Haystack(haystackTex, new Vector2(-273, 446));
             gameObjectManager.AddObject(aHaystack);
-            Hut aHut = new Hut(hut2Tex, new Vector2(17,962));
+            Hut aHut = new Hut(hut2Tex, new Vector2(17, 962));
             gameObjectManager.AddObject(aHut);
             aHut = new Hut(hut2Tex, new Vector2(17, 1362));
             gameObjectManager.AddObject(aHut);
-            Crate aCrate = new Crate(crateTex, new Vector2(17,1362+hut2Tex.Height-crateTex.Height));
+            Crate aCrate = new Crate(crateTex, new Vector2(17, 1362 + hut2Tex.Height - crateTex.Height));
             gameObjectManager.AddObject(aCrate);
 
             aHut = new Hut(hut1Tex, new Vector2(97, 953));
             gameObjectManager.AddObject(aHut);
-            aHut=new Hut(hut2Tex,new Vector2(63,997));
+            aHut = new Hut(hut2Tex, new Vector2(63, 997));
             gameObjectManager.AddObject(aHut);
             aHut = new Hut(hut2Tex, new Vector2(132, 997));
             gameObjectManager.AddObject(aHut);
@@ -239,7 +253,7 @@ namespace KidnapThePrincess
             gameObjectManager.AddObject(aCrate);
             aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width * 2, 1713));
             gameObjectManager.AddObject(aCrate);
-            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713- crateTex.Height));
+            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713 - crateTex.Height));
             gameObjectManager.AddObject(aCrate);
         }
 
@@ -271,14 +285,11 @@ namespace KidnapThePrincess
             haystackTex = c.Load<Texture2D>("haystack");
             P1MarkerTex = c.Load<Texture2D>("P1Marker");
             P2MarkerTex = c.Load<Texture2D>("P2Marker");
-            markerOffset = new Vector2(-P1MarkerTex.Width/2, -P1MarkerTex.Height/2);
+            markerOffset = new Vector2(-P1MarkerTex.Width / 2, -P1MarkerTex.Height / 2);
 
             attackTex = c.Load<Texture2D>("attack");
             powTex = c.Load<Texture2D>("pow");
             debugTex = c.Load<Texture2D>("white");
-
-            attackManager = new AttackManager(powTex);
-            enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
 
             carriagRec = new Rectangle(0, 2000, carriageTex.Width, carriageTex.Height);
 
@@ -322,7 +333,7 @@ namespace KidnapThePrincess
         public void Draw(SpriteBatch sb)
         {
             //Draw ground
-           sb.Draw(playAreaTex, playArea, Color.White); 
+            sb.Draw(playAreaTex, playArea, Color.White);
             //Draw scenery
             gameObjectManager.Draw(sb);
             attackManager.Draw(sb);
@@ -344,12 +355,12 @@ namespace KidnapThePrincess
                 {
                     sb.Draw(h.sprite, h.Position, Color.White);
 
-                    if(GameState.DEBUG)
+                    if (GameState.DEBUG)
                         sb.Draw(debugTex, h.CollisionArea, Color.Red);
                 }
             }
-            sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position+markerOffset, Color.White);
-            if(P2HeroIndex>0)
+            sb.Draw(P1MarkerTex, heroes[P1HeroIndex].Position + markerOffset, Color.White);
+            if (P2HeroIndex > 0)
                 sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position + markerOffset, Color.White);
             enemyManager.Draw(sb);
         }
@@ -358,7 +369,7 @@ namespace KidnapThePrincess
         {
             if (GameState.getInstance(this).Status == GameState.State.RUN)
             {
-                
+
                 //Collision detection
                 collisionManager.ObstacleCollisionResolution(gameObjectManager.GameObjects, heroes);
                 gameObjectManager.Update(time);
@@ -373,7 +384,7 @@ namespace KidnapThePrincess
 
                 #region camera update
 
-                
+
                 //focus the camera in the middle and adjust the zoom until it fits the heroes
                 // the camera doesn't move in the x direction, just in the middle of the princess and both heroes
 
@@ -396,10 +407,9 @@ namespace KidnapThePrincess
 
                 //Adjust Zoom
                 if (isP1Offscreen || isP2Offscreen)
-
                 {
                     princessCam.Zoom = princessCam.Zoom - 0.001f;
-                    princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);                    
+                    princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);
                 }
                 else
                 {
@@ -407,10 +417,10 @@ namespace KidnapThePrincess
                     if (princessCam.Height > game.GraphicsDevice.Viewport.Height * princessCam.Zoom)
                     {
                         princessCam.Zoom = princessCam.Zoom + 0.001f;
-                        princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);                        
+                        princessCam.Height = (int)(game.GraphicsDevice.Viewport.Height / princessCam.Zoom);
                     }
                 }
-                               
+
                 #endregion
 
                 for (int i = 0; i < heroes.Count; i++)
@@ -425,9 +435,14 @@ namespace KidnapThePrincess
                     //hero stops following the princess when he becomes active
                     if (h.IsActive) h.Direction = Vector2.Zero;
                 }
-                
+
                 //Update enemies
                 enemyManager.Update(time);
+                
+                if (enemyManager.princessReached() && MediaPlayer.Queue.ActiveSong.Equals(normalSong))
+                    MediaPlayer.Play(hurrySong);
+                else if (!enemyManager.princessReached() && MediaPlayer.Queue.ActiveSong.Equals(hurrySong))
+                    MediaPlayer.Play(normalSong);
             }
         }
 
@@ -445,6 +460,7 @@ namespace KidnapThePrincess
             if (player == 0)
             {
                 heroes[P1HeroIndex].moveRight();
+
             }
             else if (P2HeroIndex > 0)
                 heroes[P2HeroIndex].moveRight();
@@ -473,7 +489,7 @@ namespace KidnapThePrincess
             {
                 if (!heroes[P1HeroIndex].Freezed)
                     attackManager.AddAttack(heroes[P1HeroIndex]);
-                
+
             }
             else if (P2HeroIndex > 0)
             {
@@ -510,7 +526,7 @@ namespace KidnapThePrincess
                 {
                     P2HeroIndex++;
                     P2HeroIndex %= 4;
-                    if(P2HeroIndex==0)
+                    if (P2HeroIndex == 0)
                         P2HeroIndex++;
                 }
                 heroes[P2HeroIndex].IsActive = true;
@@ -536,7 +552,7 @@ namespace KidnapThePrincess
             }
             else
             {
-                P2HeroIndex = P1HeroIndex+1;
+                P2HeroIndex = P1HeroIndex + 1;
                 P2HeroIndex %= 4;
                 if (P2HeroIndex == 0) P2HeroIndex++;
                 heroes[P2HeroIndex].IsActive = true;

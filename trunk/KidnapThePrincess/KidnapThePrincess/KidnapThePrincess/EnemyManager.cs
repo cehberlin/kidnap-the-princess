@@ -9,8 +9,10 @@ namespace KidnapThePrincess
 {
     class EnemyManager
     {
+        List<Enemy> carriers;
+
         //Counters for enemy AI
-        int carriers;
+        //public int carriers;
         Vector2[] carrierPositions;
         int escorts;
         Vector2[] escortPositions;
@@ -43,7 +45,7 @@ namespace KidnapThePrincess
             lastWave = TimeSpan.Zero;
             this.heroes = heroes;
             destOffset = new Vector2(30, 66);
-            carriers = 0;
+            //carriers = 0;
             escorts = 0;
             carrierPositions = new Vector2[4];
             carrierAssigned = new bool[4];
@@ -51,6 +53,7 @@ namespace KidnapThePrincess
             escortOffsets = new Vector2[8];
             escortAssigned = new bool[8];
             InitEscortOffsets();
+            carriers = new List<Enemy>();
             this.level = level;
         }
 
@@ -91,7 +94,7 @@ namespace KidnapThePrincess
             else
             {
                 GetClosestVillian(e);
-                dest = heroes[e.AINumber%4].Position; // %4 is a quick and dirty hack but should fix problem and I dont know where wrong values comes from
+                dest = heroes[e.AINumber % 4].Position; // %4 is a quick and dirty hack but should fix problem and I dont know where wrong values comes from
                 MakeCarrier(e);
             }
             return dest;
@@ -118,15 +121,15 @@ namespace KidnapThePrincess
         /// <param name="e">The enemy asking for a role or assignment.</param>
         private void GetAI(Enemy e)
         {
-            if (carriers < 4)//carry the princess
+            if (carriers.Count < 4)//carry the princess
             {
-                e.Destination = carrierPositions[carriers];
+                e.Destination = carrierPositions[carriers.Count];
                 e.IsCarrying = true;
                 e.IsEscorting = false;
                 e.AINumber = GetAINumber(false, true);
-                carriers++;
+                carriers.Add(e);
             }
-            else if (carriers == 4 && escorts < 8)//escort the princess
+            else if (carriers.Count == 4 && escorts < 8)//escort the princess
             {
                 e.Destination = escortPositions[escorts];
                 e.IsEscorting = true;
@@ -212,7 +215,7 @@ namespace KidnapThePrincess
                 {
                     if (enemies[i].IsCarrying)
                     {
-                        carriers--;
+                        carriers.Remove(enemies[i]);
                         carrierAssigned[enemies[i].AINumber] = false;
                     }
                     else if (enemies[i].IsEscorting)
@@ -328,16 +331,16 @@ namespace KidnapThePrincess
         /// <param name="e">The enemy switching states</param>
         private void MakeCarrier(Enemy e)
         {
-            if (carriers < 4)
+            if (carriers.Count < 4)
             {
                 e.IsEscorting = false;
                 e.IsCarrying = true;
                 e.AINumber = GetAINumber(false, true);
-                carriers++;
                 carrierAssigned[e.AINumber] = true;
                 escortAssigned[e.AINumber] = false;
                 escorts--;
                 e.Destination = GetDestination(e);
+                carriers.Add(e);
             }
         }
 
@@ -402,6 +405,18 @@ namespace KidnapThePrincess
         private float DistanceToVillian(int villianIndex, Vector2 point)
         {
             return (heroes[villianIndex].Position - point).Length();
+        }
+
+        public bool princessReached()
+        {
+            foreach (Enemy e in carriers)
+            {
+                if (e.Destination.Length()-e.Position.Length() <3)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
