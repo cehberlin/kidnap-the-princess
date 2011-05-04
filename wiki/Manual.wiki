@@ -25,6 +25,6 @@ the villains can fight knights and destroy buildings and crates
 Gamepad control
 * DPad → move
 * A-Button → attack
-* LeftShoulder (?) → switch villain
+* LeftShoulder → switch villain
 
 * the direction of an attack depends on the direction of movement (example: moving rigth + attack →  attack to your right) 
