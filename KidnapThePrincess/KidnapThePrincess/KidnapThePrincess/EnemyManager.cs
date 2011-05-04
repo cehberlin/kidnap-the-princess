@@ -23,7 +23,7 @@ namespace KidnapThePrincess
         Vector2 spawnPoint;
         Vector2 destOffset;
         TimeSpan lastWave;
-        TimeSpan spawnIntervall = TimeSpan.FromSeconds(1);
+        TimeSpan spawnIntervall = TimeSpan.FromSeconds(2);
         private List<Enemy> enemies;
 
         public List<Enemy> Enemies
