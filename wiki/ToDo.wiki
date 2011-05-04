@@ -10,12 +10,10 @@ todo -> next thing to do (with priority)
   * improve attacking -> Pascal
  
 =ToDo=
-  * change textures of destroyed houses and crates
+
   * speed adjustment
   * maybe improve skill balance and point balance
-
   * play the game and check if it's fun and stable ->everyone
-  * flames on Houses/braking house -> christopher
   * power ups
   * gold
   * Animation
@@ -35,3 +33,5 @@ todo -> next thing to do (with priority)
   * Music/Sound -> Pascal
   * Bug in one player mode: Switching the heros-> inactive hero does not follow player one->Pascal
   * unfreeze enemies after some time (the widow is way to strong otherwise)-> Marian
+ * flames on Houses/brakeing house -> marian done
+ * change textures of destroyed houses and crates ->marian has done
