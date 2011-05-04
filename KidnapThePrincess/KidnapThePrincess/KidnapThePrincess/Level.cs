@@ -429,7 +429,7 @@ namespace KidnapThePrincess
                     Hero h = heroes[i];
                     if (!h.IsActive && i != 0)//makes the inactive heroes follow player one
                     {
-                        h.Destination = heroes[1].Position + new Vector2(40, -80);
+                        h.Destination = heroes[P1HeroIndex].Position + new Vector2(40, -80);
                     }
                     h.Update(time);
                     //hero stops following the princess when he becomes active
