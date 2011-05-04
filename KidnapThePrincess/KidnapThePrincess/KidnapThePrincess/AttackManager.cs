@@ -10,10 +10,14 @@ namespace KidnapThePrincess
 {
     class AttackManager
     {
-        Texture2D sprite;
-        SoundEffect[] attackSound;
-        
-        private TimeSpan lifeSpan = new TimeSpan(0, 0, 0, 0, 200);
+        Texture2D[] attackTexs;
+        Vector2 attackOffset;
+        Vector2 bruteAttackOffset;
+        Vector2 knightAttackOffset;
+        Vector2 widowAttackOffset;
+        SoundEffect[] attackSounds;
+
+        private TimeSpan lifeSpan = new TimeSpan(0, 0, 0, 0, 800);
 
         private List<Attack> attacks;
 
@@ -23,11 +27,12 @@ namespace KidnapThePrincess
             set { attacks = value; }
         }
 
-        public AttackManager(Texture2D tex, SoundEffect[] e)
+        public AttackManager(Texture2D[] texs, SoundEffect[] e)
         {
             attacks = new List<Attack>();
-            sprite = tex;
-            attackSound = e;
+            attackTexs = texs;
+            attackSounds = e;
+            attackOffset = new Vector2();
         }
 
         public void Update(GameTime time)
@@ -63,9 +68,35 @@ namespace KidnapThePrincess
         {
             if (h.CanAttack)
             {
-                attacks.Add(new Attack(sprite, h.Position + h.Direction * 30,h));
+                //set offset of attack
+                if (h.Direction.X < 0) 
+                {
+                    attackOffset.X = -2*h.sprite.Width / 2;
+                }
+                else if (h.Direction.X > 0) 
+                {
+                    attackOffset.X = h.sprite.Width / 2;
+                }
+                else
+                {
+                    attackOffset.X = -20;
+                }
+                if (h.Direction.Y < 0) 
+                {
+                    attackOffset.Y = -h.sprite.Height/2;
+                }
+                else if (h.Direction.Y > 0) 
+                {
+                    attackOffset.Y = h.sprite.Height-20;
+                }
+                else
+                {
+                    attackOffset.Y = h.sprite.Width / 2;
+                }
+
+                attacks.Add(new Attack(attackTexs[h.Type - 1], h.Position + attackOffset, h));
                 h.CoolDown = h.attackDelay;
-                attackSound[h.Type-1].Play();
+                attackSounds[h.Type - 1].Play();
             }
         }
     }

@@ -10,7 +10,7 @@ namespace KidnapThePrincess
     class Attack
     {
         Texture2D sprite;
-
+        
         /// <summary>
         /// the attacking hero
         /// </summary>
