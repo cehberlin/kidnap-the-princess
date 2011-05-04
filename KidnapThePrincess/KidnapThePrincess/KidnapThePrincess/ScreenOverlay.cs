@@ -163,7 +163,7 @@ namespace KidnapThePrincess
                 //draw debug string
                 if (GameState.DEBUG)
                 {
-                    spriteBatch.DrawString(smallFont, string.Format(debugString, game.debugString),
+                    spriteBatch.DrawString(smallFont, string.Format(debugString, ScreenOverlay.debugString),
                     debugPos, fontColor, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
                 }
 
