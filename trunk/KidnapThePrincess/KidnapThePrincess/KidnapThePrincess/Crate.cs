@@ -10,12 +10,11 @@ namespace KidnapThePrincess
 {
     class Crate : GameObject
     {
-        public Crate(Texture2D tex, Vector2 pos)
-            : base(tex)
+        public Crate(SpriteFont defaultTextFont,Texture2D textureFullHitPoints, Texture2D textureMediumHitPoints, Texture2D textureLowHitPoints, Vector2 pos)
+            : base(10,defaultTextFont,textureFullHitPoints, textureMediumHitPoints, textureLowHitPoints)
         {
             Position = pos;
-            Area = new Rectangle((int)pos.X, (int)pos.Y, tex.Width, tex.Height);
-            Hitpoints = 10;
+            Area = new Rectangle((int)pos.X, (int)pos.Y, textureFullHitPoints.Width, textureFullHitPoints.Height);
         }
     }
 }

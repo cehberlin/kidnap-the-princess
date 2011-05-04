@@ -10,7 +10,10 @@ namespace KidnapThePrincess
 {
     class GameObject
     {
-        Texture2D sprite;
+        Texture2D spriteFullHitPoints;
+        Texture2D spriteMediumHitPoints;
+        Texture2D spriteLowHitPoints;
+        SpriteFont defaultTextFont;
 
         private Vector2 pos;
 
@@ -53,24 +56,49 @@ namespace KidnapThePrincess
             }
         }
 
+        
+        private int hitpoitsStore;
         /// <summary>
         /// store highest hitpoints
         /// </summary>
-        private int hitpoitsStore;
-
         public int HitpoitsMax
         {
             get { return hitpoitsStore; }
         }
 
-        public GameObject(Texture2D tex)
+        public readonly int START_HIT_POINTS; 
+        private readonly int HALF_HIT_POINTS;
+
+
+
+        public GameObject(int startHitPoints, SpriteFont defaultTextFont, Texture2D textureFullHitPoints, Texture2D textureMediumHitPoints, Texture2D textureLowHitPoints)
         {
-            sprite = tex;
-            Hitpoints = 1;
+            this.spriteFullHitPoints = textureFullHitPoints;
+            this.spriteMediumHitPoints = textureMediumHitPoints;
+            this.spriteLowHitPoints = textureLowHitPoints;
+            Hitpoints = startHitPoints;
+            this.START_HIT_POINTS = startHitPoints;
+            this.HALF_HIT_POINTS = (int)((2.0 / 3.0) * HitpoitsMax);
+            this.defaultTextFont = defaultTextFont;
         }
         public virtual void Draw(SpriteBatch sb) 
         {
-            sb.Draw(sprite, Area, Color.White);
+            if (hitPoints == START_HIT_POINTS)
+            {
+                sb.Draw(spriteFullHitPoints, Area, Color.White);
+            }
+            else if (hitPoints > this.HALF_HIT_POINTS)
+            {
+                sb.Draw(spriteMediumHitPoints, Area, Color.White);
+            }
+            else
+            {
+                sb.Draw(spriteLowHitPoints, Area, Color.White);
+            }
+            if (GameState.DEBUG)
+            {
+                sb.DrawString(defaultTextFont, hitPoints + "HP", new Vector2(area.Center.X, area.Center.Y), Color.Red);
+            }
         }
 
         public virtual void Update(GameTime time) { }

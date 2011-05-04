@@ -36,10 +36,23 @@ namespace KidnapThePrincess
         Texture2D darknightTex;
         Texture2D goblinTex;
         Texture2D treeTex;
-        Texture2D hut1Tex;
-        Texture2D hut2Tex;
+
+        Texture2D hut1TexHighHP;
+        Texture2D hut1TexMedHP;
+        Texture2D hut1TexLowHP;
+
+        Texture2D hut2TexHigthHP;
+        Texture2D hut2TexMedHP;
+        Texture2D hut2TexLowHP;
+
         Texture2D haystackTex;
-        Texture2D crateTex;
+
+        Texture2D crateTexHighHP;
+        Texture2D crateTexMedHP;
+        Texture2D crateTexLowHP;
+
+        SpriteFont defaultTextFont;
+
         Texture2D playAreaTex;
         Texture2D P1MarkerTex;
         Texture2D P2MarkerTex;
@@ -201,59 +214,59 @@ namespace KidnapThePrincess
             //Long term goal: Level editor ;)
             for (int i = 0; i < 10; i++)
             {
-                Haystack h = new Haystack(haystackTex, new Vector2(200, 200 + i * 600));
+                Haystack h = new Haystack(defaultTextFont,haystackTex, new Vector2(200, 200 + i * 600));
                 gameObjectManager.AddObject(h);
-                Hut hut = new Hut(hut1Tex, new Vector2(200 - haystackTex.Width, 200 + i * 600));
+                Hut hut = new Hut(defaultTextFont, hut1TexHighHP, hut1TexMedHP, hut1TexLowHP, new Vector2(200 - haystackTex.Width, 200 + i * 600));
                 gameObjectManager.AddObject(hut);
-                Crate c = new Crate(crateTex, new Vector2(200 - crateTex.Width - haystackTex.Width, 200 + i * 600 + hut1Tex.Height - crateTex.Height));
+                Crate c = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(200 - crateTexHighHP.Width - haystackTex.Width, 200 + i * 600 + hut1TexHighHP.Height - crateTexHighHP.Height));
                 gameObjectManager.AddObject(c);
 
-                hut = new Hut(hut2Tex, new Vector2(-250, 400 + i * 400));
+                hut = new Hut(defaultTextFont, hut2TexHigthHP, hut2TexMedHP, hut2TexLowHP, new Vector2(-250, 400 + i * 400));
                 gameObjectManager.AddObject(hut);
 
-                c = new Crate(crateTex, new Vector2(-80, 450 * i + 200));
+                c = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(-80, 450 * i + 200));
                 gameObjectManager.AddObject(c);
-                c = new Crate(crateTex, new Vector2(-80 - crateTex.Width, 450 * i + 200));
+                c = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(-80 - crateTexHighHP.Width, 450 * i + 200));
                 gameObjectManager.AddObject(c);
-                c = new Crate(crateTex, new Vector2(-80 - crateTex.Width * 2, 450 * i + 200));
+                c = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(-80 - crateTexHighHP.Width * 2, 450 * i + 200));
                 gameObjectManager.AddObject(c);
-                c = new Crate(crateTex, new Vector2(-80 - crateTex.Width / 2, 450 * i + 200 - crateTex.Height));
+                c = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(-80 - crateTexHighHP.Width / 2, 450 * i + 200 - crateTexHighHP.Height));
                 gameObjectManager.AddObject(c);
             }
-            Haystack aHaystack = new Haystack(haystackTex, new Vector2(-273, 446));
+            Haystack aHaystack = new Haystack(defaultTextFont, haystackTex, new Vector2(-273, 446));
             gameObjectManager.AddObject(aHaystack);
-            Hut aHut = new Hut(hut2Tex, new Vector2(17, 962));
+            Hut aHut = new Hut(defaultTextFont, hut2TexHigthHP, hut2TexMedHP, hut2TexLowHP, new Vector2(17, 962));
             gameObjectManager.AddObject(aHut);
-            aHut = new Hut(hut2Tex, new Vector2(17, 1362));
+            aHut = new Hut(defaultTextFont, hut2TexHigthHP, hut2TexMedHP, hut2TexLowHP, new Vector2(17, 1362));
             gameObjectManager.AddObject(aHut);
-            Crate aCrate = new Crate(crateTex, new Vector2(17, 1362 + hut2Tex.Height - crateTex.Height));
+            Crate aCrate = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(17, 1362 + hut2TexHigthHP.Height - crateTexHighHP.Height));
             gameObjectManager.AddObject(aCrate);
 
-            aHut = new Hut(hut1Tex, new Vector2(97, 953));
+            aHut = new Hut(defaultTextFont, hut1TexHighHP, hut1TexMedHP, hut1TexLowHP, new Vector2(97, 953));
             gameObjectManager.AddObject(aHut);
-            aHut = new Hut(hut2Tex, new Vector2(63, 997));
+            aHut = new Hut(defaultTextFont, hut2TexHigthHP, hut2TexMedHP, hut2TexLowHP, new Vector2(63, 997));
             gameObjectManager.AddObject(aHut);
-            aHut = new Hut(hut2Tex, new Vector2(132, 997));
-            gameObjectManager.AddObject(aHut);
-
-            aHut = new Hut(hut1Tex, new Vector2(-297, 200));
+            aHut = new Hut(defaultTextFont, hut2TexHigthHP, hut2TexMedHP, hut2TexLowHP, new Vector2(132, 997));
             gameObjectManager.AddObject(aHut);
 
-            aHaystack = new Haystack(haystackTex, new Vector2(-142, 1750));
+            aHut = new Hut(defaultTextFont, hut1TexHighHP, hut1TexMedHP, hut1TexLowHP, new Vector2(-297, 200));
+            gameObjectManager.AddObject(aHut);
+
+            aHaystack = new Haystack(defaultTextFont, haystackTex, new Vector2(-142, 1750));
             gameObjectManager.AddObject(aHaystack);
-            aHut = new Hut(hut1Tex, new Vector2(-132, 1750));
+            aHut = new Hut(defaultTextFont, hut1TexHighHP, hut1TexMedHP, hut1TexLowHP, new Vector2(-132, 1750));
             gameObjectManager.AddObject(aHut);
 
-            aHut = new Hut(hut1Tex, new Vector2(166, 1240));
+            aHut = new Hut(defaultTextFont, hut1TexHighHP, hut1TexMedHP, hut1TexLowHP, new Vector2(166, 1240));
             gameObjectManager.AddObject(aHut);
             //166 1713
-            aCrate = new Crate(crateTex, new Vector2(166, 1713));
+            aCrate = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(166, 1713));
             gameObjectManager.AddObject(aCrate);
-            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width, 1713));
+            aCrate = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(166 - crateTexHighHP.Width, 1713));
             gameObjectManager.AddObject(aCrate);
-            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width * 2, 1713));
+            aCrate = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(166 - crateTexHighHP.Width * 2, 1713));
             gameObjectManager.AddObject(aCrate);
-            aCrate = new Crate(crateTex, new Vector2(166 - crateTex.Width / 2, 1713 - crateTex.Height));
+            aCrate = new Crate(defaultTextFont, crateTexHighHP, crateTexMedHP, crateTexLowHP, new Vector2(166 - crateTexHighHP.Width / 2, 1713 - crateTexHighHP.Height));
             gameObjectManager.AddObject(aCrate);
         }
 
@@ -272,6 +285,8 @@ namespace KidnapThePrincess
 
         private void addTextures(ContentManager c)
         {
+            defaultTextFont = c.Load<SpriteFont>("DefaultTextFont");
+
             //Debug texture
             playAreaTex = c.Load<Texture2D>("brown");
             //Load textures for scenery
@@ -279,9 +294,19 @@ namespace KidnapThePrincess
             carriageTex = c.Load<Texture2D>("carriage");
             treeTex = c.Load<Texture2D>("tree");
             templarTex = c.Load<Texture2D>("templar");
-            crateTex = c.Load<Texture2D>("crate");
-            hut1Tex = c.Load<Texture2D>("hut1");
-            hut2Tex = c.Load<Texture2D>("hut2");
+
+            crateTexHighHP = c.Load<Texture2D>("crate");
+            crateTexMedHP = c.Load<Texture2D>("crateMedHP");
+            crateTexLowHP = c.Load<Texture2D>("crateLowHP");
+
+            hut1TexHighHP = c.Load<Texture2D>("hut1");
+            hut1TexMedHP = c.Load<Texture2D>("hut1MedHP");
+            hut1TexLowHP = c.Load<Texture2D>("hut1LowHP");
+
+            hut2TexHigthHP = c.Load<Texture2D>("hut2");
+            hut2TexMedHP = c.Load<Texture2D>("hut2MedHP");
+            hut2TexLowHP = c.Load<Texture2D>("hut2LowHP");
+
             haystackTex = c.Load<Texture2D>("haystack");
             P1MarkerTex = c.Load<Texture2D>("P1Marker");
             P2MarkerTex = c.Load<Texture2D>("P2Marker");
