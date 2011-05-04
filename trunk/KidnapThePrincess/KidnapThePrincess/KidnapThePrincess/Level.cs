@@ -13,6 +13,7 @@ namespace KidnapThePrincess
 {
     class Level
     {
+        #region Declarations
         Song normalSong;
         Song hurrySong;
         SoundEffect[] attackSounds;
@@ -21,7 +22,6 @@ namespace KidnapThePrincess
         //vector used temporarely tho set the camera position
         Vector2 camPos = Vector2.Zero;
 
-        #region Declarations
         private Vector2 castlePosition;
         public Vector2 CastlePosition
         {
@@ -59,6 +59,7 @@ namespace KidnapThePrincess
         Texture2D templarTex;
         Texture2D attackTex;
         Texture2D powTex;
+        Texture2D[] attackTexs;
         private List<Camera2d> cams;
 
         public List<Camera2d> Cameras
@@ -160,7 +161,8 @@ namespace KidnapThePrincess
         {
             this.game = game;
             P1HeroIndex = 1;
-            P2HeroIndex = -1;           
+            P2HeroIndex = -1;
+
             castlePosition = new Vector2(0, 0);
             heroes = new List<Hero>();
             //enemies = new List<Enemy>();
@@ -172,6 +174,8 @@ namespace KidnapThePrincess
             gameObjectManager = new GameObjectManager();
             collisionManager = new CollisionManager();
             attackSounds=new SoundEffect[3];
+            attackSounds = new SoundEffect[3];
+            attackTexs=new Texture2D[3];
         }
 
         public void Load(ContentManager c)
@@ -195,7 +199,7 @@ namespace KidnapThePrincess
             attackSounds[0] = c.Load<SoundEffect>("thump");
             attackSounds[1] = c.Load<SoundEffect>("kill");
             attackSounds[2] = c.Load<SoundEffect>("whip");
-            attackManager = new AttackManager(powTex, attackSounds);
+            attackManager = new AttackManager(attackTexs, attackSounds);
             enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
             enemyManager.Init();
         }
@@ -207,8 +211,10 @@ namespace KidnapThePrincess
             AddGameObjects();
             heroes.Clear();
             addHeroes();
-            enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
 
+            enemyManager = new EnemyManager(templarTex, castlePosition, heroes, this);
+            P1HeroIndex = 1;
+            P2HeroIndex = 0;
         }
 
         private void AddGameObjects()
@@ -314,8 +320,10 @@ namespace KidnapThePrincess
             P2MarkerTex = c.Load<Texture2D>("P2Marker");
             markerOffset = new Vector2(-P1MarkerTex.Width / 2, -P1MarkerTex.Height / 2);
 
+            attackTexs[0] = c.Load<Texture2D>("push");
+            attackTexs[1] = c.Load<Texture2D>("slit");
+            attackTexs[2] = c.Load<Texture2D>("heart");
             attackTex = c.Load<Texture2D>("attack");
-            powTex = c.Load<Texture2D>("pow");
             debugTex = c.Load<Texture2D>("white");
 
             carriagRec = new Rectangle(0, 2000, carriageTex.Width, carriageTex.Height);
@@ -364,6 +372,7 @@ namespace KidnapThePrincess
             //Draw scenery
             gameObjectManager.Draw(sb);
             attackManager.Draw(sb);
+            
             foreach (Vector2 pos in treePositions)
             {
                 sb.Draw(treeTex, pos, Color.White);
@@ -390,6 +399,7 @@ namespace KidnapThePrincess
             if (P2HeroIndex > 0)
                 sb.Draw(P2MarkerTex, heroes[P2HeroIndex].Position + markerOffset, Color.White);
             enemyManager.Draw(sb);
+            attackManager.Draw(sb);
         }
 
         public void Update(GameTime time)

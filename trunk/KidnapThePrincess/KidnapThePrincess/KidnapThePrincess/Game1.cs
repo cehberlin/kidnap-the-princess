@@ -18,17 +18,6 @@ namespace KidnapThePrincess
     {
         Texture2D debugTex;
         GraphicsDeviceManager graphics;
-        /*
-        List<Viewport> currentViewports;
-        List<Viewport> oneView;
-        List<Viewport> twoViews;
-        List<Viewport> threeViews;
-        Viewport completeViewport;
-        Viewport leftHalfViewport;
-        Viewport rightHalfViewport;
-        Viewport leftThirdViewport;
-        Viewport middleThirdViewport;
-        Viewport rightThirdViewport;*/
         SpriteBatch spriteBatch;
         KeyboardState oldStateKeyboard;
         GamePadState oldStateGamepadOne;
@@ -158,24 +147,6 @@ namespace KidnapThePrincess
             }
             else if (stateMachine.Status == GameState.State.RUN)
             {
-                /*
-                //Viewport update
-                if (level.IsP1Offscreen && level.IsP2Offscreen)//both are offscreen
-                {
-                    //3 screens
-                    //currentViewports = threeViews;
-                }
-                else if (level.IsP1Offscreen || level.IsP2Offscreen)//one player is offscreen
-                {
-                    //2 screens
-                    //currentViewports = twoViews;
-                }
-                else if (!level.IsP1Offscreen && !level.IsP2Offscreen)//noone is offscreen
-                {
-                    //screen
-                    currentViewports = oneView;
-                }
-                */
                 level.Update(gameTime);
                 stateMachine.Update(gameTime);
 
@@ -194,22 +165,7 @@ namespace KidnapThePrincess
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Green);/*
-            for (int i = 0; i < currentViewports.Count; i++)
-            {
-                GraphicsDevice.Viewport = currentViewports[i];
-                spriteBatch.Begin(SpriteSortMode.Immediate,
-                BlendState.AlphaBlend,
-                null,
-                null,
-                null,
-                null,
-                level.Cameras[i].get_transformation(graphics.GraphicsDevice));
-                level.Draw(spriteBatch);
-                spriteBatch.End();
-
-                base.Draw(gameTime);
-            }*/
+            GraphicsDevice.Clear(Color.Green);
             spriteBatch.Begin(SpriteSortMode.Immediate,
             BlendState.AlphaBlend,
             null,
