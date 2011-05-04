@@ -10,6 +10,7 @@ todo -> next thing to do (with priority)
   * improve attacking -> Pascal
  
 =ToDo=
+  * change textures of destroyed houses and crates
   * speed adjustment
   * maybe improve skill balance and point balance
   * unfreeze enemies after some time (the widow is way to strong otherwise)-> Christopher?
