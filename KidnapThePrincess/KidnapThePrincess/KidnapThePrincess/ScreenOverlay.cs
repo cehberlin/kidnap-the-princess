@@ -62,13 +62,6 @@ namespace KidnapThePrincess
             set { titleSafe = value; }
         }
 
-
-        Texture2D outlineTex;
-        Rectangle top;
-        Rectangle bottom;
-        Rectangle left;
-        Rectangle right;
-        int borderWidth = 3;
         #endregion
 
         #region Construction and Initialization
@@ -105,13 +98,7 @@ namespace KidnapThePrincess
             font.Spacing = fontSpacing;
             xnaStringOrigin = font.MeasureString(xnaString);
             smallFont = content.Load<SpriteFont>("Fonts\\FontSmall");
-            outlineTex = content.Load<Texture2D>("white");
-
-            top = new Rectangle(0, 0, game.GraphicsDevice.Viewport.Width, borderWidth);
-            left = new Rectangle(0, 0, borderWidth, game.GraphicsDevice.Viewport.Height);
-            right = new Rectangle(game.GraphicsDevice.Viewport.Width - borderWidth, 0, borderWidth, game.GraphicsDevice.Viewport.Height);
-            bottom = new Rectangle(0, game.GraphicsDevice.Viewport.Height-borderWidth, game.GraphicsDevice.Viewport.Width, borderWidth);
-        }
+            }
 
 
         protected override void UnloadContent()
@@ -186,11 +173,6 @@ namespace KidnapThePrincess
                 spriteBatch.DrawString(font, winString,
                 winPos, Color.Yellow, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0.5f);
             }
-            //Draw screen outline
-            spriteBatch.Draw(outlineTex, top, Color.White);
-            spriteBatch.Draw(outlineTex, left, Color.White);
-            spriteBatch.Draw(outlineTex, right, Color.White);
-            spriteBatch.Draw(outlineTex,bottom,Color.White);
             spriteBatch.End();
         }
 
