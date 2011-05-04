@@ -13,7 +13,7 @@ todo -> next thing to do (with priority)
   * change textures of destroyed houses and crates
   * speed adjustment
   * maybe improve skill balance and point balance
-  * unfreeze enemies after some time (the widow is way to strong otherwise)-> Christopher? Is that task not done by marian?
+
   * play the game and check if it's fun and stable ->everyone
   * flames on Houses/braking house -> christopher
   * power ups
@@ -34,3 +34,4 @@ todo -> next thing to do (with priority)
   * Remove or center white border in fullscreen mode ->Pascal
   * Music/Sound -> Pascal
   * Bug in one player mode: Switching the heros-> inactive hero does not follow player one->Pascal
+  * unfreeze enemies after some time (the widow is way to strong otherwise)-> Marian
