@@ -1,0 +1,16 @@
+
+
+= in Progress =
+
+
+
+= TODO =
+* player controls
+* spell impl
+* enemy impl
+* level impl
+  * define icicle class
+  *  
+
+
+= done =
