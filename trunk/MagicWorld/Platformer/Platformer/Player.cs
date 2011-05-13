@@ -95,6 +95,11 @@ namespace Platformer
         /// Current user movement input.
         /// </summary>
         private float movement;
+        private float lastDirection;
+        public float Direction
+        {
+            get { return lastDirection; }
+        }
 
         // Jumping state
         private bool isJumping;
@@ -236,12 +241,14 @@ namespace Platformer
                 keyboardState.IsKeyDown(Keys.A))
             {
                 movement = -1.0f;
+                lastDirection = -1.0f;
             }
             else if (gamePadState.IsButtonDown(Buttons.DPadRight) ||
                      keyboardState.IsKeyDown(Keys.Right) ||
                      keyboardState.IsKeyDown(Keys.D))
             {
                 movement = 1.0f;
+                lastDirection = 1.0f;
             }
 
             // Check if the player wants to jump.
@@ -457,5 +464,6 @@ namespace Platformer
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip);
         }
+       
     }
 }

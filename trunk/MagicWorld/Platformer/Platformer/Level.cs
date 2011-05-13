@@ -41,6 +41,11 @@ namespace Platformer
 
         private List<Gem> gems = new List<Gem>();
         private List<Enemy> enemies = new List<Enemy>();
+        private List<Spell> spells = new List<Spell>();
+
+        //buttons that define a spell
+        private const Buttons WarmButton = Buttons.A;
+        private const Buttons ColdButton = Buttons.B;
 
         // Key locations in the level.        
         private Vector2 start;
@@ -406,6 +411,12 @@ namespace Platformer
 
                 UpdateEnemies(gameTime);
 
+                //Create Spells
+                CreateSpell(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
+
+                //Update Spells
+                UpdateSpells(gameTime);
+
                 // The player has reached the exit if they are standing on the ground and
                 // his bounding rectangle contains the center of the exit tile. They can only
                 // exit when they have collected all of the gems.
@@ -421,6 +432,51 @@ namespace Platformer
             if (timeRemaining < TimeSpan.Zero)
                 timeRemaining = TimeSpan.Zero;
         }
+
+        /// <summary>
+        /// create the spells
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="keyboardState"></param>
+        /// <param name="gamePadState"></param>
+        /// <param name="touchState"></param>
+        /// <param name="accelState"></param>
+        /// <param name="orientation"></param>
+        private void CreateSpell(GameTime gameTime,
+            KeyboardState keyboardState,
+            GamePadState gamePadState,
+            TouchCollection touchState,
+            AccelerometerState accelState,
+            DisplayOrientation orientation)
+        {
+            bool bCreate;
+            Vector2 pos;
+
+            //warm spell keyboard C
+            bCreate =gamePadState.IsButtonDown(WarmButton) || keyboardState.IsKeyDown(Keys.C);
+            if (bCreate)
+            {
+                pos.X = player.Position.X + 20 * player.Direction;
+                pos.Y = player.Position.Y + 5;
+                WarmSpell warmSpell = new WarmSpell("WarmSpell", pos, this);
+                warmSpell.Direction = player.Direction;
+                spells.Add(warmSpell);
+                bCreate = false;
+            }
+
+        }
+
+
+        private void UpdateSpells(GameTime gameTime)
+        {
+            for (int i = 0; i < spells.Count; ++i)
+            {
+                Spell spell = spells[i];
+
+                spell.Update(gameTime);                
+            }
+        }
+
 
         /// <summary>
         /// Animates each gem and checks to allows the player to collect them.
@@ -524,6 +580,9 @@ namespace Platformer
 
             for (int i = EntityLayer + 1; i < layers.Length; ++i)
                 spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
+
+            foreach (Spell spell in spells)
+                spell.Draw(gameTime, spriteBatch);
         }
 
         /// <summary>
