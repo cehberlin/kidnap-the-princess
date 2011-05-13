@@ -1,5 +1,4 @@
 
-
 = in Progress =
 
 
@@ -12,5 +11,7 @@
   * define icicle class
   *  
 
+Doing
+spell impl - Amauri
 
 = done =
