@@ -1,4 +1,3 @@
-
 = in Progress =
 
 
@@ -12,6 +11,6 @@
   *  
 
 Doing
-spell impl - Amauri
+* spell impl - Amauri
 
 = done =
