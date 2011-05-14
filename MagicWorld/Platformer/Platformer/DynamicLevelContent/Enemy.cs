@@ -174,7 +174,6 @@ namespace Platformer
                 sprite.PlayAnimation(runAnimation);
             }
 
-
             // Draw facing the way the enemy is moving.
             SpriteEffects flip = direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);
@@ -182,9 +181,29 @@ namespace Platformer
 
         #region ISpellInfluenceable Member
 
+        /// <summary>
+        /// some variables for spell reaction
+        /// </summary>
+        enum SpellState { NORMAL, BURNED, FROZEN };
+        SpellState spellState = SpellState.NORMAL;
+        double spellDurationOfActionMs = 0;
+
         public bool SpellInfluenceAction(Spell spell)
         {
-            throw new NotImplementedException();
+            //TODO REACT ON SPELLSTATE
+            if (spell.GetType() == typeof(WarmSpell))
+            {
+                spellState = SpellState.BURNED;
+                spellDurationOfActionMs = spell.DurationOfActionMs;
+                return true;
+            }
+            if (spell.GetType() == typeof(ColdSpell))
+            {
+                spellState = SpellState.FROZEN;
+                spellDurationOfActionMs = spell.DurationOfActionMs;
+                return true;
+            }
+            return false;
         }
 
         #endregion

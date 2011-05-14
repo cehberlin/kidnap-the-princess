@@ -65,10 +65,11 @@ namespace Platformer
 
         Level level;
 
+        /// <summary>
+        /// some variables for spell reaction
+        /// </summary>
         enum SpellState { NORMAL, BURNED, FROZEN };
-
         SpellState spellState = SpellState.NORMAL;
-        double spellInfluencedTimeMs=0;
         double spellDurationOfActionMs = 0;
 
         /// <summary>
