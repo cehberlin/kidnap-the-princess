@@ -21,6 +21,10 @@ namespace Platformer
     /// </summary>
     class Player
     {
+
+    #region "Animation & sound"
+
+
         // Animations
         private Animation idleAnimation;
         private Animation runAnimation;
@@ -34,6 +38,8 @@ namespace Platformer
         private SoundEffect killedSound;
         private SoundEffect jumpSound;
         private SoundEffect fallSound;
+
+    #endregion
 
         public Level Level
         {
@@ -64,6 +70,8 @@ namespace Platformer
         }
         Vector2 velocity;
 
+    #region "movment constants"
+
         // Constants for controling horizontal movement
         private const float MoveAcceleration = 13000.0f;
         private const float MaxMoveSpeed = 1750.0f;
@@ -75,7 +83,9 @@ namespace Platformer
         private const float JumpLaunchVelocity = -3500.0f;
         private const float GravityAcceleration = 3400.0f;
         private const float MaxFallSpeed = 550.0f;
-        private const float JumpControlPower = 0.14f; 
+        private const float JumpControlPower = 0.14f;
+
+    #endregion
 
         // Input configuration
         private const float MoveStickScale = 1.0f;
@@ -121,11 +131,27 @@ namespace Platformer
             }
         }
 
+
+
+        /// <summary>
+        /// 4 Spell Slots
+        /// </summary>
+        public Spell SpellSlotA { get; set; }
+        public Spell SpellSlotB { get; set; }
+        public Spell SpellSlotC { get; set; }
+        public Spell SpellSlotD { get; set; }
+
+
         /// <summary>
         /// Constructors a new player.
         /// </summary>
-        public Player(Level level, Vector2 position)
+        public Player(Level level, Vector2 position, Spell spellSlotA, Spell spellSlotB, Spell spellSlotC, Spell spellSlotD)
         {
+            SpellSlotA = spellSlotA;
+            SpellSlotB = spellSlotB;
+            SpellSlotC = spellSlotC;
+            SpellSlotD = spellSlotD;
+
             this.level = level;
 
             LoadContent();
