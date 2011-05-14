@@ -7,14 +7,15 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Platformer
 {
-    class WarmSpell:Spell 
+    class ColdSpell:Spell 
     {
-        private const float MoveSpeed = 64.0f;
+        private const float MoveSpeed = 40.0f;
 
-        public WarmSpell(string spriteSet,Vector2 _origin,Level level):base(spriteSet,  _origin, level)
+        public ColdSpell(string spriteSet, Vector2 _origin, Level level)
+            : base(spriteSet, _origin, level)
         {            
             Force = 1;
-            survivalTimeMs = 3000;
+            survivalTimeMs = 5000;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = 5000;

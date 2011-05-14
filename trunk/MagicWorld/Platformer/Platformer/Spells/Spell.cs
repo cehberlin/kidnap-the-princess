@@ -71,13 +71,14 @@ namespace Platformer
             set { spellTexture = value; }
         }
 
-        protected float time;
-
-        private float survivalTime;
-        public float SurvivalTime
+        /// <summary>
+        /// describes how long a spell is alive
+        /// </summary>
+        protected double survivalTimeMs;
+        public double SurvivalTimeMs
         {
-            set { survivalTime = value; }
-            get { return survivalTime; }
+            set { survivalTimeMs = value; }
+            get { return survivalTimeMs; }
         }
 
         // Animations
@@ -86,6 +87,9 @@ namespace Platformer
         protected AnimationPlayer sprite;
 
 
+        /// <summary>
+        /// describes how long the magic of a spell influences a attacked object
+        /// </summary>
         protected double durationOfActionMs = 0;
 
         public double DurationOfActionMs
@@ -104,7 +108,6 @@ namespace Platformer
             Velocity = Vector2.Zero;
             Force = 0;
             Position = _origin;
-            time = 0;
             this.level = level;
             spellState = State.CREATING;
             LoadContent(spriteSet);
@@ -144,8 +147,15 @@ namespace Platformer
         }
         public virtual void Update(GameTime gameTime)
         {
+            //remove a spell after his time is come
+            if (survivalTimeMs < 0)
+            {
+                this.spellState = State.REMOVE;
+            }
+            survivalTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
             HandleCollision();
         }
+
         public virtual void Grow()
         {
         }

@@ -36,7 +36,10 @@ namespace Platformer
         /// </summary>
         Platform = 2,
 
-        OutOfLevel =3
+        /// <summary>
+        /// Is the collision status for level bounds
+        /// </summary>
+        OutOfLevel =3,
     }
 
     /// <summary>
@@ -102,11 +105,20 @@ namespace Platformer
         public Boolean SpellInfluenceAction(Spell spell)
         {
             if (Texture != null)
-                if(spell.GetType()==typeof(WarmSpell)){
-                    spellState=SpellState.BURNED;
+            {
+                if (spell.GetType() == typeof(WarmSpell))
+                {
+                    spellState = SpellState.BURNED;
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     return true;
                 }
+                if (spell.GetType() == typeof(ColdSpell))
+                {
+                    spellState = SpellState.FROZEN;
+                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    return true;
+                }
+            }
             return false;
         }
 
@@ -127,7 +139,7 @@ namespace Platformer
                 if (spellState == SpellState.BURNED) {
                     spriteBatch.Draw(Texture, position, Color.Red);
                 }
-                else if (spellState == SpellState.BURNED)
+                else if (spellState == SpellState.FROZEN)
                 {
                     spriteBatch.Draw(Texture, position, Color.Blue);
                 }
