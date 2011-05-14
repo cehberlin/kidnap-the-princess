@@ -23,6 +23,8 @@ namespace Platformer
     /// </summary>
     public class PlatformerGame : Microsoft.Xna.Framework.Game
     {
+        private HelperClasses.Camera2d camera = new HelperClasses.Camera2d(600,800);
+
         // Resources for drawing.
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -115,6 +117,8 @@ namespace Platformer
             level.Update(gameTime, keyboardState, gamePadState, touchState, 
                          accelerometerState, Window.CurrentOrientation);
 
+            camera.Pos = level.Player.Position;
+
             base.Update(gameTime);
         }
 
@@ -198,7 +202,14 @@ namespace Platformer
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
 
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+            BlendState.AlphaBlend,
+            null,
+            null,
+            null,
+            null,
+            camera.get_transformation(graphics.GraphicsDevice));
 
             level.Draw(gameTime, spriteBatch);
 
