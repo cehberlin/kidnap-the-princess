@@ -6,14 +6,16 @@
 
 
 = in Progress =
-  * spell impl - Amauri --> Continued Christopher
+  * spell impl general stuff - Amauri --> Continued Christopher
 
 
 = TODO =
 
   * player controls
   * spell impl
+    * the other two spells (is free)
   * enemy impl
+    * AI
   * level impl
     * define icicle class
   * paint background picture
