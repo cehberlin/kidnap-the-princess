@@ -41,6 +41,10 @@ namespace Platformer
 
         private List<Gem> gems = new List<Gem>();
         private List<Enemy> enemies = new List<Enemy>();
+
+        /// <summary>
+        /// All Spells on Stack
+        /// </summary>
         private List<Spell> spells = new List<Spell>();
 
         //buttons that define a spell
@@ -275,7 +279,16 @@ namespace Platformer
                 throw new NotSupportedException("A level may only have one starting point.");
 
             start = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
-            player = new Player(this, start);
+
+
+            // TODO: create Spells
+            Spell warmSpell = null;
+            Spell noGravitySpell = null;
+            Spell creatingMatterSpell = null;
+            Spell freezeSpell = null;
+
+            player = new Player(this, start, warmSpell, noGravitySpell, creatingMatterSpell, freezeSpell);
+
 
             return new Tile(null, TileCollision.Passable);
         }
