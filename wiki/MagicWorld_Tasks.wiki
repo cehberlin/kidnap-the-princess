@@ -1,8 +1,9 @@
 = in Progress =
-
+* improving project structure - Marian
 
 
 = TODO =
+
 * player controls
 * spell impl
 * enemy impl
