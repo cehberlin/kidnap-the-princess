@@ -7,7 +7,7 @@ namespace Platformer
     /// <summary>
     /// Base class that determines a spell
     /// </summary>
-    abstract class Spell
+    abstract class Spell : IAutonomusGameObject
     {
         #region properties
         /// <summary>
@@ -15,7 +15,7 @@ namespace Platformer
         /// </summary>
         public Vector2 Origin;
 
-        public enum State { CREATING, WORKING };
+        public enum State { CREATING, WORKING, REMOVE };
         public State spellState;
         /// <summary>
         /// Actual size of the object
@@ -68,16 +68,16 @@ namespace Platformer
         private Texture2D spellTexture;
         public Texture2D SpellTexture
         {
-            set {spellTexture = value;}
+            set { spellTexture = value; }
         }
 
         protected float time;
-        
+
         private float survivalTime;
         public float SurvivalTime
         {
-            set {survivalTime=value;}
-            get {return survivalTime;}
+            set { survivalTime = value; }
+            get { return survivalTime; }
         }
 
         // Animations
@@ -85,11 +85,19 @@ namespace Platformer
         protected Animation idleAnimation;
         protected AnimationPlayer sprite;
 
+
+        protected double durationOfActionMs = 0;
+
+        public double DurationOfActionMs
+        {
+            get { return durationOfActionMs; }
+        }
+
         #endregion
-        
+
         #region methods
 
-        public Spell(string spriteSet, Vector2 _origin,  Level level)
+        public Spell(string spriteSet, Vector2 _origin, Level level)
         {
             //spellTexture = _texture;
             Origin = _origin;
@@ -101,7 +109,7 @@ namespace Platformer
             spellState = State.CREATING;
             LoadContent(spriteSet);
         }
-        
+
 
 
         /// <summary>
@@ -109,7 +117,7 @@ namespace Platformer
         /// </summary>
         public virtual void LoadContent(string spriteSet)
         {
-            
+
         }
 
         public Rectangle BoundingRectangle
@@ -123,7 +131,7 @@ namespace Platformer
             }
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch) 
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
             if (direction > 0)
@@ -136,13 +144,40 @@ namespace Platformer
         }
         public virtual void Update(GameTime gameTime)
         {
-            
+            HandleCollision();
         }
-        public void Grow()
+        public virtual void Grow()
         {
         }
-        public void Shrink()
+        public virtual void Shrink()
         {
+        }
+
+
+        public virtual void HandleCollision()
+        {
+            Rectangle bounds = BoundingRectangle;
+
+            // Calculate tile position based on the side we are walking towards.
+            float posX = Position.X + bounds.Width / 2 * (int)direction;
+            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction;
+            int y = (int)Math.Floor(Position.Y / Tile.Height);
+
+
+            // If this tile is collidable,
+            TileCollision collision = level.GetCollision(x, y);
+            if (collision == TileCollision.OutOfLevel)
+            {
+                spellState = State.REMOVE;
+            }
+            else if (collision == TileCollision.Impassable || collision == TileCollision.Platform)
+            {
+                Tile tile = level.GetTile(x, y);
+                if (tile.SpellInfluenceAction(this))
+                {
+                    spellState = State.REMOVE;
+                }
+            }
         }
         #endregion
     }

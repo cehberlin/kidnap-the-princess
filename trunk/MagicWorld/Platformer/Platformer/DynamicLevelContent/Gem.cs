@@ -17,7 +17,7 @@ namespace Platformer
     /// <summary>
     /// A valuable item the player can collect.
     /// </summary>
-    class Gem
+    class Gem:IAutonomusGameObject
     {
         private Texture2D texture;
         private Vector2 origin;
@@ -66,15 +66,15 @@ namespace Platformer
             this.level = level;
             this.basePosition = position;
 
-            LoadContent();
+            LoadContent("Sprites/Gem");
         }
 
         /// <summary>
         /// Loads the gem texture and collected sound.
         /// </summary>
-        public void LoadContent()
+        public void LoadContent(string spriteSet)
         {
-            texture = Level.Content.Load<Texture2D>("Sprites/Gem");
+            texture = Level.Content.Load<Texture2D>(spriteSet);
             origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
             collectedSound = Level.Content.Load<SoundEffect>("Sounds/GemCollected");
         }
@@ -114,5 +114,6 @@ namespace Platformer
         {
             spriteBatch.Draw(texture, Position, null, Color, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
         }
+
     }
 }

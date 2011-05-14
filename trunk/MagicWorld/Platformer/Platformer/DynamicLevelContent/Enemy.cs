@@ -25,7 +25,7 @@ namespace Platformer
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    class Enemy
+    class Enemy:IAutonomusGameObject
     {
         public Level Level
         {
