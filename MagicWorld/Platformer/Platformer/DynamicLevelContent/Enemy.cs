@@ -25,7 +25,7 @@ namespace Platformer
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    class Enemy:IAutonomusGameObject
+    class Enemy:IAutonomusGameObject,ISpellInfluenceable
     {
         public Level Level
         {
@@ -175,5 +175,14 @@ namespace Platformer
             SpriteEffects flip = direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);
         }
+
+        #region ISpellInfluenceable Member
+
+        public bool SpellInfluenceAction(Spell spell)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

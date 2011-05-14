@@ -69,6 +69,9 @@ namespace Platformer
         private const Buttons WarmButton = Buttons.A;
         private const Buttons ColdButton = Buttons.B;
 
+        private const Keys WarmKey = Keys.J;
+        private const Keys ColdKey = Keys.I;
+
         // Key locations in the level.        
         private Vector2 start;
         private Point exit = InvalidPosition;
@@ -497,20 +500,31 @@ namespace Platformer
             AccelerometerState accelState,
             DisplayOrientation orientation)
         {
-            bool bCreate;
+            bool bCreateWarmSpell;
             Vector2 pos;
+            pos.X = player.Position.X + 20 * player.Direction;
+            pos.Y = player.Position.Y - player.BoundingRectangle.Height/2;
 
-            //warm spell keyboard C
-            bCreate = (oldGamePadState.IsButtonDown(WarmButton)&&gamePadState.IsButtonUp(WarmButton)) || (oldKeyboardState.IsKeyDown(Keys.J) && keyboardState.IsKeyUp(Keys.J));
-            if (bCreate)
+            bCreateWarmSpell = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton)) || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
+            if (bCreateWarmSpell)
             {
-                pos.X = player.Position.X + 20 * player.Direction;
-                pos.Y = player.Position.Y + 5;
                 WarmSpell warmSpell = new WarmSpell("WarmSpell", pos, this);
                 warmSpell.Direction = player.Direction;
                 spells.Add(warmSpell);
-                bCreate = false;
+                bCreateWarmSpell = false;
             }
+
+            bool bCreateColdSpell;
+
+            bCreateColdSpell = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton)) || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
+            if (bCreateColdSpell)
+            {
+                ColdSpell coldSpell = new ColdSpell("ColdSpell", pos, this);
+                coldSpell.Direction = player.Direction;
+                spells.Add(coldSpell);
+                bCreateColdSpell = false;
+            }
+
             oldKeyboardState = keyboardState;
             oldGamePadState = gamePadState;
         }
