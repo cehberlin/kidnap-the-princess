@@ -28,6 +28,12 @@ namespace Platformer
     {
         // Physical structure of the level.
         private Tile[,] tiles;
+
+        internal Tile[,] Tiles
+        {
+            get { return tiles; }
+            set { tiles = value; }
+        }
         private Texture2D[] layers;
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 2;
@@ -40,7 +46,19 @@ namespace Platformer
         Player player;
 
         private List<Gem> gems = new List<Gem>();
+
+        internal List<Gem> Gems
+        {
+            get { return gems; }
+            set { gems = value; }
+        }
         private List<Enemy> enemies = new List<Enemy>();
+
+        internal List<Enemy> Enemies
+        {
+            get { return enemies; }
+            set { enemies = value; }
+        }
 
         /// <summary>
         /// All Spells on Stack
@@ -190,7 +208,7 @@ namespace Platformer
             {
                 // Blank space
                 case '.':
-                    return new Tile(null, TileCollision.Passable);
+                    return new Tile(null, TileCollision.Passable,this,x,y);
 
                 // Exit
                 case 'X':
@@ -202,7 +220,7 @@ namespace Platformer
 
                 // Floating platform
                 case '-':
-                    return LoadTile("Platform", TileCollision.Platform);
+                    return LoadTile("Platform", TileCollision.Platform,x,y);
 
                 // Various enemies
                 case 'A':
@@ -216,11 +234,11 @@ namespace Platformer
 
                 // Platform block
                 case '~':
-                    return LoadVarietyTile("BlockB", 2, TileCollision.Platform);
+                    return LoadVarietyTile("BlockB", 2, TileCollision.Platform,x,y);
 
                 // Passable block
                 case ':':
-                    return LoadVarietyTile("BlockB", 2, TileCollision.Passable);
+                    return LoadVarietyTile("BlockB", 2, TileCollision.Passable,x,y);
 
                 // Player 1 start point
                 case '1':
@@ -228,7 +246,7 @@ namespace Platformer
 
                 // Impassable block
                 case '#':
-                    return LoadVarietyTile("BlockA", 7, TileCollision.Impassable);
+                    return LoadVarietyTile("BlockA", 7, TileCollision.Impassable,x,y);
 
                 // Unknown tile type character
                 default:
@@ -247,9 +265,9 @@ namespace Platformer
         /// The tile collision type for the new tile.
         /// </param>
         /// <returns>The new tile.</returns>
-        private Tile LoadTile(string name, TileCollision collision)
+        private Tile LoadTile(string name, TileCollision collision,int x, int y)
         {
-            return new Tile(Content.Load<Texture2D>("Tiles/" + name), collision);
+            return new Tile("Tiles/" + name, collision,this,x,y);
         }
 
 
@@ -263,10 +281,10 @@ namespace Platformer
         /// <param name="variationCount">
         /// The number of variations in this group.
         /// </param>
-        private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision)
+        private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision,int x, int y)
         {
             int index = random.Next(variationCount);
-            return LoadTile(baseName + index, collision);
+            return LoadTile(baseName + index, collision,x,y);
         }
 
 
@@ -290,7 +308,7 @@ namespace Platformer
             player = new Player(this, start, warmSpell, noGravitySpell, creatingMatterSpell, freezeSpell);
 
 
-            return new Tile(null, TileCollision.Passable);
+            return new Tile(null, TileCollision.Passable,this,x,y);
         }
 
         /// <summary>
@@ -303,7 +321,7 @@ namespace Platformer
 
             exit = GetBounds(x, y).Center;
 
-            return LoadTile("Exit", TileCollision.Passable);
+            return LoadTile("Exit", TileCollision.Passable,x,y);
         }
 
         /// <summary>
@@ -314,7 +332,7 @@ namespace Platformer
             Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
             enemies.Add(new Enemy(this, position, spriteSet));
 
-            return new Tile(null, TileCollision.Passable);
+            return new Tile(null, TileCollision.Passable,this,x,y);
         }
 
         /// <summary>
@@ -325,7 +343,7 @@ namespace Platformer
             Point position = GetBounds(x, y).Center;
             gems.Add(new Gem(this, new Vector2(position.X, position.Y)));
 
-            return new Tile(null, TileCollision.Passable);
+            return new Tile(null, TileCollision.Passable,this,x,y);
         }
 
         /// <summary>
@@ -350,12 +368,23 @@ namespace Platformer
         {
             // Prevent escaping past the level ends.
             if (x < 0 || x >= Width)
-                return TileCollision.Impassable;
+                return TileCollision.OutOfLevel;
             // Allow jumping past the level top and falling through the bottom.
             if (y < 0 || y >= Height)
                 return TileCollision.Passable;
 
             return tiles[x, y].Collision;
+        }
+
+        /// <summary>
+        /// get tile from particular location
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public Tile GetTile(int x, int y)
+        {
+            return tiles[x, y];
         }
 
         /// <summary>
@@ -430,6 +459,8 @@ namespace Platformer
                 //Update Spells
                 UpdateSpells(gameTime);
 
+                UpdateTiles(gameTime);
+
                 // The player has reached the exit if they are standing on the ground and
                 // his bounding rectangle contains the center of the exit tile. They can only
                 // exit when they have collected all of the gems.
@@ -487,11 +518,24 @@ namespace Platformer
 
         private void UpdateSpells(GameTime gameTime)
         {
-            for (int i = 0; i < spells.Count; ++i)
+            List<Spell> removeableSpells = new List<Spell>();
+            //first update
+            foreach (Spell spell in spells)
             {
-                Spell spell = spells[i];
+                spell.Update(gameTime);
+                if (spell.spellState == Spell.State.REMOVE)
+                {
+                    removeableSpells.Add(spell);
+                }
+            }
 
-                spell.Update(gameTime);                
+            //remove
+            foreach (Spell spell in removeableSpells)
+            {
+                if (spell.spellState == Spell.State.REMOVE)
+                {
+                    spells.Remove(spell);
+                }
             }
         }
 
@@ -528,6 +572,20 @@ namespace Platformer
                 if (enemy.BoundingRectangle.Intersects(Player.BoundingRectangle))
                 {
                     OnPlayerKilled(enemy);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void UpdateTiles(GameTime gameTime)
+        {
+            for (int y = 0; y < Height; ++y)
+            {
+                for (int x = 0; x < Width; ++x)
+                {
+                    tiles[x, y].Update(gameTime);
                 }
             }
         }
@@ -586,7 +644,7 @@ namespace Platformer
             for (int i = 0; i <= EntityLayer; ++i)
                 spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
 
-            DrawTiles(spriteBatch);
+            DrawTiles(gameTime, spriteBatch);
 
             foreach (Gem gem in gems)
                 gem.Draw(gameTime, spriteBatch);
@@ -606,21 +664,14 @@ namespace Platformer
         /// <summary>
         /// Draws each tile in the level.
         /// </summary>
-        private void DrawTiles(SpriteBatch spriteBatch)
+        private void DrawTiles(GameTime time, SpriteBatch spriteBatch)
         {
             // For each tile position
             for (int y = 0; y < Height; ++y)
             {
                 for (int x = 0; x < Width; ++x)
                 {
-                    // If there is a visible tile in that position
-                    Texture2D texture = tiles[x, y].Texture;
-                    if (texture != null)
-                    {
-                        // Draw it in screen space.
-                        Vector2 position = new Vector2(x, y) * Tile.Size;
-                        spriteBatch.Draw(texture, position, Color.White);
-                    }
+                    tiles[x, y].Draw(time, spriteBatch);
                 }
             }
         }

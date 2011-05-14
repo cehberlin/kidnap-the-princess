@@ -74,6 +74,8 @@
     <Compile Include="HelperClasses\Animation.cs" />
     <Compile Include="DynamicLevelContent\Player\AnimationPlayer.cs" />
     <Compile Include="HelperClasses\Circle.cs" />
+    <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
+    <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="DynamicLevelContent\Enemy.cs" />
     <Compile Include="DynamicLevelContent\Gem.cs" />

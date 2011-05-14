@@ -17,6 +17,7 @@ namespace Platformer
             time = 2;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
+            durationOfActionMs = 5000;
         }
 
         public override void LoadContent(string spriteSet)
@@ -51,8 +52,7 @@ namespace Platformer
             velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
             Position = Position + velocity;
 
-                
-            
+            base.Update(gameTime);
         }
     }
 }

@@ -7,10 +7,12 @@ namespace Platformer
 {
     interface ISpellInfluenceable
     {
+
         /// <summary>
         /// The class needs to implement the action which is forced by a spell on its own
         /// </summary>
         /// <param name="spell"></param>
-        public virtual void SpellInfluenceAction(Spell spell);
+        /// <returns>true if spell has done some influence and needs to be removed</returns>
+        Boolean SpellInfluenceAction(Spell spell);
     }
 }

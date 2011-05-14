@@ -35,12 +35,14 @@ namespace Platformer
         /// past it to the left and right, but can not fall down through the top of it.
         /// </summary>
         Platform = 2,
+
+        OutOfLevel =3
     }
 
     /// <summary>
     /// Stores the appearance and collision behavior of a tile.
     /// </summary>
-    struct Tile
+    class Tile:ISpellInfluenceable,IAutonomusGameObject
     {
         public Texture2D Texture;
         public TileCollision Collision;
@@ -50,13 +52,108 @@ namespace Platformer
 
         public static readonly Vector2 Size = new Vector2(Width, Height);
 
+        Vector2 position;
+
+        public Vector2 Position
+        {
+            get { return position; }
+            set { position = value * Tile.Size; }
+        }
+
+        Level level;
+
+        enum SpellState { NORMAL, BURNED, FROZEN };
+
+        SpellState spellState = SpellState.NORMAL;
+        double spellInfluencedTimeMs=0;
+        double spellDurationOfActionMs = 0;
+
         /// <summary>
         /// Constructs a new tile.
         /// </summary>
-        public Tile(Texture2D texture, TileCollision collision)
+        public Tile(String texture, TileCollision collision,Level level,Vector2 position)
         {
-            Texture = texture;
+            this.level = level;            
             Collision = collision;
+            this.position = position * Tile.Size;
+            if (texture != null)
+            {
+                LoadContent(texture);
+            }
         }
+
+        /// <summary>
+        /// overloaded constructor
+        /// </summary>
+        /// <param name="texture"></param>
+        /// <param name="collision"></param>
+        /// <param name="level"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public Tile(String texture, TileCollision collision, Level level, int x, int y):
+            this(texture,collision,level,new Vector2(x,y))
+        {
+        }
+
+
+
+        #region ISpellInfluenceable Member
+
+        public Boolean SpellInfluenceAction(Spell spell)
+        {
+            if (Texture != null)
+                if(spell.GetType()==typeof(WarmSpell)){
+                    spellState=SpellState.BURNED;
+                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    return true;
+                }
+            return false;
+        }
+
+        #endregion
+
+        #region IAutonomusGameObject Member
+
+        public void LoadContent(string spriteSet)
+        {
+            Texture = level.Content.Load<Texture2D>(spriteSet);
+        }
+
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (Texture != null)
+            {
+                // Draw it in screen space.                
+                if (spellState == SpellState.BURNED) {
+                    spriteBatch.Draw(Texture, position, Color.Red);
+                }
+                else if (spellState == SpellState.BURNED)
+                {
+                    spriteBatch.Draw(Texture, position, Color.Blue);
+                }
+                else
+                {
+                    spriteBatch.Draw(Texture, position, Color.White);
+                }
+            }
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (spellState != SpellState.NORMAL)
+            {
+                if (spellDurationOfActionMs>0)
+                {
+                    spellDurationOfActionMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+                else
+                {
+                    spellDurationOfActionMs = 0;
+                    spellState = SpellState.NORMAL;
+                }                
+            }
+        }
+        #endregion
+
     }
 }
