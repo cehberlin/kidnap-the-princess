@@ -1,17 +1,24 @@
-= in Progress =
+=instructions=
+  * put new work and bugs into "TODO"
+    * please prioritize the new work (more important work should be at the start of the list)
+  * if you work on something put it under "in progress"
+  * after finishing the work out it in "done"
 
+
+= in Progress =
+  * spell impl - Amauri --> Continued Christopher
 
 
 = TODO =
 
-* player controls
-* spell impl
-* enemy impl
-* level impl
-  * define icicle class
+  * player controls
+  * spell impl
+  * enemy impl
+  * level impl
+    * define icicle class
+  * paint background picture
 
-Doing
-* spell impl - Amauri --> Continued Christopher
 
 = done =
-* improving project structure - Marian
+  * implemented moving camera
+  * improving project structure - Marian
