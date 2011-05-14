@@ -433,6 +433,10 @@ namespace Platformer
                 timeRemaining = TimeSpan.Zero;
         }
 
+
+            KeyboardState oldKeyboardState;
+            GamePadState oldGamePadState;
+
         /// <summary>
         /// create the spells
         /// </summary>
@@ -453,7 +457,7 @@ namespace Platformer
             Vector2 pos;
 
             //warm spell keyboard C
-            bCreate =gamePadState.IsButtonDown(WarmButton) || keyboardState.IsKeyDown(Keys.C);
+            bCreate = (oldGamePadState.IsButtonDown(WarmButton)&&gamePadState.IsButtonUp(WarmButton)) || (oldKeyboardState.IsKeyDown(Keys.J) && keyboardState.IsKeyUp(Keys.J));
             if (bCreate)
             {
                 pos.X = player.Position.X + 20 * player.Direction;
@@ -463,7 +467,8 @@ namespace Platformer
                 spells.Add(warmSpell);
                 bCreate = false;
             }
-
+            oldKeyboardState = keyboardState;
+            oldGamePadState = gamePadState;
         }
 
 
