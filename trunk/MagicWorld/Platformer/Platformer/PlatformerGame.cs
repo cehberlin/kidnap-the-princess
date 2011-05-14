@@ -58,6 +58,8 @@ namespace Platformer
         public PlatformerGame()
         {
             graphics = new GraphicsDeviceManager(this);
+            //graphics.PreferredBackBufferWidth = 1200; looks not good
+            //graphics.PreferredBackBufferHeight = 800;
             Content.RootDirectory = "Content";
 
 #if WINDOWS_PHONE
@@ -116,6 +118,7 @@ namespace Platformer
             base.Update(gameTime);
         }
 
+        private KeyboardState oldKeyboardState;
         private void HandleInput()
         {
             // get all of our input states
@@ -129,8 +132,8 @@ namespace Platformer
                 Exit();
 
             bool continuePressed =
-                keyboardState.IsKeyDown(Keys.Space) ||
-                gamePadState.IsButtonDown(Buttons.A) ||
+                keyboardState.IsKeyDown(Keys.Space) ||  keyboardState.IsKeyDown(Keys.Up) ||
+                gamePadState.IsButtonDown(Buttons.A) || 
                 touchState.AnyTouch();
 
             // Perform the appropriate action to advance the game and
@@ -150,7 +153,19 @@ namespace Platformer
                 }
             }
 
+            //Options
+            if (keyboardState.IsKeyUp(Keys.F11) && oldKeyboardState.IsKeyDown(Keys.F11))
+            {
+                this.graphics.ToggleFullScreen();
+            }
+
+            if (keyboardState.IsKeyUp(Keys.Escape) && oldKeyboardState.IsKeyDown(Keys.Escape))
+            {
+                this.Exit();
+            }
+
             wasContinuePressed = continuePressed;
+            oldKeyboardState = keyboardState;
         }
 
         private void LoadNextLevel()
