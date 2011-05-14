@@ -1,5 +1,5 @@
 = in Progress =
-* improving project structure - Marian
+
 
 
 = TODO =
@@ -9,9 +9,9 @@
 * enemy impl
 * level impl
   * define icicle class
-  *  
 
 Doing
 * spell impl - Amauri
 
 = done =
+* improving project structure - Marian
