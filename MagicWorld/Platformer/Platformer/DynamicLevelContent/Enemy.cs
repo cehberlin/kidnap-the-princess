@@ -137,9 +137,13 @@ namespace Platformer
             }
             else
             {
+
+                TileCollision collisonOne = Level.GetCollision(tileX + (int)direction, tileY);
+                TileCollision collisonTwo = Level.GetCollision(tileX + (int)direction, tileY-1);
                 // If we are about to run into a wall or off a cliff, start waiting.
-                if (Level.GetCollision(tileX + (int)direction, tileY - 1) == TileCollision.Impassable ||
-                    Level.GetCollision(tileX + (int)direction, tileY) == TileCollision.Passable)
+                if (collisonTwo == TileCollision.Impassable ||
+                    collisonOne == TileCollision.Passable ||
+                    collisonOne == TileCollision.OutOfLevel)
                 {
                     waitTime = MaxWaitTime;
                 }
