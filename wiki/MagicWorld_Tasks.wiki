@@ -11,7 +11,7 @@
   * define icicle class
 
 Doing
-* spell impl - Amauri
+* spell impl - Amauri --> Continued Christopher
 
 = done =
 * improving project structure - Marian
