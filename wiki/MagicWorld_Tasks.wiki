@@ -16,6 +16,7 @@
     * the other two spells (is free)
   * enemy impl
     * AI
+    * enemy reaction of spell attack ??? Should enemy react?
   * level impl
     * define icicle class
   * paint background picture
