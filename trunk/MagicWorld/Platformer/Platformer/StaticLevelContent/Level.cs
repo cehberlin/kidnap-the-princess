@@ -372,6 +372,11 @@ namespace Platformer
             return tiles[x, y].Collision;
         }
 
+        public void ClearTile(int x, int y)
+        {
+             tiles[x, y]= LoadTile('.', x, y);
+        }
+
         /// <summary>
         /// get tile from particular location
         /// </summary>
@@ -483,7 +488,7 @@ namespace Platformer
             foreach (Spell spell in spells)
             {
                 spell.Update(gameTime);
-                if (spell.spellState == Spell.State.REMOVE)
+                if (spell.SpellState == Spell.State.REMOVE)
                 {
                     removeableSpells.Add(spell);
                 }
@@ -492,7 +497,7 @@ namespace Platformer
             //remove
             foreach (Spell spell in removeableSpells)
             {
-                if (spell.spellState == Spell.State.REMOVE)
+                if (spell.SpellState == Spell.State.REMOVE)
                 {
                     spells.Remove(spell);
                 }

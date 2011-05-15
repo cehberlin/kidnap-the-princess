@@ -50,6 +50,21 @@ namespace Platformer
 
         public static readonly Vector2 Size = new Vector2(Width, Height);
 
+        int x;
+
+        public int X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        int y;
+
+        public int Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
         Vector2 position;
 
         public Vector2 Position
@@ -58,7 +73,7 @@ namespace Platformer
             set { position = value * Tile.Size; }
         }
 
-        Level level;
+        protected Level level;
 
         /// <summary>
         /// some variables for spell reaction
@@ -92,6 +107,8 @@ namespace Platformer
         public Tile(String texture, TileCollision collision, Level level, int x, int y):
             this(texture,collision,level,new Vector2(x,y))
         {
+            this.x = x;
+            this.y = y;
         }
 
         public Rectangle BoundingRectangle
@@ -109,7 +126,7 @@ namespace Platformer
 
         #region ISpellInfluenceable Member
 
-        public Boolean SpellInfluenceAction(Spell spell)
+        public virtual Boolean SpellInfluenceAction(Spell spell)
         {
             if (Texture != null)
             {
@@ -133,12 +150,12 @@ namespace Platformer
 
         #region IAutonomusGameObject Member
 
-        public void LoadContent(string spriteSet)
+        public virtual void LoadContent(string spriteSet)
         {
             Texture = level.Content.Load<Texture2D>(spriteSet);
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (Texture != null)
             {
@@ -157,7 +174,7 @@ namespace Platformer
             }
         }
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             if (spellState != SpellState.NORMAL)
             {
