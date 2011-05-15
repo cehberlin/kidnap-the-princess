@@ -1,0 +1,9 @@
+= Details =
+ 
+
+|| *action*           ||*Keyboard*||*Gamepad*||
+|| matter spell       ||     O    ||    X    ||
+|| no gravity spell   ||     P    ||    Y    ||
+|| warming spell      ||     J    ||    A    ||
+|| cold spell         ||     I    ||    B    ||
+|| jump               ||     up   ||   up    ||
