@@ -12,6 +12,7 @@
 = TODO =
 
   * player controls
+    * spell moving in drecton of movement (also up and down)
   * spell impl
     * the other two spells (is free)
   * enemy impl
@@ -19,9 +20,12 @@
     * enemy reaction of spell attack ??? Should enemy react?
   * level impl
     * define icicle class
+  * standing on top of froozen enemies 
+  * picture for frozen enemies
   * paint background picture
 
 
 = done =
+  * warming and freezing enemies 
   * implemented moving camera
   * improving project structure - Marian
