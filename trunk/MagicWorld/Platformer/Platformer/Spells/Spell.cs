@@ -64,6 +64,14 @@ namespace Platformer
             get { return direction; }
         }
 
+        protected float ydirection;
+
+        public float YDirection
+        {
+            set { ydirection = value; }
+            get { return ydirection;  }
+        }
+
         /// <summary>
         /// Texture of object
         /// </summary>
@@ -184,7 +192,7 @@ namespace Platformer
             float posX = Position.X + Size.Width / 2 * (int)direction;
 
             // Move in the current direction.
-            velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
+            velocity = new Vector2((int)direction * MoveSpeed * elapsed, (int) ydirection * MoveSpeed * elapsed);
             Position = Position + velocity;
         }
 
