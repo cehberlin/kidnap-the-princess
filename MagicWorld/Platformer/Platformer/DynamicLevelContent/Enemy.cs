@@ -130,6 +130,8 @@ namespace Platformer
                 if (currentFreezeTime >= maxFreezeTime)
                 {
                     isFroozen = false;
+                    idleAnimation.TextureColor = Color.White;
+                    runAnimation.TextureColor = Color.White;
                 }
             }
             else if (isBurning)
@@ -138,6 +140,8 @@ namespace Platformer
                 if (currentBurningTime >= maxBurningTime)
                 {
                     isBurning = false;
+                    idleAnimation.TextureColor = Color.White;
+                    runAnimation.TextureColor = Color.White;
                 }
             }
 
@@ -207,7 +211,9 @@ namespace Platformer
             if (!Level.Player.IsAlive ||
                 Level.ReachedExit ||
                 Level.TimeRemaining == TimeSpan.Zero ||
-                waitTime > 0 || level.Player.Position.X.Equals(this.position.X))
+                waitTime > 0 || level.Player.Position.X.Equals(this.position.X)
+                || isFroozen
+                )
             {
                 sprite.PlayAnimation(idleAnimation);
             }
@@ -246,19 +252,22 @@ namespace Platformer
 
         public bool SpellInfluenceAction(Spell spell)
         {
-            //TODO REACT ON SPELLSTATE
             if (spell.GetType() == typeof(WarmSpell))
             {
                 if (isFroozen)
                 {
                     isFroozen = false;
                     isBurning = false;
+                    idleAnimation.TextureColor = Color.White;
+                    runAnimation.TextureColor = Color.White;
                 }
                 else
                 {
                     isBurning = true;
                     currentBurningTime = new TimeSpan(0,0,0);
                     spellDurationOfActionMs = spell.DurationOfActionMs;
+                    idleAnimation.TextureColor = Color.Red;
+                    runAnimation.TextureColor = Color.Red;
                 }
                 return true;
             }
@@ -268,10 +277,14 @@ namespace Platformer
                 {
                     isFroozen = false;
                     isBurning = false;
+                    idleAnimation.TextureColor = Color.White;
+                    runAnimation.TextureColor = Color.White;
                 }
                 else
                 {
                     isFroozen = true;
+                    idleAnimation.TextureColor = Color.Blue;
+                    runAnimation.TextureColor = Color.Blue;
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     currentFreezeTime = new TimeSpan(0, 0, 0);
                 }

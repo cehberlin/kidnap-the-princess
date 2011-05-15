@@ -9,6 +9,7 @@
 
 using System;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace Platformer
 {
@@ -79,6 +80,8 @@ namespace Platformer
 
 
         public float Scale = 1.0f;
+
+        public Color TextureColor = Color.White;
 
         /// <summary>
         /// Constructors a new animation.

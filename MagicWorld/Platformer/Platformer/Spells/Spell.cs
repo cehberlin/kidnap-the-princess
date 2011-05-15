@@ -111,9 +111,12 @@ namespace Platformer
         /// </summary>
         protected double durationOfActionMs = 0;
 
+        /// <summary>
+        /// duration depents on spell force
+        /// </summary>
         public double DurationOfActionMs
         {
-            get { return durationOfActionMs; }
+            get { return durationOfActionMs*Force; }
         }
 
         #endregion
