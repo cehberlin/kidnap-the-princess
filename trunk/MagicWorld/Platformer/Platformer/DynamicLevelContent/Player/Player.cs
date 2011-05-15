@@ -70,7 +70,41 @@ namespace Platformer
         }
         Vector2 velocity;
 
-    #region "movment constants"
+        #region control constants
+
+        //gamepad
+        //spells
+        public const Buttons WarmButton = Buttons.A;
+        public const Buttons ColdButton = Buttons.B;
+
+        //movement
+        public const Buttons LeftButton = Buttons.DPadLeft;
+        public const Buttons RightButton = Buttons.DPadRight;
+        public const Buttons JumpButton = Buttons.DPadUp;
+
+        //keyboard
+        //spells
+        public const Keys WarmKey = Keys.J;
+        public const Keys ColdKey = Keys.I;
+
+        public const Keys LeftKey = Keys.A;
+        public const Keys RightKey = Keys.D;
+        public const Keys JumpKey = Keys.W;
+
+        public const Keys LeftKeyAlternative = Keys.Left;
+        public const Keys RightKeyAlternative = Keys.Right;
+        public const Keys JumpKeyAlternative = Keys.Up;
+
+        public const Keys FullscreenToggleKey = Keys.F11;
+        public const Keys ExitGameKey = Keys.Escape;
+
+        // Input configuration
+        private const float MoveStickScale = 1.0f;
+        private const float AccelerometerScale = 1.5f;
+
+        #endregion
+
+        #region "movment constants"
 
         // Constants for controling horizontal movement
         private const float MoveAcceleration = 13000.0f;
@@ -87,10 +121,7 @@ namespace Platformer
 
     #endregion
 
-        // Input configuration
-        private const float MoveStickScale = 1.0f;
-        private const float AccelerometerScale = 1.5f;
-        private const Buttons JumpButton = Buttons.A;
+
 
         /// <summary>
         /// Gets whether or not the player's feet are on the ground.
@@ -216,6 +247,12 @@ namespace Platformer
 
             ApplyPhysics(gameTime);
 
+            if (isAlive)
+            {
+                //Create Spells
+                HandleSpellCreation(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
+            }
+
             if (IsAlive && IsOnGround)
             {
                 if (Math.Abs(Velocity.X) - 0.02f > 0)
@@ -262,16 +299,16 @@ namespace Platformer
             }
 
             // If any digital horizontal movement input is found, override the analog movement.
-            if (gamePadState.IsButtonDown(Buttons.DPadLeft) ||
-                keyboardState.IsKeyDown(Keys.Left) ||
-                keyboardState.IsKeyDown(Keys.A))
+            if (gamePadState.IsButtonDown(LeftButton) ||
+                keyboardState.IsKeyDown(LeftKey) ||
+                keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movement = -1.0f;
                 lastDirection = -1.0f;
             }
-            else if (gamePadState.IsButtonDown(Buttons.DPadRight) ||
-                     keyboardState.IsKeyDown(Keys.Right) ||
-                     keyboardState.IsKeyDown(Keys.D))
+            else if (gamePadState.IsButtonDown(RightButton) ||
+                     keyboardState.IsKeyDown(RightKey) ||
+                     keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movement = 1.0f;
                 lastDirection = 1.0f;
@@ -280,9 +317,8 @@ namespace Platformer
             // Check if the player wants to jump.
             isJumping =
                 gamePadState.IsButtonDown(JumpButton) ||
-                keyboardState.IsKeyDown(Keys.Space) ||
-                keyboardState.IsKeyDown(Keys.Up) ||
-                keyboardState.IsKeyDown(Keys.W) ||
+                keyboardState.IsKeyDown(JumpKey) ||
+                keyboardState.IsKeyDown(JumpKeyAlternative) ||
                 touchState.AnyTouch();
         }
 
@@ -489,6 +525,55 @@ namespace Platformer
 
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip);
+        }
+
+
+        KeyboardState oldKeyboardState;
+        GamePadState oldGamePadState;
+
+        /// <summary>
+        /// create the spells
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <param name="keyboardState"></param>
+        /// <param name="gamePadState"></param>
+        /// <param name="touchState"></param>
+        /// <param name="accelState"></param>
+        /// <param name="orientation"></param>
+        private void HandleSpellCreation(GameTime gameTime,
+            KeyboardState keyboardState,
+            GamePadState gamePadState,
+            TouchCollection touchState,
+            AccelerometerState accelState,
+            DisplayOrientation orientation)
+        {
+            bool bCreateWarmSpell;
+            Vector2 pos;
+            pos.X = Position.X + 20 * Direction;
+            pos.Y = Position.Y - BoundingRectangle.Height / 2;
+
+            bCreateWarmSpell = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton)) || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
+            if (bCreateWarmSpell)
+            {
+                WarmSpell warmSpell = new WarmSpell("WarmSpell", pos, level);
+                warmSpell.Direction = Direction;
+                level.addSpell(warmSpell);
+                bCreateWarmSpell = false;
+            }
+
+            bool bCreateColdSpell;
+
+            bCreateColdSpell = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton)) || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
+            if (bCreateColdSpell)
+            {
+                ColdSpell coldSpell = new ColdSpell("ColdSpell", pos, level);
+                coldSpell.Direction = Direction;
+                level.addSpell(coldSpell);     
+                bCreateColdSpell = false;
+            }
+
+            oldKeyboardState = keyboardState;
+            oldGamePadState = gamePadState;
         }
        
     }
