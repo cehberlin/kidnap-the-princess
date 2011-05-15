@@ -6,12 +6,11 @@
 
 
 = in Progress =
-    * matter spell -->christopher
+  * matter spell -->christopher
+  * gravity spell --> Marian
 
 = TODO =
   * player controls
-  * spell impl
-    * gravity spell
   * level impl
     * define icicle class
   * standing on top of froozen enemies 
