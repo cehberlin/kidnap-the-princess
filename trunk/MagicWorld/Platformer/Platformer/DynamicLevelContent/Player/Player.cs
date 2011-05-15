@@ -90,6 +90,7 @@ namespace Platformer
         public const Buttons LeftButton = Buttons.DPadLeft;
         public const Buttons RightButton = Buttons.DPadRight;
         public const Buttons JumpButton = Buttons.DPadUp;
+        public const Buttons DownButton = Buttons.DPadDown;
 
         //keyboard
         //spells
@@ -99,10 +100,12 @@ namespace Platformer
         public const Keys LeftKey = Keys.A;
         public const Keys RightKey = Keys.D;
         public const Keys JumpKey = Keys.W;
+        public const Keys DownKey = Keys.S;
 
         public const Keys LeftKeyAlternative = Keys.Left;
         public const Keys RightKeyAlternative = Keys.Right;
         public const Keys JumpKeyAlternative = Keys.Up;
+        public const Keys DownKeyAlternative = Keys.Down;
 
         public const Keys FullscreenToggleKey = Keys.F11;
         public const Keys ExitGameKey = Keys.Escape;
@@ -582,7 +585,22 @@ namespace Platformer
                     Debug.WriteLine("WARMSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new WarmSpell("WarmSpell", pos, level);
-                    currentSpell.Direction = Direction;
+                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
+                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
+                    {
+                        currentSpell.YDirection = -1.0f;
+                        currentSpell.Direction = 0;
+                    }
+                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
+                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
+                    {
+                        currentSpell.YDirection = 1.0f;
+                        currentSpell.Direction = 0;
+                    }
+                    else
+                    {
+                        currentSpell.Direction = Direction;
+                    }
                     level.addSpell(currentSpell);
                 } //if spell is already a warm spell do nothing because the spell grows on its own
                 else
@@ -624,8 +642,24 @@ namespace Platformer
                     Debug.WriteLine("COLDSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new ColdSpell("ColdSpell", pos, level);
-                    currentSpell.Direction = Direction;
-                    level.addSpell(currentSpell);
+                    //currentSpell.Direction = Direction;
+                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
+                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
+                    {
+                        currentSpell.YDirection = -1.0f;
+                        currentSpell.Direction = 0;
+                    }
+                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
+                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
+                    {
+                        currentSpell.YDirection = 1.0f;
+                        currentSpell.Direction = 0;
+                    }
+                    else
+                    {
+                        currentSpell.Direction = Direction;
+                    }
+                    level.addSpell(currentSpell);    
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else
                 {
