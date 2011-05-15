@@ -143,6 +143,12 @@ namespace Platformer
 
             if (!isFroozen)
             {
+                if (level.Player.Position.X > this.position.X +10 && this.direction.Equals(FaceDirection.Left) ||
+                    level.Player.Position.X < this.position.X -10 && this.direction.Equals(FaceDirection.Right))
+                {
+                    direction = (FaceDirection)(-(int)direction);
+                }
+
                 // Calculate tile position based on the side we are walking towards.
                 float posX = Position.X + localBounds.Width / 2 * (int)direction;
                 int tileX = (int)Math.Floor(posX / Tile.Width) - (int)direction;
@@ -166,6 +172,11 @@ namespace Platformer
                     // If we are about to run into a wall or off a cliff, start waiting.
                     if (collisonTwo == TileCollision.Impassable ||
                         collisonOne == TileCollision.Passable )
+                    {
+                        waitTime = MaxWaitTime;
+                    }
+                    if (this.position.X < level.Player.Position.X &&
+                        (this.position.X + 6 > level.Player.Position.X))
                     {
                         waitTime = MaxWaitTime;
                     }
@@ -196,7 +207,7 @@ namespace Platformer
             if (!Level.Player.IsAlive ||
                 Level.ReachedExit ||
                 Level.TimeRemaining == TimeSpan.Zero ||
-                waitTime > 0)
+                waitTime > 0 || level.Player.Position.X.Equals(this.position.X))
             {
                 sprite.PlayAnimation(idleAnimation);
             }
