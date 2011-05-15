@@ -29,6 +29,8 @@ namespace Platformer
         /// </summary>
         public Vector2 Position;
 
+        protected float MoveSpeed = 0;
+
         /// <summary>
         /// Force of the spell.
         /// It may work as factor that scale distance,velocity or time
@@ -147,25 +149,89 @@ namespace Platformer
         }
         public virtual void Update(GameTime gameTime)
         {
+            HandleMovement(gameTime);
+            HandleLiveTime(gameTime);
+            HandleCollision();
+        }
+
+        /// <summary>
+        /// Handles spell movement
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void HandleMovement(GameTime gameTime)
+        {
+            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            // Calculate tile position based on the side we are walking towards.
+            float posX = Position.X + Size.Width / 2 * (int)direction;
+
+            // Move in the current direction.
+            velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
+            Position = Position + velocity;
+        }
+
+        /// <summary>
+        /// Handles how long a spell lives
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void HandleLiveTime(GameTime gameTime)
+        {
             //remove a spell after his time is come
             if (survivalTimeMs < 0)
             {
                 this.spellState = State.REMOVE;
             }
             survivalTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
-            HandleCollision();
         }
 
         public virtual void Grow()
         {
+
         }
+
         public virtual void Shrink()
         {
         }
 
-
+        /// <summary>
+        /// handels collision with tiles and enemies
+        /// </summary>
         public virtual void HandleCollision()
         {
+            //enemy collision
+            foreach (Enemy enemy in level.Enemies)
+            {
+                if (enemy.BoundingRectangle.Intersects(this.BoundingRectangle))
+                {
+                    if (enemy.SpellInfluenceAction(this))
+                    {
+                        spellState = State.REMOVE;
+                    }
+                }
+            }
+
+            //Tile collision, may improveable in this way
+
+            //foreach (Tile tile in level.Tiles)
+            //{
+            //    if (tile.BoundingRectangle.Intersects(this.BoundingRectangle))
+            //    {
+            //        TileCollision collision = tile.Collision;
+            //        if (collision == TileCollision.OutOfLevel)
+            //        {
+            //            spellState = State.REMOVE;
+            //        }
+            //        else if (collision == TileCollision.Impassable || collision == TileCollision.Platform)
+            //        {                        
+            //            if (tile.SpellInfluenceAction(this))
+            //            {
+            //                spellState = State.REMOVE;
+            //            }
+            //        }
+            //    }
+            //}
+
+
             Rectangle bounds = BoundingRectangle;
 
             // Calculate tile position based on the side we are walking towards.
