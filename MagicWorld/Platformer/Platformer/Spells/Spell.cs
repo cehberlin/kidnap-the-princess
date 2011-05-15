@@ -16,7 +16,29 @@ namespace Platformer
         public Vector2 Origin;
 
         public enum State { CREATING, WORKING, REMOVE };
-        public State spellState;
+        private State spellState;
+
+        public State SpellState
+        {
+            get { return spellState; }
+            set
+            {
+                switch (value)
+                {
+                    case State.REMOVE:
+                        OnRemove();
+                        break;
+                    case State.CREATING:
+                        OnCreateStart();
+                        break;
+                    case State.WORKING:
+                        OnWorkingStart();
+                        break;
+                }
+                spellState = value;
+
+            }
+        }
         /// <summary>
         /// Actual size of the object
         /// the idea is that the object on the moment of creation grows
@@ -26,7 +48,7 @@ namespace Platformer
         protected Rectangle Size
         {
             get
-            {             
+            {
                 // Calculate bounds within texture size.
                 int width = (int)(sprite.Animation.FrameWidth * currentScale);
                 int height = (int)(sprite.Animation.FrameHeight * currentScale);
@@ -36,7 +58,7 @@ namespace Platformer
             }
             set { size = value; }
         }
-     
+
         protected float currentScale = 1.0f;
         protected float MaxScale = 3.0f;
 
@@ -79,14 +101,14 @@ namespace Platformer
             set { direction = value; }
             get { return direction; }
         }
-        
+
 
         protected float ydirection;
 
         public float YDirection
         {
             set { ydirection = value; }
-            get { return ydirection;  }
+            get { return ydirection; }
         }
 
         /// <summary>
@@ -116,7 +138,7 @@ namespace Platformer
         /// </summary>
         public double DurationOfActionMs
         {
-            get { return durationOfActionMs*Force; }
+            get { return durationOfActionMs * Force; }
         }
 
         #endregion
@@ -131,7 +153,7 @@ namespace Platformer
             Force = 0;
             Position = _origin;
             this.level = level;
-            spellState = State.CREATING;
+            SpellState = State.CREATING;
             LoadContent(spriteSet);
         }
 
@@ -150,10 +172,10 @@ namespace Platformer
             get
             {
                 //its correct, but dont know why, could be checked in debug mode
-                int left = (int)Math.Round(Position.X - Size.Width/2);
+                int left = (int)Math.Round(Position.X - Size.Width / 2);
                 int top = (int)Math.Round(Position.Y - Size.Height);
 
-                return new Rectangle(left, top, (int)(Size.Width ), (int)(Size.Height));
+                return new Rectangle(left, top, (int)(Size.Width), (int)(Size.Height));
             }
         }
 
@@ -177,17 +199,17 @@ namespace Platformer
 
         public virtual void Update(GameTime gameTime)
         {
-            if (spellState == State.WORKING)
+            if (SpellState == State.WORKING)
             {
                 HandleMovement(gameTime);
                 HandleLiveTime(gameTime);
                 //only start playing if animation changes because frame position is reseted
-                if (sprite.Animation != runAnimation) 
+                if (sprite.Animation != runAnimation)
                 {
                     sprite.PlayAnimation(runAnimation);
                 }
             }
-            else if (spellState == State.CREATING)
+            else if (SpellState == State.CREATING)
             {
                 Grow(gameTime);
                 //only start playing if animation changes because frame position is reseted
@@ -211,7 +233,7 @@ namespace Platformer
             float posX = Position.X + Size.Width / 2 * (int)direction;
 
             // Move in the current direction.
-            velocity = new Vector2((int)direction * MoveSpeed * elapsed, (int) ydirection * MoveSpeed * elapsed);
+            velocity = new Vector2((int)direction * MoveSpeed * elapsed, (int)ydirection * MoveSpeed * elapsed);
             Position = Position + velocity;
         }
 
@@ -224,9 +246,22 @@ namespace Platformer
             //remove a spell after his time is come
             if (survivalTimeMs < 0)
             {
-                this.spellState = State.REMOVE;
+                this.SpellState = State.REMOVE;
             }
             survivalTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
+        }
+
+
+        protected virtual void OnRemove()
+        {
+        }
+
+        protected virtual void OnCreateStart()
+        {
+        }
+
+        protected virtual void OnWorkingStart()
+        {
         }
 
         public virtual void Grow(GameTime gameTime)
@@ -249,9 +284,9 @@ namespace Platformer
         /// <summary>
         /// throw away current spell
         /// </summary>
-        public virtual void Release()
+        public virtual void FireUp()
         {
-            spellState = State.WORKING;
+            SpellState = State.WORKING;
         }
 
         /// <summary>
@@ -266,7 +301,7 @@ namespace Platformer
                 {
                     if (enemy.SpellInfluenceAction(this))
                     {
-                        spellState = State.REMOVE;
+                        SpellState = State.REMOVE;
                     }
                 }
             }
@@ -275,17 +310,17 @@ namespace Platformer
 
             foreach (Tile tile in level.Tiles)
             {
-                 //first check if collision is possible
+                //first check if collision is possible
                 if (tile.Collision == TileCollision.Impassable || tile.Collision == TileCollision.Platform)
                 {
                     //check if collision is occured
                     if (tile.BoundingRectangle.Intersects(this.BoundingRectangle))
                     {
-                            if (tile.SpellInfluenceAction(this))
-                            {
-                                spellState = State.REMOVE;
-                            }
-                    }                    
+                        if (tile.SpellInfluenceAction(this))
+                        {
+                            SpellState = State.REMOVE;
+                        }
+                    }
                 }
             }
 
@@ -300,7 +335,7 @@ namespace Platformer
 
             if (x > level.Width || x < 0 || y > level.Height || y < 0)
             {
-                spellState = State.REMOVE;
+                SpellState = State.REMOVE;
             }
 
         }

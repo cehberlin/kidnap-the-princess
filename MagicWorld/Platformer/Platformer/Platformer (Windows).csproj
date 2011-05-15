@@ -69,6 +69,8 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DynamicLevelContent\DynamicTile.cs" />
+    <Compile Include="DynamicLevelContent\MatterTile.cs" />
     <Compile Include="GlobalValues.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Accelerometer.cs" />
@@ -78,6 +80,7 @@
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
+    <Compile Include="Spells\MatterSpell.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="DynamicLevelContent\Enemy.cs" />
     <Compile Include="DynamicLevelContent\Gem.cs" />
