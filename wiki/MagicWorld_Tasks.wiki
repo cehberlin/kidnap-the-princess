@@ -17,11 +17,10 @@
     * the other two spells (is free)
   * enemy impl
     * AI
-    * enemy reaction of spell attack ??? Should enemy react?
   * level impl
     * define icicle class
   * standing on top of froozen enemies 
-  * picture for frozen enemies
+  * picture for frozen enemies (you could over paint with draw the color like tiles!!)
   * paint background picture
 
 
