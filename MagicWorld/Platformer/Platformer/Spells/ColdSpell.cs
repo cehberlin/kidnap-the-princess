@@ -9,13 +9,12 @@ namespace Platformer
 {
     class ColdSpell:Spell 
     {
-        private const float MoveSpeed = 40.0f;
-
         public ColdSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level)
         {            
             Force = 1;
             survivalTimeMs = 5000;
+            MoveSpeed = 40.0f;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = 5000;
@@ -39,20 +38,6 @@ namespace Platformer
 
         public override void Update(GameTime gameTime)
         {
-            //the fire lives a little bit until reach an obstacle or die due to time
-
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + Size.Width / 2 * (int)direction;
-            int tileX = (int)Math.Floor(posX / Tile.Width) - (int)direction;
-            int tileY = (int)Math.Floor(Position.Y / Tile.Height);
-
-            
-            // Move in the current direction.
-            velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
-            Position = Position + velocity;
-
             base.Update(gameTime);
         }
     }
