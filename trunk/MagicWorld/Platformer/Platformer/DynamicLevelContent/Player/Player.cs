@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using System.Diagnostics;
 
 namespace Platformer
 {
@@ -22,7 +23,7 @@ namespace Platformer
     class Player
     {
 
-    #region "Animation & sound"
+        #region "Animation & sound"
 
 
         // Animations
@@ -39,7 +40,7 @@ namespace Platformer
         private SoundEffect jumpSound;
         private SoundEffect fallSound;
 
-    #endregion
+        #endregion
 
         public Level Level
         {
@@ -57,7 +58,15 @@ namespace Platformer
         public Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set
+            {
+                //move spell in creation together with player
+                if (currentSpell != null)
+                {
+                    currentSpell.Position = currentSpell.Position + (value - position);
+                }
+                position = value;
+            }
         }
         Vector2 position;
 
@@ -119,7 +128,7 @@ namespace Platformer
         private const float MaxFallSpeed = 550.0f;
         private const float JumpControlPower = 0.14f;
 
-    #endregion
+        #endregion
 
 
 
@@ -173,6 +182,10 @@ namespace Platformer
         public Spell SpellSlotD { get; set; }
 
 
+        //only one spell at a time
+        Spell currentSpell = null;
+
+
         /// <summary>
         /// Constructors a new player.
         /// </summary>
@@ -196,11 +209,11 @@ namespace Platformer
         public void LoadContent()
         {
             // Load animated textures.
-            idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true);
-            runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true);
-            jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false);
-            celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false);
-            dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false);
+            idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true,1);
+            runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true,10);
+            jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false,11);
+            celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false,11);
+            dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false,12);
 
             // Calculate bounds within texture size.            
             int width = (int)(idleAnimation.FrameWidth * 0.4);
@@ -236,10 +249,10 @@ namespace Platformer
         /// we need to reverse our motion when the orientation is in the LandscapeRight orientation.
         /// </remarks>
         public void Update(
-            GameTime gameTime, 
-            KeyboardState keyboardState, 
-            GamePadState gamePadState, 
-            TouchCollection touchState, 
+            GameTime gameTime,
+            KeyboardState keyboardState,
+            GamePadState gamePadState,
+            TouchCollection touchState,
             AccelerometerState accelState,
             DisplayOrientation orientation)
         {
@@ -274,10 +287,10 @@ namespace Platformer
         /// Gets player horizontal movement and jump commands from input.
         /// </summary>
         private void GetInput(
-            KeyboardState keyboardState, 
-            GamePadState gamePadState, 
+            KeyboardState keyboardState,
+            GamePadState gamePadState,
             TouchCollection touchState,
-            AccelerometerState accelState, 
+            AccelerometerState accelState,
             DisplayOrientation orientation)
         {
             // Get analog horizontal movement.
@@ -547,34 +560,98 @@ namespace Platformer
             AccelerometerState accelState,
             DisplayOrientation orientation)
         {
-            bool bCreateWarmSpell;
             Vector2 pos;
             pos.X = Position.X + 20 * Direction;
             pos.Y = Position.Y - BoundingRectangle.Height / 2;
 
-            bCreateWarmSpell = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton)) || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
-            if (bCreateWarmSpell)
+
+            #region warmspell
+
+            //pressing
+            bool bCreateWarmSpellPress = (gamePadState.IsButtonDown(WarmButton) || keyboardState.IsKeyDown(WarmKey));
+            if (bCreateWarmSpellPress)
             {
-                WarmSpell warmSpell = new WarmSpell("WarmSpell", pos, level);
-                warmSpell.Direction = Direction;
-                level.addSpell(warmSpell);
-                bCreateWarmSpell = false;
+                if (currentSpell != null && currentSpell.GetType() != typeof(WarmSpell)) //release current creating spell if its a different one
+                {
+                    Debug.WriteLine("WARMSPELL:Old Spell in creation released because of spell change");
+                    currentSpell.Release();
+                    currentSpell = null;
+                }
+                if (currentSpell == null)
+                {
+                    Debug.WriteLine("WARMSPELL:START CREATION OF NEW ONE");
+                    //create new warm spell
+                    currentSpell = new WarmSpell("WarmSpell", pos, level);
+                    currentSpell.Direction = Direction;
+                    level.addSpell(currentSpell);
+                } //if spell is already a warm spell do nothing because the spell grows on its own
+                else
+                {
+                    Debug.WriteLine("WARMSPELL:GROW");
+                }
             }
 
-            bool bCreateColdSpell;
+            //releasing
+            bool bWarmSpellRelease = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton))
+                                    || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
 
-            bCreateColdSpell = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton)) || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
-            if (bCreateColdSpell)
+            if (bWarmSpellRelease)
             {
-                ColdSpell coldSpell = new ColdSpell("ColdSpell", pos, level);
-                coldSpell.Direction = Direction;
-                level.addSpell(coldSpell);     
-                bCreateColdSpell = false;
+                if (currentSpell.GetType() == typeof(WarmSpell))
+                {
+                    Debug.WriteLine("WARMSPELL:FIRED after button release");
+                    currentSpell.Release();
+                    currentSpell = null;
+                }
             }
+
+            #endregion
+
+            #region coldspell
+
+            //pressing
+            bool bCreateColdSpellPress = (gamePadState.IsButtonDown(ColdButton) || keyboardState.IsKeyDown(ColdKey));
+            if (bCreateColdSpellPress)
+            {
+                if (currentSpell != null && currentSpell.GetType() != typeof(ColdSpell)) //release current creating spell if its a different one
+                {
+                    Debug.WriteLine("COLDSPELL:Old Spell in creation released because of spell change");
+                    currentSpell.Release();
+                    currentSpell = null;
+                }
+                if (currentSpell == null)
+                {
+                    Debug.WriteLine("COLDSPELL:START CREATION OF NEW ONE");
+                    //create new warm spell
+                    currentSpell = new ColdSpell("ColdSpell", pos, level);
+                    currentSpell.Direction = Direction;
+                    level.addSpell(currentSpell);
+                } //if spell is already a cold spell do nothing because the spell grows on its own
+                else
+                {
+                    Debug.WriteLine("COLDSPELL:GROW");
+                }
+            }
+
+            //releasing
+            bool bColdSpellRelease = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton))
+                                    || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
+
+            if (bColdSpellRelease)
+            {
+                if (currentSpell.GetType() == typeof(ColdSpell))
+                {
+                    Debug.WriteLine("COLDSPELL:FIRED after button release");
+                    currentSpell.Release();
+                    currentSpell = null;
+                }
+            }
+
+            #endregion
 
             oldKeyboardState = keyboardState;
             oldGamePadState = gamePadState;
         }
-       
+
     }
 }
