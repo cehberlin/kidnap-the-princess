@@ -529,7 +529,7 @@ namespace Platformer
                 enemy.Update(gameTime);
 
                 // Touching an enemy instantly kills the player
-                if (enemy.BoundingRectangle.Intersects(Player.BoundingRectangle))
+                if (enemy.BoundingRectangle.Intersects(Player.BoundingRectangle) && !enemy.isFroozen)
                 {
                     OnPlayerKilled(enemy);
                 }

@@ -91,6 +91,10 @@ namespace Platformer
             this.position = position;
 
             LoadContent(spriteSet);
+
+            //init spell states
+            isBurning = false;
+            isFroozen = false;
         }
 
         /// <summary>
@@ -120,37 +124,65 @@ namespace Platformer
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + localBounds.Width / 2 * (int)direction;
-            int tileX = (int)Math.Floor(posX / Tile.Width) - (int)direction;
-            int tileY = (int)Math.Floor(Position.Y / Tile.Height);
-
-            if (waitTime > 0)
+            if (isFroozen)
             {
-                // Wait for some amount of time.
-                waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
-                if (waitTime <= 0.0f)
+                currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
+                if (currentFreezeTime >= maxFreezeTime)
                 {
-                    // Then turn around.
-                    direction = (FaceDirection)(-(int)direction);
+                    isFroozen = false;
                 }
             }
-            else
+            else if (isBurning)
             {
-
-                TileCollision collisonOne = Level.GetCollision(tileX + (int)direction, tileY);
-                TileCollision collisonTwo = Level.GetCollision(tileX + (int)direction, tileY-1);
-                // If we are about to run into a wall or off a cliff, start waiting.
-                if (collisonTwo == TileCollision.Impassable ||
-                    collisonOne == TileCollision.Passable)
+                currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
+                if (currentBurningTime >= maxBurningTime)
                 {
-                    waitTime = MaxWaitTime;
+                    isBurning = false;
+                }
+            }
+
+            if (!isFroozen)
+            {
+                // Calculate tile position based on the side we are walking towards.
+                float posX = Position.X + localBounds.Width / 2 * (int)direction;
+                int tileX = (int)Math.Floor(posX / Tile.Width) - (int)direction;
+                int tileY = (int)Math.Floor(Position.Y / Tile.Height);
+
+                if (waitTime > 0)
+                {
+                    // Wait for some amount of time.
+                    waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
+                    if (waitTime <= 0.0f)
+                    {
+                        // Then turn around.
+                        direction = (FaceDirection)(-(int)direction);
+                    }
                 }
                 else
                 {
-                    // Move in the current direction.
-                    Vector2 velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
-                    position = position + velocity;
+
+                    TileCollision collisonOne = Level.GetCollision(tileX + (int)direction, tileY);
+                    TileCollision collisonTwo = Level.GetCollision(tileX + (int)direction, tileY - 1);
+                    // If we are about to run into a wall or off a cliff, start waiting.
+                    if (collisonTwo == TileCollision.Impassable ||
+                        collisonOne == TileCollision.Passable )
+                    {
+                        waitTime = MaxWaitTime;
+                    }
+                    else
+                    {
+                        // Move in the current direction.
+                        Vector2 velocity;
+                        if (isBurning)
+                        {
+                            velocity = new Vector2((int)direction * MoveSpeed * elapsed * burningMovingSpeedFactor, 0.0f);
+                        }
+                        else
+                        {
+                            velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
+                        }
+                        position = position + velocity;
+                    }
                 }
             }
         }
@@ -178,28 +210,60 @@ namespace Platformer
             sprite.Draw(gameTime, spriteBatch, Position, flip);
         }
 
+
+
+
         #region ISpellInfluenceable Member
+
+
+        private TimeSpan currentFreezeTime = new TimeSpan(0, 0, 0);
+        private TimeSpan maxFreezeTime = new TimeSpan(0,0,5);
+
+        private TimeSpan currentBurningTime = new TimeSpan(0, 0, 0);
+        private TimeSpan maxBurningTime = new TimeSpan(0, 0, 3);
+        private float burningMovingSpeedFactor = 2f; // Factor the enemy is moving faster while under influence of warm spell
 
         /// <summary>
         /// some variables for spell reaction
         /// </summary>
-        enum SpellState { NORMAL, BURNED, FROZEN };
-        SpellState spellState = SpellState.NORMAL;
+        //enum SpellState { NORMAL, BURNED, FROZEN };
+        //SpellState spellState = SpellState.NORMAL;
         double spellDurationOfActionMs = 0;
+
+        public Boolean isBurning { get; set; }
+        public Boolean isFroozen { get; set; }
 
         public bool SpellInfluenceAction(Spell spell)
         {
             //TODO REACT ON SPELLSTATE
             if (spell.GetType() == typeof(WarmSpell))
             {
-                spellState = SpellState.BURNED;
-                spellDurationOfActionMs = spell.DurationOfActionMs;
+                if (isFroozen)
+                {
+                    isFroozen = false;
+                    isBurning = false;
+                }
+                else
+                {
+                    isBurning = true;
+                    currentBurningTime = new TimeSpan(0,0,0);
+                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                }
                 return true;
             }
             if (spell.GetType() == typeof(ColdSpell))
             {
-                spellState = SpellState.FROZEN;
-                spellDurationOfActionMs = spell.DurationOfActionMs;
+                if (isBurning)
+                {
+                    isFroozen = false;
+                    isBurning = false;
+                }
+                else
+                {
+                    isFroozen = true;
+                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    currentFreezeTime = new TimeSpan(0, 0, 0);
+                }
                 return true;
             }
             return false;
