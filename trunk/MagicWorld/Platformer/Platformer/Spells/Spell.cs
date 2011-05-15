@@ -210,27 +210,25 @@ namespace Platformer
                 }
             }
 
-            //Tile collision, may improveable in this way
+            //Tile collision
 
-            //foreach (Tile tile in level.Tiles)
-            //{
-            //    if (tile.BoundingRectangle.Intersects(this.BoundingRectangle))
-            //    {
-            //        TileCollision collision = tile.Collision;
-            //        if (collision == TileCollision.OutOfLevel)
-            //        {
-            //            spellState = State.REMOVE;
-            //        }
-            //        else if (collision == TileCollision.Impassable || collision == TileCollision.Platform)
-            //        {                        
-            //            if (tile.SpellInfluenceAction(this))
-            //            {
-            //                spellState = State.REMOVE;
-            //            }
-            //        }
-            //    }
-            //}
+            foreach (Tile tile in level.Tiles)
+            {
+                 //first check if collision is possible
+                if (tile.Collision == TileCollision.Impassable || tile.Collision == TileCollision.Platform)
+                {
+                    //check if collision is occured
+                    if (tile.BoundingRectangle.Intersects(this.BoundingRectangle))
+                    {
+                            if (tile.SpellInfluenceAction(this))
+                            {
+                                spellState = State.REMOVE;
+                            }
+                    }                    
+                }
+            }
 
+            //check if spells leaves the level
 
             Rectangle bounds = BoundingRectangle;
 
@@ -239,21 +237,11 @@ namespace Platformer
             int x = (int)Math.Floor(posX / Tile.Width) - (int)direction;
             int y = (int)Math.Floor(Position.Y / Tile.Height);
 
-
-            // If this tile is collidable,
-            TileCollision collision = level.GetCollision(x, y);
-            if (collision == TileCollision.OutOfLevel)
+            if (x > level.Width || x < 0 || y > level.Height || y < 0)
             {
                 spellState = State.REMOVE;
             }
-            else if (collision == TileCollision.Impassable || collision == TileCollision.Platform)
-            {
-                Tile tile = level.GetTile(x, y);
-                if (tile.SpellInfluenceAction(this))
-                {
-                    spellState = State.REMOVE;
-                }
-            }
+
         }
         #endregion
     }

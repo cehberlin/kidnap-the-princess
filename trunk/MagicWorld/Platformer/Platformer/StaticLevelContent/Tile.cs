@@ -34,12 +34,7 @@ namespace Platformer
         /// player is above it. A player can jump up through a platform as well as move
         /// past it to the left and right, but can not fall down through the top of it.
         /// </summary>
-        Platform = 2,
-
-        /// <summary>
-        /// Is the collision status for level bounds
-        /// </summary>
-        OutOfLevel =3,
+        Platform = 2
     }
 
     /// <summary>
@@ -97,6 +92,17 @@ namespace Platformer
         public Tile(String texture, TileCollision collision, Level level, int x, int y):
             this(texture,collision,level,new Vector2(x,y))
         {
+        }
+
+        public Rectangle BoundingRectangle
+        {
+            get
+            {
+                int left = (int)Math.Round(position.X);
+                int top = (int)Math.Round(position.Y);
+
+                return new Rectangle(left, top, Width,Height);
+            }
         }
 
 

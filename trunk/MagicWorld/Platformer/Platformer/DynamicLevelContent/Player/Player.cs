@@ -468,7 +468,7 @@ namespace Platformer
                                     bounds = BoundingRectangle;
                                 }
                             }
-                            else if (collision == TileCollision.Impassable || collision == TileCollision.OutOfLevel) // Ignore platforms.
+                            else if (collision == TileCollision.Impassable) // Ignore platforms.
                             {
                                 // Resolve the collision along the X axis.
                                 Position = new Vector2(Position.X + depth.X, Position.Y);
