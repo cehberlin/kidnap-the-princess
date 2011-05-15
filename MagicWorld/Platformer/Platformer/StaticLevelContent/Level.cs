@@ -65,13 +65,6 @@ namespace Platformer
         /// </summary>
         private List<Spell> spells = new List<Spell>();
 
-        //buttons that define a spell
-        private const Buttons WarmButton = Buttons.A;
-        private const Buttons ColdButton = Buttons.B;
-
-        private const Keys WarmKey = Keys.J;
-        private const Keys ColdKey = Keys.I;
-
         // Key locations in the level.        
         private Vector2 start;
         private Point exit = InvalidPosition;
@@ -456,10 +449,7 @@ namespace Platformer
 
                 UpdateEnemies(gameTime);
 
-                //Create Spells
-                CreateSpell(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
-
-                //Update Spells
+                //Update Spells which are inside the level
                 UpdateSpells(gameTime);
 
                 UpdateTiles(gameTime);
@@ -481,54 +471,10 @@ namespace Platformer
         }
 
 
-            KeyboardState oldKeyboardState;
-            GamePadState oldGamePadState;
-
-        /// <summary>
-        /// create the spells
-        /// </summary>
-        /// <param name="gameTime"></param>
-        /// <param name="keyboardState"></param>
-        /// <param name="gamePadState"></param>
-        /// <param name="touchState"></param>
-        /// <param name="accelState"></param>
-        /// <param name="orientation"></param>
-        private void CreateSpell(GameTime gameTime,
-            KeyboardState keyboardState,
-            GamePadState gamePadState,
-            TouchCollection touchState,
-            AccelerometerState accelState,
-            DisplayOrientation orientation)
+        public void addSpell(Spell spell)
         {
-            bool bCreateWarmSpell;
-            Vector2 pos;
-            pos.X = player.Position.X + 20 * player.Direction;
-            pos.Y = player.Position.Y - player.BoundingRectangle.Height/2;
-
-            bCreateWarmSpell = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton)) || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
-            if (bCreateWarmSpell)
-            {
-                WarmSpell warmSpell = new WarmSpell("WarmSpell", pos, this);
-                warmSpell.Direction = player.Direction;
-                spells.Add(warmSpell);
-                bCreateWarmSpell = false;
-            }
-
-            bool bCreateColdSpell;
-
-            bCreateColdSpell = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton)) || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
-            if (bCreateColdSpell)
-            {
-                ColdSpell coldSpell = new ColdSpell("ColdSpell", pos, this);
-                coldSpell.Direction = player.Direction;
-                spells.Add(coldSpell);
-                bCreateColdSpell = false;
-            }
-
-            oldKeyboardState = keyboardState;
-            oldGamePadState = gamePadState;
+            spells.Add(spell);
         }
-
 
         private void UpdateSpells(GameTime gameTime)
         {

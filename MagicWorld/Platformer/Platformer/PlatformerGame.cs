@@ -136,8 +136,8 @@ namespace Platformer
                 Exit();
 
             bool continuePressed =
-                keyboardState.IsKeyDown(Keys.Space) ||  keyboardState.IsKeyDown(Keys.Up) ||
-                gamePadState.IsButtonDown(Buttons.A) || 
+                keyboardState.IsKeyDown(Player.JumpKey) || keyboardState.IsKeyDown(Player.JumpKeyAlternative) ||
+                gamePadState.IsButtonDown(Player.JumpButton) || 
                 touchState.AnyTouch();
 
             // Perform the appropriate action to advance the game and
@@ -158,12 +158,12 @@ namespace Platformer
             }
 
             //Options
-            if (keyboardState.IsKeyUp(Keys.F11) && oldKeyboardState.IsKeyDown(Keys.F11))
+            if (keyboardState.IsKeyUp(Player.FullscreenToggleKey) && oldKeyboardState.IsKeyDown(Player.FullscreenToggleKey))
             {
                 this.graphics.ToggleFullScreen();
             }
 
-            if (keyboardState.IsKeyUp(Keys.Escape) && oldKeyboardState.IsKeyDown(Keys.Escape))
+            if (keyboardState.IsKeyUp(Player.ExitGameKey) && oldKeyboardState.IsKeyDown(Player.ExitGameKey))
             {
                 this.Exit();
             }
