@@ -3,22 +3,54 @@
     * please prioritize the new work (more important work should be at the start of the list)
   * if you work on something put it under "in progress"
   * after finishing the work out it in "done"
-
+  * work on phase 1 problems first
 
 = in Progress =
-  * matter spell -->christopher
-  * gravity spell --> Marian
+
+
+
 
 = TODO =
+==PHASE 1 - core mechanics/game elements ==
+  * no gravitation spell -> gravitation should influence created matter (if it is falling down) 
+  * matter spell casting
+    * matter spell seems to crash the game once in a while
+    * created matter needs to fall down after casting
+    * matter should be created directly not after hitting something (casting direction is like throwing the created block)
+  * better spell casting 
+    * spells shouldnt move if they being casted while not moving 
+    * spell moving in drecton of movement (also up and down) NEED FIX   FOR DIAGONAL DIRECTION --> IF JUMPING ALWAYS FLY UP --> John
   * player controls
-  * level impl
-    * define icicle class
+    * other key for jump (up key should set direction for spell and for floating in no gravity area)
+
+
+==PHASE 2 - playable prototype ==
+  * Mana implementation (manabar on overlay, diffrent castig cost for bigger spell, balanced mana regeneration)
   * standing on top of froozen enemies 
-  * paint background picture
-  * spell moving in drecton of movement (also up and down) NEED FIX   FOR DIAGONAL DIRECTION --> IF JUMPING ALWAYS FLY UP --> John
+  * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
+  * levels to show diffrent combinations of spells
+    * matter + gravitation spell
+    * caging an enemy
+    * kill enemy with icicle -> exit door opens (or enemy leaves a key)
+    * 
+
+
+==PHASE 3 - fine tuning / extra stuff ==
+  * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming)
+  * background graphics
+  * character graphics
+  * no gravitation graphics
+  * casted spells weakens with time (gets smaller/ fading out slowly)
+  * elapsed time on overlay 
+  * level balancing
+  * frozen tiles change movement for player and enemies
+
+
 
 
 = done =
+  * matter spell -->christopher
+  * gravity spell --> Marian
   * warming and freezing enemies 
   * implemented moving camera
   * improving project structure - Marian
@@ -26,5 +58,5 @@
     - Gegner laufen jetzt dem Spieler hinterher
   * spell moving in drecton of movement (also up and down) --> John
     - Zauber können nach oben und nach unten fliegen
-  * picture for frozen enemies (you could over paint with draw the color like tiles!!) -->christopher
+  * picture for frozen enemies  -->christopher
   * spell impl general stuff - Amauri --> Continued Christopher: BASICS ARE DONE
