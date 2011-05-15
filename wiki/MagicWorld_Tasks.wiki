@@ -6,17 +6,17 @@
 
 
 = in Progress =
-  * spell impl general stuff - Amauri --> Continued Christopher
+    * matter spell -->christopher
 
 = TODO =
   * player controls
   * spell impl
-    * the other two spells (is free)
+    * gravity spell
   * level impl
     * define icicle class
   * standing on top of froozen enemies 
-  * picture for frozen enemies (you could over paint with draw the color like tiles!!)
   * paint background picture
+  * spell moving in drecton of movement (also up and down) NEED FIX   FOR DIAGONAL DIRECTION --> IF JUMPING ALWAYS FLY UP --> John
 
 
 = done =
@@ -27,3 +27,5 @@
     - Gegner laufen jetzt dem Spieler hinterher
   * spell moving in drecton of movement (also up and down) --> John
     - Zauber können nach oben und nach unten fliegen
+  * picture for frozen enemies (you could over paint with draw the color like tiles!!) -->christopher
+  * spell impl general stuff - Amauri --> Continued Christopher: BASICS ARE DONE
