@@ -7,10 +7,6 @@
 
 = in Progress =
   * spell impl general stuff - Amauri --> Continued Christopher
-  * enemy impl - AI --> John
-  * spell moving in drecton of movement (also up and down) --> John
-
-
 
 = TODO =
   * player controls
@@ -27,3 +23,7 @@
   * warming and freezing enemies 
   * implemented moving camera
   * improving project structure - Marian
+  * enemy impl - AI --> John
+    - Gegner laufen jetzt dem Spieler hinterher
+  * spell moving in drecton of movement (also up and down) --> John
+    - Zauber können nach oben und nach unten fliegen
