@@ -147,10 +147,28 @@ namespace Platformer
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip);
         }
+
         public virtual void Update(GameTime gameTime)
         {
-            HandleMovement(gameTime);
-            HandleLiveTime(gameTime);
+            if (spellState == State.WORKING)
+            {
+                HandleMovement(gameTime);
+                HandleLiveTime(gameTime);
+                //only start playing if animation changes because frame position is reseted
+                if (sprite.Animation != runAnimation) 
+                {
+                    sprite.PlayAnimation(runAnimation);
+                }
+            }
+            else if (spellState == State.CREATING)
+            {
+                Grow(gameTime);
+                //only start playing if animation changes because frame position is reseted
+                if (sprite.Animation != idleAnimation)
+                {
+                    sprite.PlayAnimation(idleAnimation);
+                }
+            }
             HandleCollision();
         }
 
@@ -184,13 +202,23 @@ namespace Platformer
             survivalTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
-        public virtual void Grow()
+        public virtual void Grow(GameTime gameTime)
         {
-
+            //TODO
+            Force++;
         }
 
-        public virtual void Shrink()
+        //Makes shrinking sense?
+        //public virtual void Shrink()
+        //{
+        //}
+
+        /// <summary>
+        /// throw away current spell
+        /// </summary>
+        public virtual void Release()
         {
+            spellState = State.WORKING;
         }
 
         /// <summary>
