@@ -21,9 +21,25 @@ namespace Platformer
         /// Actual size of the object
         /// the idea is that the object on the moment of creation grows
         /// </summary>
-        public Rectangle Size;
-        public Rectangle MaxSize;
-        public Rectangle MinSize;
+        private Rectangle size;
+
+        protected Rectangle Size
+        {
+            get
+            {             
+                // Calculate bounds within texture size.
+                int width = (int)(sprite.Animation.FrameWidth * currentScale);
+                int height = (int)(sprite.Animation.FrameHeight * currentScale);
+                int top = 0;
+                int left = 0;
+                return new Rectangle(left, top, width, height);
+            }
+            set { size = value; }
+        }
+     
+        protected float currentScale = 1.0f;
+        protected float MaxScale = 3.0f;
+
         /// <summary>
         /// Actual Position
         /// </summary>
@@ -63,6 +79,7 @@ namespace Platformer
             set { direction = value; }
             get { return direction; }
         }
+        
 
         protected float ydirection;
 
@@ -70,15 +87,6 @@ namespace Platformer
         {
             set { ydirection = value; }
             get { return ydirection;  }
-        }
-
-        /// <summary>
-        /// Texture of object
-        /// </summary>
-        private Texture2D spellTexture;
-        public Texture2D SpellTexture
-        {
-            set { spellTexture = value; }
         }
 
         /// <summary>
@@ -96,6 +104,7 @@ namespace Platformer
         protected Animation idleAnimation;
         protected AnimationPlayer sprite;
 
+        protected Texture2D debugTexture;
 
         /// <summary>
         /// describes how long the magic of a spell influences a attacked object
@@ -130,17 +139,18 @@ namespace Platformer
         /// </summary>
         public virtual void LoadContent(string spriteSet)
         {
-
+            debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
         }
 
         public Rectangle BoundingRectangle
         {
             get
             {
-                int left = (int)Math.Round(Position.X - sprite.Origin.X) + Size.X;
-                int top = (int)Math.Round(Position.Y - sprite.Origin.Y) + Size.Y;
+                //its correct, but dont know why, could be checked in debug mode
+                int left = (int)Math.Round(Position.X - Size.Width/2);
+                int top = (int)Math.Round(Position.Y - Size.Height);
 
-                return new Rectangle(left, top, Size.Width, Size.Height);
+                return new Rectangle(left, top, (int)(Size.Width ), (int)(Size.Height));
             }
         }
 
@@ -152,8 +162,14 @@ namespace Platformer
             else if (direction < 0)
                 flip = SpriteEffects.None;
 
+            Vector2 paintPosition = new Vector2(BoundingRectangle.X, BoundingRectangle.Y);
+
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip);
+            if (GlobalValues.DEBUG)
+            {
+                spriteBatch.Draw(debugTexture, BoundingRectangle, Color.Pink);
+            }
         }
 
         public virtual void Update(GameTime gameTime)
@@ -212,8 +228,14 @@ namespace Platformer
 
         public virtual void Grow(GameTime gameTime)
         {
-            //TODO
-            Force++;
+
+            if (currentScale <= MaxScale)
+            {
+                currentScale += 0.02f;
+                idleAnimation.Scale = currentScale;
+                runAnimation.Scale = currentScale;
+                Force++;
+            }
         }
 
         //Makes shrinking sense?

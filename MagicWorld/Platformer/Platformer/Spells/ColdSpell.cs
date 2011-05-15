@@ -27,12 +27,7 @@ namespace Platformer
             runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
             idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
 
-            // Calculate bounds within texture size.
-            int width = (int)(idleAnimation.FrameWidth * 1);
-            int left = (idleAnimation.FrameWidth - width) / 2;
-            int height = (int)(idleAnimation.FrameWidth * 0.7);
-            int top = idleAnimation.FrameHeight - height;
-            Size = new Rectangle(left, top, width, height);
+            base.LoadContent(spriteSet);
         }
 
         public override void Update(GameTime gameTime)

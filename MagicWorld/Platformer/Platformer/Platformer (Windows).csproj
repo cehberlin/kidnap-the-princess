@@ -69,6 +69,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GlobalValues.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Accelerometer.cs" />
     <Compile Include="HelperClasses\Animation.cs" />

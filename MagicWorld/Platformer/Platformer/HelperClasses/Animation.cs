@@ -77,6 +77,9 @@ namespace Platformer
             get { return Texture.Height; }
         }
 
+
+        public float Scale = 1.0f;
+
         /// <summary>
         /// Constructors a new animation.
         /// </summary>        
