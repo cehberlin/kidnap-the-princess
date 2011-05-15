@@ -64,6 +64,10 @@ namespace Platformer
         /// All Spells on Stack
         /// </summary>
         private List<Spell> spells = new List<Spell>();
+        public List<Spell> Spells { 
+            get {return spells;}
+            set{spells = value;}
+        }
 
         // Key locations in the level.        
         private Vector2 start;

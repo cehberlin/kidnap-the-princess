@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using System.Diagnostics;
+using Platformer.Spells;
 
 namespace Platformer
 {
@@ -352,10 +353,33 @@ namespace Platformer
 
             Vector2 previousPosition = Position;
 
+
+            //In No Gravity Zone ?
+            Boolean noGravity = false;
+            foreach (Spell spell in Level.Spells)
+            {
+                if(spell.GetType() == typeof(NoGravitySpell))
+                {
+                    if(spell.BoundingRectangle.Intersects(this.BoundingRectangle))
+                    {
+                        noGravity = true;
+                        break;
+                    }
+                }
+            }
+
+
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
             velocity.X += movement * MoveAcceleration * elapsed;
-            velocity.Y = MathHelper.Clamp(velocity.Y + GravityAcceleration * elapsed, -MaxFallSpeed, MaxFallSpeed);
+            if (noGravity)
+            {
+                velocity.Y = 0;
+            }
+            else
+            {
+                velocity.Y = MathHelper.Clamp(velocity.Y + GravityAcceleration * elapsed, -MaxFallSpeed, MaxFallSpeed);
+            }
 
             velocity.Y = DoJump(velocity.Y, gameTime);
 
@@ -369,7 +393,14 @@ namespace Platformer
             velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
 
             // Apply velocity.
-            Position += velocity * elapsed;
+            if (noGravity)
+            {
+                Position = new Vector2(Position.X + velocity.X * elapsed, Position.Y);
+            }
+            else
+            {
+                Position += velocity * elapsed;
+            }
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
 
             // If the player is now colliding with the level, separate them.
@@ -688,7 +719,6 @@ namespace Platformer
 
             #endregion
 
-
             #region matterspell
 
             //pressing
@@ -747,6 +777,61 @@ namespace Platformer
 
             #endregion
 
+            #region "noGravitySpell"
+            //pressing
+            bool bCreateNoGravitySpell = (gamePadState.IsButtonDown(GravityButton) || keyboardState.IsKeyDown(GravityKey));
+            if (bCreateNoGravitySpell)
+            {
+                if (currentSpell != null && currentSpell.GetType() != typeof(NoGravitySpell)) //release current creating spell if its a different one
+                {
+                    Debug.WriteLine("noGravitySpell:Old Spell in creation released because of spell change");
+                    currentSpell.FireUp();
+                    currentSpell = null;
+                }
+                if (currentSpell == null)
+                {
+                    Debug.WriteLine("noGravitySpell:START CREATION OF NEW ONE");
+                    //create new matter spell
+                    currentSpell = new NoGravitySpell("MatterSpell", pos, level);
+                    //currentSpell.Direction = Direction;
+                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
+                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
+                    {
+                        currentSpell.YDirection = -1.0f;
+                        currentSpell.Direction = 0;
+                    }
+                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
+                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
+                    {
+                        currentSpell.YDirection = 1.0f;
+                        currentSpell.Direction = 0;
+                    }
+                    else
+                    {
+                        currentSpell.Direction = Direction;
+                    }
+                    level.addSpell(currentSpell);
+                } //if spell is already a cold spell do nothing because the spell grows on its own
+                else
+                {
+                    Debug.WriteLine("noGryvitySpell:GROW");
+                }
+            }
+
+            //releasing
+            bool bNoGravitySpellRelease = (oldGamePadState.IsButtonDown(GravityButton) && gamePadState.IsButtonUp(GravityButton))
+                                    || (oldKeyboardState.IsKeyDown(GravityKey) && keyboardState.IsKeyUp(GravityKey));
+
+            if (bNoGravitySpellRelease)
+            {
+                if (currentSpell.GetType() == typeof(NoGravitySpell))
+                {
+                    Debug.WriteLine("NoGravitySpell:FIRED after button release");
+                    currentSpell.FireUp();
+                    currentSpell = null;
+                }
+            }
+            #endregion
 
             oldKeyboardState = keyboardState;
             oldGamePadState = gamePadState;
