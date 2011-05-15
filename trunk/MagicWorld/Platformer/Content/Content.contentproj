@@ -240,7 +240,13 @@
       <Name>1</Name>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Sprites\white.png">
+      <Name>white</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Tiles\Exit.png">
       <Name>Exit</Name>
@@ -318,7 +324,7 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <Compile Include="Sprites\ColdSpell\Idle.png">
       <Name>Idle</Name>
       <Importer>TextureImporter</Importer>

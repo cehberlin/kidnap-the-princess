@@ -163,6 +163,11 @@ namespace Platformer
                 this.graphics.ToggleFullScreen();
             }
 
+            if (keyboardState.IsKeyUp(Player.DebugToggleKey) && oldKeyboardState.IsKeyDown(Player.DebugToggleKey))
+            {
+                GlobalValues.DEBUG = !GlobalValues.DEBUG;
+            }
+
             if (keyboardState.IsKeyUp(Player.ExitGameKey) && oldKeyboardState.IsKeyDown(Player.ExitGameKey))
             {
                 this.Exit();
