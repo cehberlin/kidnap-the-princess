@@ -142,8 +142,7 @@ namespace Platformer
                 TileCollision collisonTwo = Level.GetCollision(tileX + (int)direction, tileY-1);
                 // If we are about to run into a wall or off a cliff, start waiting.
                 if (collisonTwo == TileCollision.Impassable ||
-                    collisonOne == TileCollision.Passable ||
-                    collisonOne == TileCollision.OutOfLevel)
+                    collisonOne == TileCollision.Passable)
                 {
                     waitTime = MaxWaitTime;
                 }
