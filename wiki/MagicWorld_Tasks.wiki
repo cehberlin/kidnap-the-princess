@@ -7,16 +7,15 @@
 
 = in Progress =
   * spell impl general stuff - Amauri --> Continued Christopher
+  * enemy impl - AI --> John
+  * spell moving in drecton of movement (also up and down) --> John
+
 
 
 = TODO =
-
   * player controls
-    * spell moving in drecton of movement (also up and down)
   * spell impl
     * the other two spells (is free)
-  * enemy impl
-    * AI
   * level impl
     * define icicle class
   * standing on top of froozen enemies 
