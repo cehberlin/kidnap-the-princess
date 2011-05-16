@@ -14,14 +14,13 @@
 ==PHASE 1 - core mechanics/game elements ==
   * no gravitation spell -> gravitation should influence created matter (if it is falling down) 
   * matter spell casting
-    * matter spell seems to crash the game once in a while
     * created matter needs to fall down after casting
     * matter should be created directly not after hitting something (casting direction is like throwing the created block)
-  * better spell casting 
-    * spells shouldnt move if they being casted while not moving 
-    * spell moving in drecton of movement (also up and down) NEED FIX   FOR DIAGONAL DIRECTION --> IF JUMPING ALWAYS FLY UP --> John
   * player controls
     * other key for jump (up key should set direction for spell and for floating in no gravity area)
+  * General game mechanics
+    * score and time should always be on the upper left corner of the screen
+    * Message Popup should be shown in the middle of the screen
 
 
 ==PHASE 2 - playable prototype ==
@@ -49,14 +48,17 @@
 
 
 = done =
+  * additional ice tile (ice tile can be destroyed with fire)
+  * matter spell seems to crash the game once in a while --> John
+  * spells shouldnt move if they being casted while not moving --> John
+  * spell moving in directon of movement --> John
   * matter spell -->christopher
   * gravity spell --> Marian
   * warming and freezing enemies 
   * implemented moving camera
   * improving project structure - Marian
   * enemy impl - AI --> John
-    - Gegner laufen jetzt dem Spieler hinterher
+    - Enemy moves towards the player
   * spell moving in drecton of movement (also up and down) --> John
-    - Zauber können nach oben und nach unten fliegen
   * picture for frozen enemies  -->christopher
   * spell impl general stuff - Amauri --> Continued Christopher: BASICS ARE DONE
