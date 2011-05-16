@@ -222,6 +222,9 @@ namespace Platformer
                 case '-':
                     return LoadTile("Platform", TileCollision.Platform,x,y);
 
+                                    // Ice Block
+                case 'I':
+                    return LoadTile("Ice_Tile", TileCollision.Impassable, x, y);
                 // Various enemies
                 case 'A':
                     return LoadEnemyTile(x, y, "MonsterA");

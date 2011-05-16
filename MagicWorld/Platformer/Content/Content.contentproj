@@ -338,7 +338,6 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Compile Include="Sprites\MatterSpell\Idle.png">
       <Name>Idle</Name>
@@ -347,6 +346,13 @@
     </Compile>
     <Compile Include="Sprites\MatterSpell\Run.png">
       <Name>Run</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Tiles\Ice_Tile.png">
+      <Name>Ice_Tile</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

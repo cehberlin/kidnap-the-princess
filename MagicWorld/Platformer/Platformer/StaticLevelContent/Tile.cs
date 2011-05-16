@@ -78,7 +78,7 @@ namespace Platformer
         /// <summary>
         /// some variables for spell reaction
         /// </summary>
-        enum SpellState { NORMAL, BURNED, FROZEN };
+        enum SpellState { NORMAL, BURNED, FROZEN , DESTROYED};
         SpellState spellState = SpellState.NORMAL;
         double spellDurationOfActionMs = 0;
 
@@ -132,8 +132,16 @@ namespace Platformer
             {
                 if (spell.GetType() == typeof(WarmSpell))
                 {
-                    spellState = SpellState.BURNED;
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    if (Texture.Name.Equals("Tiles/Ice_Tile"))
+                    {
+                        spellState = SpellState.DESTROYED;
+                        spellDurationOfActionMs = spell.DurationOfActionMs;
+                    }
+                    else
+                    {
+                        spellState = SpellState.BURNED;
+                        spellDurationOfActionMs = spell.DurationOfActionMs;
+                    }
                     return true;
                 }
                 if (spell.GetType() == typeof(ColdSpell))
@@ -153,6 +161,7 @@ namespace Platformer
         public virtual void LoadContent(string spriteSet)
         {
             Texture = level.Content.Load<Texture2D>(spriteSet);
+            Texture.Name = spriteSet;
         }
 
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -166,6 +175,10 @@ namespace Platformer
                 else if (spellState == SpellState.FROZEN)
                 {
                     spriteBatch.Draw(Texture, position, Color.Blue);
+                }
+                else if (spellState == SpellState.DESTROYED)
+                {
+                    level.ClearTile(this.X, this.Y);
                 }
                 else
                 {
