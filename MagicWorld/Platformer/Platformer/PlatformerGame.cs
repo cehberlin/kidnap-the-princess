@@ -229,8 +229,9 @@ namespace Platformer
         {
             Rectangle titleSafeArea = GraphicsDevice.Viewport.TitleSafeArea;
             Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
-            Vector2 center = new Vector2(titleSafeArea.X + titleSafeArea.Width / 2.0f,
-                                         titleSafeArea.Y + titleSafeArea.Height / 2.0f);
+            //Vector2 center = new Vector2(titleSafeArea.X + titleSafeArea.Width / 2.0f,
+            //                           titleSafeArea.Y + titleSafeArea.Height / 2.0f);
+            Vector2 center = new Vector2(camera._pos.X,camera._pos.Y);
 
             // Draw time remaining. Uses modulo division to cause blinking when the
             // player is running out of time.
@@ -246,11 +247,11 @@ namespace Platformer
             {
                 timeColor = Color.Red;
             }
-            DrawShadowedString(hudFont, timeString, hudLocation, timeColor);
+            DrawShadowedString(hudFont, timeString, new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 5), timeColor);
 
             // Draw score
             float timeHeight = hudFont.MeasureString(timeString).Y;
-            DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), hudLocation + new Vector2(0.0f, timeHeight * 1.2f), Color.Yellow);
+            DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 4), Color.Yellow);
            
             // Determine the status overlay message to show.
             Texture2D status = null;
