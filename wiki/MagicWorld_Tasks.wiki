@@ -6,8 +6,6 @@
   * work on phase 1 problems first
 
 = in Progress =
-  * matter spell casting
-    * created matter needs to fall down after casting -->christopher
   * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
 
 
@@ -30,7 +28,7 @@
     * matter + gravitation spell
     * caging an enemy
     * kill enemy with icicle -> exit door opens (or enemy leaves a key)
-    * 
+    * SOUNDS/MUSIC! In my opinion very important for a good game feeling!
 
 
 ==PHASE 3 - fine tuning / extra stuff ==
@@ -63,3 +61,5 @@
   * matter should be created directly not after hitting something
  (casting direction is like throwing the created block) --> christopher: creates tile after fly time is over or after collision a flying tile is problematic in this tiled game world, but current implementation should fit our needs 
   * no gravitation graphics --> christopher-->basic one is implemented --> easier to differ
+  * matter spell casting
+    * created matter needs to fall down after casting -->christopher
