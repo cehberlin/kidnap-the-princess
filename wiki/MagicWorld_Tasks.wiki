@@ -14,7 +14,7 @@
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
   * player controls
-    * other key for jump (up key should set direction for spell and for floating in no gravity area)
+    * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. I like current behavior expect the swimming thing.
 
 ==PHASE 2 - playable prototype ==
   * Mana implementation (manabar on overlay, diffrent castig cost for bigger spell, balanced mana regeneration)
