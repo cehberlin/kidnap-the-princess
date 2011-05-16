@@ -15,10 +15,6 @@
 ==PHASE 1 - core mechanics/game elements ==
   * player controls
     * other key for jump (up key should set direction for spell and for floating in no gravity area)
-  * General game mechanics
-    * score and time should always be on the upper left corner of the screen
-    * Message Popup should be shown in the middle of the screen
-
 
 ==PHASE 2 - playable prototype ==
   * Mana implementation (manabar on overlay, diffrent castig cost for bigger spell, balanced mana regeneration)
@@ -44,6 +40,8 @@
 
 
 = done =
+  * score and time appear at the left corner
+  * Message Popup appear at the middle
   * additional ice tile (ice tile can be destroyed with fire)
   * matter spell seems to crash the game once in a while --> John
   * spells shouldnt move if they being casted while not moving --> John
