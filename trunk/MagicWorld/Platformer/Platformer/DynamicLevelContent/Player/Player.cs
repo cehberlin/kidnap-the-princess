@@ -771,7 +771,7 @@ namespace Platformer
                 {
                     Debug.WriteLine("noGravitySpell:START CREATION OF NEW ONE");
                     //create new matter spell
-                    currentSpell = new NoGravitySpell("MatterSpell", pos, level);
+                    currentSpell = new NoGravitySpell("NoGravitySpell", pos, level);
                     currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);
                 } //if spell is already a cold spell do nothing because the spell grows on its own
