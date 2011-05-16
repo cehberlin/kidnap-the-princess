@@ -62,4 +62,4 @@
   * spell impl general stuff - Amauri --> Continued Christopher: BASICS ARE DONE
   * matter should be created directly not after hitting something
  (casting direction is like throwing the created block) --> christopher: creates tile after fly time is over or after collision a flying tile is problematic in this tiled game world, but current implementation should fit our needs 
-  * no gravitation graphics -->basic one is implemented --> easier to differ
+  * no gravitation graphics --> christopher-->basic one is implemented --> easier to differ
