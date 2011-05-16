@@ -30,6 +30,7 @@ namespace Platformer.DynamicLevelContent
             if (lifetimeMs <= 0)
             {
                 level.ClearTile(X, Y);
+                return;
             }
             else
             {
