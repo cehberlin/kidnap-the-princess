@@ -39,13 +39,16 @@ namespace Platformer
         protected override void OnRemove()
         {
             // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + BoundingRectangle.Width / 2 * (int)direction;
-            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction;
+            float posX = Position.X + BoundingRectangle.Width / 2 * (int)direction.X;
+            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.X;
             int y = (int)Math.Floor(Position.Y / Tile.Height);
 
-            if (level.GetTile(x, y).Texture == null)//empty tile
+            if (x > 0 && x < level.Width && y > 0 && y < level.Height)
             {
-                level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y, MatterTile.DEFAULT_LIFE_TIME_MS);
+                if (level.GetTile(x, y).Texture == null)//empty tile
+                {
+                    level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y, MatterTile.DEFAULT_LIFE_TIME_MS);
+                }
             }
 
             base.OnRemove();

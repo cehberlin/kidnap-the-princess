@@ -35,6 +35,7 @@ namespace Platformer
         private Animation dieAnimation;
         private SpriteEffects flip = SpriteEffects.None;
         private AnimationPlayer sprite;
+        private float rotation = 0.0f;
 
         // Sounds
         private SoundEffect killedSound;
@@ -154,8 +155,8 @@ namespace Platformer
         /// Current user movement input.
         /// </summary>
         private float movement;
-        private float lastDirection;
-        public float Direction
+        private Vector2 lastDirection;
+        public Vector2 Direction
         {
             get { return lastDirection; }
         }
@@ -164,6 +165,8 @@ namespace Platformer
         private bool isJumping;
         private bool wasJumping;
         private float jumpTime;
+
+        private bool isDown;
 
         private Rectangle localBounds;
         /// <summary>
@@ -326,14 +329,22 @@ namespace Platformer
                 keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movement = -1.0f;
-                lastDirection = -1.0f;
+                lastDirection.X = -1.0f;
+                lastDirection.Y = 0.0f;
             }
             else if (gamePadState.IsButtonDown(RightButton) ||
                      keyboardState.IsKeyDown(RightKey) ||
                      keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movement = 1.0f;
-                lastDirection = 1.0f;
+                lastDirection.X = 1.0f;
+                lastDirection.Y = 0.0f;
+            }
+            else
+            {
+                movement = 0.0f;
+                lastDirection.X = 0.0f;
+                lastDirection.Y = 0.0f;
             }
 
             // Check if the player wants to jump.
@@ -342,6 +353,21 @@ namespace Platformer
                 keyboardState.IsKeyDown(JumpKey) ||
                 keyboardState.IsKeyDown(JumpKeyAlternative) ||
                 touchState.AnyTouch();
+            //Check if the player press Down Button
+            isDown =
+                gamePadState.IsButtonDown(DownButton) ||
+                keyboardState.IsKeyDown(DownKey) ||
+                keyboardState.IsKeyDown(DownKeyAlternative) ||
+                touchState.AnyTouch();
+
+            if(isJumping)
+            {
+                lastDirection.Y = -1.0f;
+            }
+            if (isDown)
+            {
+                lastDirection.Y = 1.0f;
+            }
         }
 
         /// <summary>
@@ -576,7 +602,7 @@ namespace Platformer
                 flip = SpriteEffects.None;
 
             // Draw that sprite.
-            sprite.Draw(gameTime, spriteBatch, Position, flip);
+            sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
         }
 
 
@@ -600,7 +626,7 @@ namespace Platformer
             DisplayOrientation orientation)
         {
             Vector2 pos;
-            pos.X = Position.X + 20 * Direction;
+            pos.X = Position.X + 20 * Direction.X;
             pos.Y = Position.Y - BoundingRectangle.Height / 2;
 
 
@@ -621,22 +647,7 @@ namespace Platformer
                     Debug.WriteLine("WARMSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new WarmSpell("WarmSpell", pos, level);
-                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
-                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
-                    {
-                        currentSpell.YDirection = -1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
-                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
-                    {
-                        currentSpell.YDirection = 1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else
-                    {
-                        currentSpell.Direction = Direction;
-                    }
+                    currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);
                 } //if spell is already a warm spell do nothing because the spell grows on its own
                 else
@@ -678,23 +689,7 @@ namespace Platformer
                     Debug.WriteLine("COLDSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new ColdSpell("ColdSpell", pos, level);
-                    //currentSpell.Direction = Direction;
-                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
-                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
-                    {
-                        currentSpell.YDirection = -1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
-                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
-                    {
-                        currentSpell.YDirection = 1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else
-                    {
-                        currentSpell.Direction = Direction;
-                    }
+                    currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);    
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else
@@ -736,23 +731,7 @@ namespace Platformer
                     Debug.WriteLine("MATTERSPELL:START CREATION OF NEW ONE");
                     //create new matter spell
                     currentSpell = new MatterSpell("MatterSpell", pos, level);
-                    //currentSpell.Direction = Direction;
-                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
-                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
-                    {
-                        currentSpell.YDirection = -1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
-                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
-                    {
-                        currentSpell.YDirection = 1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else
-                    {
-                        currentSpell.Direction = Direction;
-                    }
+                    currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else
@@ -793,23 +772,7 @@ namespace Platformer
                     Debug.WriteLine("noGravitySpell:START CREATION OF NEW ONE");
                     //create new matter spell
                     currentSpell = new NoGravitySpell("MatterSpell", pos, level);
-                    //currentSpell.Direction = Direction;
-                    if ((keyboardState.IsKeyDown(JumpKey)) || gamePadState.IsButtonDown(JumpButton)
-                    || (keyboardState.IsKeyDown(JumpKeyAlternative)))
-                    {
-                        currentSpell.YDirection = -1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else if ((keyboardState.IsKeyDown(DownKey)) || gamePadState.IsButtonDown(DownButton)
-                        || (keyboardState.IsKeyDown(DownKeyAlternative)))
-                    {
-                        currentSpell.YDirection = 1.0f;
-                        currentSpell.Direction = 0;
-                    }
-                    else
-                    {
-                        currentSpell.Direction = Direction;
-                    }
+                    currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else

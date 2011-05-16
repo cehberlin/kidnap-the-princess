@@ -58,8 +58,8 @@ namespace Platformer.Spells
             Rectangle bounds = BoundingRectangle;
 
             // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + bounds.Width / 2 * (int)direction;
-            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction;
+            float posX = Position.X + bounds.Width / 2 * (int)direction.X;
+            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.Y;
             int y = (int)Math.Floor(Position.Y / Tile.Height);
 
             if (x > level.Width || x < 0 || y > level.Height || y < 0)

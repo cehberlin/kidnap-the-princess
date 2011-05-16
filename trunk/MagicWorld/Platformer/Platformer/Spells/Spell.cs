@@ -84,6 +84,8 @@ namespace Platformer
 
         protected SpriteEffects flip = SpriteEffects.None;
 
+        protected float rotation = 0.0f;
+
         /// <summary>
         /// velocity of the movement of the spell
         /// </summary>
@@ -94,21 +96,12 @@ namespace Platformer
             get { return velocity; }
         }
 
-        protected float direction;
+        protected Vector2 direction;
 
-        public float Direction
+        public Vector2 Direction
         {
             set { direction = value; }
             get { return direction; }
-        }
-
-
-        protected float ydirection;
-
-        public float YDirection
-        {
-            set { ydirection = value; }
-            get { return ydirection; }
         }
 
         /// <summary>
@@ -182,15 +175,41 @@ namespace Platformer
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
-            if (direction > 0)
+            if (direction.X > 0)
                 flip = SpriteEffects.FlipHorizontally;
-            else if (direction < 0)
+            else if (direction.X < 0)
                 flip = SpriteEffects.None;
-
             Vector2 paintPosition = new Vector2(BoundingRectangle.X, BoundingRectangle.Y);
 
+            if (direction.X == 0)
+            {
+                if (direction.Y < 0)
+                {
+                    rotation = (float)Math.PI * 0.5f;
+
+                }
+                else if (direction.Y > 0)
+                {
+                    rotation = -(float)Math.PI * 0.5f ;
+
+                }
+            }
+            else if (direction.X > 0)
+            {
+                if (direction.Y < 0)
+                    rotation = -(float)Math.PI * 1/4;
+                else if (direction.Y > 0)
+                    rotation = (float)Math.PI * 1/4;
+            }
+            else if (direction.X < 0)
+            {
+                if (direction.Y < 0)
+                    rotation = (float)Math.PI * 1/4;
+                else if (direction.Y > 0)
+                    rotation = -(float)Math.PI * 1/4;
+            }
             // Draw that sprite.
-            sprite.Draw(gameTime, spriteBatch, Position, flip);
+            sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
             if (GlobalValues.DEBUG)
             {
                 spriteBatch.Draw(debugTexture, BoundingRectangle, Color.Pink);
@@ -230,10 +249,10 @@ namespace Platformer
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + Size.Width / 2 * (int)direction;
+            float posX = Position.X + Size.Width / 2 * (int)direction.X;
 
             // Move in the current direction.
-            velocity = new Vector2((int)direction * MoveSpeed * elapsed, (int)ydirection * MoveSpeed * elapsed);
+            velocity = new Vector2((int)direction.X * MoveSpeed * elapsed, (int)direction.Y * MoveSpeed * elapsed);
             Position = Position + velocity;
         }
 
@@ -329,8 +348,8 @@ namespace Platformer
             Rectangle bounds = BoundingRectangle;
 
             // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + bounds.Width / 2 * (int)direction;
-            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction;
+            float posX = Position.X + bounds.Width / 2 * (int)direction.X;
+            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.Y;
             int y = (int)Math.Floor(Position.Y / Tile.Height);
 
             if (x > level.Width || x < 0 || y > level.Height || y < 0)
