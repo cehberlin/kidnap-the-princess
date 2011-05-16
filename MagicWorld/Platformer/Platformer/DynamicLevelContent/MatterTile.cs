@@ -9,7 +9,7 @@ namespace Platformer.DynamicLevelContent
 
     class MatterTile : DynamicTile
     {
-        public const double DEFAULT_LIFE_TIME_MS = 6000;
+        public const double DEFAULT_LIFE_TIME_MS = 200;
 
         double lifetimeMs;
 
@@ -37,6 +37,25 @@ namespace Platformer.DynamicLevelContent
             }
 
             base.Update(gameTime);
+        }
+
+
+        /// <summary>
+        /// cold spell increases lifetime warm spell shortens on 10%
+        /// </summary>
+        /// <param name="spell"></param>
+        /// <returns></returns>
+        public override bool SpellInfluenceAction(Spell spell)
+        {
+            if (spell.GetType() == typeof(WarmSpell))
+            {
+                lifetimeMs *= 0.9;
+            }
+            if (spell.GetType() == typeof(ColdSpell))
+            {
+                lifetimeMs *= 1.1;
+            }
+            return base.SpellInfluenceAction(spell);
         }
 
     }
