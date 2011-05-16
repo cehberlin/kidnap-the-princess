@@ -34,10 +34,9 @@
 
 
 ==PHASE 3 - fine tuning / extra stuff ==
-  * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming)
+  * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming) COMMENT CHRISTOPHER? REALLY? I thought all spells should only influence objects not the player himself
   * background graphics
   * character graphics
-  * no gravitation graphics
   * casted spells weakens with time (gets smaller/ fading out slowly)
   * elapsed time on overlay 
   * level balancing
@@ -63,3 +62,4 @@
   * spell impl general stuff - Amauri --> Continued Christopher: BASICS ARE DONE
   * matter should be created directly not after hitting something
  (casting direction is like throwing the created block) --> christopher: creates tile after fly time is over or after collision a flying tile is problematic in this tiled game world, but current implementation should fit our needs 
+  * no gravitation graphics -->basic one is implemented --> easier to differ
