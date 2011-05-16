@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Platformer.Spells;
+using System.Diagnostics;
 
 namespace Platformer.DynamicLevelContent
 {
@@ -26,6 +28,9 @@ namespace Platformer.DynamicLevelContent
         /// </summary>
         double fallingTimeMS = FALLINGINTERVALL;
 
+
+        protected Boolean gravityIsSetOffBySpell = false;
+
         public DynamicTile(String texture, TileCollision collision, Level level, Vector2 position) :
             base(texture, collision, level, position)
         {
@@ -36,12 +41,25 @@ namespace Platformer.DynamicLevelContent
         {
         }
 
+        public override bool SpellInfluenceAction(Spell spell)
+        {
+            if (spell.GetType() == typeof(NoGravitySpell))
+            {
+                gravityIsSetOffBySpell = true;
+                return false; //do not remove spell
+            }
+
+            return base.SpellInfluenceAction(spell);
+        }
+
 
         public override void Update(GameTime gameTime)
         {
 
+            //every update cycle in the game the spells where updated before the tiles, so if a no gravity colliates with this tile
+            //it resets the flag
             #region pseudogravity
-            if (isGravity)
+            if (isGravity && !gravityIsSetOffBySpell)
             {
                 //falling is not smove it goes in tile steps because of problematic tile layout of game
                 if (fallingTimeMS <= 0)
@@ -60,8 +78,13 @@ namespace Platformer.DynamicLevelContent
                 }
                 else
                 {
-                    fallingTimeMS -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                    fallingTimeMS -= gameTime.ElapsedGameTime.TotalMilliseconds;                    
                 }
+            }
+            else
+            {
+                Debug.WriteLine("No Gravity in this update cycle");
+                gravityIsSetOffBySpell = false;
             }
             #endregion pseudogravity
         }
