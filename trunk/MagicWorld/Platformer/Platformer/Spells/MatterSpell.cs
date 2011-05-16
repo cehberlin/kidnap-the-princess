@@ -5,20 +5,27 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Platformer.DynamicLevelContent;
+using System.Diagnostics;
 
 namespace Platformer
 {
     class MatterSpell:Spell 
     {
+        /// <summary>
+        /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
+        /// </summary>
+        /// <param name="spriteSet"></param>
+        /// <param name="_origin"></param>
+        /// <param name="level"></param>
         public MatterSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level)
         {            
             Force = 1;
-            survivalTimeMs = 5000;
+            survivalTimeMs = 50;
             MoveSpeed = 40.0f;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
-            durationOfActionMs = 5000;
+            durationOfActionMs = MatterTile.DEFAULT_LIFE_TIME_MS;
         }
 
         public override void LoadContent(string spriteSet)
@@ -36,6 +43,13 @@ namespace Platformer
             base.Update(gameTime);
         }
 
+        protected override void OnWorkingStart()
+        {
+            survivalTimeMs *= Force;
+            Debug.WriteLine("Matter starts working TIme:" +survivalTimeMs);
+            base.OnWorkingStart();
+        }
+
         protected override void OnRemove()
         {
             // Calculate tile position based on the side we are walking towards.
@@ -47,7 +61,9 @@ namespace Platformer
             {
                 if (level.GetTile(x, y).Texture == null)//empty tile
                 {
-                    level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y, MatterTile.DEFAULT_LIFE_TIME_MS);
+                    double matterTileLifeTime = durationOfActionMs * Force;
+                    Debug.WriteLine("Matter Tile LifeTime " + matterTileLifeTime);
+                    level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y,matterTileLifeTime );
                 }
             }
 
