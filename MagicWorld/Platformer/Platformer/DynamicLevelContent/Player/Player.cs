@@ -653,6 +653,7 @@ namespace Platformer
                 else
                 {
                     Debug.WriteLine("WARMSPELL:GROW");
+                    currentSpell.Direction = Direction; //update direction
                 }
             }
 
@@ -695,6 +696,7 @@ namespace Platformer
                 else
                 {
                     Debug.WriteLine("COLDSPELL:GROW");
+                    currentSpell.Direction = Direction; //update direction
                 }
             }
 
@@ -737,6 +739,7 @@ namespace Platformer
                 else
                 {
                     Debug.WriteLine("MATTERSPELL:GROW");
+                    currentSpell.Direction = Direction; //update direction
                 }
             }
 
@@ -778,6 +781,7 @@ namespace Platformer
                 else
                 {
                     Debug.WriteLine("noGryvitySpell:GROW");
+                    currentSpell.Direction = Direction; //update direction
                 }
             }
 
