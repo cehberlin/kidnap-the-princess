@@ -6,15 +6,15 @@
   * work on phase 1 problems first
 
 = in Progress =
+  * matter spell casting
+    * created matter needs to fall down after casting -->christopher
+  * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
 
 
 
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
-  * no gravitation spell -> gravitation should influence created matter (if it is falling down) 
-  * matter spell casting
-    * created matter needs to fall down after casting
   * player controls
     * other key for jump (up key should set direction for spell and for floating in no gravity area)
   * General game mechanics
