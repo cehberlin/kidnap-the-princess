@@ -6,25 +6,23 @@
   * work on phase 1 problems first
 
 = in Progress =
-  * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
-
-
 
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
   * player controls
-    * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. I like current behavior expect the swimming thing.
+    * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. PLEASE CHECK OUT CURRENT(new) IMPLEMENTATION I THINK ITS BETTER AND  FITS OUR NEEDS
+  
 
 ==PHASE 2 - playable prototype ==
-  * Mana implementation (manabar on overlay, diffrent castig cost for bigger spell, balanced mana regeneration)
+  * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration)
   * standing on top of froozen enemies 
   * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
   * levels to show diffrent combinations of spells
     * matter + gravitation spell
     * caging an enemy
     * kill enemy with icicle -> exit door opens (or enemy leaves a key)
-    * SOUNDS/MUSIC! In my opinion very important for a good game feeling!
+    * SOUNDS/MUSIC! In my opinion(christopher) very important for a good game feeling!
 
 
 ==PHASE 3 - fine tuning / extra stuff ==
@@ -61,3 +59,5 @@
   * no gravitation graphics --> christopher-->basic one is implemented --> easier to differ
   * matter spell casting
     * created matter needs to fall down after casting -->christopher
+
+  * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
