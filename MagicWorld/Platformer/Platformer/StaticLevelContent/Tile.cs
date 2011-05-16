@@ -55,17 +55,23 @@ namespace Platformer
         public int X
         {
             get { return x; }
-            set { x = value; }
+            set { 
+                x = value;
+                position = new Vector2(x, y) * Tile.Size; //update position if index changed
+            }
         }
         int y;
 
         public int Y
         {
             get { return y; }
-            set { y = value; }
+            set {                
+                y = value;
+                position = new Vector2(x, y)*Tile.Size; //update position if index changed
+            }
         }
 
-        Vector2 position;
+        protected Vector2 position;
 
         public Vector2 Position
         {

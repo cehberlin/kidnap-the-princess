@@ -222,10 +222,20 @@ namespace Platformer
             {
                 HandleMovement(gameTime);
                 HandleLiveTime(gameTime);
-                //only start playing if animation changes because frame position is reseted
-                if (sprite.Animation != runAnimation)
+                //does not work proper dont know why at the moment
+                //if (direction == new Vector2()) { //if spell has no direction and stay on currnt position use idle animation
+                //    if (sprite.Animation != idleAnimation)
+                //    {
+                //        sprite.PlayAnimation(idleAnimation);
+                //    }
+                //}
+                //else
                 {
-                    sprite.PlayAnimation(runAnimation);
+                    //only start playing if animation changes because frame position is reseted
+                    if (sprite.Animation != runAnimation)
+                    {
+                        sprite.PlayAnimation(runAnimation);
+                    }
                 }
             }
             else if (SpellState == State.CREATING)
