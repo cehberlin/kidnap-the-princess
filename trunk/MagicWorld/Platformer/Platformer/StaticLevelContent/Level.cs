@@ -452,6 +452,12 @@ namespace Platformer
             else
             {
                 timeRemaining -= gameTime.ElapsedGameTime;
+
+                //IMPORTANT SPELLS MUST BE UPDATED BEFORE PLAYER AND TILES MAKES SPELL IMPLEMENTATION MUCH EASIER!!
+                //FOR DETAILS CHECK NoGravity in DynamicTile.cs
+                //Update Spells which are inside the level
+                UpdateSpells(gameTime);
+
                 Player.Update(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
                 UpdateGems(gameTime);
 
@@ -460,9 +466,6 @@ namespace Platformer
                     OnPlayerKilled(null);
 
                 UpdateEnemies(gameTime);
-
-                //Update Spells which are inside the level
-                UpdateSpells(gameTime);
 
                 UpdateTiles(gameTime);
 

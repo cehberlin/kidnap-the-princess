@@ -21,7 +21,7 @@ namespace Platformer
     /// <summary>
     /// Our fearless adventurer!
     /// </summary>
-    class Player
+    class Player:ISpellInfluenceable
     {
 
         #region "Animation & sound"
@@ -278,7 +278,7 @@ namespace Platformer
                 HandleSpellCreation(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
             }
 
-            if (IsAlive && IsOnGround)
+            if (IsAlive && (IsOnGround || disableGravity))
             {
                 if (Math.Abs(Velocity.X) - 0.02f > 0)
                 {
@@ -364,11 +364,22 @@ namespace Platformer
             {
                 lastDirection.Y = -1.0f;
             }
-            if (isDown)
+            else if (isDown)
             {
                 lastDirection.Y = 1.0f;
             }
+            else if (lastDirection.Y != null)
+            {
+                isFalling = true;
+            }
+            else
+            {
+                isFalling = false;
+            }
         }
+
+        Boolean isFalling = false;
+        Boolean disableGravity = false;
 
         /// <summary>
         /// Updates the player's velocity and position based on input, gravity, etc.
@@ -379,28 +390,18 @@ namespace Platformer
 
             Vector2 previousPosition = Position;
 
-
-            //In No Gravity Zone ?
-            Boolean noGravity = false;
-            foreach (Spell spell in Level.Spells)
-            {
-                if(spell.GetType() == typeof(NoGravitySpell))
-                {
-                    if(spell.BoundingRectangle.Intersects(this.BoundingRectangle))
-                    {
-                        noGravity = true;
-                        break;
-                    }
-                }
-            }
-
-
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
             velocity.X += movement * MoveAcceleration * elapsed;
-            if (noGravity)
+            if (disableGravity)
             {
-                velocity.Y = 0;
+                if (isFalling) {
+                    velocity.Y = 0;
+                }
+                else
+                {
+                    velocity.Y = MathHelper.Clamp(velocity.Y, -MaxFallSpeed, MaxFallSpeed);
+                }
             }
             else
             {
@@ -410,7 +411,7 @@ namespace Platformer
             velocity.Y = DoJump(velocity.Y, gameTime);
 
             // Apply pseudo-drag horizontally.
-            if (IsOnGround)
+            if ((IsOnGround || disableGravity))
                 velocity.X *= GroundDragFactor;
             else
                 velocity.X *= AirDragFactor;
@@ -418,15 +419,9 @@ namespace Platformer
             // Prevent the player from running faster than his top speed.            
             velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
 
-            // Apply velocity.
-            if (noGravity)
-            {
-                Position = new Vector2(Position.X + velocity.X * elapsed, Position.Y);
-            }
-            else
-            {
-                Position += velocity * elapsed;
-            }
+
+            Position += velocity * elapsed;
+            
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
 
             // If the player is now colliding with the level, separate them.
@@ -438,6 +433,9 @@ namespace Platformer
 
             if (Position.Y == previousPosition.Y)
                 velocity.Y = 0;
+
+            //reset gravity flag it will be set again before next update cycle if we have still collison
+            disableGravity = false;
         }
 
         /// <summary>
@@ -463,7 +461,7 @@ namespace Platformer
             if (isJumping)
             {
                 // Begin or continue a jump
-                if ((!wasJumping && IsOnGround) || jumpTime > 0.0f)
+                if ((!wasJumping && (IsOnGround||disableGravity)) || jumpTime > 0.0f)
                 {
                     if (jumpTime == 0.0f)
                         jumpSound.Play();
@@ -804,5 +802,18 @@ namespace Platformer
             oldGamePadState = gamePadState;
         }
 
+
+        #region ISpellInfluenceable Member
+
+        public bool SpellInfluenceAction(Spell spell)
+        {
+            if (spell.GetType() == typeof(NoGravitySpell))
+            {
+                disableGravity = true;                
+            }
+            return false; //do not remove spell
+        }
+
+        #endregion
     }
 }

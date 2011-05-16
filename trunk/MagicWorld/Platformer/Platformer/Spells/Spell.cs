@@ -318,10 +318,13 @@ namespace Platformer
             SpellState = State.WORKING;
         }
 
+        ///Every type of collision has its own virtual method, so its easy to override special behavior in subclasses
+        #region collision
+
         /// <summary>
-        /// handels collision with tiles and enemies
+        /// handels collision with enemie
         /// </summary>
-        public virtual void HandleCollision()
+        public virtual void HandleEnemyCollision()
         {
             //enemy collision
             foreach (Enemy enemy in level.Enemies)
@@ -334,7 +337,13 @@ namespace Platformer
                     }
                 }
             }
+        }
 
+        /// <summary>
+        /// handels collision with tiles
+        /// </summary>
+        public virtual void HandleTileCollision()
+        {
             //Tile collision
 
             foreach (Tile tile in level.Tiles)
@@ -352,9 +361,13 @@ namespace Platformer
                     }
                 }
             }
+        }
 
-            //check if spells leaves the level
-
+        /// <summary>
+        /// handels collision with level bounds
+        /// </summary>
+        public virtual void HandleOutOfLevelCollision()
+        {
             Rectangle bounds = BoundingRectangle;
 
             // Calculate tile position based on the side we are walking towards.
@@ -366,8 +379,43 @@ namespace Platformer
             {
                 SpellState = State.REMOVE;
             }
-
         }
+
+        /// <summary>
+        /// handels collision with player
+        /// </summary>
+        public virtual void HandlePlayerCollision()
+        {
+            //check if collision is occured
+            if (level.Player.BoundingRectangle.Intersects(this.BoundingRectangle))
+            {
+                if (level.Player.SpellInfluenceAction(this))
+                {
+                    SpellState = State.REMOVE;
+                }
+            }
+        }
+
+        /// <summary>
+        /// handels collision with tiles and enemies and level bounds
+        /// </summary>
+        public virtual void HandleCollision()
+        {
+            //player collision
+            HandlePlayerCollision();
+
+            //enemy collision
+            HandleEnemyCollision();
+
+            //Tile collision
+            HandleTileCollision();        
+
+            //check if spells leaves the level
+            HandleOutOfLevelCollision();
+        }
+
+        #endregion collision
+
         #endregion
     }
 }
