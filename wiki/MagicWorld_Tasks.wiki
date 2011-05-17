@@ -6,7 +6,7 @@
   * work on phase 1 problems first
 
 = in Progress =
-
+  * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
@@ -15,7 +15,7 @@
   
 
 ==PHASE 2 - playable prototype ==
-  * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration)
+
   * standing on top of froozen enemies 
   * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
   * levels to show diffrent combinations of spells
