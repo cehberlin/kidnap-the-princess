@@ -13,7 +13,7 @@ namespace Platformer.Spells
         private const float manaCastingCost = 1f;
 
         public NoGravitySpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level,manaBasicCost,manaBasicCost)
+            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
         {            
             Force = 1;
             survivalTimeMs = 5000;
