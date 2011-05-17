@@ -6,7 +6,7 @@
   * work on phase 1 problems first
 
 = in Progress =
-  * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
+
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
@@ -22,7 +22,8 @@
     * matter + gravitation spell
     * caging an enemy
     * kill enemy with icicle -> exit door opens (or enemy leaves a key)
-    * SOUNDS/MUSIC! In my opinion(christopher) very important for a good game feeling!
+  * SOUNDS/MUSIC! In my opinion(christopher) very important for a good game feeling!
+  * better balancing SPell Casting Costs (Spell-classes: manaBasicCost + manaCastingCost)
 
 
 ==PHASE 3 - fine tuning / extra stuff ==
@@ -33,11 +34,13 @@
   * elapsed time on overlay 
   * level balancing
   * frozen tiles change movement for player and enemies
+  * mana shown in a bar not as a number
 
 
 
 
 = done =
+  * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
   * score and time appear at the left corner
   * Message Popup appear at the middle
   * additional ice tile (ice tile can be destroyed with fire)
