@@ -31,7 +31,6 @@ namespace Platformer
         /// true if the player is casting a spell
         /// </summary>
         public bool IsCasting {get{return currentSpell != null;}}
-        private bool isCasting = false;
 
         #region "Animation & sound"
 
