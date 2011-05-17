@@ -12,7 +12,6 @@
 ==PHASE 1 - core mechanics/game elements ==
   * player controls
     * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. PLEASE CHECK OUT CURRENT(new) IMPLEMENTATION I THINK ITS BETTER AND  FITS OUR NEEDS
-    * NOTE: Fire spell and antigravity spell does not grow anymore (NOTE JOHN)
   
 
 ==PHASE 2 - playable prototype ==
@@ -41,6 +40,7 @@
 
 
 = done =
+  * BUG: Fire spell and antigravity spell does not grow anymore -> Marian
   * Wizard Character created -> Amauri
   * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
   * score and time appear at the left corner
