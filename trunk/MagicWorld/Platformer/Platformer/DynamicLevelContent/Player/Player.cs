@@ -49,7 +49,7 @@ namespace Platformer
         private SoundEffect killedSound;
         private SoundEffect jumpSound;
         private SoundEffect fallSound;
-
+        private SoundEffect spellSound;
         #endregion
 
         public Level Level
@@ -259,7 +259,7 @@ namespace Platformer
             killedSound = Level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
             jumpSound = Level.Content.Load<SoundEffect>("Sounds/PlayerJump");
             fallSound = Level.Content.Load<SoundEffect>("Sounds/PlayerFall");
-        }
+            spellSound = Level.Content.Load<SoundEffect>("Sounds/CreateSpell");                    }
 
         /// <summary>
         /// Resets the player to life.
@@ -667,7 +667,7 @@ namespace Platformer
                     Debug.WriteLine("WARMSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new WarmSpell("WarmSpell", pos, level);
-                    if(Mana.startCastingSpell(currentSpell)) {
+                    spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
                         currentSpell.Direction = Direction;
                         level.addSpell(currentSpell);
                     } else {
@@ -721,7 +721,7 @@ namespace Platformer
                     Debug.WriteLine("COLDSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new ColdSpell("ColdSpell", pos, level);
-                    if (Mana.startCastingSpell(currentSpell))
+                    spellSound.Play();                    if (Mana.startCastingSpell(currentSpell))
                     {
                         currentSpell.Direction = Direction;
                         level.addSpell(currentSpell);
@@ -776,13 +776,13 @@ namespace Platformer
                     Debug.WriteLine("MATTERSPELL:Old Spell in creation released because of spell change");
                     currentSpell.FireUp();
                     currentSpell = null;
-                }
+                                   }
                 if (currentSpell == null)
                 {
                     Debug.WriteLine("MATTERSPELL:START CREATION OF NEW ONE");
                     //create new matter spell
                     currentSpell = new MatterSpell("MatterSpell", pos, level);
-                    if(Mana.startCastingSpell(currentSpell)) {
+                    spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
                     currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);
                     } else {
@@ -836,7 +836,7 @@ namespace Platformer
                     Debug.WriteLine("noGravitySpell:START CREATION OF NEW ONE");
                     //create new matter spell
                     currentSpell = new NoGravitySpell("NoGravitySpell", pos, level);
-                    if(Mana.startCastingSpell(currentSpell)) {
+                    spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
                         currentSpell.Direction = Direction;
                         level.addSpell(currentSpell);
                     } else {
