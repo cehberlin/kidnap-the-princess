@@ -14,6 +14,8 @@ namespace Platformer
         private const int manaBasicCost = 200;
         private const float manaCastingCost = 1f;
 
+        private const int MATTER_EXISTENCE_TIME = 500; // time that created Matter exist
+
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
         /// </summary>
@@ -24,11 +26,11 @@ namespace Platformer
             : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
         {            
             Force = 1;
-            survivalTimeMs = 50;
+            survivalTimeMs = 10;
             MoveSpeed = 40.0f;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
-            durationOfActionMs = MatterTile.DEFAULT_LIFE_TIME_MS;
+            durationOfActionMs = MATTER_EXISTENCE_TIME;
         }
 
         public override void LoadContent(string spriteSet)

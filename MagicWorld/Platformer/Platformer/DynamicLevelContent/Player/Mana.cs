@@ -59,7 +59,7 @@ namespace Platformer.DynamicLevelContent.Player
         /// <returns>false if not enough mana is available to cast</returns>
         public bool castingSpell(GameTime gameTime)
         {
-            if (!GlobalValues.DEBUG)
+            if (!GlobalValues.DEBUG_NO_MANA_COST)
             {
                 if (player.CurrentSpell != null)
                 {
@@ -87,9 +87,16 @@ namespace Platformer.DynamicLevelContent.Player
         /// <returns>true if enough mana is availabele, false if not</returns>
         public bool startCastingSpell(Spell spell)
         {
-            if (spell.ManaBasicCost < _currentMana)
+            if (!GlobalValues.DEBUG_NO_MANA_COST)
             {
-                _currentMana -= spell.ManaBasicCost;
+                if (spell.ManaBasicCost < _currentMana)
+                {
+                    _currentMana -= spell.ManaBasicCost;
+                    return true;
+                }
+            }
+            else
+            {
                 return true;
             }
             return false;
