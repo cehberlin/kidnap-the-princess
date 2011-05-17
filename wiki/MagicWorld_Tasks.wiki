@@ -6,7 +6,7 @@
   * work on phase 1 problems first
 
 = in Progress =
-character graphics - Amauri
+
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
@@ -41,6 +41,7 @@ character graphics - Amauri
 
 
 = done =
+  * Wizard Character created -> Amauri
   * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
   * score and time appear at the left corner
   * Message Popup appear at the middle
