@@ -3,7 +3,9 @@
     * please prioritize the new work (more important work should be at the start of the list)
   * if you work on something put it under "in progress"
   * after finishing the work out it in "done"
-  * work on phase 1 problems first
+  * work on phase 1 problems first, then phase 2 ... you get the idea ;)
+
+
 
 = in Progress =
 
@@ -13,27 +15,34 @@
   
   
 
-==PHASE 2 - playable prototype ==
-
-  * standing on top of froozen enemies 
+==PHASE 2 - minimum playable prototype ==
   * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
-  * levels to show diffrent combinations of spells
+  * good level(s) to show diffrent combinations of spells
     * matter + gravitation spell
     * caging an enemy
+    * some kind of puzzle that is only solvable with the spells
     * kill enemy with icicle -> exit door opens (or enemy leaves a key)
-  * SOUNDS/MUSIC! In my opinion(christopher) very important for a good game feeling!
   * better balancing SPell Casting Costs (Spell-classes: manaBasicCost + manaCastingCost)
 
 
-==PHASE 3 - fine tuning / extra stuff ==
-  * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming) COMMENT CHRISTOPHER? REALLY? I thought all spells should only influence objects not the player himself
+
+==PHASE 3 - prototype  ==
+  * better character graphics
+  * sounds for spell
+  * created matter falls more fluid
   * background graphics
-  * character graphics
-  * casted spells weakens with time (gets smaller/ fading out slowly)
-  * elapsed time on overlay 
-  * level balancing
+  * better background music
+
+
+
+==PHASE 4 - fine tuning / extra stuff ==
+  * BUG: Fullscreen mode doesnt show the same view section as normal mode
+  * standing on top of froozen enemies 
   * frozen tiles change movement for player and enemies
+  * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming) COMMENT CHRISTOPHER? REALLY? I thought all spells should only influence objects not the player himself
   * mana shown in a bar not as a number
+  * level balancing
+  * casted spells weakens with time (gets smaller/ fading out slowly)
   * player controls
     * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. PLEASE CHECK OUT CURRENT(new) IMPLEMENTATION I THINK ITS BETTER AND  FITS OUR NEEDS
 
