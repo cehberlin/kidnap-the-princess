@@ -232,11 +232,19 @@ namespace Platformer
         public void LoadContent()
         {
             // Load animated textures.
+            /*
             idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true,1);
             runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true,10);
             jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false,11);
             celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false,11);
             dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false,12);
+            */
+
+            idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
+            runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
+            jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
+            celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
+            dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false, 5);
 
             // Calculate bounds within texture size.            
             int width = (int)(idleAnimation.FrameWidth * 0.4);
@@ -606,9 +614,9 @@ namespace Platformer
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
-            if (Velocity.X > 0)
+            if (Velocity.X < 0)
                 flip = SpriteEffects.FlipHorizontally;
-            else if (Velocity.X < 0)
+            else if (Velocity.X > 0)
                 flip = SpriteEffects.None;
 
             // Draw that sprite.
