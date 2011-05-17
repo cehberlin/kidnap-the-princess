@@ -6,7 +6,7 @@
   * work on phase 1 problems first
 
 = in Progress =
-
+character graphics - Amauri
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
