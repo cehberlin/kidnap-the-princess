@@ -249,10 +249,14 @@ namespace Platformer
             }
             DrawShadowedString(hudFont, timeString, new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 5), timeColor);
 
-            // Draw score
-            float timeHeight = hudFont.MeasureString(timeString).Y;
-            DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 4), Color.Yellow);
-           
+            //// Draw score
+            //float timeHeight = hudFont.MeasureString(timeString).Y;
+            //DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 4), Color.Yellow);
+
+
+            level.Player.Mana.drawHud(spriteBatch, hudFont, new Vector2(camera._pos.X - camera.Width * 2 / 3, camera._pos.Y - camera.Height / 4));
+
+
             // Determine the status overlay message to show.
             Texture2D status = null;
             if (level.TimeRemaining == TimeSpan.Zero)

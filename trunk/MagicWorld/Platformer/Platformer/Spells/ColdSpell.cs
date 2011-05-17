@@ -9,8 +9,11 @@ namespace Platformer
 {
     class ColdSpell:Spell 
     {
+        private const int manaBasicCost = 150;
+        private const float manaCastingCost = 1f;
+
         public ColdSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level)
+            : base(spriteSet, _origin, level,manaBasicCost,manaCastingCost)
         {            
             Force = 1;
             survivalTimeMs = 5000;

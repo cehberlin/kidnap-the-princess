@@ -9,6 +9,19 @@ namespace Platformer
     /// </summary>
     abstract class Spell : IAutonomusGameObject
     {
+        #region "mana"
+            /// <summary>
+            /// Basic Cost to pay if 
+            /// </summary>
+            public int ManaBasicCost {get{return manaBasicCost;}}
+            private int manaBasicCost;
+            /// <summary>
+            /// Costs while casting the spell
+            /// </summary>
+            public  float ManaCastingCost{get{return manaCastingCost;}}
+            private float manaCastingCost;
+        #endregion
+
         #region properties
         /// <summary>
         /// Origin from the object in the screen
@@ -138,8 +151,10 @@ namespace Platformer
 
         #region methods
 
-        public Spell(string spriteSet, Vector2 _origin, Level level)
+        public Spell(string spriteSet, Vector2 _origin, Level level, int manaBasicCost, float manaCastingCost)
         {
+            this.manaBasicCost = manaBasicCost;
+            this.manaCastingCost = manaCastingCost;
             //spellTexture = _texture;
             Origin = _origin;
             Velocity = Vector2.Zero;

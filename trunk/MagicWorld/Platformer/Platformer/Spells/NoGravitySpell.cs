@@ -9,8 +9,11 @@ namespace Platformer.Spells
 {
     class NoGravitySpell : Spell 
     {
+        private const int manaBasicCost = 200;
+        private const float manaCastingCost = 1f;
+
         public NoGravitySpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level)
+            : base(spriteSet, _origin, level,manaBasicCost,manaBasicCost)
         {            
             Force = 1;
             survivalTimeMs = 5000;

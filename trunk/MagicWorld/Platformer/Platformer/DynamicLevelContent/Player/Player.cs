@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using System.Diagnostics;
 using Platformer.Spells;
+using Platformer.DynamicLevelContent.Player;
 
 namespace Platformer
 {
@@ -23,6 +24,14 @@ namespace Platformer
     /// </summary>
     class Player:ISpellInfluenceable
     {
+
+        public Mana Mana { get; set; }
+
+        /// <summary>
+        /// true if the player is casting a spell
+        /// </summary>
+        public bool IsCasting {get{return currentSpell != null;}}
+        private bool isCasting = false;
 
         #region "Animation & sound"
 
@@ -196,7 +205,7 @@ namespace Platformer
 
         //only one spell at a time
         Spell currentSpell = null;
-
+        public Spell CurrentSpell{get{return currentSpell;}}
 
         /// <summary>
         /// Constructors a new player.
@@ -209,6 +218,8 @@ namespace Platformer
             SpellSlotD = spellSlotD;
 
             this.level = level;
+
+            Mana = new Mana(this);
 
             LoadContent();
 
@@ -268,6 +279,7 @@ namespace Platformer
             AccelerometerState accelState,
             DisplayOrientation orientation)
         {
+            Mana.update(gameTime);
             GetInput(keyboardState, gamePadState, touchState, accelState, orientation);
 
             ApplyPhysics(gameTime);
@@ -645,8 +657,12 @@ namespace Platformer
                     Debug.WriteLine("WARMSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new WarmSpell("WarmSpell", pos, level);
-                    currentSpell.Direction = Direction;
-                    level.addSpell(currentSpell);
+                    if(Mana.startCastingSpell(currentSpell)) {
+                        currentSpell.Direction = Direction;
+                        level.addSpell(currentSpell);
+                    } else {
+                        currentSpell = null;
+                    }
                 } //if spell is already a warm spell do nothing because the spell grows on its own
                 else
                 {
@@ -655,17 +671,24 @@ namespace Platformer
                 }
             }
 
-            //releasing
-            bool bWarmSpellRelease = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton))
-                                    || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
-
-            if (bWarmSpellRelease)
-            {
-                if (currentSpell.GetType() == typeof(WarmSpell))
-                {
+            if (currentSpell != null && currentSpell.GetType() == typeof(WarmSpell))
+              {
+                if(!Mana.castingSpell(gameTime)) {
                     Debug.WriteLine("WARMSPELL:FIRED after button release");
-                    currentSpell.FireUp();
-                    currentSpell = null;
+                        currentSpell.FireUp();
+                        currentSpell = null;
+                } else {
+                    //releasing
+                    bool bWarmSpellRelease = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton))
+                                            || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
+
+                    if (bWarmSpellRelease)
+                    {
+                
+                            Debug.WriteLine("WARMSPELL:FIRED after button release");
+                            currentSpell.FireUp();
+                            currentSpell = null;
+                    }
                 }
             }
 
@@ -678,7 +701,7 @@ namespace Platformer
             if (bCreateColdSpellPress)
             {
                 if (currentSpell != null && currentSpell.GetType() != typeof(ColdSpell)) //release current creating spell if its a different one
-                {
+                {   
                     Debug.WriteLine("COLDSPELL:Old Spell in creation released because of spell change");
                     currentSpell.FireUp();
                     currentSpell = null;
@@ -688,8 +711,17 @@ namespace Platformer
                     Debug.WriteLine("COLDSPELL:START CREATION OF NEW ONE");
                     //create new warm spell
                     currentSpell = new ColdSpell("ColdSpell", pos, level);
-                    currentSpell.Direction = Direction;
-                    level.addSpell(currentSpell);    
+                    if (Mana.startCastingSpell(currentSpell))
+                    {
+                        currentSpell.Direction = Direction;
+                        level.addSpell(currentSpell);
+                    }
+                    else
+                    {
+                        currentSpell = null;
+                    }
+                    
+                    
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else
                 {
@@ -698,17 +730,26 @@ namespace Platformer
                 }
             }
 
-            //releasing
-            bool bColdSpellRelease = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton))
-                                    || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
-
-            if (bColdSpellRelease)
+            if (currentSpell != null && currentSpell.GetType() == typeof(ColdSpell))
             {
-                if (currentSpell.GetType() == typeof(ColdSpell))
+                if (!Mana.castingSpell(gameTime))
                 {
-                    Debug.WriteLine("COLDSPELL:FIRED after button release");
+                    Debug.WriteLine("COLDSPELL:FIRED after mana ios empty");
                     currentSpell.FireUp();
                     currentSpell = null;
+                }
+                else
+                {
+                    //releasing
+                    bool bColdSpellRelease = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton))
+                                        || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
+
+                    if (bColdSpellRelease)
+                    {
+                        Debug.WriteLine("COLDSPELL:FIRED after button release");
+                        currentSpell.FireUp();
+                        currentSpell = null;
+                    }
                 }
             }
 
@@ -731,8 +772,12 @@ namespace Platformer
                     Debug.WriteLine("MATTERSPELL:START CREATION OF NEW ONE");
                     //create new matter spell
                     currentSpell = new MatterSpell("MatterSpell", pos, level);
+                    if(Mana.startCastingSpell(currentSpell)) {
                     currentSpell.Direction = Direction;
                     level.addSpell(currentSpell);
+                    } else {
+                        currentSpell = null;
+                    }
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else
                 {
@@ -741,17 +786,25 @@ namespace Platformer
                 }
             }
 
-            //releasing
-            bool bMatterSpellRelease = (oldGamePadState.IsButtonDown(MatterButton) && gamePadState.IsButtonUp(MatterButton))
-                                    || (oldKeyboardState.IsKeyDown(MatterKey) && keyboardState.IsKeyUp(MatterKey));
-
-            if (bMatterSpellRelease)
+            if (currentSpell != null && currentSpell.GetType() == typeof(MatterSpell))
             {
-                if (currentSpell.GetType() == typeof(MatterSpell))
-                {
+                if(!Mana.castingSpell(gameTime)) {
+
                     Debug.WriteLine("COLDSPELL:FIRED after button release");
-                    currentSpell.FireUp();
-                    currentSpell = null;
+                            currentSpell.FireUp();
+                            currentSpell = null;
+                } else {
+                    //releasing
+                    bool bMatterSpellRelease = (oldGamePadState.IsButtonDown(MatterButton) && gamePadState.IsButtonUp(MatterButton))
+                                            || (oldKeyboardState.IsKeyDown(MatterKey) && keyboardState.IsKeyUp(MatterKey));
+
+                    if (bMatterSpellRelease)
+                    {
+                
+                            Debug.WriteLine("COLDSPELL:FIRED after button release");
+                            currentSpell.FireUp();
+                            currentSpell = null;
+                    }
                 }
             }
 
@@ -773,8 +826,12 @@ namespace Platformer
                     Debug.WriteLine("noGravitySpell:START CREATION OF NEW ONE");
                     //create new matter spell
                     currentSpell = new NoGravitySpell("NoGravitySpell", pos, level);
-                    currentSpell.Direction = Direction;
-                    level.addSpell(currentSpell);
+                    if(Mana.startCastingSpell(currentSpell)) {
+                        currentSpell.Direction = Direction;
+                        level.addSpell(currentSpell);
+                    } else {
+                        currentSpell = null;
+                    }
                 } //if spell is already a cold spell do nothing because the spell grows on its own
                 else
                 {
@@ -783,17 +840,25 @@ namespace Platformer
                 }
             }
 
-            //releasing
-            bool bNoGravitySpellRelease = (oldGamePadState.IsButtonDown(GravityButton) && gamePadState.IsButtonUp(GravityButton))
-                                    || (oldKeyboardState.IsKeyDown(GravityKey) && keyboardState.IsKeyUp(GravityKey));
-
-            if (bNoGravitySpellRelease)
+            if (currentSpell != null && currentSpell.GetType() == typeof(NoGravitySpell))
             {
-                if (currentSpell.GetType() == typeof(NoGravitySpell))
+                if (!Mana.castingSpell(gameTime))
                 {
                     Debug.WriteLine("NoGravitySpell:FIRED after button release");
                     currentSpell.FireUp();
                     currentSpell = null;
+                } else {
+                    //releasing
+                    bool bNoGravitySpellRelease = (oldGamePadState.IsButtonDown(GravityButton) && gamePadState.IsButtonUp(GravityButton))
+                                            || (oldKeyboardState.IsKeyDown(GravityKey) && keyboardState.IsKeyUp(GravityKey));
+
+                    if (bNoGravitySpellRelease)
+                    {
+
+                        Debug.WriteLine("NoGravitySpell:FIRED after button release");
+                        currentSpell.FireUp();
+                        currentSpell = null;
+                    }
                 }
             }
             #endregion

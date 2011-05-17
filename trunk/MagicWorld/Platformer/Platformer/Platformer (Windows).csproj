@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="DynamicLevelContent\DynamicTile.cs" />
     <Compile Include="DynamicLevelContent\MatterTile.cs" />
+    <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="GlobalValues.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Accelerometer.cs" />

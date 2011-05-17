@@ -11,6 +11,9 @@ namespace Platformer
 {
     class MatterSpell:Spell 
     {
+        private const int manaBasicCost = 200;
+        private const float manaCastingCost = 1f;
+
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
         /// </summary>
@@ -18,7 +21,7 @@ namespace Platformer
         /// <param name="_origin"></param>
         /// <param name="level"></param>
         public MatterSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level)
+            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
         {            
             Force = 1;
             survivalTimeMs = 50;
