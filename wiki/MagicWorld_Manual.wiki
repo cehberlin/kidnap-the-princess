@@ -7,3 +7,9 @@
 || warming spell      ||     J    ||    A    ||
 || cold spell         ||     I    ||    B    ||
 || jump               ||     up   ||   up    ||
+
+  * Fullscreen -> F11
+  * Exit Game -> "Esc"
+  * Debug
+    * Graphical Debugmode -> F3
+    * No Mana Costs -> F2
