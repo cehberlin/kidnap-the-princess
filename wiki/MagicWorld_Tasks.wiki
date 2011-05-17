@@ -27,11 +27,12 @@
 
 
 ==PHASE 3 - prototype  ==
-  * better character graphics
+  * better character graphics -> invisible background! (source of images: http://sdb.drshnaps.com/display.php?object=230)
   * sounds for spell
   * created matter falls more fluid
   * background graphics
-  * better background music
+  * real level reset after death (currently enemies dont change position after dead) (also a button for level reset)
+  * BUG: sometime the eniemies walk in air (without spell influence ;)
 
 
 
@@ -49,6 +50,7 @@
 
 
 = done =
+  * better background music -> amauri
   * BUG: Fire spell and antigravity spell does not grow anymore -> Marian
   * Wizard Character created -> Amauri
   * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
