@@ -9,7 +9,9 @@ namespace Platformer
 {
     class WarmSpell:Spell 
     {
-        public WarmSpell(string spriteSet,Vector2 _origin,Level level):base(spriteSet,  _origin, level)
+        private const int manaBasicCost = 150;
+        private const float manaCastingCost = 1f;
+        public WarmSpell(string spriteSet,Vector2 _origin,Level level):base(spriteSet,  _origin, level,manaBasicCost,manaBasicCost)
         {            
             Force = 1;
             survivalTimeMs = 3000;
