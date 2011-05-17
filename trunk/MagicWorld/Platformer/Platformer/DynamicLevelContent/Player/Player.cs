@@ -122,8 +122,11 @@ namespace Platformer
         public const Keys DownKeyAlternative = Keys.Down;
 
         public const Keys FullscreenToggleKey = Keys.F11;
-        public const Keys DebugToggleKey = Keys.F3;
         public const Keys ExitGameKey = Keys.Escape;
+
+        public const Keys DebugToggleKey = Keys.F3;
+        public const Keys DEBUG_NO_MANA_COST = Keys.F2;
+        
 
         // Input configuration
         private const float MoveStickScale = 1.0f;

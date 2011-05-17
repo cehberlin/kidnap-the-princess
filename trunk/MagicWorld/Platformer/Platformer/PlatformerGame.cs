@@ -167,6 +167,10 @@ namespace Platformer
             {
                 GlobalValues.DEBUG = !GlobalValues.DEBUG;
             }
+            if (keyboardState.IsKeyUp(Player.DEBUG_NO_MANA_COST) && oldKeyboardState.IsKeyDown(Player.DEBUG_NO_MANA_COST))
+            {
+                GlobalValues.DEBUG_NO_MANA_COST = !GlobalValues.DEBUG_NO_MANA_COST;
+            }
 
             if (keyboardState.IsKeyUp(Player.ExitGameKey) && oldKeyboardState.IsKeyDown(Player.ExitGameKey))
             {
