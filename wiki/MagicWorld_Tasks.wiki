@@ -16,7 +16,6 @@
   
 
 ==PHASE 2 - minimum playable prototype ==
-  * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
   * good level(s) to show diffrent combinations of spells
     * matter + gravitation spell
     * caging an enemy
@@ -27,22 +26,25 @@
 
 
 ==PHASE 3 - prototype  ==
-  * better character graphics -> invisible background! (source of images: http://sdb.drshnaps.com/display.php?object=230)
-  * sounds for spell
   * created matter falls more fluid
   * background graphics
   * real level reset after death (currently enemies dont change position after dead) (also a button for level reset)
   * BUG: sometime the eniemies walk in air (without spell influence ;)
-
+  * balancing GameSpeed
+  * balancing jump phyisic 
+  * slower music (/no music)
+  
 
 
 ==PHASE 4 - fine tuning / extra stuff ==
+  * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
   * BUG: Fullscreen mode doesnt show the same view section as normal mode
   * standing on top of froozen enemies 
   * frozen tiles change movement for player and enemies
   * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming) COMMENT CHRISTOPHER? REALLY? I thought all spells should only influence objects not the player himself
   * mana shown in a bar not as a number
   * level balancing
+  * BUG: Animation of player 
   * casted spells weakens with time (gets smaller/ fading out slowly)
   * player controls
     * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. PLEASE CHECK OUT CURRENT(new) IMPLEMENTATION I THINK ITS BETTER AND  FITS OUR NEEDS
@@ -50,6 +52,8 @@
 
 
 = done =
+  * better character graphics -> invisible background! (source of images: http://sdb.drshnaps.com/display.php?object=230)
+  * sounds for spell
   * icecicle implemented -> amauri
   * better background music -> amauri
   * BUG: Fire spell and antigravity spell does not grow anymore -> Marian
