@@ -117,7 +117,7 @@ namespace Platformer
             level.Update(gameTime, keyboardState, gamePadState, touchState, 
                          accelerometerState, Window.CurrentOrientation);
 
-            camera.Pos = level.Player.Position;
+            camera.Pos = new Vector2 (level.Player.Position.X,level.Player.Position.Y-150);
 
             base.Update(gameTime);
         }
