@@ -255,15 +255,26 @@ namespace Platformer
             {
                 timeColor = Color.Red;
             }
-            DrawShadowedString(hudFont, timeString, new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 5), timeColor);
+
+            float stringpositionX = 0;
+            float stringpositionTimeY = camera._pos.Y - camera.Height / 5;
+            float stringpositionManaY = camera._pos.Y - camera.Height / 4;
+
+            if (this.graphics.IsFullScreen)
+            {
+                stringpositionX = camera._pos.X - camera.Width * 3 / 5;
+            }
+            else
+            {
+                stringpositionX = camera._pos.X - camera.Width * 2 / 3;
+            }
+
+            DrawShadowedString(hudFont, timeString, new Vector2(stringpositionX, stringpositionTimeY), timeColor);
+            level.Player.Mana.drawHud(spriteBatch, hudFont, new Vector2(stringpositionX, stringpositionManaY));
 
             //// Draw score
             //float timeHeight = hudFont.MeasureString(timeString).Y;
-            //DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 4), Color.Yellow);
-
-
-            level.Player.Mana.drawHud(spriteBatch, hudFont, new Vector2(camera._pos.X - camera.Width * 2 / 3, camera._pos.Y - camera.Height / 4));
-
+            //DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 4), Color.Yellow);         
 
             // Determine the status overlay message to show.
             Texture2D status = null;
