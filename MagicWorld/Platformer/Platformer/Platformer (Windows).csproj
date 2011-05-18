@@ -70,6 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DynamicLevelContent\DynamicTile.cs" />
+    <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\MatterTile.cs" />
     <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="GlobalValues.cs" />
