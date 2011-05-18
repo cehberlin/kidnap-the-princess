@@ -64,7 +64,7 @@ namespace Platformer
 
             if (x > 0 && x < level.Width && y > 0 && y < level.Height)
             {
-                if (level.GetTile(x, y).Texture == null)//empty tile
+                if (level.GetTile(x, y).Texture == null && level.GetTile(x+1, y).Texture == null&& level.GetTile(x-1, y).Texture == null)//empty tile
                 {
                     double matterTileLifeTime = durationOfActionMs * Force;
                     Debug.WriteLine("Matter Tile LifeTime " + matterTileLifeTime);
