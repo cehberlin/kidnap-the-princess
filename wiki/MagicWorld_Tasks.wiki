@@ -16,6 +16,7 @@
   
 
 ==PHASE 2 - minimum playable prototype ==
+  * BUG: Eniemie Collision sometime the eniemies walk in air or through tiles (without spell influence ;)
   * good level(s) to show diffrent combinations of spells
     * matter + gravitation spell
     * caging an enemy
@@ -26,9 +27,10 @@
 
 
 ==PHASE 3 - prototype  ==
+  * BUG: creating Matter in a corner let the player fall through tiles
   * created matter falls more fluid
   * real level reset after death (currently enemies dont change position after dead) (also a button for level reset)
-  * BUG: sometime the eniemies walk in air (without spell influence ;)
+
   * balancing GameSpeed
   * balancing jump phyisic 
   * slower music (/no music)
