@@ -887,7 +887,7 @@ namespace Platformer
         {
             if (spell.GetType() == typeof(NoGravitySpell))
             {
-                disableGravity = true;                
+                //disableGravity = true;                
             }
             return false; //do not remove spell
         }
