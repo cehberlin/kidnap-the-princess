@@ -26,7 +26,7 @@ namespace Platformer
     {
 
         // Constants for controlling vertical movement
-        private const float MaxJumpTime = 0.15f;//0.25f; //original 0.35f
+        private const float MaxJumpTime = 0.18f;//0.15f//0.25f; //original 0.35f
         private const float JumpLaunchVelocity = -3500.0f;
         private const float GravityAcceleration = 3400.0f;
         private const float MaxFallSpeed = 550.0f;
@@ -355,7 +355,7 @@ namespace Platformer
             {
                 movement = -1.0f;
                 lastDirection.X = -1.0f;
-                lastDirection.Y = 0.0f;
+                //lastDirection.Y = 0.0f;
             }
             else if (gamePadState.IsButtonDown(RightButton) ||
                      keyboardState.IsKeyDown(RightKey) ||
@@ -363,7 +363,7 @@ namespace Platformer
             {
                 movement = 1.0f;
                 lastDirection.X = 1.0f;
-                lastDirection.Y = 0.0f;
+                //lastDirection.Y = 0.0f;
             }
             else
             {
