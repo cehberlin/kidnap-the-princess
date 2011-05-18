@@ -14,7 +14,7 @@ namespace Platformer
         private const int manaBasicCost = 200;
         private const float manaCastingCost = 1f;
 
-        private const int MATTER_EXISTENCE_TIME = 500; // time that created Matter exist
+        private const int MATTER_EXISTENCE_TIME = 1200; // time that created Matter exist
 
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)

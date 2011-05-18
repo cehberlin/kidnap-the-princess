@@ -20,7 +20,7 @@ namespace Platformer.DynamicLevelContent
         }
 
         public MatterTile(String texture, Level level, int x, int y, double lifeTimeMs) :
-            base(texture, TileCollision.Impassable, level, x,y)
+            base(texture, TileCollision.Platform, level, x,y)
         {
             this.lifetimeMs = lifeTimeMs;
         }
