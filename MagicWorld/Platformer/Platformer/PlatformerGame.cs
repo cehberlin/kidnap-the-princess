@@ -210,8 +210,10 @@ namespace Platformer
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //for (int i = 0; i <= level.layers.Length; ++i)
-            //    spriteBatch.Draw(level.layers[i], Vector2.Zero, Color.White);
+            spriteBatch.Begin();
+            for (int i = 0; i <=level.EntityLayers; ++i)
+                spriteBatch.Draw(level.layers[i], Vector2.Zero, Color.White);
+            spriteBatch.End();
 
             //spriteBatch.Begin();
             spriteBatch.Begin(SpriteSortMode.Immediate,

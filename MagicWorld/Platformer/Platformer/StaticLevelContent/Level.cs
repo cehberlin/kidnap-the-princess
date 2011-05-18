@@ -34,9 +34,14 @@ namespace Platformer
             get { return tiles; }
             set { tiles = value; }
         }
-        private Texture2D[] layers;
+        public Texture2D[] layers;
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 2;
+
+        public int EntityLayers
+        {
+            get { return EntityLayer; }
+        }
 
         // Entities in the level.
         public Player Player
@@ -660,8 +665,8 @@ namespace Platformer
         /// </summary>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            for (int i = 0; i <= EntityLayer; ++i)
-                spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
+            //for (int i = 0; i <= EntityLayer; ++i)
+            //    spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
 
             DrawTiles(gameTime, spriteBatch);
 
