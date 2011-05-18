@@ -8,8 +8,7 @@
 
 
 = in Progress =
-  * BUG: Eniemie Collision sometime the eniemies walk in air or through tiles (without spell influence ;) -> Pascal
-  * real level reset after death (currently enemies dont change position after dead) (also a button for level reset) -> Marian
+    * real level reset after death (currently enemies dont change position after dead) (also a button for level reset) -> Marian
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
@@ -83,3 +82,4 @@
   * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
   * background graphics
   * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
+  * Enemy Collision sometimes the enemies walk in air or through tiles (without spell influence ;) -> Pascal
