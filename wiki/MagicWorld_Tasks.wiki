@@ -27,7 +27,6 @@
 
 ==PHASE 3 - prototype  ==
   * created matter falls more fluid
-  * background graphics
   * real level reset after death (currently enemies dont change position after dead) (also a button for level reset)
   * BUG: sometime the eniemies walk in air (without spell influence ;)
   * balancing GameSpeed
@@ -82,3 +81,4 @@
     * created matter needs to fall down after casting -->christopher
 
   * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
+  * background graphics
