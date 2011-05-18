@@ -8,6 +8,7 @@ namespace Platformer
     enum IcecicleState { NORMAL, FALLING, DESTROYED };
     class Icecicle : ISpellInfluenceable,IAutonomusGameObject
     {
+        protected Texture2D debugTexture;
         private Texture2D texture;
         private Vector2 origin;
         private SoundEffect hitSound;
@@ -18,7 +19,7 @@ namespace Platformer
         private float fallVelocity;
 
         public const int Width = 40;
-        public const int Height = 32;
+        public const int Height = 41;
 
         /// <summary>
         /// Position in world space of the bottom center of this enemy.
@@ -40,8 +41,8 @@ namespace Platformer
         {
             get
             {
-                int left = (int)Math.Round(position.X);
-                int top = (int)Math.Round(position.Y);
+                int left = (int)Math.Round(position.X-Width/2);
+                int top = (int)Math.Round(position.Y-Height);
 
                 return new Rectangle(left, top, Width, Height);
             }
@@ -64,6 +65,7 @@ namespace Platformer
             hitSound = Level.Content.Load<SoundEffect>("Sounds/Icehit");
             idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet), 0.15f, true, 1);            
             fallVelocity = 0.8f;
+            debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
         }
 
         #region ISpellInfluenceable Member
@@ -93,7 +95,11 @@ namespace Platformer
             {
                 sprite.Draw(gameTime, spriteBatch, position, flip);
             }
-            
+
+            if (GlobalValues.DEBUG)
+            {
+                spriteBatch.Draw(debugTexture, BoundingRectangle, Color.Pink);
+            }           
             
         }
 
