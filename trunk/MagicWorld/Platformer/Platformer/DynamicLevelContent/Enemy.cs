@@ -147,11 +147,11 @@ namespace Platformer
 
             if (!isFroozen)
             {
-                if (level.Player.Position.X > this.position.X +10 && this.direction.Equals(FaceDirection.Left) ||
-                    level.Player.Position.X < this.position.X -10 && this.direction.Equals(FaceDirection.Right))
-                {
-                    direction = (FaceDirection)(-(int)direction);
-                }
+                //if (level.Player.Position.X > this.position.X +10 && this.direction.Equals(FaceDirection.Left) ||
+                //    level.Player.Position.X < this.position.X -10 && this.direction.Equals(FaceDirection.Right))
+                //{
+                //    direction = (FaceDirection)(-(int)direction);
+                //}
 
                 // Calculate tile position based on the side we are walking towards.
                 float posX = Position.X + localBounds.Width / 2 * (int)direction;
@@ -226,9 +226,6 @@ namespace Platformer
             SpriteEffects flip = direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);
         }
-
-
-
 
         #region ISpellInfluenceable Member
 

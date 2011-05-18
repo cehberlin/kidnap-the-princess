@@ -26,7 +26,7 @@ namespace Platformer
     {
 
         // Constants for controlling vertical movement
-        private const float MaxJumpTime = 0.15f;//0.25f;
+        private const float MaxJumpTime = 0.15f;//0.25f; //original 0.35f
         private const float JumpLaunchVelocity = -3500.0f;
         private const float GravityAcceleration = 3400.0f;
         private const float MaxFallSpeed = 550.0f;
