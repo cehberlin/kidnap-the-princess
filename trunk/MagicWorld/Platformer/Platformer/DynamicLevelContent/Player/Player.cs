@@ -25,6 +25,14 @@ namespace Platformer
     class Player:ISpellInfluenceable
     {
 
+        // Constants for controlling vertical movement
+        private const float MaxJumpTime = 0.15f;//0.25f;
+        private const float JumpLaunchVelocity = -3500.0f;
+        private const float GravityAcceleration = 3400.0f;
+        private const float MaxFallSpeed = 550.0f;
+        private const float JumpControlPower = 0.14f;
+
+
         public Mana Mana { get; set; }
 
         /// <summary>
@@ -142,12 +150,7 @@ namespace Platformer
         private const float GroundDragFactor = 0.48f;
         private const float AirDragFactor = 0.58f;
 
-        // Constants for controlling vertical movement
-        private const float MaxJumpTime = 0.25f;//0.35f;
-        private const float JumpLaunchVelocity = -3500.0f;
-        private const float GravityAcceleration = 3400.0f;
-        private const float MaxFallSpeed = 550.0f;
-        private const float JumpControlPower = 0.14f;
+        
 
         #endregion
 
