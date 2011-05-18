@@ -653,6 +653,7 @@ namespace Platformer
         /// </summary>
         public void StartNewLife()
         {
+            
             Player.Reset(start);
         }
 
@@ -665,9 +666,6 @@ namespace Platformer
         /// </summary>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            //for (int i = 0; i <= EntityLayer; ++i)
-            //    spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
-
             DrawTiles(gameTime, spriteBatch);
 
             foreach (Gem gem in gems)
