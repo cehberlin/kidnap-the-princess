@@ -106,10 +106,10 @@ namespace Platformer
 
         //keyboard
         //spells
-        public const Keys WarmKey = Keys.J;
-        public const Keys ColdKey = Keys.I;
-        public const Keys MatterKey = Keys.O;
-        public const Keys GravityKey = Keys.P;
+        public const Keys WarmKey = Keys.D0;
+        public const Keys ColdKey = Keys.D9;
+        public const Keys MatterKey = Keys.D8;
+        public const Keys GravityKey = Keys.D7;
 
         public const Keys LeftKey = Keys.A;
         public const Keys RightKey = Keys.D;
