@@ -28,7 +28,7 @@ namespace Platformer
         // Resources for drawing.
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-
+        
         // Global content.
         private SpriteFont hudFont;
 
