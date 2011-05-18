@@ -412,6 +412,24 @@ namespace Platformer
         }
 
         /// <summary>
+        /// handels collision with other objects
+        /// </summary>
+        public virtual void HandleObjectsCollision()
+        {
+            //icecicle collision
+            foreach (Icecicle ice in level.Icecicles)
+            {
+                if (ice.BoundingRectangle.Intersects(this.BoundingRectangle))
+                {
+                    if (ice.SpellInfluenceAction(this))
+                    {
+                        SpellState = State.REMOVE;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// handels collision with tiles and enemies and level bounds
         /// </summary>
         public virtual void HandleCollision()
@@ -427,6 +445,9 @@ namespace Platformer
 
             //check if spells leaves the level
             HandleOutOfLevelCollision();
+
+            //objects collision
+            HandleObjectsCollision();
         }
 
         #endregion collision

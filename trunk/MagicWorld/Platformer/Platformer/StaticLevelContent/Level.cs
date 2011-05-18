@@ -45,6 +45,14 @@ namespace Platformer
         }
         Player player;
 
+        private List<Icecicle> icecicles = new List<Icecicle>();
+
+        internal List<Icecicle> Icecicles
+        {
+            get { return icecicles; }
+            set { icecicles = value; }
+        }
+
         private List<Gem> gems = new List<Gem>();
 
         internal List<Gem> Gems
@@ -250,6 +258,10 @@ namespace Platformer
                 // Impassable block
                 case '#':
                     return LoadVarietyTile("BlockA", 7, TileCollision.Impassable,x,y);
+                
+                //Icecicles
+                case 'W':
+                    return LoadIcecleTile(x, y);
 
                 // Unknown tile type character
                 default:
@@ -336,6 +348,18 @@ namespace Platformer
             enemies.Add(new Enemy(this, position, spriteSet));
 
             return new Tile(null, TileCollision.Passable,this,x,y);
+        }
+
+        /// <summary>
+        /// Instantiates icecicles and puts it in the level.
+        /// </summary>
+        private Tile LoadIcecleTile(int x, int y)
+        {
+            Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
+            position.Y += 8;
+            icecicles.Add(new Icecicle(this, position));
+
+            return new Tile(null, TileCollision.Passable, this, x, y);
         }
 
         /// <summary>
@@ -460,6 +484,7 @@ namespace Platformer
 
                 Player.Update(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
                 UpdateGems(gameTime);
+                UpdateObjects(gameTime);
 
                 // Falling off the bottom of the level kills the player.
                 if (Player.BoundingRectangle.Top >= Height * Tile.Height)
@@ -530,6 +555,25 @@ namespace Platformer
                 {
                     gems.RemoveAt(i--);
                     OnGemCollected(gem, Player);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update all other objecs
+        /// Icecicles
+        /// </summary>
+        /// <param name="gameTime"></param>
+        private void UpdateObjects(GameTime gameTime)
+        {
+            for (int i = 0; i < icecicles.Count; ++i)                    
+            {
+                Icecicle icecicle = icecicles[i];
+                icecicle.Update(gameTime);
+                //remove
+                if (icecicle.icecicleState == IcecicleState.DESTROYED)
+                {
+                    icecicles.Remove(icecicle);                    
                 }
             }
         }
@@ -623,6 +667,9 @@ namespace Platformer
 
             foreach (Gem gem in gems)
                 gem.Draw(gameTime, spriteBatch);
+
+            foreach (Icecicle icecicle in icecicles)
+                icecicle.Draw(gameTime, spriteBatch);
 
             Player.Draw(gameTime, spriteBatch);
 
