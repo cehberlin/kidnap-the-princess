@@ -2,10 +2,10 @@
  
 
 || *action*           ||*Keyboard*||*Gamepad*||
-|| matter spell       ||     O    ||    X    ||
-|| no gravity spell   ||     P    ||    Y    ||
-|| warming spell      ||     J    ||    A    ||
-|| cold spell         ||     I    ||    B    ||
+|| matter spell       ||     8    ||    X    ||
+|| no gravity spell   ||     7    ||    Y    ||
+|| warming spell      ||     0    ||    A    ||
+|| cold spell         ||     9    ||    B    ||
 || jump               ||     up   ||   up    ||
 
   * Fullscreen -> F11
