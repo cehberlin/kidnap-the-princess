@@ -95,8 +95,8 @@ namespace Platformer
             //So we have to catch the exception and throw it away
             try
             {
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(Content.Load<Song>("Sounds/Music"));
+                //MediaPlayer.IsRepeating = true;
+                //MediaPlayer.Play(Content.Load<Song>("Sounds/Music"));
             }
             catch { }
 
