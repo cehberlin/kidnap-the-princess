@@ -8,7 +8,7 @@
 
 
 = in Progress =
-*Icecicle class - Amauri
+
 
 = TODO =
 ==PHASE 1 - core mechanics/game elements ==
@@ -50,6 +50,7 @@
 
 
 = done =
+  * icecicle implemented -> amauri
   * better background music -> amauri
   * BUG: Fire spell and antigravity spell does not grow anymore -> Marian
   * Wizard Character created -> Amauri
