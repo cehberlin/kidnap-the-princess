@@ -36,7 +36,7 @@
 
 
 ==PHASE 4 - fine tuning / extra stuff ==
-  * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
+
   * BUG: Fullscreen mode doesnt show the same view section as normal mode
   * standing on top of froozen enemies 
   * frozen tiles change movement for player and enemies
@@ -82,3 +82,4 @@
 
   * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
   * background graphics
+  * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
