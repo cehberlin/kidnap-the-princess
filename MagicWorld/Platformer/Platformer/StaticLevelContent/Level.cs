@@ -641,7 +641,7 @@ namespace Platformer
         /// <summary>
         /// Called when the player reaches the level's exit.
         /// </summary>
-        private void OnExitReached()
+        public void OnExitReached()
         {
             Player.OnReachedExit();
             exitReachedSound.Play();

@@ -32,6 +32,8 @@ namespace Platformer
         private const float MaxFallSpeed = 550.0f;
         private const float JumpControlPower = 0.14f;
 
+        private const double MAX_NO_GRAVITY_TIME = 1000;
+
 
         public Mana Mana { get; set; }
 
@@ -134,6 +136,8 @@ namespace Platformer
 
         public const Keys DebugToggleKey = Keys.F3;
         public const Keys DEBUG_NO_MANA_COST = Keys.F2;
+        public const Keys DEBUG_NEXT_LEVEL = Keys.F4;
+        public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F5;
         
 
         // Input configuration
@@ -159,11 +163,20 @@ namespace Platformer
         /// <summary>
         /// Gets whether or not the player's feet are on the ground.
         /// </summary>
+
+        bool isOnGround;
+
         public bool IsOnGround
         {
             get { return isOnGround; }
+            set { 
+                isOnGround = value;
+                if (isOnGround)
+                {
+                    gravityInfluenceMaxTime = MAX_NO_GRAVITY_TIME;
+                }
+            }
         }
-        bool isOnGround;
 
         /// <summary>
         /// Current user movement input.
@@ -181,6 +194,8 @@ namespace Platformer
         private float jumpTime;
 
         private bool isDown;
+
+        public bool nogravityHasInfluenceOnPlayer = true;
 
         private Rectangle localBounds;
         /// <summary>
@@ -303,7 +318,7 @@ namespace Platformer
                 HandleSpellCreation(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
             }
 
-            if (IsAlive && (IsOnGround || disableGravity))
+            if (IsAlive && (IsOnGround || (disableGravity&& gravityInfluenceMaxTime>0)))
             {
                 if (Math.Abs(Velocity.X) - 0.02f > 0)
                 {
@@ -314,6 +329,8 @@ namespace Platformer
                     sprite.PlayAnimation(idleAnimation);
                 }
             }
+
+            gravityInfluenceMaxTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
             // Clear input.
             movement = 0.0f;
@@ -393,7 +410,7 @@ namespace Platformer
             {
                 lastDirection.Y = 1.0f;
             }
-            else if (lastDirection.Y != null)
+            else if (lastDirection.Y != 0.0f)
             {
                 isFalling = true;
             }
@@ -405,6 +422,8 @@ namespace Platformer
 
         Boolean isFalling = false;
         Boolean disableGravity = false;
+
+        Double gravityInfluenceMaxTime = MAX_NO_GRAVITY_TIME;
 
         /// <summary>
         /// Updates the player's velocity and position based on input, gravity, etc.
@@ -418,7 +437,7 @@ namespace Platformer
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
             velocity.X += movement * MoveAcceleration * elapsed;
-            if (disableGravity)
+            if (disableGravity && gravityInfluenceMaxTime>0)
             {
                 if (isFalling) {
                     velocity.Y = 0;
@@ -436,7 +455,7 @@ namespace Platformer
             velocity.Y = DoJump(velocity.Y, gameTime);
 
             // Apply pseudo-drag horizontally.
-            if ((IsOnGround || disableGravity))
+            if ((IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
                 velocity.X *= GroundDragFactor;
             else
                 velocity.X *= AirDragFactor;
@@ -486,7 +505,7 @@ namespace Platformer
             if (isJumping)
             {
                 // Begin or continue a jump
-                if ((!wasJumping && (IsOnGround||disableGravity)) || jumpTime > 0.0f)
+                if ((!wasJumping && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0))) || jumpTime > 0.0f)
                 {
                     if (jumpTime == 0.0f)
                         jumpSound.Play();
@@ -533,7 +552,7 @@ namespace Platformer
             int bottomTile = (int)Math.Ceiling(((float)bounds.Bottom / Tile.Height)) - 1;
 
             // Reset flag to search for ground collision.
-            isOnGround = false;
+            IsOnGround = false;
 
             // For each potentially colliding tile,
             for (int y = topTile; y <= bottomTile; ++y)
@@ -557,7 +576,7 @@ namespace Platformer
                             {
                                 // If we crossed the top of a tile, we are on the ground.
                                 if (previousBottom <= tileBounds.Top)
-                                    isOnGround = true;
+                                    IsOnGround = true;
 
                                 // Ignore platforms, unless we are on the ground.
                                 if (collision == TileCollision.Impassable || IsOnGround)
@@ -885,9 +904,10 @@ namespace Platformer
 
         public bool SpellInfluenceAction(Spell spell)
         {
-            if (spell.GetType() == typeof(NoGravitySpell))
+
+            if (nogravityHasInfluenceOnPlayer && spell.GetType() == typeof(NoGravitySpell))
             {
-                //disableGravity = true;                
+                disableGravity = true;                
             }
             return false; //do not remove spell
         }
