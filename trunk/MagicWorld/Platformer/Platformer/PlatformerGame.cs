@@ -173,6 +173,16 @@ namespace Platformer
                 GlobalValues.DEBUG_NO_MANA_COST = !GlobalValues.DEBUG_NO_MANA_COST;
             }
 
+            if (keyboardState.IsKeyUp(Player.DEBUG_NEXT_LEVEL) && oldKeyboardState.IsKeyDown(Player.DEBUG_NEXT_LEVEL))
+            {
+                level.OnExitReached();
+            }
+
+            if (keyboardState.IsKeyUp(Player.DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER) && oldKeyboardState.IsKeyDown(Player.DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER))
+            {
+                level.Player.nogravityHasInfluenceOnPlayer = !level.Player.nogravityHasInfluenceOnPlayer;
+            }
+
             if (keyboardState.IsKeyUp(Player.ExitGameKey) && oldKeyboardState.IsKeyDown(Player.ExitGameKey))
             {
                 this.Exit();
