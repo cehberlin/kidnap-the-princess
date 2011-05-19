@@ -13,3 +13,5 @@
   * Debug
     * Graphical Debugmode -> F3
     * No Mana Costs -> F2
+    * Level Win, Next Level -> F4
+    * Toggle no gravity influence on player ->F5
