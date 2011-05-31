@@ -3,7 +3,7 @@
     * please prioritize the new work (more important work should be at the start of the list)
   * if you work on something put it under "in progress"
   * after finishing the work out it in "done"
-
+  * before creating new classes take a look into the architecture document, bigger or tricky constructs should be documented in that document
 
 
 = in Progress =
