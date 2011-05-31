@@ -35,7 +35,7 @@ namespace MagicWorld.AbstractGameElements
         }
 
 
-        private ContentManager ContentManager { get; set; }
+        public ContentManager ContentManager { get; set; }
 
 
         public DrawableGameElement(ContentManager contentManager, Vector2 position, Entity bounds)
