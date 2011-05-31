@@ -3,83 +3,29 @@
     * please prioritize the new work (more important work should be at the start of the list)
   * if you work on something put it under "in progress"
   * after finishing the work out it in "done"
-  * work on phase 1 problems first, then phase 2 ... you get the idea ;)
 
 
 
 = in Progress =
-    * real level reset after death (currently enemies dont change position after dead) (also a button for level reset) -> Marian
 
-= TODO =
-==PHASE 1 - core mechanics/game elements ==
-  
-  
-
-==PHASE 2 - minimum playable prototype ==
-  * good level(s) to show diffrent combinations of spells
-    * matter + gravitation spell
-    * caging an enemy
-    * some kind of puzzle that is only solvable with the spells
-    * kill enemy with icicle -> exit door opens (or enemy leaves a key)
-  * better balancing SPell Casting Costs (Spell-classes: manaBasicCost + manaCastingCost)
 
 
 
-==PHASE 3 - prototype  ==
-  * BUG: creating Matter in a corner let the player fall through tiles
-  * created matter falls more fluid
-  * balancing GameSpeed
-  * balancing jump phyisic 
-  * slower music (/no music)
+= TODO =
+==work until next milestone ==
+  * reimplementation of last prototype state, 
+    * write down which class you are working on
+      * if you build a component, create the class and submit before writing code in it
+    * for decoupled components you can provide a minimal implementation or copy paste from the last prototype first (can be replaced later by better component implementation)
+    
   
 
+==work for next milestone==
 
-==PHASE 4 - fine tuning / extra stuff ==
 
-  * BUG: Fullscreen mode doesnt show the same view section as normal mode
-  * standing on top of froozen enemies 
-  * frozen tiles change movement for player and enemies
-  * no gravity spell -> player must be able to move in all directions in spell sphere (like swimming) COMMENT CHRISTOPHER? REALLY? I thought all spells should only influence objects not the player himself
-  * mana shown in a bar not as a number
-  * level balancing
-  * BUG: Animation of player 
-  * casted spells weakens with time (gets smaller/ fading out slowly)
-  * player controls
-    * other key for jump (up key should set direction for spell and for floating in no gravity area) COMMENT CHRISTOPHER: I do not agree with that task. PLEASE CHECK OUT CURRENT(new) IMPLEMENTATION I THINK ITS BETTER AND  FITS OUR NEEDS
 
+== deffered work ==
+  
 
 
 = done =
-  * better character graphics -> invisible background! (source of images: http://sdb.drshnaps.com/display.php?object=230)
-  * sounds for spell
-  * icecicle implemented -> amauri
-  * better background music -> amauri
-  * BUG: Fire spell and antigravity spell does not grow anymore -> Marian
-  * Wizard Character created -> Amauri
-  * Mana implementation (manabar on overlay, different castig cost for bigger spell, balanced mana regeneration) -> Marian
-  * score and time appear at the left corner
-  * Message Popup appear at the middle
-  * additional ice tile (ice tile can be destroyed with fire)
-  * matter spell seems to crash the game once in a while --> John
-  * spells shouldnt move if they being casted while not moving --> John
-  * spell moving in directon of movement --> John
-  * matter spell -->christopher
-  * gravity spell --> Marian
-  * warming and freezing enemies 
-  * implemented moving camera
-  * improving project structure - Marian
-  * enemy impl - AI --> John
-    - Enemy moves towards the player
-  * spell moving in drecton of movement (also up and down) --> John
-  * picture for frozen enemies  -->christopher
-  * spell impl general stuff - Amauri --> Continued Christopher: BASICS ARE DONE
-  * matter should be created directly not after hitting something
- (casting direction is like throwing the created block) --> christopher: creates tile after fly time is over or after collision a flying tile is problematic in this tiled game world, but current implementation should fit our needs 
-  * no gravitation graphics --> christopher-->basic one is implemented --> easier to differ
-  * matter spell casting
-    * created matter needs to fall down after casting -->christopher
-
-  * no gravitation spell -> gravitation should influence created matter (if it is falling down)  -->christopher
-  * background graphics
-  * icicle (falls down when hit by warming spell and kills enemys that got hit by the icicle)
-  * Enemy Collision sometimes the enemies walk in air or through tiles (without spell influence ;) -> Pascal
