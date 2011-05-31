@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicWorld", "MagicWorld\MagicWorld\MagicWorld.csproj", "{7342BC8A-8BE2-4BAB-9FB4-CB1A748329C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MagicWorldContent", "MagicWorld\MagicWorldContent\MagicWorldContent.contentproj", "{F5B41CB0-0E4B-4F7E-AF86-EB64DFCB9BC8}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7342BC8A-8BE2-4BAB-9FB4-CB1A748329C9}.Debug|x86.ActiveCfg = Debug|x86
+		{7342BC8A-8BE2-4BAB-9FB4-CB1A748329C9}.Debug|x86.Build.0 = Debug|x86
+		{7342BC8A-8BE2-4BAB-9FB4-CB1A748329C9}.Release|x86.ActiveCfg = Release|x86
+		{7342BC8A-8BE2-4BAB-9FB4-CB1A748329C9}.Release|x86.Build.0 = Release|x86
+		{F5B41CB0-0E4B-4F7E-AF86-EB64DFCB9BC8}.Debug|x86.ActiveCfg = Debug|x86
+		{F5B41CB0-0E4B-4F7E-AF86-EB64DFCB9BC8}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
