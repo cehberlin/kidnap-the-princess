@@ -4,6 +4,7 @@
   * if you work on something put it under "in progress"
   * after finishing the work out it in "done"
   * before creating new classes take a look into the architecture document, bigger or tricky constructs should be documented in that document
+  * check the design document before you implement so we implement our collective vision, if something is not clear please write a email 
 
 
 = in Progress =
