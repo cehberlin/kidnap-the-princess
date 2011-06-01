@@ -32,10 +32,8 @@ namespace MagicWorld
         /// and initialize them as well.
         /// </summary>
         protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
-
-            base.Initialize();
+        {            
+            base.Initialize();   
         }
 
         /// <summary>
@@ -46,8 +44,7 @@ namespace MagicWorld
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            Services.AddService(typeof(SpriteBatch), spriteBatch);
         }
 
         /// <summary>
@@ -56,7 +53,6 @@ namespace MagicWorld
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         /// <summary>
@@ -69,9 +65,7 @@ namespace MagicWorld
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
-            // TODO: Add your update logic here
-
+            
             base.Update(gameTime);
         }
 
@@ -82,9 +76,7 @@ namespace MagicWorld
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            
             base.Draw(gameTime);
         }
     }
