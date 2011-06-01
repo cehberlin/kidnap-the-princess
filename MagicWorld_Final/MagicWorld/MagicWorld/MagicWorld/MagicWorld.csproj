@@ -117,6 +117,10 @@
     <Compile Include="GameConstants\GameConstantFactory.cs" />
     <Compile Include="GameConstants\IPlayerConstants.cs" />
     <Compile Include="GameElements\Spells\SpellFactory.cs" />
+    <Compile Include="AbstractGameElements\SpellType.cs" />
+    <Compile Include="HUD\CollectedItems.cs" />
+    <Compile Include="HUD\ManaBar.cs" />
+    <Compile Include="HUD\SpellSelector.cs" />
     <Compile Include="Level\Level.cs" />
     <Compile Include="Level\LevelFactory.cs" />
     <Compile Include="Controls\IPlayerControl.cs" />

@@ -13,7 +13,9 @@ namespace MagicWorld.AbstractGameElements
     /// </summary>
     public abstract class Spell : IUpdateable
     {
-        
+
+        public abstract SpellType SpellType { get; } 
+
         public SpellConstants spellConstants{get;set;}
 
         public Spell(SpellConstants spellConstants)

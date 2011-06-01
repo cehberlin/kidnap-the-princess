@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MagicWorld.AbstractGameElements;
 
 namespace MagicWorld.GameElements.Spells
 {
@@ -22,6 +23,11 @@ namespace MagicWorld.GameElements.Spells
                 INSTANCE = new SpellFactory();
             }
             return INSTANCE;
+        }
+
+        public Spell createSpell(SpellType type)
+        {
+            throw new NotImplementedException();
         }
     }
 }
