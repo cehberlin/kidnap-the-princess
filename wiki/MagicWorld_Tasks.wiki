@@ -8,8 +8,7 @@
 
 
 = in Progress =
-
-HUD implementation
+Content: Walkcyle + Jumping + Casting animation for player
 
 
 = TODO =
@@ -25,8 +24,8 @@ HUD implementation
 
 
 
-== deffered work ==
-  
+== deferred work ==
+HUD completion  
 
 
 = done =
