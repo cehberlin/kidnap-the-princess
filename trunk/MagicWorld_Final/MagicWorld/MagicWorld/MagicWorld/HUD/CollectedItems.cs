@@ -61,7 +61,7 @@ namespace MagicWorld.HUD
             Position = pos;
             tex = texture;
             Height = texture.Height;
-            Width = texture.Width + (int)font.MeasureString(InfoString).X;
+            Width = texture.Width;
         }
     }
 }
