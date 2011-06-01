@@ -38,9 +38,9 @@ namespace MagicWorld.AbstractGameElements
         public ContentManager ContentManager { get; set; }
 
 
-        public DrawableGameElement(ContentManager contentManager, Vector2 position, Entity bounds)
+        public DrawableGameElement(ContentManager contentManager, Vector2 position)
         {
-            this.BoundingShape = bounds;
+            this.BoundingShape = new Square(position, 1);
             this.Position = position;
             this.ContentManager = contentManager;
         }

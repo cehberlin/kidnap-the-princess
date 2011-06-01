@@ -20,9 +20,10 @@ namespace MagicWorld.GameConstants
         }
 
 
+        IPlayerConstants playerConstants=new DefaultPlayerConstants();
         public IPlayerConstants getPlayerConstants()
         {
-            throw new NotImplementedException();
+            return playerConstants;
         }
 
     }

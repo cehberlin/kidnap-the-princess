@@ -11,13 +11,17 @@ namespace MagicWorld.AbstractGameElements.BasicShapes
     /// </summary>
     public class Circle : Entity
     {
-        public Circle(Vector2 position, int halfSize)
+
+        protected float radius;
+
+        public Circle(Vector2 position, float radius)
             :
-            base(position, halfSize)
+            base(position, radius * 2, radius*2)
         {
             // Vector3 needed for compatibility with (3D) BoundingSphere
             spherePosition = new Vector3(position, 0f);
-            boundingSphere = new BoundingSphere(spherePosition, halfSize);
+            boundingSphere = new BoundingSphere(spherePosition, radius);
+            this.radius = radius;
         }
 
         // Vector3 needed for compatibility with (3D) BoundingSphere
@@ -47,7 +51,12 @@ namespace MagicWorld.AbstractGameElements.BasicShapes
         {
             base.OnPositionUpdate();
             UpdateBoundingSphere();
-        }       
+        }
 
+
+        public override double Size
+        {
+            get { return 2 * radius; }
+        }
     }
 }
