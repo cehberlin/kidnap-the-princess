@@ -13,8 +13,24 @@ namespace MagicWorld.AbstractGameElements
     public abstract class DynamicGameElement : DrawableGameElement, IUpdateable
     {
 
-        public DynamicGameElement(ContentManager contentManager, Vector2 position, Entity bounds) : 
-            base(contentManager, position, bounds)
+        public Vector2 Direction
+        {
+            get { return direction; }
+            set { direction = value; }
+        }
+        Vector2 direction;
+
+
+        public float Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+        float velocity;
+
+
+        public DynamicGameElement(ContentManager contentManager, Vector2 position) : 
+            base(contentManager, position)
         { 
 
         }

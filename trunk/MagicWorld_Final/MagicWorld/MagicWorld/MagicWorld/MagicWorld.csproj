@@ -108,16 +108,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractGameElements\BasicShapes\Circle.cs" />
+    <Compile Include="AbstractGameElements\BasicShapes\Rectangle.cs" />
     <Compile Include="AbstractGameElements\DrawableGameElement.cs" />
     <Compile Include="AbstractGameElements\DynamicGameElement.cs" />
     <Compile Include="AbstractGameElements\BasicShapes\Entity.cs" />
     <Compile Include="AbstractGameElements\BasicShapes\Square.cs" />
     <Compile Include="AbstractGameElements\SpellConstants.cs" />
     <Compile Include="Controls\DefaultControl.cs" />
+    <Compile Include="GameConstants\DefaultPlayerConstants.cs" />
     <Compile Include="GameConstants\GameConstantFactory.cs" />
     <Compile Include="GameConstants\IPlayerConstants.cs" />
+    <Compile Include="GameElements\Player\Player.cs" />
     <Compile Include="GameElements\Spells\SpellFactory.cs" />
     <Compile Include="AbstractGameElements\SpellType.cs" />
+    <Compile Include="HelperClasses\Animation.cs" />
+    <Compile Include="HelperClasses\AnimationPlayer.cs" />
+    <Compile Include="HelperClasses\PhysicsHelper.cs" />
     <Compile Include="HUD\CollectedItems.cs" />
     <Compile Include="HUD\HUD.cs" />
     <Compile Include="HUD\HUDElement.cs" />
@@ -174,7 +180,6 @@
     <Folder Include="GameElements\Enemies\" />
     <Folder Include="GameElements\LevelElements\DynamicLevelElements\" />
     <Folder Include="GameElements\LevelElements\StaticLevelElements\" />
-    <Folder Include="GameElements\Player\" />
     <Folder Include="GameElements\Spells\SpellImplementation\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
