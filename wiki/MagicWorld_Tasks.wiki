@@ -8,7 +8,8 @@
 
 
 = in Progress =
-Content: Walkcyle + Jumping + Casting animation for player
+Content: Walkcyle + Jumping + Casting animation for player -->Pascal
+Implementation Player --> Christopher
 
 
 = TODO =
