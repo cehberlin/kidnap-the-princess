@@ -16,13 +16,15 @@ using Microsoft.Xna.Framework.Input.Touch;
 using System.Diagnostics;
 using Platformer.Spells;
 using Platformer.DynamicLevelContent.Player;
+using Platformer.DynamicLevelContent;
+using Platformer.HelperClasses;
 
 namespace Platformer
 {
     /// <summary>
     /// Our fearless adventurer!
     /// </summary>
-    class Player:ISpellInfluenceable
+    class Player:BasicGameElement
     {
 
         // Constants for controlling vertical movement
@@ -62,12 +64,6 @@ namespace Platformer
         private SoundEffect spellSound;
         #endregion
 
-        public Level Level
-        {
-            get { return level; }
-        }
-        Level level;
-
         public bool IsAlive
         {
             get { return isAlive; }
@@ -75,7 +71,7 @@ namespace Platformer
         bool isAlive;
 
         // Physics state
-        public Vector2 Position
+        public override Vector2 Position
         {
             get { return position; }
             set
@@ -88,7 +84,6 @@ namespace Platformer
                 position = value;
             }
         }
-        Vector2 position;
 
         private float previousBottom;
 
@@ -154,8 +149,6 @@ namespace Platformer
         private const float GroundDragFactor = 0.48f;
         private const float AirDragFactor = 0.58f;
 
-        
-
         #endregion
 
 
@@ -197,21 +190,6 @@ namespace Platformer
 
         public bool nogravityHasInfluenceOnPlayer = true;
 
-        private Rectangle localBounds;
-        /// <summary>
-        /// Gets a rectangle which bounds this player in world space.
-        /// </summary>
-        public Rectangle BoundingRectangle
-        {
-            get
-            {
-                int left = (int)Math.Round(Position.X - sprite.Origin.X) + localBounds.X;
-                int top = (int)Math.Round(Position.Y - sprite.Origin.Y) + localBounds.Y;
-
-                return new Rectangle(left, top, localBounds.Width, localBounds.Height);
-            }
-        }
-
 
 
         /// <summary>
@@ -231,6 +209,7 @@ namespace Platformer
         /// Constructors a new player.
         /// </summary>
         public Player(Level level, Vector2 position, Spell spellSlotA, Spell spellSlotB, Spell spellSlotC, Spell spellSlotD)
+            : base(level)
         {
             SpellSlotA = spellSlotA;
             SpellSlotB = spellSlotB;
@@ -244,6 +223,8 @@ namespace Platformer
             LoadContent();
 
             Reset(position);
+
+            debugColor = Color.Violet;
         }
 
         /// <summary>
@@ -260,24 +241,24 @@ namespace Platformer
             dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false,12);
             */
 
-            idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
-            runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
-            jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
-            celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
-            dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false, 5);
+            idleAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
+            runAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
+            jumpAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
+            celebrateAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
+            dieAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false, 5);
 
             // Calculate bounds within texture size.            
-            int width = (int)(idleAnimation.FrameWidth * 0.4);
-            int left = (idleAnimation.FrameWidth - width) / 2;
-            int height = (int)(idleAnimation.FrameWidth * 0.8);
-            int top = idleAnimation.FrameHeight - height;
-            localBounds = new Rectangle(left, top, width, height);
+            int width = (int)(idleAnimation.FrameWidth);
+            int height = (int)(idleAnimation.FrameHeight);
+            bounds = new Bounds(position, width, height);
 
             // Load sounds.            
-            killedSound = Level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
-            jumpSound = Level.Content.Load<SoundEffect>("Sounds/PlayerJump");
-            fallSound = Level.Content.Load<SoundEffect>("Sounds/PlayerFall");
-            spellSound = Level.Content.Load<SoundEffect>("Sounds/CreateSpell");                    }
+            killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
+            jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");
+            fallSound = level.Content.Load<SoundEffect>("Sounds/PlayerFall");
+            spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");
+            base.LoadContent("");
+        }
 
         /// <summary>
         /// Resets the player to life.
@@ -447,6 +428,9 @@ namespace Platformer
             velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
 
 
+            //TODO DEBUG
+            velocity.Y = 0;
+
             Position += velocity * elapsed;
             
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
@@ -458,6 +442,7 @@ namespace Platformer
             if (Position.X == previousPosition.X)
                 velocity.X = 0;
 
+            
             if (Position.Y == previousPosition.Y)
                 velocity.Y = 0;
 
@@ -527,65 +512,67 @@ namespace Platformer
         /// </summary>
         private void HandleCollisions()
         {
-            // Get the player's bounding rectangle and find neighboring tiles.
-            Rectangle bounds = BoundingRectangle;
-            int leftTile = (int)Math.Floor((float)bounds.Left / Tile.Width);
-            int rightTile = (int)Math.Ceiling(((float)bounds.Right / Tile.Width)) - 1;
-            int topTile = (int)Math.Floor((float)bounds.Top / Tile.Height);
-            int bottomTile = (int)Math.Ceiling(((float)bounds.Bottom / Tile.Height)) - 1;
 
-            // Reset flag to search for ground collision.
-            IsOnGround = false;
+            IsOnGround = true;
+            //// Get the player's bounding rectangle and find neighboring tiles.
+            //Rectangle bounds = Bounds.getRectangle();
+            //int leftTile = (int)Math.Floor((float)bounds.Left / Tile.Width);
+            //int rightTile = (int)Math.Ceiling(((float)bounds.Right / Tile.Width)) - 1;
+            //int topTile = (int)Math.Floor((float)bounds.Top / Tile.Height);
+            //int bottomTile = (int)Math.Ceiling(((float)bounds.Bottom / Tile.Height)) - 1;
 
-            // For each potentially colliding tile,
-            for (int y = topTile; y <= bottomTile; ++y)
-            {
-                for (int x = leftTile; x <= rightTile; ++x)
-                {
-                    // If this tile is collidable,
-                    TileCollision collision = Level.GetCollision(x, y);
-                    if (collision != TileCollision.Passable)
-                    {
-                        // Determine collision depth (with direction) and magnitude.
-                        Rectangle tileBounds = Level.GetBounds(x, y);
-                        Vector2 depth = RectangleExtensions.GetIntersectionDepth(bounds, tileBounds);
-                        if (depth != Vector2.Zero)
-                        {
-                            float absDepthX = Math.Abs(depth.X);
-                            float absDepthY = Math.Abs(depth.Y);
+            //// Reset flag to search for ground collision.
+            //IsOnGround = false;
 
-                            // Resolve the collision along the shallow axis.
-                            if (absDepthY < absDepthX || collision == TileCollision.Platform)
-                            {
-                                // If we crossed the top of a tile, we are on the ground.
-                                if (previousBottom <= tileBounds.Top)
-                                    IsOnGround = true;
+            //// For each potentially colliding tile,
+            //for (int y = topTile; y <= bottomTile; ++y)
+            //{
+            //    for (int x = leftTile; x <= rightTile; ++x)
+            //    {
+            //        // If this tile is collidable,
+            //        TileCollision collision = Level.GetCollision(x, y);
+            //        if (collision != TileCollision.Passable)
+            //        {
+            //            // Determine collision depth (with direction) and magnitude.
+            //            Rectangle tileBounds = Level.GetBounds(x, y);
+            //            Vector2 depth = RectangleExtensions.GetIntersectionDepth(bounds, tileBounds);
+            //            if (depth != Vector2.Zero)
+            //            {
+            //                float absDepthX = Math.Abs(depth.X);
+            //                float absDepthY = Math.Abs(depth.Y);
 
-                                // Ignore platforms, unless we are on the ground.
-                                if (collision == TileCollision.Impassable || IsOnGround)
-                                {
-                                    // Resolve the collision along the Y axis.
-                                    Position = new Vector2(Position.X, Position.Y + depth.Y);
+            //                // Resolve the collision along the shallow axis.
+            //                if (absDepthY < absDepthX || collision == TileCollision.Platform)
+            //                {
+            //                    // If we crossed the top of a tile, we are on the ground.
+            //                    if (previousBottom <= tileBounds.Top)
+            //                        IsOnGround = true;
 
-                                    // Perform further collisions with the new bounds.
-                                    bounds = BoundingRectangle;
-                                }
-                            }
-                            else if (collision == TileCollision.Impassable) // Ignore platforms.
-                            {
-                                // Resolve the collision along the X axis.
-                                Position = new Vector2(Position.X + depth.X, Position.Y);
+            //                    // Ignore platforms, unless we are on the ground.
+            //                    if (collision == TileCollision.Impassable || IsOnGround)
+            //                    {
+            //                        // Resolve the collision along the Y axis.
+            //                        Position = new Vector2(Position.X, Position.Y + depth.Y);
 
-                                // Perform further collisions with the new bounds.
-                                bounds = BoundingRectangle;
-                            }
-                        }
-                    }
-                }
-            }
+            //                        // Perform further collisions with the new bounds.
+            //                        bounds = Bounds.getRectangle();
+            //                    }
+            //                }
+            //                else if (collision == TileCollision.Impassable) // Ignore platforms.
+            //                {
+            //                    // Resolve the collision along the X axis.
+            //                    Position = new Vector2(Position.X + depth.X, Position.Y);
+
+            //                    // Perform further collisions with the new bounds.
+            //                    bounds = Bounds.getRectangle();
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             // Save the new bounds bottom.
-            previousBottom = bounds.Bottom;
+           // previousBottom = bounds.Bottom;
         }
 
         /// <summary>
@@ -618,7 +605,7 @@ namespace Platformer
         /// <summary>
         /// Draws the animated player.
         /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
             if (Velocity.X < 0)
@@ -628,6 +615,8 @@ namespace Platformer
 
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
+
+            base.Draw(gameTime, spriteBatch);
         }
 
 
@@ -650,7 +639,7 @@ namespace Platformer
         {
             Vector2 pos;
             pos.X = Position.X + 20 * Direction.X;
-            pos.Y = Position.Y - BoundingRectangle.Height / 2;
+            pos.Y = Position.Y - Bounds.Height / 2;
 
 
             #region warmspell
@@ -883,7 +872,7 @@ namespace Platformer
 
         #region ISpellInfluenceable Member
 
-        public bool SpellInfluenceAction(Spell spell)
+        public override bool SpellInfluenceAction(Spell spell)
         {
 
             if (nogravityHasInfluenceOnPlayer && spell.GetType() == typeof(NoGravitySpell))

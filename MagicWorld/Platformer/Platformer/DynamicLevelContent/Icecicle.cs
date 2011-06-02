@@ -2,13 +2,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using Platformer.DynamicLevelContent;
+using Platformer.HelperClasses;
+using System.Collections.Generic;
 
 namespace Platformer
 {
     enum IcecicleState { NORMAL, FALLING, DESTROYED };
-    class Icecicle : ISpellInfluenceable,IAutonomusGameObject
+    class Icecicle : BasicGameElement
     {
-        protected Texture2D debugTexture;
+
         private Texture2D texture;
         private Vector2 origin;
         private SoundEffect hitSound;
@@ -21,56 +24,40 @@ namespace Platformer
         public const int Width = 40;
         public const int Height = 41;
 
-        /// <summary>
-        /// Position in world space of the bottom center of this enemy.
-        /// </summary>
-        public Vector2 Position
-        {
-            get { return position; }
-        }
-        Vector2 position;
-
-        public Level Level
-        {
-            get { return level; }
-        }
-        Level level;
-        
-        private Rectangle localBounds;
-        public Rectangle BoundingRectangle
+        public override Bounds Bounds
         {
             get
             {
-                int left = (int)Math.Round(position.X-Width/2);
-                int top = (int)Math.Round(position.Y-Height);
+                int left = (int)Math.Round(position.X - Width / 2);
+                int top = (int)Math.Round(position.Y - Height);
 
-                return new Rectangle(left, top, Width, Height);
+                return new Bounds(left, top, Width, Height);
             }
         }
 
+
         public Icecicle(Level level, Vector2 position)
+            : base(level)
             
         {
-            this.level = level;
             this.position = position;
             icecicleState = IcecicleState.NORMAL;
             LoadContent("Sprites/Icecicle");
             sprite.PlayAnimation(idleAnimation);
         }
 
-        public void LoadContent(string spriteSet)
+        public override void LoadContent(string spriteSet)
         {
-            texture = Level.Content.Load<Texture2D>(spriteSet);
+            texture = level.Content.Load<Texture2D>(spriteSet);
             origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
-            hitSound = Level.Content.Load<SoundEffect>("Sounds/Icehit");
+            hitSound = level.Content.Load<SoundEffect>("Sounds/Icehit");
             idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet), 0.15f, true, 1);            
             fallVelocity = 0.8f;
             debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
         }
 
-        #region ISpellInfluenceable Member
-
-        public virtual Boolean SpellInfluenceAction(Spell spell)
+     
+        public override Boolean SpellInfluenceAction(Spell spell)
         {
             if (spell.GetType() == typeof(WarmSpell))
             {
@@ -79,14 +66,10 @@ namespace Platformer
                 return true;
             }
             else return false;
-        }
-
-        #endregion
-
-        #region IAutonomusGameObject Member
-
+        }   
+   
         
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
 
             SpriteEffects flip = SpriteEffects.None;
@@ -96,14 +79,10 @@ namespace Platformer
                 sprite.Draw(gameTime, spriteBatch, position, flip);
             }
 
-            if (GlobalValues.DEBUG)
-            {
-                spriteBatch.Draw(debugTexture, BoundingRectangle, Color.Pink);
-            }           
-            
+            base.Draw(gameTime, spriteBatch);            
         }
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (icecicleState == IcecicleState.FALLING)
             {
@@ -111,8 +90,7 @@ namespace Platformer
             }            
             HandleCollision();
         }
-        #endregion
-
+ 
         #region collision
         /// <summary>
         /// handels collision with tiles and enemies and level bounds
@@ -141,17 +119,17 @@ namespace Platformer
         public virtual void HandleEnemyCollision()
         {
             //enemy collision
-            for (int i = 0; i < level.Enemies.Count; ++i)       
-            
+
+            List<Enemy> collisionEnemies = new List<Enemy>();
+
+            level.CollisionManager.CollidateWithEnemy(this, ref collisionEnemies);
+            //enemy collision
+            foreach (Enemy enemy in collisionEnemies)
             {
-                Enemy enemy = level.Enemies[i];
-                if (enemy.BoundingRectangle.Intersects(this.BoundingRectangle))
-                {
-                    //destroy enemy
-                    hitSound.Play();
-                    icecicleState = IcecicleState.DESTROYED;
-                    level.Enemies.Remove(enemy);
-                }
+                //destroy enemy
+                hitSound.Play();
+                icecicleState = IcecicleState.DESTROYED;
+                level.Enemies.Remove(enemy);
             }
         }
 
@@ -161,23 +139,12 @@ namespace Platformer
         public virtual void HandleTileCollision()
         {
             //Tile collision
-
-            
-
-            foreach (Tile tile in level.Tiles)
+            List<Tile> collisionTiles = new List<Tile>();
+            if (level.CollisionManager.CollidateWithTiles(this, ref collisionTiles))
             {
-                //first check if collision is possible
-                if (tile.Collision == TileCollision.Impassable || tile.Collision == TileCollision.Platform)
-                {
-                    //check if collision is occured
-                    if (tile.BoundingRectangle.Intersects(this.BoundingRectangle))
-                    {
-                        //destroy the icecicle
-                        icecicleState = IcecicleState.DESTROYED;
-                    }
-                }
-            }
-            
+                //destroy the icecicle
+                icecicleState = IcecicleState.DESTROYED;
+            }                        
         }
 
         /// <summary>
@@ -185,13 +152,7 @@ namespace Platformer
         /// </summary>
         public virtual void HandleOutOfLevelCollision()
         {
-            Rectangle bounds = BoundingRectangle;
-
-            // Calculate tile position based on the side we are walking towards.
-            float posY = (int)Math.Floor((Position.Y+bounds.Height) / Tile.Height);          
-            //int y = (int)Math.Floor(Position.Y / Tile.Height);
-
-            if ( posY > level.Height )
+            if (level.CollisionManager.ColliadateWithLevelBounds(this))
             {
                 icecicleState = IcecicleState.DESTROYED;
             }

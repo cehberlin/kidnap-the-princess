@@ -1,13 +1,16 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Platformer.HelperClasses;
+using Platformer.DynamicLevelContent;
+using System.Collections.Generic;
 
 namespace Platformer
 {
     /// <summary>
     /// Base class that determines a spell
     /// </summary>
-    abstract class Spell : IAutonomusGameObject
+    abstract class Spell : BasicGameElement
     {
         #region "mana"
             /// <summary>
@@ -52,34 +55,22 @@ namespace Platformer
 
             }
         }
-        /// <summary>
-        /// Actual size of the object
-        /// the idea is that the object on the moment of creation grows
-        /// </summary>
-        private Rectangle size;
 
-        protected Rectangle Size
+        public override Bounds Bounds
         {
             get
             {
                 // Calculate bounds within texture size.
-                int width = (int)(sprite.Animation.FrameWidth * currentScale);
-                int height = (int)(sprite.Animation.FrameHeight * currentScale);
-                int top = 0;
-                int left = 0;
-                return new Rectangle(left, top, width, height);
+                float width = (sprite.Animation.FrameWidth * currentScale);
+                float height = (sprite.Animation.FrameHeight * currentScale);
+                float left = (float)Math.Round(Position.X - width / 2);
+                float top =(float) Math.Round(Position.Y - height);
+                return new Bounds(left, top, width, height);
             }
-            set { size = value; }
         }
 
         protected float currentScale = 1.0f;
         protected float MaxScale = 3.0f;
-
-        /// <summary>
-        /// Actual Position
-        /// </summary>
-        public Vector2 Position;
-
         protected float MoveSpeed = 0;
 
         /// <summary>
@@ -92,8 +83,6 @@ namespace Platformer
             set { force = value; }
             get { return force; }
         }
-
-        protected Level level;
 
         protected SpriteEffects flip = SpriteEffects.None;
 
@@ -132,8 +121,6 @@ namespace Platformer
         protected Animation idleAnimation;
         protected AnimationPlayer sprite;
 
-        protected Texture2D debugTexture;
-
         /// <summary>
         /// describes how long the magic of a spell influences a attacked object
         /// </summary>
@@ -152,6 +139,7 @@ namespace Platformer
         #region methods
 
         public Spell(string spriteSet, Vector2 _origin, Level level, int manaBasicCost, float manaCastingCost)
+            : base(level)
         {
             this.manaBasicCost = manaBasicCost;
             this.manaCastingCost = manaCastingCost;
@@ -170,31 +158,19 @@ namespace Platformer
         /// <summary>
         /// Loads a particular enemy sprite sheet and sounds.
         /// </summary>
-        public virtual void LoadContent(string spriteSet)
+        public override void LoadContent(string spriteSet)
         {
-            debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
+            base.LoadContent("");
         }
 
-        public Rectangle BoundingRectangle
-        {
-            get
-            {
-                //its correct, but dont know why, could be checked in debug mode
-                int left = (int)Math.Round(Position.X - Size.Width / 2);
-                int top = (int)Math.Round(Position.Y - Size.Height);
-
-                return new Rectangle(left, top, (int)(Size.Width), (int)(Size.Height));
-            }
-        }
-
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
             if (direction.X > 0)
                 flip = SpriteEffects.FlipHorizontally;
             else if (direction.X < 0)
                 flip = SpriteEffects.None;
-            Vector2 paintPosition = new Vector2(BoundingRectangle.X, BoundingRectangle.Y);
+            Vector2 paintPosition = Bounds.Position;
 
             if (direction.X == 0)
             {
@@ -225,13 +201,10 @@ namespace Platformer
             }
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
-            if (GlobalValues.DEBUG)
-            {
-                spriteBatch.Draw(debugTexture, BoundingRectangle, Color.Pink);
-            }
+            base.Draw(gameTime, spriteBatch);
         }
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (SpellState == State.WORKING)
             {
@@ -274,7 +247,7 @@ namespace Platformer
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + Size.Width / 2 * (int)direction.X;
+            float posX = Position.X + Bounds.Width / 2 * (int)direction.X;
 
             // Move in the current direction.
             velocity = new Vector2((int)direction.X * MoveSpeed * elapsed, (int)direction.Y * MoveSpeed * elapsed);
@@ -320,10 +293,6 @@ namespace Platformer
             }
         }
 
-        //Makes shrinking sense?
-        //public virtual void Shrink()
-        //{
-        //}
 
         /// <summary>
         /// throw away current spell
@@ -341,16 +310,16 @@ namespace Platformer
         /// </summary>
         public virtual void HandleEnemyCollision()
         {
+            List<Enemy> collisionEnemies = new List<Enemy>();
+
+            level.CollisionManager.CollidateWithEnemy(this, ref collisionEnemies);
             //enemy collision
-            foreach (Enemy enemy in level.Enemies)
-            {
-                if (enemy.BoundingRectangle.Intersects(this.BoundingRectangle))
-                {
+            foreach (Enemy enemy in collisionEnemies)
+            {                
                     if (enemy.SpellInfluenceAction(this))
                     {
                         SpellState = State.REMOVE;
-                    }
-                }
+                    }                
             }
         }
 
@@ -359,21 +328,15 @@ namespace Platformer
         /// </summary>
         public virtual void HandleTileCollision()
         {
-            //Tile collision
+            List<Tile> collisionTiles = new List<Tile>();
 
-            foreach (Tile tile in level.Tiles)
+            level.CollisionManager.CollidateWithTiles(this, ref collisionTiles);
+            //enemy collision
+            foreach (Tile tile in collisionTiles)
             {
-                //first check if collision is possible
-                if (tile.Collision == TileCollision.Impassable || tile.Collision == TileCollision.Platform)
+                if (tile.SpellInfluenceAction(this))
                 {
-                    //check if collision is occured
-                    if (tile.BoundingRectangle.Intersects(this.BoundingRectangle))
-                    {
-                        if (tile.SpellInfluenceAction(this))
-                        {
-                            SpellState = State.REMOVE;
-                        }
-                    }
+                    SpellState = State.REMOVE;
                 }
             }
         }
@@ -383,14 +346,7 @@ namespace Platformer
         /// </summary>
         public virtual void HandleOutOfLevelCollision()
         {
-            Rectangle bounds = BoundingRectangle;
-
-            // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + bounds.Width / 2 * (int)direction.X;
-            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.Y;
-            int y = (int)Math.Floor(Position.Y / Tile.Height);
-
-            if (x > level.Width || x < 0 || y > level.Height || y < 0)
+            if (level.CollisionManager.ColliadateWithLevelBounds(this))
             {
                 SpellState = State.REMOVE;
             }
@@ -402,7 +358,7 @@ namespace Platformer
         public virtual void HandlePlayerCollision()
         {
             //check if collision is occured
-            if (level.Player.BoundingRectangle.Intersects(this.BoundingRectangle))
+            if (level.CollisionManager.CollidateWithPlayer(this))
             {
                 if (level.Player.SpellInfluenceAction(this))
                 {
@@ -416,15 +372,16 @@ namespace Platformer
         /// </summary>
         public virtual void HandleObjectsCollision()
         {
-            //icecicle collision
-            foreach (Icecicle ice in level.Icecicles)
+
+            List<BasicGameElement> levelElements = new List<BasicGameElement>();
+
+            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref levelElements);
+            //enemy collision
+            foreach (BasicGameElement elem in levelElements)
             {
-                if (ice.BoundingRectangle.Intersects(this.BoundingRectangle))
+                if (elem.SpellInfluenceAction(this))
                 {
-                    if (ice.SpellInfluenceAction(this))
-                    {
-                        SpellState = State.REMOVE;
-                    }
+                    SpellState = State.REMOVE;
                 }
             }
         }
