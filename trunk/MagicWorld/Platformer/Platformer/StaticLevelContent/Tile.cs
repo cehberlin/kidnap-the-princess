@@ -10,6 +10,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Platformer.DynamicLevelContent;
+using Platformer.HelperClasses;
 
 namespace Platformer
 {
@@ -40,7 +42,7 @@ namespace Platformer
     /// <summary>
     /// Stores the appearance and collision behavior of a tile.
     /// </summary>
-    class Tile:ISpellInfluenceable,IAutonomusGameObject
+    class Tile:BasicGameElement
     {
         public Texture2D Texture;
         public TileCollision Collision;
@@ -71,15 +73,12 @@ namespace Platformer
             }
         }
 
-        protected Vector2 position;
 
-        public Vector2 Position
+        public override Vector2 Position
         {
             get { return position; }
             set { position = value * Tile.Size; }
         }
-
-        protected Level level;
 
         /// <summary>
         /// some variables for spell reaction
@@ -91,7 +90,7 @@ namespace Platformer
         /// <summary>
         /// Constructs a new tile.
         /// </summary>
-        public Tile(String texture, TileCollision collision,Level level,Vector2 position)
+        public Tile(String texture, TileCollision collision,Level level,Vector2 position):base(level)
         {
             this.level = level;            
             Collision = collision;
@@ -117,22 +116,18 @@ namespace Platformer
             this.y = y;
         }
 
-        public Rectangle BoundingRectangle
+        public override Bounds Bounds
         {
             get
             {
                 int left = (int)Math.Round(position.X);
                 int top = (int)Math.Round(position.Y);
 
-                return new Rectangle(left, top, Width,Height);
+                return new Bounds(left, top, Width,Height);
             }
         }
 
-
-
-        #region ISpellInfluenceable Member
-
-        public virtual Boolean SpellInfluenceAction(Spell spell)
+        public override Boolean SpellInfluenceAction(Spell spell)
         {
             if (Texture != null)
             {
@@ -160,17 +155,16 @@ namespace Platformer
             return false;
         }
 
-        #endregion
-
         #region IAutonomusGameObject Member
 
-        public virtual void LoadContent(string spriteSet)
+        public override void LoadContent(string spriteSet)
         {
             Texture = level.Content.Load<Texture2D>(spriteSet);
             Texture.Name = spriteSet;
+            base.LoadContent("");
         }
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if (Texture != null)
             {
@@ -190,10 +184,11 @@ namespace Platformer
                 {
                     spriteBatch.Draw(Texture, position, Color.White);
                 }
-            }
+                base.Draw(gameTime, spriteBatch);
+            }            
         }
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             if (spellState != SpellState.NORMAL)
             {

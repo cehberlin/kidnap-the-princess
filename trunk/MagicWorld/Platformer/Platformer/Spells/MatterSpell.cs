@@ -58,7 +58,7 @@ namespace Platformer
         protected override void OnRemove()
         {
             // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + BoundingRectangle.Width / 2 * (int)direction.X;
+            float posX = Position.X + Bounds.getRectangle().Width / 2 * (int)direction.X;
             int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.X;
             int y = (int)Math.Floor(Position.Y / Tile.Height);
 

@@ -69,15 +69,18 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
     <Compile Include="DynamicLevelContent\DynamicTile.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\MatterTile.cs" />
     <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="GlobalValues.cs" />
+    <Compile Include="HelperClasses\Bounds.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Animation.cs" />
     <Compile Include="DynamicLevelContent\Player\AnimationPlayer.cs" />
     <Compile Include="HelperClasses\Circle.cs" />
+    <Compile Include="HelperClasses\CollisionManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />

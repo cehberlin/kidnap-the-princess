@@ -16,6 +16,8 @@ using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
+using Platformer.HelperClasses;
+using Platformer.DynamicLevelContent;
 
 namespace Platformer
 {
@@ -50,12 +52,12 @@ namespace Platformer
         }
         Player player;
 
-        private List<Icecicle> icecicles = new List<Icecicle>();
+        private List<BasicGameElement> generalGameElements = new List<BasicGameElement>();
 
-        internal List<Icecicle> Icecicles
+        internal List<BasicGameElement> GeneralGameElements
         {
-            get { return icecicles; }
-            set { icecicles = value; }
+            get { return generalGameElements; }
+            set { generalGameElements = value; }
         }
 
         private List<Gem> gems = new List<Gem>();
@@ -117,6 +119,13 @@ namespace Platformer
         }
         ContentManager content;
 
+        CollisionManager collisionManager;
+
+        public CollisionManager CollisionManager
+        {
+            get { return collisionManager; }
+        }
+
         private SoundEffect exitReachedSound;
 
         #region Loading
@@ -134,6 +143,8 @@ namespace Platformer
         {
             // Create a new content manager to load content used just by this level.
             content = new ContentManager(serviceProvider, "Content");
+
+            collisionManager = new CollisionManager(this);
 
             timeRemaining = TimeSpan.FromMinutes(2.0);
 
@@ -362,7 +373,7 @@ namespace Platformer
         {
             Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
             position.Y += 8;
-            icecicles.Add(new Icecicle(this, position));
+            generalGameElements.Add(new Icecicle(this, position));
 
             return new Tile(null, TileCollision.Passable, this, x, y);
         }
@@ -490,7 +501,7 @@ namespace Platformer
                 UpdateObjects(gameTime);
 
                 // Falling off the bottom of the level kills the player.
-                if (Player.BoundingRectangle.Top >= Height * Tile.Height)
+                if (Player.Bounds.getRectangle().Top >= Height * Tile.Height)
                     OnPlayerKilled(null);
 
                 UpdateEnemies(gameTime);
@@ -502,7 +513,7 @@ namespace Platformer
                 // exit when they have collected all of the gems.
                 if (Player.IsAlive &&
                     Player.IsOnGround &&
-                    Player.BoundingRectangle.Contains(exit))
+                    Player.Bounds.getRectangle().Contains(exit))
                 {
                     OnExitReached();
                 }
@@ -543,23 +554,24 @@ namespace Platformer
         }
 
 
+        //NOT USED IN THE MOMENT
         /// <summary>
         /// Animates each gem and checks to allows the player to collect them.
         /// </summary>
         private void UpdateGems(GameTime gameTime)
         {
-            for (int i = 0; i < gems.Count; ++i)
-            {
-                Gem gem = gems[i];
+            //for (int i = 0; i < gems.Count; ++i)
+            //{
+            //    Gem gem = gems[i];
 
-                gem.Update(gameTime);
+            //    gem.Update(gameTime);
 
-                if (gem.BoundingCircle.Intersects(Player.BoundingRectangle))
-                {
-                    gems.RemoveAt(i--);
-                    OnGemCollected(gem, Player);
-                }
-            }
+            //    if (gem.BoundingCircle.Intersects(Player.BoundingRectangle))
+            //    {
+            //        gems.RemoveAt(i--);
+            //        OnGemCollected(gem, Player);
+            //    }
+            //}
         }
 
         /// <summary>
@@ -569,14 +581,15 @@ namespace Platformer
         /// <param name="gameTime"></param>
         private void UpdateObjects(GameTime gameTime)
         {
-            for (int i = 0; i < icecicles.Count; ++i)                    
+            for (int i = 0; i < generalGameElements.Count; ++i)                    
             {
-                Icecicle icecicle = icecicles[i];
-                icecicle.Update(gameTime);
+                BasicGameElement elem = generalGameElements[i];
+                elem.Update(gameTime);
                 //remove
-                if (icecicle.icecicleState == IcecicleState.DESTROYED)
+                if ((elem.GetType()==typeof(Icecicle) && 
+                    ((Icecicle)elem).icecicleState == IcecicleState.DESTROYED))
                 {
-                    icecicles.Remove(icecicle);                    
+                    generalGameElements.Remove(elem);                    
                 }
             }
         }
@@ -590,11 +603,12 @@ namespace Platformer
             {
                 enemy.Update(gameTime);
 
-                // Touching an enemy instantly kills the player
-                if (enemy.BoundingRectangle.Intersects(Player.BoundingRectangle) && !enemy.isFroozen)
-                {
-                    OnPlayerKilled(enemy);
-                }
+                //TODO
+                //// Touching an enemy instantly kills the player
+                //if (  enemy.BoundingRectangle.Intersects(Player.BoundingRectangle) && !enemy.isFroozen)
+                //{
+                //    OnPlayerKilled(enemy);
+                //}
             }
         }
 
@@ -669,7 +683,7 @@ namespace Platformer
             foreach (Gem gem in gems)
                 gem.Draw(gameTime, spriteBatch);
 
-            foreach (Icecicle icecicle in icecicles)
+            foreach (Icecicle icecicle in generalGameElements)
                 icecicle.Draw(gameTime, spriteBatch);
 
             Player.Draw(gameTime, spriteBatch);
