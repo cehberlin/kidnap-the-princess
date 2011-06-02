@@ -75,7 +75,6 @@
     <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="GlobalValues.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
-    <Compile Include="HelperClasses\Accelerometer.cs" />
     <Compile Include="HelperClasses\Animation.cs" />
     <Compile Include="DynamicLevelContent\Player\AnimationPlayer.cs" />
     <Compile Include="HelperClasses\Circle.cs" />
@@ -94,7 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HelperClasses\RectangleExtensions.cs" />
     <Compile Include="StaticLevelContent\Tile.cs" />
-    <Compile Include="HelperClasses\TouchCollectionExtensions.cs" />
     <Compile Include="Spells\WarmSpell.cs" />
   </ItemGroup>
   <ItemGroup>

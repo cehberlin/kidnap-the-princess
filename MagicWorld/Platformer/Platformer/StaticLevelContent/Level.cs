@@ -460,8 +460,6 @@ namespace Platformer
             GameTime gameTime, 
             KeyboardState keyboardState, 
             GamePadState gamePadState, 
-            TouchCollection touchState, 
-            AccelerometerState accelState,
             DisplayOrientation orientation)
         {
             // Pause while the player is dead or time is expired.
@@ -487,7 +485,7 @@ namespace Platformer
                 //Update Spells which are inside the level
                 UpdateSpells(gameTime);
 
-                Player.Update(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
+                Player.Update(gameTime, keyboardState, gamePadState,orientation);
                 UpdateGems(gameTime);
                 UpdateObjects(gameTime);
 

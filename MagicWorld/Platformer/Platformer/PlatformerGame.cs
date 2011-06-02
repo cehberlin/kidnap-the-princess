@@ -48,8 +48,6 @@ namespace Platformer
         // then we use the same input state wherever needed
         private GamePadState gamePadState;
         private KeyboardState keyboardState;
-        private TouchCollection touchState;
-        private AccelerometerState accelerometerState;
         
         // The number of levels in the Levels directory of our content. We assume that
         // levels in our content are 0-based and that all numbers under this constant
@@ -63,13 +61,6 @@ namespace Platformer
             //graphics.PreferredBackBufferWidth = 1200; looks not good
             //graphics.PreferredBackBufferHeight = 800;
             Content.RootDirectory = "Content";
-
-#if WINDOWS_PHONE
-            graphics.IsFullScreen = true;
-            TargetElapsedTime = TimeSpan.FromTicks(333333);
-#endif
-
-            Accelerometer.Initialize();
         }
 
         /// <summary>
@@ -114,8 +105,7 @@ namespace Platformer
             HandleInput();
 
             // update our level, passing down the GameTime along with all of our input states
-            level.Update(gameTime, keyboardState, gamePadState, touchState, 
-                         accelerometerState, Window.CurrentOrientation);
+            level.Update(gameTime, keyboardState, gamePadState, Window.CurrentOrientation);
 
             camera.Pos = new Vector2 (level.Player.Position.X,level.Player.Position.Y-150);
 
@@ -128,8 +118,6 @@ namespace Platformer
             // get all of our input states
             keyboardState = Keyboard.GetState();
             gamePadState = GamePad.GetState(PlayerIndex.One);
-            touchState = TouchPanel.GetState();
-            accelerometerState = Accelerometer.GetState();
 
             // Exit the game when back is pressed.
             if (gamePadState.Buttons.Back == ButtonState.Pressed)
@@ -137,8 +125,7 @@ namespace Platformer
 
             bool continuePressed =
                 keyboardState.IsKeyDown(Player.JumpKey) || keyboardState.IsKeyDown(Player.JumpKeyAlternative) ||
-                gamePadState.IsButtonDown(Player.JumpButton) || 
-                touchState.AnyTouch();
+                gamePadState.IsButtonDown(Player.JumpButton) ;
 
             // Perform the appropriate action to advance the game and
             // to get the player back to playing.
