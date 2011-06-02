@@ -303,19 +303,17 @@ namespace Platformer
             GameTime gameTime,
             KeyboardState keyboardState,
             GamePadState gamePadState,
-            TouchCollection touchState,
-            AccelerometerState accelState,
             DisplayOrientation orientation)
         {
             Mana.update(gameTime);
-            GetInput(keyboardState, gamePadState, touchState, accelState, orientation);
+            GetInput(keyboardState, gamePadState, orientation);
 
             ApplyPhysics(gameTime);
 
             if (isAlive)
             {
                 //Create Spells
-                HandleSpellCreation(gameTime, keyboardState, gamePadState, touchState, accelState, orientation);
+                HandleSpellCreation(gameTime, keyboardState, gamePadState, orientation);
             }
 
             if (IsAlive && (IsOnGround || (disableGravity&& gravityInfluenceMaxTime>0)))
@@ -343,8 +341,6 @@ namespace Platformer
         private void GetInput(
             KeyboardState keyboardState,
             GamePadState gamePadState,
-            TouchCollection touchState,
-            AccelerometerState accelState,
             DisplayOrientation orientation)
         {
             // Get analog horizontal movement.
@@ -353,17 +349,6 @@ namespace Platformer
             // Ignore small movements to prevent running in place.
             if (Math.Abs(movement) < 0.5f)
                 movement = 0.0f;
-
-            // Move the player with accelerometer
-            if (Math.Abs(accelState.Acceleration.Y) > 0.10f)
-            {
-                // set our movement speed
-                movement = MathHelper.Clamp(-accelState.Acceleration.Y * AccelerometerScale, -1f, 1f);
-
-                // if we're in the LandscapeLeft orientation, we must reverse our movement
-                if (orientation == DisplayOrientation.LandscapeRight)
-                    movement = -movement;
-            }
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(LeftButton) ||
@@ -393,14 +378,12 @@ namespace Platformer
             isJumping =
                 gamePadState.IsButtonDown(JumpButton) ||
                 keyboardState.IsKeyDown(JumpKey) ||
-                keyboardState.IsKeyDown(JumpKeyAlternative) ||
-                touchState.AnyTouch();
+                keyboardState.IsKeyDown(JumpKeyAlternative);
             //Check if the player press Down Button
             isDown =
                 gamePadState.IsButtonDown(DownButton) ||
                 keyboardState.IsKeyDown(DownKey) ||
-                keyboardState.IsKeyDown(DownKeyAlternative) ||
-                touchState.AnyTouch();
+                keyboardState.IsKeyDown(DownKeyAlternative);
 
             if(isJumping)
             {
@@ -663,8 +646,6 @@ namespace Platformer
         private void HandleSpellCreation(GameTime gameTime,
             KeyboardState keyboardState,
             GamePadState gamePadState,
-            TouchCollection touchState,
-            AccelerometerState accelState,
             DisplayOrientation orientation)
         {
             Vector2 pos;
