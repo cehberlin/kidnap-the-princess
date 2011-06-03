@@ -12,7 +12,7 @@ namespace MagicWorld.StaticLevelContent
         /// </summary>
         /// <param name="nr"></param>
         /// <returns></returns>
-        public static LevelLoader getLevel(int nr){
+        public static ILevelLoader getLevel(int nr){
 
             switch (nr) { 
                 //case 1:
