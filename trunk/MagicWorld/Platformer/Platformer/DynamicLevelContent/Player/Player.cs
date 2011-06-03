@@ -75,8 +75,8 @@ namespace Platformer
             get
             {
                 // Calculate bounds within texture size.
-                float width = (sprite.Animation.FrameWidth);
-                float height = (sprite.Animation.FrameHeight);
+                float width = (sprite.Animation.FrameWidth*0.75f);
+                float height = (sprite.Animation.FrameHeight*0.9f);
                 float left = (float)Math.Round(Position.X - width / 2);
                 float top = (float)Math.Round(Position.Y - height);
                 return new Bounds(left, top, width, height);

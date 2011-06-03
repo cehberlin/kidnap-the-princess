@@ -603,12 +603,9 @@ namespace Platformer
             {
                 enemy.Update(gameTime);
 
-                //TODO
-                //// Touching an enemy instantly kills the player
-                //if (  enemy.BoundingRectangle.Intersects(Player.BoundingRectangle) && !enemy.isFroozen)
-                //{
-                //    OnPlayerKilled(enemy);
-                //}
+                if(collisionManager.CollidateWithPlayer(enemy)){
+                    OnPlayerKilled(enemy);
+                }
             }
         }
 
@@ -617,13 +614,9 @@ namespace Platformer
         /// </summary>
         private void UpdateTiles(GameTime gameTime)
         {
-            for (int y = 0; y < Height; ++y)
-            {
-                for (int x = 0; x < Width; ++x)
-                {
-                    tiles[x, y].Update(gameTime);
-                }
-            }
+            foreach (Tile t in tiles){
+                t.Update(gameTime);
+            }            
         }
 
         /// <summary>

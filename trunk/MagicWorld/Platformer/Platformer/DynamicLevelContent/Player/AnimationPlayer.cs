@@ -43,7 +43,24 @@ namespace Platformer
 
         /// <summary>
         /// Gets a texture origin at the bottom center of each frame.
+        /// IMPORTANT!!! DRAWING GOES IN DIRECTION OF NEGATIVE Y AXIS
         /// </summary>
+        /// <remarks>
+        /// Example Bound calculation for correct bounds arround the animation see player+spells
+        ///         public override Bounds Bounds
+        ///{
+        ///    get
+        ///    {
+        ///        // Calculate bounds within texture size.
+        ///        float width = (sprite.Animation.FrameWidth);
+        ///        float height = (sprite.Animation.FrameHeight);
+        ///        float left = (float)Math.Round(Position.X - width / 2);
+        ///        float top = (float)Math.Round(Position.Y - height);
+        ///        return new Bounds(left, top, width, height);
+        ///    }
+        ///}
+        /// 
+        /// </remarks>
         public Vector2 Origin
         {
             get { return new Vector2(Animation.FrameWidth / 2.0f, Animation.FrameHeight); }

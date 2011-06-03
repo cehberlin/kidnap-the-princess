@@ -85,7 +85,7 @@ namespace Platformer.HelperClasses
 
             foreach (Tile tile in level.Tiles)
             {
-                if (Intersects(tile.Bounds, elem.Bounds))
+                if (tile.Collision!=TileCollision.Passable && Intersects(tile.Bounds, elem.Bounds))
                 {
                     isCollision = true;
                     if (tilesColliadingWith != null)
@@ -129,11 +129,17 @@ namespace Platformer.HelperClasses
         }
 
 
-        public bool ColliadateWithLevelBounds(BasicGameElement elem)
+        public bool CollidateWithLevelBounds(BasicGameElement elem)
         {
             //TODO
             return false;
         }
+
+        //TODO EXIT IS NO REAL ELEMENT
+        //public bool CollidateWithLevelExit(BasicGameElement elem)
+        //{
+        //    return Intersects(elem, level.Exit);
+        //}
 
     }
 }
