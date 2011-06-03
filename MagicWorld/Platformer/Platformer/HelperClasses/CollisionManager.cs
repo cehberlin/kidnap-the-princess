@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Platformer.DynamicLevelContent;
+using MagicWorld.DynamicLevelContent;
 
-namespace Platformer.HelperClasses
+namespace MagicWorld.HelperClasses
 {
     class CollisionManager
     {
@@ -106,30 +106,6 @@ namespace Platformer.HelperClasses
             return isCollision;
         }
 
-        /// <summary>
-        /// Checks for collision with tiles --> later remove or rename....
-        /// </summary>
-        /// <param name="elem">the game element which should be checked</param>
-        /// <param name="tilesColliadingWith">return a list of colliading objects</param>
-        /// <returns></returns>
-        public bool CollidateWithTiles(BasicGameElement elem, ref List<Tile> tilesColliadingWith)
-        {
-
-            bool isCollision = false;
-
-            foreach (Tile tile in level.Tiles)
-            {
-                if (tile.Collision!=TileCollision.Passable && Intersects(tile.Bounds, elem.Bounds))
-                {
-                    isCollision = true;
-                    if (tilesColliadingWith != null)
-                    {
-                        tilesColliadingWith.Add(tile);
-                    }
-                }
-            }
-            return isCollision;
-        }
 
         /// <summary>
         /// Checks for collision with tiles --> later remove or rename....
@@ -141,7 +117,7 @@ namespace Platformer.HelperClasses
         {
             bool isCollision = false;
 
-            foreach (BasicGameElement element in level.GeneralGameElements)
+            foreach (BasicGameElement element in level.GeneralColliadableGameElements)
             {
                 if (Intersects(element.Bounds, elem.Bounds))
                 {
@@ -168,11 +144,11 @@ namespace Platformer.HelperClasses
             return false;
         }
 
-        //TODO EXIT IS NO REAL ELEMENT
-        //public bool CollidateWithLevelExit(BasicGameElement elem)
-        //{
-        //    return Intersects(elem, level.Exit);
-        //}
+        
+        public bool CollidateWithLevelExit(BasicGameElement elem)
+        {
+            return Intersects(elem, level.EndPoint);
+        }
 
     }
 }

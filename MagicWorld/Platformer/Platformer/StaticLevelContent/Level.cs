@@ -16,10 +16,11 @@ using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
-using Platformer.HelperClasses;
-using Platformer.DynamicLevelContent;
+using MagicWorld.HelperClasses;
+using MagicWorld.DynamicLevelContent;
+using MagicWorld.StaticLevelContent;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// A uniform grid of tiles with collections of gems and enemies.
@@ -27,24 +28,7 @@ namespace Platformer
     /// conditions as well as scoring.
     /// </summary>
     class Level : IDisposable
-    {
-        // Physical structure of the level.
-        private Tile[,] tiles;
-
-        internal Tile[,] Tiles
-        {
-            get { return tiles; }
-            set { tiles = value; }
-        }
-        public Texture2D[] layers;
-        // The layer which entities are drawn on top of.
-        private const int EntityLayer = 2;
-
-        public int EntityLayers
-        {
-            get { return EntityLayer; }
-        }
-
+    {    
         // Entities in the level.
         public Player Player
         {
@@ -52,12 +36,22 @@ namespace Platformer
         }
         Player player;
 
-        private List<BasicGameElement> generalGameElements = new List<BasicGameElement>();
+        private List<Enemy> enemies = new List<Enemy>();
 
-        internal List<BasicGameElement> GeneralGameElements
+        internal List<Enemy> Enemies
         {
-            get { return generalGameElements; }
-            set { generalGameElements = value; }
+            get { return enemies; }
+            set { enemies = value; }
+        }
+
+        // Physical structure of the level.
+
+        private List<BasicGameElement> generalColliadableGameElements = new List<BasicGameElement>();
+
+        internal List<BasicGameElement> GeneralColliadableGameElements
+        {
+            get { return generalColliadableGameElements; }
+            set { generalColliadableGameElements = value; }
         }
 
         private List<Gem> gems = new List<Gem>();
@@ -66,13 +60,6 @@ namespace Platformer
         {
             get { return gems; }
             set { gems = value; }
-        }
-        private List<Enemy> enemies = new List<Enemy>();
-
-        internal List<Enemy> Enemies
-        {
-            get { return enemies; }
-            set { enemies = value; }
         }
 
         /// <summary>
@@ -84,10 +71,20 @@ namespace Platformer
             set{spells = value;}
         }
 
-        // Key locations in the level.        
-        private Vector2 start;
-        private Point exit = InvalidPosition;
-        private static readonly Point InvalidPosition = new Point(-1, -1);
+        //// Key locations in the level.     
+   
+        /// <summary>
+        /// position where the player starts
+        /// </summary>
+        protected Vector2 startPoint;
+
+        private BasicGameElement endPoint;
+
+        public BasicGameElement EndPoint
+        {
+            get { return endPoint; }
+            set { endPoint = value; }
+        }
 
         // Level game state.
         private Random random = new Random(354668); // Arbitrary, but constant seed
@@ -130,6 +127,8 @@ namespace Platformer
 
         #region Loading
 
+        protected LevelLoader levelLoader;
+
         /// <summary>
         /// Constructs a new level.
         /// </summary>
@@ -139,254 +138,40 @@ namespace Platformer
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(IServiceProvider serviceProvider, Stream fileStream, int levelIndex)
+        public Level(IServiceProvider serviceProvider, LevelLoader levelLoader)
         {
             // Create a new content manager to load content used just by this level.
             content = new ContentManager(serviceProvider, "Content");
 
             collisionManager = new CollisionManager(this);
 
-            timeRemaining = TimeSpan.FromMinutes(2.0);
+            this.levelLoader = levelLoader;
 
-            LoadTiles(fileStream);
+            initLevel();
+        }
 
-            // Load background layer textures. For now, all levels must
-            // use the same backgrounds and only use the left-most part of them.
-            layers = new Texture2D[3];
-            for (int i = 0; i < layers.Length; ++i)
-            {
-                // Choose a random segment if each background layer for level variety.
-                int segmentIndex = levelIndex;
-                layers[i] = Content.Load<Texture2D>("Backgrounds/Layer" + i + "_" + segmentIndex);
-            }
+
+        protected void initLevel(){
+            levelLoader.Level = this;
+
+            timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
+
+            enemies = levelLoader.getEnemies();
+
+            generalColliadableGameElements = levelLoader.getGeneralObjects();
+
+            startPoint = levelLoader.getPlayerStartPosition();
+
+            player = new Player(this, startPoint);
+
+            endPoint = levelLoader.getLevelExit();
+
+            score = 0;
+
+            reachedExit = false;
 
             // Load sounds.
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
-        }
-
-        /// <summary>
-        /// Iterates over every tile in the structure file and loads its
-        /// appearance and behavior. This method also validates that the
-        /// file is well-formed with a player start point, exit, etc.
-        /// </summary>
-        /// <param name="fileStream">
-        /// A stream containing the tile data.
-        /// </param>
-        private void LoadTiles(Stream fileStream)
-        {
-            // Load the level and ensure all of the lines are the same length.
-            int width;
-            List<string> lines = new List<string>();
-            using (StreamReader reader = new StreamReader(fileStream))
-            {
-                string line = reader.ReadLine();
-                width = line.Length;
-                while (line != null)
-                {
-                    lines.Add(line);
-                    if (line.Length != width)
-                        throw new Exception(String.Format("The length of line {0} is different from all preceeding lines.", lines.Count));
-                    line = reader.ReadLine();
-                }
-            }
-
-            // Allocate the tile grid.
-            tiles = new Tile[width, lines.Count];
-
-            // Loop over every tile position,
-            for (int y = 0; y < Height; ++y)
-            {
-                for (int x = 0; x < Width; ++x)
-                {
-                    // to load each tile.
-                    char tileType = lines[y][x];
-                    tiles[x, y] = LoadTile(tileType, x, y);
-                }
-            }
-
-            // Verify that the level has a beginning and an end.
-            if (Player == null)
-                throw new NotSupportedException("A level must have a starting point.");
-            if (exit == InvalidPosition)
-                throw new NotSupportedException("A level must have an exit.");
-
-        }
-
-        /// <summary>
-        /// Loads an individual tile's appearance and behavior.
-        /// </summary>
-        /// <param name="tileType">
-        /// The character loaded from the structure file which
-        /// indicates what should be loaded.
-        /// </param>
-        /// <param name="x">
-        /// The X location of this tile in tile space.
-        /// </param>
-        /// <param name="y">
-        /// The Y location of this tile in tile space.
-        /// </param>
-        /// <returns>The loaded tile.</returns>
-        private Tile LoadTile(char tileType, int x, int y)
-        {
-            switch (tileType)
-            {
-                // Blank space
-                case '.':
-                    return new Tile(null, TileCollision.Passable,this,x,y);
-
-                // Exit
-                case 'X':
-                    return LoadExitTile(x, y);
-
-                // Gem
-                case 'G':
-                    return LoadGemTile(x, y);
-
-                // Floating platform
-                case '-':
-                    return LoadTile("Platform", TileCollision.Platform,x,y);
-
-                                    // Ice Block
-                case 'I':
-                    return LoadTile("Ice_Tile", TileCollision.Impassable, x, y);
-                // Various enemies
-                case 'A':
-                    return LoadEnemyTile(x, y, "MonsterA");
-                case 'B':
-                    return LoadEnemyTile(x, y, "MonsterB");
-                case 'C':
-                    return LoadEnemyTile(x, y, "MonsterC");
-                case 'D':
-                    return LoadEnemyTile(x, y, "MonsterD");
-
-                // Platform block
-                case '~':
-                    return LoadVarietyTile("BlockB", 2, TileCollision.Platform,x,y);
-
-                // Passable block
-                case ':':
-                    return LoadVarietyTile("BlockB", 2, TileCollision.Passable,x,y);
-
-                // Player 1 start point
-                case '1':
-                    return LoadStartTile(x, y);
-
-                // Impassable block
-                case '#':
-                    return LoadVarietyTile("BlockA", 7, TileCollision.Impassable,x,y);
-                
-                //Icecicles
-                case 'W':
-                    return LoadIcecleTile(x, y);
-
-                // Unknown tile type character
-                default:
-                    throw new NotSupportedException(String.Format("Unsupported tile type character '{0}' at position {1}, {2}.", tileType, x, y));
-            }
-        }
-
-        /// <summary>
-        /// Creates a new tile. The other tile loading methods typically chain to this
-        /// method after performing their special logic.
-        /// </summary>
-        /// <param name="name">
-        /// Path to a tile texture relative to the Content/Tiles directory.
-        /// </param>
-        /// <param name="collision">
-        /// The tile collision type for the new tile.
-        /// </param>
-        /// <returns>The new tile.</returns>
-        private Tile LoadTile(string name, TileCollision collision,int x, int y)
-        {
-            return new Tile("Tiles/" + name, collision,this,x,y);
-        }
-
-
-        /// <summary>
-        /// Loads a tile with a random appearance.
-        /// </summary>
-        /// <param name="baseName">
-        /// The content name prefix for this group of tile variations. Tile groups are
-        /// name LikeThis0.png and LikeThis1.png and LikeThis2.png.
-        /// </param>
-        /// <param name="variationCount">
-        /// The number of variations in this group.
-        /// </param>
-        private Tile LoadVarietyTile(string baseName, int variationCount, TileCollision collision,int x, int y)
-        {
-            int index = random.Next(variationCount);
-            return LoadTile(baseName + index, collision,x,y);
-        }
-
-
-        /// <summary>
-        /// Instantiates a player, puts him in the level, and remembers where to put him when he is resurrected.
-        /// </summary>
-        private Tile LoadStartTile(int x, int y)
-        {
-            if (Player != null)
-                throw new NotSupportedException("A level may only have one starting point.");
-
-            start = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
-
-
-            // TODO: create Spells
-            Spell warmSpell = null;
-            Spell noGravitySpell = null;
-            Spell creatingMatterSpell = null;
-            Spell freezeSpell = null;
-
-            player = new Player(this, start, warmSpell, noGravitySpell, creatingMatterSpell, freezeSpell);
-
-
-            return new Tile(null, TileCollision.Passable,this,x,y);
-        }
-
-        /// <summary>
-        /// Remembers the location of the level's exit.
-        /// </summary>
-        private Tile LoadExitTile(int x, int y)
-        {
-            if (exit != InvalidPosition)
-                throw new NotSupportedException("A level may only have one exit.");
-
-            exit = GetBounds(x, y).Center;
-
-            return LoadTile("Exit", TileCollision.Passable,x,y);
-        }
-
-        /// <summary>
-        /// Instantiates an enemy and puts him in the level.
-        /// </summary>
-        private Tile LoadEnemyTile(int x, int y, string spriteSet)
-        {
-            Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
-            enemies.Add(new Enemy(this, position, spriteSet));
-
-            return new Tile(null, TileCollision.Passable,this,x,y);
-        }
-
-        /// <summary>
-        /// Instantiates icecicles and puts it in the level.
-        /// </summary>
-        private Tile LoadIcecleTile(int x, int y)
-        {
-            Vector2 position = RectangleExtensions.GetBottomCenter(GetBounds(x, y));
-            position.Y += 8;
-            generalGameElements.Add(new Icecicle(this, position));
-
-            return new Tile(null, TileCollision.Passable, this, x, y);
-        }
-
-        /// <summary>
-        /// Instantiates a gem and puts it in the level.
-        /// </summary>
-        private Tile LoadGemTile(int x, int y)
-        {
-            Point position = GetBounds(x, y).Center;
-            gems.Add(new Gem(this, new Vector2(position.X, position.Y)));
-
-            return new Tile(null, TileCollision.Passable,this,x,y);
         }
 
         /// <summary>
@@ -395,68 +180,6 @@ namespace Platformer
         public void Dispose()
         {
             Content.Unload();
-        }
-
-        #endregion
-
-        #region Bounds and collision
-
-        /// <summary>
-        /// Gets the collision mode of the tile at a particular location.
-        /// This method handles tiles outside of the levels boundries by making it
-        /// impossible to escape past the left or right edges, but allowing things
-        /// to jump beyond the top of the level and fall off the bottom.
-        /// </summary>
-        public TileCollision GetCollision(int x, int y)
-        {
-            // Prevent escaping past the level ends.
-            if (x < 0 || x >= Width)
-                return TileCollision.Impassable;
-            // Allow jumping past the level top and falling through the bottom.
-            if (y < 0 || y >= Height)
-                return TileCollision.Passable;
-
-            return tiles[x, y].Collision;
-        }
-
-        public void ClearTile(int x, int y)
-        {
-             tiles[x, y]= LoadTile('.', x, y);
-        }
-
-        /// <summary>
-        /// get tile from particular location
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public Tile GetTile(int x, int y)
-        {
-            return tiles[x, y];
-        }
-
-        /// <summary>
-        /// Gets the bounding rectangle of a tile in world space.
-        /// </summary>        
-        public Rectangle GetBounds(int x, int y)
-        {
-            return new Rectangle(x * Tile.Width, y * Tile.Height, Tile.Width, Tile.Height);
-        }
-
-        /// <summary>
-        /// Width of level measured in tiles.
-        /// </summary>
-        public int Width
-        {
-            get { return tiles.GetLength(0); }
-        }
-
-        /// <summary>
-        /// Height of the level measured in tiles.
-        /// </summary>
-        public int Height
-        {
-            get { return tiles.GetLength(1); }
         }
 
         #endregion
@@ -500,20 +223,20 @@ namespace Platformer
                 UpdateGems(gameTime);
                 UpdateObjects(gameTime);
 
-                // Falling off the bottom of the level kills the player.
-                if (Player.Bounds.getRectangle().Top >= Height * Tile.Height)
+                // Falling off the bottom of the level kills the player.               
+                if (collisionManager.CollidateWithLevelBounds(player))
+                {
                     OnPlayerKilled(null);
+                }
 
                 UpdateEnemies(gameTime);
-
-                UpdateTiles(gameTime);
 
                 // The player has reached the exit if they are standing on the ground and
                 // his bounding rectangle contains the center of the exit tile. They can only
                 // exit when they have collected all of the gems.
                 if (Player.IsAlive &&
                     Player.IsOnGround &&
-                    Player.Bounds.getRectangle().Contains(exit))
+                    collisionManager.CollidateWithLevelExit(player))
                 {
                     OnExitReached();
                 }
@@ -581,15 +304,15 @@ namespace Platformer
         /// <param name="gameTime"></param>
         private void UpdateObjects(GameTime gameTime)
         {
-            for (int i = 0; i < generalGameElements.Count; ++i)                    
+            for (int i = 0; i < generalColliadableGameElements.Count; ++i)                    
             {
-                BasicGameElement elem = generalGameElements[i];
+                BasicGameElement elem = generalColliadableGameElements[i];
                 elem.Update(gameTime);
                 //remove
                 if ((elem.GetType()==typeof(Icecicle) && 
                     ((Icecicle)elem).icecicleState == IcecicleState.DESTROYED))
                 {
-                    generalGameElements.Remove(elem);                    
+                    generalColliadableGameElements.Remove(elem);                    
                 }
             }
         }
@@ -609,15 +332,6 @@ namespace Platformer
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private void UpdateTiles(GameTime gameTime)
-        {
-            foreach (Tile t in tiles){
-                t.Update(gameTime);
-            }            
-        }
 
         /// <summary>
         /// Called when a gem is collected.
@@ -657,9 +371,8 @@ namespace Platformer
         /// Restores the player to the starting point to try the level again.
         /// </summary>
         public void StartNewLife()
-        {
-            
-            Player.Reset(start);
+        {            
+            Player.Reset(startPoint);
         }
 
         #endregion
@@ -671,39 +384,19 @@ namespace Platformer
         /// </summary>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            DrawTiles(gameTime, spriteBatch);
-
             foreach (Gem gem in gems)
                 gem.Draw(gameTime, spriteBatch);
 
-            foreach (Icecicle icecicle in generalGameElements)
-                icecicle.Draw(gameTime, spriteBatch);
+            foreach (BasicGameElement elem in generalColliadableGameElements)
+                elem.Draw(gameTime, spriteBatch);
 
             Player.Draw(gameTime, spriteBatch);
 
             foreach (Enemy enemy in enemies)
                 enemy.Draw(gameTime, spriteBatch);
-
-            for (int i = EntityLayer + 1; i < layers.Length; ++i)
-                spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
-
+      
             foreach (Spell spell in spells)
                 spell.Draw(gameTime, spriteBatch);
-        }
-
-        /// <summary>
-        /// Draws each tile in the level.
-        /// </summary>
-        private void DrawTiles(GameTime time, SpriteBatch spriteBatch)
-        {
-            // For each tile position
-            for (int y = 0; y < Height; ++y)
-            {
-                for (int x = 0; x < Width; ++x)
-                {
-                    tiles[x, y].Draw(time, spriteBatch);
-                }
-            }
         }
 
         #endregion

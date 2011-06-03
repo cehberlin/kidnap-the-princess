@@ -15,8 +15,8 @@ namespace MagicWorld.StaticLevelContent
         public static LevelLoader getLevel(int nr){
 
             switch (nr) { 
-                case 1:
-                    throw new NotImplementedException();                   
+                //case 1:
+                //    throw new NotImplementedException();                   
                 default:
                     return new StaticLevelLoader();
             }

@@ -14,9 +14,10 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
+using MagicWorld.StaticLevelContent;
 
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// This is the main type for your game
@@ -191,7 +192,7 @@ namespace Platformer
             // Load the level.
             string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
             using (Stream fileStream = TitleContainer.OpenStream(levelPath))
-                level = new Level(Services, fileStream, levelIndex);
+                level = new Level(Services, LevelLoaderFactory.getLevel(levelIndex));
         }
 
         private void ReloadCurrentLevel()
@@ -207,11 +208,6 @@ namespace Platformer
         protected override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin();
-            for (int i = 0; i <=level.EntityLayers; ++i)
-                spriteBatch.Draw(level.layers[i], Vector2.Zero, Color.White);
-            spriteBatch.End();
 
             //spriteBatch.Begin();
             spriteBatch.Begin(SpriteSortMode.Immediate,

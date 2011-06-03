@@ -10,11 +10,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Platformer.HelperClasses;
-using Platformer.DynamicLevelContent;
+using MagicWorld.HelperClasses;
+using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// Facing direction along the X axis.
@@ -193,12 +193,12 @@ namespace Platformer
         /// <returns>returns true if collision occured</returns>
         private bool HandleCollision()
         {
-            List<Tile> collisionTiles = new List<Tile>();
-            level.CollisionManager.CollidateWithTiles(this, ref collisionTiles);
+            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
+            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
 
-            foreach (Tile t in collisionTiles)
+            foreach (BlockElement t in collisionObjects)
             {
-                if (t.Collision == TileCollision.Impassable)
+                if (t.Collision == BlockCollision.Impassable)
                 {
                     waitTime = MaxWaitTime;
                     return true;

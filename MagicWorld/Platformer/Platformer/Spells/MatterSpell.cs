@@ -4,10 +4,10 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
-using Platformer.DynamicLevelContent;
+using MagicWorld.DynamicLevelContent;
 using System.Diagnostics;
 
-namespace Platformer
+namespace MagicWorld
 {
     class MatterSpell:Spell 
     {
@@ -57,20 +57,21 @@ namespace Platformer
 
         protected override void OnRemove()
         {
-            // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + Bounds.getRectangle().Width / 2 * (int)direction.X;
-            int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.X;
-            int y = (int)Math.Floor(Position.Y / Tile.Height);
+            //TODO
+            //// Calculate tile position based on the side we are walking towards.
+            //float posX = Position.X + Bounds.getRectangle().Width / 2 * (int)direction.X;
+            //int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.X;
+            //int y = (int)Math.Floor(Position.Y / Tile.Height);
 
-            if (x > 0 && x < level.Width && y > 0 && y < level.Height)
-            {
-                if (level.GetTile(x, y).Texture == null && level.GetTile(x+1, y).Texture == null&& level.GetTile(x-1, y).Texture == null)//empty tile
-                {
-                    double matterTileLifeTime = durationOfActionMs * Force;
-                    Debug.WriteLine("Matter Tile LifeTime " + matterTileLifeTime);
-                    level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y,matterTileLifeTime );
-                }
-            }
+            //if (x > 0 && x < level.Width && y > 0 && y < level.Height)
+            //{
+            //    if (level.GetTile(x, y).Texture == null && level.GetTile(x+1, y).Texture == null&& level.GetTile(x-1, y).Texture == null)//empty tile
+            //    {
+            //        double matterTileLifeTime = durationOfActionMs * Force;
+            //        Debug.WriteLine("Matter Tile LifeTime " + matterTileLifeTime);
+            //        level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y,matterTileLifeTime );
+            //    }
+            //}
 
             base.OnRemove();
         }

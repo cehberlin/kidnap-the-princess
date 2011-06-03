@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// Interface which encapsulates default Load Update Draw behavior of a autonomus object (all objects which handle this on its own)

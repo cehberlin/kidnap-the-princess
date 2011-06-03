@@ -2,11 +2,11 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using Platformer.DynamicLevelContent;
-using Platformer.HelperClasses;
+using MagicWorld.DynamicLevelContent;
+using MagicWorld.HelperClasses;
 using System.Collections.Generic;
 
-namespace Platformer
+namespace MagicWorld
 {
     enum IcecicleState { NORMAL, FALLING, DESTROYED };
     class Icecicle : BasicGameElement
@@ -139,8 +139,8 @@ namespace Platformer
         public virtual void HandleTileCollision()
         {
             //Tile collision
-            List<Tile> collisionTiles = new List<Tile>();
-            if (level.CollisionManager.CollidateWithTiles(this, ref collisionTiles))
+            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
+            if (level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects))
             {
                 //destroy the icecicle
                 icecicleState = IcecicleState.DESTROYED;

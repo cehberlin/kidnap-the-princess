@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Platformer.HelperClasses;
-using Platformer.DynamicLevelContent;
+using MagicWorld.HelperClasses;
+using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// Base class that determines a spell
@@ -326,13 +326,13 @@ namespace Platformer
         /// <summary>
         /// handels collision with tiles
         /// </summary>
-        public virtual void HandleTileCollision()
+        public virtual void HandleCollisionWithLevelElements()
         {
-            List<Tile> collisionTiles = new List<Tile>();
+            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
 
-            level.CollisionManager.CollidateWithTiles(this, ref collisionTiles);
+            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
             //enemy collision
-            foreach (Tile tile in collisionTiles)
+            foreach (BlockElement tile in collisionObjects)
             {
                 if (tile.SpellInfluenceAction(this))
                 {
@@ -398,7 +398,7 @@ namespace Platformer
             HandleEnemyCollision();
 
             //Tile collision
-            HandleTileCollision();        
+            HandleCollisionWithLevelElements();        
 
             //check if spells leaves the level
             HandleOutOfLevelCollision();
