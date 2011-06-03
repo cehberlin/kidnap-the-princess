@@ -174,5 +174,11 @@ namespace Platformer.HelperClasses
             return ContainmentType.Disjoint;
         }
 
+        public Vector2 CollisionDepth(Bounds c)
+        {
+            //at the moment the result for spheres are not exact because it is used a rectangle build arround the cycle
+            return RectangleExtensions.GetIntersectionDepth(this.getRectangle(), c.getRectangle());
+        }
+
     }
 }

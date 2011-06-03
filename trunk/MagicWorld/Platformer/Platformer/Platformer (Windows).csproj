@@ -78,7 +78,7 @@
     <Compile Include="HelperClasses\Bounds.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Animation.cs" />
-    <Compile Include="DynamicLevelContent\Player\AnimationPlayer.cs" />
+    <Compile Include="HelperClasses\AnimationPlayer.cs" />
     <Compile Include="HelperClasses\Circle.cs" />
     <Compile Include="HelperClasses\CollisionManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
