@@ -70,6 +70,19 @@ namespace Platformer
         }
         bool isAlive;
 
+        public override Bounds Bounds
+        {
+            get
+            {
+                // Calculate bounds within texture size.
+                float width = (sprite.Animation.FrameWidth);
+                float height = (sprite.Animation.FrameHeight);
+                float left = (float)Math.Round(Position.X - width / 2);
+                float top = (float)Math.Round(Position.Y - height);
+                return new Bounds(left, top, width, height);
+            }
+        }
+
         // Physics state
         public override Vector2 Position
         {
@@ -246,11 +259,6 @@ namespace Platformer
             jumpAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
             celebrateAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
             dieAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false, 5);
-
-            // Calculate bounds within texture size.            
-            int width = (int)(idleAnimation.FrameWidth);
-            int height = (int)(idleAnimation.FrameHeight);
-            bounds = new Bounds(position, width, height);
 
             // Load sounds.            
             killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
