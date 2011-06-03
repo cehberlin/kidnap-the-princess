@@ -14,13 +14,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using System.Diagnostics;
-using Platformer.Spells;
-using Platformer.DynamicLevelContent.Player;
-using Platformer.DynamicLevelContent;
-using Platformer.HelperClasses;
+using MagicWorld.Spells;
+using MagicWorld.DynamicLevelContent.Player;
+using MagicWorld.DynamicLevelContent;
+using MagicWorld.HelperClasses;
 using System.Collections.Generic;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// Our fearless adventurer!
@@ -206,15 +206,6 @@ namespace Platformer
 
 
 
-        /// <summary>
-        /// 4 Spell Slots
-        /// </summary>
-        public Spell SpellSlotA { get; set; }
-        public Spell SpellSlotB { get; set; }
-        public Spell SpellSlotC { get; set; }
-        public Spell SpellSlotD { get; set; }
-
-
         //only one spell at a time
         Spell currentSpell = null;
         public Spell CurrentSpell{get{return currentSpell;}}
@@ -222,14 +213,9 @@ namespace Platformer
         /// <summary>
         /// Constructors a new player.
         /// </summary>
-        public Player(Level level, Vector2 position, Spell spellSlotA, Spell spellSlotB, Spell spellSlotC, Spell spellSlotD)
+        public Player(Level level, Vector2 position)
             : base(level)
         {
-            SpellSlotA = spellSlotA;
-            SpellSlotB = spellSlotB;
-            SpellSlotC = spellSlotC;
-            SpellSlotD = spellSlotD;
-
             this.level = level;
 
             Mana = new Mana(this);
@@ -513,16 +499,16 @@ namespace Platformer
         /// </summary>
         private void HandleCollisions()
         {
-            List<Tile> collisionTiles = new List<Tile>();
-            level.CollisionManager.CollidateWithTiles(this, ref collisionTiles);
+            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
+            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
 
             //// Reset flag to search for ground collision.
             IsOnGround = false;
 
-            foreach (Tile t in collisionTiles)
+            foreach (BlockElement t in collisionObjects)
             {
-                TileCollision collision = t.Collision;
-                if (collision == TileCollision.Impassable)
+                BlockCollision collision = t.Collision;
+                if (collision == BlockCollision.Impassable)
                 {
                     Vector2 depth = CollisionManager.GetCollisionDepth(this, t);
                     if (depth != Vector2.Zero)
@@ -531,20 +517,20 @@ namespace Platformer
                         float absDepthY = Math.Abs(depth.Y);
 
                         // Resolve the collision along the shallow axis.
-                        if (absDepthY < absDepthX || collision == TileCollision.Platform)
+                        if (absDepthY < absDepthX || collision == BlockCollision.Platform)
                         {
                             // If we crossed the top of a tile, we are on the ground.
                             if (previousBottom <= t.Bounds.getRectangle().Top)
                                 IsOnGround = true;
 
                             // Ignore platforms, unless we are on the ground.
-                            if (collision == TileCollision.Impassable || IsOnGround)
+                            if (collision == BlockCollision.Impassable || IsOnGround)
                             {
                                 // Resolve the collision along the Y axis.
                                 Position = new Vector2(Position.X, Position.Y + depth.Y);
                             }
                         }
-                        else if (collision == TileCollision.Impassable) // Ignore platforms.
+                        else if (collision == BlockCollision.Impassable) // Ignore platforms.
                         {
                             // Resolve the collision along the X axis.
                             Position = new Vector2(Position.X + depth.X, Position.Y);

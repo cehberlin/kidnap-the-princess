@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Platformer.HelperClasses
+namespace MagicWorld.HelperClasses
 {
     public class Camera2d
     {

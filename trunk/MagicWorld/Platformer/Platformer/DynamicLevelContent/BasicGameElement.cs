@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Platformer.HelperClasses;
+using MagicWorld.HelperClasses;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer.DynamicLevelContent
+namespace MagicWorld.DynamicLevelContent
 {
     class BasicGameElement : IAutonomusGameObject,ISpellInfluenceable
     {

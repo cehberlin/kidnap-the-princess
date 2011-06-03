@@ -5,14 +5,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Platformer.DynamicLevelContent.Player
+namespace MagicWorld.DynamicLevelContent.Player
 {
     class Mana
     {
         public const int MAX_MANA = 1000;
         private const float MANA_REGENERATION_RATE = 0.25f;
 
-        private Platformer.Player player;
+        private MagicWorld.Player player;
 
         private int _currentMana;
 
@@ -27,7 +27,7 @@ namespace Platformer.DynamicLevelContent.Player
         /// Constructor
         /// inits Mana with MAX_MANA
         /// </summary>
-        public Mana(Platformer.Player player)
+        public Mana(MagicWorld.Player player)
         {
             _currentMana = MAX_MANA;
             this.player = player;

@@ -11,7 +11,7 @@ using System;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// Represents an animated texture.

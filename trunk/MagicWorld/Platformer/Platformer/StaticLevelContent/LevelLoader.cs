@@ -13,12 +13,16 @@ namespace MagicWorld.StaticLevelContent
     /// </summary>
     interface LevelLoader
     {
+        Level Level
+        {
+            get;
+            set;
+        }
+
         List<Enemy> getEnemies();
         
         List<BasicGameElement> getGeneralObjects();
         
-        List<Icecicle> getIcecicles();
-
         Vector2 getPlayerStartPosition();
 
         BasicGameElement getLevelExit();

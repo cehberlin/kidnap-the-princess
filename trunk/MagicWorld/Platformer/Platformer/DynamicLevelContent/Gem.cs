@@ -11,10 +11,10 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using Platformer.DynamicLevelContent;
-using Platformer.HelperClasses;
+using MagicWorld.DynamicLevelContent;
+using MagicWorld.HelperClasses;
 
-namespace Platformer
+namespace MagicWorld
 {
     /// <summary>
     /// A valuable item the player can collect.
@@ -51,7 +51,7 @@ namespace Platformer
         {
             this.level = level;
             this.basePosition = position;
-            bounds = new Bounds(position, Tile.Width / 3.0f);
+            bounds = new Bounds(position, BlockElement.Width / 3.0f);
 
             LoadContent("Sprites/Gem");
         }

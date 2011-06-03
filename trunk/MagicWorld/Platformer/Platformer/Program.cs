@@ -9,7 +9,7 @@
 
 using System;
 
-namespace Platformer
+namespace MagicWorld
 {
     static class Program
     {
