@@ -8,8 +8,9 @@
 
 
 = in Progress =
-Content: Walkcyle + Jumping + Casting animation for player -->Pascal
+
 Implementation Player --> Christopher
+
 Class: LevelObject(for non tile drawing) and LevelEditor --> John
 
 
