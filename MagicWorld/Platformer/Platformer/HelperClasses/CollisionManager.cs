@@ -17,6 +17,12 @@ namespace Platformer.HelperClasses
             this.level = level;
         }
 
+        /// <summary>
+        /// Checks if two bounds intersects
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
         public static bool Intersects(Bounds c1, Bounds c2)
         {
             ContainmentType type = c1.Contains(c2);
@@ -26,11 +32,23 @@ namespace Platformer.HelperClasses
                 return false;
         }
         
+        /// <summary>
+        /// Check if two basic game elements intersects
+        /// </summary>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
         public static bool Intersects(BasicGameElement b1, BasicGameElement b2)
         {
             return Intersects(b1.Bounds, b2.Bounds);
         }
 
+        /// <summary>
+        /// check if c1 contains c2 Bounds
+        /// </summary>
+        /// <param name="c1"></param>
+        /// <param name="c2"></param>
+        /// <returns></returns>
         public static bool Contains(Bounds c1, Bounds c2)
         {
             ContainmentType type = c1.Contains(c2);
@@ -40,18 +58,34 @@ namespace Platformer.HelperClasses
                 return false;
         }
 
+        /// <summary>
+        /// check if b1 contains b2
+        /// </summary>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
         public static bool Contains(BasicGameElement b1, BasicGameElement b2)
         {
             return Contains(b1.Bounds, b2.Bounds);
         }
 
 
+        /// <summary>
+        /// get the depth of the collision from b1 and b2
+        /// </summary>
+        /// <param name="b1"></param>
+        /// <param name="b2"></param>
+        /// <returns></returns>
+        public static Vector2 GetCollisionDepth(BasicGameElement b1, BasicGameElement b2)
+        {
+            return b1.Bounds.CollisionDepth(b2.Bounds);
+        }
 
         /// <summary>
         /// Checks for collision with enemies
         /// </summary>
         /// <param name="elem">the game element which should be checked</param>
-        /// <param name="enemiesColliadingWith">if you want a list of all enemies colliading with ..if not set null</param>
+        /// <param name="enemiesColliadingWith">return a list of colliading objects</param>
         /// <returns></returns>
         public bool CollidateWithEnemy(BasicGameElement elem, ref List<Enemy> enemiesColliadingWith)
         {
@@ -76,7 +110,7 @@ namespace Platformer.HelperClasses
         /// Checks for collision with tiles --> later remove or rename....
         /// </summary>
         /// <param name="elem">the game element which should be checked</param>
-        /// <param name="tilesColliadingWith">if you want a list of all enemies colliading with ..if not set null</param>
+        /// <param name="tilesColliadingWith">return a list of colliading objects</param>
         /// <returns></returns>
         public bool CollidateWithTiles(BasicGameElement elem, ref List<Tile> tilesColliadingWith)
         {
@@ -101,11 +135,10 @@ namespace Platformer.HelperClasses
         /// Checks for collision with tiles --> later remove or rename....
         /// </summary>
         /// <param name="elem">the game element which should be checked</param>
-        /// <param name="tilesColliadingWith">if you want a list of all enemies colliading with ..if not set null</param>
+        /// <param name="tilesColliadingWith">return a list of colliading objects</param>
         /// <returns></returns>
         public bool CollidateWithGeneralLevelElements(BasicGameElement elem, ref List<BasicGameElement> elementsColliadingWith)
         {
-
             bool isCollision = false;
 
             foreach (BasicGameElement element in level.GeneralGameElements)

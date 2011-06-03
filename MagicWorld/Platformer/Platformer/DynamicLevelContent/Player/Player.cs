@@ -18,6 +18,7 @@ using Platformer.Spells;
 using Platformer.DynamicLevelContent.Player;
 using Platformer.DynamicLevelContent;
 using Platformer.HelperClasses;
+using System.Collections.Generic;
 
 namespace Platformer
 {
@@ -246,14 +247,6 @@ namespace Platformer
         public void LoadContent()
         {
             // Load animated textures.
-            /*
-            idleAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true,1);
-            runAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true,10);
-            jumpAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false,11);
-            celebrateAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false,11);
-            dieAnimation = new Animation(Level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false,12);
-            */
-
             idleAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
             runAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
             jumpAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
@@ -437,7 +430,7 @@ namespace Platformer
 
 
             //TODO DEBUG
-            velocity.Y = 0;
+            //velocity.Y = 0;
 
             Position += velocity * elapsed;
             
@@ -520,67 +513,48 @@ namespace Platformer
         /// </summary>
         private void HandleCollisions()
         {
-
-            IsOnGround = true;
-            //// Get the player's bounding rectangle and find neighboring tiles.
-            //Rectangle bounds = Bounds.getRectangle();
-            //int leftTile = (int)Math.Floor((float)bounds.Left / Tile.Width);
-            //int rightTile = (int)Math.Ceiling(((float)bounds.Right / Tile.Width)) - 1;
-            //int topTile = (int)Math.Floor((float)bounds.Top / Tile.Height);
-            //int bottomTile = (int)Math.Ceiling(((float)bounds.Bottom / Tile.Height)) - 1;
+            List<Tile> collisionTiles = new List<Tile>();
+            level.CollisionManager.CollidateWithTiles(this, ref collisionTiles);
 
             //// Reset flag to search for ground collision.
-            //IsOnGround = false;
+            IsOnGround = false;
 
-            //// For each potentially colliding tile,
-            //for (int y = topTile; y <= bottomTile; ++y)
-            //{
-            //    for (int x = leftTile; x <= rightTile; ++x)
-            //    {
-            //        // If this tile is collidable,
-            //        TileCollision collision = Level.GetCollision(x, y);
-            //        if (collision != TileCollision.Passable)
-            //        {
-            //            // Determine collision depth (with direction) and magnitude.
-            //            Rectangle tileBounds = Level.GetBounds(x, y);
-            //            Vector2 depth = RectangleExtensions.GetIntersectionDepth(bounds, tileBounds);
-            //            if (depth != Vector2.Zero)
-            //            {
-            //                float absDepthX = Math.Abs(depth.X);
-            //                float absDepthY = Math.Abs(depth.Y);
+            foreach (Tile t in collisionTiles)
+            {
+                TileCollision collision = t.Collision;
+                if (collision == TileCollision.Impassable)
+                {
+                    Vector2 depth = CollisionManager.GetCollisionDepth(this, t);
+                    if (depth != Vector2.Zero)
+                    {
+                        float absDepthX = Math.Abs(depth.X);
+                        float absDepthY = Math.Abs(depth.Y);
 
-            //                // Resolve the collision along the shallow axis.
-            //                if (absDepthY < absDepthX || collision == TileCollision.Platform)
-            //                {
-            //                    // If we crossed the top of a tile, we are on the ground.
-            //                    if (previousBottom <= tileBounds.Top)
-            //                        IsOnGround = true;
+                        // Resolve the collision along the shallow axis.
+                        if (absDepthY < absDepthX || collision == TileCollision.Platform)
+                        {
+                            // If we crossed the top of a tile, we are on the ground.
+                            if (previousBottom <= t.Bounds.getRectangle().Top)
+                                IsOnGround = true;
 
-            //                    // Ignore platforms, unless we are on the ground.
-            //                    if (collision == TileCollision.Impassable || IsOnGround)
-            //                    {
-            //                        // Resolve the collision along the Y axis.
-            //                        Position = new Vector2(Position.X, Position.Y + depth.Y);
-
-            //                        // Perform further collisions with the new bounds.
-            //                        bounds = Bounds.getRectangle();
-            //                    }
-            //                }
-            //                else if (collision == TileCollision.Impassable) // Ignore platforms.
-            //                {
-            //                    // Resolve the collision along the X axis.
-            //                    Position = new Vector2(Position.X + depth.X, Position.Y);
-
-            //                    // Perform further collisions with the new bounds.
-            //                    bounds = Bounds.getRectangle();
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+                            // Ignore platforms, unless we are on the ground.
+                            if (collision == TileCollision.Impassable || IsOnGround)
+                            {
+                                // Resolve the collision along the Y axis.
+                                Position = new Vector2(Position.X, Position.Y + depth.Y);
+                            }
+                        }
+                        else if (collision == TileCollision.Impassable) // Ignore platforms.
+                        {
+                            // Resolve the collision along the X axis.
+                            Position = new Vector2(Position.X + depth.X, Position.Y);
+                        }
+                    }
+                }
+            }
 
             // Save the new bounds bottom.
-           // previousBottom = bounds.Bottom;
+            previousBottom = Bounds.getRectangle().Bottom;
         }
 
         /// <summary>
