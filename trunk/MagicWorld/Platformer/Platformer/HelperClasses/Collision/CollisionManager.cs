@@ -140,8 +140,7 @@ namespace MagicWorld.HelperClasses
 
         public bool CollidateWithLevelBounds(BasicGameElement elem)
         {
-            //TODO
-            return false;
+            return !Intersects(elem.Bounds, level.LevelBounds);
         }
 
         

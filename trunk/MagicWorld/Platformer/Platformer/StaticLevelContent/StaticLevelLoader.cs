@@ -32,12 +32,12 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
 
-            elements.Add(LoadTile("BlockA0", BlockCollision.Impassable,new Vector2(0f,7)));
-            elements.Add(LoadTile("BlockA3", BlockCollision.Impassable, new Vector2(1f, 7)));
-            elements.Add(LoadTile("BlockA1", BlockCollision.Impassable, new Vector2(2f, 7)));
-            elements.Add(new IceBlockElement(level,new Vector2(2f, 6)));
-            elements.Add(new IceBlockElement(level, new Vector2(2f, 5)));
-            elements.Add(LoadTile("BlockA4", BlockCollision.Impassable, new Vector2(3f, 7)));
+            elements.Add(LoadBlock("BlockA0", BlockCollision.Impassable,new Vector2(0f,200),200,32));
+            elements.Add(LoadBlock("BlockA3", BlockCollision.Impassable, new Vector2(220f, 300), 150, 45));
+            elements.Add(LoadBlock("BlockA4", BlockCollision.Impassable, new Vector2(400f, 250)));
+            elements.Add(LoadBlock("BlockA1", BlockCollision.Impassable, new Vector2(500f, 200),300,10));
+            elements.Add(new IceBlockElement(level,new Vector2(100f, 130)));
+            elements.Add(new IceBlockElement(level, new Vector2(100f, 100)));            
 
             return elements;
         }
@@ -52,7 +52,7 @@ namespace MagicWorld.StaticLevelContent
 
         public BasicGameElement getLevelExit()
         {
-            BasicGameElement exit = LoadTile("Exit", BlockCollision.Passable,new Vector2(3,6));
+            BasicGameElement exit = LoadBlock("Exit", BlockCollision.Passable,new Vector2(650,160));
             return exit;
         }
 
@@ -61,24 +61,16 @@ namespace MagicWorld.StaticLevelContent
             return 99;
         }
 
-        #endregion
-
-
-        /// <summary>
-        /// Creates a new tile. The other tile loading methods typically chain to this
-        /// method after performing their special logic.
-        /// </summary>
-        /// <param name="name">
-        /// Path to a tile texture relative to the Content/Tiles directory.
-        /// </param>
-        /// <param name="collision">
-        /// The tile collision type for the new tile.
-        /// </param>
-        /// <returns>The new tile.</returns>
-        private BlockElement LoadTile(string name, BlockCollision collision, Vector2 position)
+        public Song getBackgroundMusic()
         {
-            return new BlockElement("Tiles/" + name, collision, level, position);
+            return level.Content.Load<Song>("Sounds/Backgroundmusic");
         }
+
+        public HelperClasses.Bounds getLevelBounds()
+        {
+            return new HelperClasses.Bounds(0, 0, 5000, 5000);
+        }
+
 
         public Level Level
         {
@@ -92,14 +84,17 @@ namespace MagicWorld.StaticLevelContent
             }
         }
 
-        #region ILevelLoader Member
+        #endregion
 
-
-        public Song getBackgroundMusic()
+        private BlockElement LoadBlock(string name, BlockCollision collision, Vector2 position)
         {
-            return level.Content.Load<Song>("Sounds/Backgroundmusic");
+            return new BlockElement("Tiles/" + name, collision, level, position);
         }
 
-        #endregion
+        private BlockElement LoadBlock(string name, BlockCollision collision, Vector2 position, int width, int height)
+        {
+            return new BlockElement("Tiles/" + name, collision, level, position,width,height);
+        }
+
     }
 }

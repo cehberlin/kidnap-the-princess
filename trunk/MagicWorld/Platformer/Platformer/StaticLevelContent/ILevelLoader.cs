@@ -6,6 +6,7 @@ using MagicWorld;
 using MagicWorld.DynamicLevelContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using MagicWorld.HelperClasses;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -31,5 +32,7 @@ namespace MagicWorld.StaticLevelContent
         double getMaxLevelTime();
 
         Song getBackgroundMusic();
+
+        Bounds getLevelBounds();
     }
 }

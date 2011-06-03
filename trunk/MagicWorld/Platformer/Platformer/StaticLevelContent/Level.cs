@@ -116,6 +116,17 @@ namespace MagicWorld
             get { return collisionManager; }
         }
 
+        /// <summary>
+        /// max area for the level
+        /// </summary>
+        Bounds levelBounds;
+
+        public Bounds LevelBounds
+        {
+            get { return levelBounds; }
+            set { levelBounds = value; }
+        }
+
         private SoundEffect exitReachedSound;
 
         #region Loading
@@ -158,6 +169,8 @@ namespace MagicWorld
             player = new Player(this, startPoint);
 
             endPoint = levelLoader.getLevelExit();
+
+            levelBounds = levelLoader.getLevelBounds();
 
             //Known issue that you get exceptions if you use Media PLayer while connected to your PC
             //See http://social.msdn.microsoft.com/Forums/en/windowsphone7series/thread/c8a243d2-d360-46b1-96bd-62b1ef268c66

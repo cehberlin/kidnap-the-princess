@@ -414,10 +414,6 @@ namespace MagicWorld
             // Prevent the player from running faster than his top speed.            
             velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
 
-
-            //TODO DEBUG
-            //velocity.Y = 0;
-
             Position += velocity * elapsed;
             
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
