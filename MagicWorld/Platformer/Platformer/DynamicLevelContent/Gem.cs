@@ -11,13 +11,15 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using Platformer.DynamicLevelContent;
+using Platformer.HelperClasses;
 
 namespace Platformer
 {
     /// <summary>
     /// A valuable item the player can collect.
     /// </summary>
-    class Gem:IAutonomusGameObject
+    class Gem:BasicGameElement
     {
         private Texture2D texture;
         private Vector2 origin;
@@ -30,16 +32,10 @@ namespace Platformer
         private Vector2 basePosition;
         private float bounce;
 
-        public Level Level
-        {
-            get { return level; }
-        }
-        Level level;
-
         /// <summary>
         /// Gets the current position of this gem in world space.
         /// </summary>
-        public Vector2 Position
+        public override  Vector2 Position
         {
             get
             {
@@ -47,24 +43,15 @@ namespace Platformer
             }
         }
 
-        /// <summary>
-        /// Gets a circle which bounds this gem in world space.
-        /// </summary>
-        public Circle BoundingCircle
-        {
-            get
-            {
-                return new Circle(Position, Tile.Width / 3.0f);
-            }
-        }
 
         /// <summary>
         /// Constructs a new gem.
         /// </summary>
-        public Gem(Level level, Vector2 position)
+        public Gem(Level level, Vector2 position):base(level)
         {
             this.level = level;
             this.basePosition = position;
+            bounds = new Bounds(position, Tile.Width / 3.0f);
 
             LoadContent("Sprites/Gem");
         }
@@ -72,17 +59,17 @@ namespace Platformer
         /// <summary>
         /// Loads the gem texture and collected sound.
         /// </summary>
-        public void LoadContent(string spriteSet)
+        public override void LoadContent(string spriteSet)
         {
-            texture = Level.Content.Load<Texture2D>(spriteSet);
+            texture = level.Content.Load<Texture2D>(spriteSet);
             origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
-            collectedSound = Level.Content.Load<SoundEffect>("Sounds/GemCollected");
+            collectedSound = level.Content.Load<SoundEffect>("Sounds/GemCollected");
         }
 
         /// <summary>
         /// Bounces up and down in the air to entice players to collect them.
         /// </summary>
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // Bounce control constants
             const float BounceHeight = 0.18f;
@@ -110,7 +97,7 @@ namespace Platformer
         /// <summary>
         /// Draws a gem in the appropriate color.
         /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Position, null, Color, 0.0f, origin, 1.0f, SpriteEffects.None, 0.0f);
         }

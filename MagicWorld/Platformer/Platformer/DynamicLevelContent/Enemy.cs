@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Platformer.HelperClasses;
 using Platformer.DynamicLevelContent;
+using System.Collections.Generic;
 
 namespace Platformer
 {
@@ -55,6 +56,20 @@ namespace Platformer
         /// </summary>
         private const float MoveSpeed = 64.0f;
 
+
+        public override Bounds Bounds
+        {
+            get
+            {
+                // Calculate bounds within texture size.
+                float width = (sprite.Animation.FrameWidth*0.5f);
+                float height = (sprite.Animation.FrameHeight*0.9f);
+                float left = (float)Math.Round(Position.X - width / 2);
+                float top = (float)Math.Round(Position.Y - sprite.Animation.FrameHeight*0.9);
+                return new Bounds(left, top, width, height);
+            }
+        }
+
         /// <summary>
         /// Constructs a new Enemy.
         /// </summary>
@@ -68,6 +83,7 @@ namespace Platformer
             //init spell states
             isBurning = false;
             isFroozen = false;
+            debugColor = Color.Red;
         }
 
         /// <summary>
@@ -81,15 +97,16 @@ namespace Platformer
             idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true, 11);
             sprite.PlayAnimation(idleAnimation);
 
-            // Calculate bounds within texture size.
-            int width = (int)(idleAnimation.FrameWidth * 0.35);
-            int left = (idleAnimation.FrameWidth - width) / 2;
-            int height = (int)(idleAnimation.FrameWidth * 0.7);
-            int top = idleAnimation.FrameHeight - height;
-            bounds = new Bounds(left, top, width, height);
             base.LoadContent("");
         }
 
+
+        #region updating
+
+        /// <summary>
+        /// contains direction and speed
+        /// </summary>
+        Vector2 velocity;
 
         /// <summary>
         /// Paces back and forth along a platform, waiting at either end.
@@ -121,62 +138,78 @@ namespace Platformer
 
             if (!isFroozen)
             {
-                //if (level.Player.Position.X > this.position.X +10 && this.direction.Equals(FaceDirection.Left) ||
-                //    level.Player.Position.X < this.position.X -10 && this.direction.Equals(FaceDirection.Right))
+                //TODO
+                //let enemies run in player direction, is buggy because enemies are shakeing at obstacles
+                //if (level.Player.Position.X > this.position.X + 10 && this.direction.Equals(FaceDirection.Left) ||
+                //    level.Player.Position.X < this.position.X - 10 && this.direction.Equals(FaceDirection.Right))
                 //{
                 //    direction = (FaceDirection)(-(int)direction);
                 //}
 
-                // Calculate tile position based on the side we are walking towards.
-
-                //replace collision detection
-            //    float posX = Position.X + localBounds.Width / 2 * (int)direction;
-            //    int tileX = (int)Math.Floor(posX / Tile.Width) - (int)direction;
-            //    int tileY = (int)Math.Floor(Position.Y / Tile.Height);
-
-            //    if (waitTime > 0)
-            //    {
-            //        // Wait for some amount of time.
-            //        waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
-            //        if (waitTime <= 0.0f)
-            //        {
-            //            // Then turn around.
-            //            direction = (FaceDirection)(-(int)direction);
-            //        }
-            //    }
-            //    else
-            //    {
-
-            //        TileCollision collisonOne = Level.GetCollision(tileX + (int)direction, tileY);
-            //        TileCollision collisonTwo = Level.GetCollision(tileX + (int)direction, tileY - 1);
-            //        // If we are about to run into a wall or off a cliff, start waiting.
-            //        if (collisonTwo == TileCollision.Impassable ||
-            //            collisonOne == TileCollision.Passable )
-            //        {
-            //            waitTime = MaxWaitTime;
-            //        }
-            //        if (this.position.X < level.Player.Position.X &&
-            //            (this.position.X + 6 > level.Player.Position.X))
-            //        {
-            //            waitTime = MaxWaitTime;
-            //        }
-            //        else
-            //        {
-            //            // Move in the current direction.
-            //            Vector2 velocity;
-            //            if (isBurning)
-            //            {
-            //                velocity = new Vector2((int)direction * MoveSpeed * elapsed * burningMovingSpeedFactor, 0.0f);
-            //            }
-            //            else
-            //            {
-            //                velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
-            //            }
-            //            position = position + velocity;
-            //        }
-            //    }
+                if (waitTime > 0)
+                {
+                    // Wait for some amount of time.
+                    waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
+                    if (waitTime <= 0.0f)
+                    {
+                        // Then turn around.
+                        direction = (FaceDirection)(-(int)direction);
+                    }
+                }
+                else
+                {
+                    if (HandleCollision()) {
+                        //let enemy bounce back after collision, neccessary so you are not kept in the collision
+                        position = position - velocity;
+                    }
+                    else
+                    {
+                        if (this.position.X < level.Player.Position.X &&
+                            (this.position.X + 6 > level.Player.Position.X))
+                        {
+                            waitTime = MaxWaitTime;
+                        }
+                        else
+                        {
+                            // Move in the current direction.
+                            if (isBurning)
+                            {
+                                velocity = new Vector2((int)direction * MoveSpeed * elapsed * burningMovingSpeedFactor, 0.0f);
+                            }
+                            else
+                            {
+                                velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
+                            }
+                            position = position + velocity;
+                        }
+                    }
+                }
             }
         }
+
+        /// <summary>
+        /// Checks for collision with level elements
+        /// </summary>
+        /// <returns>returns true if collision occured</returns>
+        private bool HandleCollision()
+        {
+            List<Tile> collisionTiles = new List<Tile>();
+            level.CollisionManager.CollidateWithTiles(this, ref collisionTiles);
+
+            foreach (Tile t in collisionTiles)
+            {
+                if (t.Collision == TileCollision.Impassable)
+                {
+                    waitTime = MaxWaitTime;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        #endregion
+
+        #region drawing
 
         /// <summary>
         /// Draws the animated enemy.
@@ -205,6 +238,8 @@ namespace Platformer
             base.Draw(gameTime, spriteBatch);
         }
 
+        #endregion
+
         #region ISpellInfluenceable Member
 
 
@@ -215,11 +250,6 @@ namespace Platformer
         private TimeSpan maxBurningTime = new TimeSpan(0, 0, 3);
         private float burningMovingSpeedFactor = 2f; // Factor the enemy is moving faster while under influence of warm spell
 
-        /// <summary>
-        /// some variables for spell reaction
-        /// </summary>
-        //enum SpellState { NORMAL, BURNED, FROZEN };
-        //SpellState spellState = SpellState.NORMAL;
         double spellDurationOfActionMs = 0;
 
         public Boolean isBurning { get; set; }

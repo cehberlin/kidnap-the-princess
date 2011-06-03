@@ -346,7 +346,7 @@ namespace Platformer
         /// </summary>
         public virtual void HandleOutOfLevelCollision()
         {
-            if (level.CollisionManager.ColliadateWithLevelBounds(this))
+            if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
                 SpellState = State.REMOVE;
             }
