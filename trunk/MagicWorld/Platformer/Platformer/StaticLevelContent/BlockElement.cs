@@ -61,9 +61,14 @@ namespace MagicWorld
         /// <summary>
         /// some variables for spell reaction
         /// </summary>
-        enum SpellState { NORMAL, BURNED, FROZEN , DESTROYED};
-        SpellState spellState = SpellState.NORMAL;
-        double spellDurationOfActionMs = 0;
+        public enum SpellState { NORMAL, BURNED, FROZEN , DESTROYED};
+        protected SpellState spellState = SpellState.NORMAL;
+
+        public SpellState State
+        {
+            get { return spellState; }
+        }
+        protected double spellDurationOfActionMs = 0;
 
         /// <summary>
         /// Constructs a new tile.
@@ -95,17 +100,10 @@ namespace MagicWorld
             if (Texture != null)
             {
                 if (spell.GetType() == typeof(WarmSpell))
-                {
-                    if (Texture.Name.Equals("Tiles/Ice_Tile"))
-                    {
-                        spellState = SpellState.DESTROYED;
-                        spellDurationOfActionMs = spell.DurationOfActionMs;
-                    }
-                    else
-                    {
-                        spellState = SpellState.BURNED;
-                        spellDurationOfActionMs = spell.DurationOfActionMs;
-                    }
+                {                       
+                    spellState = SpellState.BURNED;
+                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    
                     return true;
                 }
                 if (spell.GetType() == typeof(ColdSpell))
@@ -138,10 +136,6 @@ namespace MagicWorld
                 else if (spellState == SpellState.FROZEN)
                 {
                     spriteBatch.Draw(Texture, position, Color.Blue);
-                }
-                else if (spellState == SpellState.DESTROYED)
-                {
-                    level.GeneralColliadableGameElements.Remove(this);
                 }
                 else
                 {

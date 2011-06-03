@@ -28,6 +28,7 @@ namespace MagicWorld
     class Player:BasicGameElement
     {
 
+        #region physics constants
         // Constants for controlling vertical movement
         private const float MaxJumpTime = 0.18f;//0.15f//0.25f; //original 0.35f
         private const float JumpLaunchVelocity = -3500.0f;
@@ -37,13 +38,66 @@ namespace MagicWorld
 
         private const double MAX_NO_GRAVITY_TIME = 1000;
 
+        #endregion
 
-        public Mana Mana { get; set; }
 
-        /// <summary>
-        /// true if the player is casting a spell
-        /// </summary>
-        public bool IsCasting {get{return currentSpell != null;}}
+        #region control constants
+
+        //gamepad
+        //spells
+        public const Buttons WarmButton = Buttons.A;
+        public const Buttons ColdButton = Buttons.B;
+        public const Buttons MatterButton = Buttons.X;
+        public const Buttons GravityButton = Buttons.Y;
+
+        //movement
+        public const Buttons LeftButton = Buttons.DPadLeft;
+        public const Buttons RightButton = Buttons.DPadRight;
+        public const Buttons JumpButton = Buttons.DPadUp;
+        public const Buttons DownButton = Buttons.DPadDown;
+
+        //keyboard
+        //spells
+        public const Keys WarmKey = Keys.D0;
+        public const Keys ColdKey = Keys.D9;
+        public const Keys MatterKey = Keys.D8;
+        public const Keys GravityKey = Keys.D7;
+
+        public const Keys LeftKey = Keys.A;
+        public const Keys RightKey = Keys.D;
+        public const Keys JumpKey = Keys.W;
+        public const Keys DownKey = Keys.S;
+
+        public const Keys LeftKeyAlternative = Keys.Left;
+        public const Keys RightKeyAlternative = Keys.Right;
+        public const Keys JumpKeyAlternative = Keys.Up;
+        public const Keys DownKeyAlternative = Keys.Down;
+
+        public const Keys FullscreenToggleKey = Keys.F11;
+        public const Keys ExitGameKey = Keys.Escape;
+
+        public const Keys DebugToggleKey = Keys.F3;
+        public const Keys DEBUG_NO_MANA_COST = Keys.F2;
+        public const Keys DEBUG_NEXT_LEVEL = Keys.F4;
+        public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F5;
+
+
+        // Input configuration
+        private const float MoveStickScale = 1.0f;
+        private const float AccelerometerScale = 1.5f;
+
+        #endregion
+
+        #region "movment constants"
+
+        // Constants for controling horizontal movement
+        private const float MoveAcceleration = 13000.0f;
+        private const float MaxMoveSpeed = 1750.0f;
+        private const float GroundDragFactor = 0.48f;
+        private const float AirDragFactor = 0.58f;
+
+        #endregion
+
 
         #region "Animation & sound"
 
@@ -107,66 +161,7 @@ namespace MagicWorld
             set { velocity = value; }
         }
         Vector2 velocity;
-
-        #region control constants
-
-        //gamepad
-        //spells
-        public const Buttons WarmButton = Buttons.A;
-        public const Buttons ColdButton = Buttons.B;
-        public const Buttons MatterButton = Buttons.X;
-        public const Buttons GravityButton = Buttons.Y;
-
-        //movement
-        public const Buttons LeftButton = Buttons.DPadLeft;
-        public const Buttons RightButton = Buttons.DPadRight;
-        public const Buttons JumpButton = Buttons.DPadUp;
-        public const Buttons DownButton = Buttons.DPadDown;
-
-        //keyboard
-        //spells
-        public const Keys WarmKey = Keys.D0;
-        public const Keys ColdKey = Keys.D9;
-        public const Keys MatterKey = Keys.D8;
-        public const Keys GravityKey = Keys.D7;
-
-        public const Keys LeftKey = Keys.A;
-        public const Keys RightKey = Keys.D;
-        public const Keys JumpKey = Keys.W;
-        public const Keys DownKey = Keys.S;
-
-        public const Keys LeftKeyAlternative = Keys.Left;
-        public const Keys RightKeyAlternative = Keys.Right;
-        public const Keys JumpKeyAlternative = Keys.Up;
-        public const Keys DownKeyAlternative = Keys.Down;
-
-        public const Keys FullscreenToggleKey = Keys.F11;
-        public const Keys ExitGameKey = Keys.Escape;
-
-        public const Keys DebugToggleKey = Keys.F3;
-        public const Keys DEBUG_NO_MANA_COST = Keys.F2;
-        public const Keys DEBUG_NEXT_LEVEL = Keys.F4;
-        public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F5;
         
-
-        // Input configuration
-        private const float MoveStickScale = 1.0f;
-        private const float AccelerometerScale = 1.5f;
-
-        #endregion
-
-        #region "movment constants"
-
-        // Constants for controling horizontal movement
-        private const float MoveAcceleration = 13000.0f;
-        private const float MaxMoveSpeed = 1750.0f;
-        private const float GroundDragFactor = 0.48f;
-        private const float AirDragFactor = 0.58f;
-
-        #endregion
-
-
-
         /// <summary>
         /// Gets whether or not the player's feet are on the ground.
         /// </summary>
@@ -204,6 +199,13 @@ namespace MagicWorld
 
         public bool nogravityHasInfluenceOnPlayer = true;
 
+        
+        public Mana Mana { get; set; }
+
+        /// <summary>
+        /// true if the player is casting a spell
+        /// </summary>
+        public bool IsCasting { get { return currentSpell != null; } }
 
 
         //only one spell at a time
@@ -324,16 +326,14 @@ namespace MagicWorld
                 keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movement = -1.0f;
-                lastDirection.X = -1.0f;
-                //lastDirection.Y = 0.0f;
+                lastDirection.X = -1.0f;                
             }
             else if (gamePadState.IsButtonDown(RightButton) ||
                      keyboardState.IsKeyDown(RightKey) ||
                      keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movement = 1.0f;
-                lastDirection.X = 1.0f;
-                //lastDirection.Y = 0.0f;
+                lastDirection.X = 1.0f;                
             }
             else
             {
