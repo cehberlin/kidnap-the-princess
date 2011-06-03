@@ -9,8 +9,6 @@
 
 = in Progress =
 
-Implementation Player --> Christopher
-
 Class: LevelObject(for non tile drawing) and LevelEditor --> John
 
 
@@ -32,3 +30,4 @@ HUD completion
 
 
 = done =
+Implementation Player and removing tile stuff --> Christopher
