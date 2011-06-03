@@ -51,7 +51,7 @@ namespace MagicWorld
         {
             this.level = level;
             this.basePosition = position;
-            bounds = new Bounds(position, BlockElement.Width / 3.0f);
+            bounds = new Bounds(position, 15f);
 
             LoadContent("Sprites/Gem");
         }

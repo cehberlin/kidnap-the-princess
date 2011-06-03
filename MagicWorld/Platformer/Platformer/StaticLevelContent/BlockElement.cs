@@ -47,15 +47,13 @@ namespace MagicWorld
         public Texture2D Texture;
         public BlockCollision Collision;
 
-        public const int Width = 40;
-        public const int Height = 32;
-
-        public static readonly Vector2 Size = new Vector2(Width, Height);
+        public int Width = 40;
+        public int Height = 32;
 
         public override Vector2 Position
         {
             get { return position; }
-            set { position = value * BlockElement.Size; }
+            set { position = value; }
         }
 
         /// <summary>
@@ -77,11 +75,21 @@ namespace MagicWorld
         {
             this.level = level;            
             Collision = collision;
-            this.position = position * BlockElement.Size;
+            this.position = position;
             if (texture != null)
             {
                 LoadContent(texture);
             }
+        }
+
+        /// <summary>
+        /// Constructs a new tile.
+        /// </summary>
+        public BlockElement(String texture, BlockCollision collision, Level level, Vector2 position,int width,int height)
+            : this(texture,collision,level,position)
+        {
+            this.Width = width;
+            this.Height = height;
         }
 
         public override Bounds Bounds
@@ -131,15 +139,15 @@ namespace MagicWorld
             {
                 // Draw it in screen space.                
                 if (spellState == SpellState.BURNED) {
-                    spriteBatch.Draw(Texture, position, Color.Red);
+                    spriteBatch.Draw(Texture, Bounds.getRectangle(),Color.Red);
                 }
                 else if (spellState == SpellState.FROZEN)
                 {
-                    spriteBatch.Draw(Texture, position, Color.Blue);
+                    spriteBatch.Draw(Texture, Bounds.getRectangle(), Color.Blue);
                 }
                 else
                 {
-                    spriteBatch.Draw(Texture, position, Color.White);
+                    spriteBatch.Draw(Texture,Bounds.getRectangle(), Color.White);
                 }
                 base.Draw(gameTime, spriteBatch);
             }            
