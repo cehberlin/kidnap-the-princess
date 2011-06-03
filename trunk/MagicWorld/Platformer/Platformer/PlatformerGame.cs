@@ -81,17 +81,6 @@ namespace MagicWorld
             loseOverlay = Content.Load<Texture2D>("Overlays/you_lose");
             diedOverlay = Content.Load<Texture2D>("Overlays/you_died");
 
-            //Known issue that you get exceptions if you use Media PLayer while connected to your PC
-            //See http://social.msdn.microsoft.com/Forums/en/windowsphone7series/thread/c8a243d2-d360-46b1-96bd-62b1ef268c66
-            //Which means its impossible to test this from VS.
-            //So we have to catch the exception and throw it away
-            try
-            {
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(Content.Load<Song>("Sounds/Backgroundmusic"));
-            }
-            catch { }
-
             LoadNextLevel();
         }
 
@@ -107,11 +96,6 @@ namespace MagicWorld
 
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState, Window.CurrentOrientation);
-
-            if (level.ReachedExit)
-            {
-                LoadNextLevel();
-            }
 
             camera.Pos = new Vector2 (level.Player.Position.X,level.Player.Position.Y-150);
 
@@ -139,7 +123,6 @@ namespace MagicWorld
             {
                 if (!level.Player.IsAlive)
                 {
-                    //level.StartNewLife();
                     ReloadCurrentLevel();
                 }
                 else if (level.TimeRemaining == TimeSpan.Zero)
@@ -148,6 +131,10 @@ namespace MagicWorld
                         LoadNextLevel();
                     else
                         ReloadCurrentLevel();
+                }
+                else if (level.ReachedExit)
+                {
+                    LoadNextLevel();
                 }
             }
 
@@ -212,7 +199,6 @@ namespace MagicWorld
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //spriteBatch.Begin();
             spriteBatch.Begin(SpriteSortMode.Immediate,
             BlendState.AlphaBlend,
             null,
@@ -234,8 +220,7 @@ namespace MagicWorld
         {
             Rectangle titleSafeArea = GraphicsDevice.Viewport.TitleSafeArea;
             Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
-            //Vector2 center = new Vector2(titleSafeArea.X + titleSafeArea.Width / 2.0f,
-            //                           titleSafeArea.Y + titleSafeArea.Height / 2.0f);
+
             Vector2 center = new Vector2(camera._pos.X,camera._pos.Y);
 
             // Draw time remaining. Uses modulo division to cause blinking when the
@@ -268,11 +253,7 @@ namespace MagicWorld
 
             DrawShadowedString(hudFont, timeString, new Vector2(stringpositionX, stringpositionTimeY), timeColor);
             level.Player.Mana.drawHud(spriteBatch, hudFont, new Vector2(stringpositionX, stringpositionManaY));
-
-            //// Draw score
-            //float timeHeight = hudFont.MeasureString(timeString).Y;
-            //DrawShadowedString(hudFont, "SCORE: " + level.Score.ToString(), new Vector2(camera._pos.X - camera.Width *2/3, camera._pos.Y - camera.Height / 4), Color.Yellow);         
-
+           
             // Determine the status overlay message to show.
             Texture2D status = null;
             if (level.TimeRemaining == TimeSpan.Zero)
@@ -285,6 +266,11 @@ namespace MagicWorld
                 {
                     status = loseOverlay;
                 }
+            }
+
+            if (level.Player.IsAlive && level.ReachedExit)
+            {
+                status = winOverlay;
             }
             else if (!level.Player.IsAlive)
             {

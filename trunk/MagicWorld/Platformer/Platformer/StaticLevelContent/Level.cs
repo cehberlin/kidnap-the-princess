@@ -19,6 +19,7 @@ using Microsoft.Xna.Framework.Input;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.StaticLevelContent;
+using Microsoft.Xna.Framework.Media;
 
 namespace MagicWorld
 {
@@ -89,12 +90,6 @@ namespace MagicWorld
         // Level game state.
         private Random random = new Random(354668); // Arbitrary, but constant seed
 
-        public int Score
-        {
-            get { return score; }
-        }
-        int score;
-
         public bool ReachedExit
         {
             get { return reachedExit; }
@@ -106,8 +101,6 @@ namespace MagicWorld
             get { return timeRemaining; }
         }
         TimeSpan timeRemaining;
-
-        private const int PointsPerSecond = 5;
 
         // Level content.        
         public ContentManager Content
@@ -127,7 +120,7 @@ namespace MagicWorld
 
         #region Loading
 
-        protected LevelLoader levelLoader;
+        protected ILevelLoader levelLoader;
 
         /// <summary>
         /// Constructs a new level.
@@ -138,7 +131,7 @@ namespace MagicWorld
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(IServiceProvider serviceProvider, LevelLoader levelLoader)
+        public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader)
         {
             // Create a new content manager to load content used just by this level.
             content = new ContentManager(serviceProvider, "Content");
@@ -166,7 +159,16 @@ namespace MagicWorld
 
             endPoint = levelLoader.getLevelExit();
 
-            score = 0;
+            //Known issue that you get exceptions if you use Media PLayer while connected to your PC
+            //See http://social.msdn.microsoft.com/Forums/en/windowsphone7series/thread/c8a243d2-d360-46b1-96bd-62b1ef268c66
+            //Which means its impossible to test this from VS.
+            //So we have to catch the exception and throw it away
+            try
+            {
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(levelLoader.getBackgroundMusic());
+            }
+            catch { }
 
             reachedExit = false;
 
@@ -208,7 +210,6 @@ namespace MagicWorld
                 int seconds = (int)Math.Round(gameTime.ElapsedGameTime.TotalSeconds * 100.0f);
                 seconds = Math.Min(seconds, (int)Math.Ceiling(TimeRemaining.TotalSeconds));
                 timeRemaining -= TimeSpan.FromSeconds(seconds);
-                score += seconds * PointsPerSecond;
             }
             else
             {
@@ -352,8 +353,6 @@ namespace MagicWorld
         /// <param name="collectedBy">The player who collected this gem.</param>
         private void OnGemCollected(Gem gem, Player collectedBy)
         {
-            score += Gem.PointValue;
-
             gem.OnCollected(collectedBy);
         }
 

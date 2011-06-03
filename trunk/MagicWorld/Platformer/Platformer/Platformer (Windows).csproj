@@ -90,7 +90,7 @@
     <Compile Include="DynamicLevelContent\Enemy.cs" />
     <Compile Include="DynamicLevelContent\Gem.cs" />
     <Compile Include="StaticLevelContent\IceBlockElement.cs" />
-    <Compile Include="StaticLevelContent\LevelLoader.cs" />
+    <Compile Include="StaticLevelContent\ILevelLoader.cs" />
     <Compile Include="StaticLevelContent\Level.cs" />
     <Compile Include="PlatformerGame.cs" />
     <Compile Include="DynamicLevelContent\Player\Player.cs" />

@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using MagicWorld.DynamicLevelContent;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace MagicWorld.StaticLevelContent
 {
     /// <summary>
     /// Static fixed implementation of a test level
     /// </summary>
-    class StaticLevelLoader:LevelLoader
+    class StaticLevelLoader:ILevelLoader
     {
         Level level;
 
@@ -90,5 +91,15 @@ namespace MagicWorld.StaticLevelContent
                 this.level = value;
             }
         }
+
+        #region ILevelLoader Member
+
+
+        public Song getBackgroundMusic()
+        {
+            return level.Content.Load<Song>("Sounds/Backgroundmusic");
+        }
+
+        #endregion
     }
 }

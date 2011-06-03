@@ -5,13 +5,14 @@ using System.Text;
 using MagicWorld;
 using MagicWorld.DynamicLevelContent;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace MagicWorld.StaticLevelContent
 {
     /// <summary>
     /// Interface for new Level Loaders
     /// </summary>
-    interface LevelLoader
+    interface ILevelLoader
     {
         Level Level
         {
@@ -28,5 +29,7 @@ namespace MagicWorld.StaticLevelContent
         BasicGameElement getLevelExit();
 
         double getMaxLevelTime();
+
+        Song getBackgroundMusic();
     }
 }
