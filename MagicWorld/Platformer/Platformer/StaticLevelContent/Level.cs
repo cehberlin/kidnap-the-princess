@@ -304,16 +304,28 @@ namespace MagicWorld
         /// <param name="gameTime"></param>
         private void UpdateObjects(GameTime gameTime)
         {
-            for (int i = 0; i < generalColliadableGameElements.Count; ++i)                    
+            List<BasicGameElement> removableObjects = new List<BasicGameElement>();
+            foreach(BasicGameElement elem in   generalColliadableGameElements)               
             {
-                BasicGameElement elem = generalColliadableGameElements[i];
                 elem.Update(gameTime);
-                //remove
-                if ((elem.GetType()==typeof(Icecicle) && 
+
+                //check for removements of blocks
+                //handle special iceicles
+                if ((elem.GetType() == typeof(IceBlockElement) &&
+                    ((IceBlockElement)elem).State == BlockElement.SpellState.DESTROYED))
+                {
+                    removableObjects.Add(elem);
+                }
+                else if ((elem.GetType() == typeof(Icecicle) &&  //handle special iceicles
                     ((Icecicle)elem).icecicleState == IcecicleState.DESTROYED))
                 {
-                    generalColliadableGameElements.Remove(elem);                    
+                    removableObjects.Add(elem);                 
                 }
+            }
+            //remove destroyed elements
+            foreach (BasicGameElement elem in removableObjects)
+            {
+                generalColliadableGameElements.Remove(elem);
             }
         }
 
@@ -384,6 +396,8 @@ namespace MagicWorld
         /// </summary>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            endPoint.Draw(gameTime, spriteBatch);
+
             foreach (Gem gem in gems)
                 gem.Draw(gameTime, spriteBatch);
 

@@ -54,7 +54,7 @@ namespace MagicWorld
         // levels in our content are 0-based and that all numbers under this constant
         // have a level file present. This allows us to not need to check for the file
         // or handle exceptions, both of which can add unnecessary time to level loading.
-        private const int numberOfLevels = 4;
+        private const int numberOfLevels = 1;
 
         public PlatformerGame()
         {
@@ -107,6 +107,11 @@ namespace MagicWorld
 
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState, Window.CurrentOrientation);
+
+            if (level.ReachedExit)
+            {
+                LoadNextLevel();
+            }
 
             camera.Pos = new Vector2 (level.Player.Position.X,level.Player.Position.Y-150);
 
@@ -190,9 +195,7 @@ namespace MagicWorld
                 level.Dispose();
 
             // Load the level.
-            string levelPath = string.Format("Content/Levels/{0}.txt", levelIndex);
-            using (Stream fileStream = TitleContainer.OpenStream(levelPath))
-                level = new Level(Services, LevelLoaderFactory.getLevel(levelIndex));
+            level = new Level(Services, LevelLoaderFactory.getLevel(levelIndex));
         }
 
         private void ReloadCurrentLevel()

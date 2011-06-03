@@ -53,6 +53,13 @@ namespace MagicWorld.DynamicLevelContent
             this.level = level;
         }
 
+        private bool isRemovable = false;
+
+        public bool IsRemovable
+        {
+            get { return isRemovable; }
+            set { isRemovable = value; }
+        }
 
         #region IAutonomusGameObject Member
 

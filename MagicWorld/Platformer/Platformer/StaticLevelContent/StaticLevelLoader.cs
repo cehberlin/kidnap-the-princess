@@ -34,6 +34,8 @@ namespace MagicWorld.StaticLevelContent
             elements.Add(LoadTile("BlockA0", BlockCollision.Impassable,new Vector2(0f,7)));
             elements.Add(LoadTile("BlockA3", BlockCollision.Impassable, new Vector2(1f, 7)));
             elements.Add(LoadTile("BlockA1", BlockCollision.Impassable, new Vector2(2f, 7)));
+            elements.Add(new IceBlockElement(level,new Vector2(2f, 6)));
+            elements.Add(new IceBlockElement(level, new Vector2(2f, 5)));
             elements.Add(LoadTile("BlockA4", BlockCollision.Impassable, new Vector2(3f, 7)));
 
             return elements;
