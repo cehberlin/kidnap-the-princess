@@ -82,6 +82,19 @@
     <Compile Include="HelperClasses\Collision\Circle.cs" />
     <Compile Include="HelperClasses\Collision\CollisionManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
+    <Compile Include="ScreenManager\GameScreen.cs" />
+    <Compile Include="ScreenManager\InputState.cs" />
+    <Compile Include="ScreenManager\ScreenManager.cs" />
+    <Compile Include="ScreenManager\Screens\BackgroundScreen.cs" />
+    <Compile Include="ScreenManager\Screens\GameplayScreen.cs" />
+    <Compile Include="ScreenManager\Screens\LoadingScreen.cs" />
+    <Compile Include="ScreenManager\Screens\MainMenuScreen.cs" />
+    <Compile Include="ScreenManager\Screens\MenuEntry.cs" />
+    <Compile Include="ScreenManager\Screens\MenuScreen.cs" />
+    <Compile Include="ScreenManager\Screens\MessageBoxScreen.cs" />
+    <Compile Include="ScreenManager\Screens\OptionsMenuScreen.cs" />
+    <Compile Include="ScreenManager\Screens\PauseMenuScreen.cs" />
+    <Compile Include="ScreenManager\Screens\PlayerIndexEventArgs.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
     <Compile Include="Spells\MatterSpell.cs" />
@@ -180,6 +193,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
