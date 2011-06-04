@@ -18,6 +18,13 @@ Class: LevelObject(for non tile drawing) and LevelEditor --> John
     * write down which class you are working on
       * if you build a component, create the class and submit before writing code in it
     * for decoupled components you can provide a minimal implementation or copy paste from the last prototype first (can be replaced later by better component implementation)
+
+   * encapsulate important constants from all classes in some static classes as static changeable values (no const)
+   * encapsulate controls, see or copy implementation from new started architecture to old one
+   * implement new control stile?
+   * reimplement matter
+   * fix bug with plattforms
+   * clean code wherever necessary 
     
   
 
