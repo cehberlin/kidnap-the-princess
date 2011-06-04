@@ -39,4 +39,5 @@ HUD completion
 
 = done =
 Implementation Player and removing tile stuff --> Christopher
+
 Menu screens: creating the menus --> Amauri
