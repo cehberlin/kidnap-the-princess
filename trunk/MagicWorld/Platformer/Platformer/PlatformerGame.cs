@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.StaticLevelContent;
-
+using MagicWorld.Gleed2dLevelContent;
 
 namespace MagicWorld
 {
@@ -82,6 +82,9 @@ namespace MagicWorld
             diedOverlay = Content.Load<Texture2D>("Overlays/you_died");
 
             LoadNextLevel();
+
+            //Needed for Testing TODO
+            //Gleed2dLevelLoader level = Gleed2dLevelLoader.FromFile("level1.xml", Content);
         }
 
         /// <summary>
