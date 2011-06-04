@@ -21,7 +21,7 @@ Class: LevelObject(for non tile drawing) and LevelEditor --> John
 
    * encapsulate important constants from all classes in some static classes as static changeable values (no const)
    * encapsulate controls, see or copy implementation from new started architecture to old one
-   * implement new control stile?
+   * implement new control style?
    * reimplement matter
    * fix bug with plattforms
    * clean code wherever necessary 
