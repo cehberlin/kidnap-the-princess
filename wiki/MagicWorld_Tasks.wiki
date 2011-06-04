@@ -10,7 +10,7 @@
 = in Progress =
 
 Class: LevelObject(for non tile drawing) and LevelEditor --> John
-Menu screens: creating the menus --> Amauri
+
 
 
 = TODO =
@@ -39,3 +39,4 @@ HUD completion
 
 = done =
 Implementation Player and removing tile stuff --> Christopher
+Menu screens: creating the menus --> Amauri
