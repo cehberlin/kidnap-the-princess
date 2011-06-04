@@ -10,6 +10,7 @@
 = in Progress =
 
 Class: LevelObject(for non tile drawing) and LevelEditor --> John
+Menu screens: creating the menus --> Amauri
 
 
 = TODO =
