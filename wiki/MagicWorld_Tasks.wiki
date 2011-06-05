@@ -25,6 +25,8 @@
    * encapsulate controls, see or copy implementation from new started architecture to old one
    * implement new control style?
    * clean code wherever necessary 
+
+  * Better fitting animation for new matter spell 
     
   
 
