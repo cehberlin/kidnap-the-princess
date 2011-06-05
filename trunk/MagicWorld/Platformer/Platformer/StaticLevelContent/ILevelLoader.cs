@@ -20,7 +20,7 @@ namespace MagicWorld.StaticLevelContent
             get;
             set;
         }
-        
+
         List<BasicGameElement> getGeneralObjects();
         
         Vector2 getPlayerStartPosition();
