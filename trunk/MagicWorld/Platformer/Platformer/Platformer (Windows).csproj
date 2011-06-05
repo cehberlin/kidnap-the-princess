@@ -85,7 +85,6 @@
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Animation\Animation.cs" />
     <Compile Include="HelperClasses\Animation\AnimationPlayer.cs" />
-    <Compile Include="HelperClasses\Collision\Circle.cs" />
     <Compile Include="HelperClasses\Collision\CollisionManager.cs" />
     <Compile Include="HelperClasses\Collision\PhysicsManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
