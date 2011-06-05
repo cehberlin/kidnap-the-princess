@@ -1,12 +1,13 @@
 = Details =
  
+keyboard movement: wasd
 
-|| *action*           ||*Keyboard*||*Gamepad*||
-|| matter spell       ||     8    ||    X    ||
-|| no gravity spell   ||     7    ||    Y    ||
-|| warming spell      ||     0    ||    A    ||
-|| cold spell         ||     9    ||    B    ||
-|| jump               ||     up   ||   up    ||
+|| *action*          ||*Keyboard*||*Gamepad*||
+|| spell A           ||     1    ||    A    ||
+|| Spell B           ||     2    ||    B    ||
+|| change Spell A    ||   NUM 4  ||    A    ||
+|| change Spell B    ||   NUM 5  ||    B    ||
+|| jump              ||     up   ||   X    ||
 
   * Fullscreen -> F11
   * Exit Game -> "Esc"
