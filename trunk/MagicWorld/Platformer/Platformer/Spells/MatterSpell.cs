@@ -31,7 +31,7 @@ namespace MagicWorld
         {            
             Force = 1;
             survivalTimeMs = MATTER_EXISTENCE_TIME;
-            MoveSpeed = 40.0f;
+            MoveSpeed = 60.0f;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             this.Collision = CollisionType.Platform;
@@ -53,7 +53,7 @@ namespace MagicWorld
             {
                 if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY))
                 {
-                    Direction = new Vector2();
+                    Direction = Vector2.Zero;
                 }
             }
             base.Update(gameTime);
@@ -63,8 +63,13 @@ namespace MagicWorld
         {
             survivalTimeMs *= Force;
             Debug.WriteLine("Matter starts working TIme:" +survivalTimeMs);
-            level.GeneralColliadableGameElements.Add(this);
             base.OnWorkingStart();
+        }
+
+        protected override void OnRemove()
+        {
+            this.isRemovable = true;
+            base.OnRemove();
         }
 
         /// <summary>

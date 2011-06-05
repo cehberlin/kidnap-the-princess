@@ -522,11 +522,14 @@ namespace MagicWorld
                             // Ignore platforms, unless we are on the ground.
                             if (collision == CollisionType.Impassable || IsOnGround)
                             {
+                                //if(depth.Y>0 && velocity.Y>0)
                                 // Resolve the collision along the Y axis.
                                 Position = new Vector2(Position.X, Position.Y + depth.Y);
-                            }
+                                Debug.WriteLine("Velocity Y " + velocity.Y);
+                                Debug.WriteLine("Depth Y " + depth.Y);
+                            }                            
                         }
-                        else if (collision == CollisionType.Impassable) // Ignore platforms.
+                        else if (collision == CollisionType.Impassable && velocity != Vector2.Zero) // Ignore platforms. //only handles this if player objects is in move
                         {
                             // Resolve the collision along the X axis.
                             Position = new Vector2(Position.X + depth.X, Position.Y);
@@ -740,7 +743,8 @@ namespace MagicWorld
                     currentSpell = new MatterSpell("MatterSpell", pos, level);
                     spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
                     currentSpell.Direction = Direction;
-                    level.addSpell(currentSpell);
+                    //level.addSpell(currentSpell); this is different for matter spell!!!
+                    level.GeneralColliadableGameElements.Add(currentSpell);
                     } else {
                         currentSpell = null;
                     }
