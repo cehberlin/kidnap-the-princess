@@ -36,7 +36,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Gem.png">
+    <Compile Include="Ingredients\Gem.png">
       <Name>Gem</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

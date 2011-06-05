@@ -75,7 +75,7 @@ namespace MagicWorld
         public GameplayScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
-            TransitionOffTime = TimeSpan.FromSeconds(0.5);            
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);
         }
 
 
@@ -324,6 +324,7 @@ namespace MagicWorld
             float stringpositionX = 0;
             float stringpositionTimeY = camera._pos.Y - camera.Height / 5;
             float stringpositionManaY = camera._pos.Y - camera.Height / 4;
+            float stringpositionIngredientY = camera._pos.Y - camera.Height / 6;
 
             if (ScreenManager.Graphics.IsFullScreen)
             {
@@ -335,6 +336,9 @@ namespace MagicWorld
             }
 
             DrawShadowedString(hudFont, timeString, new Vector2(stringpositionX, stringpositionTimeY), timeColor);
+
+            DrawShadowedString(hudFont, "Collected Ingredients: " + level.CollectedIngredients.Count.ToString() +"/"+ level.MaxIngredientsCount.ToString(), new Vector2(stringpositionX, stringpositionIngredientY), Color.Black);
+
             level.Player.Mana.drawHud(ScreenManager.SpriteBatch, hudFont, new Vector2(stringpositionX, stringpositionManaY));
            
             // Determine the status overlay message to show.

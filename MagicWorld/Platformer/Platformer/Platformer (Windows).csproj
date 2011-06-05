@@ -88,6 +88,7 @@
     <Compile Include="HelperClasses\Collision\CollisionManager.cs" />
     <Compile Include="HelperClasses\Collision\PhysicsManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
+    <Compile Include="Ingredients\Ingredient.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />

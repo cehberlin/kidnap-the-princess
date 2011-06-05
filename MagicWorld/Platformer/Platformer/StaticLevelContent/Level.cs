@@ -49,6 +49,29 @@ namespace MagicWorld
             set { generalColliadableGameElements = value; }
         }
 
+        private List<BasicGameElement> collectedIngredients = new List<BasicGameElement>();
+
+        public List<BasicGameElement> CollectedIngredients
+        {
+            get { return collectedIngredients; }
+            set { collectedIngredients = value; }
+        }
+
+        private List<BasicGameElement> ingredients = new List<BasicGameElement>();
+
+        public List<BasicGameElement> Ingredients
+        {
+            get { return ingredients; }
+            set { ingredients = value; }
+        }
+
+        private int maxIngredientsCount = 0;
+
+        public int MaxIngredientsCount
+        {
+            get { return maxIngredientsCount; }
+        }
+
         //// Key locations in the level.     
    
         /// <summary>
@@ -57,7 +80,7 @@ namespace MagicWorld
         protected Vector2 startPoint;
 
         private BasicGameElement endPoint;
-
+        
         public BasicGameElement EndPoint
         {
             get { return endPoint; }
@@ -160,6 +183,9 @@ namespace MagicWorld
             timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
 
             generalColliadableGameElements = levelLoader.getGeneralObjects();
+
+
+            maxIngredientsCount = ingredients.Count;
 
             startPoint = levelLoader.getPlayerStartPosition();
 

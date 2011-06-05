@@ -5,6 +5,7 @@ using System.Text;
 using MagicWorld.DynamicLevelContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using MagicWorld.Ingredients;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -33,11 +34,17 @@ namespace MagicWorld.StaticLevelContent
             elements.Add(new IceBlockElement(level,new Vector2(100f, 130)));
             elements.Add(new IceBlockElement(level, new Vector2(100f, 100),200,32));
             elements.Add(new Enemy(level, new Vector2(150, 50), "MonsterB"));
-
+            Ingredient ingredient1 = LoadIngredient("Gem", CollisionType.Passable, new Vector2(150, 50));
+            Ingredient ingredient2 = LoadIngredient("Gem", CollisionType.Passable, new Vector2(190, 50));
+            Ingredient ingredient3 = LoadIngredient("Gem", CollisionType.Passable, new Vector2(350, 250));
+            elements.Add(ingredient1);
+            elements.Add(ingredient2);
+            elements.Add(ingredient3);
+            
             return elements;
         }
 
-        
+   
         public Vector2 getPlayerStartPosition()
         {
             Vector2 startPos = new Vector2(5, 5);
@@ -89,6 +96,16 @@ namespace MagicWorld.StaticLevelContent
         private BlockElement LoadBlock(string name, CollisionType collision, Vector2 position, int width, int height)
         {
             return new BlockElement("Tiles/" + name, collision, level, position,width,height);
+        }
+
+        private Ingredient LoadIngredient(String name, CollisionType collision, Vector2 position)
+        {
+            return new Ingredient("Ingredients/" + name, collision, level, position);
+        }
+
+        private Ingredient LoadIngredient(String name, CollisionType collision, Vector2 position, int width, int height)
+        {
+            return new Ingredient("Ingredients/" + name, collision, level, position, width, height);
         }
 
     }
