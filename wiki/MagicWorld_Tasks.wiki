@@ -9,8 +9,9 @@
 
 = in Progress =
 
-* Class: LevelObject(for non tile drawing) and LevelEditor --> John + Pascal
-* new controls -> Marian
+  * Class: LevelObject(for non tile drawing) and LevelEditor --> John + Pascal
+
+  * new controls -> Marian
 
 
 = TODO =
