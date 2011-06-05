@@ -70,6 +70,8 @@ namespace MagicWorld
             }
         }
 
+        #region loading
+
         /// <summary>
         /// Constructs a new Enemy.
         /// </summary>
@@ -99,6 +101,8 @@ namespace MagicWorld
 
             base.LoadContent("");
         }
+
+        #endregion
 
 
         #region updating
@@ -196,9 +200,9 @@ namespace MagicWorld
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
 
-            foreach (BlockElement t in collisionObjects)
+            foreach (BasicGameElement t in collisionObjects)
             {
-                if (t.Collision == BlockCollision.Impassable)
+                if (t.Collision == CollisionType.Impassable)
                 {
                     waitTime = MaxWaitTime;
                     return true;

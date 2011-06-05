@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.DynamicLevelContent;
 using System.Diagnostics;
+using MagicWorld.Spells;
 
 namespace MagicWorld
 {
@@ -14,7 +15,10 @@ namespace MagicWorld
         private const int manaBasicCost = 200;
         private const float manaCastingCost = 1f;
 
-        private const int MATTER_EXISTENCE_TIME = 1200; // time that created Matter exist
+        private const int MATTER_EXISTENCE_TIME = 500; // time that created Matter exist
+
+
+        protected Boolean gravityIsSetOffBySpell = false;
 
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
@@ -26,11 +30,11 @@ namespace MagicWorld
             : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
         {            
             Force = 1;
-            survivalTimeMs = 10;
+            survivalTimeMs = MATTER_EXISTENCE_TIME;
             MoveSpeed = 40.0f;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
-            durationOfActionMs = MATTER_EXISTENCE_TIME;
+            this.Collision = CollisionType.Platform;
         }
 
         public override void LoadContent(string spriteSet)
@@ -45,6 +49,13 @@ namespace MagicWorld
 
         public override void Update(GameTime gameTime)
         {
+            if (!gravityIsSetOffBySpell)
+            {
+                if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY))
+                {
+                    Direction = new Vector2();
+                }
+            }
             base.Update(gameTime);
         }
 
@@ -52,28 +63,32 @@ namespace MagicWorld
         {
             survivalTimeMs *= Force;
             Debug.WriteLine("Matter starts working TIme:" +survivalTimeMs);
+            level.GeneralColliadableGameElements.Add(this);
             base.OnWorkingStart();
         }
 
-        protected override void OnRemove()
+        /// <summary>
+        /// cold spell increases lifetime warm spell shortens on 10%
+        /// </summary>
+        /// <param name="spell"></param>
+        /// <returns></returns>
+        public override bool SpellInfluenceAction(Spell spell)
         {
-            //TODO
-            //// Calculate tile position based on the side we are walking towards.
-            //float posX = Position.X + Bounds.getRectangle().Width / 2 * (int)direction.X;
-            //int x = (int)Math.Floor(posX / Tile.Width) - (int)direction.X;
-            //int y = (int)Math.Floor(Position.Y / Tile.Height);
-
-            //if (x > 0 && x < level.Width && y > 0 && y < level.Height)
-            //{
-            //    if (level.GetTile(x, y).Texture == null && level.GetTile(x+1, y).Texture == null&& level.GetTile(x-1, y).Texture == null)//empty tile
-            //    {
-            //        double matterTileLifeTime = durationOfActionMs * Force;
-            //        Debug.WriteLine("Matter Tile LifeTime " + matterTileLifeTime);
-            //        level.Tiles[x, y] = new MatterTile("Tiles/BlockA1", level, x, y,matterTileLifeTime );
-            //    }
-            //}
-
-            base.OnRemove();
+            if (spell.GetType() == typeof(WarmSpell))
+            {
+                survivalTimeMs *= 0.7;
+            }else if (spell.GetType() == typeof(ColdSpell))
+            {
+                survivalTimeMs *= 1.3;
+            }else if (spell.GetType() == typeof(NoGravitySpell))
+            {
+                gravityIsSetOffBySpell = true;
+                return false; //do not remove spell
+            }
+            return base.SpellInfluenceAction(spell);
         }
+
+
+
     }
 }

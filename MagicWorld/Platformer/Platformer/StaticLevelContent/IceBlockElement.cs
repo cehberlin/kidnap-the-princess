@@ -18,38 +18,35 @@ namespace MagicWorld
     /// <summary>
     /// A Iceblock --> Could be destroyed by warmspell
     /// </summary>
-    class IceBlockElement:BlockElement
+    class IceBlockElement : BlockElement
     {
 
         /// <summary>
         /// Constructs a new tile.
         /// </summary>
         public IceBlockElement(Level level, Vector2 position)
-            : base("Tiles/Ice_Tile",BlockCollision.Impassable,level, position)
+            : base("Tiles/Ice_Tile", CollisionType.Impassable, level, position)
         {
         }
 
         public override Boolean SpellInfluenceAction(Spell spell)
         {
-            if (Texture != null)
-            {
-                if (spell.GetType() == typeof(WarmSpell))
-                {
 
-                    spellState = SpellState.DESTROYED;
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
-                    
-                    return true;
-                }
-                if (spell.GetType() == typeof(ColdSpell))
-                {
-                    spellState = SpellState.FROZEN;
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
-                    return true;
-                }
+            if (spell.GetType() == typeof(WarmSpell))
+            {
+                spellDurationOfActionMs = spell.DurationOfActionMs;
+                this.IsRemovable = true;
+
+                return true;
+            }
+            if (spell.GetType() == typeof(ColdSpell))
+            {
+                spellState = SpellState.FROZEN;
+                spellDurationOfActionMs = spell.DurationOfActionMs;
+                return true;
             }
             return false;
-        }      
+        }
 
     }
 }

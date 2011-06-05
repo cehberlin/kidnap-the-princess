@@ -32,10 +32,10 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
 
-            elements.Add(LoadBlock("BlockA0", BlockCollision.Impassable,new Vector2(0f,200),200,32));
-            elements.Add(LoadBlock("BlockA3", BlockCollision.Impassable, new Vector2(220f, 300), 150, 45));
-            elements.Add(LoadBlock("BlockA4", BlockCollision.Impassable, new Vector2(400f, 250)));
-            elements.Add(LoadBlock("BlockA1", BlockCollision.Impassable, new Vector2(500f, 200),300,10));
+            elements.Add(LoadBlock("BlockA0", CollisionType.Impassable,new Vector2(0f,200),200,32));
+            elements.Add(LoadBlock("BlockA3", CollisionType.Impassable, new Vector2(220f, 300), 150, 45));
+            elements.Add(LoadBlock("BlockA4", CollisionType.Impassable, new Vector2(400f, 250)));
+            elements.Add(LoadBlock("BlockA1", CollisionType.Impassable, new Vector2(500f, 200),300,10));
             elements.Add(new IceBlockElement(level,new Vector2(100f, 130)));
             elements.Add(new IceBlockElement(level, new Vector2(100f, 100)));            
 
@@ -52,7 +52,7 @@ namespace MagicWorld.StaticLevelContent
 
         public BasicGameElement getLevelExit()
         {
-            BasicGameElement exit = LoadBlock("Exit", BlockCollision.Passable,new Vector2(650,160));
+            BasicGameElement exit = LoadBlock("Exit", CollisionType.Passable,new Vector2(650,160));
             return exit;
         }
 
@@ -68,7 +68,7 @@ namespace MagicWorld.StaticLevelContent
 
         public HelperClasses.Bounds getLevelBounds()
         {
-            return new HelperClasses.Bounds(0, 0, 5000, 5000);
+            return new HelperClasses.Bounds(0, 0, 5000, 500);
         }
 
 
@@ -86,12 +86,12 @@ namespace MagicWorld.StaticLevelContent
 
         #endregion
 
-        private BlockElement LoadBlock(string name, BlockCollision collision, Vector2 position)
+        private BlockElement LoadBlock(string name, CollisionType collision, Vector2 position)
         {
             return new BlockElement("Tiles/" + name, collision, level, position);
         }
 
-        private BlockElement LoadBlock(string name, BlockCollision collision, Vector2 position, int width, int height)
+        private BlockElement LoadBlock(string name, CollisionType collision, Vector2 position, int width, int height)
         {
             return new BlockElement("Tiles/" + name, collision, level, position,width,height);
         }

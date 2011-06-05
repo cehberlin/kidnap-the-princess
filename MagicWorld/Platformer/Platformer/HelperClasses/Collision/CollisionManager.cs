@@ -94,7 +94,7 @@ namespace MagicWorld.HelperClasses
 
             foreach (Enemy enemy in level.Enemies)
             {
-                if (Intersects(enemy.Bounds,elem.Bounds))
+                if (enemy!=elem && Intersects(enemy.Bounds,elem.Bounds))
                 {                
                     isCollision=true;
                     if (enemiesColliadingWith != null)
@@ -119,7 +119,7 @@ namespace MagicWorld.HelperClasses
 
             foreach (BasicGameElement element in level.GeneralColliadableGameElements)
             {
-                if (Intersects(element.Bounds, elem.Bounds))
+                if (elem!=element && Intersects(element.Bounds, elem.Bounds))
                 {
                     isCollision = true;
                     if (elementsColliadingWith != null)

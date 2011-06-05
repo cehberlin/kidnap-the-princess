@@ -17,6 +17,7 @@ using Microsoft.Xna.Framework.Input;
 using MagicWorld.StaticLevelContent;
 using MagicWorld.Gleed2dLevelContent;
 using Microsoft.Xna.Framework.Input.Touch;
+using MagicWorld.Constants;
 #endregion
 
 namespace MagicWorld
@@ -219,11 +220,11 @@ namespace MagicWorld
 
             if (keyboardState.IsKeyUp(Player.DebugToggleKey) && oldKeyboardState.IsKeyDown(Player.DebugToggleKey))
             {
-                GlobalValues.DEBUG = !GlobalValues.DEBUG;
+                DebugValues.DEBUG = !DebugValues.DEBUG;
             }
             if (keyboardState.IsKeyUp(Player.DEBUG_NO_MANA_COST) && oldKeyboardState.IsKeyDown(Player.DEBUG_NO_MANA_COST))
             {
-                GlobalValues.DEBUG_NO_MANA_COST = !GlobalValues.DEBUG_NO_MANA_COST;
+                DebugValues.DEBUG_NO_MANA_COST = !DebugValues.DEBUG_NO_MANA_COST;
             }
 
             if (keyboardState.IsKeyUp(Player.DEBUG_NEXT_LEVEL) && oldKeyboardState.IsKeyDown(Player.DEBUG_NEXT_LEVEL))

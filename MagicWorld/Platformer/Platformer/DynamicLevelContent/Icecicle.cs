@@ -18,7 +18,18 @@ namespace MagicWorld
         protected AnimationPlayer sprite;
         protected Animation idleAnimation;
 
-        public IcecicleState icecicleState ;
+        private IcecicleState icecicleState;
+
+        public IcecicleState IcecicleState
+        {
+            get { return icecicleState; }
+            set { icecicleState = value;
+            if (icecicleState == MagicWorld.IcecicleState.DESTROYED)
+            {
+                this.isRemovable = true;
+            }
+            }
+        }
         private float fallVelocity;
 
         public const int Width = 40;

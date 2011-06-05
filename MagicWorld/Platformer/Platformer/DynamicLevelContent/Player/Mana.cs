@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.Constants;
 
 namespace MagicWorld.DynamicLevelContent.Player
 {
@@ -59,7 +60,7 @@ namespace MagicWorld.DynamicLevelContent.Player
         /// <returns>false if not enough mana is available to cast</returns>
         public bool castingSpell(GameTime gameTime)
         {
-            if (!GlobalValues.DEBUG_NO_MANA_COST)
+            if (!DebugValues.DEBUG_NO_MANA_COST)
             {
                 if (player.CurrentSpell != null)
                 {
@@ -87,7 +88,7 @@ namespace MagicWorld.DynamicLevelContent.Player
         /// <returns>true if enough mana is availabele, false if not</returns>
         public bool startCastingSpell(Spell spell)
         {
-            if (!GlobalValues.DEBUG_NO_MANA_COST)
+            if (!DebugValues.DEBUG_NO_MANA_COST)
             {
                 if (spell.ManaBasicCost < _currentMana)
                 {

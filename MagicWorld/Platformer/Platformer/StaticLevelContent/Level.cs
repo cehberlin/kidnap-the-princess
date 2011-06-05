@@ -20,6 +20,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework.Media;
+using MagicWorld.HelperClasses.Collision;
 
 namespace MagicWorld
 {
@@ -116,6 +117,13 @@ namespace MagicWorld
             get { return collisionManager; }
         }
 
+        PhysicsManager physicsManager;
+
+        public PhysicsManager PhysicsManager
+        {
+            get { return physicsManager; }
+        }
+
         /// <summary>
         /// max area for the level
         /// </summary>
@@ -148,6 +156,8 @@ namespace MagicWorld
             content = new ContentManager(serviceProvider, "Content");
 
             collisionManager = new CollisionManager(this);
+
+            physicsManager = new PhysicsManager(this);
 
             this.levelLoader = levelLoader;
 
@@ -323,17 +333,9 @@ namespace MagicWorld
             {
                 elem.Update(gameTime);
 
-                //check for removements of blocks
-                //handle special iceicles
-                if ((elem.GetType() == typeof(IceBlockElement) &&
-                    ((IceBlockElement)elem).State == BlockElement.SpellState.DESTROYED))
+                if (elem.IsRemovable)
                 {
                     removableObjects.Add(elem);
-                }
-                else if ((elem.GetType() == typeof(Icecicle) &&  //handle special iceicles
-                    ((Icecicle)elem).icecicleState == IcecicleState.DESTROYED))
-                {
-                    removableObjects.Add(elem);                 
                 }
             }
             //remove destroyed elements
