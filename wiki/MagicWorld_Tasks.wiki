@@ -9,7 +9,7 @@
 
 = in Progress =
 
-Class: LevelObject(for non tile drawing) and LevelEditor --> John
+Class: LevelObject(for non tile drawing) and LevelEditor --> John + Pascal
 
 
 
