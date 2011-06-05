@@ -16,36 +16,11 @@ using MagicWorld.HelperClasses;
 namespace MagicWorld
 {
     /// <summary>
-    /// Controls the collision detection and response behavior of a tile.
-    /// </summary>
-    enum BlockCollision
-    {
-        /// <summary>
-        /// A passable tile is one which does not hinder player motion at all.
-        /// </summary>
-        Passable = 0,
-
-        /// <summary>
-        /// An impassable tile is one which does not allow the player to move through
-        /// it at all. It is completely solid.
-        /// </summary>
-        Impassable = 1,
-
-        /// <summary>
-        /// A platform tile is one which behaves like a passable tile except when the
-        /// player is above it. A player can jump up through a platform as well as move
-        /// past it to the left and right, but can not fall down through the top of it.
-        /// </summary>
-        Platform = 2
-    }
-
-    /// <summary>
     /// Stores the appearance and collision behavior of a tile.
     /// </summary>
     class BlockElement:BasicGameElement
     {
         public Texture2D Texture;
-        public BlockCollision Collision;
 
         public int Width = 40;
         public int Height = 32;
@@ -71,7 +46,7 @@ namespace MagicWorld
         /// <summary>
         /// Constructs a new tile.
         /// </summary>
-        public BlockElement(String texture, BlockCollision collision,Level level,Vector2 position):base(level)
+        public BlockElement(String texture, CollisionType collision,Level level,Vector2 position):base(level)
         {
             this.level = level;            
             Collision = collision;
@@ -85,7 +60,7 @@ namespace MagicWorld
         /// <summary>
         /// Constructs a new tile.
         /// </summary>
-        public BlockElement(String texture, BlockCollision collision, Level level, Vector2 position,int width,int height)
+        public BlockElement(String texture, CollisionType collision, Level level, Vector2 position,int width,int height)
             : this(texture,collision,level,position)
         {
             this.Width = width;

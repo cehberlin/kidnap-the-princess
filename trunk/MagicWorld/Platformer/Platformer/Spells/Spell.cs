@@ -332,7 +332,7 @@ namespace MagicWorld
 
             level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
             //enemy collision
-            foreach (BlockElement tile in collisionObjects)
+            foreach (BasicGameElement tile in collisionObjects)
             {
                 if (tile.SpellInfluenceAction(this))
                 {

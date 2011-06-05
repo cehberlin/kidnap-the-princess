@@ -501,10 +501,10 @@ namespace MagicWorld
             //// Reset flag to search for ground collision.
             IsOnGround = false;
 
-            foreach (BlockElement t in collisionObjects)
+            foreach (BasicGameElement t in collisionObjects)
             {
-                BlockCollision collision = t.Collision;
-                if (collision == BlockCollision.Impassable)
+                CollisionType collision = t.Collision;
+                if (collision == CollisionType.Impassable || collision == CollisionType.Platform)
                 {
                     Vector2 depth = CollisionManager.GetCollisionDepth(this, t);
                     if (depth != Vector2.Zero)
@@ -513,20 +513,20 @@ namespace MagicWorld
                         float absDepthY = Math.Abs(depth.Y);
 
                         // Resolve the collision along the shallow axis.
-                        if (absDepthY < absDepthX || collision == BlockCollision.Platform)
+                        if (absDepthY < absDepthX || collision == CollisionType.Platform)
                         {
                             // If we crossed the top of a tile, we are on the ground.
                             if (previousBottom <= t.Bounds.getRectangle().Top)
                                 IsOnGround = true;
 
                             // Ignore platforms, unless we are on the ground.
-                            if (collision == BlockCollision.Impassable || IsOnGround)
+                            if (collision == CollisionType.Impassable || IsOnGround)
                             {
                                 // Resolve the collision along the Y axis.
                                 Position = new Vector2(Position.X, Position.Y + depth.Y);
                             }
                         }
-                        else if (collision == BlockCollision.Impassable) // Ignore platforms.
+                        else if (collision == CollisionType.Impassable) // Ignore platforms.
                         {
                             // Resolve the collision along the X axis.
                             Position = new Vector2(Position.X + depth.X, Position.Y);
