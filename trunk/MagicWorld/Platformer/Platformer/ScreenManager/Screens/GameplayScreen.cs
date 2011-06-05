@@ -18,6 +18,7 @@ using MagicWorld.StaticLevelContent;
 using MagicWorld.Gleed2dLevelContent;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Constants;
+using MagicWorld.Controls;
 #endregion
 
 namespace MagicWorld
@@ -186,10 +187,10 @@ namespace MagicWorld
             {
                 ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
             }
-                       
 
-            bool continuePressed =keyboardState.IsKeyDown(Player.JumpKey) || keyboardState.IsKeyDown(Player.JumpKeyAlternative) ||
-                gamePadState.IsButtonDown(Player.JumpButton);
+            IPlayerControl control = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
+            bool continuePressed = keyboardState.IsKeyDown(control.Keys_Up) ||
+                gamePadState.IsButtonDown(control.GamePad_Up);
 
             // Perform the appropriate action to advance the game and
             // to get the player back to playing.

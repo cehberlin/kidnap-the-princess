@@ -12,7 +12,7 @@ namespace MagicWorld.DynamicLevelContent
     /// <summary>
     /// Controls the collision detection and response behavior of a tile.
     /// </summary>
-    enum CollisionType
+    public enum CollisionType
     {
         /// <summary>
         /// A passable tile is one which does not hinder player motion at all.
@@ -33,7 +33,7 @@ namespace MagicWorld.DynamicLevelContent
         Platform = 2
     }
 
-    class BasicGameElement : IAutonomusGameObject,ISpellInfluenceable
+    public class BasicGameElement : IAutonomusGameObject,ISpellInfluenceable
     {
         /// <summary>
         /// how should collision be handled

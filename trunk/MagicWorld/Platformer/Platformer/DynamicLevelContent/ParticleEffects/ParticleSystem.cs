@@ -24,7 +24,7 @@ namespace ParticleEffects
     /// such as fire, explosions, and plumes of smoke. To use these subclasses, 
     /// simply call AddParticles, and pass in where the particles should exist
     /// </summary>
-    abstract class ParticleSystem : IAutonomusGameObject
+    public abstract class ParticleSystem : IAutonomusGameObject
     {
         // these two values control the order that particle systems are drawn in.
         // typically, particles that use additive blending should be drawn on top of

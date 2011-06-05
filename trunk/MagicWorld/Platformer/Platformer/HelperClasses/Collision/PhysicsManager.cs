@@ -10,7 +10,7 @@ namespace MagicWorld.HelperClasses.Collision
     /// <summary>
     /// this class provides reusable functions for physics influeced behavior
     /// </summary>
-    class PhysicsManager
+    public class PhysicsManager
     {
         Level level;
         public PhysicsManager(Level level)

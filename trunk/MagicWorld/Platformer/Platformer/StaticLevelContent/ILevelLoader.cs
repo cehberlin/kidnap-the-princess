@@ -7,19 +7,22 @@ using MagicWorld.DynamicLevelContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.HelperClasses;
+using MagicWorld.Spells;
 
 namespace MagicWorld.StaticLevelContent
 {
     /// <summary>
     /// Interface for new Level Loaders
     /// </summary>
-    interface ILevelLoader
+    public interface ILevelLoader
     {
         Level Level
         {
             get;
             set;
         }
+
+        SpellType[] UsableSpells { get; set; }
 
         List<BasicGameElement> getGeneralObjects();
         

@@ -29,7 +29,7 @@ namespace MagicWorld
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    class Enemy:BasicGameElement
+    public class Enemy:BasicGameElement
     {
 
         // Animations

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using MagicWorld.Spells;
 
 namespace MagicWorld
 {
@@ -12,7 +13,7 @@ namespace MagicWorld
         private const int manaBasicCost = 150;
         private const float manaCastingCost = 1f;
         public WarmSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
+            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.WarmingSpell)
         {            
             Force = 1;
             survivalTimeMs = 3000;
@@ -25,7 +26,7 @@ namespace MagicWorld
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
-            spriteSet = "Sprites/" + spriteSet + "/";
+            spriteSet = "Sprites/WarmSpell/";
             runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
             idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.5f, true,3);
 
