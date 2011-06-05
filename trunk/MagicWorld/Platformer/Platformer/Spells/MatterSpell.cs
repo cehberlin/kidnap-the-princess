@@ -68,7 +68,6 @@ namespace MagicWorld
 
         protected override void OnRemove()
         {
-            this.isRemovable = true;
             base.OnRemove();
         }
 

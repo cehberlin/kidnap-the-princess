@@ -21,13 +21,6 @@ namespace MagicWorld.StaticLevelContent
 
         #region LevelLoader Member
 
-        public List<Enemy> getEnemies()
-        {
-            List<Enemy> enemies = new List<Enemy>();
-
-            return enemies;
-        }
-
         public List<BasicGameElement> getGeneralObjects()
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
@@ -36,8 +29,10 @@ namespace MagicWorld.StaticLevelContent
             elements.Add(LoadBlock("BlockA3", CollisionType.Impassable, new Vector2(220f, 300), 150, 45));
             elements.Add(LoadBlock("BlockA4", CollisionType.Impassable, new Vector2(400f, 250)));
             elements.Add(LoadBlock("BlockA1", CollisionType.Impassable, new Vector2(500f, 200),300,10));
+            elements.Add(new Enemy(level, new Vector2(350, 250), "MonsterA"));
             elements.Add(new IceBlockElement(level,new Vector2(100f, 130)));
-            elements.Add(new IceBlockElement(level, new Vector2(100f, 100)));            
+            elements.Add(new IceBlockElement(level, new Vector2(100f, 100),200,32));
+            elements.Add(new Enemy(level, new Vector2(150, 50), "MonsterB"));
 
             return elements;
         }

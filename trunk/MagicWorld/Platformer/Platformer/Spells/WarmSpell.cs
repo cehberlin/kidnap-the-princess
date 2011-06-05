@@ -36,5 +36,12 @@ namespace MagicWorld
         {
             base.Update(gameTime);
         }
+
+        protected override void OnRemove()
+        {
+            level.ExplosionParticleSystem.AddParticles(position);
+            level.ExplosionSmokeParticleSystem.AddParticles(position);
+            base.OnRemove();
+        }
     }
 }

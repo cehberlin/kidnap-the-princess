@@ -40,6 +40,15 @@ namespace MagicWorld.HelperClasses.Collision
                 {
                     Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
 
+                    //increse distance until we have no more collision
+                    if (depth.Y >= 0)
+                    {
+                        depth.Y++;
+                    }
+                    else
+                    {
+                        depth.Y--;
+                    }                    
                     elem.Position += new Vector2(0,depth.Y);
 
                 }

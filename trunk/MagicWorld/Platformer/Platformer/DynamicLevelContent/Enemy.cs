@@ -13,6 +13,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
@@ -82,6 +83,8 @@ namespace MagicWorld
 
             LoadContent(spriteSet);
 
+            Collision = CollisionType.Impassable;
+
             //init spell states
             isBurning = false;
             isFroozen = false;
@@ -118,6 +121,8 @@ namespace MagicWorld
         public override void Update(GameTime gameTime)
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY);
 
             if (isFroozen)
             {
@@ -169,7 +174,7 @@ namespace MagicWorld
                     else
                     {
                         if (this.position.X < level.Player.Position.X &&
-                            (this.position.X + 6 > level.Player.Position.X))
+                            (this.position.X + 500 > level.Player.Position.X))
                         {
                             waitTime = MaxWaitTime;
                         }
@@ -197,6 +202,13 @@ namespace MagicWorld
         /// <returns>returns true if collision occured</returns>
         private bool HandleCollision()
         {
+
+            if (level.CollisionManager.CollidateWithLevelBounds(this))
+            {
+                this.isRemovable = true;
+                return true;
+            }
+
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
 

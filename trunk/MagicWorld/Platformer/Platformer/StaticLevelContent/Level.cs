@@ -21,6 +21,7 @@ using MagicWorld.DynamicLevelContent;
 using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.HelperClasses.Collision;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -38,14 +39,6 @@ namespace MagicWorld
         }
         Player player;
 
-        private List<Enemy> enemies = new List<Enemy>();
-
-        internal List<Enemy> Enemies
-        {
-            get { return enemies; }
-            set { enemies = value; }
-        }
-
         // Physical structure of the level.
 
         private List<BasicGameElement> generalColliadableGameElements = new List<BasicGameElement>();
@@ -54,23 +47,6 @@ namespace MagicWorld
         {
             get { return generalColliadableGameElements; }
             set { generalColliadableGameElements = value; }
-        }
-
-        private List<Gem> gems = new List<Gem>();
-
-        internal List<Gem> Gems
-        {
-            get { return gems; }
-            set { gems = value; }
-        }
-
-        /// <summary>
-        /// All Spells on Stack
-        /// </summary>
-        private List<Spell> spells = new List<Spell>();
-        public List<Spell> Spells { 
-            get {return spells;}
-            set{spells = value;}
         }
 
         //// Key locations in the level.     
@@ -124,6 +100,11 @@ namespace MagicWorld
             get { return physicsManager; }
         }
 
+        public ParticleSystem ExplosionParticleSystem;
+        public ParticleSystem SmokeParticleSystem;
+        public ParticleSystem MagicParticleSystem;
+        public ParticleSystem ExplosionSmokeParticleSystem;
+
         /// <summary>
         /// max area for the level
         /// </summary>
@@ -161,6 +142,14 @@ namespace MagicWorld
 
             this.levelLoader = levelLoader;
 
+            ExplosionParticleSystem = new ExplosionParticleSystem(this, 20);
+
+            MagicParticleSystem = new MagicParticleSystem(this, 20);
+
+            SmokeParticleSystem = new SmokePlumeParticleSystem(this, 20);
+
+            ExplosionSmokeParticleSystem = new ExplosionSmokeParticleSystem(this, 20);
+
             initLevel();
         }
 
@@ -169,8 +158,6 @@ namespace MagicWorld
             levelLoader.Level = this;
 
             timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
-
-            enemies = levelLoader.getEnemies();
 
             generalColliadableGameElements = levelLoader.getGeneralObjects();
 
@@ -238,13 +225,8 @@ namespace MagicWorld
             {
                 timeRemaining -= gameTime.ElapsedGameTime;
 
-                //IMPORTANT SPELLS MUST BE UPDATED BEFORE PLAYER AND TILES MAKES SPELL IMPLEMENTATION MUCH EASIER!!
-                //FOR DETAILS CHECK NoGravity in DynamicTile.cs
-                //Update Spells which are inside the level
-                UpdateSpells(gameTime);
-
                 Player.Update(gameTime, keyboardState, gamePadState,orientation);
-                UpdateGems(gameTime);
+
                 UpdateObjects(gameTime);
 
                 // Falling off the bottom of the level kills the player.               
@@ -253,7 +235,7 @@ namespace MagicWorld
                     OnPlayerKilled(null);
                 }
 
-                UpdateEnemies(gameTime);
+                UpdateParticleEffects(gameTime);
 
                 // The player has reached the exit if they are standing on the ground and
                 // his bounding rectangle contains the center of the exit tile. They can only
@@ -274,51 +256,7 @@ namespace MagicWorld
 
         public void addSpell(Spell spell)
         {
-            spells.Add(spell);
-        }
-
-        private void UpdateSpells(GameTime gameTime)
-        {
-            List<Spell> removeableSpells = new List<Spell>();
-            //first update
-            foreach (Spell spell in spells)
-            {
-                spell.Update(gameTime);
-                if (spell.SpellState == Spell.State.REMOVE)
-                {
-                    removeableSpells.Add(spell);
-                }
-            }
-
-            //remove
-            foreach (Spell spell in removeableSpells)
-            {
-                if (spell.SpellState == Spell.State.REMOVE)
-                {
-                    spells.Remove(spell);
-                }
-            }
-        }
-
-
-        //NOT USED IN THE MOMENT
-        /// <summary>
-        /// Animates each gem and checks to allows the player to collect them.
-        /// </summary>
-        private void UpdateGems(GameTime gameTime)
-        {
-            //for (int i = 0; i < gems.Count; ++i)
-            //{
-            //    Gem gem = gems[i];
-
-            //    gem.Update(gameTime);
-
-            //    if (gem.BoundingCircle.Intersects(Player.BoundingRectangle))
-            //    {
-            //        gems.RemoveAt(i--);
-            //        OnGemCollected(gem, Player);
-            //    }
-            //}
+            generalColliadableGameElements.Add(spell);
         }
 
         /// <summary>
@@ -337,6 +275,26 @@ namespace MagicWorld
                 {
                     removableObjects.Add(elem);
                 }
+
+                //special update behavior for some classes
+
+                //enemies
+                if (elem.GetType() == typeof(Enemy))
+                {
+                    Enemy enemy = (Enemy)elem;
+                    UpdateEnemy(enemy);
+                }
+                //spells
+                else if (elem.GetType() == typeof(Spell))
+                {
+                    Spell spell = (Spell)elem;
+                    UpdateSpell(spell);
+                }
+                //Gems
+                else if (elem.GetType() == typeof(Gem))
+                {
+                }
+
             }
             //remove destroyed elements
             foreach (BasicGameElement elem in removableObjects)
@@ -345,19 +303,25 @@ namespace MagicWorld
             }
         }
 
-        /// <summary>
-        /// Animates each enemy and allow them to kill the player.
-        /// </summary>
-        private void UpdateEnemies(GameTime gameTime)
+        private void UpdateEnemy(Enemy enemy)
         {
-            foreach (Enemy enemy in enemies)
+            if (!enemy.isFroozen && collisionManager.CollidateWithPlayer(enemy))
             {
-                enemy.Update(gameTime);
-
-                if(collisionManager.CollidateWithPlayer(enemy)){
-                    OnPlayerKilled(enemy);
-                }
+                OnPlayerKilled(enemy);
             }
+        }
+
+        private void UpdateSpell(Spell spell)
+        {
+            //add if necessary
+        }
+
+        private void UpdateParticleEffects(GameTime gameTime)
+        {
+            ExplosionParticleSystem.Update(gameTime);
+            SmokeParticleSystem.Update(gameTime);
+            MagicParticleSystem.Update(gameTime);
+            ExplosionSmokeParticleSystem.Update(gameTime);
         }
 
 
@@ -411,20 +375,16 @@ namespace MagicWorld
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             endPoint.Draw(gameTime, spriteBatch);
-
-            foreach (Gem gem in gems)
-                gem.Draw(gameTime, spriteBatch);
-
+            
             foreach (BasicGameElement elem in generalColliadableGameElements)
                 elem.Draw(gameTime, spriteBatch);
 
             Player.Draw(gameTime, spriteBatch);
 
-            foreach (Enemy enemy in enemies)
-                enemy.Draw(gameTime, spriteBatch);
-      
-            foreach (Spell spell in spells)
-                spell.Draw(gameTime, spriteBatch);
+            ExplosionParticleSystem.Draw(gameTime, spriteBatch);
+            SmokeParticleSystem.Draw(gameTime, spriteBatch);
+            MagicParticleSystem.Draw(gameTime, spriteBatch);
+            ExplosionSmokeParticleSystem.Draw(gameTime, spriteBatch);
         }
 
         #endregion
