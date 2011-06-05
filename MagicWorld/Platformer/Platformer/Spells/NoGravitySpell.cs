@@ -13,7 +13,7 @@ namespace MagicWorld.Spells
         private const float manaCastingCost = 1f;
 
         public NoGravitySpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
+            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.NoGravitySpell)
         {            
             Force = 1;
             survivalTimeMs = 5000;

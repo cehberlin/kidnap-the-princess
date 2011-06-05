@@ -19,13 +19,14 @@ using MagicWorld.DynamicLevelContent.Player;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.HelperClasses;
 using System.Collections.Generic;
+using MagicWorld.Controls;
 
 namespace MagicWorld
 {
     /// <summary>
     /// Our fearless adventurer!
     /// </summary>
-    class Player:BasicGameElement
+    public class Player:BasicGameElement
     {
 
         #region physics constants
@@ -40,39 +41,6 @@ namespace MagicWorld
 
         #endregion
 
-
-        #region control constants
-
-        //gamepad
-        //spells
-        public const Buttons WarmButton = Buttons.A;
-        public const Buttons ColdButton = Buttons.B;
-        public const Buttons MatterButton = Buttons.X;
-        public const Buttons GravityButton = Buttons.Y;
-
-        //movement
-        public const Buttons LeftButton = Buttons.DPadLeft;
-        public const Buttons RightButton = Buttons.DPadRight;
-        public const Buttons JumpButton = Buttons.DPadUp;
-        public const Buttons DownButton = Buttons.DPadDown;
-
-        //keyboard
-        //spells
-        public const Keys WarmKey = Keys.D0;
-        public const Keys ColdKey = Keys.D9;
-        public const Keys MatterKey = Keys.D8;
-        public const Keys GravityKey = Keys.D7;
-
-        public const Keys LeftKey = Keys.A;
-        public const Keys RightKey = Keys.D;
-        public const Keys JumpKey = Keys.W;
-        public const Keys DownKey = Keys.S;
-
-        public const Keys LeftKeyAlternative = Keys.Left;
-        public const Keys RightKeyAlternative = Keys.Right;
-        public const Keys JumpKeyAlternative = Keys.Up;
-        public const Keys DownKeyAlternative = Keys.Down;
-
         public const Keys FullscreenToggleKey = Keys.F11;
         public const Keys ExitGameKey = Keys.Escape;
 
@@ -86,7 +54,9 @@ namespace MagicWorld
         private const float MoveStickScale = 1.0f;
         private const float AccelerometerScale = 1.5f;
 
-        #endregion
+
+        public SpellType[] UsableSpells { get; private set; }
+
 
         #region "movment constants"
 
@@ -117,6 +87,9 @@ namespace MagicWorld
         private SoundEffect jumpSound;
         private SoundEffect fallSound;
         private SoundEffect spellSound;
+
+        public SoundEffect SpellSound{ get{return spellSound;}}
+
         #endregion
 
         public bool IsAlive
@@ -210,14 +183,21 @@ namespace MagicWorld
 
         //only one spell at a time
         Spell currentSpell = null;
-        public Spell CurrentSpell{get{return currentSpell;}}
+        /// <summary>
+        /// spell that is currently being casted by the player
+        /// returns null if no spell is casted
+        /// </summary>
+        public Spell CurrentSpell { get { return currentSpell; } set { currentSpell = value; } }
+
+        
 
         /// <summary>
         /// Constructors a new player.
         /// </summary>
-        public Player(Level level, Vector2 position)
+        public Player(Level level, Vector2 position, SpellType[] useableSpells)
             : base(level)
         {
+            this.UsableSpells = useableSpells;
             this.level = level;
 
             Mana = new Mana(this);
@@ -227,6 +207,7 @@ namespace MagicWorld
             Reset(position);
 
             debugColor = Color.Violet;
+
         }
 
         /// <summary>
@@ -313,6 +294,9 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
+
+            IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
+
             // Get analog horizontal movement.
             movement = gamePadState.ThumbSticks.Left.X * MoveStickScale;
 
@@ -321,16 +305,16 @@ namespace MagicWorld
                 movement = 0.0f;
 
             // If any digital horizontal movement input is found, override the analog movement.
-            if (gamePadState.IsButtonDown(LeftButton) ||
-                keyboardState.IsKeyDown(LeftKey) ||
-                keyboardState.IsKeyDown(LeftKeyAlternative))
+            if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
+                keyboardState.IsKeyDown(controls.Keys_Left)) 
+                // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movement = -1.0f;
                 lastDirection.X = -1.0f;                
             }
-            else if (gamePadState.IsButtonDown(RightButton) ||
-                     keyboardState.IsKeyDown(RightKey) ||
-                     keyboardState.IsKeyDown(RightKeyAlternative))
+            else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
+                     keyboardState.IsKeyDown(controls.Keys_Right))
+                     //keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movement = 1.0f;
                 lastDirection.X = 1.0f;                
@@ -344,14 +328,12 @@ namespace MagicWorld
 
             // Check if the player wants to jump.
             isJumping =
-                gamePadState.IsButtonDown(JumpButton) ||
-                keyboardState.IsKeyDown(JumpKey) ||
-                keyboardState.IsKeyDown(JumpKeyAlternative);
+                gamePadState.IsButtonDown(controls.GamePad_Jump) ||
+                keyboardState.IsKeyDown(controls.Keys_Jump) ;
             //Check if the player press Down Button
             isDown =
-                gamePadState.IsButtonDown(DownButton) ||
-                keyboardState.IsKeyDown(DownKey) ||
-                keyboardState.IsKeyDown(DownKeyAlternative);
+                gamePadState.IsButtonDown(controls.GamePad_Down) ||
+                keyboardState.IsKeyDown(controls.Keys_Down);
 
             if(isJumping)
             {
@@ -592,6 +574,11 @@ namespace MagicWorld
         KeyboardState oldKeyboardState;
         GamePadState oldGamePadState;
 
+        private int selectedSpellIndex_A = 0;
+        private int selectedSpellIndex_B = 1;
+        SpellType selectedSpell_A { get {return UsableSpells[selectedSpellIndex_A];} }
+        SpellType selectedSpell_B { get{return UsableSpells[selectedSpellIndex_B];}   }
+
         /// <summary>
         /// create the spells
         /// </summary>
@@ -606,236 +593,49 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
+
+            Boolean isCastingSpell = false; 
+
+            IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
+
+            if (currentSpell == null) // no spell casted?
+            {
+                if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState)) //spell A casted ?
+                {
+                    isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_A, this.level);
+                }
+                else if (this.isSpellBButtonPressed(controls, gamePadState, keyboardState)) //spell B casted ?
+                {
+                    isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_B, this.level);
+                }
+                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyDown(controls.Keys_SelectedSpellA) ) // spell A select
+                {
+                    selectedSpellIndex_A = selectNextSpell(selectedSpellIndex_A);
+                    Debug.WriteLine("changed selection for SpellSlot A: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_A));
+                }
+                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
+                {
+                    selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
+                    Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
+                }
+            }
+            else 
+            {
+                if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) && this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
+                {
+                    SpellCreationManager.releaseSpell(this);
+                }
+                else
+                {
+                    isCastingSpell = SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
+                }
+            }
+
             Vector2 pos;
             pos.X = Position.X + 20 * Direction.X;
             pos.Y = Position.Y - Bounds.Height / 2;
 
-
-            #region warmspell
-
-            //pressing
-            bool bCreateWarmSpellPress = (gamePadState.IsButtonDown(WarmButton) || keyboardState.IsKeyDown(WarmKey));
-            if (bCreateWarmSpellPress)
-            {
-                if (currentSpell != null && currentSpell.GetType() != typeof(WarmSpell)) //release current creating spell if its a different one
-                {
-                    Debug.WriteLine("WARMSPELL:Old Spell in creation released because of spell change");
-                    currentSpell.FireUp();
-                    currentSpell = null;
-                }
-                if (currentSpell == null)
-                {
-                    Debug.WriteLine("WARMSPELL:START CREATION OF NEW ONE");
-                    //create new warm spell
-                    currentSpell = new WarmSpell("WarmSpell", pos, level);
-                    spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
-                        currentSpell.Direction = Direction;
-                        level.addSpell(currentSpell);
-                    } else {
-                        currentSpell = null;
-                    }
-                } //if spell is already a warm spell do nothing because the spell grows on its own
-                else
-                {
-                    Debug.WriteLine("WARMSPELL:GROW");
-                    currentSpell.Direction = Direction; //update direction
-                }
-            }
-
-            if (currentSpell != null && currentSpell.GetType() == typeof(WarmSpell))
-              {
-                if(!Mana.castingSpell(gameTime)) {
-                    Debug.WriteLine("WARMSPELL:FIRED after button release");
-                        currentSpell.FireUp();
-                        currentSpell = null;
-                } else {
-                    //releasing
-                    bool bWarmSpellRelease = (oldGamePadState.IsButtonDown(WarmButton) && gamePadState.IsButtonUp(WarmButton))
-                                            || (oldKeyboardState.IsKeyDown(WarmKey) && keyboardState.IsKeyUp(WarmKey));
-
-                    if (bWarmSpellRelease)
-                    {
-                
-                            Debug.WriteLine("WARMSPELL:FIRED after button release");
-                            currentSpell.FireUp();
-                            currentSpell = null;
-                    }
-                }
-            }
-
-            #endregion
-
-            #region coldspell
-
-            //pressing
-            bool bCreateColdSpellPress = (gamePadState.IsButtonDown(ColdButton) || keyboardState.IsKeyDown(ColdKey));
-            if (bCreateColdSpellPress)
-            {
-                if (currentSpell != null && currentSpell.GetType() != typeof(ColdSpell)) //release current creating spell if its a different one
-                {   
-                    Debug.WriteLine("COLDSPELL:Old Spell in creation released because of spell change");
-                    currentSpell.FireUp();
-                    currentSpell = null;
-                }
-                if (currentSpell == null)
-                {
-                    Debug.WriteLine("COLDSPELL:START CREATION OF NEW ONE");
-                    //create new warm spell
-                    currentSpell = new ColdSpell("ColdSpell", pos, level);
-                    spellSound.Play();                    if (Mana.startCastingSpell(currentSpell))
-                    {
-                        currentSpell.Direction = Direction;
-                        level.addSpell(currentSpell);
-                    }
-                    else
-                    {
-                        currentSpell = null;
-                    }
-                    
-                    
-                } //if spell is already a cold spell do nothing because the spell grows on its own
-                else
-                {
-                    Debug.WriteLine("COLDSPELL:GROW");
-                    currentSpell.Direction = Direction; //update direction
-                }
-            }
-
-            if (currentSpell != null && currentSpell.GetType() == typeof(ColdSpell))
-            {
-                if (!Mana.castingSpell(gameTime))
-                {
-                    Debug.WriteLine("COLDSPELL:FIRED after mana ios empty");
-                    currentSpell.FireUp();
-                    currentSpell = null;
-                }
-                else
-                {
-                    //releasing
-                    bool bColdSpellRelease = (oldGamePadState.IsButtonDown(ColdButton) && gamePadState.IsButtonUp(ColdButton))
-                                        || (oldKeyboardState.IsKeyDown(ColdKey) && keyboardState.IsKeyUp(ColdKey));
-
-                    if (bColdSpellRelease)
-                    {
-                        Debug.WriteLine("COLDSPELL:FIRED after button release");
-                        currentSpell.FireUp();
-                        currentSpell = null;
-                    }
-                }
-            }
-
-            #endregion
-
-            #region matterspell
-
-            //pressing
-            bool bCreateMatterSpellPress = (gamePadState.IsButtonDown(MatterButton) || keyboardState.IsKeyDown(MatterKey));
-            if (bCreateMatterSpellPress)
-            {
-                if (currentSpell != null && currentSpell.GetType() != typeof(MatterSpell)) //release current creating spell if its a different one
-                {
-                    Debug.WriteLine("MATTERSPELL:Old Spell in creation released because of spell change");
-                    currentSpell.FireUp();
-                    currentSpell = null;
-                                   }
-                if (currentSpell == null)
-                {
-                    Debug.WriteLine("MATTERSPELL:START CREATION OF NEW ONE");
-                    //create new matter spell
-                    currentSpell = new MatterSpell("MatterSpell", pos, level);
-                    spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
-                    currentSpell.Direction = Direction;
-                    //level.addSpell(currentSpell); this is different for matter spell!!!
-                    level.GeneralColliadableGameElements.Add(currentSpell);
-                    } else {
-                        currentSpell = null;
-                    }
-                } //if spell is already a cold spell do nothing because the spell grows on its own
-                else
-                {
-                    Debug.WriteLine("MATTERSPELL:GROW");
-                    currentSpell.Direction = Direction; //update direction
-                }
-            }
-
-            if (currentSpell != null && currentSpell.GetType() == typeof(MatterSpell))
-            {
-                if(!Mana.castingSpell(gameTime)) {
-
-                    Debug.WriteLine("COLDSPELL:FIRED after button release");
-                            currentSpell.FireUp();
-                            currentSpell = null;
-                } else {
-                    //releasing
-                    bool bMatterSpellRelease = (oldGamePadState.IsButtonDown(MatterButton) && gamePadState.IsButtonUp(MatterButton))
-                                            || (oldKeyboardState.IsKeyDown(MatterKey) && keyboardState.IsKeyUp(MatterKey));
-
-                    if (bMatterSpellRelease)
-                    {
-                
-                            Debug.WriteLine("COLDSPELL:FIRED after button release");
-                            currentSpell.FireUp();
-                            currentSpell = null;
-                    }
-                }
-            }
-
-            #endregion
-
-            #region "noGravitySpell"
-            //pressing
-            bool bCreateNoGravitySpell = (gamePadState.IsButtonDown(GravityButton) || keyboardState.IsKeyDown(GravityKey));
-            if (bCreateNoGravitySpell)
-            {
-                if (currentSpell != null && currentSpell.GetType() != typeof(NoGravitySpell)) //release current creating spell if its a different one
-                {
-                    Debug.WriteLine("noGravitySpell:Old Spell in creation released because of spell change");
-                    currentSpell.FireUp();
-                    currentSpell = null;
-                }
-                if (currentSpell == null)
-                {
-                    Debug.WriteLine("noGravitySpell:START CREATION OF NEW ONE");
-                    //create new matter spell
-                    currentSpell = new NoGravitySpell("NoGravitySpell", pos, level);
-                    spellSound.Play();                    if(Mana.startCastingSpell(currentSpell)) {
-                        currentSpell.Direction = Direction;
-                        level.addSpell(currentSpell);
-                    } else {
-                        currentSpell = null;
-                    }
-                } //if spell is already a cold spell do nothing because the spell grows on its own
-                else
-                {
-                    Debug.WriteLine("noGryvitySpell:GROW");
-                    currentSpell.Direction = Direction; //update direction
-                }
-            }
-
-            if (currentSpell != null && currentSpell.GetType() == typeof(NoGravitySpell))
-            {
-                if (!Mana.castingSpell(gameTime))
-                {
-                    Debug.WriteLine("NoGravitySpell:FIRED after button release");
-                    currentSpell.FireUp();
-                    currentSpell = null;
-                } else {
-                    //releasing
-                    bool bNoGravitySpellRelease = (oldGamePadState.IsButtonDown(GravityButton) && gamePadState.IsButtonUp(GravityButton))
-                                            || (oldKeyboardState.IsKeyDown(GravityKey) && keyboardState.IsKeyUp(GravityKey));
-
-                    if (bNoGravitySpellRelease)
-                    {
-
-                        Debug.WriteLine("NoGravitySpell:FIRED after button release");
-                        currentSpell.FireUp();
-                        currentSpell = null;
-                    }
-                }
-            }
-            #endregion
-
-            if (bCreateColdSpellPress || bCreateMatterSpellPress || bCreateNoGravitySpell || bCreateWarmSpellPress)
+            if (isCastingSpell)
             {
                 if (level.MagicParticleSystem.CurrentParticles() < 10)
                 {
@@ -847,6 +647,25 @@ namespace MagicWorld
             oldGamePadState = gamePadState;
         }
 
+        private bool isSpellAButtonPressed(IPlayerControl controls, GamePadState gamePadState, KeyboardState keyboardState)
+        {
+            return gamePadState.IsButtonDown(controls.GamePad_CastSelectedSpellA) || keyboardState.IsKeyDown(controls.Keys_CastSelectedSpellA);
+        }
+
+        private bool isSpellBButtonPressed(IPlayerControl controls, GamePadState gamePadState, KeyboardState keyboardState)
+        {
+            return gamePadState.IsButtonDown(controls.GamePad_CastSelectedSpellB) || keyboardState.IsKeyDown(controls.Keys_CastSelectedSpellB);
+        }
+
+        private int selectNextSpell(int currentIndex)
+        {
+            currentIndex++;
+            if(currentIndex >= this.UsableSpells.Length)
+            {
+                return 0;
+            }
+            return currentIndex;
+        }
 
         #region ISpellInfluenceable Member
 

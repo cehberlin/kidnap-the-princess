@@ -4,13 +4,14 @@ using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
+using MagicWorld.Spells;
 
 namespace MagicWorld
 {
     /// <summary>
     /// Base class that determines a spell
     /// </summary>
-    abstract class Spell : BasicGameElement
+    public abstract class Spell : BasicGameElement
     {
         #region "mana"
             /// <summary>
@@ -25,7 +26,13 @@ namespace MagicWorld
             private float manaCastingCost;
         #endregion
 
+            public SpellType SpellType { get; protected set; }
+
         #region properties
+
+            public SpellType SpellSlot_A { get; set; }
+            public SpellType SpellSlot_B { get; set; }
+
         /// <summary>
         /// Origin from the object in the screen
         /// </summary>
@@ -139,9 +146,10 @@ namespace MagicWorld
 
         #region methods
 
-        public Spell(string spriteSet, Vector2 _origin, Level level, int manaBasicCost, float manaCastingCost)
+        public Spell(string spriteSet, Vector2 _origin, Level level, int manaBasicCost, float manaCastingCost, SpellType spellType)
             : base(level)
         {
+            SpellType = spellType;
             this.manaBasicCost = manaBasicCost;
             this.manaCastingCost = manaCastingCost;
             //spellTexture = _texture;

@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace MagicWorld.HelperClasses
 {
-    class Bounds
+    public class Bounds
     {
 
         enum BoundType

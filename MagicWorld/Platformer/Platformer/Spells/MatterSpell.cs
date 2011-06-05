@@ -27,7 +27,7 @@ namespace MagicWorld
         /// <param name="_origin"></param>
         /// <param name="level"></param>
         public MatterSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost)
+            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.CreateMatterSpell)
         {            
             Force = 1;
             survivalTimeMs = MATTER_EXISTENCE_TIME;

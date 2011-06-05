@@ -8,7 +8,7 @@ using MagicWorld.Constants;
 
 namespace MagicWorld.DynamicLevelContent.Player
 {
-    class Mana
+    public class Mana
     {
         public const int MAX_MANA = 1000;
         private const float MANA_REGENERATION_RATE = 0.25f;

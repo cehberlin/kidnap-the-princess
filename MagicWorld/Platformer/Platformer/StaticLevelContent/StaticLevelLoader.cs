@@ -5,6 +5,7 @@ using System.Text;
 using MagicWorld.DynamicLevelContent;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using MagicWorld.Spells;
 using MagicWorld.Ingredients;
 
 namespace MagicWorld.StaticLevelContent
@@ -96,6 +97,19 @@ namespace MagicWorld.StaticLevelContent
         private BlockElement LoadBlock(string name, CollisionType collision, Vector2 position, int width, int height)
         {
             return new BlockElement("Tiles/" + name, collision, level, position,width,height);
+        }
+
+        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell };
+        public Spells.SpellType[] UsableSpells
+        {
+            get
+            {
+                return this.useableSpells;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private Ingredient LoadIngredient(String name, CollisionType collision, Vector2 position)

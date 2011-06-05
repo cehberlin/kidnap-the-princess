@@ -7,7 +7,7 @@ using MagicWorld.DynamicLevelContent;
 
 namespace MagicWorld.HelperClasses
 {
-    class CollisionManager
+    public class CollisionManager
     {
 
         Level level;

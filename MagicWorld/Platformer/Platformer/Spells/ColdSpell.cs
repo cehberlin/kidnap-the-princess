@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using MagicWorld.Spells;
 
 namespace MagicWorld
 {
@@ -13,7 +14,7 @@ namespace MagicWorld
         private const float manaCastingCost = 1f;
 
         public ColdSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level,manaBasicCost,manaCastingCost)
+            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.ColdSpell)
         {            
             Force = 1;
             survivalTimeMs = 5000;

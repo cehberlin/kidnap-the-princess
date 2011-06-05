@@ -70,6 +70,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Constants\PhysicValues.cs" />
+    <Compile Include="Constants\SpellConstantsValues.cs" />
+    <Compile Include="Controls\DefaultControl.cs" />
+    <Compile Include="Controls\IPlayerControl.cs" />
+    <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
     <Compile Include="DynamicLevelContent\DynamicBlockElement.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="HelperClasses\Collision\CollisionManager.cs" />
     <Compile Include="HelperClasses\Collision\PhysicsManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
+    <Compile Include="HelperClasses\SpellCreationManager.cs" />
     <Compile Include="Ingredients\Ingredient.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
@@ -111,6 +116,9 @@
     <Compile Include="DynamicLevelContent\Gem.cs" />
     <Compile Include="Gleed2dLevelContent\CustomProperty.cs" />
     <Compile Include="Gleed2dLevelContent\Gleed2dLevelLoader.cs" />
+    <Compile Include="Spells\SpellConstants.cs" />
+    <Compile Include="Spells\SpellConstantsFactory.cs" />
+    <Compile Include="Spells\SpellType.cs" />
     <Compile Include="StaticLevelContent\IceBlockElement.cs" />
     <Compile Include="StaticLevelContent\ILevelLoader.cs" />
     <Compile Include="Gleed2dLevelContent\Item.cs" />

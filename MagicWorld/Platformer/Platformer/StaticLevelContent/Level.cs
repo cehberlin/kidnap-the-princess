@@ -22,6 +22,7 @@ using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.HelperClasses.Collision;
 using ParticleEffects;
+using MagicWorld.Spells;
 
 namespace MagicWorld
 {
@@ -30,7 +31,7 @@ namespace MagicWorld
     /// The level owns the player and controls the game's win and lose
     /// conditions as well as scoring.
     /// </summary>
-    class Level : IDisposable
+    public class Level : IDisposable
     {    
         // Entities in the level.
         public Player Player
@@ -38,6 +39,9 @@ namespace MagicWorld
             get { return player; }
         }
         Player player;
+
+        
+
 
         // Physical structure of the level.
 
@@ -189,7 +193,7 @@ namespace MagicWorld
 
             startPoint = levelLoader.getPlayerStartPosition();
 
-            player = new Player(this, startPoint);
+            player = new Player(this, startPoint, levelLoader.UsableSpells);
 
             endPoint = levelLoader.getLevelExit();
 
