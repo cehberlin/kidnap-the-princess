@@ -92,14 +92,18 @@ namespace MagicWorld.HelperClasses
 
             bool isCollision = false;
 
-            foreach (Enemy enemy in level.Enemies)
+            foreach (BasicGameElement obj in level.GeneralColliadableGameElements)
             {
-                if (enemy!=elem && Intersects(enemy.Bounds,elem.Bounds))
-                {                
-                    isCollision=true;
-                    if (enemiesColliadingWith != null)
+                if (obj.GetType() == typeof(Enemy))
+                {
+                    Enemy enemy = (Enemy)obj;
+                    if (enemy != elem && Intersects(enemy.Bounds, elem.Bounds))
                     {
-                        enemiesColliadingWith.Add(enemy);
+                        isCollision = true;
+                        if (enemiesColliadingWith != null)
+                        {
+                            enemiesColliadingWith.Add(enemy);
+                        }
                     }
                 }
             }

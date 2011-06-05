@@ -29,6 +29,11 @@ namespace MagicWorld
         {
         }
 
+        public IceBlockElement(Level level, Vector2 position, int width, int height) :
+            base("Tiles/Ice_Tile", CollisionType.Impassable, level, position, width, height)
+        {
+        }
+
         public override Boolean SpellInfluenceAction(Spell spell)
         {
 

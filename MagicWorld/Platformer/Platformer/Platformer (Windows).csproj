@@ -73,6 +73,12 @@
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
     <Compile Include="DynamicLevelContent\DynamicBlockElement.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionSmokeParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\MagicParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\Particle.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\ParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\SmokePlumeParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="Constants\DebugValues.cs" />
     <Compile Include="HelperClasses\Collision\Bounds.cs" />

@@ -835,6 +835,14 @@ namespace MagicWorld
             }
             #endregion
 
+            if (bCreateColdSpellPress || bCreateMatterSpellPress || bCreateNoGravitySpell || bCreateWarmSpellPress)
+            {
+                if (level.MagicParticleSystem.CurrentParticles() < 10)
+                {
+                    level.MagicParticleSystem.AddParticles(pos);
+                }
+            }
+
             oldKeyboardState = keyboardState;
             oldGamePadState = gamePadState;
         }

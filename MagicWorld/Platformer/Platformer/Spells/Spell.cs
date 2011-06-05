@@ -43,6 +43,7 @@ namespace MagicWorld
                 {
                     case State.REMOVE:
                         OnRemove();
+                        isRemovable = true;
                         break;
                     case State.CREATING:
                         OnCreateStart();

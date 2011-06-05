@@ -20,8 +20,6 @@ namespace MagicWorld.StaticLevelContent
             get;
             set;
         }
-
-        List<Enemy> getEnemies();
         
         List<BasicGameElement> getGeneralObjects();
         

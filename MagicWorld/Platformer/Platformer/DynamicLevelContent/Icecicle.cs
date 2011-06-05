@@ -140,7 +140,7 @@ namespace MagicWorld
                 //destroy enemy
                 hitSound.Play();
                 icecicleState = IcecicleState.DESTROYED;
-                level.Enemies.Remove(enemy);
+                level.GeneralColliadableGameElements.Remove(enemy);
             }
         }
 
