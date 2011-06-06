@@ -73,6 +73,7 @@
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Controls\DefaultControl.cs" />
     <Compile Include="Controls\IPlayerControl.cs" />
+    <Compile Include="Controls\KeyboardControl.cs" />
     <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
     <Compile Include="DynamicLevelContent\DynamicBlockElement.cs" />
