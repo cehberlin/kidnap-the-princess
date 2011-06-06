@@ -9,6 +9,8 @@ using Microsoft.Xna.Framework.Content;
 namespace MagicWorld.Gleed2dLevelContent
 {
     [XmlInclude(typeof(TextureItem))]
+    [XmlInclude(typeof(CircleItem))]
+    [XmlInclude(typeof(RectangleItem))]
     public class Item
     {
         /// <summary>

@@ -85,6 +85,8 @@
     <Compile Include="DynamicLevelContent\ParticleEffects\SmokePlumeParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="Constants\DebugValues.cs" />
+    <Compile Include="Gleed2dLevelContent\CircleItem.cs" />
+    <Compile Include="Gleed2dLevelContent\RectangleItem.cs" />
     <Compile Include="HelperClasses\Collision\Bounds.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Animation\Animation.cs" />
@@ -135,6 +137,7 @@
     <Compile Include="StaticLevelContent\BlockElement.cs" />
     <Compile Include="Spells\WarmSpell.cs" />
     <Compile Include="Gleed2dLevelContent\TextureItem.cs" />
+    <Compile Include="StaticLevelContent\XMLLevelLoader.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">

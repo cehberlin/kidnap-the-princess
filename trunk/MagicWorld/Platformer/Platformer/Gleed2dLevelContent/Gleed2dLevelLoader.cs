@@ -10,7 +10,7 @@ using MagicWorld.StaticLevelContent;
 
 namespace MagicWorld.Gleed2dLevelContent
 {
-    public class Gleed2dLevelLoader//:ILevelLoader
+    public class Gleed2dLevelLoader
         {
         /// <summary>
         /// The name of the level.
@@ -39,7 +39,7 @@ namespace MagicWorld.Gleed2dLevelContent
             CustomProperties = new SerializableDictionary();
         }
 
-        public static Gleed2dLevelLoader FromFile(string filename, ContentManager cm)
+        public static Gleed2dLevelLoader FromFile(string filename)
         {
             FileStream stream = File.Open(filename, FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(Gleed2dLevelLoader));
@@ -51,7 +51,7 @@ namespace MagicWorld.Gleed2dLevelContent
                 foreach (Item item in layer.Items)
                 {
                     item.CustomProperties.RestoreItemAssociations(level);
-                    item.load(cm);
+                    //item.load(cm);
                 }
             }
 

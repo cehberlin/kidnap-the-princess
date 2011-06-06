@@ -18,7 +18,7 @@ namespace MagicWorld.Gleed2dLevelContent
         /// <summary>
         /// The item's scale factor.
         /// </summary>
-        public float Scale;
+        public Vector2 Scale;
 
         /// <summary>
         /// The color to tint the item's texture with (use white for no tint).
