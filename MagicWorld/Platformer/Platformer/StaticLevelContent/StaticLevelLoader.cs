@@ -45,7 +45,6 @@ namespace MagicWorld.StaticLevelContent
             return elements;
         }
 
-   
         public Vector2 getPlayerStartPosition()
         {
             Vector2 startPos = new Vector2(5, 5);
@@ -73,7 +72,6 @@ namespace MagicWorld.StaticLevelContent
         {
             return new HelperClasses.Bounds(0, 0, 5000, 500);
         }
-
 
         public Level Level
         {

@@ -32,7 +32,7 @@ namespace MagicWorld
     {
         #region Fields
 
-        ContentManager content;        
+        ContentManager content;
         private HelperClasses.Camera2d camera = new HelperClasses.Camera2d(600, 800);
 
         // Global content.
@@ -43,7 +43,7 @@ namespace MagicWorld
         private Texture2D diedOverlay;
 
         // Meta-level game state.
-        private int levelIndex = -1;
+        private int levelIndex = 0;
         private Level level;
         private bool wasContinuePressed;
 
@@ -96,17 +96,7 @@ namespace MagicWorld
             loseOverlay = content.Load<Texture2D>("Overlays/you_lose");
             diedOverlay = content.Load<Texture2D>("Overlays/you_died");
 
-            LoadNextLevel();
-
-            //Needed for Testing TODO
-            //Gleed2dLevelLoader level = Gleed2dLevelLoader.FromFile("level1.xml", Content);
-
-            //gameFont = content.Load<SpriteFont>("gamefont");
-
-            // A real game would probably have more content than this sample, so
-            // it would take longer to load. We simulate that by delaying for a
-            // while, giving you a chance to admire the beautiful loading screen.
-            Thread.Sleep(1000);
+            LoadLevel(1);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
@@ -143,21 +133,6 @@ namespace MagicWorld
             level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
 
             camera.Pos = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
-
-
-
-
-            // Gradually fade in or out depending on whether we are covered by the pause screen.
-            if (coveredByOtherScreen)
-                pauseAlpha = Math.Min(pauseAlpha + 1f / 32, 1);
-            else
-                pauseAlpha = Math.Max(pauseAlpha - 1f / 32, 0);
-
-            if (IsActive)
-            {
-                // Apply some random jitter to make the enemy move around.
-                
-            }
         }
 
 
@@ -237,7 +212,7 @@ namespace MagicWorld
             {
                 level.Player.nogravityHasInfluenceOnPlayer = !level.Player.nogravityHasInfluenceOnPlayer;
             }
-                        
+
             wasContinuePressed = continuePressed;
             oldKeyboardState = keyboardState;
 
@@ -249,11 +224,6 @@ namespace MagicWorld
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
-            // This game has a blue background. Why? Because!
-            //ScreenManager.GraphicsDevice.Clear(ClearOptions.Target,Color.CornflowerBlue, 0, 0);
-
-            // Our player and enemy are both actually just text strings.            
-
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
             BlendState.AlphaBlend,
             null,
@@ -267,7 +237,7 @@ namespace MagicWorld
             DrawHud();
 
             ScreenManager.SpriteBatch.End();
-            
+
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
@@ -279,6 +249,15 @@ namespace MagicWorld
         }
 
         #region level
+        private void LoadLevel(int num)
+        {
+            // Unloads the content for the current level before loading the next one.
+            if (level != null)
+                level.Dispose();
+
+            // Load the level.
+            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num));
+        }
         private void LoadNextLevel()
         {
             // move to the next level
@@ -305,7 +284,7 @@ namespace MagicWorld
             Rectangle titleSafeArea = ScreenManager.Game.GraphicsDevice.Viewport.TitleSafeArea;
             Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
 
-            Vector2 center = new Vector2(camera._pos.X,camera._pos.Y);
+            Vector2 center = new Vector2(camera._pos.X, camera._pos.Y);
 
             // Draw time remaining. Uses modulo division to cause blinking when the
             // player is running out of time.
@@ -338,10 +317,10 @@ namespace MagicWorld
 
             DrawShadowedString(hudFont, timeString, new Vector2(stringpositionX, stringpositionTimeY), timeColor);
 
-            DrawShadowedString(hudFont, "Collected Ingredients: " + level.CollectedIngredients.Count.ToString() +"/"+ level.MaxIngredientsCount.ToString(), new Vector2(stringpositionX, stringpositionIngredientY), Color.Black);
+            DrawShadowedString(hudFont, "Collected Ingredients: " + level.CollectedIngredients.Count.ToString() + "/" + level.MaxIngredientsCount.ToString(), new Vector2(stringpositionX, stringpositionIngredientY), Color.Black);
 
             level.Player.Mana.drawHud(ScreenManager.SpriteBatch, hudFont, new Vector2(stringpositionX, stringpositionManaY));
-           
+
             // Determine the status overlay message to show.
             Texture2D status = null;
             if (level.TimeRemaining == TimeSpan.Zero)
@@ -381,5 +360,5 @@ namespace MagicWorld
     }
 
         #endregion
-    
+
 }
