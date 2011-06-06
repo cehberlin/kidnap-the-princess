@@ -14,7 +14,7 @@ namespace MagicWorld.Controls
 
         private PlayerControlFactory()
         {
-            control = new DefaultControl();
+            control = new KeyboardControl();
         }
 
         public IPlayerControl getPlayerControl()
