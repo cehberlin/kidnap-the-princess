@@ -95,6 +95,11 @@
     <Compile Include="HelperClasses\Collision\PhysicsManager.cs" />
     <Compile Include="HelperClasses\IAutonomusGameObject.cs" />
     <Compile Include="HelperClasses\SpellCreationManager.cs" />
+    <Compile Include="HUDClasses\HUD.cs" />
+    <Compile Include="HUDClasses\HUDElement.cs" />
+    <Compile Include="HUDClasses\IngredientBar.cs" />
+    <Compile Include="HUDClasses\ManaBar.cs" />
+    <Compile Include="HUDClasses\SpellBar.cs" />
     <Compile Include="Ingredients\Ingredient.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
