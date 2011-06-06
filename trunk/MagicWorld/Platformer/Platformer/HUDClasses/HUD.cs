@@ -138,7 +138,7 @@ namespace MagicWorld.HUDClasses
                 spriteBatch.Begin();
                 spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
                 spriteBatch.Draw(liquidTex, manaBar.Filling, Color.White);
-                spriteBatch.DrawString(font, ingredientBar.Current.ToString() + "/" + ingredientBar.Needed.ToString() + "/" + ingredientBar.Maximum.ToString(), ingredientBar.Position, Color.White);
+                spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, Color.White);
                 spriteBatch.End();
                 base.Draw(gameTime);
             }

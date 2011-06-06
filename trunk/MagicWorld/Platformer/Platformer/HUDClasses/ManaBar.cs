@@ -20,7 +20,6 @@ namespace MagicWorld.HUDClasses
             set { filling = value; }
         }
         
-
         public ManaBar(Vector2 pos)
             :base(pos)
         {
