@@ -132,7 +132,7 @@ namespace MagicWorld
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
 
-            camera.Pos = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
+            //camera.Pos = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
         }
 
 
@@ -213,6 +213,30 @@ namespace MagicWorld
                 level.Player.nogravityHasInfluenceOnPlayer = !level.Player.nogravityHasInfluenceOnPlayer;
             }
 
+            if (keyboardState.IsKeyDown(Keys.I))
+            {
+                camera.Pos += new Vector2(0, -10);
+            }
+            if (keyboardState.IsKeyDown(Keys.J))
+            {
+                camera.Pos += new Vector2(-10, 0);
+            }
+            if (keyboardState.IsKeyDown(Keys.L))
+            {
+                camera.Pos += new Vector2(10, 0);
+            }
+            if (keyboardState.IsKeyDown(Keys.K))
+            {
+                camera.Pos += new Vector2(0, 10);
+            }
+            if (keyboardState.IsKeyDown(Keys.N))
+            {
+                camera.Zoom += -0.1f;
+            }
+            if (keyboardState.IsKeyDown(Keys.M))
+            {
+                camera.Zoom += 0.1f;
+            }
             wasContinuePressed = continuePressed;
             oldKeyboardState = keyboardState;
 
