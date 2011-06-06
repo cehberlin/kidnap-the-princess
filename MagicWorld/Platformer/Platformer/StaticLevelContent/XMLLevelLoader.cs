@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent;
+using MagicWorld.Ingredients;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -79,6 +80,14 @@ namespace MagicWorld.StaticLevelContent
                 b.Width = (int)t.Origin.X * 2;
                 b.Height = (int)t.Origin.Y * 2;
                 elements.Add(b);
+            }
+            //The ingredient layer.
+            Layer ingredientLayer = levelLoader.getLayerByName("Ingredients");
+            foreach (Item item in ingredientLayer.Items)
+            {
+                String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                Ingredient i = new Ingredient("Ingredients/"+ ingredientName, CollisionType.Passable, level, item.Position);
+                elements.Add(i);
             }
             return elements;
         }
