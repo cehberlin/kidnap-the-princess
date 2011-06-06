@@ -49,7 +49,7 @@ namespace MagicWorld.StaticLevelContent
             foreach (Item item in backgroundLayer.Items)
             {
                 TextureItem t = (TextureItem)item;
-                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position-t.Origin);
+                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
                 //b.Width = b.Texture.Width;
                 //b.Height = b.Texture.Height;
                 b.Width = (int)t.Origin.X * 2;
@@ -85,8 +85,8 @@ namespace MagicWorld.StaticLevelContent
 
         public Microsoft.Xna.Framework.Vector2 getPlayerStartPosition()
         {
-            return levelLoader.getItemByName("start").Position-new Vector2(200,0);
-            
+            return levelLoader.getItemByName("start").Position - new Vector2(200, 0);
+
         }
 
         public BasicGameElement getLevelExit()

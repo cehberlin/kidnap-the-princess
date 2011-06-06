@@ -1,21 +1,9 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// ScreenManager.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
-#endregion
 
 namespace MagicWorld
 {
@@ -252,9 +240,6 @@ namespace MagicWorld
             }
 
             screens.Add(screen);
-
-            // update the TouchPanel to respond to gestures this screen is interested in
-            TouchPanel.EnabledGestures = screen.EnabledGestures;
         }
 
 
@@ -274,13 +259,6 @@ namespace MagicWorld
 
             screens.Remove(screen);
             screensToUpdate.Remove(screen);
-
-            // if there is a screen still in the manager, update TouchPanel
-            // to respond to gestures that screen is interested in.
-            if (screens.Count > 0)
-            {
-                TouchPanel.EnabledGestures = screens[screens.Count - 1].EnabledGestures;
-            }
         }
 
 
@@ -292,6 +270,19 @@ namespace MagicWorld
         public GameScreen[] GetScreens()
         {
             return screens.ToArray();
+        }
+
+        public bool IsGameplayScreenActive()
+        {
+            GameScreen[] screens = GetScreens();
+            foreach (GameScreen screen in screens)
+            {
+                if (screen.IsActive && screen.GetType().Equals(typeof(GameplayScreen)))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

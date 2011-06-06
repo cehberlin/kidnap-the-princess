@@ -1,13 +1,3 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// GameplayScreen.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
 using System;
 using System.Threading;
 using Microsoft.Xna.Framework;
@@ -19,21 +9,20 @@ using MagicWorld.Gleed2dLevelContent;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Constants;
 using MagicWorld.Controls;
-#endregion
+using MagicWorld.HelperClasses;
+using MagicWorld.HUDClasses;
 
 namespace MagicWorld
 {
     /// <summary>
-    /// This screen implements the actual game logic. It is just a
-    /// placeholder to get the idea across: you'll probably want to
-    /// put some more interesting gameplay in here!
+    /// This screen implements the actual game logic. 
     /// </summary>
     class GameplayScreen : GameScreen
     {
         #region Fields
 
         ContentManager content;
-        private HelperClasses.Camera2d camera = new HelperClasses.Camera2d(600, 800);
+        Camera2d camera = new HelperClasses.Camera2d(500, 1000);
 
         // Global content.
         private SpriteFont hudFont;
@@ -97,7 +86,7 @@ namespace MagicWorld
             diedOverlay = content.Load<Texture2D>("Overlays/you_died");
 
             LoadLevel(1);
-
+            
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.

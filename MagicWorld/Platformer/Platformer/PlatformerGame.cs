@@ -1,12 +1,3 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// PlatformerGame.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
 using System;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -16,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.StaticLevelContent;
 using MagicWorld.Gleed2dLevelContent;
+using MagicWorld.HUDClasses;
 
 namespace MagicWorld
 {
@@ -28,34 +20,37 @@ namespace MagicWorld
         #region properties
          
         ScreenManager screenManager;
-
-        
+        HUD hud;
         // Resources for drawing.
         public GraphicsDeviceManager graphics;
         
-
-        
-
         #endregion
 
         public PlatformerGame()
         {
             graphics = new GraphicsDeviceManager(this);
-            
             //graphics.PreferredBackBufferWidth = 1200; looks not good
             //graphics.PreferredBackBufferHeight = 800;
             
             //Content.RootDirectory = "Content";
             // Create the screen manager component.
             screenManager = new ScreenManager(this);
-
+            
             //with this entry the framework call the update itself
             //don't need to add in update method
             Components.Add(screenManager);
+            Services.AddService(typeof(ScreenManager), screenManager);
 
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
+        }
+
+        protected override void Initialize()
+        {
+            hud = new HUD(this);
+            Components.Add(hud);
+            base.Initialize();
         }
 
 
