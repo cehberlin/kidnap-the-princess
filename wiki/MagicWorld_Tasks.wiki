@@ -22,11 +22,12 @@
     * for decoupled components you can provide a minimal implementation or copy paste from the last prototype first (can be replaced later by better component implementation)
 
    * encapsulate important constants from all classes in some static classes as static changeable values (no const)
-   * encapsulate controls, see or copy implementation from new started architecture to old one
-   * implement new control style?
    * clean code wherever necessary 
-
   * Better fitting animation for new matter spell 
+  * let camera follow the player
+  * maybe let us think about a resolution independent implementation
+    ( I recently tried this with our old prototype http://www.david-amador.com/2010/03/xna-2d-independent-resolution-rendering/ ) But I had problems with the cameraposition ..
+  * online edit possebility for constants (Marian already working?)
     
   
 
@@ -45,3 +46,6 @@ Menu screens: creating the menus --> Amauri
    * new controls -> Marian
    * reimplement matter --> Christopher
    * fix bug with plattforms --> Christopher
+These both are done by Marian?? I think its finished in term of coding, but please change the keys ;-)
+   * encapsulate controls, see or copy implementation from new started architecture to old one
+   * implement new control style?
