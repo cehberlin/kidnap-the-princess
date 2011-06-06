@@ -9,7 +9,8 @@
 
 = in Progress =
 
-  * Class: LevelObject(for non tile drawing) and LevelEditor --> John + Pascal
+  * Improve the level classes -> Pascal
+  * Hud completion -> Pascal
   * Class Ingredients -> John
 
 
@@ -34,7 +35,6 @@
 
 
 == deferred work ==
-HUD completion  
 
 
 = done =
