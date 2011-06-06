@@ -51,7 +51,7 @@ namespace MagicWorld.HUDClasses
         /// <summary>
         /// Texture representing the max mana.
         /// </summary>
-        Texture2D bottleTex;
+        Texture2D bottleTex;//TODO: Draw a better looking bottle.
         /// <summary>
         /// Texture representing the current mana.
         /// </summary>
@@ -80,15 +80,16 @@ namespace MagicWorld.HUDClasses
         public HUD(Game game)
             : base(game)
         {
+            position = new Vector2(10, 10);
             resolution = new Vector2(game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height);
             content = Game.Content;
             visible = false;
             screenManager = (ScreenManager)game.Services.GetService(typeof(ScreenManager));
             manaBar = new ManaBar(position);
-            ingredientBar = new IngredientBar(new Vector2(resolution.X / 2, 0));
-            spellBarLeft = new SpellBar(new Vector2(resolution.X / 0.75f, 0));
+            ingredientBar = new IngredientBar(new Vector2(resolution.X / 2, position.Y));
+            spellBarLeft = new SpellBar(new Vector2(resolution.X / 0.75f, position.Y));
             spellBarLeft.Width = 100;
-            spellBarRight = new SpellBar(new Vector2(resolution.X / 0.75f + spellBarLeft.Width, 0));
+            spellBarRight = new SpellBar(new Vector2(resolution.X / 0.75f + spellBarLeft.Width, position.Y));
         }
 
         protected override void LoadContent()
@@ -106,6 +107,10 @@ namespace MagicWorld.HUDClasses
             water = content.Load<Texture2D>("Content/SpellRunes/water");
             font = content.Load<SpriteFont>("Content/Fonts/Hud");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+
+            manaBar.Filling = new Rectangle((int)position.X+3, (int)position.Y+30, bottleTex.Width-6, bottleTex.Height-30);
+            manaBar.Height = bottleTex.Height;
+            manaBar.Width = bottleTex.Width;
             base.LoadContent();
         }
 
@@ -136,8 +141,8 @@ namespace MagicWorld.HUDClasses
             if (visible)
             {
                 spriteBatch.Begin();
-                spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
                 spriteBatch.Draw(liquidTex, manaBar.Filling, Color.White);
+                spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
                 spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, Color.White);
                 spriteBatch.End();
                 base.Draw(gameTime);

@@ -147,8 +147,7 @@ namespace MagicWorld
 
             if (!isFroozen)
             {
-                //TODO
-                //let enemies run in player direction, is buggy because enemies are shakeing at obstacles
+                //TODOl let enemies run in player direction, is buggy because enemies are shakeing at obstacles
                 //if (level.Player.Position.X > this.position.X + 10 && this.direction.Equals(FaceDirection.Left) ||
                 //    level.Player.Position.X < this.position.X - 10 && this.direction.Equals(FaceDirection.Right))
                 //{
