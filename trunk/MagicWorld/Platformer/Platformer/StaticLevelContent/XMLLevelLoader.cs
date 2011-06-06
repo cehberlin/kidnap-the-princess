@@ -43,7 +43,17 @@ namespace MagicWorld.StaticLevelContent
         public List<BasicGameElement> getGeneralObjects()
         {
             List <BasicGameElement> elements= new List<BasicGameElement>();
-
+            //TODO: Add the never moving zero layer
+            //The background.
+            Layer backgroundLayer = levelLoader.getLayerByName("Background");
+            foreach (Item item in backgroundLayer.Items)
+            {
+                TextureItem t = (TextureItem)item;
+                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position);
+                b.Width = b.Texture.Width;
+                b.Height = b.Texture.Height;
+                elements.Add(b);
+            }
             //The platforms.
             Layer layer=levelLoader.getLayerByName("Middle");
             foreach (Item item in layer.Items)
@@ -54,7 +64,16 @@ namespace MagicWorld.StaticLevelContent
                 b.Height=b.Texture.Height;
                 elements.Add(b);
             }
-
+            //The front layer.
+            Layer frontLayer = levelLoader.getLayerByName("Front");
+            foreach (Item item in frontLayer.Items)
+            {
+                TextureItem t = (TextureItem)item;
+                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position);
+                b.Width = b.Texture.Width;
+                b.Height = b.Texture.Height;
+                elements.Add(b);
+            }
             return elements;
         }
 
