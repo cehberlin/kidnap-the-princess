@@ -9,19 +9,25 @@ namespace MagicWorld.HUDClasses
         /// <summary>
         /// Percentage of current mana the player has.
         /// </summary>
-        int status;
+        float status;
         private Rectangle filling;
         /// <summary>
         /// Used to draw the filling of the bar.
         /// </summary>
         public Rectangle Filling
         {
-            get { return filling; }
+            get
+            {
+                return new Rectangle(filling.X,
+                    filling.Y+(int)((Height/100)*(100-status)),
+                    filling.Width,
+                    (int)((float)filling.Height / (float)100 * status));
+            }
             set { filling = value; }
         }
-        
+
         public ManaBar(Vector2 pos)
-            :base(pos)
+            : base(pos)
         {
             status = 100;
         }
