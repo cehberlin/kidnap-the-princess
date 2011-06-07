@@ -621,13 +621,13 @@ namespace MagicWorld
             }
             else 
             {
-                if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) && this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
+                if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
-                    SpellCreationManager.releaseSpell(this);
+                    isCastingSpell = SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 }
                 else
                 {
-                    isCastingSpell = SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
+                    SpellCreationManager.releaseSpell(this);
                 }
             }
 
