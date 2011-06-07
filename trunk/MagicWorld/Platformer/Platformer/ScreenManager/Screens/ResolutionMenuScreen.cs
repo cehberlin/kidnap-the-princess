@@ -49,7 +49,7 @@ namespace MagicWorld
         /// <summary>
         /// Event handler for when the Ungulate menu entry is selected.
         /// </summary>
-        void ResolutionMenu800x600EntrySelected(object sender, PlayerIndexEventArgs e, int width, int height)
+        void ResolutionMenu800x600EntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.setScreenResolution(800, 600);
         }
