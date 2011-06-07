@@ -23,7 +23,8 @@ namespace MagicWorld
         #region Fields
 
         MenuEntry mnuControls;
-        MenuEntry mnuSound;      
+        MenuEntry mnuSound;
+        MenuEntry mnuResolution;
 
         #endregion
 
@@ -39,18 +40,21 @@ namespace MagicWorld
             // Create our menu entries.
             mnuControls = new MenuEntry("Controls");
             mnuSound = new MenuEntry("Sound");
+            mnuResolution = new MenuEntry("Resolution");
 
             MenuEntry back = new MenuEntry("Back");
 
             // Hook up menu event handlers.
             mnuControls.Selected += ControlsMenuEntrySelected;
             mnuSound.Selected += SoundMenuEntrySelected;
+            mnuResolution.Selected += ResolutionMenuEntrySelected;
             
             back.Selected += OnCancel;
             
             // Add entries to the menu.
             MenuEntries.Add(mnuControls);
             MenuEntries.Add(mnuSound);
+            MenuEntries.Add(mnuResolution);
             
             MenuEntries.Add(back);
         }
@@ -74,6 +78,11 @@ namespace MagicWorld
         void SoundMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
             
+        }
+
+        void ResolutionMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.AddScreen(new ResolutionMenuScreen(), e.PlayerIndex);
         }
 
         #endregion

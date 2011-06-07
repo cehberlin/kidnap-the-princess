@@ -303,6 +303,15 @@ namespace MagicWorld
             spriteBatch.End();
         }
 
+        /// <summary>
+        /// Sets the Screen resolution
+        /// </summary>
+        public void setScreenResolution(int width, int height)
+        {
+            Graphics.PreferredBackBufferWidth = width;
+            Graphics.PreferredBackBufferHeight = height;
+            Graphics.ApplyChanges();
+        }
 
         #endregion
     }
