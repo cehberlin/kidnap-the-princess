@@ -17,16 +17,10 @@ namespace MagicWorld.StaticLevelContent
         private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell };
 
         #region ILevelLoader member
-        public Level Level
+
+        public void init(Level level)
         {
-            get
-            {
-                return level;
-            }
-            set
-            {
-                level = value;
-            }
+            this.level = level;
         }
 
         public Spells.SpellType[] UsableSpells
@@ -41,22 +35,11 @@ namespace MagicWorld.StaticLevelContent
             }
         }
 
-        public List<BasicGameElement> getGeneralObjects()
+        public List<BasicGameElement> getInteractingObjects()
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
             //TODO: Add the never moving zero layer
-            //The background.
-            Layer backgroundLayer = levelLoader.getLayerByName("Background");
-            foreach (Item item in backgroundLayer.Items)
-            {
-                TextureItem t = (TextureItem)item;
-                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
-                //b.Width = b.Texture.Width;
-                //b.Height = b.Texture.Height;
-                b.Width = (int)t.Origin.X * 2;
-                b.Height = (int)t.Origin.Y * 2;
-                elements.Add(b);
-            }
+
             //The platforms.
             Layer layer = levelLoader.getLayerByName("Middle");
             foreach (Item item in layer.Items)
@@ -69,6 +52,41 @@ namespace MagicWorld.StaticLevelContent
                 b.Height = (int)t.Origin.Y * 2;
                 elements.Add(b);
             }
+
+            //The ingredient layer.
+            Layer ingredientLayer = levelLoader.getLayerByName("Ingredients");
+            foreach (Item item in ingredientLayer.Items)
+            {
+                String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                Ingredient i = new Ingredient("Ingredients/"+ ingredientName, CollisionType.Passable, level, item.Position);
+                elements.Add(i);
+            }
+            return elements;
+        }
+
+        public List<BasicGameElement> getBackgroundObjects()
+        {
+            List<BasicGameElement> elements = new List<BasicGameElement>();
+
+            //The background.
+            Layer backgroundLayer = levelLoader.getLayerByName("Background");
+            foreach (Item item in backgroundLayer.Items)
+            {
+                TextureItem t = (TextureItem)item;
+                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
+                //b.Width = b.Texture.Width;
+                //b.Height = b.Texture.Height;
+                b.Width = (int)t.Origin.X * 2;
+                b.Height = (int)t.Origin.Y * 2;
+                elements.Add(b);
+            }
+
+            return elements;
+        }
+
+        public List<BasicGameElement> getForegroundObjects()
+        {
+            List<BasicGameElement> elements = new List<BasicGameElement>();
             //The front layer.
             Layer frontLayer = levelLoader.getLayerByName("Front");
             foreach (Item item in frontLayer.Items)
@@ -81,14 +99,7 @@ namespace MagicWorld.StaticLevelContent
                 b.Height = (int)t.Origin.Y * 2;
                 elements.Add(b);
             }
-            //The ingredient layer.
-            Layer ingredientLayer = levelLoader.getLayerByName("Ingredients");
-            foreach (Item item in ingredientLayer.Items)
-            {
-                String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                Ingredient i = new Ingredient("Ingredients/"+ ingredientName, CollisionType.Passable, level, item.Position);
-                elements.Add(i);
-            }
+
             return elements;
         }
 
@@ -119,6 +130,7 @@ namespace MagicWorld.StaticLevelContent
             Vector2 right = levelLoader.getItemByName("rightCorner").Position;
             return new HelperClasses.Bounds(left, right.X - left.X, right.Y - left.Y);
         }
+
         #endregion
 
         Gleed2dLevelLoader levelLoader;
@@ -127,5 +139,6 @@ namespace MagicWorld.StaticLevelContent
         {
             levelLoader = Gleed2dLevelLoader.FromFile("Content/LevelData/level" + levelNumber.ToString() + ".xml");
         }
+
     }
 }

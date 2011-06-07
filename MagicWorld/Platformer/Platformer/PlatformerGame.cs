@@ -29,8 +29,6 @@ namespace MagicWorld
         public PlatformerGame()
         {
             graphics = new GraphicsDeviceManager(this);
-            //graphics.PreferredBackBufferWidth = 1200; //looks not good
-            //graphics.PreferredBackBufferHeight = 800;
             
             //Content.RootDirectory = "Content";
             // Create the screen manager component.

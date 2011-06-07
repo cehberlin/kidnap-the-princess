@@ -23,7 +23,12 @@ namespace MagicWorld.StaticLevelContent
 
         #region LevelLoader Member
 
-        public List<BasicGameElement> getGeneralObjects()
+        public void init(Level level)
+        {
+            this.level = level;
+        }
+
+        public List<BasicGameElement> getInteractingObjects()
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
 
@@ -43,6 +48,18 @@ namespace MagicWorld.StaticLevelContent
             elements.Add(ingredient3);
             
             return elements;
+        }
+
+        public List<BasicGameElement> getBackgroundObjects()
+        {
+            List<BasicGameElement> backgroundObjects = new List<BasicGameElement>();
+            return backgroundObjects;
+        }
+
+        public List<BasicGameElement> getForegroundObjects()
+        {
+            List<BasicGameElement> foregroundObjects = new List<BasicGameElement>();
+            return foregroundObjects;
         }
 
         public Vector2 getPlayerStartPosition()
@@ -71,18 +88,6 @@ namespace MagicWorld.StaticLevelContent
         public HelperClasses.Bounds getLevelBounds()
         {
             return new HelperClasses.Bounds(0, 0, 5000, 500);
-        }
-
-        public Level Level
-        {
-            get
-            {
-                return level;
-            }
-            set
-            {
-                this.level = value;
-            }
         }
 
         #endregion
