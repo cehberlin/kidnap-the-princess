@@ -65,7 +65,7 @@ namespace MagicWorld
         /// </summary>
         void ControlsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            
+            ScreenManager.AddScreen(new ControlsMenu(), e.PlayerIndex);
         }
 
         /// <summary>
