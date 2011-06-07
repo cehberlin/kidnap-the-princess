@@ -13,6 +13,7 @@ keyboard movement: wasd
   * Exit Game -> "Esc"
   * Debug
     * Graphical Debugmode -> F3
+       * shows bounds of all interactable game elements 
     * No Mana Costs -> F2
     * Level Win, Next Level -> F4
     * Toggle no gravity influence on player ->F5
