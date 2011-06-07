@@ -73,6 +73,11 @@ namespace MagicWorld.DynamicLevelContent
 
         protected Color debugColor = Color.White;
 
+        /// <summary>
+        /// enables and disables debug only for this objects
+        /// </summary>
+        public Boolean PrivateDebug = true;
+
         #endregion
 
         protected Level level;
@@ -99,7 +104,7 @@ namespace MagicWorld.DynamicLevelContent
 
         public virtual void Draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            if (DebugValues.DEBUG)
+            if (DebugValues.DEBUG && PrivateDebug)
             {
                 spriteBatch.Draw(debugTexture, Bounds.getRectangle(), debugColor);
             }

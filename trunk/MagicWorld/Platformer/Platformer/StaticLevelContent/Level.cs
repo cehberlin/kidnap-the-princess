@@ -53,6 +53,10 @@ namespace MagicWorld
             set { generalColliadableGameElements = value; }
         }
 
+        private List<BasicGameElement> backgroundGameElements = new List<BasicGameElement>();
+
+        private List<BasicGameElement> foregroundGameElements = new List<BasicGameElement>();
+
         private List<BasicGameElement> collectedIngredients = new List<BasicGameElement>();
 
         public List<BasicGameElement> CollectedIngredients
@@ -182,12 +186,24 @@ namespace MagicWorld
 
 
         protected void initLevel(){
-            levelLoader.Level = this;
+            levelLoader.init(this);
 
             timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
 
-            generalColliadableGameElements = levelLoader.getGeneralObjects();
+            generalColliadableGameElements = levelLoader.getInteractingObjects();
 
+            backgroundGameElements = levelLoader.getBackgroundObjects();
+
+            foregroundGameElements = levelLoader.getForegroundObjects();
+
+            //disable debug for background and foreground objects
+            foreach(BasicGameElement b in backgroundGameElements){
+                b.PrivateDebug = false;
+            }
+            foreach (BasicGameElement b in foregroundGameElements)
+            {
+                b.PrivateDebug = false;
+            }
 
             maxIngredientsCount = ingredients.Count;
 
@@ -296,6 +312,12 @@ namespace MagicWorld
         /// <param name="gameTime"></param>
         private void UpdateObjects(GameTime gameTime)
         {
+            //update background
+            foreach (BasicGameElement elem in backgroundGameElements)
+            {
+                elem.Update(gameTime);
+            }
+
             List<BasicGameElement> removableObjects = new List<BasicGameElement>();
             foreach(BasicGameElement elem in   generalColliadableGameElements)               
             {
@@ -330,6 +352,12 @@ namespace MagicWorld
             foreach (BasicGameElement elem in removableObjects)
             {
                 generalColliadableGameElements.Remove(elem);
+            }
+
+            //update foreground
+            foreach (BasicGameElement elem in foregroundGameElements)
+            {
+                elem.Update(gameTime);
             }
         }
 
@@ -404,10 +432,18 @@ namespace MagicWorld
         /// </summary>
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            endPoint.Draw(gameTime, spriteBatch);
-            
-            foreach (BasicGameElement elem in generalColliadableGameElements)
+            //update background
+            foreach (BasicGameElement elem in backgroundGameElements)
+            {
                 elem.Draw(gameTime, spriteBatch);
+            }
+
+            endPoint.Draw(gameTime, spriteBatch);
+
+            foreach (BasicGameElement elem in generalColliadableGameElements)
+            {
+                elem.Draw(gameTime, spriteBatch);
+            }
 
             Player.Draw(gameTime, spriteBatch);
 
@@ -415,6 +451,13 @@ namespace MagicWorld
             SmokeParticleSystem.Draw(gameTime, spriteBatch);
             MagicParticleSystem.Draw(gameTime, spriteBatch);
             ExplosionSmokeParticleSystem.Draw(gameTime, spriteBatch);
+
+            //update background
+            foreach (BasicGameElement elem in foregroundGameElements)
+            {
+                elem.Draw(gameTime, spriteBatch);
+            }
+
         }
 
         #endregion
