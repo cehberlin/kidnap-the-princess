@@ -73,7 +73,7 @@
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Controls\DefaultControl.cs" />
     <Compile Include="Controls\IPlayerControl.cs" />
-    <Compile Include="Controls\KeyboardControl.cs" />
+    <Compile Include="Controls\LaptopControl.cs" />
     <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
     <Compile Include="DynamicLevelContent\DynamicBlockElement.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
     <Compile Include="ScreenManager\Screens\BackgroundScreen.cs" />
+    <Compile Include="ScreenManager\Screens\ControlsMenu.cs" />
     <Compile Include="ScreenManager\Screens\GameplayScreen.cs" />
     <Compile Include="ScreenManager\Screens\LoadingScreen.cs" />
     <Compile Include="ScreenManager\Screens\MainMenuScreen.cs" />

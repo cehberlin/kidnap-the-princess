@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MagicWorld.Controls
 {
-    class KeyboardControl : IPlayerControl
+    class LaptopControl : IPlayerControl
     {
         public Microsoft.Xna.Framework.Input.Buttons GamePad_CastSelectedSpellA
         {
