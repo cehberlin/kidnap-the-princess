@@ -143,7 +143,7 @@ namespace MagicWorld.HUDClasses
                     //TODO: remove 1000 and get the value dynamically
                     manaBar.Update(l.Player.Mana.CurrentMana, 1000);
                     //TODO: clarify this. where are the counters?
-                    ingredientBar.SetState(l.CollectedIngredients.Count, 0, l.MaxIngredientsCount);
+                    ingredientBar.SetState(l.CollectedIngredients.Count, l.NeededIngredients, l.MaxIngredientsCount);
                     //TODO: Constant polling is not good, call back is better.
                     spellBarLeft.Update(l.Player.selectedSpell_A);
                     spellBarRight.Update(l.Player.selectedSpell_B);
