@@ -9,7 +9,6 @@
 
 = in Progress =
 
-  * Improve the level classes -> Pascal
   * Hud completion -> Pascal
   * Class Ingredients -> John
 
@@ -33,7 +32,8 @@
 
 ==work for next milestone==
 
-
+ * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player.
+ * Stop playing the background music when exiting the GamePlayScreen.
 
 == deferred work ==
 
