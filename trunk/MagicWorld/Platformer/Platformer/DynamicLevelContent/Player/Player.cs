@@ -11,6 +11,7 @@ using MagicWorld.DynamicLevelContent;
 using MagicWorld.HelperClasses;
 using System.Collections.Generic;
 using MagicWorld.Controls;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
@@ -19,19 +20,8 @@ namespace MagicWorld
     /// </summary>
     public class Player : BasicGameElement
     {
-
-        #region physics constants
-        // Constants for controlling vertical movement
-        private const float MaxJumpTime = 0.18f;//0.15f//0.25f; //original 0.35f
-        private const float JumpLaunchVelocity = -3500.0f;
-        private const float GravityAcceleration = 3400.0f;
-        private const float MaxFallSpeed = 550.0f;
-        private const float JumpControlPower = 0.14f;
-
-        private const double MAX_NO_GRAVITY_TIME = 1000;
-
-        #endregion
-
+        #region input constants 
+        //TODO PUT INTO CLASS/INTERFACE
         public const Keys FullscreenToggleKey = Keys.F11;
         public const Keys ExitGameKey = Keys.Escape;
 
@@ -39,25 +29,13 @@ namespace MagicWorld
         public const Keys DEBUG_NO_MANA_COST = Keys.F2;
         public const Keys DEBUG_NEXT_LEVEL = Keys.F4;
         public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F5;
-
-
+        
         // Input configuration
         private const float MoveStickScale = 1.0f;
-        private const float AccelerometerScale = 1.5f;
-
-
-        public SpellType[] UsableSpells { get; private set; }
-
-
-        #region "movment constants"
-
-        // Constants for controling horizontal movement
-        private const float MoveAcceleration = 13000.0f;
-        private const float MaxMoveSpeed = 1750.0f;
-        private const float GroundDragFactor = 0.48f;
-        private const float AirDragFactor = 0.58f;
 
         #endregion
+
+        public SpellType[] UsableSpells { get; private set; }
 
 
         #region "Animation & sound"
@@ -140,7 +118,7 @@ namespace MagicWorld
                 isOnGround = value;
                 if (isOnGround)
                 {
-                    gravityInfluenceMaxTime = MAX_NO_GRAVITY_TIME;
+                    gravityInfluenceMaxTime = PhysicValues.PLAYER_MAX_NO_GRAVITY_TIME;
                 }
             }
         }
@@ -352,7 +330,7 @@ namespace MagicWorld
         Boolean isFalling = false;
         Boolean disableGravity = false;
 
-        Double gravityInfluenceMaxTime = MAX_NO_GRAVITY_TIME;
+        Double gravityInfluenceMaxTime = PhysicValues.PLAYER_MAX_NO_GRAVITY_TIME;
 
         /// <summary>
         /// Updates the player's velocity and position based on input, gravity, etc.
@@ -365,7 +343,7 @@ namespace MagicWorld
 
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
-            velocity.X += movement * MoveAcceleration * elapsed;
+            velocity.X += movement * PhysicValues.PLAYER_MOVE_ACCELERATION * elapsed;
             if (disableGravity && gravityInfluenceMaxTime > 0)
             {
                 if (isFalling)
@@ -374,26 +352,36 @@ namespace MagicWorld
                 }
                 else
                 {
-                    velocity.Y = MathHelper.Clamp(velocity.Y, -MaxFallSpeed, MaxFallSpeed);
+                    velocity.Y = MathHelper.Clamp(velocity.Y, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
                 }
             }
             else
             {
-                velocity.Y = MathHelper.Clamp(velocity.Y + GravityAcceleration * elapsed, -MaxFallSpeed, MaxFallSpeed);
+                velocity.Y = MathHelper.Clamp(velocity.Y + PhysicValues.PLAYER_GRAVITY_ACCELERATIOPM * elapsed, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
             }
 
             velocity.Y = DoJump(velocity.Y, gameTime);
 
             // Apply pseudo-drag horizontally.
             if ((IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
-                velocity.X *= GroundDragFactor;
+                velocity.X *= PhysicValues.PLAYER_GROUND_DRAG_FACTOR;
             else
-                velocity.X *= AirDragFactor;
+                velocity.X *= PhysicValues.PLAYER_AIR_DRAG_FACTOR;
 
             // Prevent the player from running faster than his top speed.            
-            velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
+            velocity.X = MathHelper.Clamp(velocity.X, -PhysicValues.PLAYER_MAX_MOVE_SPEED, PhysicValues.PLAYER_MAX_MOVE_SPEED);
 
-            Position += velocity * elapsed;
+            if (IsCasting)
+            {
+                Position += velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR;
+                Debug.WriteLine("PHYSICSPLAYER " +( velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR));
+            }
+            else
+            {
+                Position += velocity * elapsed;
+                Debug.WriteLine("PHYSICSPLAYER " + (velocity * elapsed));
+            }
+            
 
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
 
@@ -448,10 +436,10 @@ namespace MagicWorld
                 }
 
                 // If we are in the ascent of the jump
-                if (0.0f < jumpTime && jumpTime <= MaxJumpTime)
+                if (0.0f < jumpTime && jumpTime <= PhysicValues.PLAYER_MAX_JUMP_TIME)
                 {
                     // Fully override the vertical velocity with a power curve that gives players more control over the top of the jump
-                    velocityY = JumpLaunchVelocity * (1.0f - (float)Math.Pow(jumpTime / MaxJumpTime, JumpControlPower));
+                    velocityY = PhysicValues.PLAYER_JUMP_LAUNCH_VELOCITY * (1.0f - (float)Math.Pow(jumpTime / PhysicValues.PLAYER_MAX_JUMP_TIME, PhysicValues.PLAYER_JUMP_CONTROL_POWER));
                 }
                 else
                 {

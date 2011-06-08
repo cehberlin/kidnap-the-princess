@@ -46,7 +46,7 @@ namespace MagicWorld.DynamicLevelContent
             //it resets the flag
             if (isGravity && !gravityIsSetOffBySpell)
             {
-                level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY);
+                level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY,gameTime);
             }
             else
             {

@@ -66,7 +66,7 @@ namespace MagicWorld.HelperClasses
 
         public static void releaseSpell(Player player)
         { 
-            Debug.WriteLine("WARMSPELL:FIRED after button release");
+            Debug.WriteLine("SPELL:FIRED after button release");
             player.CurrentSpell.FireUp();
             player.CurrentSpell = null;
         }

@@ -24,11 +24,11 @@ namespace MagicWorld.HelperClasses.Collision
         /// <param name="elem">the game element</param>
         /// <param name="acceleration">the vector with which strength and direction the gravity goes</param>
         /// <returns>True if has influence,false if not</returns>
-        public virtual bool ApplyGravity(BasicGameElement elem, Vector2 acceleration)
+        public virtual bool ApplyGravity(BasicGameElement elem, Vector2 acceleration,GameTime time)
         {
             Vector2 oldPos = elem.Position;
 
-            elem.Position += acceleration;
+            elem.Position += acceleration*(float)time.ElapsedGameTime.TotalMilliseconds;
 
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(elem, ref collisionObjects);

@@ -214,8 +214,8 @@ namespace ParticleEffects
         /// it can. This means that if there not enough particles available, calling
         /// AddParticles will have no effect.
         /// </summary>
-        /// <param name="where">where the particle effect should be created</param>
-        public void AddParticles(Vector2 where)
+        /// <param name="pos_center">where the particle effect should be created</param>
+        public void AddParticles(Vector2 pos_center)
         {
             // the number of particles we want for this effect is a random number
             // somewhere between the two constants specified by the subclasses.
@@ -227,7 +227,7 @@ namespace ParticleEffects
             {
                 // grab a particle from the freeParticles queue, and Initialize it.
                 Particle p = freeParticles.Dequeue();
-                InitializeParticle(p, where);               
+                InitializeParticle(p, pos_center);               
             }
         }
 
@@ -239,13 +239,15 @@ namespace ParticleEffects
         /// accelerate to the right, simulating wind.
         /// </summary>
         /// <param name="p">the particle to initialize</param>
-        /// <param name="where">the position on the screen that the particle should be
+        /// <param name="pos_center">the position on the screen that the particle should be
         /// </param>
-        protected virtual void InitializeParticle(Particle p, Vector2 where)
+        protected virtual void InitializeParticle(Particle p, Vector2 pos_center)
         {
+
+            Vector2 startPosition = getStartPositionRelativeToCenter(pos_center);
             // first, call PickRandomDirection to figure out which way the particle
             // will be moving. velocity and acceleration's values will come from this.
-            Vector2 direction = PickRandomDirection();
+            Vector2 direction = PickRandomDirection(pos_center,startPosition);
 
             // pick some random values for our particle
             float velocity = 
@@ -262,8 +264,13 @@ namespace ParticleEffects
             // then initialize it with those random values. initialize will save those,
             // and make sure it is marked as active.
             p.Initialize(
-                where, velocity * direction, acceleration * direction,
+                startPosition, velocity * direction, acceleration * direction,
                 lifetime, scale, rotationSpeed,getParticleTextureColor());
+        }
+
+        protected virtual Vector2 getStartPositionRelativeToCenter(Vector2 pos_center)
+        {
+            return pos_center;
         }
 
         /// <summary>
@@ -271,7 +278,7 @@ namespace ParticleEffects
         /// particles will move. The default implementation is a random vector in a
         /// circular pattern.
         /// </summary>
-        protected virtual Vector2 PickRandomDirection()
+        protected virtual Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
         {
             float angle = RandomBetween(0, MathHelper.TwoPi);
             return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
