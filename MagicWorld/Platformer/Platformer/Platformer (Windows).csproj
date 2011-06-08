@@ -80,6 +80,7 @@
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionSmokeParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\MatterCreationParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\MagicParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\Particle.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ParticleSystem.cs" />

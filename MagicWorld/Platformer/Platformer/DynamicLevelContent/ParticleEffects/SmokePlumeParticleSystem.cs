@@ -73,7 +73,7 @@ namespace ParticleEffects
         /// move have an initial velocity pointing up.
         /// </summary>
         /// <returns>a random direction which points basically up.</returns>
-        protected override Vector2 PickRandomDirection()
+        protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
         {
             // Point the particles somewhere between 80 and 100 degrees.
             // tweak this to make the smoke have more or less spread.
