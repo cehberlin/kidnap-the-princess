@@ -17,7 +17,7 @@ namespace MagicWorld
     public class Animation
     {
         /// <summary>
-        /// All frames in the animation arranged horizontally.
+        /// The spritesheet containing the animation.
         /// </summary>
         public Texture2D Texture
         {
@@ -71,7 +71,6 @@ namespace MagicWorld
             get { return Texture.Height; }
         }
 
-
         public float Scale = 1.0f;
 
         public Color TextureColor = Color.White;
@@ -101,13 +100,13 @@ namespace MagicWorld
         /// <summary>
         /// Constructs a new animation out of a multilined spritesheet. Also supports more than one animation.
         /// </summary>
-        public Animation(string SpriteSheet, float frameTime, bool isLooping, int frameCount, Texture2D texture)
+        public Animation(string SpriteSheet, float frameTime, int frameCount, Texture2D texture, int number)
         {
             this.texture = texture;
             this.frameCount = frameCount;
             this.frameTime = frameTime;
-            this.isLooping = isLooping;
-            Frames = AnimationLoader.FromFile(SpriteSheet).GetFrames();
+            this.isLooping = true;
+            Frames = AnimationLoader.FromFile(SpriteSheet).GetAnimationFrames(number);
         }
     }
 }
