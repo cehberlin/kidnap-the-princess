@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<AnimationLoader FrameCount="3" FrameWidth="50" FrameHeight="9" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AnimationLoader FrameCount="3" FrameWidth="50" FrameHeight="29" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Frames>
     <Frame>
       <Position>
@@ -14,7 +14,7 @@
     <Frame>
       <Position>
         <X>
-          140
+          50
         </X>
         <Y>
           0
@@ -24,7 +24,7 @@
     <Frame>
       <Position>
         <X>
-          280
+          100
         </X>
         <Y>
           0
