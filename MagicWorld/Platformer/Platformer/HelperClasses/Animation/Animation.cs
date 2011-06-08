@@ -54,21 +54,25 @@ namespace MagicWorld
             get { return frameCount; }
         }
 
+        int frameWidth;
         /// <summary>
         /// Gets the width of a frame in the animation.
         /// </summary>
         public int FrameWidth
         {
             // Assume square frames.
-            get { return Texture.Width / frameCount; }
+            get { return frameWidth; }
+            internal set { frameWidth = value; }
         }
 
+        int frameHeight;
         /// <summary>
         /// Gets the height of a frame in the animation.
         /// </summary>
         public int FrameHeight
         {
-            get { return Texture.Height; }
+            get { return frameHeight; }
+            internal set { frameHeight = value; }
         }
 
         public float Scale = 1.0f;
@@ -107,6 +111,8 @@ namespace MagicWorld
             this.frameTime = frameTime;
             this.isLooping = true;
             Frames = AnimationLoader.FromFile(SpriteSheet).GetAnimationFrames(number);
+            this.frameHeight = Frames[0].Height;
+            this.frameWidth = Frames[0].Width;
         }
     }
 }

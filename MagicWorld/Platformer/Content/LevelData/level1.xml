@@ -1037,7 +1037,7 @@
                 <Item xsi:type="CircleItem" Name="start" Visible="true">
                     <Position>
                         <X>-64</X>
-                        <Y>448</Y>
+                        <Y>310</Y>
                     </Position>
                     <CustomProperties />
                     <Radius>34.9284973</Radius>
