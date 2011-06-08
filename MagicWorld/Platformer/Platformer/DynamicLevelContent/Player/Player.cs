@@ -452,7 +452,7 @@ namespace MagicWorld
                     if (Velocity.X > 0)
                         sprite.PlayAnimation(jumpRightAnimation);
                     else
-                        sprite.PlayAnimation(jumpRightAnimation);
+                        sprite.PlayAnimation(jumpLeftAnimation);
                 }
 
                 // If we are in the ascent of the jump
