@@ -67,6 +67,14 @@ namespace MagicWorld.HUDClasses
         Texture2D wind;
         Texture2D water;
         /// <summary>
+        /// The texture for the current left spell.
+        /// </summary>
+        Texture2D leftSpell;
+        /// <summary>
+        /// The texture for the current right spell.
+        /// </summary>
+        Texture2D rightSpell;
+        /// <summary>
         /// True if the gameplay screen is active and in the foreground. 
         /// If false hud is neither updated nor drawn.
         /// </summary>
@@ -90,9 +98,9 @@ namespace MagicWorld.HUDClasses
             screenManager = (ScreenManager)game.Services.GetService(typeof(ScreenManager));
             manaBar = new ManaBar(position);
             ingredientBar = new IngredientBar(new Vector2(resolution.X / 2, position.Y));
-            spellBarLeft = new SpellBar(new Vector2(resolution.X / 0.75f, position.Y));
+            spellBarLeft = new SpellBar(new Vector2(resolution.X * 0.75f, position.Y));
             spellBarLeft.Width = 100;
-            spellBarRight = new SpellBar(new Vector2(resolution.X / 0.75f + spellBarLeft.Width, position.Y));
+            spellBarRight = new SpellBar(new Vector2(resolution.X * 0.75f + spellBarLeft.Width, position.Y));
 
             //TODO: Level will not remain a service so we need to replace this in the future with the real service.
             gsc = game.Services;
@@ -117,6 +125,9 @@ namespace MagicWorld.HUDClasses
             manaBar.Filling = new Rectangle((int)position.X + 3, (int)position.Y + 30, bottleTex.Width - 6, bottleTex.Height - 30);
             manaBar.Height = bottleTex.Height;
             manaBar.Width = bottleTex.Width;
+
+            leftSpell = cold;
+            rightSpell = heat;
             base.LoadContent();
         }
 
@@ -128,10 +139,14 @@ namespace MagicWorld.HUDClasses
                 if (!(l == null))
                 {
                     //TODO: remove 1000 and get the value dynamically
-                    manaBar.Update(l.Player.Mana.CurrentMana,1000);
+                    manaBar.Update(l.Player.Mana.CurrentMana, 1000);
                     //TODO: clarify this. where are the counters?
                     ingredientBar.SetState(l.CollectedIngredients.Count, 0, l.MaxIngredientsCount);
                     //spells
+                    spellBarLeft.Update(l.Player.selectedSpell_A);
+                    spellBarRight.Update(l.Player.selectedSpell_B);
+                    UpdateRunes(l.Player.selectedSpell_A, leftSpell);
+                    UpdateRunes(l.Player.selectedSpell_B, rightSpell);
                 }
                 if (!screenManager.IsGameplayScreenActive())
                 {
@@ -156,8 +171,35 @@ namespace MagicWorld.HUDClasses
                 spriteBatch.Draw(liquidTex, manaBar.Filling, Color.White);
                 spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
                 spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, Color.White);
+
+                //spriteBatch.DrawString(font, spellBarLeft.CurrentSpell.ToString(), spellBarLeft.Position, Color.White);
+                //spriteBatch.DrawString(font, spellBarRight.CurrentSpell.ToString(), spellBarRight.Position, Color.White);
+                spriteBatch.Draw(leftSpell, spellBarLeft.Position, Color.White);
+                spriteBatch.Draw(rightSpell, spellBarRight.Position, Color.White);
+
                 spriteBatch.End();
                 base.Draw(gameTime);
+            }
+        }
+
+        private void UpdateRunes(Spells.SpellType s, Texture2D tex)
+        {
+            switch (s)
+            {
+                case Spells.SpellType.ColdSpell:
+                    tex = cold;
+                    break;
+                case Spells.SpellType.CreateMatterSpell:
+                    tex = matter;
+                    break;
+                case Spells.SpellType.NoGravitySpell:
+                    tex = antigrav;
+                    break;
+                case Spells.SpellType.WarmingSpell:
+                    tex = heat;
+                    break;
+                default:
+                    throw new NotImplementedException();
             }
         }
 
