@@ -172,7 +172,15 @@ namespace MagicWorld
                 }
                 else if (level.ReachedExit)
                 {
-                    LoadNextLevel();
+                    if(level.Ingredients.Count <= level.NeededIngredients)
+                    {
+
+                    }
+                    else
+                    {
+                        LoadNextLevel();
+                    }
+
                 }
             }
 

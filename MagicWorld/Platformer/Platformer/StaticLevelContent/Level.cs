@@ -53,6 +53,13 @@ namespace MagicWorld
             set { collectedIngredients = value; }
         }
 
+        // needed ingredients
+        private const int neededIngredients = 5;
+        public int NeededIngredients
+        {
+            get { return neededIngredients; }
+        }
+
         private List<BasicGameElement> ingredients = new List<BasicGameElement>();
 
         public List<BasicGameElement> Ingredients
