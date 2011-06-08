@@ -1,13 +1,4 @@
-﻿#region File Description
-//-----------------------------------------------------------------------------
-// Level.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -39,9 +30,6 @@ namespace MagicWorld
             get { return player; }
         }
         Player player;
-
-        
-
 
         // Physical structure of the level.
 
