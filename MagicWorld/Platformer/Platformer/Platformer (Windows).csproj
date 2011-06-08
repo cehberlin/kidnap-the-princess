@@ -102,7 +102,7 @@
     <Compile Include="HUDClasses\IngredientBar.cs" />
     <Compile Include="HUDClasses\ManaBar.cs" />
     <Compile Include="HUDClasses\SpellBar.cs" />
-    <Compile Include="HelperClasses\Ingredients\Ingredient.cs" />
+    <Compile Include="Ingredients\Ingredient.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />
