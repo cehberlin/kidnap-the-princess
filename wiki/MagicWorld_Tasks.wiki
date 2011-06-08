@@ -36,6 +36,7 @@
  * Stop playing the background music when exiting the GamePlayScreen.
  * Menu Entry for Options should be in the middle and the Quit Option at the bottom.
  * Enable multilined SpriteSheets. (Highly optional: Eable spritesheets with more than one animation.)
+ * Put Debug Controls also into a nencapsulated interface
 
 == deferred work ==
 
