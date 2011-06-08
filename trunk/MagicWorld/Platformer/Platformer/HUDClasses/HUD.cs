@@ -145,8 +145,8 @@ namespace MagicWorld.HUDClasses
                     //spells
                     spellBarLeft.Update(l.Player.selectedSpell_A);
                     spellBarRight.Update(l.Player.selectedSpell_B);
-                    UpdateRunes(l.Player.selectedSpell_A, leftSpell);
-                    UpdateRunes(l.Player.selectedSpell_B, rightSpell);
+                    UpdateRunes(l.Player.selectedSpell_A, ref leftSpell);
+                    UpdateRunes(l.Player.selectedSpell_B, ref rightSpell);
                 }
                 if (!screenManager.IsGameplayScreenActive())
                 {
@@ -171,18 +171,14 @@ namespace MagicWorld.HUDClasses
                 spriteBatch.Draw(liquidTex, manaBar.Filling, Color.White);
                 spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
                 spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, Color.White);
-
-                //spriteBatch.DrawString(font, spellBarLeft.CurrentSpell.ToString(), spellBarLeft.Position, Color.White);
-                //spriteBatch.DrawString(font, spellBarRight.CurrentSpell.ToString(), spellBarRight.Position, Color.White);
                 spriteBatch.Draw(leftSpell, spellBarLeft.Position, Color.White);
                 spriteBatch.Draw(rightSpell, spellBarRight.Position, Color.White);
-
                 spriteBatch.End();
                 base.Draw(gameTime);
             }
         }
 
-        private void UpdateRunes(Spells.SpellType s, Texture2D tex)
+        private void UpdateRunes(Spells.SpellType s, ref Texture2D tex)
         {
             switch (s)
             {
