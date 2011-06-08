@@ -97,9 +97,6 @@ namespace MagicWorld
                 }
             }
 
-            // Calculate the source rectangle of the current frame.
-            //Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth, 0, Animation.FrameWidth, Animation.FrameHeight);
-
             // Draw the current frame.
             //spriteBatch.Draw(Animation.Texture, position, source, Animation.TextureColor, rotation, Origin, Animation.Scale, spriteEffects, 0.0f);
             spriteBatch.Draw(Animation.Texture, position, Animation.Frames[frameIndex], Animation.TextureColor, rotation, Vector2.Zero, Animation.Scale, spriteEffects, 0f);
