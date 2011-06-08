@@ -31,5 +31,12 @@ namespace MagicWorld.HUDClasses
         {
             get { return current.ToString() + "/" + needed.ToString() + "/" + max.ToString(); }
         }
+
+        public void SetState(int cur, int need, int total)
+        {
+            current = cur;
+            needed = need;
+            max = total;
+        }
     }
 }

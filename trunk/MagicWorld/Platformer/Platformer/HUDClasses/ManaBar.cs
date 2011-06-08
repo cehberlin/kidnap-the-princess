@@ -19,7 +19,7 @@ namespace MagicWorld.HUDClasses
             get
             {
                 return new Rectangle(filling.X,
-                    filling.Y+(int)((Height/100)*(100-status)),
+                    filling.Y,
                     filling.Width,
                     (int)((float)filling.Height / (float)100 * status));
             }
@@ -30,6 +30,11 @@ namespace MagicWorld.HUDClasses
             : base(pos)
         {
             status = 100;
+        }
+
+        public void Update(int currentMana, int maxMana)
+        {
+            this.status = currentMana * 100 / maxMana;
         }
     }
 }
