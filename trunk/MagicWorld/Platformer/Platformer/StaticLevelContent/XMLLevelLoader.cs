@@ -61,6 +61,15 @@ namespace MagicWorld.StaticLevelContent
                 Ingredient i = new Ingredient("Ingredients/"+ ingredientName, CollisionType.Passable, level, item.Position);
                 elements.Add(i);
             }
+            //The ingredient layer.
+            Layer enemiesLayer = levelLoader.getLayerByName("Enemies");
+            foreach (Item item in enemiesLayer.Items)
+            {
+                String monsterName = (String)item.CustomProperties["Enemy"].value;
+                Enemy i = new Enemy(level, item.Position, monsterName);
+                elements.Add(i);
+            }
+
             return elements;
         }
 
