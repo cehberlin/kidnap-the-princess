@@ -9,7 +9,7 @@
 
 = in Progress =
 
-  * Hud completion -> Pascal
+  * Rework animation class -> Pascal
   * Class Ingredients -> John
 
 
