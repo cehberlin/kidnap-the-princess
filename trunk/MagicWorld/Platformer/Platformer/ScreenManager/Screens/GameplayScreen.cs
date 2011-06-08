@@ -121,7 +121,7 @@ namespace MagicWorld
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
 
-            //camera.Pos = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
+            camera.Pos = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
         }
 
 
