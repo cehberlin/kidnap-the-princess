@@ -46,7 +46,7 @@ namespace MagicWorld.HelperClasses.Animation
             return animationLoader;
         }
 
-        //TODO: add getter for frames and animations
+        //TODO: Finish adding getters
         public List<Rectangle> GetFrames()
         {
             List<Rectangle> r = new List<Rectangle>();
@@ -59,7 +59,7 @@ namespace MagicWorld.HelperClasses.Animation
 
         public List<Rectangle> GetAnimationFrames(int animationNumber)
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
     

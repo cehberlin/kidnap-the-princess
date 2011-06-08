@@ -77,6 +77,9 @@ namespace MagicWorld.HUDClasses
         ContentManager content;
         #endregion
 
+        //TODO: Level will not remain a service so we need to replace this in the future with the real service.
+        GameServiceContainer gsc;
+
         public HUD(Game game)
             : base(game)
         {
@@ -90,6 +93,9 @@ namespace MagicWorld.HUDClasses
             spellBarLeft = new SpellBar(new Vector2(resolution.X / 0.75f, position.Y));
             spellBarLeft.Width = 100;
             spellBarRight = new SpellBar(new Vector2(resolution.X / 0.75f + spellBarLeft.Width, position.Y));
+
+            //TODO: Level will not remain a service so we need to replace this in the future with the real service.
+            gsc = game.Services;
         }
 
         protected override void LoadContent()
@@ -108,7 +114,7 @@ namespace MagicWorld.HUDClasses
             font = content.Load<SpriteFont>("Content/Fonts/Hud");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
-            manaBar.Filling = new Rectangle((int)position.X+3, (int)position.Y+30, bottleTex.Width-6, bottleTex.Height-30);
+            manaBar.Filling = new Rectangle((int)position.X + 3, (int)position.Y + 30, bottleTex.Width - 6, bottleTex.Height - 30);
             manaBar.Height = bottleTex.Height;
             manaBar.Width = bottleTex.Width;
             base.LoadContent();
@@ -116,11 +122,17 @@ namespace MagicWorld.HUDClasses
 
         public override void Update(GameTime gameTime)
         {
+            Level l = (Level)gsc.GetService(typeof(Level));
             if (visible)
             {
-                //manabar.filling
-                //ingredients
-                //spells
+                if (!(l == null))
+                {
+                    //TODO: remove 1000 and get the value dynamically
+                    manaBar.Update(l.Player.Mana.CurrentMana,1000);
+                    //TODO: clarify this. where are the counters?
+                    ingredientBar.SetState(l.CollectedIngredients.Count, 0, l.MaxIngredientsCount);
+                    //spells
+                }
                 if (!screenManager.IsGameplayScreenActive())
                 {
                     visible = false;
@@ -148,7 +160,6 @@ namespace MagicWorld.HUDClasses
                 base.Draw(gameTime);
             }
         }
-
 
     }
 }

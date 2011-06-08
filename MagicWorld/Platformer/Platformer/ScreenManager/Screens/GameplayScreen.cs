@@ -270,6 +270,7 @@ namespace MagicWorld
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num));
+            ScreenManager.Game.Services.AddService(typeof(Level),level);
         }
         private void LoadNextLevel()
         {
