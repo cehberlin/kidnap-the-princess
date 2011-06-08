@@ -9,9 +9,7 @@
 
 = in Progress =
 
-  * Rework animation class -> Pascal
   * Class Ingredients -> John
-
 
 = TODO =
 ==work until next milestone ==
@@ -22,12 +20,13 @@
 
    * encapsulate important constants from all classes in some static classes as static changeable values (no const)
    * clean code wherever necessary 
+  * Check the collision resolution class and bounds of pplatforms and enemies. -> Flickering enemey bug + Teleporting player.
   * Better fitting animation for new matter spell 
-  * let camera follow the player
+  * let camera follow the player (needs fine tuning)
   * maybe let us think about a resolution independent implementation
     ( I recently tried this with our old prototype http://www.david-amador.com/2010/03/xna-2d-independent-resolution-rendering/ ) But I had problems with the cameraposition ..
   * online edit possebility for constants (Marian already working?)
-    
+  * draw zero layer
   
 
 ==work for next milestone==
@@ -53,3 +52,4 @@ Menu screens: creating the menus --> Amauri
 These both are done by Marian?? I think its finished in term of coding, but please change the keys ;-)
    * encapsulate controls, see or copy implementation from new started architecture to old one
    * implement new control style?
+   * Rework animation class -> Pascal
