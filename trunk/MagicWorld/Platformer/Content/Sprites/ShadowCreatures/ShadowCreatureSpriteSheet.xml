@@ -1,245 +1,245 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?> 
 <AnimationLoader FrameCount="24" FrameWidth="180" FrameHeight="180" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Frames>
-    <Frame>
-      <Position>
-        <X>
-          0
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          180
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          360
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          540
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          720
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          900
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1080
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1260
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1440
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1620
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1800
-        </X>
-        <Y>
-          0
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          0
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          180
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          360
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          540
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          720
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          900
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1080
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1260
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1440
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1620
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          1800
-        </X>
-        <Y>
-          180
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          0
-        </X>
-        <Y>
-          360
-        </Y>
-      </Position>
-    </Frame>
-    <Frame>
-      <Position>
-        <X>
-          180
-        </X>
-        <Y>
-          360
-        </Y>
-      </Position>
-    </Frame>
-  </Frames>
+<Frames>
+<Frame>
+<Position>
+<X>
+0
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+180
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+360
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+540
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+720
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+900
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1080
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1260
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1440
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1620
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1800
+</X>
+<Y>
+0
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+0
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+180
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+360
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+540
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+720
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+900
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1080
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1260
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1440
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1620
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+1800
+</X>
+<Y>
+180
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+0
+</X>
+<Y>
+360
+</Y>
+</Position>
+</Frame>
+<Frame>
+<Position>
+<X>
+180
+</X>
+<Y>
+360
+</Y>
+</Position>
+</Frame>
+</Frames>
 </AnimationLoader>
