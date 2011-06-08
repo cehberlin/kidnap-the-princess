@@ -633,7 +633,7 @@ namespace MagicWorld
 
             Vector2 pos;
             pos.X = Position.X + 20 * Direction.X;
-            pos.Y = Position.Y - Bounds.Height / 2;
+            pos.Y = Position.Y + Bounds.Height / 2;
 
             if (isCastingSpell)
             {
