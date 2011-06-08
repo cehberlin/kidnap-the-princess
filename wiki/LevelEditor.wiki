@@ -37,5 +37,6 @@ Note: Please name the xml level files "levelN.xml" where N is the number of the 
 As mention above the special layer holds information instead of textures.
 What was not covered before is the placement of the collectibles.
 Collectibles are added through circle primitives, but instead of naming them you have to add a custom property to them (John please elaborate!).
+--> use Gem as custom property in a circle
 
 In the future this layer will also be used to place enemies and their waypoints as well as all other game objects. 
