@@ -37,6 +37,7 @@
  * Menu Entry for Options should be in the middle and the Quit Option at the bottom.
  * Enable multilined SpriteSheets. (Highly optional: Eable spritesheets with more than one animation.)
  * Put Debug Controls also into a nencapsulated interface
+ * Enemy different behavior and general ki (old one was disabled, because is buggy)
 
 == deferred work ==
 
