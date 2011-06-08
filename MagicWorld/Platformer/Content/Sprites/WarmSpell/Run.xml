@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AnimationLoader FrameCount="3" FrameWidth="50" FrameHeight="9" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Frames>
+    <Frame>
+      <Position>
+        <X>
+          0
+        </X>
+        <Y>
+          0
+        </Y>
+      </Position>
+    </Frame>
+    <Frame>
+      <Position>
+        <X>
+          140
+        </X>
+        <Y>
+          0
+        </Y>
+      </Position>
+    </Frame>
+    <Frame>
+      <Position>
+        <X>
+          280
+        </X>
+        <Y>
+          0
+        </Y>
+      </Position>
+    </Frame>
+  </Frames>
+</AnimationLoader>

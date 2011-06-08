@@ -162,8 +162,6 @@ namespace MagicWorld
             LoadContent(spriteSet);
         }
 
-
-
         /// <summary>
         /// Loads a particular enemy sprite sheet and sounds.
         /// </summary>

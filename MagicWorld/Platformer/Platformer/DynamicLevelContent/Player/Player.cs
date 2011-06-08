@@ -64,10 +64,7 @@ namespace MagicWorld
 
 
         // Animations
-        //private Animation idleAnimation;
-        //private Animation runAnimation;
-        //private Animation jumpAnimation;
-        //private Animation celebrateAnimation;
+        //TODO: Draw the die Animation :(
         private Animation dieAnimation;
         private SpriteEffects flip = SpriteEffects.None;
         private AnimationPlayer sprite;
@@ -103,9 +100,6 @@ namespace MagicWorld
                 // Calculate bounds within texture size.
                 float width = (sprite.Animation.FrameWidth * 0.75f);
                 float height = (sprite.Animation.FrameHeight * 0.9f);
-                //float left = (float)Math.Round(Position.X - width / 2);
-                //float top = (float)Math.Round(Position.Y - height);
-                //return new Bounds(left, top, width, height);
                 return new Bounds(position, width, height);
             }
         }
@@ -212,17 +206,15 @@ namespace MagicWorld
         {
             //TODO: Make correct animations.
             // Load animated textures.
-            //idleAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
-            //runAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
-            //jumpAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
-            //celebrateAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
-            dieAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.04f, false,5);
             runRightAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 0);
             runLeftAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 1);
             jumpLeftAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 2);
             jumpRightAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 3);
             idleAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 1f, 1, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
+
+            dieAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.04f, false, 5);
             celebrateAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
+
             // Load sounds.            
             killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
             jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");

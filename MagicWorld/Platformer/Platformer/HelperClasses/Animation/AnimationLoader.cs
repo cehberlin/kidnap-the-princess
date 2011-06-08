@@ -61,9 +61,20 @@ namespace MagicWorld.HelperClasses.Animation
         public List<Rectangle> GetAnimationFrames(int animationNumber)
         {
             List<Rectangle> r = new List<Rectangle>();
-            for (int i = 24 * animationNumber; i < 24 * (animationNumber + 1); i++)
+            //TODO: do this elegantly
+            if (FrameCount < 24)
             {
-                r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
+                for (int i = 3 * animationNumber; i < 3 * (animationNumber + 1); i++)
+                {
+                    r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
+                }
+            }
+            else
+            {
+                for (int i = 24 * animationNumber; i < 24 * (animationNumber + 1); i++)
+                {
+                    r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
+                }
             }
             return r;
         }
