@@ -25,7 +25,7 @@ namespace MagicWorld
         Camera2d camera = new HelperClasses.Camera2d(500, 1000);
 
         // Global content.
-        private SpriteFont hudFont;
+        //private SpriteFont hudFont;
 
         private Texture2D winOverlay;
         private Texture2D loseOverlay;
@@ -78,7 +78,7 @@ namespace MagicWorld
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
             // Load fonts
-            hudFont = content.Load<SpriteFont>("Fonts/Hud");
+            //hudFont = content.Load<SpriteFont>("Fonts/Hud");
 
             // Load overlay textures
             winOverlay = content.Load<Texture2D>("Overlays/you_win");
@@ -247,7 +247,7 @@ namespace MagicWorld
 
             level.Draw(gameTime, ScreenManager.SpriteBatch);
 
-            DrawHud();
+            //DrawHud();
 
             ScreenManager.SpriteBatch.End();
 
@@ -293,78 +293,78 @@ namespace MagicWorld
         #endregion
 
 
-        private void DrawHud()
-        {
-            Rectangle titleSafeArea = ScreenManager.Game.GraphicsDevice.Viewport.TitleSafeArea;
-            Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
+        //private void DrawHud()
+        //{
+        //    Rectangle titleSafeArea = ScreenManager.Game.GraphicsDevice.Viewport.TitleSafeArea;
+        //    Vector2 hudLocation = new Vector2(titleSafeArea.X, titleSafeArea.Y);
 
-            Vector2 center = new Vector2(camera._pos.X, camera._pos.Y);
+        //    Vector2 center = new Vector2(camera._pos.X, camera._pos.Y);
 
-            // Draw time remaining. Uses modulo division to cause blinking when the
-            // player is running out of time.
-            string timeString = "TIME: " + level.TimeRemaining.Minutes.ToString("00") + ":" + level.TimeRemaining.Seconds.ToString("00");
-            Color timeColor;
-            if (level.TimeRemaining > WarningTime ||
-                level.ReachedExit ||
-                (int)level.TimeRemaining.TotalSeconds % 2 == 0)
-            {
-                timeColor = Color.Yellow;
-            }
-            else
-            {
-                timeColor = Color.Red;
-            }
+        //    // Draw time remaining. Uses modulo division to cause blinking when the
+        //    // player is running out of time.
+        //    string timeString = "TIME: " + level.TimeRemaining.Minutes.ToString("00") + ":" + level.TimeRemaining.Seconds.ToString("00");
+        //    Color timeColor;
+        //    if (level.TimeRemaining > WarningTime ||
+        //        level.ReachedExit ||
+        //        (int)level.TimeRemaining.TotalSeconds % 2 == 0)
+        //    {
+        //        timeColor = Color.Yellow;
+        //    }
+        //    else
+        //    {
+        //        timeColor = Color.Red;
+        //    }
 
-            float stringpositionX = 0;
-            float stringpositionTimeY = camera._pos.Y - camera.Height / 5;
-            float stringpositionManaY = camera._pos.Y - camera.Height / 4;
-            float stringpositionIngredientY = camera._pos.Y - camera.Height / 6;
+        //    float stringpositionX = 0;
+        //    float stringpositionTimeY = camera._pos.Y - camera.Height / 5;
+        //    float stringpositionManaY = camera._pos.Y - camera.Height / 4;
+        //    float stringpositionIngredientY = camera._pos.Y - camera.Height / 6;
 
-            if (ScreenManager.Graphics.IsFullScreen)
-            {
-                stringpositionX = camera._pos.X - camera.Width * 3 / 5;
-            }
-            else
-            {
-                stringpositionX = camera._pos.X - camera.Width * 2 / 3;
-            }
+        //    if (ScreenManager.Graphics.IsFullScreen)
+        //    {
+        //        stringpositionX = camera._pos.X - camera.Width * 3 / 5;
+        //    }
+        //    else
+        //    {
+        //        stringpositionX = camera._pos.X - camera.Width * 2 / 3;
+        //    }
 
-            DrawShadowedString(hudFont, timeString, new Vector2(stringpositionX, stringpositionTimeY), timeColor);
+        //    DrawShadowedString(hudFont, timeString, new Vector2(stringpositionX, stringpositionTimeY), timeColor);
 
-            DrawShadowedString(hudFont, "Collected Ingredients: " + level.CollectedIngredients.Count.ToString() + "/" + level.MaxIngredientsCount.ToString(), new Vector2(stringpositionX, stringpositionIngredientY), Color.Black);
+        //    DrawShadowedString(hudFont, "Collected Ingredients: " + level.CollectedIngredients.Count.ToString() + "/" + level.MaxIngredientsCount.ToString(), new Vector2(stringpositionX, stringpositionIngredientY), Color.Black);
 
-            level.Player.Mana.drawHud(ScreenManager.SpriteBatch, hudFont, new Vector2(stringpositionX, stringpositionManaY));
+        //    level.Player.Mana.drawHud(ScreenManager.SpriteBatch, hudFont, new Vector2(stringpositionX, stringpositionManaY));
 
-            // Determine the status overlay message to show.
-            Texture2D status = null;
-            if (level.TimeRemaining == TimeSpan.Zero)
-            {
-                if (level.ReachedExit)
-                {
-                    status = winOverlay;
-                }
-                else
-                {
-                    status = loseOverlay;
-                }
-            }
+        //    // Determine the status overlay message to show.
+        //    Texture2D status = null;
+        //    if (level.TimeRemaining == TimeSpan.Zero)
+        //    {
+        //        if (level.ReachedExit)
+        //        {
+        //            status = winOverlay;
+        //        }
+        //        else
+        //        {
+        //            status = loseOverlay;
+        //        }
+        //    }
 
-            if (level.Player.IsAlive && level.ReachedExit)
-            {
-                status = winOverlay;
-            }
-            else if (!level.Player.IsAlive)
-            {
-                status = diedOverlay;
-            }
+        //    if (level.Player.IsAlive && level.ReachedExit)
+        //    {
+        //        status = winOverlay;
+        //    }
+        //    else if (!level.Player.IsAlive)
+        //    {
+        //        status = diedOverlay;
+        //    }
 
-            if (status != null)
-            {
-                // Draw status message.
-                Vector2 statusSize = new Vector2(status.Width, status.Height);
-                ScreenManager.SpriteBatch.Draw(status, center - statusSize / 2, Color.White);
-            }
-        }
+        //    if (status != null)
+        //    {
+        //        // Draw status message.
+        //        Vector2 statusSize = new Vector2(status.Width, status.Height);
+        //        ScreenManager.SpriteBatch.Draw(status, center - statusSize / 2, Color.White);
+        //    }
+        //}
 
         private void DrawShadowedString(SpriteFont font, string value, Vector2 position, Color color)
         {
