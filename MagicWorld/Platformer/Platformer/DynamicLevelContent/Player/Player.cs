@@ -597,7 +597,7 @@ namespace MagicWorld
             Boolean isCastingSpell = false; 
 
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
-
+            
             if (currentSpell == null) // no spell casted?
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState)) //spell A casted ?
@@ -608,12 +608,12 @@ namespace MagicWorld
                 {
                     isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_B, this.level);
                 }
-                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyDown(controls.Keys_SelectedSpellA) ) // spell A select
+                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellA) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellA)) // spell A select
                 {
                     selectedSpellIndex_A = selectNextSpell(selectedSpellIndex_A);
                     Debug.WriteLine("changed selection for SpellSlot A: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_A));
                 }
-                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
+                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellB) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
                 {
                     selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
                     Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
