@@ -576,8 +576,8 @@ namespace MagicWorld
 
         private int selectedSpellIndex_A = 0;
         private int selectedSpellIndex_B = 1;
-        SpellType selectedSpell_A { get {return UsableSpells[selectedSpellIndex_A];} }
-        SpellType selectedSpell_B { get{return UsableSpells[selectedSpellIndex_B];}   }
+        public SpellType selectedSpell_A { get {return UsableSpells[selectedSpellIndex_A];} }
+        public SpellType selectedSpell_B { get{return UsableSpells[selectedSpellIndex_B];}   }
 
         /// <summary>
         /// create the spells
