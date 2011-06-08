@@ -29,7 +29,7 @@ namespace MagicWorld
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    public class Enemy:BasicGameElement
+    public class Enemy : BasicGameElement
     {
 
         // Animations
@@ -63,11 +63,9 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float width = (sprite.Animation.FrameWidth*0.5f);
-                float height = (sprite.Animation.FrameHeight*0.9f);
-                float left = (float)Math.Round(Position.X - width / 2);
-                float top = (float)Math.Round(Position.Y - sprite.Animation.FrameHeight*0.9);
-                return new Bounds(left, top, width, height);
+                float width = (sprite.Animation.FrameWidth * 0.5f);
+                float height = (sprite.Animation.FrameHeight * 0.9f);
+                return new Bounds(position, width, height);
             }
         }
 
@@ -97,9 +95,10 @@ namespace MagicWorld
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
-            spriteSet = "Sprites/" + spriteSet + "/";
-            runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,10);
-            idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true, 11);
+            //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,10);
+            runAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.4f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
+            //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true, 11);
+            idleAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.4f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
             sprite.PlayAnimation(idleAnimation);
 
             base.LoadContent("");
@@ -122,7 +121,7 @@ namespace MagicWorld
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY,gameTime);
+            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
 
             if (isFroozen)
             {
@@ -166,7 +165,8 @@ namespace MagicWorld
                 }
                 else
                 {
-                    if (HandleCollision()) {
+                    if (HandleCollision())
+                    {
                         //let enemy bounce back after collision, neccessary so you are not kept in the collision
                         position = position - velocity;
                     }
@@ -259,7 +259,7 @@ namespace MagicWorld
 
 
         private TimeSpan currentFreezeTime = new TimeSpan(0, 0, 0);
-        private TimeSpan maxFreezeTime = new TimeSpan(0,0,5);
+        private TimeSpan maxFreezeTime = new TimeSpan(0, 0, 5);
 
         private TimeSpan currentBurningTime = new TimeSpan(0, 0, 0);
         private TimeSpan maxBurningTime = new TimeSpan(0, 0, 3);
@@ -284,7 +284,7 @@ namespace MagicWorld
                 else
                 {
                     isBurning = true;
-                    currentBurningTime = new TimeSpan(0,0,0);
+                    currentBurningTime = new TimeSpan(0, 0, 0);
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     idleAnimation.TextureColor = Color.Red;
                     runAnimation.TextureColor = Color.Red;
