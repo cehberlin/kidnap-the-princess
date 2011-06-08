@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 namespace MagicWorld.HUDClasses
 {
     /// <summary>
-    /// The HUD as proposed by MArian in the game design document.
+    /// The HUD as proposed by Marian in the game design document.
     /// </summary>
     class HUD : DrawableGameComponent
     {
@@ -148,5 +148,7 @@ namespace MagicWorld.HUDClasses
                 base.Draw(gameTime);
             }
         }
+
+
     }
 }

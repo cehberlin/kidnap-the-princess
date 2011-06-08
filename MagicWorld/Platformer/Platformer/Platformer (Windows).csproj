@@ -88,6 +88,7 @@
     <Compile Include="Constants\DebugValues.cs" />
     <Compile Include="Gleed2dLevelContent\CircleItem.cs" />
     <Compile Include="Gleed2dLevelContent\RectangleItem.cs" />
+    <Compile Include="HelperClasses\Animation\AnimationLoader.cs" />
     <Compile Include="HelperClasses\Collision\Bounds.cs" />
     <Compile Include="HelperClasses\Camera2d.cs" />
     <Compile Include="HelperClasses\Animation\Animation.cs" />
@@ -101,7 +102,7 @@
     <Compile Include="HUDClasses\IngredientBar.cs" />
     <Compile Include="HUDClasses\ManaBar.cs" />
     <Compile Include="HUDClasses\SpellBar.cs" />
-    <Compile Include="Ingredients\Ingredient.cs" />
+    <Compile Include="HelperClasses\Ingredients\Ingredient.cs" />
     <Compile Include="ScreenManager\GameScreen.cs" />
     <Compile Include="ScreenManager\InputState.cs" />
     <Compile Include="ScreenManager\ScreenManager.cs" />

@@ -1,15 +1,8 @@
-﻿#region File Description
-//-----------------------------------------------------------------------------
-// Animation.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using MagicWorld.HelperClasses.Animation;
 
 namespace MagicWorld
 {
@@ -67,7 +60,7 @@ namespace MagicWorld
         public int FrameWidth
         {
             // Assume square frames.
-            get { return Texture.Width/frameCount; }
+            get { return Texture.Width / frameCount; }
         }
 
         /// <summary>
@@ -83,15 +76,38 @@ namespace MagicWorld
 
         public Color TextureColor = Color.White;
 
+        private List<Rectangle> frames;
+
+        /// <summary>
+        /// Gets the frames on the spritesheet that make up the animation.
+        /// </summary>
+        public List<Rectangle> Frames
+        {
+            get { return frames; }
+            internal set { frames = value; }
+        }
+
         /// <summary>
         /// Constructors a new animation.
         /// </summary>        
-        public Animation(Texture2D texture, float frameTime, bool isLooping,int frameCount)
+        public Animation(Texture2D texture, float frameTime, bool isLooping, int frameCount)
         {
             this.frameCount = frameCount;
             this.texture = texture;
             this.frameTime = frameTime;
             this.isLooping = isLooping;
+        }
+
+        /// <summary>
+        /// Constructs a new animation out of a multilined spritesheet. Also supports more than one animation.
+        /// </summary>
+        public Animation(string SpriteSheet, float frameTime, bool isLooping, int frameCount, Texture2D texture)
+        {
+            this.texture = texture;
+            this.frameCount = frameCount;
+            this.frameTime = frameTime;
+            this.isLooping = isLooping;
+            Frames = AnimationLoader.FromFile(SpriteSheet).GetFrames();
         }
     }
 }
