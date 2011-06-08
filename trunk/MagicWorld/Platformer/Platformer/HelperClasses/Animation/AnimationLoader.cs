@@ -31,6 +31,8 @@ namespace MagicWorld.HelperClasses.Animation
         /// </summary>
         public List<Frame> Frames;
 
+        int fps = 24;
+
         public AnimationLoader()
         {
             Frames = new List<Frame>();
@@ -38,7 +40,7 @@ namespace MagicWorld.HelperClasses.Animation
 
         public static AnimationLoader FromFile(string filename)
         {
-            FileStream stream = File.Open(filename+".xml", FileMode.Open);
+            FileStream stream = File.Open(filename + ".xml", FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(AnimationLoader));
             AnimationLoader animationLoader = (AnimationLoader)serializer.Deserialize(stream);
             stream.Close();
@@ -46,23 +48,27 @@ namespace MagicWorld.HelperClasses.Animation
             return animationLoader;
         }
 
-        //TODO: Finish adding getters
         public List<Rectangle> GetFrames()
         {
             List<Rectangle> r = new List<Rectangle>();
             foreach (Frame frame in Frames)
             {
-                r.Add(new Rectangle((int)frame.Position.X,(int) frame.Position.Y, FrameWidth, FrameHeight));
+                r.Add(new Rectangle((int)frame.Position.X, (int)frame.Position.Y, FrameWidth, FrameHeight));
             }
             return r;
         }
 
         public List<Rectangle> GetAnimationFrames(int animationNumber)
         {
-            throw new NotImplementedException();
+            List<Rectangle> r = new List<Rectangle>();
+            for (int i = 24 * animationNumber; i < 24 * (animationNumber + 1); i++)
+            {
+                r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
+            }
+            return r;
         }
     }
-    
+
     public partial class Frame
     {
         /// <summary>

@@ -1,13 +1,4 @@
-﻿#region File Description
-//-----------------------------------------------------------------------------
-// AnimationPlayer.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-using System;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -84,7 +75,7 @@ namespace MagicWorld
         /// <summary>
         /// Advances the time position and draws the current frame of the animation.
         /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects, float rotation =0)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Vector2 position, SpriteEffects spriteEffects, float rotation = 0)
         {
             if (Animation == null)
                 throw new NotSupportedException("No animation is currently playing.");
@@ -107,10 +98,11 @@ namespace MagicWorld
             }
 
             // Calculate the source rectangle of the current frame.
-            Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth, 0, Animation.FrameWidth, Animation.FrameHeight);
+            //Rectangle source = new Rectangle(FrameIndex * Animation.FrameWidth, 0, Animation.FrameWidth, Animation.FrameHeight);
 
             // Draw the current frame.
-            spriteBatch.Draw(Animation.Texture, position, source, Animation.TextureColor, rotation, Origin, Animation.Scale, spriteEffects, 0.0f);
+            //spriteBatch.Draw(Animation.Texture, position, source, Animation.TextureColor, rotation, Origin, Animation.Scale, spriteEffects, 0.0f);
+            spriteBatch.Draw(Animation.Texture, position, Animation.Frames[frameIndex], Color.White);
         }
     }
 }

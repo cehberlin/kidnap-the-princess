@@ -1,12 +1,3 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// Player.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -26,7 +17,7 @@ namespace MagicWorld
     /// <summary>
     /// Our fearless adventurer!
     /// </summary>
-    public class Player:BasicGameElement
+    public class Player : BasicGameElement
     {
 
         #region physics constants
@@ -73,14 +64,21 @@ namespace MagicWorld
 
 
         // Animations
-        private Animation idleAnimation;
-        private Animation runAnimation;
-        private Animation jumpAnimation;
-        private Animation celebrateAnimation;
+        //private Animation idleAnimation;
+        //private Animation runAnimation;
+        //private Animation jumpAnimation;
+        //private Animation celebrateAnimation;
         private Animation dieAnimation;
         private SpriteEffects flip = SpriteEffects.None;
         private AnimationPlayer sprite;
         private float rotation = 0.0f;
+
+        private Animation runLeftAnimation;
+        private Animation runRightAnimation;
+        private Animation jumpLeftAnimation;
+        private Animation jumpRightAnimation;
+        private Animation idleAnimation;
+        private Animation celebrateAnimation;
 
         // Sounds
         private SoundEffect killedSound;
@@ -88,7 +86,7 @@ namespace MagicWorld
         private SoundEffect fallSound;
         private SoundEffect spellSound;
 
-        public SoundEffect SpellSound{ get{return spellSound;}}
+        public SoundEffect SpellSound { get { return spellSound; } }
 
         #endregion
 
@@ -103,8 +101,8 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float width = (sprite.Animation.FrameWidth*0.75f);
-                float height = (sprite.Animation.FrameHeight*0.9f);
+                float width = (sprite.Animation.FrameWidth * 0.75f);
+                float height = (sprite.Animation.FrameHeight * 0.9f);
                 float left = (float)Math.Round(Position.X - width / 2);
                 float top = (float)Math.Round(Position.Y - height);
                 return new Bounds(left, top, width, height);
@@ -134,17 +132,16 @@ namespace MagicWorld
             set { velocity = value; }
         }
         Vector2 velocity;
-        
+
         /// <summary>
         /// Gets whether or not the player's feet are on the ground.
         /// </summary>
-
         bool isOnGround;
-
         public bool IsOnGround
         {
             get { return isOnGround; }
-            set { 
+            set
+            {
                 isOnGround = value;
                 if (isOnGround)
                 {
@@ -172,14 +169,13 @@ namespace MagicWorld
 
         public bool nogravityHasInfluenceOnPlayer = true;
 
-        
+
         public Mana Mana { get; set; }
 
         /// <summary>
         /// true if the player is casting a spell
         /// </summary>
         public bool IsCasting { get { return currentSpell != null; } }
-
 
         //only one spell at a time
         Spell currentSpell = null;
@@ -188,8 +184,6 @@ namespace MagicWorld
         /// returns null if no spell is casted
         /// </summary>
         public Spell CurrentSpell { get { return currentSpell; } set { currentSpell = value; } }
-
-        
 
         /// <summary>
         /// Constructors a new player.
@@ -215,13 +209,19 @@ namespace MagicWorld
         /// </summary>
         public void LoadContent()
         {
+            //TODO: Make correct animations.
             // Load animated textures.
-            idleAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
-            runAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
-            jumpAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
-            celebrateAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
-            dieAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.1f, false, 5);
-
+            //idleAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Idle"), 0.1f, true, 1);
+            //runAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Run"), 0.1f, true, 8);
+            //jumpAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Jump"), 0.1f, false, 4);
+            //celebrateAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Celebrate"), 0.1f, false, 3);
+            dieAnimation = new Animation(level.Content.Load<Texture2D>("Sprites/Player/Die"), 0.04f, false,5);
+            runRightAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 0);
+            runLeftAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 1);
+            jumpLeftAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 2);
+            jumpRightAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 3);
+            idleAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 1f, 1, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
+            celebrateAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
             // Load sounds.            
             killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
             jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");
@@ -267,11 +267,14 @@ namespace MagicWorld
                 HandleSpellCreation(gameTime, keyboardState, gamePadState, orientation);
             }
 
-            if (IsAlive && (IsOnGround || (disableGravity&& gravityInfluenceMaxTime>0)))
+            if (IsAlive && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
             {
-                if (Math.Abs(Velocity.X) - 0.02f > 0)
+                if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
                 {
-                    sprite.PlayAnimation(runAnimation);
+                    if (Velocity.X > 0)
+                        sprite.PlayAnimation(runRightAnimation);
+                    else
+                        sprite.PlayAnimation(runLeftAnimation);
                 }
                 else
                 {
@@ -306,18 +309,18 @@ namespace MagicWorld
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
-                keyboardState.IsKeyDown(controls.Keys_Left)) 
-                // ||keyboardState.IsKeyDown(LeftKeyAlternative))
+                keyboardState.IsKeyDown(controls.Keys_Left))
+            // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movement = -1.0f;
-                lastDirection.X = -1.0f;                
+                lastDirection.X = -1.0f;
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
                      keyboardState.IsKeyDown(controls.Keys_Right))
-                     //keyboardState.IsKeyDown(RightKeyAlternative))
+            //keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movement = 1.0f;
-                lastDirection.X = 1.0f;                
+                lastDirection.X = 1.0f;
             }
             else
             {
@@ -329,13 +332,13 @@ namespace MagicWorld
             // Check if the player wants to jump.
             isJumping =
                 gamePadState.IsButtonDown(controls.GamePad_Jump) ||
-                keyboardState.IsKeyDown(controls.Keys_Jump) ;
+                keyboardState.IsKeyDown(controls.Keys_Jump);
             //Check if the player press Down Button
             isDown =
                 gamePadState.IsButtonDown(controls.GamePad_Down) ||
                 keyboardState.IsKeyDown(controls.Keys_Down);
 
-            if(isJumping)
+            if (isJumping)
             {
                 lastDirection.Y = -1.0f;
             }
@@ -370,9 +373,10 @@ namespace MagicWorld
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
             velocity.X += movement * MoveAcceleration * elapsed;
-            if (disableGravity && gravityInfluenceMaxTime>0)
+            if (disableGravity && gravityInfluenceMaxTime > 0)
             {
-                if (isFalling) {
+                if (isFalling)
+                {
                     velocity.Y = 0;
                 }
                 else
@@ -397,7 +401,7 @@ namespace MagicWorld
             velocity.X = MathHelper.Clamp(velocity.X, -MaxMoveSpeed, MaxMoveSpeed);
 
             Position += velocity * elapsed;
-            
+
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
 
             // If the player is now colliding with the level, separate them.
@@ -407,7 +411,7 @@ namespace MagicWorld
             if (Position.X == previousPosition.X)
                 velocity.X = 0;
 
-            
+
             if (Position.Y == previousPosition.Y)
                 velocity.Y = 0;
 
@@ -444,7 +448,10 @@ namespace MagicWorld
                         jumpSound.Play();
 
                     jumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    sprite.PlayAnimation(jumpAnimation);
+                    if (Velocity.X > 0)
+                        sprite.PlayAnimation(jumpRightAnimation);
+                    else
+                        sprite.PlayAnimation(jumpRightAnimation);
                 }
 
                 // If we are in the ascent of the jump
@@ -511,7 +518,7 @@ namespace MagicWorld
                                 }
                                 //Debug.WriteLine("Velocity Y " + velocity.Y);
                                 //Debug.WriteLine("Depth Y " + depth.Y);
-                            }                            
+                            }
                         }
                         else if (collision == CollisionType.Impassable && velocity != Vector2.Zero) // Ignore platforms. //only handles this if player objects is in move
                         {
@@ -559,10 +566,10 @@ namespace MagicWorld
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Flip the sprite to face the way we are moving.
-            if (Velocity.X < 0)
-                flip = SpriteEffects.FlipHorizontally;
-            else if (Velocity.X > 0)
-                flip = SpriteEffects.None;
+            //if (Velocity.X < 0)
+            //    flip = SpriteEffects.FlipHorizontally;
+            //else if (Velocity.X > 0)
+            //    flip = SpriteEffects.None;
 
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
@@ -576,8 +583,8 @@ namespace MagicWorld
 
         private int selectedSpellIndex_A = 0;
         private int selectedSpellIndex_B = 1;
-        public SpellType selectedSpell_A { get {return UsableSpells[selectedSpellIndex_A];} }
-        public SpellType selectedSpell_B { get{return UsableSpells[selectedSpellIndex_B];}   }
+        public SpellType selectedSpell_A { get { return UsableSpells[selectedSpellIndex_A]; } }
+        public SpellType selectedSpell_B { get { return UsableSpells[selectedSpellIndex_B]; } }
 
         /// <summary>
         /// create the spells
@@ -594,10 +601,10 @@ namespace MagicWorld
             DisplayOrientation orientation)
         {
 
-            Boolean isCastingSpell = false; 
+            Boolean isCastingSpell = false;
 
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
-            
+
             if (currentSpell == null) // no spell casted?
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState)) //spell A casted ?
@@ -619,7 +626,7 @@ namespace MagicWorld
                     Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
                 }
             }
-            else 
+            else
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
@@ -660,7 +667,7 @@ namespace MagicWorld
         private int selectNextSpell(int currentIndex)
         {
             currentIndex++;
-            if(currentIndex >= this.UsableSpells.Length)
+            if (currentIndex >= this.UsableSpells.Length)
             {
                 return 0;
             }
@@ -674,7 +681,7 @@ namespace MagicWorld
 
             if (nogravityHasInfluenceOnPlayer && spell.GetType() == typeof(NoGravitySpell))
             {
-                disableGravity = true;                
+                disableGravity = true;
             }
             return false; //do not remove spell
         }
