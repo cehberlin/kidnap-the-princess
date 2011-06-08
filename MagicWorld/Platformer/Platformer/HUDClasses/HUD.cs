@@ -123,6 +123,8 @@ namespace MagicWorld.HUDClasses
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
             manaBar.Filling = new Rectangle((int)position.X + 3, (int)position.Y + 30, bottleTex.Width - 6, bottleTex.Height - 30);
+            manaBar.fullY = manaBar.Filling.Y;
+            manaBar.fullHeight = manaBar.Filling.Height;
             manaBar.Height = bottleTex.Height;
             manaBar.Width = bottleTex.Width;
 
@@ -142,7 +144,7 @@ namespace MagicWorld.HUDClasses
                     manaBar.Update(l.Player.Mana.CurrentMana, 1000);
                     //TODO: clarify this. where are the counters?
                     ingredientBar.SetState(l.CollectedIngredients.Count, 0, l.MaxIngredientsCount);
-                    //spells
+                    //TODO: Constant polling is not good, call back is better.
                     spellBarLeft.Update(l.Player.selectedSpell_A);
                     spellBarRight.Update(l.Player.selectedSpell_B);
                     UpdateRunes(l.Player.selectedSpell_A, ref leftSpell);

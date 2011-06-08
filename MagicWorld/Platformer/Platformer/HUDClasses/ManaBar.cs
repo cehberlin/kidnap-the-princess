@@ -26,6 +26,9 @@ namespace MagicWorld.HUDClasses
             set { filling = value; }
         }
 
+        public int fullY;
+        public int fullHeight;
+
         public ManaBar(Vector2 pos)
             : base(pos)
         {
@@ -35,6 +38,7 @@ namespace MagicWorld.HUDClasses
         public void Update(int currentMana, int maxMana)
         {
             this.status = currentMana * 100 / maxMana;
+            filling.Y = (int)(fullY + (fullHeight - (fullHeight * (status / 100))));
         }
     }
 }
