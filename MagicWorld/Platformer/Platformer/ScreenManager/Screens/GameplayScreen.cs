@@ -281,17 +281,18 @@ namespace MagicWorld
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num));
-            if (!levelAddedToService)
-            {
+           // if (!levelAddedToService)
+           // {
                 ScreenManager.Game.Services.AddService(typeof(Level), level);
                 levelAddedToService = true;
-            }
+           // }
+                levelIndex = 1;
             
         }
         private void LoadNextLevel()
         {
             // move to the next level
-            levelIndex = (levelIndex + 1) % numberOfLevels;
+            levelIndex = (levelIndex + 1);// % numberOfLevels;
 
             // Unloads the content for the current level before loading the next one.
             if (level != null)
