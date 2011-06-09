@@ -85,6 +85,20 @@ namespace MagicWorld
             ScreenManager.AddScreen(new ResolutionMenuScreen(), e.PlayerIndex);
         }
 
+        /// <summary>
+        /// When the user cancels the main menu, ask if they want to exit the sample.
+        /// </summary>
+        protected override void OnCancel(PlayerIndex playerIndex)
+        {
+            bool a;
+            foreach (GameScreen screen in ScreenManager.GetScreens())
+            {
+                if (screen.GetType().Equals(typeof(MainMenuScreen)))
+                    a=screen.IsActive;
+            }
+            ExitScreen();
+        }
+
         #endregion
     }
 }

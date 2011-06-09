@@ -90,6 +90,8 @@ namespace MagicWorld
             set { endPoint = value; }
         }
 
+        
+
         // Level game state.
         private Random random = new Random(354668); // Arbitrary, but constant seed
 
@@ -234,7 +236,15 @@ namespace MagicWorld
         /// </summary>
         public void Dispose()
         {
+            StopBackgroundSound();
             Content.Unload();
+        }
+
+        //Stop sound
+        public void StopBackgroundSound()
+        {
+            MediaPlayer.IsRepeating = false;
+            MediaPlayer.Stop();
         }
 
         #endregion

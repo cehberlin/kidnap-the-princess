@@ -52,6 +52,9 @@ namespace MagicWorld
         // or handle exceptions, both of which can add unnecessary time to level loading.
         private const int numberOfLevels = 1;
 
+        //check if the level was already added to a service
+        bool levelAddedToService = false;
+
         float pauseAlpha;
 
         #endregion
@@ -98,7 +101,11 @@ namespace MagicWorld
         /// </summary>
         public override void UnloadContent()
         {
+            if (level != null)
+                level.Dispose();
             content.Unload();
+            ScreenManager.Game.Services.RemoveService(typeof(Level));
+            ExitScreen();
         }
 
 
@@ -274,7 +281,12 @@ namespace MagicWorld
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num));
-            ScreenManager.Game.Services.AddService(typeof(Level),level);
+            if (!levelAddedToService)
+            {
+                ScreenManager.Game.Services.AddService(typeof(Level), level);
+                levelAddedToService = true;
+            }
+            
         }
         private void LoadNextLevel()
         {

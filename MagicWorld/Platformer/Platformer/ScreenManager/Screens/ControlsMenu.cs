@@ -42,6 +42,10 @@ namespace MagicWorld
             PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.laptopControl);
         }
 
+        private SpriteBatch spriteBatch;
+        private Vector2 position;
+        private SpriteFont font;
+
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
             spriteBatch = ScreenManager.SpriteBatch;
@@ -69,9 +73,7 @@ namespace MagicWorld
             base.Draw(gameTime);
         }
 
-        private SpriteBatch spriteBatch;
-        private Vector2 position;
-        private SpriteFont font;
+        
         private void drawString(String buttonType, String keyboard, String button)
         {
             String str = buttonType + ": " + keyboard + " / " + button;
