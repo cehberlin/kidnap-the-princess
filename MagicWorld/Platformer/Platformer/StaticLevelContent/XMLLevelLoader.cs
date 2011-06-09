@@ -38,7 +38,6 @@ namespace MagicWorld.StaticLevelContent
         public List<BasicGameElement> getInteractingObjects()
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
-            //TODO: Add the never moving zero layer
 
             //The platforms.
             Layer layer = levelLoader.getLayerByName("Middle");
@@ -46,8 +45,6 @@ namespace MagicWorld.StaticLevelContent
             {
                 TextureItem t = (TextureItem)item;
                 BlockElement b = new BlockElement(t.asset_name, CollisionType.Platform, level, t.Position - t.Origin);
-                //b.Width = b.Texture.Width;
-                //b.Height = b.Texture.Height;
                 b.Width = (int)t.Origin.X * 2;
                 b.Height = (int)t.Origin.Y * 2;
                 elements.Add(b);
@@ -58,10 +55,10 @@ namespace MagicWorld.StaticLevelContent
             foreach (Item item in ingredientLayer.Items)
             {
                 String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                Ingredient i = new Ingredient("Ingredients/"+ ingredientName, CollisionType.Passable, level, item.Position);
+                Ingredient i = new Ingredient("Ingredients/" + ingredientName, CollisionType.Passable, level, item.Position);
                 elements.Add(i);
             }
-            //The ingredient layer.
+            //The enemies layer.
             Layer enemiesLayer = levelLoader.getLayerByName("Enemies");
             foreach (Item item in enemiesLayer.Items)
             {
@@ -76,6 +73,15 @@ namespace MagicWorld.StaticLevelContent
         public List<BasicGameElement> getBackgroundObjects()
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
+            Layer zeroLayer = levelLoader.getLayerByName("Zero");
+            foreach (Item item in zeroLayer.Items)
+            {
+                TextureItem t = (TextureItem)item;
+                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
+                b.Width = (int)1280;
+                b.Height = (int)1000;
+                elements.Add(b);
+            }
 
             //The background.
             Layer backgroundLayer = levelLoader.getLayerByName("Background");
@@ -83,8 +89,6 @@ namespace MagicWorld.StaticLevelContent
             {
                 TextureItem t = (TextureItem)item;
                 BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
-                //b.Width = b.Texture.Width;
-                //b.Height = b.Texture.Height;
                 b.Width = (int)t.Origin.X * 2;
                 b.Height = (int)t.Origin.Y * 2;
                 elements.Add(b);
@@ -102,8 +106,6 @@ namespace MagicWorld.StaticLevelContent
             {
                 TextureItem t = (TextureItem)item;
                 BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
-                //b.Width = b.Texture.Width;
-                //b.Height = b.Texture.Height;
                 b.Width = (int)t.Origin.X * 2;
                 b.Height = (int)t.Origin.Y * 2;
                 elements.Add(b);

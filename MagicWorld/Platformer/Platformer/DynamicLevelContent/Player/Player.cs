@@ -182,7 +182,6 @@ namespace MagicWorld
         /// </summary>
         public void LoadContent()
         {
-            //TODO: Make correct animations.
             // Load animated textures.
             runRightAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 0);
             runLeftAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 1);
