@@ -251,13 +251,10 @@ namespace MagicWorld
             null,
             null,
             camera.get_transformation(ScreenManager.Graphics.GraphicsDevice));
-
+            
             level.Draw(gameTime, ScreenManager.SpriteBatch);
 
-            //DrawHud();
-
             ScreenManager.SpriteBatch.End();
-
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)

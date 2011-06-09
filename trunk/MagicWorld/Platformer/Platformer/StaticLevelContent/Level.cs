@@ -22,8 +22,8 @@ namespace MagicWorld
     /// The level owns the player and controls the game's win and lose
     /// conditions as well as scoring.
     /// </summary>
-    public class Level : IDisposable,IServiceProvider
-    {    
+    public class Level : IDisposable, IServiceProvider
+    {
         // Entities in the level.
         public Player Player
         {
@@ -76,14 +76,14 @@ namespace MagicWorld
         }
 
         //// Key locations in the level.     
-   
+
         /// <summary>
         /// position where the player starts
         /// </summary>
         protected Vector2 startPoint;
 
         private BasicGameElement endPoint;
-        
+
         public BasicGameElement EndPoint
         {
             get { return endPoint; }
@@ -180,7 +180,8 @@ namespace MagicWorld
         }
 
 
-        protected void initLevel(){
+        protected void initLevel()
+        {
             levelLoader.init(this);
 
             timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
@@ -192,7 +193,8 @@ namespace MagicWorld
             foregroundGameElements = levelLoader.getForegroundObjects();
 
             //disable debug for background and foreground objects
-            foreach(BasicGameElement b in backgroundGameElements){
+            foreach (BasicGameElement b in backgroundGameElements)
+            {
                 b.PrivateDebug = false;
             }
             foreach (BasicGameElement b in foregroundGameElements)
@@ -244,9 +246,9 @@ namespace MagicWorld
         /// and handles the time limit with scoring.
         /// </summary>
         public void Update(
-            GameTime gameTime, 
-            KeyboardState keyboardState, 
-            GamePadState gamePadState, 
+            GameTime gameTime,
+            KeyboardState keyboardState,
+            GamePadState gamePadState,
             DisplayOrientation orientation)
         {
             // Pause while the player is dead or time is expired.
@@ -266,7 +268,7 @@ namespace MagicWorld
             {
                 timeRemaining -= gameTime.ElapsedGameTime;
 
-                Player.Update(gameTime, keyboardState, gamePadState,orientation);
+                Player.Update(gameTime, keyboardState, gamePadState, orientation);
 
                 UpdateObjects(gameTime);
 
@@ -292,6 +294,8 @@ namespace MagicWorld
             // Clamp the time remaining at zero.
             if (timeRemaining < TimeSpan.Zero)
                 timeRemaining = TimeSpan.Zero;
+
+            backgroundGameElements[0].Position = player.Position - new Vector2(backgroundGameElements[0].Bounds.Width / 2, backgroundGameElements[0].Bounds.Height / 2);
         }
 
 
@@ -314,7 +318,7 @@ namespace MagicWorld
             }
 
             List<BasicGameElement> removableObjects = new List<BasicGameElement>();
-            foreach(BasicGameElement elem in   generalColliadableGameElements)               
+            foreach (BasicGameElement elem in generalColliadableGameElements)
             {
                 elem.Update(gameTime);
 
@@ -414,7 +418,7 @@ namespace MagicWorld
         /// Restores the player to the starting point to try the level again.
         /// </summary>
         public void StartNewLife()
-        {            
+        {
             Player.Reset(startPoint);
         }
 
@@ -452,7 +456,6 @@ namespace MagicWorld
             {
                 elem.Draw(gameTime, spriteBatch);
             }
-
         }
 
         #endregion
