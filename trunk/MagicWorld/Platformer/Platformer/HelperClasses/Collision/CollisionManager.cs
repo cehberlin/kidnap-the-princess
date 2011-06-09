@@ -85,7 +85,7 @@ namespace MagicWorld.HelperClasses
         /// Checks for collision with enemies
         /// </summary>
         /// <param name="elem">the game element which should be checked</param>
-        /// <param name="enemiesColliadingWith">return a list of colliading objects</param>
+        /// <param name="enemiesColliadingWith">return a list of colliding objects</param>
         /// <returns></returns>
         public bool CollidateWithEnemy(BasicGameElement elem, ref List<Enemy> enemiesColliadingWith)
         {

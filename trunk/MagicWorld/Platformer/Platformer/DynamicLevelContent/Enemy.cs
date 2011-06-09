@@ -165,6 +165,7 @@ namespace MagicWorld
                 {
                     if (HandleCollision())
                     {
+                        //TODO: We need a resolution vector->Flickering bug.
                         //let enemy bounce back after collision, neccessary so you are not kept in the collision
                         position = position - velocity;
                     }
