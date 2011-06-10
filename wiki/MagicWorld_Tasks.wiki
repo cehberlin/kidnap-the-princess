@@ -37,6 +37,7 @@
  * Enable multilined SpriteSheets. (Highly optional: Eable spritesheets with more than one animation.)
  * Put Debug Controls also into a nencapsulated interface
  * Enemy different behavior and general ki (old one was disabled, because is buggy)
+ * fix bounds of player and enemy --> complete wrong
 
 == deferred work ==
 
