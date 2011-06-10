@@ -48,8 +48,8 @@ namespace MagicWorld.HelperClasses
         private static Vector2 getSpellPosition(Player player)
         {
             Vector2 pos;
-            pos.X = player.Position.X + 20 * player.Direction.X;
-            pos.Y = player.Position.Y;
+            pos.X = player.Position.X + 30 * player.Direction.X;
+            pos.Y = player.Position.Y-10;
             return pos;
         }
 
