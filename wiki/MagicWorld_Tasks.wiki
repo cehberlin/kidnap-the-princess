@@ -10,8 +10,21 @@
 = in Progress =
 
   * Class Ingredients -> John
+  * 
+
 
 = TODO =
+== WORK FOR ALPHA VERSION ==
+  * bounds fix
+  * collision resolution 
+  * Level Editor Fix (descision if correction values are needed)
+  * First Level
+  * create matter: player is directly throwing block after casting
+
+  === OPTIONAL (if enough time is left) ===
+  * push/pull spell 
+  * elements that are influenced by push/pull
+
 ==work until next milestone ==
   * reimplementation of last prototype state, 
     * write down which class you are working on
