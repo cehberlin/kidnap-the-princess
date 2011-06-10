@@ -24,6 +24,7 @@
   === OPTIONAL (if enough time is left) ===
   * push/pull spell 
   * elements that are influenced by push/pull
+  * turn music/sound on/off 
 
 ==work until next milestone ==
   * reimplementation of last prototype state, 
