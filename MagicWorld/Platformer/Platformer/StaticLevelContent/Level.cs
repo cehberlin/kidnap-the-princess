@@ -358,10 +358,6 @@ namespace MagicWorld
                     Spell spell = (Spell)elem;
                     UpdateSpell(spell);
                 }
-                //Gems
-                else if (elem.GetType() == typeof(Gem))
-                {
-                }
 
             }
             //remove destroyed elements
@@ -399,16 +395,6 @@ namespace MagicWorld
             MatterCreationParticleSystem.Update(gameTime);
         }
 
-
-        /// <summary>
-        /// Called when a gem is collected.
-        /// </summary>
-        /// <param name="gem">The gem that was collected.</param>
-        /// <param name="collectedBy">The player who collected this gem.</param>
-        private void OnGemCollected(Gem gem, Player collectedBy)
-        {
-            gem.OnCollected(collectedBy);
-        }
 
         /// <summary>
         /// Called when the player is killed.
