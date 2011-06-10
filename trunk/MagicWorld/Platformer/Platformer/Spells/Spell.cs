@@ -70,9 +70,11 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float width = (sprite.Animation.FrameWidth * currentScale);
-                float height = (sprite.Animation.FrameHeight * currentScale);
-                return new Bounds(position, width, height);
+                float width = (sprite.Animation.FrameWidth * 0.5f);
+                float height = (sprite.Animation.FrameHeight * 0.9f);
+                float left = (float)Math.Round(Position.X - width / 2);
+                float top = (float)Math.Round(Position.Y - height/2);
+                return new Bounds(left, top, width, height);
             }
         }
 
@@ -113,6 +115,8 @@ namespace MagicWorld
             get { return direction; }
         }
 
+        protected float accelaration = 1;
+
         /// <summary>
         /// describes how long a spell is alive
         /// </summary>
@@ -124,8 +128,8 @@ namespace MagicWorld
         }
 
         // Animations
-        protected Animation runAnimation;
-        protected Animation idleAnimation;
+        protected Animation runAnimation=null;
+        protected Animation idleAnimation=null;
         protected AnimationPlayer sprite;
 
         /// <summary>
@@ -206,7 +210,8 @@ namespace MagicWorld
                     rotation = -(float)Math.PI * 1/4;
             }
             // Draw that sprite.
-            sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
+            if(sprite.Animation!=null)
+                sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
             base.Draw(gameTime, spriteBatch);
         }
 
@@ -256,7 +261,7 @@ namespace MagicWorld
             float posX = Position.X + Bounds.Width / 2 * (int)direction.X;
 
             // Move in the current direction.
-            velocity = new Vector2((int)direction.X * MoveSpeed * elapsed, (int)direction.Y * MoveSpeed * elapsed);
+            velocity = new Vector2((int)direction.X * MoveSpeed * elapsed * accelaration, (int)direction.Y * MoveSpeed * elapsed * accelaration);
             Position = Position + velocity;
         }
 
@@ -293,8 +298,10 @@ namespace MagicWorld
             if (currentScale <= MaxScale)
             {
                 currentScale += 0.02f;
-                idleAnimation.Scale = currentScale;
-                runAnimation.Scale = currentScale;
+                if(idleAnimation!=null)
+                    idleAnimation.Scale = currentScale;
+                if(runAnimation!=null)
+                    runAnimation.Scale = currentScale;
                 Force++;
             }
         }

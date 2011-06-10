@@ -126,7 +126,6 @@
     <Compile Include="Spells\NoGravitySpell.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="DynamicLevelContent\Enemy.cs" />
-    <Compile Include="DynamicLevelContent\Gem.cs" />
     <Compile Include="Gleed2dLevelContent\CustomProperty.cs" />
     <Compile Include="Gleed2dLevelContent\Gleed2dLevelLoader.cs" />
     <Compile Include="Spells\SpellConstants.cs" />

@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.DynamicLevelContent;
 using System.Diagnostics;
 using MagicWorld.Spells;
+using MagicWorld.HelperClasses;
 
 namespace MagicWorld
 {
@@ -16,6 +17,8 @@ namespace MagicWorld
         private const float manaCastingCost = 1f;
 
         private const int MATTER_EXISTENCE_TIME = 500; // time that created Matter exist
+
+        Texture2D matterTexture;
 
 
         protected Boolean gravityIsSetOffBySpell = false;
@@ -32,19 +35,25 @@ namespace MagicWorld
             Force = 1;
             survivalTimeMs = MATTER_EXISTENCE_TIME;
             MoveSpeed = 80.0f;
+            currentScale = 0.7f;
             LoadContent(spriteSet);
-            sprite.PlayAnimation(idleAnimation);
             this.Collision = CollisionType.Platform;
+        }
+
+        public override Bounds Bounds
+        {
+            get
+            {
+                // Calculate bounds within texture size.
+                float width = (matterTexture.Width * currentScale);
+                float height = (matterTexture.Height * currentScale);
+                return new Bounds(position, width, height);
+            }
         }
 
         public override void LoadContent(string spriteSet)
         {
-            // Load animations.
-            spriteSet = "Sprites/" + spriteSet + "/";
-            //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
-            runAnimation = new Animation("Content/Sprites/MatterSpell/Run", 0.1f, 3, level.Content.Load<Texture2D>(spriteSet + "Run"), 0);
-            //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
-            idleAnimation = runAnimation;
+            matterTexture = level.Content.Load<Texture2D>("Sprites\\MatterSpell\\matter");
 
             base.LoadContent(spriteSet);
         }
@@ -53,6 +62,9 @@ namespace MagicWorld
         {
             if (SpellState == State.WORKING)
             {
+                accelaration -= (float)gameTime.ElapsedGameTime.TotalSeconds/5;
+                if (accelaration < 0)
+                    accelaration = 0;
                 if (!gravityIsSetOffBySpell)
                 {
                     if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY, gameTime))
@@ -74,6 +86,12 @@ namespace MagicWorld
         protected override void OnRemove()
         {
             base.OnRemove();
+        }
+
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(matterTexture, Bounds.getRectangle(), Color.White);
+            base.Draw(gameTime, spriteBatch);
         }
 
         /// <summary>
