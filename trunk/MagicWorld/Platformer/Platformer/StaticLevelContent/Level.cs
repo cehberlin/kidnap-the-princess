@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Media;
 using MagicWorld.HelperClasses.Collision;
 using ParticleEffects;
 using MagicWorld.Spells;
+using MagicWorld.DynamicLevelContent.ParticleEffects;
 
 namespace MagicWorld
 {
@@ -128,10 +129,14 @@ namespace MagicWorld
             get { return physicsManager; }
         }
 
+        /// <summary>
+        /// Particle Manager Systems
+        /// </summary>
         public ParticleSystem ExplosionParticleSystem;
         public ParticleSystem SmokeParticleSystem;
         public ParticleSystem MagicParticleSystem;
         public ParticleSystem ExplosionSmokeParticleSystem;
+        public ParticleSystem MatterCreationParticleSystem;
 
         /// <summary>
         /// max area for the level
@@ -170,13 +175,15 @@ namespace MagicWorld
 
             this.levelLoader = levelLoader;
 
-            ExplosionParticleSystem = new ExplosionParticleSystem(this, 20);
+            ExplosionParticleSystem = ParticleSystemFactory.getExplosion(this, 20);
 
-            MagicParticleSystem = new MagicParticleSystem(this, 20);
+            MagicParticleSystem = ParticleSystemFactory.getMagic(this, 20);
 
-            SmokeParticleSystem = new SmokePlumeParticleSystem(this, 20);
+            SmokeParticleSystem = ParticleSystemFactory.getSmoke (this, 20);
 
-            ExplosionSmokeParticleSystem = new ExplosionSmokeParticleSystem(this, 20);
+            ExplosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 20);
+
+            MatterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 20);
 
             initLevel();
         }
@@ -389,6 +396,7 @@ namespace MagicWorld
             SmokeParticleSystem.Update(gameTime);
             MagicParticleSystem.Update(gameTime);
             ExplosionSmokeParticleSystem.Update(gameTime);
+            MatterCreationParticleSystem.Update(gameTime);
         }
 
 
@@ -460,6 +468,7 @@ namespace MagicWorld
             SmokeParticleSystem.Draw(gameTime, spriteBatch);
             MagicParticleSystem.Draw(gameTime, spriteBatch);
             ExplosionSmokeParticleSystem.Draw(gameTime, spriteBatch);
+            MatterCreationParticleSystem.Draw(gameTime, spriteBatch);
 
             //update background
             foreach (BasicGameElement elem in foregroundGameElements)

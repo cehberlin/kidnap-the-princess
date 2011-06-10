@@ -84,6 +84,7 @@
     <Compile Include="DynamicLevelContent\ParticleEffects\MagicParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\Particle.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\ParticleSystemFactory.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\SmokePlumeParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\Player\Mana.cs" />
     <Compile Include="Constants\DebugValues.cs" />

@@ -21,9 +21,7 @@ namespace MagicWorld.HelperClasses
         {
            if(player.Mana.CurrentMana > SpellConstantsFactory.getSpellConstants(type).BasicCastingCost)
            {
-               Vector2 pos;
-               pos.X = player.Position.X + 20 * player.Direction.X;
-               pos.Y = player.Position.Y + player.Bounds.Height / 2;
+               Vector2 pos = getSpellPosition(player);
 
                switch (type)
                {
@@ -47,6 +45,14 @@ namespace MagicWorld.HelperClasses
            return false;
         }
 
+        private static Vector2 getSpellPosition(Player player)
+        {
+            Vector2 pos;
+            pos.X = player.Position.X + 20 * player.Direction.X;
+            pos.Y = player.Position.Y + player.Bounds.Height / 2;
+            return pos;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -56,6 +62,7 @@ namespace MagicWorld.HelperClasses
         /// <returns>true if the spell is still casted</returns>
         public static bool furtherSpellCasting(Player player, Level level, GameTime gameTime)
         {
+            player.CurrentSpell.AddOnCreationParticles();
             if (!player.Mana.castingSpell(gameTime))
             {
                 releaseSpell(player);

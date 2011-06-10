@@ -31,7 +31,7 @@ namespace MagicWorld
         {            
             Force = 1;
             survivalTimeMs = MATTER_EXISTENCE_TIME;
-            MoveSpeed = 60.0f;
+            MoveSpeed = 80.0f;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             this.Collision = CollisionType.Platform;
@@ -51,11 +51,14 @@ namespace MagicWorld
 
         public override void Update(GameTime gameTime)
         {
-            if (!gravityIsSetOffBySpell)
+            if (SpellState == State.WORKING)
             {
-                if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY,gameTime))
+                if (!gravityIsSetOffBySpell)
                 {
-                    Direction = Vector2.Zero;
+                    if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY, gameTime))
+                    {
+                        Direction = Vector2.Zero;
+                    }
                 }
             }
             base.Update(gameTime);
@@ -95,6 +98,13 @@ namespace MagicWorld
         }
 
 
+        public override void AddOnCreationParticles()
+        {
+            if (level.MatterCreationParticleSystem.CurrentParticles() < 10)
+            {
+                level.MatterCreationParticleSystem.AddParticles(getMidPointOfSpell());
+            }
+        }
 
     }
 }
