@@ -74,7 +74,7 @@ namespace ParticleEffects
         }
 
         // a random number generator that the whole sample can share.
-        private static Random random = new Random();
+        protected static Random random = new Random();
         public static Random Random
         {
             get { return random; }

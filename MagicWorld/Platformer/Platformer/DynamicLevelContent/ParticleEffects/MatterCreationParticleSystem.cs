@@ -38,7 +38,7 @@ namespace ParticleEffects
         /// </summary>
         protected override void InitializeConstants()
         {
-            textureFilename = "explosion";
+            textureFilename = "matterCreation";
 
             // high initial speed with lots of variance.  make the values closer
             // together to have more consistently circular explosions.
@@ -76,19 +76,21 @@ namespace ParticleEffects
         {
             base.InitializeParticle(p, where);
 
-            p.Acceleration = p.Velocity*p.Lifetime;
+            p.Acceleration = p.Velocity*p.Lifetime*0.1f;
         }
 
 
         protected override Vector2 getStartPositionRelativeToCenter(Vector2 pos_center)
         {
-            //TODO PUNKTE IN KREIS
-            return pos_center;
+            //random points on cycle bow
+            float angle = (float)(random.NextDouble() * 2 * Math.PI);
+
+            return pos_center + new Vector2((float)Math.Sin(angle) * radius, (float)Math.Cos(angle) * radius); 
         }
 
         protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
         {
-            return startPosition - pos_center;
+            return pos_center - startPosition;
         }
     }
 }

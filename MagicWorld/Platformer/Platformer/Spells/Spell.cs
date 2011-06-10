@@ -5,6 +5,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
 using MagicWorld.Spells;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -296,6 +297,22 @@ namespace MagicWorld
                 runAnimation.Scale = currentScale;
                 Force++;
             }
+        }
+
+        /// <summary>
+        /// adds creation particles
+        /// </summary>
+        public virtual void AddOnCreationParticles()
+        {            
+            if (level.MagicParticleSystem.CurrentParticles() < 10)
+            {
+                level.MagicParticleSystem.AddParticles(getMidPointOfSpell());
+            }
+        }
+
+        protected Vector2 getMidPointOfSpell()
+        {
+            return position+ new Vector2(Bounds.Width / 2, Bounds.Height / 2);
         }
 
 
