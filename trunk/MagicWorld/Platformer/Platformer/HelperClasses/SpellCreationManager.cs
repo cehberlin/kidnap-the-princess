@@ -49,7 +49,7 @@ namespace MagicWorld.HelperClasses
         {
             Vector2 pos;
             pos.X = player.Position.X + 30 * player.Direction.X;
-            pos.Y = player.Position.Y-10;
+            pos.Y = player.Position.Y+25;
             return pos;
         }
 

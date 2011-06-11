@@ -312,7 +312,10 @@ namespace MagicWorld
             if (timeRemaining < TimeSpan.Zero)
                 timeRemaining = TimeSpan.Zero;
 
-            backgroundGameElements[0].Position = player.Position - new Vector2(backgroundGameElements[0].Bounds.Width / 2, backgroundGameElements[0].Bounds.Height / 2);
+            if (backgroundGameElements.Count > 0)
+            {
+                backgroundGameElements[0].Position = player.Position - new Vector2(backgroundGameElements[0].Bounds.Width / 2, backgroundGameElements[0].Bounds.Height / 2);
+            }
         }
 
 

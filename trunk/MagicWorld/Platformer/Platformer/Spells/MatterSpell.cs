@@ -46,11 +46,8 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float width = (matterTexture.Width * currentScale);
-                float height = (matterTexture.Height * currentScale);
-                float x = position.X - width/2;
-                float y = position.Y - height/2;
-                return new Bounds(x,y, width, height);
+                float radius = ((matterTexture.Width + matterTexture.Height)/4 * currentScale); 
+                return new Bounds(position, radius);
             }
         }
 

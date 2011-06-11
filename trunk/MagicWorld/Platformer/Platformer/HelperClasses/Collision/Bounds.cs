@@ -92,6 +92,15 @@ namespace MagicWorld.HelperClasses
         }
 
         /// <summary>
+        /// create cycle bound
+        /// </summary>
+        /// <param name="radius"></param>
+        public Bounds(float x,float y, float radius):
+            this(new Vector2(x,y),radius)
+        {
+        }
+
+        /// <summary>
         /// create rectangle bound
         /// </summary>
         /// <param name="position">left upper corner position</param>
@@ -166,7 +175,7 @@ namespace MagicWorld.HelperClasses
                 {
                     return c.Sphere.Contains(this.box);
                 }
-                else if (this.type == BoundType.BOX)
+                else if (this.type == BoundType.SPHERE)
                 {
                     return c.Sphere.Contains(this.sphere);
                 }

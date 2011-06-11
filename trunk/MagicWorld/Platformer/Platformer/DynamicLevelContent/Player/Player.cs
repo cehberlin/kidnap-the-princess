@@ -375,12 +375,12 @@ namespace MagicWorld
             if (IsCasting)
             {
                 Position += velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR;
-                Debug.WriteLine("PHYSICSPLAYER " +( velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR));
+                //Debug.WriteLine("PHYSICSPLAYER " +( velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR));
             }
             else
             {
                 Position += velocity * elapsed;
-                Debug.WriteLine("PHYSICSPLAYER " + (velocity * elapsed));
+                //Debug.WriteLine("PHYSICSPLAYER " + (velocity * elapsed));
             }
             
 
@@ -458,61 +458,10 @@ namespace MagicWorld
             return velocityY;
         }
 
-        /// <summary>
-        /// Detects and resolves all collisions between the player and his neighboring
-        /// tiles. When a collision is detected, the player is pushed away along one
-        /// axis to prevent overlapping. There is some special logic for the Y axis to
-        /// handle platforms which behave differently depending on direction of movement.
-        /// </summary>
+
         private void HandleCollisions()
         {
-            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
-            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
-
-            //// Reset flag to search for ground collision.
-            IsOnGround = false;
-
-            foreach (BasicGameElement t in collisionObjects)
-            {
-                CollisionType collision = t.Collision;
-                if (collision == CollisionType.Impassable || collision == CollisionType.Platform)
-                {
-                    Vector2 depth = CollisionManager.GetCollisionDepth(this, t);
-                    if (depth != Vector2.Zero)
-                    {
-                        float absDepthX = Math.Abs(depth.X);
-                        float absDepthY = Math.Abs(depth.Y);
-
-                        // Resolve the collision along the shallow axis.
-                        if (absDepthY < absDepthX || collision == CollisionType.Platform)
-                        {
-                            // If we crossed the top of a tile, we are on the ground.
-                            if (previousBottom <= t.Bounds.getRectangle().Top)
-                                IsOnGround = true;
-
-                            // Ignore platforms, unless we are on the ground.
-                            if (collision == CollisionType.Impassable || IsOnGround)
-                            {
-                                if (depth.Y < 0 && velocity.Y > 0 || depth.Y >= 0 && velocity.Y < 0)
-                                {
-                                    // Resolve the collision along the Y axis.
-                                    Position = new Vector2(Position.X, Position.Y + depth.Y);
-                                }
-                                //Debug.WriteLine("Velocity Y " + velocity.Y);
-                                //Debug.WriteLine("Depth Y " + depth.Y);
-                            }
-                        }
-                        else if (collision == CollisionType.Impassable && velocity != Vector2.Zero) // Ignore platforms. //only handles this if player objects is in move
-                        {
-                            // Resolve the collision along the X axis.
-                            Position = new Vector2(Position.X + depth.X, Position.Y);
-                        }
-                    }
-                }
-            }
-
-            // Save the new bounds bottom.
-            previousBottom = Bounds.getRectangle().Bottom;
+            level.CollisionManager.HandleGeneralCollisions(this,velocity,ref previousBottom,ref isOnGround);
         }
 
         /// <summary>
