@@ -17,8 +17,13 @@
 == WORK FOR ALPHA VERSION ==
   * Leveleditor: FileName: level<worldnr>_<levelnr>_<flag>
     * available spells in layer
-    * enemy in editor: put graphic in editor on enemy layer  * First Level
+    * enemy in editor: put graphic in editor on enemy layer  
+  * First Level
   * all spells implemented like described in the design document (graphics not important, only mechanics)
+    * aiming mechanics -> christopher
+    * correcting fire/freeze/noGravity/createMatter (add aiming etc)
+    * push / pull
+    * electricity
 
   === OPTIONAL (if enough time is left) ===
   * elements that are influenced by push/pull
