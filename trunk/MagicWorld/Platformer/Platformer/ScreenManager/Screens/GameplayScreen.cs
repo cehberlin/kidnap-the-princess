@@ -11,6 +11,7 @@ using MagicWorld.Constants;
 using MagicWorld.Controls;
 using MagicWorld.HelperClasses;
 using MagicWorld.HUDClasses;
+using Microsoft.Xna.Framework.Media;
 
 namespace MagicWorld
 {
@@ -192,6 +193,12 @@ namespace MagicWorld
             }
 
             //Options
+            if (keyboardState.IsKeyUp(Player.ToggleSound) && oldKeyboardState.IsKeyDown(Player.ToggleSound))
+            {
+                MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
+            }
+
+
             if (keyboardState.IsKeyUp(Player.FullscreenToggleKey) && oldKeyboardState.IsKeyDown(Player.FullscreenToggleKey))
             {
                 ScreenManager.Graphics.ToggleFullScreen();

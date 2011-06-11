@@ -227,6 +227,7 @@ namespace MagicWorld
             //So we have to catch the exception and throw it away
             try
             {
+                MediaPlayer.IsMuted = true;
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Play(levelLoader.getBackgroundMusic());
             }
