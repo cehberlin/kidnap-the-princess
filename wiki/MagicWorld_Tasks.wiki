@@ -32,8 +32,6 @@
 
    * encapsulate important constants from all classes in some static classes as static changeable values (no const)
    * clean code wherever necessary 
-  * Check the collision resolution class and bounds of pplatforms and enemies. -> Flickering enemey bug + Teleporting player.
-  * Better fitting animation for new matter spell 
   * let camera follow the player (needs fine tuning)
   * maybe let us think about a resolution independent implementation
     ( I recently tried this with our old prototype http://www.david-amador.com/2010/03/xna-2d-independent-resolution-rendering/ ) But I had problems with the cameraposition ..
@@ -70,3 +68,5 @@ Christopher:
   * bounds fix
   * collision resolution 
   * create matter: player is directly throwing block after casting
+  * Check the collision resolution class and bounds of pplatforms and enemies. -> Flickering enemey bug + Teleporting player.
+  * Better fitting animation for new matter spell 
