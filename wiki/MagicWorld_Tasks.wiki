@@ -15,14 +15,17 @@
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
-  * Level Editor Fix (descision if correction values are needed)
-  * First Level
+  * Leveleditor: FileName: level<worldnr>_<levelnr>_<flag>
+    * available spells in layer
+    * enemy in editor: put graphic in editor on enemy layer  * First Level
+  * all spells implemented like described in the design document (graphics not important, only mechanics)
 
   === OPTIONAL (if enough time is left) ===
-  * push/pull spell 
   * elements that are influenced by push/pull
   * turn music/sound on/off 
   * BUG: spell HUD do not change after level reload if you switch the spells
+
+
 
 ==work until next milestone ==
   * reimplementation of last prototype state, 
