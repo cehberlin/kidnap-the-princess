@@ -15,16 +15,14 @@
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
-  * bounds fix
-  * collision resolution 
   * Level Editor Fix (descision if correction values are needed)
   * First Level
-  * create matter: player is directly throwing block after casting
 
   === OPTIONAL (if enough time is left) ===
   * push/pull spell 
   * elements that are influenced by push/pull
   * turn music/sound on/off 
+  * BUG: spell HUD do not change after level reload if you switch the spells
 
 ==work until next milestone ==
   * reimplementation of last prototype state, 
@@ -68,3 +66,7 @@ These both are done by Marian?? I think its finished in term of coding, but plea
    * encapsulate controls, see or copy implementation from new started architecture to old one
    * implement new control style?
    * Rework animation class -> Pascal
+Christopher:
+  * bounds fix
+  * collision resolution 
+  * create matter: player is directly throwing block after casting
