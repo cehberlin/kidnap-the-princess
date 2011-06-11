@@ -35,9 +35,9 @@
   * Sound menu (turn sound and/or music on/off)
   * menu exit -> exit game should be last entry
   * level: mechanics for switches in levels (see level ideas in design document)
-  * savegames 
-  * save configuration (save settings like sound/resolutions)
-  * enemy / AI 
+  * savegames --> amauri
+  * save configuration (save settings like sound/resolutions)--> amauri
+  * enemy / AI --> john
     * shadow creature -> follows player if he is near him
     * bats: flying through level (sinus curve)
     * spide: only moves in defined web area (in all directions)
