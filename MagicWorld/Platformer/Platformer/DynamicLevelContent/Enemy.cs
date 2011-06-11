@@ -63,10 +63,10 @@ namespace MagicWorld
             get
             {
                 float width = (sprite.Animation.FrameWidth * 0.5f);
-                float height = (sprite.Animation.FrameHeight * 0.9f);
+                float height = (sprite.Animation.FrameHeight * 0.5f);
                 float left = (float)Math.Round(Position.X - width / 2);
                 float top = (float)Math.Round(Position.Y - height/2);
-                return new Bounds(left, top, width, height);
+                return new Bounds(left, top+30, width, height);
             }
         }
 
@@ -119,9 +119,7 @@ namespace MagicWorld
         public override void Update(GameTime gameTime)
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
-
+                        
             if (isFroozen)
             {
                 currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
@@ -193,6 +191,7 @@ namespace MagicWorld
                     }
                 }
             }
+            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
         }
 
         /// <summary>

@@ -70,11 +70,11 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float width = (sprite.Animation.FrameWidth * 0.9f*currentScale);
-                float height = (sprite.Animation.FrameHeight * 0.9f * currentScale);
+                float width = (sprite.Animation.FrameWidth * 0.9f);
+                float height = (sprite.Animation.FrameHeight * 0.9f);
                 float left = (float)Math.Round(Position.X - width / 2);
                 float top = (float)Math.Round(Position.Y - height/2);
-                return new Bounds(left, top, width, height);
+                return new Bounds(left, top, width * currentScale, height * currentScale);
             }
         }
 

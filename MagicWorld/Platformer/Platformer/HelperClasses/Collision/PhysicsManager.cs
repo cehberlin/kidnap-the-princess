@@ -35,22 +35,29 @@ namespace MagicWorld.HelperClasses.Collision
 
             foreach (BasicGameElement t in collisionObjects)
             {
-                CollisionType collision = t.Collision;
-                if (collision == CollisionType.Impassable || collision == CollisionType.Platform)
+                if (typeof(Enemy) != t.GetType())
                 {
-                    Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
-
-                    //increse distance until we have no more collision
-                    if (depth.Y >= 0)
+                    CollisionType collision = t.Collision;
+                    if (collision == CollisionType.Impassable
+                        || (collision == CollisionType.Platform && t.Bounds.getRectangle().Bottom > elem.Bounds.getRectangle().Bottom))
                     {
-                        depth.Y++;
+                        Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
+
+                        if (Math.Abs(depth.Y) < Math.Abs(depth.X))
+                        {
+                            //increase distance until we have no more collision
+                            if (depth.Y >= 0)
+                            {
+                                depth.Y++;
+                            }
+                            else
+                            {
+                                depth.Y--;
+                            }
+                            elem.Position += new Vector2(0, depth.Y);
+                        }
+
                     }
-                    else
-                    {
-                        depth.Y--;
-                    }                    
-                    elem.Position += new Vector2(0,depth.Y);
-
                 }
             }
 
