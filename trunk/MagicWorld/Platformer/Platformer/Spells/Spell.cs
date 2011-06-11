@@ -115,7 +115,10 @@ namespace MagicWorld
             get { return direction; }
         }
 
-        protected float accelaration = 1;
+        protected float currentAccelaration = 1;
+        protected float accelarationChangeFactor = 0; //will be multiplyed be elaspes seconds
+        protected float accelarationMax = 2.0f;
+        protected float accelarationMin = 0f;
 
         /// <summary>
         /// describes how long a spell is alive
@@ -255,13 +258,21 @@ namespace MagicWorld
         /// <param name="gameTime"></param>
         private void HandleMovement(GameTime gameTime)
         {
+            //accelaration
+            currentAccelaration += (float)gameTime.ElapsedGameTime.TotalSeconds * accelarationChangeFactor;
+            if (currentAccelaration < accelarationMin)
+                currentAccelaration = accelarationMin;
+            if (currentAccelaration > accelarationMax)
+                currentAccelaration = accelarationMax;
+
+
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             // Calculate tile position based on the side we are walking towards.
             float posX = Position.X + Bounds.Width / 2 * (int)direction.X;
 
             // Move in the current direction.
-            velocity = new Vector2((int)direction.X * MoveSpeed * elapsed * accelaration, (int)direction.Y * MoveSpeed * elapsed * accelaration);
+            velocity = new Vector2((int)direction.X * MoveSpeed * elapsed * currentAccelaration, (int)direction.Y * MoveSpeed * elapsed * currentAccelaration);
             Position = Position + velocity;
         }
 
@@ -294,7 +305,6 @@ namespace MagicWorld
 
         public virtual void Grow(GameTime gameTime)
         {
-
             if (currentScale <= MaxScale)
             {
                 currentScale += 0.02f;
@@ -313,15 +323,9 @@ namespace MagicWorld
         {            
             if (level.MagicParticleSystem.CurrentParticles() < 10)
             {
-                level.MagicParticleSystem.AddParticles(getMidPointOfSpell());
+                level.MagicParticleSystem.AddParticles(position);
             }
         }
-
-        protected Vector2 getMidPointOfSpell()
-        {
-            return position+ new Vector2(Bounds.Width / 2, Bounds.Height / 2);
-        }
-
 
         /// <summary>
         /// throw away current spell

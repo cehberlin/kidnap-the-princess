@@ -36,6 +36,7 @@ namespace MagicWorld
             survivalTimeMs = MATTER_EXISTENCE_TIME;
             MoveSpeed = 80.0f;
             currentScale = 0.7f;
+            accelarationChangeFactor= -0.2f;
             LoadContent(spriteSet);
             this.Collision = CollisionType.Platform;
         }
@@ -47,7 +48,9 @@ namespace MagicWorld
                 // Calculate bounds within texture size.
                 float width = (matterTexture.Width * currentScale);
                 float height = (matterTexture.Height * currentScale);
-                return new Bounds(position, width, height);
+                float x = position.X - width/2;
+                float y = position.Y - height/2;
+                return new Bounds(x,y, width, height);
             }
         }
 
@@ -62,9 +65,6 @@ namespace MagicWorld
         {
             if (SpellState == State.WORKING)
             {
-                accelaration -= (float)gameTime.ElapsedGameTime.TotalSeconds/5;
-                if (accelaration < 0)
-                    accelaration = 0;
                 if (!gravityIsSetOffBySpell)
                 {
                     if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY, gameTime))
@@ -120,7 +120,7 @@ namespace MagicWorld
         {
             if (level.MatterCreationParticleSystem.CurrentParticles() < 10)
             {
-                level.MatterCreationParticleSystem.AddParticles(getMidPointOfSpell());
+                level.MatterCreationParticleSystem.AddParticles(position);
             }
         }
 
