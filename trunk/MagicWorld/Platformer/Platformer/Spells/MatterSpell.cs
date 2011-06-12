@@ -8,14 +8,12 @@ using MagicWorld.DynamicLevelContent;
 using System.Diagnostics;
 using MagicWorld.Spells;
 using MagicWorld.HelperClasses;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
     class MatterSpell:Spell 
     {
-        private const int manaBasicCost = 200;
-        private const float manaCastingCost = 1f;
-
         private const int MATTER_EXISTENCE_TIME = 500; // time that created Matter exist
 
         Texture2D matterTexture;
@@ -30,13 +28,13 @@ namespace MagicWorld
         /// <param name="_origin"></param>
         /// <param name="level"></param>
         public MatterSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.CreateMatterSpell)
+            : base(spriteSet, _origin, level, SpellConstantsValues.CreateMatterSpellConstants.BasicCastingCost, SpellConstantsValues.CreateMatterSpellConstants.CastingCostPerSecond, SpellType.CreateMatterSpell)
         {            
-            Force = 1;
+            Force = SpellConstantsValues.CreateMatterSpell_Force;
             survivalTimeMs = MATTER_EXISTENCE_TIME;
-            MoveSpeed = 80.0f;
-            currentScale = 0.7f;
-            accelarationChangeFactor= -0.2f;
+            MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;
+            currentScale = SpellConstantsValues.CreateMatterSpell_currentScale;
+            accelarationChangeFactor = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
             LoadContent(spriteSet);
             this.Collision = CollisionType.Platform;
         }
