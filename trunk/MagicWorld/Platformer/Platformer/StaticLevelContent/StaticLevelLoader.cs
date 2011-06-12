@@ -102,7 +102,7 @@ namespace MagicWorld.StaticLevelContent
             return new BlockElement("Tiles/" + name, collision, level, position,width,height);
         }
 
-        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell };
+        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.PullSpell,SpellType.PushSpell };
         public Spells.SpellType[] UsableSpells
         {
             get

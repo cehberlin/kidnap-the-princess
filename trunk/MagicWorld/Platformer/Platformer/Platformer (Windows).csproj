@@ -124,8 +124,10 @@
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
     <Compile Include="Spells\ElectricSpell.cs" />
+    <Compile Include="Spells\PullSpell.cs" />
     <Compile Include="Spells\MatterSpell.cs" />
     <Compile Include="Spells\NoGravitySpell.cs" />
+    <Compile Include="Spells\PushSpell.cs" />
     <Compile Include="Spells\Spell.cs" />
     <Compile Include="DynamicLevelContent\Enemy.cs" />
     <Compile Include="Gleed2dLevelContent\CustomProperty.cs" />

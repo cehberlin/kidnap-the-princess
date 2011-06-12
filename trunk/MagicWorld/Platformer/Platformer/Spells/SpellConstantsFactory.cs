@@ -21,7 +21,9 @@ namespace MagicWorld.Spells
                 case SpellType.CreateMatterSpell: return SpellConstantsValues.CreateMatterSpellConstants; 
                 case SpellType.NoGravitySpell: return SpellConstantsValues.NoGravitationSpellConstants; 
                 case SpellType.WarmingSpell: return SpellConstantsValues.WarmSpellConstants;
-                case SpellType.ElectricSpell: return SpellConstantsValues.ElectricSpellConstants; 
+                case SpellType.ElectricSpell: return SpellConstantsValues.ElectricSpellConstants;
+                case SpellType.PullSpell: return SpellConstantsValues.PullSpellConstants;
+                case SpellType.PushSpell: return SpellConstantsValues.PushSpellConstants; 
 
                 default: throw new NotImplementedException();
 
