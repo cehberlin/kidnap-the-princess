@@ -21,6 +21,7 @@
     * aiming mechanics -> christopher
     * correcting fire/freeze/noGravity/createMatter (add aiming etc)
     * push / pull
+  * BUG: wrong boundingboxes for spells that fly upwards
 
   === OPTIONAL (if enough time is left) ===
   * elements that are influenced by push/pull
