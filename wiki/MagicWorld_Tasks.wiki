@@ -10,7 +10,6 @@
 = in Progress =
 
   * Class Ingredients -> John
-  * ElectricitySpell -> Marian
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
@@ -22,12 +21,13 @@
     * aiming mechanics -> christopher
     * correcting fire/freeze/noGravity/createMatter (add aiming etc)
     * push / pull
-    * electricity
 
   === OPTIONAL (if enough time is left) ===
   * elements that are influenced by push/pull
   * turn music/sound on/off via the OPTIONS Menu
   * BUG: spell HUD do not change after level reload if you switch the spells ->Pascal
+  * new graphic for electric spell
+  * BUG: enemies still move while pausing the game
 
 
 == WORK FOR BETA VERSION ==
@@ -77,6 +77,9 @@ Menu screens: creating the menus --> Amauri
    * implement new control style?
  
 Christopher:
+
+  * ElectricitySpell -> Marian
+  * moved spell constants
   * reimplement matter
   * fix bug with platforms
   * Implementation Player and removing tile stuff
