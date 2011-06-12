@@ -21,9 +21,9 @@
     * enemy in editor: put graphic in editor on enemy layer  ->Pascal
   * First Level -> Marian
   * all spells implemented like described in the design document (graphics not important, only mechanics)
-    * aiming mechanics -> christopher
-    * correcting fire/freeze/noGravity/createMatter (add aiming etc.)
-  * BUG: wrong boundingboxes for spells that fly upwards
+    * correcting fire/freeze (add influence of gravity ... etc.)
+    * noGravity -> new animation
+  * BUG: wrong boundingboxes for spells that fly upwards //generally fixed because usining of cycle, it works...
 
   === OPTIONAL (if enough time is left) ===
   * elements that are influenced by push/pull
@@ -91,6 +91,7 @@ Christopher:
   * create matter: player is directly throwing block after casting
   * Check the collision resolution class and bounds of pplatforms and enemies. -> Flickering enemey bug + Teleporting player.
   * Better fitting animation for new matter spell 
+  * aiming mechanics -> christopher
 Pascal:
  * Enable multi-lined sprite sheets. (Highly optional: Enable spritesheets with more than one animation.)
  * draw zero layer
