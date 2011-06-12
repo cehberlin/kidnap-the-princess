@@ -31,8 +31,6 @@ namespace MagicWorld
 
         #region properties
 
-            public SpellType SpellSlot_A { get; set; }
-            public SpellType SpellSlot_B { get; set; }
 
         /// <summary>
         /// Origin from the object in the screen

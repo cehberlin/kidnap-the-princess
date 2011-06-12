@@ -33,7 +33,10 @@ namespace MagicWorld.HelperClasses
                        player.CurrentSpell = new NoGravitySpell("NoGravitySpell", pos, level); break;
                    case SpellType.WarmingSpell:
                        player.CurrentSpell = new WarmSpell("WarmingSpell", pos, level); break;
-
+                   case SpellType.ElectricSpell:
+                       player.CurrentSpell = new ElectricSpell("WarmingSpell", pos, level); break;
+                   default:
+                       throw new NotImplementedException();
                }
                
 

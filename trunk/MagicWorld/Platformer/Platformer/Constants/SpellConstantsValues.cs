@@ -42,5 +42,12 @@ namespace MagicWorld.Constants
         public static int NoGravitationSpell_survivalTimeMs = 5000;
         public static int NoGravitationSpell_durationOfActionMs = 5000;
         public static int NoGravitationSpell_Force = 1;
+
+        public static Spells.SpellConstants ElectricSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static float ElectricSpell_MoveSpeed = 500f;
+        public static int ElectricSpell_survivalTimeMs = 5000;
+        public static int ElectricSpell_durationOfActionMs = 5000;
+        public static int ElectricSpell_Force = 1;
+
     }
 }

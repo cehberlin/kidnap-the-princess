@@ -195,6 +195,9 @@ namespace MagicWorld.HUDClasses
                 case Spells.SpellType.WarmingSpell:
                     tex = heat;
                     break;
+                case Spells.SpellType.ElectricSpell:
+                    tex = electricity;
+                    break;
                 default:
                     throw new NotImplementedException();
             }
