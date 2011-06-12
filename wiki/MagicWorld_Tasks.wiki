@@ -10,15 +10,13 @@
 = in Progress =
 
   * Class Ingredients -> John
-  * 
-
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
-  * Leveleditor: FileName: level<worldnr>_<levelnr>_<flag>
-    * available spells in layer
-    * enemy in editor: put graphic in editor on enemy layer  
-  * First Level
+  * Level editor: support for FileName: level(worldnr)_(levelnr)_(flag) naming convention ->Pascal
+    * available spells in layer->Pascal
+    * enemy in editor: put graphic in editor on enemy layer  ->Pascal
+  * First Level -> Marian
   * all spells implemented like described in the design document (graphics not important, only mechanics)
     * aiming mechanics -> christopher
     * correcting fire/freeze/noGravity/createMatter (add aiming etc)
@@ -27,8 +25,8 @@
 
   === OPTIONAL (if enough time is left) ===
   * elements that are influenced by push/pull
-  * turn music/sound on/off 
-  * BUG: spell HUD do not change after level reload if you switch the spells
+  * turn music/sound on/off via the OPTIONS Menu
+  * BUG: spell HUD do not change after level reload if you switch the spells ->Pascal
 
 
 == WORK FOR BETA VERSION ==
@@ -40,53 +38,52 @@
   * enemy / AI --> john
     * shadow creature -> follows player if he is near him
     * bats: flying through level (sinus curve)
-    * spide: only moves in defined web area (in all directions)
-  
-
+    * spider: only moves in defined web area (in all directions)
 
 ==work until next milestone ==
   * reimplementation of last prototype state, 
     * write down which class you are working on
       * if you build a component, create the class and submit before writing code in it
     * for decoupled components you can provide a minimal implementation or copy paste from the last prototype first (can be replaced later by better component implementation)
-
    * encapsulate important constants from all classes in some static classes as static changeable values (no const)
    * clean code wherever necessary 
   * let camera follow the player (needs fine tuning)
   * maybe let us think about a resolution independent implementation
     ( I recently tried this with our old prototype http://www.david-amador.com/2010/03/xna-2d-independent-resolution-rendering/ ) But I had problems with the cameraposition ..
   * online edit possebility for constants (Marian already working?)
-  * draw zero layer
-  
 
 ==work for next milestone==
 
- * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player.
- * Stop playing the background music when exiting the GamePlayScreen.
  * Menu Entry for Options should be in the middle and the Quit Option at the bottom.
- * Enable multilined SpriteSheets. (Highly optional: Eable spritesheets with more than one animation.)
  * Put Debug Controls also into a nencapsulated interface
  * Enemy different behavior and general ki (old one was disabled, because is buggy)
- * fix bounds of player and enemy --> complete wrong
+ * fix bounds of player and enemy
 
 == deferred work ==
 
+== rejected To Dos ==
+
+ * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player. -> This will be solved by placing impassable items at the left and right bounds so the player can't touch the. Also no platform will be put so high that the player can reach the top.
 
 = done =
-Implementation Player and removing tile stuff --> Christopher
+
 
 Menu screens: creating the menus --> Amauri
+ * Stop playing the background music when exiting the GamePlayScreen.->Amaraui
    * changed Spell stuff (creation,constant management, etc)
    * new controls -> Marian
-   * reimplement matter --> Christopher
-   * fix bug with plattforms --> Christopher
-These both are done by Marian?? I think its finished in term of coding, but please change the keys ;-)
    * encapsulate controls, see or copy implementation from new started architecture to old one
    * implement new control style?
-   * Rework animation class -> Pascal
+ 
 Christopher:
+  * reimplement matter
+  * fix bug with platforms
+  * Implementation Player and removing tile stuff
   * bounds fix
   * collision resolution 
   * create matter: player is directly throwing block after casting
   * Check the collision resolution class and bounds of pplatforms and enemies. -> Flickering enemey bug + Teleporting player.
   * Better fitting animation for new matter spell 
+Pascal:
+ * Enable multi-lined sprite sheets. (Highly optional: Enable spritesheets with more than one animation.)
+ * draw zero layer
