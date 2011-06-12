@@ -219,7 +219,7 @@ namespace MagicWorld
         /// Handles spell movement
         /// </summary>
         /// <param name="gameTime"></param>
-        private void HandleMovement(GameTime gameTime)
+        protected virtual void HandleMovement(GameTime gameTime)
         {
             //accelaration
             currentAccelaration += (float)gameTime.ElapsedGameTime.TotalSeconds * accelarationChangeFactor;
