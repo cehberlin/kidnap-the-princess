@@ -6,6 +6,7 @@ using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
 using MagicWorld.Spells;
 using ParticleEffects;
+using System.Diagnostics;
 
 namespace MagicWorld
 {
@@ -30,12 +31,6 @@ namespace MagicWorld
             public SpellType SpellType { get; protected set; }
 
         #region properties
-
-
-        /// <summary>
-        /// Origin from the object in the screen
-        /// </summary>
-        public Vector2 Origin;
 
         public enum State { CREATING, WORKING, REMOVE };
         private State spellState;
@@ -68,11 +63,8 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float width = (sprite.Animation.FrameWidth * 0.9f);
-                float height = (sprite.Animation.FrameHeight * 0.9f);
-                float left = (float)Math.Round(Position.X - width / 2);
-                float top = (float)Math.Round(Position.Y - height/2);
-                return new Bounds(left, top, width * currentScale, height * currentScale);
+                float radius = (sprite.Animation.FrameWidth+ sprite.Animation.FrameHeight)/2 * 0.3f*currentScale;
+                return new Bounds(position, radius);
             }
         }
 
@@ -93,7 +85,13 @@ namespace MagicWorld
 
         protected SpriteEffects flip = SpriteEffects.None;
 
-        protected float rotation = 0.0f;
+        private float rotation = 0.0f;
+
+        public float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
 
         /// <summary>
         /// velocity of the movement of the spell
@@ -150,17 +148,16 @@ namespace MagicWorld
 
         #region methods
 
-        public Spell(string spriteSet, Vector2 _origin, Level level, int manaBasicCost, float manaCastingCost, SpellType spellType)
+        public Spell(string spriteSet, Vector2 position, Level level, int manaBasicCost, float manaCastingCost, SpellType spellType)
             : base(level)
         {
             SpellType = spellType;
             this.manaBasicCost = manaBasicCost;
             this.manaCastingCost = manaCastingCost;
-            //spellTexture = _texture;
-            Origin = _origin;
+
             Velocity = Vector2.Zero;
             Force = 0;
-            Position = _origin;
+            Position = position;
             this.level = level;
             SpellState = State.CREATING;
             LoadContent(spriteSet);
@@ -176,43 +173,11 @@ namespace MagicWorld
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Flip the sprite to face the way we are moving.
-            if (direction.X > 0)
-                flip = SpriteEffects.FlipHorizontally;
-            else if (direction.X < 0)
-                flip = SpriteEffects.None;
             Vector2 paintPosition = Bounds.Position;
-
-            if (direction.X == 0)
-            {
-                if (direction.Y < 0)
-                {
-                    rotation = (float)Math.PI * 0.5f;
-
-                }
-                else if (direction.Y > 0)
-                {
-                    rotation = -(float)Math.PI * 0.5f ;
-
-                }
-            }
-            else if (direction.X > 0)
-            {
-                if (direction.Y < 0)
-                    rotation = -(float)Math.PI * 1/4;
-                else if (direction.Y > 0)
-                    rotation = (float)Math.PI * 1/4;
-            }
-            else if (direction.X < 0)
-            {
-                if (direction.Y < 0)
-                    rotation = (float)Math.PI * 1/4;
-                else if (direction.Y > 0)
-                    rotation = -(float)Math.PI * 1/4;
-            }
+                       
             // Draw that sprite.
             if(sprite.Animation!=null)
-                sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
+                sprite.Draw(gameTime, spriteBatch, Position, SpriteEffects.None, rotation);
             base.Draw(gameTime, spriteBatch);
         }
 
@@ -237,6 +202,7 @@ namespace MagicWorld
                         sprite.PlayAnimation(runAnimation);
                     }
                 }
+                HandleCollision();
             }
             else if (SpellState == State.CREATING)
             {
@@ -247,7 +213,6 @@ namespace MagicWorld
                     sprite.PlayAnimation(idleAnimation);
                 }
             }
-            HandleCollision();
         }
 
         /// <summary>
@@ -263,14 +228,10 @@ namespace MagicWorld
             if (currentAccelaration > accelarationMax)
                 currentAccelaration = accelarationMax;
 
-
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            // Calculate tile position based on the side we are walking towards.
-            float posX = Position.X + Bounds.Width / 2 * (int)direction.X;
-
+            
             // Move in the current direction.
-            velocity = new Vector2((int)direction.X * MoveSpeed * elapsed * currentAccelaration, (int)direction.Y * MoveSpeed * elapsed * currentAccelaration);
+            velocity = new Vector2((float)direction.X * MoveSpeed * elapsed * currentAccelaration, (float)direction.Y * MoveSpeed * elapsed * currentAccelaration);
             Position = Position + velocity;
         }
 

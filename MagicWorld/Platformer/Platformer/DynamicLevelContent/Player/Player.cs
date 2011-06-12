@@ -109,6 +109,8 @@ namespace MagicWorld
         }
         Vector2 velocity;
 
+        Vector2 lastVelocity;
+
         /// <summary>
         /// Gets whether or not the player's feet are on the ground.
         /// </summary>
@@ -129,12 +131,7 @@ namespace MagicWorld
         /// <summary>
         /// Current user movement input.
         /// </summary>
-        private float movement;
-        private Vector2 lastDirection;
-        public Vector2 Direction
-        {
-            get { return lastDirection; }
-        }
+        private float movementX;
 
         // Jumping state
         private bool isJumping;
@@ -258,7 +255,7 @@ namespace MagicWorld
             gravityInfluenceMaxTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
 
             // Clear input.
-            movement = 0.0f;
+            movementX = 0.0f;
             isJumping = false;
         }
 
@@ -274,32 +271,28 @@ namespace MagicWorld
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
 
             // Get analog horizontal movement.
-            movement = gamePadState.ThumbSticks.Left.X * MoveStickScale;
+            movementX = gamePadState.ThumbSticks.Left.X * MoveStickScale;
 
             // Ignore small movements to prevent running in place.
-            if (Math.Abs(movement) < 0.5f)
-                movement = 0.0f;
+            if (Math.Abs(movementX) < 0.5f)
+                movementX = 0.0f;
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
                 keyboardState.IsKeyDown(controls.Keys_Left))
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
-                movement = -1.0f;
-                lastDirection.X = -1.0f;
+                movementX = -1.0f;    
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
                      keyboardState.IsKeyDown(controls.Keys_Right))
             //keyboardState.IsKeyDown(RightKeyAlternative))
             {
-                movement = 1.0f;
-                lastDirection.X = 1.0f;
+                movementX = 1.0f;
             }
             else
             {
-                movement = 0.0f;
-                lastDirection.X = 0.0f;
-                lastDirection.Y = 0.0f;
+                movementX = 0.0f;
             }
 
             // Check if the player wants to jump.
@@ -311,15 +304,18 @@ namespace MagicWorld
                 gamePadState.IsButtonDown(controls.GamePad_Down) ||
                 keyboardState.IsKeyDown(controls.Keys_Down);
 
-            if (isJumping)
+            if (IsCasting && (isJumping || gamePadState.IsButtonDown(controls.GamePad_Up)))
             {
-                lastDirection.Y = -1.0f;
+                spellAimAngle += SpellConstantsValues.spellAngleChangeStep;
             }
-            else if (isDown)
+
+            if (IsCasting && isDown)
             {
-                lastDirection.Y = 1.0f;
+                spellAimAngle -= SpellConstantsValues.spellAngleChangeStep;
             }
-            else if (lastDirection.Y != 0.0f)
+            Debug.WriteLine("AimAngle: " + spellAimAngle);
+
+            if (!isJumping && !isDown && velocity.Y != 0.0f)
             {
                 isFalling = true;
             }
@@ -345,7 +341,7 @@ namespace MagicWorld
 
             // Base velocity is a combination of horizontal movement control and
             // acceleration downward due to gravity.
-            velocity.X += movement * PhysicValues.PLAYER_MOVE_ACCELERATION * elapsed;
+            velocity.X += movementX * PhysicValues.PLAYER_MOVE_ACCELERATION * elapsed;
             if (disableGravity && gravityInfluenceMaxTime > 0)
             {
                 if (isFalling)
@@ -375,14 +371,15 @@ namespace MagicWorld
 
             if (IsCasting)
             {
-                Position += velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR;
+                Position += lastVelocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR;
                 //Debug.WriteLine("PHYSICSPLAYER " +( velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR));
             }
             else
             {
                 Position += velocity * elapsed;
                 //Debug.WriteLine("PHYSICSPLAYER " + (velocity * elapsed));
-            }
+                lastVelocity = velocity;
+            }            
             
 
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
@@ -497,12 +494,6 @@ namespace MagicWorld
         /// </summary>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            // Flip the sprite to face the way we are moving.
-            //if (Velocity.X < 0)
-            //    flip = SpriteEffects.FlipHorizontally;
-            //else if (Velocity.X > 0)
-            //    flip = SpriteEffects.None;
-
             // Draw that sprite.
             sprite.Draw(gameTime, spriteBatch, Position, flip, rotation);
 
@@ -517,6 +508,28 @@ namespace MagicWorld
         private int selectedSpellIndex_B = 1;
         public SpellType selectedSpell_A { get { return UsableSpells[selectedSpellIndex_A]; } }
         public SpellType selectedSpell_B { get { return UsableSpells[selectedSpellIndex_B]; } }
+
+        //current angle for spell casting
+        double spellAimAngle = Math.PI / 2;
+
+        /// <summary>
+        /// keeps in mind working direction of the player
+        /// </summary>
+        public double SpellAimAngle
+        {
+            get {
+                if (lastVelocity.X >= 0)
+                {
+                    return spellAimAngle; 
+                }
+                else
+                {
+                    return spellAimAngle+Math.PI;
+                }                 
+            }
+            set { spellAimAngle = value; }
+        }
+                
 
         /// <summary>
         /// create the spells
@@ -561,7 +574,7 @@ namespace MagicWorld
             else
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
-                {
+                {                               
                     isCastingSpell = SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 }
                 else
@@ -572,6 +585,25 @@ namespace MagicWorld
 
             oldKeyboardState = keyboardState;
             oldGamePadState = gamePadState;
+        }
+
+        /// <summary>
+        /// calculate spell position on a cycle bow around the player
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 getCurrentSpellPosition()
+        {
+            Vector2 pos;
+            /// keeps in mind working direction of the player
+            if (lastVelocity.X >= 0)
+            {
+                pos = position + new Vector2((float)(Math.Sin(spellAimAngle) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(spellAimAngle) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
+            }
+            else
+            {
+                pos = position + new Vector2((float)(Math.Sin(spellAimAngle + Math.PI) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(spellAimAngle + Math.PI) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
+            }
+            return pos;                
         }
 
         private bool isSpellAButtonPressed(IPlayerControl controls, GamePadState gamePadState, KeyboardState keyboardState)
