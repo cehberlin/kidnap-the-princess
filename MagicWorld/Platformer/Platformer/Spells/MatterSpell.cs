@@ -62,7 +62,7 @@ namespace MagicWorld
             {
                 if (!gravityIsSetOffBySpell)
                 {
-                    if (!level.PhysicsManager.ApplyGravity(this, Constants.PhysicValues.DEFAULT_GRAVITY, gameTime))
+                    if (!level.PhysicsManager.ApplyGravityWithCollisionDetection(this, Constants.PhysicValues.DEFAULT_GRAVITY, gameTime))
                     {
                         Direction = Vector2.Zero;
                     }

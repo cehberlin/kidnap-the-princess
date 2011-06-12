@@ -19,16 +19,26 @@ namespace MagicWorld.HelperClasses.Collision
         }
 
         /// <summary>
+        /// Apply Gravity to an object; no collision handling
+        /// </summary>
+        /// <param name="elem">the game element</param>
+        /// <param name="acceleration">the vector with which strength and direction the gravity goes</param>
+        public virtual void ApplyGravity(BasicGameElement elem, Vector2 acceleration, GameTime time)
+        {
+            elem.Position += acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
+        }
+
+        /// <summary>
         /// Apply Gravity to an object; stops if collision occurs
         /// </summary>
         /// <param name="elem">the game element</param>
         /// <param name="acceleration">the vector with which strength and direction the gravity goes</param>
         /// <returns>True if has influence,false if not</returns>
-        public virtual bool ApplyGravity(BasicGameElement elem, Vector2 acceleration,GameTime time)
+        public virtual bool ApplyGravityWithCollisionDetection(BasicGameElement elem, Vector2 acceleration,GameTime time)
         {
             Vector2 oldPos = elem.Position;
 
-            elem.Position += acceleration*(float)time.ElapsedGameTime.TotalMilliseconds;
+            ApplyGravity(elem, acceleration, time);
 
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(elem, ref collisionObjects);

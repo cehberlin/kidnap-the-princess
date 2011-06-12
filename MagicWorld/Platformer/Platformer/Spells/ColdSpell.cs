@@ -35,9 +35,11 @@ namespace MagicWorld
             base.LoadContent(spriteSet);
         }
 
-        public override void Update(GameTime gameTime)
+        protected override void HandleMovement(GameTime gameTime)
         {
-            base.Update(gameTime);
+            level.PhysicsManager.ApplyGravity(this, SpellConstantsValues.ColdSpellGravity, gameTime);
+            base.HandleMovement(gameTime);
         }
+
     }
 }

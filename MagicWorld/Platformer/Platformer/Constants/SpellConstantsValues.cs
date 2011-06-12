@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace MagicWorld.Constants
 {
@@ -31,12 +32,14 @@ namespace MagicWorld.Constants
         public static int ColdSpell_survivalTimeMs = 5000;
         public static int ColdSpell_durationOfActionMs = 5000;
         public static int ColdSpell_Force = 1;
+        public static Vector2 ColdSpellGravity = new Vector2(0f, 0.08f);
 
         public static Spells.SpellConstants WarmSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float WarmSpell_MoveSpeed = 100f;
         public static int WarmSpell_survivalTimeMs = 3000;
         public static int WarmSpell_durationOfActionMs = 5000;
         public static int WarmSpell_Force = 1;
+        public static Vector2 WarmSpellGravity = new Vector2(0f, 0.05f);
 
         public static Spells.SpellConstants CreateMatterSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float CreateMatterSpell_MoveSpeed = 80f;

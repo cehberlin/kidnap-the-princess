@@ -202,7 +202,7 @@ namespace MagicWorld
                     }
                 }
             }
-            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
+            level.PhysicsManager.ApplyGravityWithCollisionDetection(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
         }
 
         /// <summary>
