@@ -10,6 +10,7 @@
 = in Progress =
 
   * Class Ingredients -> John
+  * ElectricitySpell -> Marian
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
