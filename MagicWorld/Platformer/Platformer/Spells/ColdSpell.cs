@@ -5,23 +5,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Spells;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
     class ColdSpell:Spell 
     {
-        private const int manaBasicCost = 150;
-        private const float manaCastingCost = 1f;
 
         public ColdSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.ColdSpell)
-        {            
-            Force = 1;
-            survivalTimeMs = 5000;
-            MoveSpeed = 40.0f;
+            : base(spriteSet, _origin, level, SpellConstantsValues.ColdSpellConstants.BasicCastingCost, SpellConstantsValues.ColdSpellConstants.CastingCostPerSecond, SpellType.ColdSpell)
+        {
+            Force = SpellConstantsValues.ColdSpell_Force;
+            survivalTimeMs = SpellConstantsValues.ColdSpell_survivalTimeMs;
+            MoveSpeed = SpellConstantsValues.ColdSpell_MoveSpeed;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
-            durationOfActionMs = 5000;
+            durationOfActionMs = SpellConstantsValues.ColdSpell_durationOfActionMs;
         }
 
         public override void LoadContent(string spriteSet)

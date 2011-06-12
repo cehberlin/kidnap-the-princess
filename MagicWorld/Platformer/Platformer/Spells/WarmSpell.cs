@@ -5,22 +5,22 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Spells;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
     class WarmSpell:Spell 
     {
-        private const int manaBasicCost = 150;
-        private const float manaCastingCost = 1f;
+
         public WarmSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.WarmingSpell)
-        {            
-            Force = 1;
-            survivalTimeMs = 3000;
-            MoveSpeed = 64;
+            : base(spriteSet, _origin, level, SpellConstantsValues.WarmSpellConstants.BasicCastingCost, SpellConstantsValues.WarmSpellConstants.CastingCostPerSecond, SpellType.WarmingSpell)
+        {
+            Force = SpellConstantsValues.WarmSpell_Force;
+            survivalTimeMs = SpellConstantsValues.WarmSpell_survivalTimeMs;
+            MoveSpeed = SpellConstantsValues.WarmSpell_MoveSpeed;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
-            durationOfActionMs = 5000;
+            durationOfActionMs = SpellConstantsValues.WarmSpell_durationOfActionMs;
         }
 
         public override void LoadContent(string spriteSet)

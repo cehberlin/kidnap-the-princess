@@ -4,23 +4,22 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.Constants;
 
 namespace MagicWorld.Spells
 {
     class NoGravitySpell : Spell 
     {
-        private const int manaBasicCost = 200;
-        private const float manaCastingCost = 1f;
 
         public NoGravitySpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, manaBasicCost, manaCastingCost, SpellType.NoGravitySpell)
-        {            
-            Force = 1;
-            survivalTimeMs = 5000;
-            MoveSpeed = 40.0f;
+            : base(spriteSet, _origin, level, SpellConstantsValues.NoGravitationSpellConstants.BasicCastingCost, SpellConstantsValues.NoGravitationSpellConstants.CastingCostPerSecond, SpellType.NoGravitySpell)
+        {
+            Force = SpellConstantsValues.NoGravitationSpell_Force;
+            survivalTimeMs = SpellConstantsValues.NoGravitationSpell_survivalTimeMs;;
+            MoveSpeed = SpellConstantsValues.NoGravitationSpell_MoveSpeed;
             LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
-            durationOfActionMs = 5000;
+            durationOfActionMs = SpellConstantsValues.NoGravitationSpell_durationOfActionMs;
         }
         
         public override void LoadContent(string spriteSet)
