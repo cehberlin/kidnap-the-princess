@@ -13,7 +13,7 @@ namespace MagicWorld
     {
 
         public ElectricSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, SpellConstantsValues.ElectricSpellConstants.BasicCastingCost, SpellConstantsValues.ElectricSpellConstants.CastingCostPerSecond, SpellType.ColdSpell)
+            : base(spriteSet, _origin, level, SpellConstantsValues.ElectricSpellConstants.BasicCastingCost, SpellConstantsValues.ElectricSpellConstants.CastingCostPerSecond, SpellType.ElectricSpell)
         {
             Force = SpellConstantsValues.ElectricSpell_Force;
             survivalTimeMs = SpellConstantsValues.ElectricSpell_survivalTimeMs;

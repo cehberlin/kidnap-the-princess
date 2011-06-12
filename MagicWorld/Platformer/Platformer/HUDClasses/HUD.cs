@@ -198,6 +198,12 @@ namespace MagicWorld.HUDClasses
                 case Spells.SpellType.ElectricSpell:
                     tex = electricity;
                     break;
+                case Spells.SpellType.PushSpell:
+                    tex = push;
+                    break;
+                case Spells.SpellType.PullSpell:
+                    tex = pull;
+                    break;
                 default:
                     throw new NotImplementedException();
             }
