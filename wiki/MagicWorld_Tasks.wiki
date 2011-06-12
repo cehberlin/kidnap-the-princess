@@ -10,6 +10,7 @@
 = in Progress =
 
   * Class Ingredients -> John
+  * push spell -> Marian
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
