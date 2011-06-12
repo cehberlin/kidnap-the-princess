@@ -21,7 +21,7 @@ namespace MagicWorld.HelperClasses
         {
            if(player.Mana.CurrentMana > SpellConstantsFactory.getSpellConstants(type).BasicCastingCost)
            {
-               Vector2 pos = getSpellPosition(player);
+               Vector2 pos = player.getCurrentSpellPosition();
 
                switch (type)
                {
@@ -42,22 +42,15 @@ namespace MagicWorld.HelperClasses
                    default:
                        throw new NotImplementedException();
                }
-               
-
-               player.SpellSound.Play();                   
-               player.CurrentSpell.Direction = player.Direction;
+               Vector2 direction = pos - player.Position;
+               direction.Normalize();
+               player.CurrentSpell.Direction = direction;
+               player.CurrentSpell.Rotation =  -(float)(level.Player.SpellAimAngle + Math.PI / 2);
+               player.SpellSound.Play();               
                level.addSpell(player.CurrentSpell);
                return true;
            }
            return false;
-        }
-
-        private static Vector2 getSpellPosition(Player player)
-        {
-            Vector2 pos;
-            pos.X = player.Position.X + 30 * player.Direction.X;
-            pos.Y = player.Position.Y+25;
-            return pos;
         }
 
         /// <summary>
@@ -69,6 +62,14 @@ namespace MagicWorld.HelperClasses
         /// <returns>true if the spell is still casted</returns>
         public static bool furtherSpellCasting(Player player, Level level, GameTime gameTime)
         {
+            //update position and direction and drawing angle
+            Vector2 pos = player.getCurrentSpellPosition();
+            Vector2 direction = pos - player.Position;
+            direction.Normalize();
+            player.CurrentSpell.Direction = direction;
+            player.CurrentSpell.Position = pos;
+            player.CurrentSpell.Rotation = -(float)(level.Player.SpellAimAngle + Math.PI / 2);
+            //add new particle effects
             player.CurrentSpell.AddOnCreationParticles();
             if (!player.Mana.castingSpell(gameTime))
             {

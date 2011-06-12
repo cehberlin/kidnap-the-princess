@@ -98,9 +98,9 @@ namespace MagicWorld
             }
 
             Rectangle frameRect= Animation.Frames[frameIndex];
-
+            Vector2 origin = new Vector2(frameRect.Width / 2, frameRect.Height / 2);
             // Draw the current frame.
-            spriteBatch.Draw(Animation.Texture, position - new Vector2(frameRect.Width / 2, frameRect.Height/2), frameRect, Animation.TextureColor, rotation, Vector2.Zero, Animation.Scale, spriteEffects, 0f);
+            spriteBatch.Draw(Animation.Texture, position, frameRect, Animation.TextureColor, rotation, origin, Animation.Scale, spriteEffects, 0f);
         }
     }
 }

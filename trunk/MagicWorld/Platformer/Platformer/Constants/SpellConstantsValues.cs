@@ -19,6 +19,13 @@ namespace MagicWorld.Constants
         /// </summary>
         public static float MANA_REGENERATION_RATE = 0.25f;
 
+        /// <summary>
+        /// distance of casting from the player mid point
+        /// </summary>
+        public static double spellDistanceToPlayerMidPoint = 60;
+
+        public static double spellAngleChangeStep = Math.PI / 64;
+
         public static Spells.SpellConstants ColdSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ColdSpell_MoveSpeed = 100f;
         public static int ColdSpell_survivalTimeMs = 5000;
