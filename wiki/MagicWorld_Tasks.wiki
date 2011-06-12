@@ -10,18 +10,19 @@
 = in Progress =
 
   * Class Ingredients -> John
-  * push spell -> Marian
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
+  * push and pull spell mechanic/graphic needs to be implemented  !
+    * a simple circle at least as graphics
+    * at least influence on created matter 
   * Level editor: support for FileName: level(worldnr)_(levelnr)_(flag) naming convention ->Pascal
     * available spells in layer->Pascal
     * enemy in editor: put graphic in editor on enemy layer  ->Pascal
   * First Level -> Marian
   * all spells implemented like described in the design document (graphics not important, only mechanics)
     * aiming mechanics -> christopher
-    * correcting fire/freeze/noGravity/createMatter (add aiming etc)
-    * push / pull
+    * correcting fire/freeze/noGravity/createMatter (add aiming etc.)
   * BUG: wrong boundingboxes for spells that fly upwards
 
   === OPTIONAL (if enough time is left) ===
