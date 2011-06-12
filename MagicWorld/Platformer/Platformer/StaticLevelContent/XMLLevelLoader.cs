@@ -14,7 +14,7 @@ namespace MagicWorld.StaticLevelContent
     class XMLLevelLoader : ILevelLoader
     {
         Level level;
-        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell };
+        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.ElectricSpell };
 
         #region ILevelLoader member
 

@@ -87,6 +87,7 @@ namespace MagicWorld
             //init spell states
             isBurning = false;
             isFroozen = false;
+            isElectrified = false;
             debugColor = Color.Red;
         }
 
@@ -119,21 +120,21 @@ namespace MagicWorld
         public override void Update(GameTime gameTime)
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                        
-            if (isFroozen)
+
+            if (isFroozen) // ****** isFrozen ******
             {
                 currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
-                if (currentFreezeTime >= maxFreezeTime)
+                if (currentFreezeTime >= SpellInfluenceValues.maxFreezeTime)
                 {
                     isFroozen = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
                 }
             }
-            else if (isBurning)
+            else if (isBurning) // ****** isBurning ******
             {
                 currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
-                if (currentBurningTime >= maxBurningTime)
+                if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)
                 {
                     isBurning = false;
                     idleAnimation.TextureColor = Color.White;
@@ -141,7 +142,17 @@ namespace MagicWorld
                 }
             }
 
-            if (!isFroozen)
+            // ****** isElectrified ******
+            if (isElectrified)
+            {
+                currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
+                if (currentBurningTime >= SpellInfluenceValues.maxElectrifiedTime)
+                {
+                    isElectrified = false;
+                }
+            }
+
+            if (!isFroozen && !isElectrified) // ****** can move ******
             {
                 //TODO let enemies run in player direction, is buggy because enemies are shakeing at obstacles
                 //if (level.Player.Position.X > this.position.X + 10 && this.direction.Equals(FaceDirection.Left) ||
@@ -180,7 +191,7 @@ namespace MagicWorld
                             // Move in the current direction.
                             if (isBurning)
                             {
-                                velocity = new Vector2((int)direction * MoveSpeed * elapsed * burningMovingSpeedFactor, 0.0f);
+                                velocity = new Vector2((int)direction * MoveSpeed * elapsed * SpellInfluenceValues.burningMovingSpeedFactor, 0.0f);
                             }
                             else
                             {
@@ -256,22 +267,21 @@ namespace MagicWorld
 
         #region ISpellInfluenceable Member
 
+        private TimeSpan currentElectrifiedTime = new TimeSpan(0, 0, 0);
 
         private TimeSpan currentFreezeTime = new TimeSpan(0, 0, 0);
-        private TimeSpan maxFreezeTime = new TimeSpan(0, 0, 5);
 
         private TimeSpan currentBurningTime = new TimeSpan(0, 0, 0);
-        private TimeSpan maxBurningTime = new TimeSpan(0, 0, 3);
-        private float burningMovingSpeedFactor = 2f; // Factor the enemy is moving faster while under influence of warm spell
-
+        
         double spellDurationOfActionMs = 0;
 
         public Boolean isBurning { get; set; }
         public Boolean isFroozen { get; set; }
+        public Boolean isElectrified { get; set; }
 
         public override bool SpellInfluenceAction(Spell spell)
         {
-            if (spell.GetType() == typeof(WarmSpell))
+            if (spell.SpellType == Spells.SpellType.WarmingSpell)
             {
                 if (isFroozen)
                 {
@@ -290,7 +300,7 @@ namespace MagicWorld
                 }
                 return true;
             }
-            if (spell.GetType() == typeof(ColdSpell))
+            if (spell.SpellType == Spells.SpellType.ColdSpell)
             {
                 if (isBurning)
                 {
@@ -309,6 +319,12 @@ namespace MagicWorld
                 }
                 return true;
             }
+            if (spell.SpellType == Spells.SpellType.ElectricSpell)
+            {
+                isElectrified = true;
+                currentElectrifiedTime = new TimeSpan(0, 0, 0);
+            }
+
             return false;
         }
 

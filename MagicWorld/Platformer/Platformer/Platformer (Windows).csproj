@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Constants\PhysicValues.cs" />
     <Compile Include="Constants\SpellConstantsValues.cs" />
+    <Compile Include="Constants\SpellInfluenceValues.cs" />
     <Compile Include="Controls\DefaultControl.cs" />
     <Compile Include="Controls\IPlayerControl.cs" />
     <Compile Include="Controls\LaptopControl.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="ScreenManager\Screens\ResolutionMenuScreen.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
+    <Compile Include="Spells\ElectricSpell.cs" />
     <Compile Include="Spells\MatterSpell.cs" />
     <Compile Include="Spells\NoGravitySpell.cs" />
     <Compile Include="Spells\Spell.cs" />

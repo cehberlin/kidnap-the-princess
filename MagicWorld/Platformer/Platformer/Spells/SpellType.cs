@@ -13,6 +13,9 @@ namespace MagicWorld.Spells
         WarmingSpell,
         ColdSpell,
         NoGravitySpell,
-        CreateMatterSpell
+        CreateMatterSpell,
+        ElectricSpell,
+        PushSpell,
+        PullSpell
     }
 }

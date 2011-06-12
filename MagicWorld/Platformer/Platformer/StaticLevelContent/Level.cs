@@ -15,6 +15,7 @@ using MagicWorld.HelperClasses.Collision;
 using ParticleEffects;
 using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent.ParticleEffects;
+using System.Diagnostics;
 
 namespace MagicWorld
 {
@@ -193,6 +194,8 @@ namespace MagicWorld
         {
             levelLoader.init(this);
 
+            Debug.WriteLine("load level ");
+
             timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
 
             generalColliadableGameElements = levelLoader.getInteractingObjects();
@@ -215,6 +218,14 @@ namespace MagicWorld
 
             startPoint = levelLoader.getPlayerStartPosition();
 
+#if DEBUG
+            Debug.Write("usable spells in level: ");
+            foreach(SpellType spell in levelLoader.UsableSpells)
+            {
+                Debug.Write(System.Enum.GetName(typeof(SpellType),spell) + ", ");
+            }
+            Debug.WriteLine("");
+#endif
             player = new Player(this, startPoint, levelLoader.UsableSpells);
 
             endPoint = levelLoader.getLevelExit();
