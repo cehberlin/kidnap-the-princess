@@ -302,41 +302,6 @@ namespace MagicWorld
         ///Every type of collision has its own virtual method, so its easy to override special behavior in subclasses
         #region collision
 
-        /// <summary>
-        /// handels collision with enemie
-        /// </summary>
-        public virtual void HandleEnemyCollision()
-        {
-            List<Enemy> collisionEnemies = new List<Enemy>();
-
-            level.CollisionManager.CollidateWithEnemy(this, ref collisionEnemies);
-            //enemy collision
-            foreach (Enemy enemy in collisionEnemies)
-            {                
-                    if (enemy.SpellInfluenceAction(this))
-                    {
-                        SpellState = State.REMOVE;
-                    }                
-            }
-        }
-
-        /// <summary>
-        /// handels collision with tiles
-        /// </summary>
-        public virtual void HandleCollisionWithLevelElements()
-        {
-            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
-
-            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
-            //enemy collision
-            foreach (BasicGameElement tile in collisionObjects)
-            {
-                if (tile.SpellInfluenceAction(this))
-                {
-                    SpellState = State.REMOVE;
-                }
-            }
-        }
 
         /// <summary>
         /// handels collision with level bounds
@@ -389,13 +354,7 @@ namespace MagicWorld
         public virtual void HandleCollision()
         {
             //player collision
-            HandlePlayerCollision();
-
-            //enemy collision
-            HandleEnemyCollision();
-
-            //Tile collision
-            HandleCollisionWithLevelElements();        
+            HandlePlayerCollision();   
 
             //check if spells leaves the level
             HandleOutOfLevelCollision();
