@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using MagicWorld.Spells;
 using ParticleEffects;
 using System.Diagnostics;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
@@ -110,6 +111,8 @@ namespace MagicWorld
         protected float accelarationChangeFactorY = 0; //will be multiplyed be elaspes seconds
         protected float accelarationMaxY = 2.0f;
         protected float accelarationMinY = 0f;
+
+        protected float growFactor  = SpellConstantsValues.DefaultSpellGrowRate;
 
         /// <summary>
         /// describes how long a spell is alive
@@ -270,7 +273,7 @@ namespace MagicWorld
         {
             if (currentScale <= MaxScale)
             {
-                currentScale += 0.02f;
+                currentScale += growFactor;
                 if(idleAnimation!=null)
                     idleAnimation.Scale = currentScale;
                 if(runAnimation!=null)
