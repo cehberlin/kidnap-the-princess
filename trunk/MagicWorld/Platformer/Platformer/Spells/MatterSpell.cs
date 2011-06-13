@@ -34,7 +34,8 @@ namespace MagicWorld
             survivalTimeMs = MATTER_EXISTENCE_TIME;
             MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;
             currentScale = SpellConstantsValues.CreateMatterSpell_currentScale;
-            accelarationChangeFactor = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
+            accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
+            accelarationChangeFactorY = 0;
             LoadContent(spriteSet);
             this.Collision = CollisionType.Platform;
         }

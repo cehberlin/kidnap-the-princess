@@ -38,6 +38,7 @@ namespace MagicWorld
         protected override void HandleMovement(GameTime gameTime)
         {
             level.PhysicsManager.ApplyGravity(this, SpellConstantsValues.ColdSpellGravity, gameTime);
+           
             base.HandleMovement(gameTime);
         }
 

@@ -28,24 +28,24 @@ namespace MagicWorld.Constants
         public static double spellAngleChangeStep = Math.PI / 64;
 
         public static Spells.SpellConstants ColdSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static float ColdSpell_MoveSpeed = 100f;
+        public static float ColdSpell_MoveSpeed = 150f;
         public static int ColdSpell_survivalTimeMs = 5000;
         public static int ColdSpell_durationOfActionMs = 5000;
         public static int ColdSpell_Force = 1;
-        public static Vector2 ColdSpellGravity = new Vector2(0f, 0.08f);
+        public static Vector2 ColdSpellGravity = new Vector2(0f, 0.2f);
 
         public static Spells.SpellConstants WarmSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static float WarmSpell_MoveSpeed = 100f;
+        public static float WarmSpell_MoveSpeed = 160f;
         public static int WarmSpell_survivalTimeMs = 3000;
         public static int WarmSpell_durationOfActionMs = 5000;
         public static int WarmSpell_Force = 1;
-        public static Vector2 WarmSpellGravity = new Vector2(0f, 0.05f);
+        public static Vector2 WarmSpellGravity = new Vector2(0f, 0.2f);
 
         public static Spells.SpellConstants CreateMatterSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float CreateMatterSpell_MoveSpeed = 80f;
         public static int CreateMatterSpell_Force = 1;
         public static float CreateMatterSpell_currentScale = 0.7f;
-        public static float CreateMatterSpell_accelarationChangeFactor = -0.2f;
+        public static float CreateMatterSpell_accelarationChangeFactor = -0.1f;
 
         public static Spells.SpellConstants NoGravitationSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float NoGravitationSpell_MoveSpeed = 10f;
