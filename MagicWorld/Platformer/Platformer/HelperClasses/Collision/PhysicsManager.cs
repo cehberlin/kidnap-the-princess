@@ -25,7 +25,7 @@ namespace MagicWorld.HelperClasses.Collision
         /// <param name="acceleration">the vector with which strength and direction the gravity goes</param>
         public virtual void ApplyGravity(BasicGameElement elem, Vector2 acceleration, GameTime time)
         {
-            elem.Position += acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
+            elem.Velocity += acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
         }
 
         /// <summary>

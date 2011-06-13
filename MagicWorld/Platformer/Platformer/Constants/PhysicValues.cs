@@ -10,7 +10,7 @@ namespace MagicWorld
     {
         class PhysicValues
         {
-            public static Vector2 DEFAULT_GRAVITY = new Vector2(0f,0.14f);
+            public static Vector2 DEFAULT_GRAVITY = new Vector2(0f,0.1f);
 
             // Constants for controling vertical movement
             public static float PLAYER_MAX_JUMP_TIME = 0.3f;//0.15f//0.25f; //original 0.35f

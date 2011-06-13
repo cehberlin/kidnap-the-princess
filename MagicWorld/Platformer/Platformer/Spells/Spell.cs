@@ -93,16 +93,6 @@ namespace MagicWorld
             set { rotation = value; }
         }
 
-        /// <summary>
-        /// velocity of the movement of the spell
-        /// </summary>
-        protected Vector2 velocity;
-        public Vector2 Velocity
-        {
-            set { velocity = value; }
-            get { return velocity; }
-        }
-
         protected Vector2 direction;
 
         public Vector2 Direction
@@ -111,10 +101,15 @@ namespace MagicWorld
             get { return direction; }
         }
 
-        protected float currentAccelaration = 1;
-        protected float accelarationChangeFactor = 0; //will be multiplyed be elaspes seconds
-        protected float accelarationMax = 2.0f;
-        protected float accelarationMin = 0f;
+        protected float currentAccelarationX = 1;
+        protected float accelarationChangeFactorX = 0; //will be multiplyed be elaspes seconds
+        protected float accelarationMaxX = 2.0f;
+        protected float accelarationMinX = 0f;
+
+        protected float currentAccelarationY = 1;
+        protected float accelarationChangeFactorY = 0; //will be multiplyed be elaspes seconds
+        protected float accelarationMaxY = 2.0f;
+        protected float accelarationMinY = 0f;
 
         /// <summary>
         /// describes how long a spell is alive
@@ -155,7 +150,6 @@ namespace MagicWorld
             this.manaBasicCost = manaBasicCost;
             this.manaCastingCost = manaCastingCost;
 
-            Velocity = Vector2.Zero;
             Force = 0;
             Position = position;
             this.level = level;
@@ -221,18 +215,25 @@ namespace MagicWorld
         /// <param name="gameTime"></param>
         protected virtual void HandleMovement(GameTime gameTime)
         {
-            //accelaration
-            currentAccelaration += (float)gameTime.ElapsedGameTime.TotalSeconds * accelarationChangeFactor;
-            if (currentAccelaration < accelarationMin)
-                currentAccelaration = accelarationMin;
-            if (currentAccelaration > accelarationMax)
-                currentAccelaration = accelarationMax;
-
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            
+
+            //accelaration
+            currentAccelarationX += (float)elapsed * accelarationChangeFactorX;
+            if (currentAccelarationX < accelarationMinX)
+                currentAccelarationX = accelarationMinX;
+            if (currentAccelarationX > accelarationMaxX)
+                currentAccelarationX = accelarationMaxX;
+
+            currentAccelarationY += (float)elapsed * accelarationChangeFactorY;
+            if (currentAccelarationY < accelarationMinY)
+                currentAccelarationY = accelarationMinY;
+            if (currentAccelarationY > accelarationMaxY)
+                currentAccelarationY = accelarationMaxY;
+
+                        
             // Move in the current direction.
-            velocity = new Vector2((float)direction.X * MoveSpeed * elapsed * currentAccelaration, (float)direction.Y * MoveSpeed * elapsed * currentAccelaration);
-            Position = Position + velocity;
+            velocity = new Vector2((float)velocity.X  * currentAccelarationX, (float)velocity.Y  * currentAccelarationY);
+            Position = Position + velocity*elapsed;
         }
 
         /// <summary>
@@ -292,6 +293,7 @@ namespace MagicWorld
         public virtual void FireUp()
         {
             SpellState = State.WORKING;
+            velocity = new Vector2((float)direction.X * MoveSpeed , (float)direction.Y * MoveSpeed);
         }
 
         ///Every type of collision has its own virtual method, so its easy to override special behavior in subclasses

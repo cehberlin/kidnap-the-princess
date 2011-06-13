@@ -40,12 +40,20 @@ namespace MagicWorld.DynamicLevelContent
         /// </summary>
         public CollisionType Collision=CollisionType.Passable;
 
-        protected Vector2 position;
+        protected Vector2 position = Vector2.Zero;
 
         public virtual Vector2 Position
         {
             get { return position; }
             set { position = value; }
+        }
+
+        protected Vector2 velocity = Vector2.Zero;
+
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+            set { velocity = value; }
         }
 
         //you need to set a Bound

@@ -301,23 +301,7 @@ namespace MagicWorld
 
                 UpdateObjects(gameTime);
 
-                // Falling off the bottom of the level kills the player.               
-                if (collisionManager.CollidateWithLevelBounds(player))
-                {
-                    OnPlayerKilled(null);
-                }
-
                 UpdateParticleEffects(gameTime);
-
-                // The player has reached the exit if they are standing on the ground and
-                // his bounding rectangle contains the center of the exit tile. They can only
-                // exit when they have collected all of the gems.
-                if (Player.IsAlive &&
-                    Player.IsOnGround &&
-                    collisionManager.CollidateWithLevelExit(player))
-                {
-                    OnExitReached();
-                }
             }
 
             // Clamp the time remaining at zero.
@@ -358,22 +342,6 @@ namespace MagicWorld
                 {
                     removableObjects.Add(elem);
                 }
-
-                //special update behavior for some classes
-
-                //enemies
-                if (elem.GetType() == typeof(Enemy))
-                {
-                    Enemy enemy = (Enemy)elem;
-                    UpdateEnemy(enemy);
-                }
-                //spells
-                else if (elem.GetType() == typeof(Spell))
-                {
-                    Spell spell = (Spell)elem;
-                    UpdateSpell(spell);
-                }
-
             }
             //remove destroyed elements
             foreach (BasicGameElement elem in removableObjects)
@@ -388,19 +356,6 @@ namespace MagicWorld
             }
         }
 
-        private void UpdateEnemy(Enemy enemy)
-        {
-            if (!enemy.isFroozen && collisionManager.CollidateWithPlayer(enemy))
-            {
-                OnPlayerKilled(enemy);
-            }
-        }
-
-        private void UpdateSpell(Spell spell)
-        {
-            //add if necessary
-        }
-
         private void UpdateParticleEffects(GameTime gameTime)
         {
             ExplosionParticleSystem.Update(gameTime);
@@ -410,25 +365,11 @@ namespace MagicWorld
             MatterCreationParticleSystem.Update(gameTime);
         }
 
-
-        /// <summary>
-        /// Called when the player is killed.
-        /// </summary>
-        /// <param name="killedBy">
-        /// The enemy who killed the player. This is null if the player was not killed by an
-        /// enemy, such as when a player falls into a hole.
-        /// </param>
-        private void OnPlayerKilled(Enemy killedBy)
-        {
-            Player.OnKilled(killedBy);
-        }
-
         /// <summary>
         /// Called when the player reaches the level's exit.
         /// </summary>
         public void OnExitReached()
         {
-            Player.OnReachedExit();
             exitReachedSound.Play();
             reachedExit = true;
         }

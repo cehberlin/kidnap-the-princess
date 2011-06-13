@@ -18,15 +18,6 @@ using MagicWorld.Constants;
 namespace MagicWorld
 {
     /// <summary>
-    /// Facing direction along the X axis.
-    /// </summary>
-    enum FaceDirection
-    {
-        Left = -1,
-        Right = 1,
-    }
-
-    /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
     public class Enemy : BasicGameElement
@@ -36,11 +27,6 @@ namespace MagicWorld
         private Animation runAnimation;
         private Animation idleAnimation;
         private AnimationPlayer sprite;
-
-        /// <summary>
-        /// The direction this enemy is facing and moving along the X axis.
-        /// </summary>
-        private FaceDirection direction = FaceDirection.Left;
 
         /// <summary>
         /// How long this enemy has been waiting before turning around.
@@ -70,6 +56,8 @@ namespace MagicWorld
             }
         }
 
+        Vector2 lastposition;
+
         #region loading
 
         /// <summary>
@@ -79,6 +67,7 @@ namespace MagicWorld
             : base(level)
         {
             this.Position = position;
+            lastposition = Position;
 
             LoadContent(spriteSet);
 
@@ -89,6 +78,7 @@ namespace MagicWorld
             isFroozen = false;
             isElectrified = false;
             debugColor = Color.Red;
+            velocity = new Vector2(-MoveSpeed, 0);
         }
 
         /// <summary>
@@ -108,11 +98,6 @@ namespace MagicWorld
 
 
         #region updating
-
-        /// <summary>
-        /// contains direction and speed
-        /// </summary>
-        Vector2 velocity;
 
         /// <summary>
         /// Paces back and forth along a platform, waiting at either end.
@@ -167,17 +152,16 @@ namespace MagicWorld
                     waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
                     if (waitTime <= 0.0f)
                     {
-                        // Then turn around.
-                        direction = (FaceDirection)(-(int)direction);
+                        // Then turn around.                     
+                        velocity = velocity * -1;
                     }
                 }
                 else
                 {
                     if (HandleCollision())
                     {
-                        //TODO: We need a resolution vector->Flickering bug.
                         //let enemy bounce back after collision, neccessary so you are not kept in the collision
-                        position = position - velocity;
+                        position = lastposition- position;
                     }
                     else
                     {
@@ -188,16 +172,18 @@ namespace MagicWorld
                         }
                         else
                         {
+                            float acceleration;
                             // Move in the current direction.
                             if (isBurning)
                             {
-                                velocity = new Vector2((int)direction * MoveSpeed * elapsed * SpellInfluenceValues.burningMovingSpeedFactor, 0.0f);
+                                acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
                             }
                             else
-                            {
-                                velocity = new Vector2((int)direction * MoveSpeed * elapsed, 0.0f);
+                            {                                
+                                acceleration = 1;
                             }
-                            position = position + velocity;
+                            lastposition = position;
+                            position = position + velocity * elapsed * acceleration;                            
                         }
                     }
                 }
@@ -257,7 +243,7 @@ namespace MagicWorld
             }
 
             // Draw facing the way the enemy is moving.
-            SpriteEffects flip = direction > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            SpriteEffects flip = velocity.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);
 
             base.Draw(gameTime, spriteBatch);

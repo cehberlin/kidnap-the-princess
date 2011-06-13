@@ -102,13 +102,6 @@ namespace MagicWorld
 
         private float previousBottom;
 
-        public Vector2 Velocity
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
-        Vector2 velocity;
-
         Vector2 lastVelocity;
 
         /// <summary>
@@ -372,12 +365,10 @@ namespace MagicWorld
             if (IsCasting)
             {
                 Position += lastVelocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR;
-                //Debug.WriteLine("PHYSICSPLAYER " +( velocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR));
             }
             else
             {
                 Position += velocity * elapsed;
-                //Debug.WriteLine("PHYSICSPLAYER " + (velocity * elapsed));
                 lastVelocity = velocity;
             }            
             
@@ -459,7 +450,43 @@ namespace MagicWorld
 
         private void HandleCollisions()
         {
-            level.CollisionManager.HandleGeneralCollisions(this,velocity,ref previousBottom,ref isOnGround);
+            List<Enemy> enemies = new List<Enemy>();
+            level.CollisionManager.CollidateWithEnemy(this, ref enemies);
+
+            foreach (Enemy e in enemies)
+            {
+                if (!e.isFroozen)
+                {
+                    OnKilled(e);
+                }
+            }
+
+
+            // Falling off the bottom of the level kills the player.               
+            if (level.CollisionManager.CollidateWithLevelBounds(this))
+            {
+                OnKilled(null);
+            }
+
+            // The player has reached the exit if they are standing on the ground and
+            // his bounding rectangle contains the center of the exit tile. They can only
+            // exit when they have collected all of the gems.
+            if (IsAlive &&
+                IsOnGround &&
+                level.CollisionManager.CollidateWithLevelExit(this))
+            {
+                OnReachedExit();
+                level.OnExitReached();
+            }
+
+            if (IsCasting)
+            {
+                level.CollisionManager.HandleGeneralCollisions(this, lastVelocity, ref previousBottom, ref isOnGround);
+            }
+            else
+            {
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref previousBottom, ref isOnGround);
+            }
         }
 
         /// <summary>
@@ -524,7 +551,7 @@ namespace MagicWorld
                 }
                 else
                 {
-                    return spellAimAngle+Math.PI;
+                    return -spellAimAngle;
                 }                 
             }
             set { spellAimAngle = value; }
@@ -594,15 +621,20 @@ namespace MagicWorld
         public Vector2 getCurrentSpellPosition()
         {
             Vector2 pos;
-            /// keeps in mind working direction of the player
+
+            double angle;
+
+            /// keeps in mind working direction of the player (mirrors the angle)
             if (lastVelocity.X >= 0)
             {
-                pos = position + new Vector2((float)(Math.Sin(spellAimAngle) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(spellAimAngle) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
+                angle = spellAimAngle;
             }
             else
             {
-                pos = position + new Vector2((float)(Math.Sin(spellAimAngle + Math.PI) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(spellAimAngle + Math.PI) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
+                angle = -spellAimAngle;             
             }
+
+            pos = position + new Vector2((float)(Math.Sin(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
             return pos;                
         }
 
