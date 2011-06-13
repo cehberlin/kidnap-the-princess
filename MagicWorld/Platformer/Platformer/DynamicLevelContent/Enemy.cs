@@ -57,8 +57,6 @@ namespace MagicWorld
             }
         }
 
-        Vector2 lastposition;
-
         Bounds oldBounds;
         bool isOnGround = false;
 
@@ -71,8 +69,7 @@ namespace MagicWorld
             : base(level)
         {
             this.Position = position;
-            lastposition = Position;
-
+ 
             LoadContent(spriteSet);
 
             Collision = CollisionType.Impassable;
@@ -177,7 +174,7 @@ namespace MagicWorld
                     if (HandleCollision())
                     {
                         //let enemy bounce back after collision, neccessary so you are not kept in the collision
-                        position = lastposition- position;
+                        Position = oldPosition - Position;
                     }
                     else
                     {                            
@@ -190,9 +187,7 @@ namespace MagicWorld
                             {                                
                                 acceleration = 1;
                             }
-                            lastposition = position;
-                            position = position + velocity * elapsed * acceleration;
-                            Debug.WriteLine("EnemyPos" + position); 
+                            Position = Position + velocity * elapsed * acceleration;
                     }
                 }
             }

@@ -42,10 +42,14 @@ namespace MagicWorld.DynamicLevelContent
 
         protected Vector2 position = Vector2.Zero;
 
+        protected Vector2 oldPosition = Vector2.Zero;
+
         public virtual Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set {
+                oldPosition = position;
+                position = value; }
         }
 
         protected Vector2 velocity = Vector2.Zero;
