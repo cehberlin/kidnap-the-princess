@@ -13,17 +13,18 @@
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
-  * push and pull spell mechanic/graphic needs to be implemented  !
-    * a simple circle at least as graphics
-    * at least influence on created matter 
+  * better push and pull spell mechanic
   * Level editor: support for FileName: level(worldnr)_(levelnr)_(flag) naming convention ->Pascal
     * available spells in layer->Pascal
     * enemy in editor: put graphic in editor on enemy layer  ->Pascal
   * First Level -> Marian
   * all spells implemented like described in the design document (graphics not important, only mechanics)
-  * BUG collision detection: enemies and matter sometimes falls through the ground, very mysterious...if someone could help? I struggled some time (written by christopher)
+  * BUG collision detection: enemies and matter sometimes falls through the ground, very mysterious...if someone could help? I struggled some time (written by christopher) -> looks like the gravitation is responsible for that, I guess there is something wrong with the collision resolution
     * noGravity -> new animation
   * BUG: wrong boundingboxes for spells that fly upwards //generally fixed because usining of cycle bounds(thats not drawn), it works...
+  * BUG: matter is created at the wrong place (behind the player)
+  * push/pull graphics
+  * electric spell graphics
 
   === OPTIONAL (if enough time is left) ===
   * elements that are influenced by push/pull
