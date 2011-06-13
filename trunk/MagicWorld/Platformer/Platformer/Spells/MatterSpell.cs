@@ -60,6 +60,8 @@ namespace MagicWorld
             oldBounds = this.Bounds;
         }
 
+
+
         Bounds oldBounds;
         bool isOnGround = false;
         public override void Update(GameTime gameTime)
@@ -107,6 +109,10 @@ namespace MagicWorld
             if (SpellState == State.WORKING)
             {
                 level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
+                if (isOnGround)
+                {
+                    ResetVelocity();
+                }
             }
         }
 
@@ -117,15 +123,15 @@ namespace MagicWorld
             base.OnWorkingStart();
         }
 
-        protected override void OnRemove()
-        {
-            base.OnRemove();
-        }
-
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(matterTexture, Bounds.getRectangle(), Color.White);
             base.Draw(gameTime, spriteBatch);
+        }
+
+        protected override void ResetVelocity()
+        {
+            velocity = Vector2.Zero;
         }
 
         /// <summary>
