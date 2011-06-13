@@ -9,7 +9,7 @@ namespace MagicWorld.HelperClasses
     public class Bounds
     {
 
-        enum BoundType
+        public enum BoundType
         {
             BOX,
             SPHERE
@@ -17,7 +17,7 @@ namespace MagicWorld.HelperClasses
 
         BoundType type;
 
-        private BoundType Type
+        public BoundType Type
         {
             get { return type; }
         }

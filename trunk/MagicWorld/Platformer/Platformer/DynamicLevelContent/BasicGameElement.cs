@@ -79,6 +79,8 @@ namespace MagicWorld.DynamicLevelContent
 
         protected Texture2D debugTexture;
 
+        protected Texture2D debugTextureCycle;
+
         protected Color debugColor = Color.White;
 
         /// <summary>
@@ -108,13 +110,21 @@ namespace MagicWorld.DynamicLevelContent
         public virtual void LoadContent(string spriteSet)
         {
             debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
+            debugTextureCycle = level.Content.Load<Texture2D>("Sprites\\Circle");
         }
 
         public virtual void Draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             if (DebugValues.DEBUG && PrivateDebug)
             {
-                spriteBatch.Draw(debugTexture, Bounds.getRectangle(), debugColor);
+                if (Bounds.Type == Bounds.BoundType.BOX)
+                {
+                    spriteBatch.Draw(debugTexture, Bounds.getRectangle(), debugColor);
+                }
+                else
+                {
+                    spriteBatch.Draw(debugTextureCycle, Bounds.getRectangle(), debugColor);
+                }
             }
         }
 
