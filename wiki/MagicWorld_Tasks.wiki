@@ -22,7 +22,6 @@
   * BUG collision detection: enemies and matter sometimes falls through the ground, very mysterious...if someone could help? I struggled some time (written by christopher) -> looks like the gravitation is responsible for that, I guess there is something wrong with the collision resolution
     * noGravity -> new animation
   * BUG: wrong boundingboxes for spells that fly upwards //generally fixed because usining of cycle bounds(thats not drawn), it works...
-  * BUG: matter is created at the wrong place (behind the player)
   * push/pull graphics
   * electric spell graphics
 
