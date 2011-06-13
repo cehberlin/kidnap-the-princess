@@ -25,7 +25,12 @@ namespace MagicWorld.Constants
         /// </summary>
         public static double spellDistanceToPlayerMidPoint = 60;
 
+        /// <summary>
+        /// step for increaseing decreasing the aiming angle
+        /// </summary>
         public static double spellAngleChangeStep = Math.PI / 64;
+
+        public static float DefaultSpellGrowRate = 0.02f;
 
         public static Spells.SpellConstants ColdSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ColdSpell_MoveSpeed = 150f;
@@ -65,12 +70,14 @@ namespace MagicWorld.Constants
         public static int PushSpell_durationOfActionMs = 5000;
         public static int PushSpell_Force = 1;
         public static float PushSpell_MaxSize = 20f;
+        public static float PushSpell_GrowRate = 0.52f;
 
         public static Spells.SpellConstants PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static int PullSpell_survivalTimeMs = PushSpell_survivalTimeMs;
         public static int PullSpell_durationOfActionMs = PushSpell_durationOfActionMs;
         public static int PullSpell_Force = PushSpell_Force;
         public static float PullSpell_MaxSize = PushSpell_MaxSize;
+        public static float PullSpell_GrowRate =0.52f;
 
     }
 }
