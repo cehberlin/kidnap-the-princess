@@ -61,14 +61,16 @@ namespace MagicWorld.Constants
 
 
         public static Spells.SpellConstants PushSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static int PushSpell_survivalTimeMs = 5000;
+        public static int PushSpell_survivalTimeMs = 1000;
         public static int PushSpell_durationOfActionMs = 5000;
         public static int PushSpell_Force = 1;
+        public static float PushSpell_MaxSize = 20f;
 
-        public static Spells.SpellConstants PullSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static int PullSpell_survivalTimeMs = 5000;
-        public static int PullSpell_durationOfActionMs = 5000;
-        public static int PullSpell_Force = 1;
+        public static Spells.SpellConstants PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static int PullSpell_survivalTimeMs = PushSpell_survivalTimeMs;
+        public static int PullSpell_durationOfActionMs = PushSpell_durationOfActionMs;
+        public static int PullSpell_Force = PushSpell_Force;
+        public static float PullSpell_MaxSize = PushSpell_MaxSize;
 
     }
 }

@@ -12,8 +12,9 @@ namespace MagicWorld.Spells
     {
 
 
+
         public PullSpell(string spriteSet, Vector2 _origin, Level level)
-            : base(spriteSet, _origin, level, SpellConstantsValues.PullSpellConstants.BasicCastingCost, SpellConstantsValues.PullSpellConstants.CastingCostPerSecond, SpellType.PushSpell)
+            : base(spriteSet, _origin, level, SpellConstantsValues.PullSpellConstants.BasicCastingCost, SpellConstantsValues.PullSpellConstants.CastingCostPerSecond, SpellType.PullSpell)
         {
             Force = SpellConstantsValues.PullSpell_Force;
             survivalTimeMs = SpellConstantsValues.PullSpell_survivalTimeMs;
@@ -22,8 +23,9 @@ namespace MagicWorld.Spells
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
+            MaxScale = SpellConstantsValues.PullSpell_MaxSize;
         }
-
+        
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
@@ -36,21 +38,23 @@ namespace MagicWorld.Spells
             base.LoadContent(spriteSet);
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            if (sprite.Animation != null)
-            {
-                sprite.Draw(gameTime, spriteBatch, Position, 0, 0);
-            }
-            //base.Draw(gameTime, spriteBatch);
-        }
-
         public override void Update(GameTime gameTime)
         {
             base.Position = level.Player.Position;
             base.Update(gameTime);
         }
 
-        
+        override public void Grow(GameTime gameTime)
+        {
+            if (currentScale <= MaxScale)
+            {
+                currentScale += 0.52f;
+                if (idleAnimation != null)
+                    idleAnimation.Scale = currentScale;
+                if (runAnimation != null)
+                    runAnimation.Scale = currentScale;
+                Force++;
+            }
+        }
     }
 }
