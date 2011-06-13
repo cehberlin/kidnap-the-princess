@@ -72,6 +72,7 @@ namespace MagicWorld
         }
         bool isAlive;
 
+        private Bounds oldBounds;
         public override Bounds Bounds
         {
             get
@@ -98,9 +99,7 @@ namespace MagicWorld
                 }
                 position = value;
             }
-        }
-
-        private float previousBottom;
+        }        
 
         Vector2 lastVelocity;
 
@@ -158,7 +157,7 @@ namespace MagicWorld
             : base(level)
         {
             this.UsableSpells = useableSpells;
-            this.level = level;
+            this.level = level;            
 
             Mana = new Mana(this);
 
@@ -189,7 +188,7 @@ namespace MagicWorld
             killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
             jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");
             fallSound = level.Content.Load<SoundEffect>("Sounds/PlayerFall");
-            spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");
+            spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");            
             base.LoadContent("");
         }
 
@@ -203,6 +202,7 @@ namespace MagicWorld
             Velocity = Vector2.Zero;
             isAlive = true;
             sprite.PlayAnimation(idleAnimation);
+            oldBounds = this.Bounds;
         }
 
         /// <summary>
@@ -306,7 +306,6 @@ namespace MagicWorld
             {
                 spellAimAngle -= SpellConstantsValues.spellAngleChangeStep;
             }
-            Debug.WriteLine("AimAngle: " + spellAimAngle);
 
             if (!isJumping && !isDown && velocity.Y != 0.0f)
             {
@@ -339,11 +338,25 @@ namespace MagicWorld
             {
                 if (isFalling)
                 {
-                    velocity.Y = 0;
+                    if (IsCasting)
+                    {
+                        lastVelocity.Y = 0;
+                    }
+                    else
+                    {
+                        velocity.Y = 0;
+                    }
                 }
                 else
                 {
-                    velocity.Y = MathHelper.Clamp(velocity.Y, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
+                    if (IsCasting)
+                    {
+                        lastVelocity.Y = MathHelper.Clamp(lastVelocity.Y, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
+                    }
+                    else
+                    {
+                        velocity.Y = MathHelper.Clamp(velocity.Y, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
+                    }                   
                 }
             }
             else
@@ -488,11 +501,11 @@ namespace MagicWorld
 
             if (IsCasting)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, lastVelocity, ref previousBottom, ref isOnGround);
+                level.CollisionManager.HandleGeneralCollisions(this, lastVelocity, ref oldBounds, ref isOnGround);
             }
             else
             {
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref previousBottom, ref isOnGround);
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
             }
         }
 

@@ -54,21 +54,26 @@ namespace MagicWorld
             matterTexture = level.Content.Load<Texture2D>("Sprites\\MatterSpell\\matter");
 
             base.LoadContent(spriteSet);
+            oldBounds = this.Bounds;
         }
 
+        Bounds oldBounds;
+        bool isOnGround = false;
         public override void Update(GameTime gameTime)
         {
             if (SpellState == State.WORKING)
             {
                 if (!gravityIsSetOffBySpell)
                 {
-                    if (!level.PhysicsManager.ApplyGravityWithCollisionDetection(this, Constants.PhysicValues.DEFAULT_GRAVITY, gameTime))
-                    {
-                        Direction = Vector2.Zero;
-                    }
+                        level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);                     
                 }
             }
             base.Update(gameTime);
+            if (SpellState == State.WORKING)
+            {
+                Debug.WriteLine("MatterVelo: " + velocity);
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
+            }
         }
 
         protected override void OnWorkingStart()
@@ -118,6 +123,12 @@ namespace MagicWorld
                 level.MatterCreationParticleSystem.AddParticles(position);
             }
         }
+
+        public override void HandleCollision()
+        {   
+            //check if spells leaves the level
+            HandleOutOfLevelCollision();
+         }
 
     }
 }

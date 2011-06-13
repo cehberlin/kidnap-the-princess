@@ -58,6 +58,9 @@ namespace MagicWorld
 
         Vector2 lastposition;
 
+        Bounds oldBounds;
+        bool isOnGround = false;
+
         #region loading
 
         /// <summary>
@@ -91,6 +94,8 @@ namespace MagicWorld
             idleAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
             sprite.PlayAnimation(idleAnimation);
 
+            oldBounds = this.Bounds;
+
             base.LoadContent("");
         }
 
@@ -104,6 +109,8 @@ namespace MagicWorld
         /// </summary>
         public override void Update(GameTime gameTime)
         {
+            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
+
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (isFroozen) // ****** isFrozen ******
@@ -165,13 +172,6 @@ namespace MagicWorld
                     }
                     else
                     {
-                        if (this.position.X < level.Player.Position.X &&
-                            (this.position.X + 500 > level.Player.Position.X))
-                        {
-                            waitTime = MaxWaitTime;
-                        }
-                        else
-                        {
                             float acceleration;
                             // Move in the current direction.
                             if (isBurning)
@@ -184,11 +184,10 @@ namespace MagicWorld
                             }
                             lastposition = position;
                             position = position + velocity * elapsed * acceleration;                            
-                        }
                     }
                 }
             }
-            level.PhysicsManager.ApplyGravityWithCollisionDetection(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
+            level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
         }
 
         /// <summary>

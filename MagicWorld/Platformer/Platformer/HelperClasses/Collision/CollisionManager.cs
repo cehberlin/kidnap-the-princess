@@ -31,7 +31,7 @@ namespace MagicWorld.HelperClasses
             else
                 return false;
         }
-        
+
         /// <summary>
         /// Check if two basic game elements intersects
         /// </summary>
@@ -123,7 +123,7 @@ namespace MagicWorld.HelperClasses
 
             foreach (BasicGameElement element in level.GeneralColliadableGameElements)
             {
-                if (elem!=element && Intersects(element.Bounds, elem.Bounds))
+                if (elem != element && Intersects(element.Bounds, elem.Bounds))
                 {
                     isCollision = true;
                     if (elementsColliadingWith != null)
@@ -147,7 +147,7 @@ namespace MagicWorld.HelperClasses
             return !Intersects(elem.Bounds, level.LevelBounds);
         }
 
-        
+
         public bool CollidateWithLevelExit(BasicGameElement elem)
         {
             return Intersects(elem, level.EndPoint);
@@ -160,7 +160,7 @@ namespace MagicWorld.HelperClasses
         /// <param name="elem">the element which should be handled</param>
         /// <param name="previousBottom">must be a member variable, same variable ref on every call</param>
         /// <param name="IsOnGround">give you information if the object is on ground or not</param>
-        public void HandleGeneralCollisions(BasicGameElement elem,Vector2 movement,ref float previousBottom,ref bool IsOnGround)
+        public void HandleGeneralCollisions(BasicGameElement elem, Vector2 movement, ref Bounds oldBounds, ref bool IsOnGround)
         {
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(elem, ref collisionObjects);
@@ -184,34 +184,29 @@ namespace MagicWorld.HelperClasses
                         // Resolve the collision along the y axis.
                         if (absDepthY < absDepthX || collision == CollisionType.Platform)
                         {
-                            // If we crossed the top of a tile, we are on the ground.
-                            if (previousBottom <= t.Bounds.getRectangle().Top)
+                            if (oldBounds.Position.Y != elem.Bounds.Position.Y)
                             {
-                                IsOnGround = true;
-                                //Debug.WriteLine("On Ground");
-                            }
-                            //else
-                            //{
-                            //    Debug.WriteLine("Not On Ground");
-                            //}
-
-                            // Ignore platforms, unless we are on the ground.
-                            if (collision == CollisionType.Impassable
-                                //this condition is necessary if we ware on ground and have a collision with another plattform with upper player body
-                                || IsOnGround && t.Bounds.getRectangle().Bottom > elem.Bounds.getRectangle().Bottom)
-                            {
-                                //Debug.WriteLine("Impassable or on Ground");
-                                if (depth.Y < 0 && movement.Y > 0 || depth.Y >= 0 && movement.Y < 0)
+                                // If we crossed the top of a tile, we are on the ground.
+                                if (oldBounds.getRectangle().Bottom <= t.Bounds.getRectangle().Top)
                                 {
-                                    //Debug.WriteLine("Resolve Collision");
-                                    // Resolve the collision along the Y axis.
-                                    elem.Position = new Vector2(elem.Position.X, elem.Position.Y + depth.Y);
+                                    IsOnGround = true;
                                 }
-                                //Debug.WriteLine("Velocity Y " + velocity.Y);
-                                //Debug.WriteLine("Depth Y " + depth.Y);
+
+                                // Ignore platforms, unless we are on the ground.
+                                if (collision == CollisionType.Impassable
+                                    //this condition is necessary if we ware on ground and have a collision with another plattform with upper player body
+                                    || IsOnGround && t.Bounds.getRectangle().Bottom > elem.Bounds.getRectangle().Bottom)
+                                {
+                                    //Debug.WriteLine("Impassable or on Ground");
+                                    if (depth.Y < 0 && movement.Y > 0 || depth.Y >= 0 && movement.Y < 0)
+                                    {
+                                        // Resolve the collision along the Y axis.
+                                        elem.Position = new Vector2(elem.Position.X, elem.Position.Y + depth.Y);
+                                    }
+                                }
                             }
                         }
-                        else if (collision == CollisionType.Impassable ) // Ignore platforms. //only handles this if player objects is in move
+                        else if (collision == CollisionType.Impassable && oldBounds.Position.X != elem.Bounds.Position.X) // Ignore platforms. //only handles this if object is in move
                         {
                             // Resolve the collision along the X axis.
                             elem.Position = new Vector2(elem.Position.X + depth.X, elem.Position.Y);
@@ -221,7 +216,7 @@ namespace MagicWorld.HelperClasses
             }
 
             // Save the new bounds bottom.
-            previousBottom = elem.Bounds.getRectangle().Bottom;
+            oldBounds = elem.Bounds;
         }
 
     }
