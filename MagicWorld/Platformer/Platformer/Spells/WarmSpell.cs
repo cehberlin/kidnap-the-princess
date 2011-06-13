@@ -47,5 +47,17 @@ namespace MagicWorld
             level.ExplosionSmokeParticleSystem.AddParticles(position);
             base.OnRemove();
         }
+
+
+        /// <summary>
+        /// adds creation particles
+        /// </summary>
+        public override void AddOnCreationParticles()
+        {
+            if (level.FireMagicParticleSystem.CurrentParticles() < 10)
+            {
+                level.FireMagicParticleSystem.AddParticles(position);
+            }
+        }
     }
 }

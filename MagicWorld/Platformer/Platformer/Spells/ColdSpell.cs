@@ -42,5 +42,16 @@ namespace MagicWorld
             base.HandleMovement(gameTime);
         }
 
+        /// <summary>
+        /// adds creation particles
+        /// </summary>
+        public override void AddOnCreationParticles()
+        {
+            if (level.IceMagicParticleSystem.CurrentParticles() < 10)
+            {
+                level.IceMagicParticleSystem.AddParticles(position);
+            }
+        }
+
     }
 }
