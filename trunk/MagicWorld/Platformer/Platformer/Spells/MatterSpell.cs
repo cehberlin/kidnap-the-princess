@@ -18,7 +18,6 @@ namespace MagicWorld
 
         Texture2D matterTexture;
 
-
         protected Boolean gravityIsSetOffBySpell = false;
 
         /// <summary>

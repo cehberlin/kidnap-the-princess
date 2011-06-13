@@ -348,10 +348,15 @@ namespace MagicWorld
             }
             else
             {
-                velocity.Y = MathHelper.Clamp(velocity.Y + PhysicValues.PLAYER_GRAVITY_ACCELERATIOPM * elapsed, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
+                if (IsCasting)
+                {
+                    lastVelocity.Y = MathHelper.Clamp(lastVelocity.Y + PhysicValues.PLAYER_GRAVITY_ACCELERATIOPM * elapsed, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
+                }
+                else
+                {
+                    velocity.Y = MathHelper.Clamp(velocity.Y + PhysicValues.PLAYER_GRAVITY_ACCELERATIOPM * elapsed, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
+                }
             }
-
-            velocity.Y = DoJump(velocity.Y, gameTime);
 
             // Apply pseudo-drag horizontally.
             if ((IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
@@ -364,10 +369,12 @@ namespace MagicWorld
 
             if (IsCasting)
             {
+                lastVelocity.Y = DoJump(lastVelocity.Y, gameTime);
                 Position += lastVelocity * elapsed * PhysicValues.SLOW_MOTION_FACTOR;
             }
             else
             {
+                velocity.Y = DoJump(velocity.Y, gameTime);
                 Position += velocity * elapsed;
                 lastVelocity = velocity;
             }            
