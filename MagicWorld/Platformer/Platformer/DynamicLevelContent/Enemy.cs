@@ -14,6 +14,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
 using MagicWorld.Constants;
+using System.Diagnostics;
 
 namespace MagicWorld
 {
@@ -81,7 +82,7 @@ namespace MagicWorld
             isFroozen = false;
             isElectrified = false;
             debugColor = Color.Red;
-            velocity = new Vector2(-MoveSpeed, 0);
+            ResetVelocity();            
         }
 
         /// <summary>
@@ -103,6 +104,12 @@ namespace MagicWorld
 
 
         #region updating
+
+
+        private void ResetVelocity()
+        {
+            velocity = new Vector2(-MoveSpeed, 0);
+        }
 
         /// <summary>
         /// Paces back and forth along a platform, waiting at either end.
@@ -144,6 +151,8 @@ namespace MagicWorld
                 }
             }
 
+            float acceleration=1;
+
             if (!isFroozen && !isElectrified) // ****** can move ******
             {
                 //TODO let enemies run in player direction, is buggy because enemies are shakeing at obstacles
@@ -171,8 +180,7 @@ namespace MagicWorld
                         position = lastposition- position;
                     }
                     else
-                    {
-                            float acceleration;
+                    {                            
                             // Move in the current direction.
                             if (isBurning)
                             {
@@ -183,11 +191,17 @@ namespace MagicWorld
                                 acceleration = 1;
                             }
                             lastposition = position;
-                            position = position + velocity * elapsed * acceleration;                            
+                            position = position + velocity * elapsed * acceleration;
+                            Debug.WriteLine("EnemyPos" + position); 
                     }
                 }
             }
+            //only handles physics collision
             level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
+            if (isOnGround)
+            {
+                ResetVelocity();
+            }
         }
 
         /// <summary>
@@ -195,8 +209,7 @@ namespace MagicWorld
         /// </summary>
         /// <returns>returns true if collision occured</returns>
         private bool HandleCollision()
-        {
-
+        {           
             if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
                 this.isRemovable = true;

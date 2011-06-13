@@ -294,12 +294,20 @@ namespace MagicWorld
         }
 
         /// <summary>
+        /// set velocity to launch condition
+        /// </summary>
+        protected virtual void ResetVelocity()
+        {
+            velocity = new Vector2((float)direction.X * MoveSpeed, (float)direction.Y * MoveSpeed);
+        }
+
+        /// <summary>
         /// throw away current spell
         /// </summary>
         public virtual void FireUp()
         {
             SpellState = State.WORKING;
-            velocity = new Vector2((float)direction.X * MoveSpeed , (float)direction.Y * MoveSpeed);
+            ResetVelocity();            
         }
 
         ///Every type of collision has its own virtual method, so its easy to override special behavior in subclasses
