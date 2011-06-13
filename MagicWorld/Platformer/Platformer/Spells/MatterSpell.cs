@@ -80,7 +80,7 @@ namespace MagicWorld
                     }
                     level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
                     influencedByPushSpell = false;
-                }
+                }else
                 if (influencedByPullSpell)
                 {
                     Vector2 playerPosition = level.Player.Position;
@@ -95,8 +95,7 @@ namespace MagicWorld
                     }
                     level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
                     influencedByPullSpell = false;
-                }
-
+                }else
                 if (!gravityIsSetOffBySpell && !influencedByPushSpell && !influencedByPullSpell)
                 {
                     level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
@@ -104,9 +103,9 @@ namespace MagicWorld
             }
 
             base.Update(gameTime);
+
             if (SpellState == State.WORKING)
             {
-                //Debug.WriteLine("MatterVelo: " + velocity);
                 level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
             }
         }
