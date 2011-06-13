@@ -136,6 +136,8 @@ namespace MagicWorld
         public ParticleSystem ExplosionParticleSystem;
         public ParticleSystem SmokeParticleSystem;
         public ParticleSystem MagicParticleSystem;
+        public ParticleSystem IceMagicParticleSystem;
+        public ParticleSystem FireMagicParticleSystem;
         public ParticleSystem ExplosionSmokeParticleSystem;
         public ParticleSystem MatterCreationParticleSystem;
 
@@ -176,15 +178,13 @@ namespace MagicWorld
 
             this.levelLoader = levelLoader;
 
-            ExplosionParticleSystem = ParticleSystemFactory.getExplosion(this, 20);
-
-            MagicParticleSystem = ParticleSystemFactory.getMagic(this, 20);
-
-            SmokeParticleSystem = ParticleSystemFactory.getSmoke (this, 20);
-
-            ExplosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 20);
-
-            MatterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 20);
+            ExplosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
+            MagicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
+            IceMagicParticleSystem = ParticleSystemFactory.getIceMagic(this, 10);
+            FireMagicParticleSystem = ParticleSystemFactory.getFireMagic(this, 10);
+            SmokeParticleSystem = ParticleSystemFactory.getSmoke (this, 10);
+            ExplosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 10);
+            MatterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
 
             initLevel();
         }
@@ -361,6 +361,8 @@ namespace MagicWorld
             ExplosionParticleSystem.Update(gameTime);
             SmokeParticleSystem.Update(gameTime);
             MagicParticleSystem.Update(gameTime);
+            IceMagicParticleSystem.Update(gameTime);
+            FireMagicParticleSystem.Update(gameTime);
             ExplosionSmokeParticleSystem.Update(gameTime);
             MatterCreationParticleSystem.Update(gameTime);
         }
@@ -409,6 +411,8 @@ namespace MagicWorld
             ExplosionParticleSystem.Draw(gameTime, spriteBatch);
             SmokeParticleSystem.Draw(gameTime, spriteBatch);
             MagicParticleSystem.Draw(gameTime, spriteBatch);
+            IceMagicParticleSystem.Draw(gameTime, spriteBatch);
+            FireMagicParticleSystem.Draw(gameTime, spriteBatch);
             ExplosionSmokeParticleSystem.Draw(gameTime, spriteBatch);
             MatterCreationParticleSystem.Draw(gameTime, spriteBatch);
 

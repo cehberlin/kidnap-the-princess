@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ParticleEffects;
+using Microsoft.Xna.Framework;
 
 namespace MagicWorld.DynamicLevelContent.ParticleEffects
 {
@@ -11,6 +12,16 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
         public static ParticleSystem getMagic(Level level,int howManyEffectsMax)
         {
             return new MagicParticleSystem(level, howManyEffectsMax);
+        }
+
+        public static ParticleSystem getIceMagic(Level level, int howManyEffectsMax)
+        {
+            return new MagicParticleSystem(level, howManyEffectsMax, Color.LightCyan);
+        }
+
+        public static ParticleSystem getFireMagic(Level level, int howManyEffectsMax)
+        {
+            return new MagicParticleSystem(level, howManyEffectsMax, Color.Red);
         }
 
         public static ParticleSystem getExplosion(Level level, int howManyEffectsMax)

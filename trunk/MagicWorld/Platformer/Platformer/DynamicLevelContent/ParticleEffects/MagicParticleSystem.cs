@@ -25,6 +25,28 @@ namespace ParticleEffects
     /// </summary>
     class MagicParticleSystem : ParticleSystem
     {
+
+        bool useRandomColor = true;
+        Color particleColor;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="howManyEffects"></param>
+        /// <param name="color">color for the particles</param>
+        public MagicParticleSystem(Level game, int howManyEffects,Color color)
+            : base(game, howManyEffects)
+        {
+            particleColor = color;
+            useRandomColor = false;
+        }
+
+        /// <summary>
+        /// this constructor sets color of the particles to random
+        /// </summary>
+        /// <param name="game"></param>
+        /// <param name="howManyEffects"></param>
         public MagicParticleSystem(Level game, int howManyEffects)
             : base(game, howManyEffects)
         {
@@ -86,13 +108,15 @@ namespace ParticleEffects
             // We'll solve the equation for a0, using t = p.Lifetime and vt = 0.
             p.Acceleration = -p.Velocity / p.Lifetime;
         }
+        Random rnd = new Random(1415648);
 
         protected override Color getParticleTextureColor()
         {
-            Color color;
-
-
-            Random rnd = new Random();
+            if (!useRandomColor)
+            {
+                return particleColor;
+            }
+            Color color;            
 
             switch (rnd.Next(0, 10))
             {
