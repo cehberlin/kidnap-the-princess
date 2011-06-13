@@ -22,6 +22,7 @@ namespace MagicWorld.Spells
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
+            MaxScale = SpellConstantsValues.PushSpell_MaxSize;
         }
 
         public override void LoadContent(string spriteSet)
@@ -40,6 +41,19 @@ namespace MagicWorld.Spells
         {
             base.Position = level.Player.Position;
             base.Update(gameTime);
+        }
+
+        override public void Grow(GameTime gameTime)
+        {
+            if (currentScale <= MaxScale)
+            {
+                currentScale += 0.52f;
+                if (idleAnimation != null)
+                    idleAnimation.Scale = currentScale;
+                if (runAnimation != null)
+                    runAnimation.Scale = currentScale;
+                Force++;
+            }
         }
 
     }

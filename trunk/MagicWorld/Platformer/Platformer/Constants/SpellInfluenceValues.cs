@@ -20,5 +20,8 @@ namespace MagicWorld.Constants
         public static float burningMovingSpeedFactor = 2f; // Factor the enemy is moving faster while under influence of warm spell
 
 #endregion
+
+        public static float PullAcceleration = 1.5f;
+        public static float PushAcceleration = PullAcceleration;
     }
 }

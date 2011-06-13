@@ -19,6 +19,9 @@ namespace MagicWorld
         Texture2D matterTexture;
 
         protected Boolean gravityIsSetOffBySpell = false;
+        protected Boolean influencedByPushSpell = false;
+        protected Boolean influencedByPullSpell = false;
+
 
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
@@ -63,15 +66,47 @@ namespace MagicWorld
         {
             if (SpellState == State.WORKING)
             {
-                if (!gravityIsSetOffBySpell)
+                if (influencedByPushSpell)
                 {
-                        level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);                     
+                    Vector2 playerPosition = level.Player.Position;
+                    Vector2 acceleration = new Vector2(SpellInfluenceValues.PullAcceleration, SpellInfluenceValues.PullAcceleration);
+                    if (playerPosition.X > Position.X)
+                    {
+                        acceleration.X *= -1;
+                    }
+                    if (playerPosition.Y > Position.Y)
+                    {
+                        acceleration.Y *= -1;
+                    }
+                    level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
+                    influencedByPushSpell = false;
+                }
+                if (influencedByPullSpell)
+                {
+                    Vector2 playerPosition = level.Player.Position;
+                    Vector2 acceleration = new Vector2(SpellInfluenceValues.PullAcceleration, SpellInfluenceValues.PullAcceleration);
+                    if (playerPosition.X < Position.X)
+                    {
+                        acceleration.X *= -1;
+                    }
+                    if (playerPosition.Y < Position.Y)
+                    {
+                        acceleration.Y *= -1;
+                    }
+                    level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
+                    influencedByPullSpell = false;
+                }
+
+                if (!gravityIsSetOffBySpell && !influencedByPushSpell && !influencedByPullSpell)
+                {
+                    level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
                 }
             }
+
             base.Update(gameTime);
             if (SpellState == State.WORKING)
             {
-                Debug.WriteLine("MatterVelo: " + velocity);
+                //Debug.WriteLine("MatterVelo: " + velocity);
                 level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
             }
         }
@@ -104,13 +139,25 @@ namespace MagicWorld
             if (spell.GetType() == typeof(WarmSpell))
             {
                 survivalTimeMs *= 0.7;
-            }else if (spell.GetType() == typeof(ColdSpell))
+            }
+            else if (spell.GetType() == typeof(ColdSpell))
             {
                 survivalTimeMs *= 1.3;
-            }else if (spell.GetType() == typeof(NoGravitySpell))
+            }
+            else if (spell.GetType() == typeof(NoGravitySpell))
             {
                 gravityIsSetOffBySpell = true;
                 return false; //do not remove spell
+            }
+            else if (spell.SpellType == SpellType.PushSpell)
+            {
+                influencedByPushSpell = true;
+                return false;
+            }
+            else if (spell.SpellType == SpellType.PullSpell)
+            {
+                influencedByPullSpell = true;
+                return false;
             }
             return base.SpellInfluenceAction(spell);
         }
