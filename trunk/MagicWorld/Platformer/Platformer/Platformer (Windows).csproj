@@ -77,7 +77,6 @@
     <Compile Include="Controls\LaptopControl.cs" />
     <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
-    <Compile Include="DynamicLevelContent\DynamicBlockElement.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionSmokeParticleSystem.cs" />

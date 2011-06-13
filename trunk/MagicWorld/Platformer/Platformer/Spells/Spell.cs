@@ -149,6 +149,7 @@ namespace MagicWorld
             SpellType = spellType;
             this.manaBasicCost = manaBasicCost;
             this.manaCastingCost = manaCastingCost;
+            debugColor = Color.Blue;
 
             Force = 0;
             Position = position;
@@ -234,6 +235,8 @@ namespace MagicWorld
             // Move in the current direction.
             velocity = new Vector2((float)velocity.X  * currentAccelarationX, (float)velocity.Y  * currentAccelarationY);
             Position = Position + velocity*elapsed;
+                        base.Update(gameTime);
+            Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
         }
 
         /// <summary>
