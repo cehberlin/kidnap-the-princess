@@ -505,7 +505,8 @@ namespace MagicWorld
             }
             else
             {
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
+                //ignore plattforms if pushing movement downwards
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround,isDown);
             }
         }
 
