@@ -160,7 +160,7 @@ namespace MagicWorld.HelperClasses
         /// <param name="elem">the element which should be handled</param>
         /// <param name="previousBottom">must be a member variable, same variable ref on every call</param>
         /// <param name="IsOnGround">give you information if the object is on ground or not</param>
-        public void HandleGeneralCollisions(BasicGameElement elem, Vector2 movement, ref Bounds oldBounds, ref bool IsOnGround)
+        public void HandleGeneralCollisions(BasicGameElement elem, Vector2 movement, ref Bounds oldBounds, ref bool IsOnGround,bool ignorePlatforms=false)
         {
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(elem, ref collisionObjects);
@@ -173,6 +173,10 @@ namespace MagicWorld.HelperClasses
                 CollisionType collision = t.Collision;
                 if (collision != CollisionType.Passable)
                 {
+                    if (collision == CollisionType.Platform && ignorePlatforms)
+                    {
+                        continue;
+                    }
                     //get depth of intersection
                     Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
 
@@ -182,7 +186,7 @@ namespace MagicWorld.HelperClasses
                         float absDepthY = Math.Abs(depth.Y);
 
                         // Resolve the collision along the y axis.
-                        if (absDepthY < absDepthX || collision == CollisionType.Platform)
+                        if (absDepthY < absDepthX || collision == CollisionType.Platform )
                         {
                             if (oldBounds.Position.Y != elem.Bounds.Position.Y)
                             {
