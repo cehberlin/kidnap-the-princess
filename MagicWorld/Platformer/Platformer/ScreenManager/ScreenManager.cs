@@ -22,11 +22,16 @@ namespace MagicWorld
 
         InputState input = new InputState();
 
-        SpriteBatch spriteBatch;
         SpriteFont font;
         Texture2D blankTexture;
 
-        protected Game game;
+        private MagicWorldGame game;
+
+        public  new MagicWorldGame Game
+        {
+            get { return game; }
+            set { game = value; }
+        }
 
         bool isInitialized;
 
@@ -43,7 +48,7 @@ namespace MagicWorld
         /// </summary>
         public SpriteBatch SpriteBatch
         {
-            get { return spriteBatch; }
+            get { return game.SpriteBatch; }
         }
 
         public GraphicsDeviceManager Graphics;
@@ -79,7 +84,7 @@ namespace MagicWorld
         /// <summary>
         /// Constructs a new screen manager component.
         /// </summary>
-        public ScreenManager(PlatformerGame game)
+        public ScreenManager(MagicWorldGame game)
             : base(game)
         {
             this.game = game;
@@ -106,9 +111,8 @@ namespace MagicWorld
             // Load content belonging to the screen manager.
             ContentManager content = Game.Content;
 
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = content.Load<SpriteFont>("Content/MenuScreen/menufont");
-            blankTexture = content.Load<Texture2D>("Content/MenuScreen/blank");
+            font = content.Load<SpriteFont>("MenuScreen/menufont");
+            blankTexture = content.Load<Texture2D>("MenuScreen/blank");
 
             // Tell each of the screens to load their content.
             foreach (GameScreen screen in screens)
@@ -294,13 +298,13 @@ namespace MagicWorld
         {
             Viewport viewport = GraphicsDevice.Viewport;
 
-            spriteBatch.Begin();
+            SpriteBatch.Begin();
 
-            spriteBatch.Draw(blankTexture,
+            SpriteBatch.Draw(blankTexture,
                              new Rectangle(0, 0, viewport.Width, viewport.Height),
                              Color.Black * alpha);
 
-            spriteBatch.End();
+            SpriteBatch.End();
         }
 
         /// <summary>

@@ -14,6 +14,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld;
+using Microsoft.Xna.Framework.Content;
 #endregion
 
 namespace ParticleEffects
@@ -24,7 +25,7 @@ namespace ParticleEffects
     /// such as fire, explosions, and plumes of smoke. To use these subclasses, 
     /// simply call AddParticles, and pass in where the particles should exist
     /// </summary>
-    public abstract class ParticleSystem : IAutonomusGameObject
+    public abstract class ParticleSystem : DrawableGameComponent
     {
         // these two values control the order that particle systems are drawn in.
         // typically, particles that use additive blending should be drawn on top of
@@ -34,11 +35,12 @@ namespace ParticleEffects
         public const int AlphaBlendDrawOrder = 100;
         public const int AdditiveDrawOrder = 200;
 
-        private const string ParticleBaseFolder = "Particles";
+        private const string ParticleBaseFolder = "Particles/";
 
         // a reference to the main game; we'll keep this around because it exposes a
         // content manager and a sprite batch for us to use.
-        private Level Level;
+        private MagicWorldGame game;
+        GameServiceContainer gsc;
 
         // the texture this particle system will use.
         private Texture2D texture;
@@ -168,11 +170,12 @@ namespace ParticleEffects
         /// However, this value should be set to the minimum possible, because
         /// it has a large impact on the amount of memory required, and slows down the
         /// Update and Draw functions.</remarks>
-        protected ParticleSystem(Level game, int howManyEffects)
+        protected ParticleSystem(MagicWorldGame game, int howManyEffects):
+            base(game)
         {            
-            this.Level = game;
+            this.game = game;
             this.howManyEffects = howManyEffects;
-            Initialize();
+            gsc = game.Services;
         }
 
         /// <summary>
@@ -181,11 +184,9 @@ namespace ParticleEffects
         /// 
         /// also, the particle array and freeParticles queue are set up here.
         /// </summary>
-        public void Initialize()
+        public override void Initialize()
         {
-            InitializeConstants();
-
-            LoadContent("");
+            InitializeConstants();                      
             
             // calculate the total number of particles we will ever need, using the
             // max number of effects and the max number of particles per effect.
@@ -198,6 +199,33 @@ namespace ParticleEffects
                 particles[i] = new Particle();
                 freeParticles.Enqueue(particles[i]);
             }
+            base.Initialize();
+        }
+
+        /// <summary>
+        /// Override the base class LoadContent to load the texture. once it's
+        /// loaded, calculate the origin.
+        /// </summary>
+        protected override void LoadContent()
+        {
+            // make sure sub classes properly set textureFilename.
+            if (string.IsNullOrEmpty(textureFilename))
+            {
+                string message = "textureFilename wasn't set properly, so the " +
+                    "particle system doesn't know what texture to load. Make " +
+                    "sure your particle system's InitializeConstants function " +
+                    "properly sets textureFilename.";
+                throw new InvalidOperationException(message);
+            }
+            // load the texture....
+            texture = game.Content.Load<Texture2D>(ParticleBaseFolder + textureFilename);
+
+            // ... and calculate the center. this'll be used in the draw call, we
+            // always want to rotate and scale around this point.
+            origin.X = texture.Width / 2;
+            origin.Y = texture.Height / 2;
+
+            base.LoadContent();
         }
 
         /// <summary>
@@ -288,7 +316,7 @@ namespace ParticleEffects
         /// overriden from DrawableGameComponent, Update will update all of the active
         /// particles.
         /// </summary>
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             // calculate dt, the change in the since the last frame. the particle
             // updates will use this value.
@@ -310,6 +338,7 @@ namespace ParticleEffects
                     }
                 }   
             }
+            base.Update(gameTime);
         }
 
 
@@ -331,80 +360,64 @@ namespace ParticleEffects
 
         #endregion
 
-        #region IAutonomusGameObject Member
-
-        /// <summary>
-        /// Override the base class LoadContent to load the texture. once it's
-        /// loaded, calculate the origin.
-        /// </summary>
-        public void LoadContent(string spriteSet)
-        {
-            // make sure sub classes properly set textureFilename.
-            if (string.IsNullOrEmpty(textureFilename))
-            {
-                string message = "textureFilename wasn't set properly, so the " +
-                    "particle system doesn't know what texture to load. Make " +
-                    "sure your particle system's InitializeConstants function " +
-                    "properly sets textureFilename.";
-                throw new InvalidOperationException(message);
-            }
-            // load the texture....
-            texture = Level.Content.Load<Texture2D>(ParticleBaseFolder+"\\"+textureFilename);
-
-            // ... and calculate the center. this'll be used in the draw call, we
-            // always want to rotate and scale around this point.
-            origin.X = texture.Width / 2;
-            origin.Y = texture.Height / 2;
-        }
 
         /// <summary>
         /// overriden from DrawableGameComponent, Draw will use ParticleSampleGame's 
         /// sprite batch to render all of the active particles.
         /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(GameTime gameTime)
         {
-            // tell sprite batch to begin, using the spriteBlendMode specified in
-            // initializeConstants
-            //spriteBatch.Begin(SpriteSortMode.Deferred, blendState);
 
-            foreach (Particle p in particles)
+            GameplayScreen gpScreen = (GameplayScreen)gsc.GetService(typeof(GameplayScreen));
+
+            if (gpScreen != null)
             {
-                // skip inactive particles
-                if (!p.Active)
-                    continue;
+                
+                // tell sprite batch to begin, using the spriteBlendMode specified in
+                // initializeConstants
+                game.SpriteBatch.Begin(
+                    SpriteSortMode.Deferred, blendState, null, null, null, null, 
+                    gpScreen.Camera.get_transformation(gpScreen.ScreenManager.GraphicsDevice));
 
-                // normalized lifetime is a value from 0 to 1 and represents how far
-                // a particle is through its life. 0 means it just started, .5 is half
-                // way through, and 1.0 means it's just about to be finished.
-                // this value will be used to calculate alpha and scale, to avoid 
-                // having particles suddenly appear or disappear.
-                float normalizedLifetime = p.TimeSinceStart / p.Lifetime;
+                foreach (Particle p in particles)
+                {
+                    // skip inactive particles
+                    if (!p.Active)
+                        continue;
 
-                // we want particles to fade in and fade out, so we'll calculate alpha
-                // to be (normalizedLifetime) * (1-normalizedLifetime). this way, when
-                // normalizedLifetime is 0 or 1, alpha is 0. the maximum value is at
-                // normalizedLifetime = .5, and is
-                // (normalizedLifetime) * (1-normalizedLifetime)
-                // (.5)                 * (1-.5)
-                // .25
-                // since we want the maximum alpha to be 1, not .25, we'll scale the 
-                // entire equation by 4.
-                float alpha = 4 * normalizedLifetime * (1 - normalizedLifetime);
-                Color color = p.TextureColor * alpha;
+                    // normalized lifetime is a value from 0 to 1 and represents how far
+                    // a particle is through its life. 0 means it just started, .5 is half
+                    // way through, and 1.0 means it's just about to be finished.
+                    // this value will be used to calculate alpha and scale, to avoid 
+                    // having particles suddenly appear or disappear.
+                    float normalizedLifetime = p.TimeSinceStart / p.Lifetime;
 
-                // make particles grow as they age. they'll start at 75% of their size,
-                // and increase to 100% once they're finished.
-                float scale = p.Scale * (.75f + .25f * normalizedLifetime);
+                    // we want particles to fade in and fade out, so we'll calculate alpha
+                    // to be (normalizedLifetime) * (1-normalizedLifetime). this way, when
+                    // normalizedLifetime is 0 or 1, alpha is 0. the maximum value is at
+                    // normalizedLifetime = .5, and is
+                    // (normalizedLifetime) * (1-normalizedLifetime)
+                    // (.5)                 * (1-.5)
+                    // .25
+                    // since we want the maximum alpha to be 1, not .25, we'll scale the 
+                    // entire equation by 4.
+                    float alpha = 4 * normalizedLifetime * (1 - normalizedLifetime);
+                    Color color = p.TextureColor * alpha;
 
-                spriteBatch.Draw(texture, p.Position, null, color,
-                    p.Rotation, origin, scale, SpriteEffects.None, 0.0f);
+                    // make particles grow as they age. they'll start at 75% of their size,
+                    // and increase to 100% once they're finished.
+                    float scale = p.Scale * (.75f + .25f * normalizedLifetime);
+
+                    game.SpriteBatch.Draw(texture, p.Position, null, color,
+                        p.Rotation, origin, scale, SpriteEffects.None, 0.0f);
+                }
+
+                game.SpriteBatch.End();
             }
 
-            //spriteBatch.End();
+            base.Draw(gameTime);
 
         }
-
-        #endregion
     }
 
 }

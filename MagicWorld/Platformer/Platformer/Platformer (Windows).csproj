@@ -139,7 +139,7 @@
     <Compile Include="Gleed2dLevelContent\Item.cs" />
     <Compile Include="Gleed2dLevelContent\Layer.cs" />
     <Compile Include="StaticLevelContent\Level.cs" />
-    <Compile Include="PlatformerGame.cs" />
+    <Compile Include="MagicWorldGame.cs" />
     <Compile Include="DynamicLevelContent\Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

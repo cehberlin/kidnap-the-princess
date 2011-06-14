@@ -298,10 +298,10 @@ namespace MagicWorld
         /// adds creation particles
         /// </summary>
         public virtual void AddOnCreationParticles()
-        {            
-            if (level.MagicParticleSystem.CurrentParticles() < 10)
+        {
+            if (level.Game.MagicParticleSystem.CurrentParticles() < 10)
             {
-                level.MagicParticleSystem.AddParticles(position);
+                level.Game.MagicParticleSystem.AddParticles(position);
             }
         }
 

@@ -43,8 +43,8 @@ namespace MagicWorld
 
         protected override void OnRemove()
         {
-            level.ExplosionParticleSystem.AddParticles(position);
-            level.ExplosionSmokeParticleSystem.AddParticles(position);
+            level.Game.ExplosionParticleSystem.AddParticles(position);
+            level.Game.ExplosionSmokeParticleSystem.AddParticles(position);
             base.OnRemove();
         }
 
@@ -54,9 +54,9 @@ namespace MagicWorld
         /// </summary>
         public override void AddOnCreationParticles()
         {
-            if (level.FireMagicParticleSystem.CurrentParticles() < 10)
+            if (level.Game.FireMagicParticleSystem.CurrentParticles() < 10)
             {
-                level.FireMagicParticleSystem.AddParticles(position);
+                level.Game.FireMagicParticleSystem.AddParticles(position);
             }
         }
     }

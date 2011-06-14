@@ -9,39 +9,39 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
 {
     class ParticleSystemFactory
     {
-        public static ParticleSystem getMagic(Level level,int howManyEffectsMax)
+        public static ParticleSystem getMagic(MagicWorldGame game,int howManyEffectsMax)
         {
-            return new MagicParticleSystem(level, howManyEffectsMax);
+            return new MagicParticleSystem(game, howManyEffectsMax);
         }
 
-        public static ParticleSystem getIceMagic(Level level, int howManyEffectsMax)
+        public static ParticleSystem getIceMagic(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new MagicParticleSystem(level, howManyEffectsMax, Color.LightCyan);
+            return new MagicParticleSystem(game, howManyEffectsMax, Color.LightCyan);
         }
 
-        public static ParticleSystem getFireMagic(Level level, int howManyEffectsMax)
+        public static ParticleSystem getFireMagic(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new MagicParticleSystem(level, howManyEffectsMax, Color.Red);
+            return new MagicParticleSystem(game, howManyEffectsMax, Color.Red);
         }
 
-        public static ParticleSystem getExplosion(Level level, int howManyEffectsMax)
+        public static ParticleSystem getExplosion(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new ExplosionParticleSystem(level, howManyEffectsMax);
+            return new ExplosionParticleSystem(game, howManyEffectsMax);
         }
 
-        public static ParticleSystem getExplosionSmoke(Level level, int howManyEffectsMax)
+        public static ParticleSystem getExplosionSmoke(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new ExplosionSmokeParticleSystem(level, howManyEffectsMax);
+            return new ExplosionSmokeParticleSystem(game, howManyEffectsMax);
         }
 
-        public static ParticleSystem getSmoke(Level level, int howManyEffectsMax)
+        public static ParticleSystem getSmoke(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new SmokePlumeParticleSystem(level, howManyEffectsMax);
+            return new SmokePlumeParticleSystem(game, howManyEffectsMax);
         }
 
-        public static ParticleSystem getMatterCreation(Level level, int howManyEffectsMax)
+        public static ParticleSystem getMatterCreation(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new MatterCreationParticleSystem(level, howManyEffectsMax,100f);
+            return new MatterCreationParticleSystem(game, howManyEffectsMax,100f);
         }
     }
 }

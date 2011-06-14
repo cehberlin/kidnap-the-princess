@@ -26,7 +26,7 @@ namespace ParticleEffects
     {
         float radius;
 
-        public MatterCreationParticleSystem(Level game, int howManyEffects,float radius)
+        public MatterCreationParticleSystem(MagicWorldGame game, int howManyEffects,float radius)
             : base(game, howManyEffects)
         {
             this.radius = radius;

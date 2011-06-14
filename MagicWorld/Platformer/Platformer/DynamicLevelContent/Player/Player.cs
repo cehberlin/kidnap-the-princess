@@ -518,15 +518,16 @@ namespace MagicWorld
         /// not killed by an enemy (fell into a hole).
         /// </param>
         public void OnKilled(Enemy killedBy)
-        {
+        {            
+            if(isAlive){
+                if (killedBy != null)
+                    killedSound.Play();
+                else
+                    fallSound.Play();
+
+                sprite.PlayAnimation(dieAnimation);
+            }
             isAlive = false;
-
-            if (killedBy != null)
-                killedSound.Play();
-            else
-                fallSound.Play();
-
-            sprite.PlayAnimation(dieAnimation);
         }
 
         /// <summary>

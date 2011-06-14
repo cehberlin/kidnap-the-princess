@@ -108,18 +108,18 @@ namespace MagicWorld.HUDClasses
 
         protected override void LoadContent()
         {
-            bottleTex = content.Load<Texture2D>("Content/HUDTextures/bottle");
-            liquidTex = content.Load<Texture2D>("Content/HUDTextures/liquid");
-            antigrav = content.Load<Texture2D>("Content/SpellRunes/antigrav");
-            electricity = content.Load<Texture2D>("Content/SpellRunes/electricty");
-            heat = content.Load<Texture2D>("Content/SpellRunes/heat");
-            cold = content.Load<Texture2D>("Content/SpellRunes/cold");
-            pull = content.Load<Texture2D>("Content/SpellRunes/pull");
-            push = content.Load<Texture2D>("Content/SpellRunes/push");
-            matter = content.Load<Texture2D>("Content/SpellRunes/matter");
-            wind = content.Load<Texture2D>("Content/SpellRunes/wind");
-            water = content.Load<Texture2D>("Content/SpellRunes/water");
-            font = content.Load<SpriteFont>("Content/Fonts/Hud");
+            bottleTex = content.Load<Texture2D>("HUDTextures/bottle");
+            liquidTex = content.Load<Texture2D>("HUDTextures/liquid");
+            antigrav = content.Load<Texture2D>("SpellRunes/antigrav");
+            electricity = content.Load<Texture2D>("SpellRunes/electricty");
+            heat = content.Load<Texture2D>("SpellRunes/heat");
+            cold = content.Load<Texture2D>("SpellRunes/cold");
+            pull = content.Load<Texture2D>("SpellRunes/pull");
+            push = content.Load<Texture2D>("SpellRunes/push");
+            matter = content.Load<Texture2D>("SpellRunes/matter");
+            wind = content.Load<Texture2D>("SpellRunes/wind");
+            water = content.Load<Texture2D>("SpellRunes/water");
+            font = content.Load<SpriteFont>("Fonts/Hud");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
 
             manaBar.Filling = new Rectangle((int)position.X + 3, (int)position.Y + 30, bottleTex.Width - 6, bottleTex.Height - 30);

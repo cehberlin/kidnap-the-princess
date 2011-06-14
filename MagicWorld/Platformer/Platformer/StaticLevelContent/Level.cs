@@ -131,17 +131,6 @@ namespace MagicWorld
         }
 
         /// <summary>
-        /// Particle Manager Systems
-        /// </summary>
-        public ParticleSystem ExplosionParticleSystem;
-        public ParticleSystem SmokeParticleSystem;
-        public ParticleSystem MagicParticleSystem;
-        public ParticleSystem IceMagicParticleSystem;
-        public ParticleSystem FireMagicParticleSystem;
-        public ParticleSystem ExplosionSmokeParticleSystem;
-        public ParticleSystem MatterCreationParticleSystem;
-
-        /// <summary>
         /// max area for the level
         /// </summary>
         Bounds levelBounds;
@@ -158,6 +147,13 @@ namespace MagicWorld
 
         protected ILevelLoader levelLoader;
 
+        private MagicWorldGame game;
+
+        public MagicWorldGame Game
+        {
+            get { return game; }
+        }
+
         /// <summary>
         /// Constructs a new level.
         /// </summary>
@@ -167,8 +163,9 @@ namespace MagicWorld
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader)
+        public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader,MagicWorldGame game)
         {
+            this.game = game;
             // Create a new content manager to load content used just by this level.
             content = new ContentManager(serviceProvider, "Content");
 
@@ -177,14 +174,6 @@ namespace MagicWorld
             physicsManager = new PhysicsManager(this);
 
             this.levelLoader = levelLoader;
-
-            ExplosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
-            MagicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
-            IceMagicParticleSystem = ParticleSystemFactory.getIceMagic(this, 10);
-            FireMagicParticleSystem = ParticleSystemFactory.getFireMagic(this, 10);
-            SmokeParticleSystem = ParticleSystemFactory.getSmoke (this, 10);
-            ExplosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 10);
-            MatterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
 
             initLevel();
         }
@@ -300,8 +289,6 @@ namespace MagicWorld
                 Player.Update(gameTime, keyboardState, gamePadState, orientation);
 
                 UpdateObjects(gameTime);
-
-                UpdateParticleEffects(gameTime);
             }
 
             // Clamp the time remaining at zero.
@@ -356,17 +343,6 @@ namespace MagicWorld
             }
         }
 
-        private void UpdateParticleEffects(GameTime gameTime)
-        {
-            ExplosionParticleSystem.Update(gameTime);
-            SmokeParticleSystem.Update(gameTime);
-            MagicParticleSystem.Update(gameTime);
-            IceMagicParticleSystem.Update(gameTime);
-            FireMagicParticleSystem.Update(gameTime);
-            ExplosionSmokeParticleSystem.Update(gameTime);
-            MatterCreationParticleSystem.Update(gameTime);
-        }
-
         /// <summary>
         /// Called when the player reaches the level's exit.
         /// </summary>
@@ -407,14 +383,6 @@ namespace MagicWorld
             }
 
             Player.Draw(gameTime, spriteBatch);
-
-            ExplosionParticleSystem.Draw(gameTime, spriteBatch);
-            SmokeParticleSystem.Draw(gameTime, spriteBatch);
-            MagicParticleSystem.Draw(gameTime, spriteBatch);
-            IceMagicParticleSystem.Draw(gameTime, spriteBatch);
-            FireMagicParticleSystem.Draw(gameTime, spriteBatch);
-            ExplosionSmokeParticleSystem.Draw(gameTime, spriteBatch);
-            MatterCreationParticleSystem.Draw(gameTime, spriteBatch);
 
             //update background
             foreach (BasicGameElement elem in foregroundGameElements)
