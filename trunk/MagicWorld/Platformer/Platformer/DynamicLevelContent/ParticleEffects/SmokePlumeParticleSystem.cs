@@ -24,7 +24,7 @@ namespace ParticleEffects
     /// </summary>
     class SmokePlumeParticleSystem : ParticleSystem
     {
-        public SmokePlumeParticleSystem(Level game, int howManyEffects)
+        public SmokePlumeParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game,howManyEffects)
         {
         }

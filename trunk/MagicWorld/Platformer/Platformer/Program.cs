@@ -18,7 +18,7 @@ namespace MagicWorld
         /// </summary>
         static void Main(string[] args)
         {
-            using (PlatformerGame game = new PlatformerGame())
+            using (MagicWorldGame game = new MagicWorldGame())
             {
                 game.Run();
             }

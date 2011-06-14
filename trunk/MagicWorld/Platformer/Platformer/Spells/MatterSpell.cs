@@ -170,9 +170,9 @@ namespace MagicWorld
 
         public override void AddOnCreationParticles()
         {
-            if (level.MatterCreationParticleSystem.CurrentParticles() < 10)
+            if (level.Game.MatterCreationParticleSystem.CurrentParticles() < 10)
             {
-                level.MatterCreationParticleSystem.AddParticles(position);
+                level.Game.MatterCreationParticleSystem.AddParticles(position);
             }
         }
 

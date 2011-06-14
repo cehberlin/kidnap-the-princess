@@ -18,12 +18,17 @@ namespace MagicWorld
     /// <summary>
     /// This screen implements the actual game logic. 
     /// </summary>
-    class GameplayScreen : GameScreen
+    class GameplayScreen : GameScreen, IServiceProvider
     {
         #region Fields
 
         ContentManager content;
         Camera2d camera = new HelperClasses.Camera2d(500, 1000);
+
+        public Camera2d Camera
+        {
+            get { return camera; }
+        }
 
         // Global content.
         //private SpriteFont hudFont;
@@ -70,6 +75,7 @@ namespace MagicWorld
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            //TODO change in this way that Camera becomes a gamecomponet, so you could get access to it this way            
         }
 
 
@@ -78,6 +84,7 @@ namespace MagicWorld
         /// </summary>
         public override void LoadContent()
         {
+            ScreenManager.Game.Services.AddService(typeof(GameplayScreen), this);
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
@@ -287,7 +294,7 @@ namespace MagicWorld
                 level.Dispose();
 
             // Load the level.
-            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num));
+            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num),ScreenManager.Game);
            // if (!levelAddedToService)
            // {
                 ScreenManager.Game.Services.AddService(typeof(Level), level);
@@ -306,7 +313,7 @@ namespace MagicWorld
                 level.Dispose();
 
             // Load the level.
-            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(levelIndex));
+            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(levelIndex),ScreenManager.Game);
         }
 
         private void ReloadCurrentLevel()
@@ -321,6 +328,15 @@ namespace MagicWorld
             ScreenManager.SpriteBatch.DrawString(font, value, position + new Vector2(1.0f, 1.0f), Color.Black);
             ScreenManager.SpriteBatch.DrawString(font, value, position, color);
         }
+
+        #region IServiceProvider Member
+
+        public object GetService(Type serviceType)
+        {
+            return this;
+        }
+
+        #endregion
     }
 
         #endregion

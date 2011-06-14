@@ -35,7 +35,7 @@ namespace ParticleEffects
         /// <param name="game"></param>
         /// <param name="howManyEffects"></param>
         /// <param name="color">color for the particles</param>
-        public MagicParticleSystem(Level game, int howManyEffects,Color color)
+        public MagicParticleSystem(MagicWorldGame game, int howManyEffects,Color color)
             : base(game, howManyEffects)
         {
             particleColor = color;
@@ -47,7 +47,7 @@ namespace ParticleEffects
         /// </summary>
         /// <param name="game"></param>
         /// <param name="howManyEffects"></param>
-        public MagicParticleSystem(Level game, int howManyEffects)
+        public MagicParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game, howManyEffects)
         {
         }
