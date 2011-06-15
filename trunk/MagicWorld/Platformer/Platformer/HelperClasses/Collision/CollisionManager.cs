@@ -9,7 +9,6 @@ namespace MagicWorld.HelperClasses
 {
     public class CollisionManager
     {
-
         Level level;
 
         public CollisionManager(Level level)
@@ -69,7 +68,6 @@ namespace MagicWorld.HelperClasses
             return Contains(b1.Bounds, b2.Bounds);
         }
 
-
         /// <summary>
         /// get the depth of the collision from b1 and b2
         /// </summary>
@@ -110,7 +108,6 @@ namespace MagicWorld.HelperClasses
             return isCollision;
         }
 
-
         /// <summary>
         /// Checks for collision with tiles --> later remove or rename....
         /// </summary>
@@ -135,27 +132,23 @@ namespace MagicWorld.HelperClasses
             return isCollision;
         }
 
-
         public bool CollidateWithPlayer(BasicGameElement elem)
         {
             return Intersects(elem, level.Player);
         }
-
 
         public bool CollidateWithLevelBounds(BasicGameElement elem)
         {
             return !Intersects(elem.Bounds, level.LevelBounds);
         }
 
-
         public bool CollidateWithLevelExit(BasicGameElement elem)
         {
             return Intersects(elem, level.EndPoint);
         }
 
-
         /// <summary>
-        /// extract collision implementation from player
+        /// Extract collision implementation from player
         /// </summary>
         /// <param name="elem">the element which should be handled</param>
         /// <param name="previousBottom">must be a member variable, same variable ref on every call</param>
