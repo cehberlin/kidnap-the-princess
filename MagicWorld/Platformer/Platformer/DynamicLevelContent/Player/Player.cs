@@ -493,7 +493,7 @@ namespace MagicWorld
             // exit when they have collected all of the gems.
             if (IsAlive &&
                 IsOnGround &&
-                level.CollisionManager.CollidateWithLevelExit(this) && level.Ingredients.Count==0)
+                level.CollisionManager.CollidateWithLevelExit(this) && level.Ingredients.Count==3)
             {
                 OnReachedExit();
                 level.OnExitReached();
