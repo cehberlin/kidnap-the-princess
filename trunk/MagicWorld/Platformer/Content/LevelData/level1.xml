@@ -779,7 +779,7 @@
             <Items>
                 <Item xsi:type="TextureItem" Name="Texture_0030" Visible="true">
                     <Position>
-                        <X>-640</X>
+                        <X>840</X>
                         <Y>896</Y>
                     </Position>
                     <CustomProperties />
