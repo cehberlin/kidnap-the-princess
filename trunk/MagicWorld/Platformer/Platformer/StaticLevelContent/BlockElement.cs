@@ -46,6 +46,8 @@ namespace MagicWorld
             {
                 LoadContent(texture);
             }
+            Width= Texture.Bounds.Width;
+            Height = Texture.Bounds.Height;
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace MagicWorld.StaticLevelContent
     class XMLLevelLoader : ILevelLoader
     {
         Level level;
-        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.ElectricSpell, SpellType.PullSpell,SpellType.PushSpell };
+        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.ElectricSpell, SpellType.PullSpell, SpellType.PushSpell };
 
         #region ILevelLoader member
 
@@ -41,30 +41,41 @@ namespace MagicWorld.StaticLevelContent
 
             //The platforms.
             Layer layer = levelLoader.getLayerByName("Middle");
-            foreach (Item item in layer.Items)
-            {
-                TextureItem t = (TextureItem)item;
-                BlockElement b = new BlockElement(t.asset_name, CollisionType.Platform, level, t.Position - t.Origin);
-                b.Width = (int)t.Origin.X * 2;
-                b.Height = (int)t.Origin.Y * 2;
-                elements.Add(b);
-            }
+            elements.AddRange(Load(layer, author, CollisionType.Platform));
+            //foreach (Item item in layer.Items)
+            //{
+            //    TextureItem t = (TextureItem)item;
+            //    BlockElement b = new BlockElement(t.asset_name, CollisionType.Platform, level, t.Position - t.Origin);
+            //    b.Width = (int)t.Origin.X * 2;
+            //    b.Height = (int)t.Origin.Y * 2;
+            //    elements.Add(b);
+            //}
+
+            Layer blockades = levelLoader.getLayerByName("Blockade");
+            elements.AddRange(Load(blockades, author, CollisionType.Impassable));
 
             //The ingredient layer.
-            Layer ingredientLayer = levelLoader.getLayerByName("Ingredients");
+            Layer ingredientLayer = levelLoader.getLayerByName("Ingredient");
+            //elements.AddRange(Load(ingredientLayer, author, CollisionType.Passable));
             foreach (Item item in ingredientLayer.Items)
             {
-                String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                Ingredient i = new Ingredient("Ingredients/" + ingredientName, CollisionType.Passable, level, item.Position);
+                //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                Ingredient i = new Ingredient("LevelContent/Cave/bone", CollisionType.Passable, level, item.Position);
                 elements.Add(i);
             }
             //The enemies layer.
-            Layer enemiesLayer = levelLoader.getLayerByName("Enemies");
+            Layer enemiesLayer = levelLoader.getLayerByName("Enemy");
             foreach (Item item in enemiesLayer.Items)
             {
-                String monsterName = (String)item.CustomProperties["Enemy"].value;
-                Enemy i = new Enemy(level, item.Position, monsterName);
-                elements.Add(i);
+                //String monsterName = (String)item.CustomProperties["Enemy"].value;
+                Enemy e = new Enemy(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
+                if (author == 2)
+                {
+                    TextureItem t = (TextureItem)item;
+                    e.Position -= t.Origin;
+                    
+                }
+                elements.Add(e);
             }
 
             return elements;
@@ -74,55 +85,62 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
             Layer zeroLayer = levelLoader.getLayerByName("Zero");
-            foreach (Item item in zeroLayer.Items)
-            {
-                TextureItem t = (TextureItem)item;
-                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
-                b.Width = (int)1280;
-                b.Height = (int)1000;
-                elements.Add(b);
-            }
-
+            elements.AddRange(Load(zeroLayer, author, CollisionType.Passable));
             //The background.
             Layer backgroundLayer = levelLoader.getLayerByName("Background");
-            foreach (Item item in backgroundLayer.Items)
-            {
-                TextureItem t = (TextureItem)item;
-                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
-                b.Width = (int)t.Origin.X * 2;
-                b.Height = (int)t.Origin.Y * 2;
-                elements.Add(b);
-            }
-
+            elements.AddRange(Load(backgroundLayer, author, CollisionType.Passable));
             return elements;
         }
 
         public List<BasicGameElement> getForegroundObjects()
         {
-            List<BasicGameElement> elements = new List<BasicGameElement>();
-            //The front layer.
             Layer frontLayer = levelLoader.getLayerByName("Front");
-            foreach (Item item in frontLayer.Items)
+            return Load(frontLayer, author, CollisionType.Passable);
+        }
+
+        private List<BasicGameElement> Load(Layer layer, int author, CollisionType collisionType)
+        {
+            List<BasicGameElement> elements = new List<BasicGameElement>();
+            TextureItem t;
+            BlockElement b;
+
+            foreach (Item item in layer.Items)
             {
-                TextureItem t = (TextureItem)item;
-                BlockElement b = new BlockElement(t.asset_name, CollisionType.Passable, level, t.Position - t.Origin);
-                b.Width = (int)t.Origin.X * 2;
-                b.Height = (int)t.Origin.Y * 2;
+                t = (TextureItem)item;
+                b = new BlockElement(t.asset_name, collisionType, level, t.Position);
+                if (author == 2)
+                {
+                    b.Position -= t.Origin;
+                    b.Width = (int)t.Origin.X * 2;
+                    b.Height = (int)t.Origin.Y * 2;
+                }
                 elements.Add(b);
             }
 
             return elements;
         }
 
+        //TODO: Add a texture for the level starting point.
         public Microsoft.Xna.Framework.Vector2 getPlayerStartPosition()
         {
             return levelLoader.getItemByName("start").Position - new Vector2(200, 0);
-
         }
 
         public BasicGameElement getLevelExit()
         {
-            return new BlockElement("Tiles/exit", CollisionType.Passable, level, levelLoader.getItemByName("exit").Position);
+            BlockElement  b=new BlockElement("LevelContent/Cave/exit", CollisionType.Passable, level, levelLoader.getItemByName("exit").Position);
+            if (author == 1)
+            {
+                return b;
+            }
+            else
+            {
+                TextureItem t = (TextureItem)levelLoader.getItemByName("exit");
+                b.Position -= t.Origin;
+                b.Width = (int)t.Origin.X * 2;
+                b.Height = (int)t.Origin.Y * 2;
+                return b;
+            }
         }
 
         public double getMaxLevelTime()
@@ -137,8 +155,9 @@ namespace MagicWorld.StaticLevelContent
 
         public HelperClasses.Bounds getLevelBounds()
         {
-            Vector2 left = levelLoader.getItemByName("leftCorner").Position;
-            Vector2 right = levelLoader.getItemByName("rightCorner").Position;
+            //TODO: Check if this needs to be corrected.
+            Vector2 left = levelLoader.getItemByName("topLeft").Position;
+            Vector2 right = levelLoader.getItemByName("bottomRight").Position;
             return new HelperClasses.Bounds(left, right.X - left.X, right.Y - left.Y);
         }
 
@@ -149,7 +168,37 @@ namespace MagicWorld.StaticLevelContent
         public XMLLevelLoader(int levelNumber)
         {
             levelLoader = Gleed2dLevelLoader.FromFile("Content/LevelData/level" + levelNumber.ToString() + ".xml");
+            author = DetectAuthor();
         }
 
+        //TODO: If Amauri wants to do some levels we need to ind out how Gleed2d functions on his PC.
+        /// <summary>
+        /// Let's us know who has created the level.
+        /// 1=John or Marian
+        /// 2=Christopher or Pascal
+        /// </summary>
+        int author;
+
+        /// <summary>
+        /// Function for detecting who was created the level.
+        /// </summary>
+        /// <returns>1 for John and Marian. 2 For Christopher and Pascal. Zero in case of an error. </returns>
+        private int DetectAuthor()
+        {
+            Item i = levelLoader.getItemByName("Author");
+            switch (i.CustomProperties["Author"].description)
+            {
+                case "John":
+                    return 1;
+                case "Marian":
+                    return 1;
+                case "Pascal":
+                    return 2;
+                case "Christopher":
+                    return 2;
+                default:
+                    return 0;
+            }
+        }
     }
 }
