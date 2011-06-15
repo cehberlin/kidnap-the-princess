@@ -30,7 +30,7 @@
   * BUG: spell HUD do not change after level reload if you switch the spells ->Pascal
   * new graphic for electric spell
   * BUG: enemies still move while pausing the game
-
+  * Bug enemy gets teleported away when running into a spell that is currently being cast
 
 == WORK FOR BETA VERSION ==
   * Sound menu (turn sound and/or music on/off)
