@@ -114,7 +114,7 @@ namespace MagicWorld
         public override void Update(GameTime gameTime)
         {
             level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
-
+            
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (isFroozen) // ****** isFrozen ******

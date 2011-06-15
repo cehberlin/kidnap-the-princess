@@ -48,6 +48,7 @@ namespace MagicWorld
             }
             Width= Texture.Bounds.Width;
             Height = Texture.Bounds.Height;
+            bounds = new HelperClasses.Bounds(this.position, Width, Height);
         }
 
         /// <summary>
