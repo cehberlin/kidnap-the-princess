@@ -17,7 +17,7 @@ namespace MagicWorld.StaticLevelContent
                 case 1:
                     return new XMLLevelLoader(nr);
                 default:
-                    return new StaticLevelLoader();
+                    return new XMLLevelLoader(1);
             }
     }
     }
