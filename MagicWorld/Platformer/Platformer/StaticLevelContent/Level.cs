@@ -56,7 +56,7 @@ namespace MagicWorld
         }
 
         // needed ingredients
-        private const int neededIngredients = 5;
+        private const int neededIngredients = 2;
         public int NeededIngredients
         {
             get { return neededIngredients; }
@@ -275,13 +275,13 @@ namespace MagicWorld
                 // Still want to perform physics on the player.
                 Player.ApplyPhysics(gameTime);
             }
-            else if (ReachedExit)
-            {
-                // Animate the time being converted into points.
-                int seconds = (int)Math.Round(gameTime.ElapsedGameTime.TotalSeconds * 100.0f);
-                seconds = Math.Min(seconds, (int)Math.Ceiling(TimeRemaining.TotalSeconds));
-                timeRemaining -= TimeSpan.FromSeconds(seconds);
-            }
+            //else if (ReachedExit)
+            //{
+            //    // Animate the time being converted into points.
+            //    int seconds = (int)Math.Round(gameTime.ElapsedGameTime.TotalSeconds * 100.0f);
+            //    seconds = Math.Min(seconds, (int)Math.Ceiling(TimeRemaining.TotalSeconds));
+            //    timeRemaining -= TimeSpan.FromSeconds(seconds);
+            //}
             else
             {
                 timeRemaining -= gameTime.ElapsedGameTime;
@@ -348,7 +348,7 @@ namespace MagicWorld
         /// </summary>
         public void OnExitReached()
         {
-            exitReachedSound.Play();
+            //exitReachedSound.Play();
             reachedExit = true;
         }
 

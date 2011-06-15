@@ -96,7 +96,7 @@ namespace MagicWorld
             diedOverlay = content.Load<Texture2D>("Overlays/you_died");
 
             LoadLevel(1);
-            
+
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -131,8 +131,9 @@ namespace MagicWorld
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
-            if (level.ReachedExit)
+            if (level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)
             {
+
                 ReloadCurrentLevel();
             }
 
@@ -276,7 +277,7 @@ namespace MagicWorld
             null,
             null,
             camera.get_transformation(ScreenManager.Graphics.GraphicsDevice));
-            
+
             level.Draw(gameTime, ScreenManager.SpriteBatch);
 
             ScreenManager.SpriteBatch.End();
@@ -298,13 +299,13 @@ namespace MagicWorld
                 level.Dispose();
 
             // Load the level.
-            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num),ScreenManager.Game);
-           // if (!levelAddedToService)
-           // {
-                ScreenManager.Game.Services.AddService(typeof(Level), level);
-                levelAddedToService = true;
-           // }
-                levelIndex = 1;
+            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num), ScreenManager.Game);
+            // if (!levelAddedToService)
+            // {
+            ScreenManager.Game.Services.AddService(typeof(Level), level);
+            levelAddedToService = true;
+            // }
+            levelIndex = 1;
         }
         private void LoadNextLevel()
         {
@@ -316,7 +317,7 @@ namespace MagicWorld
                 level.Dispose();
 
             // Load the level.
-            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(levelIndex),ScreenManager.Game);
+            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(levelIndex), ScreenManager.Game);
         }
 
         private void ReloadCurrentLevel()
