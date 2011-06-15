@@ -131,6 +131,10 @@ namespace MagicWorld
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
+            if (level.ReachedExit)
+            {
+                ReloadCurrentLevel();
+            }
 
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
@@ -172,32 +176,32 @@ namespace MagicWorld
 
             // Perform the appropriate action to advance the game and
             // to get the player back to playing.
-            if (!wasContinuePressed && continuePressed)
-            {
-                if (!level.Player.IsAlive)
-                {
-                    ReloadCurrentLevel();
-                }
-                else if (level.TimeRemaining == TimeSpan.Zero)
-                {
-                    if (level.ReachedExit)
-                        LoadNextLevel();
-                    else
-                        ReloadCurrentLevel();
-                }
-                else if (level.ReachedExit)
-                {
-                    if(level.Ingredients.Count <= level.NeededIngredients)
-                    {
+            //if (!wasContinuePressed && continuePressed)
+            //{
+            //    if (!level.Player.IsAlive)
+            //    {
+            //        ReloadCurrentLevel();
+            //    }
+            //    else if (level.TimeRemaining == TimeSpan.Zero)
+            //    {
+            //        if (level.ReachedExit)
+            //            LoadNextLevel();
+            //        else
+            //            ReloadCurrentLevel();
+            //    }
+            //    else if (level.ReachedExit)
+            //    {
+            //        if(level.Ingredients.Count <= level.NeededIngredients)
+            //        {
 
-                    }
-                    else
-                    {
-                        LoadNextLevel();
-                    }
+            //        }
+            //        else
+            //        {
+            //            LoadNextLevel();
+            //        }
 
-                }
-            }
+            //    }
+            //}
 
             //Options
             if (keyboardState.IsKeyUp(Player.ToggleSound) && oldKeyboardState.IsKeyDown(Player.ToggleSound))
@@ -301,7 +305,6 @@ namespace MagicWorld
                 levelAddedToService = true;
            // }
                 levelIndex = 1;
-            
         }
         private void LoadNextLevel()
         {

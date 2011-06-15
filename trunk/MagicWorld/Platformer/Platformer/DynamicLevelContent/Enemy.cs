@@ -216,7 +216,7 @@ namespace MagicWorld
 
             foreach (BasicGameElement t in collisionObjects)
             {
-                if (t.Collision == CollisionType.Platform)
+                if (t.Collision == CollisionType.Passable)
                 {
                     waitTime = MaxWaitTime;
                     return true;
