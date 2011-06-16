@@ -42,12 +42,13 @@ namespace MagicWorld.BlendInClasses
 
         public override void Update(GameTime gameTime)
         {
-            if (playerService == null || cameraService == null)
-            {
+            //if (playerService == null || cameraService == null)
+            //{
                 playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
                 cameraService = (ICameraService)Game.Services.GetService(typeof(ICameraService));
-            }
-            else
+            //}
+            //else
+            if(playerService != null && cameraService != null)
                 servicesAcquired = true;
             base.Update(gameTime);
         }
@@ -60,7 +61,6 @@ namespace MagicWorld.BlendInClasses
                 {
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraService.TransformationMatrix);
                     spriteBatch.Draw(circleTex, playerService.Position, null, Color.White, 0, origin, 1.0f, SpriteEffects.None, 0f);
-                    //spriteBatch.Draw(arrowTex, playerService.Position, null, Color.White, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipVertically, 0f);
                     spriteBatch.Draw(arrowTex, playerService.Position, null, Color.White, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipHorizontally, 0f);
                     spriteBatch.End();
                 }
