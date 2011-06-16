@@ -148,6 +148,11 @@ namespace MagicWorld
         public Spell CurrentSpell { get { return currentSpell; } set { currentSpell = value; } }
 
         /// <summary>
+        /// callback delegate for collision with specific objects
+        /// </summary>
+        protected CollisionManager.OnCollisionWithCallback collisionCallback;
+
+        /// <summary>
         /// Constructors a new player.
         /// </summary>
         public Player(Level level, Vector2 position, SpellType[] useableSpells)
@@ -163,8 +168,12 @@ namespace MagicWorld
             Reset(position);
 
             debugColor = Color.Violet;
+
             if (level.Game.Services.GetService(typeof(IPlayerService)) == null)
                 level.Game.Services.AddService(typeof(IPlayerService), this);
+
+            collisionCallback = HandleCollisionForOneObject;
+
         }
 
         /// <summary>
@@ -468,17 +477,6 @@ namespace MagicWorld
 
         private void HandleCollisions()
         {
-            List<Enemy> enemies = new List<Enemy>();
-            level.CollisionManager.CollidateWithEnemy(this, ref enemies);
-
-            foreach (Enemy e in enemies)
-            {
-                if (!e.isFroozen)
-                {
-                    OnKilled(e);
-                }
-            }
-
 
             // Falling off the bottom of the level kills the player.               
             if (level.CollisionManager.CollidateWithLevelBounds(this))
@@ -499,12 +497,24 @@ namespace MagicWorld
 
             if (IsCasting)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, lastVelocity, ref oldBounds, ref isOnGround);
+                level.CollisionManager.HandleGeneralCollisions(this, lastVelocity, ref oldBounds, ref isOnGround, collisionCallback);
             }
             else
             {
                 //ignore plattforms if pushing movement downwards
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, isDown);
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, collisionCallback, isDown);
+            }
+        }
+
+        protected void  HandleCollisionForOneObject(BasicGameElement element)
+        {
+            if (element.GetType() == typeof(Enemy))
+            {
+                Enemy e = (Enemy)element;
+                if (!e.isFroozen)
+                {
+                    OnKilled(e);
+                }
             }
         }
 

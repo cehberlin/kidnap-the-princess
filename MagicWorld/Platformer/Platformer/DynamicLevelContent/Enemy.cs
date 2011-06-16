@@ -60,6 +60,12 @@ namespace MagicWorld
         Bounds oldBounds;
         bool isOnGround = false;
 
+
+        /// <summary>
+        /// callback delegate for collision with specific objects
+        /// </summary>
+        protected CollisionManager.OnCollisionWithCallback collisionCallback;
+
         #region loading
 
         /// <summary>
@@ -79,6 +85,7 @@ namespace MagicWorld
             isFroozen = false;
             isElectrified = false;
             debugColor = Color.Red;
+            collisionCallback = HandleCollisionWithObject;
             ResetVelocity();            
         }
 
@@ -107,6 +114,7 @@ namespace MagicWorld
         {
             velocity = new Vector2(-MoveSpeed, 0);
         }
+
 
         /// <summary>
         /// Paces back and forth along a platform, waiting at either end.
@@ -171,58 +179,56 @@ namespace MagicWorld
                 }
                 else
                 {
-                    if (HandleCollision())
+                    HandleCollision();             
+                    // Move in the current direction.
+                    if (isBurning)
                     {
-                        //let enemy bounce back after collision, neccessary so you are not kept in the collision
-                        Position = oldPosition - Position;
+                        acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
                     }
                     else
-                    {                            
-                            // Move in the current direction.
-                            if (isBurning)
-                            {
-                                acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
-                            }
-                            else
-                            {                                
-                                acceleration = 1;
-                            }
-                            Position = Position + velocity * elapsed * acceleration;
+                    {                                
+                        acceleration = 1;
                     }
+                    Position = Position + velocity * elapsed * acceleration;
                 }
             }
             //only handles physics collision
-            level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
+            level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, collisionCallback);
             if (isOnGround)
             {
                 ResetVelocity();
             }
         }
 
+        protected void HandleCollisionWithObject(BasicGameElement element)
+        {
+           //TODO SET WAITTIME OR SOMETHING LIKE THIS            
+            if (element.GetType() == typeof(Enemy))
+            {
+                Enemy e = (Enemy)element;
+                if (!e.isFroozen)
+                {
+                    //let enemy bounce back after collision, neccessary so you are not kept in the collision
+                    Position = oldPosition - Position;
+                    waitTime = MaxWaitTime;
+                }
+            }
+        }
+
         /// <summary>
-        /// Checks for collision with level elements
+        /// Checks for collision with level elements like bounds...
         /// </summary>
         /// <returns>returns true if collision occured</returns>
-        private bool HandleCollision()
+        private void HandleCollision()
         {           
             if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
                 this.isRemovable = true;
-                return true;
             }
 
-            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
-            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects);
-
-            foreach (BasicGameElement t in collisionObjects)
-            {
-                if (t.Collision == CollisionType.Passable)
-                {
-                    waitTime = MaxWaitTime;
-                    return true;
-                }
+            if(level.CollisionManager.CollidateWithPlayer(this)){
+                level.Player.OnKilled(this);
             }
-            return false;
         }
 
         #endregion
