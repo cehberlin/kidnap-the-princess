@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using MagicWorld.DynamicLevelContent;
+using System.Diagnostics;
 
 namespace MagicWorld.HelperClasses
 {
@@ -205,8 +206,12 @@ namespace MagicWorld.HelperClasses
                         }
                         else if (collision == CollisionType.Impassable && oldBounds.Position.X != elem.Bounds.Position.X) // Ignore platforms. //only handles this if object is in move
                         {
-                            // Resolve the collision along the X axis.
-                            elem.Position = new Vector2(elem.Position.X + depth.X, elem.Position.Y);
+                            //Debug.WriteLine("xCollision" + absDepthX + " " +absDepthY);
+                            if (absDepthY > 10) //tolereance delta
+                            {
+                                // Resolve the collision along the X axis.
+                                elem.Position = new Vector2(elem.Position.X + depth.X, elem.Position.Y);
+                            }
                         }
                     }
                 }
