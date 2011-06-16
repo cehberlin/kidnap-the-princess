@@ -163,7 +163,8 @@ namespace MagicWorld
             Reset(position);
 
             debugColor = Color.Violet;
-            level.Game.Services.AddService(typeof(IPlayerService), this);
+            if (level.Game.Services.GetService(typeof(IPlayerService)) == null)
+                level.Game.Services.AddService(typeof(IPlayerService), this);
         }
 
         /// <summary>
