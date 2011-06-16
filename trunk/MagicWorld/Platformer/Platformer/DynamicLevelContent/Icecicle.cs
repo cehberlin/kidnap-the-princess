@@ -55,6 +55,8 @@ namespace MagicWorld
             icecicleState = IcecicleState.NORMAL;
             LoadContent("Sprites/Icecicle");
             sprite.PlayAnimation(idleAnimation);
+
+            collisionCallback = HandleCollisionForOneObject;
         }
 
         public override void LoadContent(string spriteSet)
@@ -103,6 +105,13 @@ namespace MagicWorld
         }
  
         #region collision
+
+        /// <summary>
+        /// callback delegate for collision with specific objects
+        /// </summary>
+        protected CollisionManager.OnCollisionWithCallback collisionCallback;
+
+
         /// <summary>
         /// handels collision with tiles and enemies and level bounds
         /// </summary>
@@ -110,53 +119,32 @@ namespace MagicWorld
         {
             if (icecicleState == IcecicleState.FALLING)
             {
-                //player collision
-                //HandlePlayerCollision();
-
-                //enemy collision
-                HandleEnemyCollision();
-
-                //Tile collision
-                HandleTileCollision();
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, collisionCallback);
 
                 //check if spells leaves the level
                 HandleOutOfLevelCollision();
             }
-        }        
+        }
 
-        /// <summary>
-        /// handels collision with enemie
-        /// </summary>
-        public virtual void HandleEnemyCollision()
+        protected void HandleCollisionForOneObject(BasicGameElement element)
         {
-            //enemy collision
-
-            List<Enemy> collisionEnemies = new List<Enemy>();
-
-            level.CollisionManager.CollidateWithEnemy(this, ref collisionEnemies);
-            //enemy collision
-            foreach (Enemy enemy in collisionEnemies)
+            if (element.GetType() == typeof(Enemy))
             {
-                //destroy enemy
-                hitSound.Play();
-                icecicleState = IcecicleState.DESTROYED;
-                level.GeneralColliadableGameElements.Remove(enemy);
+                Enemy e = (Enemy)element;
+                if (!e.isFroozen)
+                {
+                    //destroy enemy
+                    hitSound.Play();
+                    icecicleState = IcecicleState.DESTROYED;
+                    e.IsRemovable = true;
+                }
+            }
+            else
+            {
+                this.isRemovable = true;
             }
         }
 
-        /// <summary>
-        /// handels collision with tiles
-        /// </summary>
-        public virtual void HandleTileCollision()
-        {
-            //Tile collision
-            List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
-            if (level.CollisionManager.CollidateWithGeneralLevelElements(this, ref collisionObjects))
-            {
-                //destroy the icecicle
-                icecicleState = IcecicleState.DESTROYED;
-            }                        
-        }
 
         /// <summary>
         /// handels collision with level bounds

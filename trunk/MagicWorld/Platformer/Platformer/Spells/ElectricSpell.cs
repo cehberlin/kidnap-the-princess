@@ -18,7 +18,6 @@ namespace MagicWorld
             Force = SpellConstantsValues.ElectricSpell_Force;
             survivalTimeMs = SpellConstantsValues.ElectricSpell_survivalTimeMs;
             MoveSpeed = SpellConstantsValues.ElectricSpell_MoveSpeed;
-            LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.ElectricSpell_durationOfActionMs;
         }

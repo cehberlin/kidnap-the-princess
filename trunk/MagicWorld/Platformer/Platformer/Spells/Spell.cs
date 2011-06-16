@@ -63,8 +63,12 @@ namespace MagicWorld
         {
             get
             {
-                // Calculate bounds within texture size.
-                float radius = (sprite.Animation.FrameWidth+ sprite.Animation.FrameHeight)/2 * 0.3f*currentScale;
+                float radius = 0;
+                if (sprite.Animation != null)
+                {
+                    // Calculate bounds within texture size.
+                    radius = (sprite.Animation.FrameWidth + sprite.Animation.FrameHeight) / 2 * 0.3f * currentScale;
+                }
                 return new Bounds(position, radius);
             }
         }
@@ -159,6 +163,7 @@ namespace MagicWorld
             this.level = level;
             SpellState = State.CREATING;
             LoadContent(spriteSet);
+            collisionCallback = HandleCollisionForOneObject;
         }
 
         /// <summary>
@@ -325,7 +330,6 @@ namespace MagicWorld
         ///Every type of collision has its own virtual method, so its easy to override special behavior in subclasses
         #region collision
 
-
         /// <summary>
         /// handels collision with level bounds
         /// </summary>
@@ -352,22 +356,17 @@ namespace MagicWorld
             }
         }
 
+
         /// <summary>
-        /// handels collision with other objects
+        /// callback delegate for collision with specific objects
         /// </summary>
-        public virtual void HandleObjectsCollision()
+        protected CollisionManager.OnCollisionWithCallback collisionCallback;
+
+        protected virtual void HandleCollisionForOneObject(BasicGameElement element)
         {
-
-            List<BasicGameElement> levelElements = new List<BasicGameElement>();
-
-            level.CollisionManager.CollidateWithGeneralLevelElements(this, ref levelElements);
-            //enemy collision
-            foreach (BasicGameElement elem in levelElements)
+            if (element.SpellInfluenceAction(this))
             {
-                if (elem.SpellInfluenceAction(this))
-                {
-                    SpellState = State.REMOVE;
-                }
+                SpellState = State.REMOVE;
             }
         }
 
@@ -383,7 +382,13 @@ namespace MagicWorld
             HandleOutOfLevelCollision();
 
             //objects collision
-            HandleObjectsCollision();
+            HandleObjectCollision();
+        }
+
+        protected virtual void HandleObjectCollision()
+        {
+            //do not resolve collision
+            level.CollisionManager.HandleGeneralCollisions(this, velocity, collisionCallback,false,false);
         }
 
         #endregion collision

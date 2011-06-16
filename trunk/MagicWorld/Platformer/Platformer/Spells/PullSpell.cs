@@ -19,7 +19,6 @@ namespace MagicWorld.Spells
             Force = SpellConstantsValues.PullSpell_Force;
             survivalTimeMs = SpellConstantsValues.PullSpell_survivalTimeMs;
             MoveSpeed = 0;
-            LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;

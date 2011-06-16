@@ -17,7 +17,6 @@ namespace MagicWorld.Spells
             Force = SpellConstantsValues.NoGravitationSpell_Force;
             survivalTimeMs = SpellConstantsValues.NoGravitationSpell_survivalTimeMs;;
             MoveSpeed = SpellConstantsValues.NoGravitationSpell_MoveSpeed;
-            LoadContent(spriteSet);
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.NoGravitationSpell_durationOfActionMs;
         }
@@ -33,11 +32,5 @@ namespace MagicWorld.Spells
 
             base.LoadContent(spriteSet);
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-        }
-
     }
 }

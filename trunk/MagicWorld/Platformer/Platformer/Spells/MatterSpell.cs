@@ -38,7 +38,6 @@ namespace MagicWorld
             currentScale = SpellConstantsValues.CreateMatterSpell_currentScale;
             accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
             accelarationChangeFactorY = 0;
-            LoadContent(spriteSet);
             this.Collision = CollisionType.Platform;
         }
 
@@ -68,6 +67,7 @@ namespace MagicWorld
         {
             if (SpellState == State.WORKING)
             {
+                //TODO strange implementation
                 if (influencedByPushSpell)
                 {
                     Vector2 playerPosition = level.Player.Position;
@@ -83,6 +83,7 @@ namespace MagicWorld
                     level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
                     influencedByPushSpell = false;
                 }else
+                    //TODO strange implementation
                 if (influencedByPullSpell)
                 {
                     Vector2 playerPosition = level.Player.Position;
