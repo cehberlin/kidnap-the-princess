@@ -11,6 +11,7 @@ using MagicWorld.HUDClasses;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent.ParticleEffects;
 using ParticleEffects;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld
 {
@@ -24,7 +25,7 @@ namespace MagicWorld
          
         ScreenManager screenManager;
         HUD hud;
-
+        AimingAid aid;
 
         ParticleSystem explosionParticleSystem;
 
@@ -125,6 +126,8 @@ namespace MagicWorld
         {
             hud = new HUD(this);
             Components.Add(hud);
+            aid = new AimingAid(this);
+            Components.Add(aid);
 
             //The particles use camera hence this ordering. 
             //Unfortunately this ordering is a problem: Initialize() is not called automatically.
