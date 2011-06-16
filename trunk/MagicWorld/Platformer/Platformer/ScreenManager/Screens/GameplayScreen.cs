@@ -1,17 +1,14 @@
 using System;
-using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MagicWorld.StaticLevelContent;
-using MagicWorld.Gleed2dLevelContent;
-using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Constants;
 using MagicWorld.Controls;
 using MagicWorld.HelperClasses;
-using MagicWorld.HUDClasses;
 using Microsoft.Xna.Framework.Media;
+using MagicWorld.Services;
 
 namespace MagicWorld
 {
@@ -20,23 +17,10 @@ namespace MagicWorld
     /// </summary>
     class GameplayScreen : GameScreen, IServiceProvider
     {
+        ICameraService camera;
         #region Fields
 
         ContentManager content;
-        Camera2d camera = new HelperClasses.Camera2d(500, 1000);
-
-        public Camera2d Camera
-        {
-            get { return camera; }
-        }
-
-        // Global content.
-        //private SpriteFont hudFont;
-
-        private Texture2D winOverlay;
-        private Texture2D loseOverlay;
-        private Texture2D diedOverlay;
-
         // Meta-level game state.
         private int levelIndex = 0;
         private Level level;
@@ -51,7 +35,6 @@ namespace MagicWorld
         private KeyboardState keyboardState;
         private KeyboardState oldKeyboardState;
 
-
         // The number of levels in the Levels directory of our content. We assume that
         // levels in our content are 0-based and that all numbers under this constant
         // have a level file present. This allows us to not need to check for the file
@@ -64,9 +47,7 @@ namespace MagicWorld
         float pauseAlpha;
 
         #endregion
-
         #region Initialization
-
 
         /// <summary>
         /// Constructor.
@@ -75,26 +56,19 @@ namespace MagicWorld
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
-            //TODO change in this way that Camera becomes a gamecomponet, so you could get access to it this way            
         }
-
 
         /// <summary>
         /// Load graphics content for the game.
         /// </summary>
         public override void LoadContent()
         {
+            camera = (ICameraService)ScreenManager.Game.Services.GetService(typeof(ICameraService));
+
             ScreenManager.Game.Services.AddService(typeof(GameplayScreen), this);
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-
-            camera.Zoom = 0.7f;
-
-            // Load overlay textures
-            winOverlay = content.Load<Texture2D>("Overlays/you_win");
-            loseOverlay = content.Load<Texture2D>("Overlays/you_lose");
-            diedOverlay = content.Load<Texture2D>("Overlays/you_died");
-
+            
             LoadLevel(1);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -140,7 +114,7 @@ namespace MagicWorld
             // update our level, passing down the GameTime along with all of our input states
             level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
 
-            camera.Pos = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
+            camera.Position = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
         }
 
 
@@ -235,22 +209,6 @@ namespace MagicWorld
                 level.Player.nogravityHasInfluenceOnPlayer = !level.Player.nogravityHasInfluenceOnPlayer;
             }
 
-            if (keyboardState.IsKeyDown(Keys.I))
-            {
-                camera.Pos += new Vector2(0, -10);
-            }
-            if (keyboardState.IsKeyDown(Keys.J))
-            {
-                camera.Pos += new Vector2(-10, 0);
-            }
-            if (keyboardState.IsKeyDown(Keys.L))
-            {
-                camera.Pos += new Vector2(10, 0);
-            }
-            if (keyboardState.IsKeyDown(Keys.K))
-            {
-                camera.Pos += new Vector2(0, 10);
-            }
             if (keyboardState.IsKeyDown(Keys.N))
             {
                 camera.Zoom += -0.1f;
@@ -261,7 +219,6 @@ namespace MagicWorld
             }
             wasContinuePressed = continuePressed;
             oldKeyboardState = keyboardState;
-
         }
 
 
@@ -276,7 +233,7 @@ namespace MagicWorld
             null,
             null,
             null,
-            camera.get_transformation(ScreenManager.Graphics.GraphicsDevice));
+            camera.TransformationMatrix);
 
             level.Draw(gameTime, ScreenManager.SpriteBatch);
 
