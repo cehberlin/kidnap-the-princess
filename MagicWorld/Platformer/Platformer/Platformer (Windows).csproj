@@ -120,6 +120,7 @@
     <Compile Include="ScreenManager\Screens\PauseMenuScreen.cs" />
     <Compile Include="ScreenManager\Screens\PlayerIndexEventArgs.cs" />
     <Compile Include="ScreenManager\Screens\ResolutionMenuScreen.cs" />
+    <Compile Include="Services\ICameraService.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
     <Compile Include="Spells\ElectricSpell.cs" />
