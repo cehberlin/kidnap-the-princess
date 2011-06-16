@@ -158,6 +158,7 @@ namespace MagicWorld
         public Player(Level level, Vector2 position, SpellType[] useableSpells)
             : base(level)
         {
+            level.Game.Services.RemoveService(typeof(IPlayerService));
             this.UsableSpells = useableSpells;
             this.level = level;
 
@@ -168,9 +169,7 @@ namespace MagicWorld
             Reset(position);
 
             debugColor = Color.Violet;
-
-            if (level.Game.Services.GetService(typeof(IPlayerService)) == null)
-                level.Game.Services.AddService(typeof(IPlayerService), this);
+            level.Game.Services.AddService(typeof(IPlayerService), this);
 
             collisionCallback = HandleCollisionForOneObject;
 
