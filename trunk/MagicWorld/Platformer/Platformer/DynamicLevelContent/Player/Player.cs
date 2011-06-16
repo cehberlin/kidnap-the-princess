@@ -3,24 +3,24 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
+using System.Collections.Generic;
 using System.Diagnostics;
 using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent.Player;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.HelperClasses;
-using System.Collections.Generic;
 using MagicWorld.Controls;
 using MagicWorld.Constants;
+using MagicWorld.Services;
 
 namespace MagicWorld
 {
     /// <summary>
     /// Our fearless adventurer!
     /// </summary>
-    public class Player : BasicGameElement
+    public class Player : BasicGameElement, IPlayerService
     {
-        #region input constants 
+        #region input constants
         //TODO PUT INTO CLASS/INTERFACE
         public const Keys FullscreenToggleKey = Keys.F11;
         public const Keys ExitGameKey = Keys.Escape;
@@ -30,7 +30,7 @@ namespace MagicWorld
         public const Keys DEBUG_NO_MANA_COST = Keys.F2;
         public const Keys DEBUG_NEXT_LEVEL = Keys.F4;
         public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F5;
-        
+
         // Input configuration
         private const float MoveStickScale = 1.0f;
 
@@ -38,10 +38,7 @@ namespace MagicWorld
 
         public SpellType[] UsableSpells { get; private set; }
 
-
         #region "Animation & sound"
-
-
         // Animations
         //TODO: Draw the die Animation :(
         private Animation dieAnimation;
@@ -81,8 +78,8 @@ namespace MagicWorld
                 float width = (sprite.Animation.FrameWidth * 0.5f);
                 float height = (sprite.Animation.FrameHeight * 0.7f);
                 float left = (float)Math.Round(Position.X - width / 2);
-                float top = (float)Math.Round(Position.Y - height / 2+25); //25 special correctur factor for player head
-                return new Bounds(left, top, width, height-5);
+                float top = (float)Math.Round(Position.Y - height / 2 + 25); //25 special correctur factor for player head
+                return new Bounds(left, top, width, height - 5);
             }
         }
 
@@ -99,7 +96,7 @@ namespace MagicWorld
                 }
                 position = value;
             }
-        }        
+        }
 
         Vector2 lastVelocity;
 
@@ -157,7 +154,7 @@ namespace MagicWorld
             : base(level)
         {
             this.UsableSpells = useableSpells;
-            this.level = level;            
+            this.level = level;
 
             Mana = new Mana(this);
 
@@ -166,7 +163,7 @@ namespace MagicWorld
             Reset(position);
 
             debugColor = Color.Violet;
-
+            level.Game.Services.AddService(typeof(IPlayerService), this);
         }
 
         /// <summary>
@@ -188,7 +185,7 @@ namespace MagicWorld
             killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
             jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");
             fallSound = level.Content.Load<SoundEffect>("Sounds/PlayerFall");
-            spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");            
+            spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");
             base.LoadContent("");
         }
 
@@ -275,7 +272,7 @@ namespace MagicWorld
                 keyboardState.IsKeyDown(controls.Keys_Left))
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
-                movementX = -1.0f;    
+                movementX = -1.0f;
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
                      keyboardState.IsKeyDown(controls.Keys_Right))
@@ -356,7 +353,7 @@ namespace MagicWorld
                     else
                     {
                         velocity.Y = MathHelper.Clamp(velocity.Y, -PhysicValues.PLAYER_MAX_FALL_SPEED, PhysicValues.PLAYER_MAX_FALL_SPEED);
-                    }                   
+                    }
                 }
             }
             else
@@ -390,8 +387,8 @@ namespace MagicWorld
                 velocity.Y = DoJump(velocity.Y, gameTime);
                 Position += velocity * elapsed;
                 lastVelocity = velocity;
-            }            
-            
+            }
+
 
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
 
@@ -493,7 +490,7 @@ namespace MagicWorld
             // exit when they have collected all of the gems.
             if (IsAlive &&
                 IsOnGround &&
-                level.CollisionManager.CollidateWithLevelExit(this) && level.Ingredients.Count==3)
+                level.CollisionManager.CollidateWithLevelExit(this) && level.Ingredients.Count == 3)
             {
                 OnReachedExit();
                 level.OnExitReached();
@@ -506,7 +503,7 @@ namespace MagicWorld
             else
             {
                 //ignore plattforms if pushing movement downwards
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround,isDown);
+                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, isDown);
             }
         }
 
@@ -518,8 +515,9 @@ namespace MagicWorld
         /// not killed by an enemy (fell into a hole).
         /// </param>
         public void OnKilled(Enemy killedBy)
-        {            
-            if(isAlive){
+        {
+            if (isAlive)
+            {
                 if (killedBy != null)
                     killedSound.Play();
                 else
@@ -566,19 +564,20 @@ namespace MagicWorld
         /// </summary>
         public double SpellAimAngle
         {
-            get {
+            get
+            {
                 if (lastVelocity.X >= 0)
                 {
-                    return spellAimAngle; 
+                    return spellAimAngle;
                 }
                 else
                 {
                     return -spellAimAngle;
-                }                 
+                }
             }
             set { spellAimAngle = value; }
         }
-                
+
 
         /// <summary>
         /// create the spells
@@ -623,7 +622,7 @@ namespace MagicWorld
             else
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
-                {                               
+                {
                     isCastingSpell = SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 }
                 else
@@ -653,11 +652,11 @@ namespace MagicWorld
             }
             else
             {
-                angle = -spellAimAngle;             
+                angle = -spellAimAngle;
             }
 
             pos = position + new Vector2((float)(Math.Sin(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
-            return pos;                
+            return pos;
         }
 
         private bool isSpellAButtonPressed(IPlayerControl controls, GamePadState gamePadState, KeyboardState keyboardState)
@@ -693,5 +692,10 @@ namespace MagicWorld
         }
 
         #endregion
+
+        public object GetService(Type serviceType)
+        {
+            return this;
+        }
     }
 }

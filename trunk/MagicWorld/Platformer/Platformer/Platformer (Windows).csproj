@@ -69,6 +69,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BlendInClasses\AimingAid.cs" />
     <Compile Include="Constants\PhysicValues.cs" />
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Constants\SpellInfluenceValues.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="ScreenManager\Screens\PlayerIndexEventArgs.cs" />
     <Compile Include="ScreenManager\Screens\ResolutionMenuScreen.cs" />
     <Compile Include="Services\ICameraService.cs" />
+    <Compile Include="Services\IPlayerService.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
     <Compile Include="Spells\ElectricSpell.cs" />
