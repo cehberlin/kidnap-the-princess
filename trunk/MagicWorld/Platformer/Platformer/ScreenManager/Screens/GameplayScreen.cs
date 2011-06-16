@@ -131,7 +131,7 @@ namespace MagicWorld
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
-            if (level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)
+            if ((level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)||!level.Player.IsAlive)
             {
 
                 ReloadCurrentLevel();
@@ -312,12 +312,14 @@ namespace MagicWorld
             // move to the next level
             levelIndex = (levelIndex + 1);// % numberOfLevels;
 
+            ScreenManager.Game.Services.RemoveService(typeof(Level));
             // Unloads the content for the current level before loading the next one.
             if (level != null)
                 level.Dispose();
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(levelIndex), ScreenManager.Game);
+            ScreenManager.Game.Services.AddService(typeof(Level), level);
         }
 
         private void ReloadCurrentLevel()
