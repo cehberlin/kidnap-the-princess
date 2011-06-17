@@ -98,6 +98,8 @@ namespace MagicWorld.StaticLevelContent
             return Load(frontLayer, author, CollisionType.Passable);
         }
 
+
+        
         private List<BasicGameElement> Load(Layer layer, int author, CollisionType collisionType)
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
@@ -107,7 +109,16 @@ namespace MagicWorld.StaticLevelContent
             foreach (Item item in layer.Items)
             {
                 t = (TextureItem)item;
-                b = new BlockElement(t.asset_name, collisionType, level, t.Position);
+
+                
+                if (t.asset_name.Contains("platform"))
+                {
+                    b = new Platform(t.asset_name, collisionType, level, t.Position);
+                }
+                else
+                {
+                    b = new BlockElement(t.asset_name, collisionType, level, t.Position);
+                }
                 if (author == 2)
                 {
                     b.Position -= t.Origin;
