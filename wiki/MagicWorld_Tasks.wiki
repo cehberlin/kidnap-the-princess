@@ -10,14 +10,10 @@
 = in Progress =
 
   * better push and pull spell mechanic ->christopher
-  * better bounding boxes -> Marian
-  * physics balancing -> Marian
 
 = TODO =
   == pre Beta (15.06)  ==
-  * Level editor problem 
-    * available spells in layer->Pascal
-    * enemy in editor: put graphic in editor on enemy layer  ->Pascal
+  * Level editor: available spells in layer->Pascal
   * implementation for switch that opens a door
   * new levels
   * savegames and replaying of levels (for better score) --> amauri
