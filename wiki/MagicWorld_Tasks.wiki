@@ -24,6 +24,7 @@
   * shadow creature -> follows player if he is near him --> John
   * bats: flying through level (sinus curve) --> John
   * new controls (look at the design document)
+  * BUG: enemies fall through the ground after they got frozen
 
   == Beta (29.06) ==
   * BUG: enemies still move while pausing the game
