@@ -81,6 +81,8 @@
     <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
+    <Compile Include="DynamicLevelContent\ShadowCreature.cs" />
+    <Compile Include="Services\IEnemyService.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionSmokeParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\MatterCreationParticleSystem.cs" />

@@ -20,6 +20,8 @@ namespace MagicWorld
     /// </summary>
     public class Player : BasicGameElement, IPlayerService
     {
+        IEnemyService enemyService;
+
         #region input constants
         //TODO PUT INTO CLASS/INTERFACE
         public const Keys FullscreenToggleKey = Keys.F11;
@@ -195,6 +197,8 @@ namespace MagicWorld
             jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");
             fallSound = level.Content.Load<SoundEffect>("Sounds/PlayerFall");
             spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");
+
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
             base.LoadContent("");
         }
 
@@ -256,6 +260,8 @@ namespace MagicWorld
             // Clear input.
             movementX = 0.0f;
             isJumping = false;
+
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
         }
 
         /// <summary>
@@ -510,7 +516,8 @@ namespace MagicWorld
             if (element.GetType() == typeof(Enemy))
             {
                 Enemy e = (Enemy)element;
-                if (!e.isFroozen)
+                enemyService = (IEnemyService)e.GetService(typeof (IEnemyService));
+                if(!enemyService.IsFroozen)
                 {
                     OnKilled(e);
                 }
