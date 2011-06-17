@@ -9,7 +9,6 @@
 
 = in Progress =
 
-  * better push and pull spell mechanic ->christopher
 
 = TODO =
   == pre Beta (15.06)  ==
@@ -78,7 +77,8 @@ Christopher:
   * aiming mechanics -> christopher
   * correcting fire/freeze (add influence of gravity ... etc.)
   * BUG collision detection: enemies and matter sometimes falls through the ground, very mysterious...if someone could help? I struggled some time (written by christopher) -> looks like the gravitation is responsible for that, I guess there is something wrong with the collision resolution
- * fix bounds of player and enemy
+  * fix bounds of player and enemy
+  * better push and pull spell mechanic ->christopher
 Pascal:
  * Enable multi-lined sprite sheets. (Highly optional: Enable spritesheets with more than one animation.)
  * draw zero layer
