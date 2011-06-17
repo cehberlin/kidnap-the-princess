@@ -29,6 +29,7 @@
   * BUG: enemies still move while pausing the game
   * save configuration (save settings like sound/resolutions)--> amauri
   * spider: only moves in defined web area (in all directions) 
+  * Gamelogo
   * push/pull graphics
   * electric spell graphics
 
