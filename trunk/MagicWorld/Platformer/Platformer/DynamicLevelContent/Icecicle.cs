@@ -5,12 +5,14 @@ using Microsoft.Xna.Framework.Audio;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.HelperClasses;
 using System.Collections.Generic;
+using MagicWorld.Services;
 
 namespace MagicWorld
 {
     enum IcecicleState { NORMAL, FALLING, DESTROYED };
     class Icecicle : BasicGameElement
     {
+        IEnemyService enemyService;
 
         private Texture2D texture;
         private Vector2 origin;
@@ -67,6 +69,7 @@ namespace MagicWorld
             idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet), 0.15f, true, 1);            
             fallVelocity = 0.8f;
             debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
         }
 
      
@@ -102,6 +105,7 @@ namespace MagicWorld
                 position.Y += (float)(position.Y * gameTime.ElapsedGameTime.TotalSeconds* fallVelocity);          
             }            
             HandleCollision();
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
         }
  
         #region collision
@@ -131,7 +135,7 @@ namespace MagicWorld
             if (element.GetType() == typeof(Enemy))
             {
                 Enemy e = (Enemy)element;
-                if (!e.isFroozen)
+                if (!enemyService.IsFroozen)
                 {
                     //destroy enemy
                     hitSound.Play();

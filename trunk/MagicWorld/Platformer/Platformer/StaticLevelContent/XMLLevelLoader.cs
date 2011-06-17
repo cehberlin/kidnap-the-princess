@@ -68,7 +68,7 @@ namespace MagicWorld.StaticLevelContent
             foreach (Item item in enemiesLayer.Items)
             {
                 //String monsterName = (String)item.CustomProperties["Enemy"].value;
-                Enemy e = new Enemy(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
+                ShadowCreature e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
                 if (author == 2)
                 {
                     TextureItem t = (TextureItem)item;

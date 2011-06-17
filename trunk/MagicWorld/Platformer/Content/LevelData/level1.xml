@@ -777,6 +777,33 @@
         </Layer>
         <Layer Name="Enemy" Visible="true">
             <Items>
+              <Item xsi:type="TextureItem" Name="Texture_0030" Visible="true">
+                <Position>
+                  <X>840</X>
+                  <Y>896</Y>
+                </Position>
+                <CustomProperties />
+                <Rotation>0</Rotation>
+                <Scale>
+                  <X>1</X>
+                  <Y>1</Y>
+                </Scale>
+                <TintColor>
+                  <R>255</R>
+                  <G>255</G>
+                  <B>255</B>
+                  <A>255</A>
+                  <PackedValue>4294967295</PackedValue>
+                </TintColor>
+                <FlipHorizontally>false</FlipHorizontally>
+                <FlipVertically>false</FlipVertically>
+                <texture_filename>LevelContent\Cave\Enemies\shadowCreatureEditor.png</texture_filename>
+                <asset_name>LevelContent\Cave\Enemies\shadowCreatureEditor</asset_name>
+                <Origin>
+                  <X>60</X>
+                  <Y>128</Y>
+                </Origin>
+              </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0030" Visible="true">
                     <Position>
                         <X>840</X>
@@ -800,7 +827,7 @@
                     <texture_filename>LevelContent\Cave\Enemies\shadowCreatureEditor.png</texture_filename>
                     <asset_name>LevelContent\Cave\Enemies\shadowCreatureEditor</asset_name>
                     <Origin>
-                        <X>128</X>
+                        <X>250</X>
                         <Y>128</Y>
                     </Origin>
                 </Item>

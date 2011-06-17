@@ -15,19 +15,20 @@ using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
 using MagicWorld.Constants;
 using System.Diagnostics;
+using MagicWorld.Services;
 
 namespace MagicWorld
 {
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    public class Enemy : BasicGameElement
+    public class Enemy : BasicGameElement, IEnemyService
     {
 
         // Animations
-        private Animation runAnimation;
-        private Animation idleAnimation;
-        private AnimationPlayer sprite;
+        protected Animation runAnimation;
+        protected Animation idleAnimation;
+        protected AnimationPlayer sprite;
 
         /// <summary>
         /// How long this enemy has been waiting before turning around.
@@ -37,7 +38,7 @@ namespace MagicWorld
         /// <summary>
         /// How long to wait before turning around.
         /// </summary>
-        private const float MaxWaitTime = 0.5f;
+       private const float MaxWaitTime = 0.5f;
 
         /// <summary>
         /// The speed at which this enemy moves along the X axis.
@@ -52,14 +53,10 @@ namespace MagicWorld
                 float width = (sprite.Animation.FrameWidth * 0.5f);
                 float height = (sprite.Animation.FrameHeight * 0.5f);
                 float left = (float)Math.Round(Position.X - width / 2);
-                float top = (float)Math.Round(Position.Y - height/2);
-                return new Bounds(left, top+30, width, height);
+                float top = (float)Math.Round(Position.Y - height / 2);
+                return new Bounds(left, top + 30, width, height);
             }
         }
-
-        Bounds oldBounds;
-        bool isOnGround = false;
-
 
         /// <summary>
         /// callback delegate for collision with specific objects
@@ -75,7 +72,7 @@ namespace MagicWorld
             : base(level)
         {
             this.Position = position;
- 
+
             LoadContent(spriteSet);
 
             Collision = CollisionType.Impassable;
@@ -85,8 +82,8 @@ namespace MagicWorld
             isFroozen = false;
             isElectrified = false;
             debugColor = Color.Red;
-            collisionCallback = HandleCollisionWithObject;
-            ResetVelocity();            
+            //collisionCallback = HandleCollisionWithObject;
+            ResetVelocity();
         }
 
         /// <summary>
@@ -94,14 +91,7 @@ namespace MagicWorld
         /// </summary>
         public override void LoadContent(string spriteSet)
         {
-            // Load animations.
-            runAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
-            idleAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
-            sprite.PlayAnimation(idleAnimation);
-
-            oldBounds = this.Bounds;
-
-            base.LoadContent("");
+            base.LoadContent(spriteSet);
         }
 
         #endregion
@@ -121,98 +111,6 @@ namespace MagicWorld
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-            level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
-            
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (isFroozen) // ****** isFrozen ******
-            {
-                currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
-                if (currentFreezeTime >= SpellInfluenceValues.maxFreezeTime)
-                {
-                    isFroozen = false;
-                    idleAnimation.TextureColor = Color.White;
-                    runAnimation.TextureColor = Color.White;
-                }
-            }
-            else if (isBurning) // ****** isBurning ******
-            {
-                currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
-                if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)
-                {
-                    isBurning = false;
-                    idleAnimation.TextureColor = Color.White;
-                    runAnimation.TextureColor = Color.White;
-                }
-            }
-
-            // ****** isElectrified ******
-            if (isElectrified)
-            {
-                currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
-                if (currentBurningTime >= SpellInfluenceValues.maxElectrifiedTime)
-                {
-                    isElectrified = false;
-                }
-            }
-
-            float acceleration=1;
-
-            if (!isFroozen && !isElectrified) // ****** can move ******
-            {
-                //TODO let enemies run in player direction, is buggy because enemies are shakeing at obstacles
-                //if (level.Player.Position.X > this.position.X + 10 && this.direction.Equals(FaceDirection.Left) ||
-                //    level.Player.Position.X < this.position.X - 10 && this.direction.Equals(FaceDirection.Right))
-                //{
-                //    direction = (FaceDirection)(-(int)direction);
-                //}
-
-                if (waitTime > 0)
-                {
-                    // Wait for some amount of time.
-                    waitTime = Math.Max(0.0f, waitTime - (float)gameTime.ElapsedGameTime.TotalSeconds);
-                    if (waitTime <= 0.0f)
-                    {
-                        // Then turn around.                     
-                        velocity = velocity * -1;
-                    }
-                }
-                else
-                {
-                    HandleCollision();             
-                    // Move in the current direction.
-                    if (isBurning)
-                    {
-                        acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
-                    }
-                    else
-                    {                                
-                        acceleration = 1;
-                    }
-                    Position = Position + velocity * elapsed * acceleration;
-                }
-            }
-            //only handles physics collision
-            level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, collisionCallback);
-            if (isOnGround)
-            {
-                ResetVelocity();
-            }
-        }
-
-        protected void HandleCollisionWithObject(BasicGameElement element)
-        {
-           //TODO SET WAITTIME OR SOMETHING LIKE THIS            
-            if (element.GetType() == typeof(Enemy))
-            {
-                Enemy e = (Enemy)element;
-                if (!e.isFroozen)
-                {
-                    //let enemy bounce back after collision, neccessary so you are not kept in the collision
-                    Position = oldPosition - Position;
-                    waitTime = MaxWaitTime;
-                }
-            }
         }
 
         /// <summary>
@@ -220,13 +118,14 @@ namespace MagicWorld
         /// </summary>
         /// <returns>returns true if collision occured</returns>
         private void HandleCollision()
-        {           
+        {
             if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
                 this.isRemovable = true;
             }
 
-            if(level.CollisionManager.CollidateWithPlayer(this)){
+            if (level.CollisionManager.CollidateWithPlayer(this))
+            {
                 level.Player.OnKilled(this);
             }
         }
@@ -255,7 +154,7 @@ namespace MagicWorld
                 sprite.PlayAnimation(runAnimation);
             }
 
-            // Draw facing the way the enemy is moving.
+            //Draw facing the way the enemy is moving.
             SpriteEffects flip = velocity.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);
 
@@ -264,69 +163,32 @@ namespace MagicWorld
 
         #endregion
 
-        #region ISpellInfluenceable Member
-
-        private TimeSpan currentElectrifiedTime = new TimeSpan(0, 0, 0);
-
-        private TimeSpan currentFreezeTime = new TimeSpan(0, 0, 0);
-
-        private TimeSpan currentBurningTime = new TimeSpan(0, 0, 0);
-        
-        double spellDurationOfActionMs = 0;
 
         public Boolean isBurning { get; set; }
         public Boolean isFroozen { get; set; }
         public Boolean isElectrified { get; set; }
 
-        public override bool SpellInfluenceAction(Spell spell)
+        public Boolean IsBurning
         {
-            if (spell.SpellType == Spells.SpellType.WarmingSpell)
-            {
-                if (isFroozen)
-                {
-                    isFroozen = false;
-                    isBurning = false;
-                    idleAnimation.TextureColor = Color.White;
-                    runAnimation.TextureColor = Color.White;
-                }
-                else
-                {
-                    isBurning = true;
-                    currentBurningTime = new TimeSpan(0, 0, 0);
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
-                    idleAnimation.TextureColor = Color.Red;
-                    runAnimation.TextureColor = Color.Red;
-                }
-                return true;
-            }
-            if (spell.SpellType == Spells.SpellType.ColdSpell)
-            {
-                if (isBurning)
-                {
-                    isFroozen = false;
-                    isBurning = false;
-                    idleAnimation.TextureColor = Color.White;
-                    runAnimation.TextureColor = Color.White;
-                }
-                else
-                {
-                    isFroozen = true;
-                    idleAnimation.TextureColor = Color.Blue;
-                    runAnimation.TextureColor = Color.Blue;
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
-                    currentFreezeTime = new TimeSpan(0, 0, 0);
-                }
-                return true;
-            }
-            if (spell.SpellType == Spells.SpellType.ElectricSpell)
-            {
-                isElectrified = true;
-                currentElectrifiedTime = new TimeSpan(0, 0, 0);
-            }
-
-            return false;
+            get { return isBurning; }
+            set { isBurning = value; }
         }
 
-        #endregion
+        public Boolean IsFroozen
+        {
+            get { return isFroozen; }
+            set { isFroozen = value; }
+        }
+
+        public Boolean IsElectrified
+        {
+            get { return isElectrified; }
+            set { isElectrified = value; }
+        }
+
+        public object GetService(Type serviceType)
+        {
+            return this;
+        }
     }
 }
