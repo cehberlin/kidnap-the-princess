@@ -21,7 +21,5 @@ namespace MagicWorld.Constants
 
 #endregion
 
-        public static float PullAcceleration = 1.5f;
-        public static float PushAcceleration = PullAcceleration;
     }
 }

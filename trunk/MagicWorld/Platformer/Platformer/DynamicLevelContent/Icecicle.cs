@@ -123,7 +123,7 @@ namespace MagicWorld
         {
             if (icecicleState == IcecicleState.FALLING)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, collisionCallback);
+                level.CollisionManager.HandleGeneralCollisions(this, collisionCallback);
 
                 //check if spells leaves the level
                 HandleOutOfLevelCollision();

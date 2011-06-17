@@ -19,8 +19,8 @@ namespace MagicWorld
         Texture2D matterTexture;
 
         protected Boolean gravityIsSetOffBySpell = false;
-        protected Boolean influencedByPushSpell = false;
-        protected Boolean influencedByPullSpell = false;
+        
+        protected PushPullHandler pushPullHandler = new PushPullHandler();
 
 
         /// <summary>
@@ -59,47 +59,14 @@ namespace MagicWorld
             oldBounds = this.Bounds;
         }
 
-
-
         Bounds oldBounds;
         bool isOnGround = false;
         public override void Update(GameTime gameTime)
-        {
+        {            
             if (SpellState == State.WORKING)
             {
-                //TODO strange implementation
-                if (influencedByPushSpell)
-                {
-                    Vector2 playerPosition = level.Player.Position;
-                    Vector2 acceleration = new Vector2(SpellInfluenceValues.PullAcceleration, SpellInfluenceValues.PullAcceleration);
-                    if (playerPosition.X > Position.X)
-                    {
-                        acceleration.X *= -1;
-                    }
-                    if (playerPosition.Y > Position.Y)
-                    {
-                        acceleration.Y *= -1;
-                    }
-                    level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
-                    influencedByPushSpell = false;
-                }else
-                    //TODO strange implementation
-                if (influencedByPullSpell)
-                {
-                    Vector2 playerPosition = level.Player.Position;
-                    Vector2 acceleration = new Vector2(SpellInfluenceValues.PullAcceleration, SpellInfluenceValues.PullAcceleration);
-                    if (playerPosition.X < Position.X)
-                    {
-                        acceleration.X *= -1;
-                    }
-                    if (playerPosition.Y < Position.Y)
-                    {
-                        acceleration.Y *= -1;
-                    }
-                    level.PhysicsManager.ApplyGravity(this, acceleration, gameTime);
-                    influencedByPullSpell = false;
-                }else
-                if (!gravityIsSetOffBySpell && !influencedByPushSpell && !influencedByPullSpell)
+                pushPullHandler.Update(gameTime);
+                if (!gravityIsSetOffBySpell)
                 {
                     level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
                 }
@@ -109,7 +76,7 @@ namespace MagicWorld
 
             if (SpellState == State.WORKING)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround);
+                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround);
                 if (isOnGround)
                 {
                     ResetVelocity();
@@ -157,12 +124,20 @@ namespace MagicWorld
             }
             else if (spell.SpellType == SpellType.PushSpell)
             {
-                influencedByPushSpell = true;
+                //TODO put values into constant class
+                Vector2 push = this.Position - spell.Position;
+                push.Normalize();
+                pushPullHandler.setXAcceleration(1.1f, 0, 2, -0.2f);
+                pushPullHandler.start(this,1000, push);
                 return false;
             }
             else if (spell.SpellType == SpellType.PullSpell)
             {
-                influencedByPullSpell = true;
+                //TODO put values into constant class
+                Vector2 pull = spell.Position - this.Position;
+                pull.Normalize();
+                pushPullHandler.setXAcceleration(1f,0, 1.1f, 0.07f);                
+                pushPullHandler.start(this, 1000,pull);
                 return false;
             }
             return base.SpellInfluenceAction(spell);

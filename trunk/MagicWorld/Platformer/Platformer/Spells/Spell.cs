@@ -388,7 +388,7 @@ namespace MagicWorld
         protected virtual void HandleObjectCollision()
         {
             //do not resolve collision
-            level.CollisionManager.HandleGeneralCollisions(this, velocity, collisionCallback,false,false);
+            level.CollisionManager.HandleGeneralCollisions(this, collisionCallback,false,false);
         }
 
         #endregion collision

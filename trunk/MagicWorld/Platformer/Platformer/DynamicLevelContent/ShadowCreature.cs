@@ -165,7 +165,7 @@ namespace MagicWorld
                 }
             }
             //only handles physics collision
-            level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, collisionCallback);
+            level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
         }
 
         /// <summary>

@@ -11,7 +11,6 @@ namespace MagicWorld.Spells
     public class PushSpell : Spell
     {
 
-
         public PushSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.PushSpellConstants.BasicCastingCost, SpellConstantsValues.PushSpellConstants.CastingCostPerSecond, SpellType.PushSpell)
         {
@@ -39,9 +38,27 @@ namespace MagicWorld.Spells
 
         public override void Update(GameTime gameTime)
         {
-            base.Position = level.Player.Position;
-            base.Update(gameTime);
-        }               
+            if (SpellState == State.CREATING)
+            {
+                base.Position = level.Player.Position;
+
+                Grow(gameTime);
+                //only start playing if animation changes because frame position is reseted
+                if (sprite.Animation != idleAnimation)
+                {
+                    sprite.PlayAnimation(idleAnimation);
+                }
+            }
+        }
+
+        /// <summary>
+        /// only check collision after casting is over then remove spell
+        /// </summary>
+        protected override void OnWorkingStart()
+        {
+            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
+            SpellState = State.REMOVE;
+        } 
 
     }
 }

@@ -63,7 +63,6 @@ namespace MagicWorld
             this.Height = height;
         }
 
-        private Bounds bounds = null;
         public override Bounds Bounds
         {
             get
