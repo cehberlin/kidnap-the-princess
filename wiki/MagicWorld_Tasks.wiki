@@ -10,10 +10,10 @@
 = in Progress =
 
   * Class Ingredients -> John
+  * better push and pull spell mechanic ->christopher
 
 = TODO =
 == WORK FOR ALPHA VERSION ==
-  * better push and pull spell mechanic
   * Level editor: support for FileName: level(worldnr)_(levelnr)_(flag) naming convention ->Pascal
     * available spells in layer->Pascal
     * enemy in editor: put graphic in editor on enemy layer  ->Pascal
