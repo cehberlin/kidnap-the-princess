@@ -20,7 +20,7 @@
     * enemy in editor: put graphic in editor on enemy layer  ->Pascal
   * implementation for switch that opens a door
   * new levels
-  * savegames and reload player levels --> amauri
+  * savegames and replaying of levels (for better score) --> amauri
   * shadow creature -> follows player if he is near him --> John
   * bats: flying through level (sinus curve) --> John
   * new controls (look at the design document)
