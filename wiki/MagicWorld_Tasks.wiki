@@ -9,39 +9,35 @@
 
 = in Progress =
 
-  * Class Ingredients -> John
   * better push and pull spell mechanic ->christopher
+  * better bounding boxes -> Marian
+  * physics balancing -> Marian
 
 = TODO =
-== WORK FOR ALPHA VERSION ==
-  * Level editor: support for FileName: level(worldnr)_(levelnr)_(flag) naming convention ->Pascal
+  == pre Beta (15.06)  ==
+  * Level editor problem 
     * available spells in layer->Pascal
     * enemy in editor: put graphic in editor on enemy layer  ->Pascal
-  * First Level -> Marian
-  * all spells implemented like described in the design document (graphics not important, only mechanics)
-    * noGravity -> new animation
-  * BUG: wrong boundingboxes for spells that fly upwards //generally fixed because usining of cycle bounds, it works...
+  * implementation for switch that opens a door
+  * new levels
+  * savegames and reload player levels --> amauri
+  * shadow creature -> follows player if he is near him --> John
+  * bats: flying through level (sinus curve) --> John
+  * new controls (look at the design document)
+
+  == Beta (29.06) ==
+  * BUG: enemies still move while pausing the game
+  * save configuration (save settings like sound/resolutions)--> amauri
+  * spider: only moves in defined web area (in all directions) 
   * push/pull graphics
   * electric spell graphics
 
-  === OPTIONAL (if enough time is left) ===
+  == OPTIONAL (if enough time is left) ==
   * elements that are influenced by push/pull
-  * turn music/sound on/off via the OPTIONS Menu
-  * BUG: spell HUD do not change after level reload if you switch the spells ->Pascal
-  * new graphic for electric spell
-  * BUG: enemies still move while pausing the game
-  * Bug enemy gets teleported away when running into a spell that is currently being cast
-
-== WORK FOR BETA VERSION ==
   * Sound menu (turn sound and/or music on/off)
   * menu exit -> exit game should be last entry
-  * level: mechanics for switches in levels (see level ideas in design document)
-  * savegames --> amauri
-  * save configuration (save settings like sound/resolutions)--> amauri
-  * enemy / AI --> john
-    * shadow creature -> follows player if he is near him
-    * bats: flying through level (sinus curve)
-    * spider: only moves in defined web area (in all directions)
+
+
 
 ==work until next milestone ==
   * reimplementation of last prototype state, 
