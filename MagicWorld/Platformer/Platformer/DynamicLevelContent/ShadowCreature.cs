@@ -70,6 +70,7 @@ namespace MagicWorld
             sprite.PlayAnimation(idleAnimation);
 
             oldBounds = this.Bounds;
+            base.LoadContent("");
         }
 
         #endregion
