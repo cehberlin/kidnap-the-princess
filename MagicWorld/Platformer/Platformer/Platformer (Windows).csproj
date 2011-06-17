@@ -130,6 +130,7 @@
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
     <Compile Include="Spells\ElectricSpell.cs" />
+    <Compile Include="Spells\PushPullHandler.cs" />
     <Compile Include="Spells\PullSpell.cs" />
     <Compile Include="Spells\MatterSpell.cs" />
     <Compile Include="Spells\NoGravitySpell.cs" />

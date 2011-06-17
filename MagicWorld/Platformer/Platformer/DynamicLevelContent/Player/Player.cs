@@ -502,12 +502,12 @@ namespace MagicWorld
 
             if (IsCasting)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, lastVelocity, ref oldBounds, ref isOnGround, collisionCallback);
+                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
             }
             else
             {
                 //ignore plattforms if pushing movement downwards
-                level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, collisionCallback, isDown);
+                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback, isDown);
             }
         }
 

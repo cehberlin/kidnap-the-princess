@@ -31,7 +31,6 @@ namespace MagicWorld.StaticLevelContent
         }
 
 
-        private Bounds bounds;
         public override HelperClasses.Bounds Bounds
         {
             get

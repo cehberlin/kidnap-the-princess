@@ -31,8 +31,6 @@ namespace MagicWorld.HelperClasses.Animation
         /// </summary>
         public List<Frame> Frames;
 
-        int fps = 24;
-
         public AnimationLoader()
         {
             Frames = new List<Frame>();

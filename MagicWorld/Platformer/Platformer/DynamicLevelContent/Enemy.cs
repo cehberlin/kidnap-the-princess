@@ -31,16 +31,6 @@ namespace MagicWorld
         protected AnimationPlayer sprite;
 
         /// <summary>
-        /// How long this enemy has been waiting before turning around.
-        /// </summary>
-        private float waitTime;
-
-        /// <summary>
-        /// How long to wait before turning around.
-        /// </summary>
-       private const float MaxWaitTime = 0.5f;
-
-        /// <summary>
         /// The speed at which this enemy moves along the X axis.
         /// </summary>
         private const float MoveSpeed = 64.0f;
@@ -111,6 +101,7 @@ namespace MagicWorld
         /// </summary>
         public override void Update(GameTime gameTime)
         {
+
         }
 
         /// <summary>
@@ -143,7 +134,7 @@ namespace MagicWorld
             if (!level.Player.IsAlive ||
                 level.ReachedExit ||
                 level.TimeRemaining == TimeSpan.Zero ||
-                waitTime > 0 || level.Player.Position.X.Equals(this.Position.X)
+                level.Player.Position.X.Equals(this.Position.X)
                 || isFroozen
                 )
             {
