@@ -16,10 +16,12 @@ namespace MagicWorld
         public int Width = 40;
         public int Height = 32;
 
+        private bool positionChanged = true; // true if the position was changed but no new bounding box was calculated
+
         public override Vector2 Position
         {
             get { return position; }
-            set { position = value; }
+            set { position = value; positionChanged = true; }
         }
 
         /// <summary>
@@ -61,14 +63,18 @@ namespace MagicWorld
             this.Height = height;
         }
 
+        private Bounds bounds = null;
         public override Bounds Bounds
         {
             get
             {
-                int left = (int)Math.Round(position.X);
-                int top = (int)Math.Round(position.Y);
-
-                return new Bounds(left, top, Width,Height);
+                if (positionChanged)
+                {
+                    int left = (int)Math.Round(position.X);
+                    int top = (int)Math.Round(position.Y);
+                    bounds = new Bounds(left, top, Width, Height);
+                }
+                return bounds;
             }
         }
 
