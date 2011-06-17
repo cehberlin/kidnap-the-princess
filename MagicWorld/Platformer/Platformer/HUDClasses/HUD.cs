@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using MagicWorld.Services;
 
 namespace MagicWorld.HUDClasses
 {
@@ -84,10 +85,7 @@ namespace MagicWorld.HUDClasses
         /// </summary>
         ContentManager content;
         #endregion
-
-        //TODO: Level will not remain a service so we need to replace this in the future with the real service.
-        GameServiceContainer gsc;
-
+        IPlayerService playerService;
         public HUD(Game game)
             : base(game)
         {
@@ -101,9 +99,6 @@ namespace MagicWorld.HUDClasses
             spellBarLeft = new SpellBar(new Vector2(resolution.X * 0.75f, position.Y));
             spellBarLeft.Width = 100;
             spellBarRight = new SpellBar(new Vector2(resolution.X * 0.75f + spellBarLeft.Width, position.Y));
-
-            //TODO: Level will not remain a service so we need to replace this in the future with the real service.
-            gsc = game.Services;
         }
 
         protected override void LoadContent()
@@ -135,19 +130,20 @@ namespace MagicWorld.HUDClasses
 
         public override void Update(GameTime gameTime)
         {
-            Level l = (Level)gsc.GetService(typeof(Level));
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             if (visible)
             {
-                if (!(l == null))
+                if ( playerService!= null)
                 {
                     //TODO: remove 1000 and get the value dynamically
-                    manaBar.Update(l.Player.Mana.CurrentMana, 1000);
-                    ingredientBar.SetState(l.CollectedIngredients.Count, l.NeededIngredients, l.MaxIngredientsCount);
+                    manaBar.Update(playerService.Mana.CurrentMana, 1000);
+                    //TODO: Access level or hold this information in the player.
+                    //ingredientBar.SetState(playerService.CollectedIngredients.Count, l.NeededIngredients, l.MaxIngredientsCount);
                     //TODO: Constant polling is not good, call back is better.
-                    spellBarLeft.Update(l.Player.selectedSpell_A);
-                    spellBarRight.Update(l.Player.selectedSpell_B);
-                    UpdateRunes(l.Player.selectedSpell_A, ref leftSpell);
-                    UpdateRunes(l.Player.selectedSpell_B, ref rightSpell);
+                    spellBarLeft.Update(playerService.selectedSpell_A);
+                    spellBarRight.Update(playerService.selectedSpell_B);
+                    UpdateRunes(playerService.selectedSpell_A, ref leftSpell);
+                    UpdateRunes(playerService.selectedSpell_B, ref rightSpell);
                 }
                 if (!screenManager.IsGameplayScreenActive())
                 {
