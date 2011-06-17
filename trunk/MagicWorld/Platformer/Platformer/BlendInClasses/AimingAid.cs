@@ -42,13 +42,9 @@ namespace MagicWorld.BlendInClasses
 
         public override void Update(GameTime gameTime)
         {
-            //if (playerService == null || cameraService == null)
-            //{
-                playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
-                cameraService = (ICameraService)Game.Services.GetService(typeof(ICameraService));
-            //}
-            //else
-            if(playerService != null && cameraService != null)
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
+            cameraService = (ICameraService)Game.Services.GetService(typeof(ICameraService));
+            if (playerService != null && cameraService != null)
                 servicesAcquired = true;
             base.Update(gameTime);
         }

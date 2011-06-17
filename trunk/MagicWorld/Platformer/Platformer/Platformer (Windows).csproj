@@ -70,6 +70,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BlendInClasses\AimingAid.cs" />
+    <Compile Include="BlendInClasses\TutorialInstruction.cs" />
+    <Compile Include="BlendInClasses\TutorialManager.cs" />
     <Compile Include="Constants\PhysicValues.cs" />
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Constants\SpellInfluenceValues.cs" />

@@ -536,6 +536,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Instructions\InstructionFont.spritefont">
+      <Name>InstructionFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="Sprites\ShadowCreatures\ShadowCreatureSpriteSheet.xml">
       <Name>ShadowCreatureSpriteSheet</Name>
       <Importer>XmlImporter</Importer>

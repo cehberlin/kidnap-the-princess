@@ -26,6 +26,7 @@ namespace MagicWorld
         ScreenManager screenManager;
         HUD hud;
         AimingAid aid;
+        TutorialManager tutManager;
 
         ParticleSystem explosionParticleSystem;
 
@@ -129,22 +130,17 @@ namespace MagicWorld
             aid = new AimingAid(this);
             Components.Add(aid);
 
-            //The particles use camera hence this ordering. 
-            //Unfortunately this ordering is a problem: Initialize() is not called automatically.
+            tutManager = new TutorialManager(this);
+            tutManager.AddInstruction("Hello and welcome to our kickass game.\nThis message you are currently seeing is a test string!");
+            Components.Add(tutManager);
+
             explosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
-            explosionParticleSystem.Initialize();
             magicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
-            magicParticleSystem.Initialize();
             iceMagicParticleSystem = ParticleSystemFactory.getIceMagic(this, 10);
-            iceMagicParticleSystem.Initialize();
             fireMagicParticleSystem = ParticleSystemFactory.getFireMagic(this, 10);
-            fireMagicParticleSystem.Initialize();
             smokeParticleSystem = ParticleSystemFactory.getSmoke(this, 10);
-            smokeParticleSystem.Initialize();
             explosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 10);
-            explosionParticleSystem.Initialize();
             matterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
-            matterCreationParticleSystem.Initialize();
 
             Components.Add(explosionParticleSystem);
             Components.Add(magicParticleSystem);

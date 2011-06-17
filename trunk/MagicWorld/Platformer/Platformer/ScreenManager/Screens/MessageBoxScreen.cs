@@ -79,7 +79,7 @@ namespace MagicWorld
         {
             ContentManager content = ScreenManager.Game.Content;
 
-            gradientTexture = content.Load<Texture2D>("Content/MenuScreen/gradient");
+            gradientTexture = content.Load<Texture2D>("MenuScreen/gradient");
         }
 
 
