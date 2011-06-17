@@ -39,30 +39,22 @@
   * menu exit -> exit game should be last entry
 
 
+== pre Final (13.07) ==
 
-==work until next milestone ==
-  * reimplementation of last prototype state, 
-    * write down which class you are working on
-      * if you build a component, create the class and submit before writing code in it
-    * for decoupled components you can provide a minimal implementation or copy paste from the last prototype first (can be replaced later by better component implementation)
-   * encapsulate important constants from all classes in some static classes as static changeable values (no const)
-   * clean code wherever necessary 
-  * let camera follow the player (needs fine tuning)
-  * maybe let us think about a resolution independent implementation
-    ( I recently tried this with our old prototype http://www.david-amador.com/2010/03/xna-2d-independent-resolution-rendering/ ) But I had problems with the cameraposition ..
-  * online edit possebility for constants (Marian already working?)
 
-==work for next milestone==
+== Final (06.07) ==
 
  * Menu Entry for Options should be in the middle and the Quit Option at the bottom.
- * Put Debug Controls also into a nencapsulated interface
- * Enemy different behavior and general ki (old one was disabled, because is buggy)
+
+
+
 
 == deferred work ==
 
-== rejected To Dos ==
 
+== rejected To Dos ==
  * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player. -> This will be solved by placing impassable items at the left and right bounds so the player can't touch the. Also no platform will be put so high that the player can reach the top.
+
 
 = done =
 
