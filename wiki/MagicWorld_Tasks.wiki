@@ -11,11 +11,11 @@
   * Leveleditor: usable spells -> Marian
   * Leveleditor: min ingridients -> Marian
   * new spell casting -> Marian
+  * implementation for switch that opens a door
 
 = TODO =
   == pre Beta (15.06)  ==
   * Level editor: available spells in layer->Pascal
-  * implementation for switch that opens a door
   * new levels
   * savegames and replaying of levels (for better score) --> amauri
   * shadow creature -> follows player if he is near him --> John
