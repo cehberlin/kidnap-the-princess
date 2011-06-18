@@ -14,7 +14,9 @@ namespace MagicWorld.StaticLevelContent
 
     class XMLLevelLoader : ILevelLoader
     {
-        const String SPECIAL_LAYER = "Special";
+
+        const String LAYER_COLLECTABLEITEMS = "Ingredient";
+        const String LAYER_SPECIAL = "Special";
 
     #region "Level Properties"
         // Item name of Item with all custom properties for the level
@@ -270,6 +272,13 @@ namespace MagicWorld.StaticLevelContent
         {
             levelLoader = Gleed2dLevelLoader.FromFile("Content/LevelData/level" + levelNumber.ToString() + ".xml");
             author = DetectAuthor();
+        }
+
+
+        public int getMaxItmesToCollect()
+        {
+            Layer ingredientLayer = levelLoader.getLayerByName(LAYER_COLLECTABLEITEMS);
+            return ingredientLayer.Items.Count;
         }
 
 

@@ -76,5 +76,18 @@ namespace MagicWorld.StaticLevelContent
         /// </summary>
         /// <returns></returns>
         Bounds getLevelBounds();
+
+
+        /// <summary>
+        /// minimum of collectable items the player has to collect in this level to finish it
+        /// </summary>
+        /// <returns></returns>
+        int getMinimumItemsToEndLevel();
+
+        /// <summary>
+        /// max of collectable items the player has to collect in this level
+        /// </summary>
+        /// <returns></returns>
+        int getMaxItmesToCollect();
     }
 }

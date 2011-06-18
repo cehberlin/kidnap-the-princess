@@ -145,6 +145,13 @@ namespace MagicWorld.HUDClasses
                     UpdateRunes(playerService.selectedSpell_A, ref leftSpell);
                     UpdateRunes(playerService.selectedSpell_B, ref rightSpell);
                 }
+
+                Level level = null; //TODO: LOAD LEVEL to set the ingriedient HUD-Element
+                if (level != null)
+                {
+                    ingredientBar.SetState(level.CollectedIngredients.Count, level.NeededIngredients, level.MaxIngredientsCount);
+                }
+
                 if (!screenManager.IsGameplayScreenActive())
                 {
                     visible = false;

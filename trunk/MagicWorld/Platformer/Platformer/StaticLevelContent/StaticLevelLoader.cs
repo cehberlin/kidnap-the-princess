@@ -125,5 +125,16 @@ namespace MagicWorld.StaticLevelContent
             return new Ingredient("Ingredients/" + name, collision, level, position, width, height);
         }
 
+
+
+        public int getMinimumItemsToEndLevel()
+        {
+            return 3;
+        }
+
+        public int getMaxItmesToCollect()
+        {
+            return 3;
+        }
     }
 }
