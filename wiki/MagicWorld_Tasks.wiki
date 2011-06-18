@@ -1,12 +1,3 @@
-=instructions=
-  * put new work and bugs into "TODO"
-    * please prioritize the new work (more important work should be at the start of the list)
-  * if you work on something put it under "in progress"
-  * after finishing the work out it in "done"
-  * before creating new classes take a look into the architecture document, bigger or tricky constructs should be documented in that document
-  * check the design document before you implement so we implement our collective vision, if something is not clear please write a email 
-
-
 = in Progress =
   * implementation for switch that opens a door -> christopher
   * use of ingredient HUD -> Pascal
@@ -15,14 +6,12 @@
   == pre Beta (15.06)  ==
   * BUG: no repositioning of spell while changing angle in casting mode
   * warm/cold spell: more speed if more mana is pumped into it
-  * warm/cold spell: better gravition physics
- 
+  * warm/cold spell: better gravition physics 
   * new levels
   * savegames and replaying of levels (for better score) --> amauri
   * shadow creature -> follows player if he is near him --> John
   * shadow creature -> stops at walls/chasm and change direction --> John
   * bats: flying through level (sinus curve) --> John
-  * new controls (look at the design document)
   * BUG: enemies fall through the ground after they got frozen
 
   == Beta (29.06) ==
