@@ -196,20 +196,21 @@ namespace MagicWorld.StaticLevelContent
         /// <returns>1 for John and Marian. 2 For Christopher and Pascal. Zero in case of an error. </returns>
         private int DetectAuthor()
         {
-            Item i = levelLoader.getItemByName("Author");
-            switch (i.CustomProperties["Author"].description)
-            {
-                case "John":
-                    return 1;
-                case "Marian":
-                    return 1;
-                case "Pascal":
-                    return 2;
-                case "Christopher":
-                    return 2;
-                default:
-                    return 0;
-            }
+            return 2;
+            //Item i = levelLoader.getItemByName("Author");
+            //switch (i.CustomProperties["Author"].description)
+            //{
+            //    case "John":
+            //        return 1;
+            //    case "Marian":
+            //        return 1;
+            //    case "Pascal":
+            //        return 2;
+            //    case "Christopher":
+            //        return 2;
+            //    default:
+            //        return 0;
+            //}
         }
     }
 }
