@@ -71,11 +71,16 @@ namespace MagicWorld
         }
 
         private int maxIngredientsCount = 0;
-
         public int MaxIngredientsCount
         {
             get { return maxIngredientsCount; }
         }
+
+        /// <summary>
+        /// minimum of Collectable items the player has to collect in this level to finish it
+        /// </summary>
+        /// <returns></returns>
+        public int GetMinimumItemsToEndLevel { get; protected set; }
 
         //// Key locations in the level.     
 
@@ -184,6 +189,10 @@ namespace MagicWorld
             levelLoader.init(this);
 
             Debug.WriteLine("load level ");
+
+            GetMinimumItemsToEndLevel = levelLoader.getMinimumItemsToEndLevel();
+
+            maxIngredientsCount = levelLoader.getMaxItmesToCollect();
 
             timeRemaining = TimeSpan.FromMinutes(levelLoader.getMaxLevelTime());
 
