@@ -63,4 +63,4 @@ it means that this spell is available for this level. Use one custom property fo
 To set the minimum amount of collectable items the player needs to collect to finish the level add a custom property to the "LevelProperties" with the name "min item" (type: free text). Set the value to the number of items the player has to collect to finish the level.
 
 === set max time for level ===
-Add a custom property to the "LevelProperties" with the name "max Time" (type: free text). Set the value to the time (in seconds) the player has to finish the level.
+Add a custom property to the "LevelProperties" with the name "max time" (type: free text). Set the value to the time (in seconds) the player has to finish the level.
