@@ -20,7 +20,7 @@ Although the level loading is not completely implemented yet it is already fairl
 ||Background||The actual level background that is scrolled when the player moves. This layer does not collide with anything.||
 ||Middle||This is where all the platforms and the ground of the level go. Everything in here is included in collision checks.||
 ||Front||Behaves like Background but is drawn in over middle.||
-||Special||This layer holds all information like starting point, exit point and level bounds.||
+||Special||This layer holds all information like starting point, exit point, level bounds and Level Properties (usable spells, collectable items ...).||
 ||Ingredient||Layer for Ingredients||
 ||Enemy||Layer for enemies||
 ||Blockade||Impassable objects.||
@@ -44,3 +44,20 @@ Collectibles are added through circle primitives, but instead of naming them you
 --> Ingredients must be on the Ingredients layer + use "Ingredient" as custom property in a circle, the property must be set to Gem
 
 In the future this layer will also be used to place enemies and their waypoints as well as all other game objects. 
+
+
+== setting the level properties ==
+Put a primitive object on the special layer with the name "LevelProperties". 
+=== add usable spells ===
+Add one custom property (type: free text) to the "LevelProperties"-Item. If you name the property:
+  * warm
+  * cold
+  * push
+  * pull
+  * electric
+  * nogravity
+  * matter
+it means that this spell is available for this level. Use one custom property for each available spell. No value is needed for the property.
+
+=== min item to collect to finish the level ===
+To set the minimum amount of collectable items the player needs to collect to finish the level add a custom property to the "LevelProperties" with the name "min item" (type: free text). Set the value to the number of items the player has to collect to finish the level.
