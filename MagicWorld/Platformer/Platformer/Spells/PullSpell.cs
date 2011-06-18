@@ -44,7 +44,7 @@ namespace MagicWorld.Spells
             {
                 base.Position = level.Player.Position;
 
-                Grow(gameTime);
+                Grow();
                 //only start playing if animation changes because frame position is reseted
                 if (sprite.Animation != idleAnimation)
                 {

@@ -31,6 +31,22 @@ namespace MagicWorld
 
             public SpellType SpellType { get; protected set; }
 
+
+            private int usedMana;
+            /// <summary>
+            /// Mana that is currently used for this spell
+            /// </summary>
+            public int UsedMana { 
+                get
+                {
+                    return usedMana;
+                }
+                set {
+                    usedMana = value;
+                    Grow();
+                }
+            }
+
         #region properties
 
         public enum State { CREATING, WORKING, REMOVE };
@@ -153,6 +169,7 @@ namespace MagicWorld
         public Spell(string spriteSet, Vector2 position, Level level, int manaBasicCost, float manaCastingCost, SpellType spellType)
             : base(level)
         {
+            UsedMana = 0;
             SpellType = spellType;
             this.manaBasicCost = manaBasicCost;
             this.manaCastingCost = manaCastingCost;
@@ -209,7 +226,6 @@ namespace MagicWorld
             }
             else if (SpellState == State.CREATING)
             {
-                Grow(gameTime);
                 //only start playing if animation changes because frame position is reseted
                 if (sprite.Animation != idleAnimation)
                 {
@@ -286,11 +302,11 @@ namespace MagicWorld
         {
         }
 
-        public virtual void Grow(GameTime gameTime)
+        public virtual void Grow()
         {
             if (currentScale <= MaxScale)
             {
-                currentScale += growFactor;
+                currentScale = growFactor*UsedMana;
                 if(idleAnimation!=null)
                     idleAnimation.Scale = currentScale;
                 if(runAnimation!=null)
