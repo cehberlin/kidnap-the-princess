@@ -17,8 +17,6 @@ namespace MagicWorld.Controls
     public class PlayerControlFactory
     {
 
-        
-
         private IPlayerControl control;
 
         private PlayerControlFactory()
