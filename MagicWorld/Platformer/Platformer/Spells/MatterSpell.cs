@@ -70,6 +70,10 @@ namespace MagicWorld
                 {
                     level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
                 }
+                else
+                {
+                    gravityIsSetOffBySpell = false;
+                }
             }
 
             base.Update(gameTime);
