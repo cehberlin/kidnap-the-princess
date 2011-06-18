@@ -78,13 +78,6 @@ namespace MagicWorld
 
         #region updating
 
-
-        private void ResetVelocity()
-        {
-            velocity = new Vector2(-MoveSpeed, 0);
-        }
-
-
         /// <summary>
         /// Paces back and forth along a platform, waiting at either end.
         /// </summary>
@@ -118,8 +111,7 @@ namespace MagicWorld
             // ****** isElectrified ******
             if (isElectrified)
             {
-                if (isOnGround)
-                    velocity = new Vector2(MoveSpeed, 0);
+                CurrentVelocity = new Vector2(MoveSpeed, 0);
                 //currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
                 //if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
                 //{
@@ -134,87 +126,34 @@ namespace MagicWorld
                 //TODO let enemies run in player direction, is buggy because enemies are shakeing at obstacles
                 if (level.Player.Position.X > this.position.X && waitTime > MaxWaitTime)
                 {
-                    if (isOnGround)
-                    {
-                        velocity = new Vector2(MoveSpeed, 0);
+                        CurrentVelocity = new Vector2(MoveSpeed, 0);
                         waitTime = new TimeSpan(0, 0, 0, 0);
-                    }
                 }
                 else if (level.Player.Position.X < this.position.X && waitTime > MaxWaitTime)
                 {
-                    if (isOnGround)
-                    {
-                        velocity = new Vector2(-MoveSpeed, 0);
+                        CurrentVelocity = new Vector2(-MoveSpeed, 0);
                         waitTime = new TimeSpan(0, 0, 0, 0);
-                    }
+                }
+
+                HandleCollision();
+                // Move in the current direction.
+                if (isBurning)
+                {
+                    acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
                 }
                 else
                 {
-                    HandleCollision();
-                    // Move in the current direction.
-                    if (isBurning)
-                    {
-                        acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
-                    }
-                    else
-                    {
-                        acceleration = 1;
-                    }
-                    waitTime = waitTime.Add(gameTime.ElapsedGameTime);
-                    Position = Position + velocity * elapsed * acceleration;
+                    acceleration = 1;
                 }
+                waitTime = waitTime.Add(gameTime.ElapsedGameTime);
+                Position = Position + velocity * elapsed * acceleration;
             }
             //only handles physics collision
             level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
-        }
-
-        /// <summary>
-        /// Checks for collision with level elements like bounds...
-        /// </summary>
-        /// <returns>returns true if collision occured</returns>
-        private void HandleCollision()
-        {
-            if (level.CollisionManager.CollidateWithLevelBounds(this))
-            {
-                this.isRemovable = true;
+            
+            if(isOnGround){
+                ResetVelocity();
             }
-
-            if (level.CollisionManager.CollidateWithPlayer(this))
-            {
-                level.Player.OnKilled(this);
-            }
-        }
-
-        #endregion
-
-        #region drawing
-
-        /// <summary>
-        /// Draws the animated enemy.
-        /// </summary>
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            base.Draw(gameTime, spriteBatch);
-            //// Stop running when the game is paused or before turning around.
-            //if (!level.Player.IsAlive ||
-            //    level.ReachedExit ||
-            //    level.TimeRemaining == TimeSpan.Zero ||
-            //    waitTime > 0 || level.Player.Position.X.Equals(this.Position.X)
-            //    || isFroozen
-            //    )
-            //{
-            //    sprite.PlayAnimation(idleAnimation);
-            //}
-            //else
-            //{
-            //    sprite.PlayAnimation(runAnimation);
-            //}
-
-            //// Draw facing the way the enemy is moving.
-            //SpriteEffects flip = velocity.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            //sprite.Draw(gameTime, spriteBatch, Position, flip);
-
-            //base.Draw(gameTime, spriteBatch);
         }
 
         #endregion

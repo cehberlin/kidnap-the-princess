@@ -89,10 +89,24 @@ namespace MagicWorld
 
         #region updating
 
+        /// <summary>
+        /// this is necessary, because the velocity could be changed from outside
+        /// and current velocity must be 
+        /// used for reseting after ground collision
+        /// </summary>
+        private Vector2 currentVelocity = new Vector2(-MoveSpeed, 0);
 
-        private void ResetVelocity()
+        public Vector2 CurrentVelocity
         {
-            velocity = new Vector2(-MoveSpeed, 0);
+            get { return currentVelocity; }
+            set { currentVelocity = value;
+            velocity = currentVelocity;
+            }
+        }
+
+        protected void ResetVelocity()
+        {
+            velocity = currentVelocity;
         }
 
 
@@ -108,7 +122,7 @@ namespace MagicWorld
         /// Checks for collision with level elements like bounds...
         /// </summary>
         /// <returns>returns true if collision occured</returns>
-        private void HandleCollision()
+        protected void HandleCollision()
         {
             if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
