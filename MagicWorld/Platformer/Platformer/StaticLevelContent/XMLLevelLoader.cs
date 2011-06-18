@@ -11,10 +11,31 @@ using MagicWorld.Ingredients;
 
 namespace MagicWorld.StaticLevelContent
 {
+
     class XMLLevelLoader : ILevelLoader
     {
+        const String SPECIAL_LAYER = "Special";
+
+    #region "Level Properties"
+        // Item name of Item with all custom properties for the level
+        const String ITEM_NAME_LEVEL_PROPERTIES = "LevelProperties"; 
+
+        const String PROPERTY_NAME_MIN_ITEM = "min item";
+
+        const String PROPERTY_NAME_MAX_TIME = "max time";
+            
+        //custom property names for spells
+        const String USABLE_SPELL_FIRE = "warm";
+        const String USABLE_SPELL_FREEZE = "cold";
+        const String USABLE_SPELL_PUSH = "push";
+        const String USABLE_SPELL_PULL = "pull";
+        const String USABLE_SPELL_ELECTRIC = "electric";
+        const String USABLE_SPELL_NOGRAVITY = "nogravity";
+        const String USABLE_SPELL_MATTER = "matter";
+    #endregion
+
         Level level;
-        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.ElectricSpell, SpellType.PullSpell, SpellType.PushSpell };
+        private SpellType[] useableSpells_default = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.ElectricSpell, SpellType.PullSpell, SpellType.PushSpell };
 
         #region ILevelLoader member
 
@@ -27,11 +48,69 @@ namespace MagicWorld.StaticLevelContent
         {
             get
             {
-                return useableSpells;
+                LinkedList<SpellType> usableSpellList = new LinkedList<SpellType>();
+
+                Item levelPropertyItem = levelLoader.getItemByName(ITEM_NAME_LEVEL_PROPERTIES);
+
+                if (levelPropertyItem == null) //return default if no usableSpellItem
+                {
+                    return useableSpells_default;
+                }
+
+
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_FIRE))
+                {
+                    usableSpellList.AddLast(SpellType.WarmingSpell);
+                }
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_ELECTRIC))
+                {
+                    usableSpellList.AddLast(SpellType.ElectricSpell);
+                }
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_FREEZE))
+                {
+                    usableSpellList.AddLast(SpellType.ColdSpell);
+                }
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_MATTER))
+                {
+                    usableSpellList.AddLast(SpellType.CreateMatterSpell);
+                }
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_NOGRAVITY))
+                {
+                    usableSpellList.AddLast(SpellType.NoGravitySpell);
+                }
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_PULL))
+                {
+                    usableSpellList.AddLast(SpellType.PullSpell);
+                }
+                if (levelPropertyItem.CustomProperties.ContainsKey(USABLE_SPELL_PUSH))
+                {
+                    usableSpellList.AddLast(SpellType.PushSpell);
+                }
+
+
+                return usableSpellList.ToArray();
             }
             set
             {
                 throw new NotImplementedException();
+            }
+        }
+
+
+        public int getMinimumItemsToEndLevel()
+        {
+
+            Item levelPropertyItem = levelLoader.getItemByName(ITEM_NAME_LEVEL_PROPERTIES);
+
+            if (levelPropertyItem.CustomProperties[PROPERTY_NAME_MIN_ITEM] != null)
+            {
+                String value = (String)levelPropertyItem.CustomProperties[PROPERTY_NAME_MIN_ITEM].value;
+                int minItems = int.Parse(value);
+                return minItems;
+            }
+            else
+            {
+                throw new Exception("Level has no level property Item!");
             }
         }
 
@@ -156,7 +235,18 @@ namespace MagicWorld.StaticLevelContent
 
         public double getMaxLevelTime()
         {
-            return 99;
+            Item levelPropertyItem = levelLoader.getItemByName(ITEM_NAME_LEVEL_PROPERTIES);
+
+            if (levelPropertyItem.CustomProperties[PROPERTY_NAME_MAX_TIME] != null)
+            {
+                String value = (String)levelPropertyItem.CustomProperties[PROPERTY_NAME_MAX_TIME].value;
+                int time = int.Parse(value);
+                return time;
+            }
+            else
+            {
+                throw new Exception("Level has no level property Item!");
+            }
         }
 
         public Microsoft.Xna.Framework.Media.Song getBackgroundMusic()
@@ -182,7 +272,7 @@ namespace MagicWorld.StaticLevelContent
             author = DetectAuthor();
         }
 
-        //TODO: If Amauri wants to do some levels we need to ind out how Gleed2d functions on his PC.
+
         /// <summary>
         /// Let's us know who has created the level.
         /// 1=John or Marian
