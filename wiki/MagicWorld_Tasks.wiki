@@ -11,7 +11,7 @@
   * Leveleditor: usable spells -> Marian
   * Leveleditor: min ingridients -> Marian
   * new spell casting -> Marian
-  * implementation for switch that opens a door
+  * implementation for switch that opens a door -> christopher
 
 = TODO =
   == pre Beta (15.06)  ==
