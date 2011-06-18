@@ -8,7 +8,9 @@
 
 
 = in Progress =
-
+  * Leveleditor: usable spells -> Marian
+  * Leveleditor: min ingridients -> Marian
+  * new spell casting -> Marian
 
 = TODO =
   == pre Beta (15.06)  ==
