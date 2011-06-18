@@ -8,17 +8,18 @@
 
 
 = in Progress =
-  * Leveleditor: usable spells -> Marian
-  * Leveleditor: min ingridients -> Marian
-  * new spell casting -> Marian
   * implementation for switch that opens a door -> christopher
 
 = TODO =
   == pre Beta (15.06)  ==
-  * Level editor: available spells in layer->Pascal
+  * BUG: no repositioning of spell while changing angle in casting mode
+  * warm/cold spell: more speed if more mana is pumped into it
+  * warm/cold spell: better gravition physics
+  * use of ingriedient HUD (just need to load the level in HUD.cs) 
   * new levels
   * savegames and replaying of levels (for better score) --> amauri
   * shadow creature -> follows player if he is near him --> John
+  * shadow creature -> stops at walls/chasm and change direction --> John
   * bats: flying through level (sinus curve) --> John
   * new controls (look at the design document)
   * BUG: enemies fall through the ground after they got frozen
@@ -56,6 +57,10 @@
 
 = done =
 
+
+  * Leveleditor: usable spells -> Marian
+  * Leveleditor: min ingridients -> Marian
+  * new spell casting -> Marian
 
 Menu screens: creating the menus --> Amauri
  * Stop playing the background music when exiting the GamePlayScreen.->Amaraui
