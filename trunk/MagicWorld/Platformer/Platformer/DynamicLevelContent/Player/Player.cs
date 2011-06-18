@@ -229,16 +229,15 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
+
             Mana.update(gameTime);
             GetInput(keyboardState, gamePadState, orientation);
 
-            ApplyPhysics(gameTime);
 
-            if (isAlive)
-            {
-                //Create Spells
-                HandleSpellCreation(gameTime, keyboardState, gamePadState, orientation);
-            }
+            HandleSpellCreation(gameTime, keyboardState, gamePadState, orientation);
+
+            
+            ApplyPhysics(gameTime);
 
             if (IsAlive && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
             {
@@ -261,7 +260,7 @@ namespace MagicWorld
             movementX = 0.0f;
             isJumping = false;
 
-            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService)); //TODO: looks unnecessary to always register the player again !
         }
 
         /// <summary>
@@ -301,23 +300,16 @@ namespace MagicWorld
             }
 
             // Check if the player wants to jump.
-            isJumping =
-                gamePadState.IsButtonDown(controls.GamePad_Jump) ||
-                keyboardState.IsKeyDown(controls.Keys_Jump);
+            if (!this.IsCasting)
+            {
+                isJumping =
+                    gamePadState.IsButtonDown(controls.GamePad_Jump) ||
+                    keyboardState.IsKeyDown(controls.Keys_Jump);
+            }
             //Check if the player press Down Button
             isDown =
                 gamePadState.IsButtonDown(controls.GamePad_Down) ||
                 keyboardState.IsKeyDown(controls.Keys_Down);
-
-            if (IsCasting && (isJumping || gamePadState.IsButtonDown(controls.GamePad_Up)))
-            {
-                spellAimAngle += SpellConstantsValues.spellAngleChangeStep;
-            }
-
-            if (IsCasting && isDown)
-            {
-                spellAimAngle -= SpellConstantsValues.spellAngleChangeStep;
-            }
 
             if (!isJumping && !isDown && velocity.Y != 0.0f)
             {
@@ -610,7 +602,6 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
-
             Boolean isCastingSpell = false;
 
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
@@ -640,7 +631,40 @@ namespace MagicWorld
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
-                    isCastingSpell = SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
+                            // casting angle
+                    if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
+                    {
+                        spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                    }
+                    else if (keyboardState.IsKeyDown(controls.Keys_Down) || gamePadState.IsButtonDown(controls.GamePad_Down))
+                    {
+                        spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                    }
+
+                            //casting power
+                    if (keyboardState.IsKeyDown(controls.Keys_Right) || gamePadState.IsButtonDown(controls.GamePad_Right)) // more power
+                    {
+                        if (isPlayerFacingRight())
+                        {
+                            SpellCreationManager.morePower(this, this.level, gameTime);
+                        }
+                        else
+                        {
+                            SpellCreationManager.lessPower(this, this.level, gameTime);
+                        }
+                    }
+                    else if (keyboardState.IsKeyDown(controls.Keys_Left) || gamePadState.IsButtonDown(controls.GamePad_Left)) // less power
+                    {
+                        if (isPlayerFacingRight())
+                        {
+                            SpellCreationManager.lessPower(this, this.level, gameTime);
+                        }
+                        else 
+                        {
+                            SpellCreationManager.morePower(this, this.level, gameTime);
+                        }
+                        //TODO spell casting
+                    }
                 }
                 else
                 {
@@ -713,6 +737,26 @@ namespace MagicWorld
         public object GetService(Type serviceType)
         {
             return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>true if the player is walking to the rigth </returns>
+        public bool isPlayerFacingRight()
+        {
+            if (lastVelocity.X >= 0) { return true; }
+            return false;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>true if the player is walking to the left</returns>
+        public bool isPlayerFacingLeft()
+        {
+            if (lastVelocity.X < 0) { return true; }
+            return false;
         }
     }
 }

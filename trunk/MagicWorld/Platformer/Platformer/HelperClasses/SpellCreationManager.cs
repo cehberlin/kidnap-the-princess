@@ -6,6 +6,7 @@ using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent.Player;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using MagicWorld.Constants;
 
 namespace MagicWorld.HelperClasses
 {
@@ -19,7 +20,8 @@ namespace MagicWorld.HelperClasses
         /// <returns>true if casting started successfull</returns>
         public static bool tryStartCasting(Player player, SpellType type, Level level)
         {
-           if(player.Mana.CurrentMana > SpellConstantsFactory.getSpellConstants(type).BasicCastingCost)
+            int basicCastingCost = SpellConstantsFactory.getSpellConstants(type).BasicCastingCost;
+           if(player.Mana.CurrentMana > basicCastingCost)
            {
                Vector2 pos = player.getCurrentSpellPosition();
 
@@ -48,13 +50,38 @@ namespace MagicWorld.HelperClasses
                player.CurrentSpell.Rotation =  -(float)(level.Player.SpellAimAngle + Math.PI / 2);
                player.SpellSound.Play();               
                level.addSpell(player.CurrentSpell);
+               player.CurrentSpell.UsedMana = basicCastingCost;
                return true;
            }
            return false;
         }
 
+
+        public static void morePower(Player player, Level level, GameTime gameTime )
+        {
+            double powerUp = SpellConstantsValues.spellPowerUpDownSpeed * gameTime.ElapsedGameTime.TotalSeconds;
+            int currentSpellCost = (int)Math.Round(powerUp) + player.CurrentSpell.UsedMana;
+            if (currentSpellCost > player.Mana.CurrentMana)
+            {
+                currentSpellCost = player.Mana.CurrentMana;
+            }
+            player.CurrentSpell.UsedMana = currentSpellCost;
+        }
+
+        public static void lessPower(Player player, Level level, GameTime gameTime)
+        {
+            int basicCastingCost = SpellConstantsFactory.getSpellConstants(player.CurrentSpell.SpellType).BasicCastingCost;
+            double powerDown = SpellConstantsValues.spellPowerUpDownSpeed * gameTime.ElapsedGameTime.TotalSeconds;
+            int currentSpellCost = - (int)Math.Round(powerDown) + player.CurrentSpell.UsedMana;
+            if (currentSpellCost < basicCastingCost)
+            {
+                currentSpellCost = basicCastingCost;
+            }
+            player.CurrentSpell.UsedMana = currentSpellCost;
+        }
+
         /// <summary>
-        /// 
+        /// DEPRECATED
         /// </summary>
         /// <param name="player"></param>
         /// <param name="level"></param>
@@ -80,8 +107,9 @@ namespace MagicWorld.HelperClasses
         }
 
         public static void releaseSpell(Player player)
-        { 
-            Debug.WriteLine("SPELL:FIRED after button release");
+        {
+            Debug.WriteLine("SPELL: FIRED after button release [usedMana:" + player.CurrentSpell.UsedMana+"]");
+            player.Mana.CurrentMana -= player.CurrentSpell.UsedMana;
             player.CurrentSpell.FireUp();
             player.CurrentSpell = null;
         }

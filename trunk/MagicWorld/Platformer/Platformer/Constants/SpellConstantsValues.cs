@@ -11,6 +11,21 @@ namespace MagicWorld.Constants
         private SpellConstantsValues() { }
 
         /// <summary>
+        /// value how fast the spell is rotated while in casting mode
+        /// </summary>
+        public static double spellAimingRotationSpeed = 150.0f;
+
+        /// <summary>
+        /// speed of the powering up and down of the spell in casting mode
+        /// </summary>
+        public static double spellPowerUpDownSpeed = 500.0f;
+
+        /// <summary>
+        /// how fast the spell grows if more mana is pumped into it
+        /// </summary>
+        public static float DefaultSpellGrowRate = 0.006f;//0.02f;
+
+        /// <summary>
         /// Max mana a player can have
         /// </summary>
         public static int MAX_MANA = 1000;
@@ -30,7 +45,7 @@ namespace MagicWorld.Constants
         /// </summary>
         public static double spellAngleChangeStep = Math.PI / 64;
 
-        public static float DefaultSpellGrowRate = 0.02f;
+        
 
         public static Spells.SpellConstants ColdSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ColdSpell_MoveSpeed = 150f;
