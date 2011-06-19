@@ -573,7 +573,7 @@ namespace MagicWorld
         GamePadState oldGamePadState;
 
         private int selectedSpellIndex_A = 0;
-        private int selectedSpellIndex_B = 1;
+        private int selectedSpellIndex_B = 0;
         public SpellType selectedSpell_A { get { return UsableSpells[selectedSpellIndex_A]; } }
         public SpellType selectedSpell_B { get { return UsableSpells[selectedSpellIndex_B]; } }
 
