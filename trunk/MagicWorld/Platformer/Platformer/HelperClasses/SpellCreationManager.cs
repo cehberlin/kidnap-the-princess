@@ -81,13 +81,13 @@ namespace MagicWorld.HelperClasses
         }
 
         /// <summary>
-        /// DEPRECATED
+        /// updates current position and angle of spell, also at particles...
         /// </summary>
         /// <param name="player"></param>
         /// <param name="level"></param>
         /// <param name="gameTime"></param>
         /// <returns>true if the spell is still casted</returns>
-        public static bool furtherSpellCasting(Player player, Level level, GameTime gameTime)
+        public static void furtherSpellCasting(Player player, Level level, GameTime gameTime)
         {
             //update position and direction and drawing angle
             Vector2 pos = player.getCurrentSpellPosition();
@@ -98,12 +98,6 @@ namespace MagicWorld.HelperClasses
             player.CurrentSpell.Rotation = -(float)(level.Player.SpellAimAngle + Math.PI / 2);
             //add new particle effects
             player.CurrentSpell.AddOnCreationParticles();
-            if (!player.Mana.castingSpell(gameTime))
-            {
-                releaseSpell(player);
-                return false;
-            }
-            return true;
         }
 
         public static void releaseSpell(Player player)
