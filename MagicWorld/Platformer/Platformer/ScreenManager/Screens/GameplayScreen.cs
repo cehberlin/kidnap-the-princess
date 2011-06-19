@@ -112,7 +112,7 @@ namespace MagicWorld
                 ReloadCurrentLevel();
             } else if(level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)
             {
-                LoadLevel(levelIndex);
+                LoadNextLevel();
             }
 
 
@@ -288,8 +288,7 @@ namespace MagicWorld
 
         private void ReloadCurrentLevel()
         {
-            --levelIndex;
-            LoadNextLevel();
+            LoadLevel(levelIndex);
         }
         #endregion
 
