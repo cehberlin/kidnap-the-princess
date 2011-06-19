@@ -148,14 +148,24 @@ namespace MagicWorld.StaticLevelContent
             Layer enemiesLayer = levelLoader.getLayerByName("Enemy");
             foreach (Item item in enemiesLayer.Items)
             {
-                //String monsterName = (String)item.CustomProperties["Enemy"].value;
-                ShadowCreature e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
-                if (author == 2)
+                Enemy e = null;
+                String monsterName = (String)item.CustomProperties["EnemyType"].value;
+                if (monsterName.Equals("ShadowCreature"))
+                {
+                    e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
+                }
+                else if (monsterName.Equals("Bat"))
+                {
+                    PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                    e = new Bat(level, item.Position, "Sprites/ShadowCreatureSpriteSheet", pathItem);
+                }
+                if (author == 2 && e != null)
                 {
                     TextureItem t = (TextureItem)item;
                     e.Position -= t.Origin;
-                    
+
                 }
+
                 elements.Add(e);
             }
 
@@ -180,7 +190,7 @@ namespace MagicWorld.StaticLevelContent
         }
 
 
-        
+
         private List<BasicGameElement> Load(Layer layer, int author, CollisionType collisionType)
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
@@ -191,7 +201,7 @@ namespace MagicWorld.StaticLevelContent
             {
                 t = (TextureItem)item;
 
-                
+
                 if (t.asset_name.Contains("platform"))
                 {
                     b = new Platform(t.asset_name, collisionType, level, t.Position);
@@ -220,7 +230,7 @@ namespace MagicWorld.StaticLevelContent
 
         public BasicGameElement getLevelExit()
         {
-            BlockElement  b=new BlockElement("LevelContent/Cave/exit", CollisionType.Passable, level, levelLoader.getItemByName("exit").Position);
+            BlockElement b = new BlockElement("LevelContent/Cave/exit", CollisionType.Passable, level, levelLoader.getItemByName("exit").Position);
             if (author == 1)
             {
                 return b;
