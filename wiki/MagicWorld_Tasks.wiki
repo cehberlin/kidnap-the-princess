@@ -28,7 +28,6 @@
 
 == Final (06.07) ==
 
- # Menu Entry for Options should be in the middle and the Quit Option at the bottom.
 
  === optional ===
  # Sound menu (turn sound and/or music on/off)
