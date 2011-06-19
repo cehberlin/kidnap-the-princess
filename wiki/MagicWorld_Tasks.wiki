@@ -4,7 +4,6 @@
 
 = TODO =
   == pre Beta (15.06)  ==
-  * BUG: no repositioning of spell while changing angle in casting mode
   * warm/cold spell: more speed if more mana is pumped into it
   * warm/cold spell: better gravition physics 
   * new levels
@@ -58,11 +57,12 @@ Menu screens: creating the menus --> Amauri
    * new controls -> Marian
    * encapsulate controls, see or copy implementation from new started architecture to old one
    * implement new control style?
- 
-Christopher:
 
+Marian:
   * ElectricitySpell -> Marian
   * moved spell constants
+Christopher:
+  * BUG: no repositioning of spell while changing angle in casting mode
   * reimplement matter
   * fix bug with platforms
   * Implementation Player and removing tile stuff
