@@ -27,11 +27,11 @@ Although the level loading is not completely implemented yet it is already fairl
 
  # Start by creating layers and name them according to their ingame alias (see above).
  # Add textures to the layers (except special layer) to create your level. Do not scale or rotate textures as it is not supported yet.
- # Add a circle primitive to the special layer and name it start to add the starting point for the level.
- # Do the same again but name the circle exit to set the exit point of the level.
- # Finally place two rectangle primitives. One at the top left corner of the level and the other at the bottom right corner of the level. Name them rightCorner and leftCorner according to their position.
+ # Add a circle primitive to the special layer and name it *start* to add the starting point for the level.
+ # Do the same again but name the circle *exit* to set the exit point of the level.
+ # Finally place two rectangle primitives. One at the top left corner of the level and the other at the bottom right corner of the level. Name them *bottomRight* and *topLeft* according to their position.
  # Save the file and add it to your project, then open it.
- # The first and last element in the xml are called Level. Change them to Gleed2dLevelLoader (note the lower case d).
+ # The first and last element in the xml are called Level. Change them to *Gleed2dLevelLoader* (note the lower case d).
 
 Note: Please name the xml level files "levelN.xml" where N is the number of the level and put the xml files in the LevelData folder.
 
@@ -41,15 +41,18 @@ As mention above the special layer holds information instead of textures.
 What was not covered before is the placement of the collectibles.
 Collectibles are added through circle primitives, but instead of naming them you have to add a custom property to them (John please elaborate!).
 
---> Ingredients must be on the Ingredients layer + use "Ingredient" as custom property in a circle, the property must be set to Gem
 
 In the future this layer will also be used to place enemies and their waypoints as well as all other game objects. 
 
 
+== Ingredients ==
+Ingredients must be placed on the Ingredients layer.
+
+
 == setting the level properties ==
-Put a primitive object on the special layer with the name "LevelProperties". 
+Put a primitive object on the special layer with the name *LevelProperties*. 
 === add usable spells ===
-Add one custom property (type: free text) to the "LevelProperties"-Item. If you name the property:
+Add one custom property (type: free text) to the *LevelProperties*-Item. If you name the property:
   * warm
   * cold
   * push
@@ -60,7 +63,7 @@ Add one custom property (type: free text) to the "LevelProperties"-Item. If you 
 it means that this spell is available for this level. Use one custom property for each available spell. No value is needed for the property.
 
 === min item to collect to finish the level ===
-To set the minimum amount of collectable items the player needs to collect to finish the level add a custom property to the "LevelProperties" with the name "min item" (type: free text). Set the value to the number of items the player has to collect to finish the level.
+To set the minimum amount of collectable items the player needs to collect to finish the level add a custom property to the LevelProperties with the name *min item* (type: free text). Set the value to the number of items the player has to collect to finish the level.
 
 === set max time for level ===
-Add a custom property to the "LevelProperties" with the name "max time" (type: free text). Set the value to the time (in seconds) the player has to finish the level.
+Add a custom property to the "LevelProperties" with the name *max time* (type: free text). Set the value to the time (in seconds) the player has to finish the level.
