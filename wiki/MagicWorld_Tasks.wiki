@@ -13,6 +13,7 @@
 
 
   == Beta (29.06) ==
+  # implement some mechanic of putting references to other objects in level editor. Is nesessary for swichtes and doors
   # Gamelogo
   # push/pull graphics
   # electric spell graphics
