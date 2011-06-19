@@ -629,6 +629,7 @@ namespace MagicWorld
             }
             else
             {
+                SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
                             // casting angle
