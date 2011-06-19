@@ -43,12 +43,6 @@ namespace MagicWorld
         Bounds oldBounds;
         bool isOnGround = false;
 
-
-        /// <summary>
-        /// callback delegate for collision with specific objects
-        /// </summary>
-        //protected CollisionManager.OnCollisionWithCallback collisionCallback;
-
         #region loading
 
         /// <summary>

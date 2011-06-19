@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.Spells;
 using MagicWorld.Ingredients;
+using MagicWorld.DynamicLevelContent.SwitchRiddles;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -32,20 +33,26 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
 
-            elements.Add(LoadBlock("BlockA0", CollisionType.Impassable,new Vector2(0f,200),200,32));
+            elements.Add(LoadBlock("BlockA0", CollisionType.Impassable,new Vector2(100f,200),100,32));
             elements.Add(LoadBlock("BlockA3", CollisionType.Impassable, new Vector2(220f, 300), 150, 45));
             elements.Add(LoadBlock("BlockA4", CollisionType.Impassable, new Vector2(400f, 250)));
             elements.Add(LoadBlock("BlockA1", CollisionType.Impassable, new Vector2(500f, 200),300,10));
-            elements.Add(new Enemy(level, new Vector2(350, 250), "MonsterA"));
+           // elements.Add(new Enemy(level, new Vector2(350, 250), "MonsterA"));
             elements.Add(new IceBlockElement(level,new Vector2(100f, 130)));
             elements.Add(new IceBlockElement(level, new Vector2(100f, 100),200,32));
-            elements.Add(new Enemy(level, new Vector2(150, 50), "MonsterB"));
+           // elements.Add(new Enemy(level, new Vector2(150, 50), "MonsterB"));
             Ingredient ingredient1 = LoadIngredient("Gem", CollisionType.Passable, new Vector2(150, 50));
             Ingredient ingredient2 = LoadIngredient("Gem", CollisionType.Passable, new Vector2(190, 50));
             Ingredient ingredient3 = LoadIngredient("Gem", CollisionType.Passable, new Vector2(350, 250));
             elements.Add(ingredient1);
             elements.Add(ingredient2);
             elements.Add(ingredient3);
+
+            Door testDoor = new Door("LevelContent/Cave/door", level, new Vector2(600f, 50));
+            elements.Add(testDoor);
+
+            elements.Add(new PushDownSwitch("LevelContent/Cave/switch",level,new Vector2(0f, 300),testDoor));
+            elements.Add(LoadBlock("BlockA2", CollisionType.Impassable, new Vector2(0, 335), 150, 45));
             
             return elements;
         }
@@ -64,7 +71,7 @@ namespace MagicWorld.StaticLevelContent
 
         public Vector2 getPlayerStartPosition()
         {
-            Vector2 startPos = new Vector2(5, 5);
+            Vector2 startPos = new Vector2(25, 5);
 
             return startPos;
         }
