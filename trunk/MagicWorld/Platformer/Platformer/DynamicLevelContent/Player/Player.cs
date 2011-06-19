@@ -160,6 +160,7 @@ namespace MagicWorld
         public Player(Level level, Vector2 position, SpellType[] useableSpells)
             : base(level)
         {
+            this.collisionManager = new CollisionManager(level);
             level.Game.Services.RemoveService(typeof(IPlayerService));
             this.UsableSpells = useableSpells;
             this.level = level;
@@ -215,6 +216,8 @@ namespace MagicWorld
             oldBounds = this.Bounds;
         }
 
+        private CollisionManager collisionManager;
+
         /// <summary>
         /// Handles input, performs physics, and animates the player sprite.
         /// </summary>
@@ -229,6 +232,15 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
+            if (collisionManager.CollidateWithLevelExit(this))
+            {
+                this.level.ReachedExit = true;
+            }
+            else
+            {
+                this.level.ReachedExit = false;
+            }
+            
 
             Mana.update(gameTime);
             GetInput(keyboardState, gamePadState, orientation);
