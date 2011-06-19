@@ -41,8 +41,8 @@ namespace MagicWorld
 
             // Add entries to the menu.
             MenuEntries.Add(resumeGameMenuEntry);
-            MenuEntries.Add(quitGameMenuEntry);
             MenuEntries.Add(optionsGameMenuEntry);
+            MenuEntries.Add(quitGameMenuEntry);
         }
 
 
