@@ -80,11 +80,13 @@
     <Compile Include="Controls\LaptopControl.cs" />
     <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
+    <Compile Include="DynamicLevelContent\Bat.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\Enemies\ShadowCreature.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\Door.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\IActivation.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\PushDownSwitch.cs" />
+    <Compile Include="Gleed2dLevelContent\PathItem.cs" />
     <Compile Include="Services\IEnemyService.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionSmokeParticleSystem.cs" />

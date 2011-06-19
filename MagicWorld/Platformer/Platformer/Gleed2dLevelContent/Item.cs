@@ -11,6 +11,7 @@ namespace MagicWorld.Gleed2dLevelContent
     [XmlInclude(typeof(TextureItem))]
     [XmlInclude(typeof(CircleItem))]
     [XmlInclude(typeof(RectangleItem))]
+    [XmlInclude(typeof(PathItem))]
     public class Item
     {
         /// <summary>
