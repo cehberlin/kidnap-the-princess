@@ -40,6 +40,9 @@ namespace MagicWorld
             base.HandleMovement(gameTime);
         }
 
+        /// <summary>
+        /// show some particle effects on remove
+        /// </summary>
         protected override void OnRemove()
         {
             level.Game.ExplosionParticleSystem.AddParticles(position);
@@ -47,6 +50,14 @@ namespace MagicWorld
             base.OnRemove();
         }
 
+        /// <summary>
+        /// speed depends on spell size/mana consumption
+        /// </summary>
+        protected override void  OnWorkingStart()
+        {
+            MoveSpeed = MoveSpeed * SpellConstantsValues.WarmSpell_MoveSpeedManaFactor * UsedMana;
+ 	        base.OnWorkingStart();
+        }     
 
         /// <summary>
         /// adds creation particles

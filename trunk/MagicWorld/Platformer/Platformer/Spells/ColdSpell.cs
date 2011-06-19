@@ -41,6 +41,16 @@ namespace MagicWorld
             base.HandleMovement(gameTime);
         }
 
+
+        /// <summary>
+        /// speed depends on spell size/mana consumption
+        /// </summary>
+        protected override void OnWorkingStart()
+        {
+            MoveSpeed = MoveSpeed * SpellConstantsValues.ColdSpell_MoveSpeedManaFactor * UsedMana;
+            base.OnWorkingStart();
+        } 
+
         /// <summary>
         /// adds creation particles
         /// </summary>

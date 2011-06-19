@@ -53,6 +53,7 @@ namespace MagicWorld.Constants
         public static int ColdSpell_durationOfActionMs = 5000;
         public static int ColdSpell_Force = 1;
         public static Vector2 ColdSpellGravity = new Vector2(0f, 0.2f);
+        public static float ColdSpell_MoveSpeedManaFactor = 0.004f; //describes the ratio between used mana and move speed increase
 
         public static Spells.SpellConstants WarmSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float WarmSpell_MoveSpeed = 160f;
@@ -60,6 +61,7 @@ namespace MagicWorld.Constants
         public static int WarmSpell_durationOfActionMs = 5000;
         public static int WarmSpell_Force = 1;
         public static Vector2 WarmSpellGravity = new Vector2(0f, 0.2f);
+        public static float WarmSpell_MoveSpeedManaFactor = 0.005f;  //describes the ratio between used mana and move speed increase
 
         public static Spells.SpellConstants CreateMatterSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float CreateMatterSpell_MoveSpeed = 80f;
