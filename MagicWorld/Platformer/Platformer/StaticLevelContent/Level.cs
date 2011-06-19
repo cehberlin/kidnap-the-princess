@@ -56,7 +56,7 @@ namespace MagicWorld
         }
 
         // needed ingredients
-        private const int neededIngredients = 2;
+        private int neededIngredients = 2;
         public int NeededIngredients
         {
             get { return neededIngredients; }
@@ -105,6 +105,7 @@ namespace MagicWorld
         public bool ReachedExit
         {
             get { return reachedExit; }
+            set { reachedExit = value; }
         }
         bool reachedExit;
 
@@ -190,7 +191,7 @@ namespace MagicWorld
 
             Debug.WriteLine("load level ");
 
-            GetMinimumItemsToEndLevel = levelLoader.getMinimumItemsToEndLevel();
+            neededIngredients = levelLoader.getMinimumItemsToEndLevel();
 
             maxIngredientsCount = levelLoader.getMaxItmesToCollect();
 
