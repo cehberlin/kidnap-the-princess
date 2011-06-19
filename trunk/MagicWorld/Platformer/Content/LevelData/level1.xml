@@ -653,7 +653,11 @@
                         <X>351</X>
                         <Y>216</Y>
                     </Position>
-                    <CustomProperties />
+                    <CustomProperties>
+                        <Property Name="EnemyType" Type="string" Description="">
+                            <string>ShadowCreature</string>
+                        </Property>
+                    </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
                         <X>1</X>
@@ -680,7 +684,11 @@
                         <X>169</X>
                         <Y>209</Y>
                     </Position>
-                    <CustomProperties />
+                    <CustomProperties>
+                        <Property Name="EnemyType" Type="string" Description="">
+                            <string>ShadowCreature</string>
+                        </Property>
+                    </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
                         <X>1</X>
@@ -1071,7 +1079,7 @@
     <CustomProperties />
     <EditorRelated>
         <NextItemNumber>44</NextItemNumber>
-        <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
+        <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
             <X>50.0000458</X>
             <Y>-75.00016</Y>
