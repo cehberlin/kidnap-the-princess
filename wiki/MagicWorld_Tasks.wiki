@@ -1,82 +1,37 @@
 = in Progress =
   * implementation for switch that opens a door -> christopher
-  * use of ingredient HUD -> Pascal
+
 
 = TODO =
-  == pre Beta (15.06)  ==
-  * warm/cold spell: better gravition physics(christopher: whats wrong with it?) 
-  * new levels
-  * savegames and replaying of levels (for better score) --> amauri
-  * shadow creature -> follows player if he is near him --> John
-  * shadow creature -> stops at walls/chasm and change direction --> John
-  * bats: flying through level (sinus curve) --> John
-  * BUG: enemies fall through the ground after they got frozen
+  == pre Beta (15.06)  == 
+  # shadow creature -> stops at walls/chasm and change direction --> John
+  # BUG: enemies fall through the ground after they got frozen
+  # savegames and replaying of levels (for better score) --> amauri
+  # BUG: collision with created matter seems buggy: its hard to stand on matter
+  # bats: flying through level (sinus curve) --> John
+  # new levels
+
 
   == Beta (29.06) ==
-  * BUG: enemies still move while pausing the game
-  * save configuration (save settings like sound/resolutions)--> amauri
-  * spider: only moves in defined web area (in all directions) 
-  * Gamelogo
-  * push/pull graphics
-  * electric spell graphics
-
-  == OPTIONAL (if enough time is left) ==
-  * elements that are influenced by push/pull
-  * Sound menu (turn sound and/or music on/off)
-  * menu exit -> exit game should be last entry
+  # Gamelogo
+  # push/pull graphics
+  # electric spell graphics
+  # warm/cold spell: better gravition physics(christopher: whats wrong with it?)
+  # BUG: enemies still move while pausing the game
+  # save configuration (save settings like sound/resolutions)--> amauri
+  # spider: only moves in defined web area (in all directions) 
 
 
 == pre Final (13.07) ==
-
+ # elements that are influenced by push/pull
 
 == Final (06.07) ==
 
- * Menu Entry for Options should be in the middle and the Quit Option at the bottom.
+ # Menu Entry for Options should be in the middle and the Quit Option at the bottom.
 
-
-
-
-== deferred work ==
+ === optional ===
+ # Sound menu (turn sound and/or music on/off)
 
 
 == rejected To Dos ==
  * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player. -> This will be solved by placing impassable items at the left and right bounds so the player can't touch the. Also no platform will be put so high that the player can reach the top.
-
-
-= done =
-
-
-  * Leveleditor: usable spells -> Marian
-  * Leveleditor: min ingridients -> Marian
-  * new spell casting -> Marian
-
-Menu screens: creating the menus --> Amauri
- * Stop playing the background music when exiting the GamePlayScreen.->Amaraui
-   * changed Spell stuff (creation,constant management, etc)
-   * new controls -> Marian
-   * encapsulate controls, see or copy implementation from new started architecture to old one
-   * implement new control style?
-
-Marian:
-  * ElectricitySpell -> Marian
-  * moved spell constants
-Christopher:
-  * warm/cold spell: more speed if more mana is pumped into it
-  * BUG: no repositioning of spell while changing angle in casting mode
-  * reimplement matter
-  * fix bug with platforms
-  * Implementation Player and removing tile stuff
-  * bounds fix
-  * collision resolution 
-  * create matter: player is directly throwing block after casting
-  * Check the collision resolution class and bounds of pplatforms and
- enemies. -> Flickering enemey bug + Teleporting player.
-  * Better fitting animation for new matter spell 
-  * aiming mechanics -> christopher
-  * correcting fire/freeze (add influence of gravity ... etc.)
-  * BUG collision detection: enemies and matter sometimes falls through the ground, very mysterious...if someone could help? I struggled some time (written by christopher) -> looks like the gravitation is responsible for that, I guess there is something wrong with the collision resolution
-  * fix bounds of player and enemy
-  * better push and pull spell mechanic ->christopher
-Pascal:
- * Enable multi-lined sprite sheets. (Highly optional: Enable spritesheets with more than one animation.)
- * draw zero layer
