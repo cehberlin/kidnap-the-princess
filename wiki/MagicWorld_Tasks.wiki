@@ -4,8 +4,7 @@
 
 = TODO =
   == pre Beta (15.06)  ==
-  * warm/cold spell: more speed if more mana is pumped into it
-  * warm/cold spell: better gravition physics 
+  * warm/cold spell: better gravition physics(christopher: whats wrong with it?) 
   * new levels
   * savegames and replaying of levels (for better score) --> amauri
   * shadow creature -> follows player if he is near him --> John
@@ -62,6 +61,7 @@ Marian:
   * ElectricitySpell -> Marian
   * moved spell constants
 Christopher:
+  * warm/cold spell: more speed if more mana is pumped into it
   * BUG: no repositioning of spell while changing angle in casting mode
   * reimplement matter
   * fix bug with platforms
@@ -69,7 +69,8 @@ Christopher:
   * bounds fix
   * collision resolution 
   * create matter: player is directly throwing block after casting
-  * Check the collision resolution class and bounds of pplatforms and enemies. -> Flickering enemey bug + Teleporting player.
+  * Check the collision resolution class and bounds of pplatforms and
+ enemies. -> Flickering enemey bug + Teleporting player.
   * Better fitting animation for new matter spell 
   * aiming mechanics -> christopher
   * correcting fire/freeze (add influence of gravity ... etc.)
