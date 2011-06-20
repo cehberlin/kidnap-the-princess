@@ -80,7 +80,7 @@
     <Compile Include="Controls\LaptopControl.cs" />
     <Compile Include="Controls\PlayerControlFactory.cs" />
     <Compile Include="DynamicLevelContent\BasicGameElement.cs" />
-    <Compile Include="DynamicLevelContent\Bat.cs" />
+    <Compile Include="DynamicLevelContent\Enemies\Bat.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\Enemies\ShadowCreature.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\Door.cs" />
