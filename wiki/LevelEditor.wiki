@@ -68,6 +68,6 @@ To set the minimum amount of collectable items the player needs to collect to fi
 === set max time for level ===
 Add a custom property to the "LevelProperties" with the name *max time* (type: free text). Set the value to the time (in seconds) the player has to finish the level.
 
-=== Set path for Enemy
+=== Set path for Enemy ===
 Add Primitive with type path to the level editor. Set the waypoint in the Leveleditor with left mouse click press 2 if you are done (or middlemouse click).
 Add a custom property "Path "to the enemy which you want to add the path. Link the PathItem with the custom property in the enemy.
