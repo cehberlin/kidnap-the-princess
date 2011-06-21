@@ -5,11 +5,11 @@
 = TODO =
   == pre Beta (15.06)  == 
   # shadow creature -> stops at walls/chasm and change direction --> John
-  # BUG: enemies fall through the ground after they got frozen
+  # movable platform -> john
+  # movable platform on/off switch
   # savegames and replaying of levels (for better score) --> amauri
   # BUG: collision with created matter seems buggy: its hard to stand on matter
-  # bats: flying through level (sinus curve) --> John
-  # new levels
+  # new level
 
 
   == Beta (29.06) ==
@@ -20,7 +20,8 @@
   # warm/cold spell: better gravition physics(christopher: whats wrong with it?)
   # BUG: enemies still move while pausing the game
   # save configuration (save settings like sound/resolutions)--> amauri
-  # spider: only moves in defined web area (in all directions) 
+  # spider: only moves in defined web area (in all directions)
+  # graphics for bat 
 
 
 == pre Final (13.07) ==
