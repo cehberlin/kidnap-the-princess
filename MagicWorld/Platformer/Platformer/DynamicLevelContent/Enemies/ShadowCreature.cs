@@ -103,7 +103,7 @@ namespace MagicWorld
             }
 
             // ****** isElectrified ******
-            if (isElectrified)
+            if (isElectrified || isFroozen)
             {
                 CurrentVelocity = new Vector2(MoveSpeed, 0);
                 //currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
