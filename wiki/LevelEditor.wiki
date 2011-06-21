@@ -51,6 +51,7 @@ Ingredients must be placed on the Ingredients layer.
 
 == setting the level properties ==
 Put a primitive object on the special layer with the name *LevelProperties*. 
+
 === add usable spells ===
 Add one custom property (type: free text) to the *LevelProperties*-Item. If you name the property:
   * warm
@@ -71,3 +72,14 @@ Add a custom property to the "LevelProperties" with the name *max time* (type: f
 === Set path for Enemy ===
 Add Primitive with type path to the level editor. Set the waypoint in the Leveleditor with left mouse click press 2 if you are done (or middlemouse click).
 Add a custom property "Path "to the enemy which you want to add the path. Link the PathItem with the custom property in the enemy.
+
+
+= switches and switchable objects =
+Put all switches and switchable objects on special layer.
+For Switches add one custom property (type: free text) "switch" with a unique id.
+For the switchable item add a custom property (type: free text) "switchable" with the id of the switch.
+
+== switchable objects ==
+
+=== door ===
+For Switches add one custom property (type: free text) "door".
