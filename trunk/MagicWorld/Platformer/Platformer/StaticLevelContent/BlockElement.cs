@@ -61,6 +61,7 @@ namespace MagicWorld
         {
             this.Width = width;
             this.Height = height;
+            bounds = new HelperClasses.Bounds(this.position, Width, Height);
         }
 
         public override Bounds Bounds
