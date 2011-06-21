@@ -138,8 +138,8 @@ namespace MagicWorld.StaticLevelContent
                     String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
                     TextureItem ti = (TextureItem)item;
 
-                    PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, ti.Position, id);
-                    getCorrectedPositionBlockElement(pds, ti);
+                    PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                    correctWidhAndHeight(pds, ti);
 
                     switchList.AddLast(pds);
                     elements.Add(pds);
@@ -208,8 +208,8 @@ namespace MagicWorld.StaticLevelContent
                 {
                     TextureItem ti = (TextureItem)item;
 
-                    Door door = new Door(ti.asset_name,level,ti.Position);
-                    getCorrectedPositionBlockElement(door, ti);
+                    Door door = new Door(ti.asset_name, level, getCorrectedStartPosition(ti));
+                    correctWidhAndHeight(door, ti);
                     elements.Add(door);
 
                     if(item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
@@ -350,12 +350,18 @@ namespace MagicWorld.StaticLevelContent
         //    //element.Height = (int)t.Origin.Y * 2;
         //}
 
-        private void getCorrectedPositionBlockElement(BlockElement element, TextureItem ti)
+        private void correctWidhAndHeight(BlockElement element, TextureItem ti)
         {
-            element.Position = ti.Position - ti.Origin;
             element.Width = (int)ti.Origin.X * 2;
             element.Height = (int)ti.Origin.Y * 2;
         }
+
+        private Vector2 getCorrectedStartPosition(TextureItem ti)
+        {
+            Vector2 pos = ti.Position - ti.Origin;
+            return pos;
+        }
+
 
 
         private void connectSwitchable(LinkedList<AbstractSwitch> switchList, String id, IActivation switchableObject)
