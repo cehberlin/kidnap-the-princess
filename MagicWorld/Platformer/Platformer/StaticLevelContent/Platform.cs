@@ -21,20 +21,38 @@ namespace MagicWorld.StaticLevelContent
         public Platform(String texture, CollisionType collision,Level level,Vector2 position)
             : base(texture, collision, level, position)
         {
-            
+
             int left = (int)Math.Round(position.X);
             int top = (int)Math.Round(position.Y);
-
-            int yOffset = 10;
-            this.bounds = new Bounds(left + yOffset/2, top, Width - yOffset, 20);
+            
             drawRec = new Rectangle(left, top, Width, Height);
         }
 
+        private bool positionChanged = true;
+        public override Vector2 Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                base.Position = value;
+            }
+        }
 
         public override HelperClasses.Bounds Bounds
         {
             get
             {
+                if (positionChanged)
+                {
+                    int left = (int)Math.Round(position.X);
+                    int top = (int)Math.Round(position.Y);
+                    int yOffset = 10;
+                    this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
+                    drawRec = new Rectangle(left, top, Width, Height);
+                }
                 return this.bounds;
             }
         }

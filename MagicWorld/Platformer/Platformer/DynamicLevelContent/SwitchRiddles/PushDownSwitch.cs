@@ -8,9 +8,10 @@ using MagicWorld.HelperClasses;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
-    class PushDownSwitch:Platform
+    class PushDownSwitch : AbstractSwitch
     {
-        IActivation activityElement;
+
+
 
         bool activated = false;
 
@@ -19,11 +20,13 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             get { return activated; }
         }
 
+
         CollisionManager.OnCollisionWithCallback collisionCallback;
 
-        public PushDownSwitch(String texture,Level level,Vector2 position,IActivation activityElement):base(texture,CollisionType.Passable,level,position)
+        public PushDownSwitch(String texture, Level level, Vector2 position, string id)
+            :base(texture,CollisionType.Passable,level,position)
         {
-            this.activityElement = activityElement;
+            this.ID = id;
             int left = (int)Math.Round(position.X);
             int top = (int)Math.Round(position.Y);
 
@@ -53,12 +56,12 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         /// </summary>
         void CheckForPushDown()
         {
-            if (activityElement != null)
+            if (SwitchableObjects != null)
             {
                 activated = false;
                 if (level.CollisionManager.CollidateWithPlayer(this))
                 {
-                    activityElement.activate();
+                    Activate();
                     activated = true;
                 }
                 else
@@ -66,11 +69,11 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
                     if (activated)
                     {
-                        activityElement.activate();
+                        Activate();
                     }
                     else
                     {
-                        activityElement.deactivate();
+                        Dectivate();
                     }
                 }
             }

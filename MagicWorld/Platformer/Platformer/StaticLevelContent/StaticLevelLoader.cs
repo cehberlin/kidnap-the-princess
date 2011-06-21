@@ -51,7 +51,11 @@ namespace MagicWorld.StaticLevelContent
             Door testDoor = new Door("LevelContent/Cave/door", level, new Vector2(600f, 50));
             elements.Add(testDoor);
 
-            elements.Add(new PushDownSwitch("LevelContent/Cave/switch",level,new Vector2(0f, 300),testDoor));
+            PushDownSwitch sw = new PushDownSwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
+            sw.SwitchableObjects.AddLast(testDoor);
+
+            elements.Add(sw);
+
             elements.Add(LoadBlock("BlockA2", CollisionType.Impassable, new Vector2(0, 335), 150, 45));
             
             return elements;

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Media;
 using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.Ingredients;
+using MagicWorld.DynamicLevelContent.SwitchRiddles;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -17,6 +18,11 @@ namespace MagicWorld.StaticLevelContent
 
         const String LAYER_COLLECTABLEITEMS = "Ingredient";
         const String LAYER_SPECIAL = "Special";
+
+        const String PROPERTY_SWITCH = "switch";
+        const String PROPERTY_SWITCHABLE = "switchable";
+        const String PROPERTY_DOOR = "door";
+
 
     #region "Level Properties"
         // Item name of Item with all custom properties for the level
@@ -120,6 +126,28 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
 
+
+            // get switches
+
+            LinkedList<AbstractSwitch> switchList = new LinkedList<AbstractSwitch>();
+            Layer specialLayer = levelLoader.getLayerByName(LAYER_SPECIAL);
+            foreach (Item item in specialLayer.Items)
+            {
+                if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH))
+                {
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    TextureItem ti = (TextureItem)item;
+
+                    PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, ti.Position, id);
+                    getCorrectedPositionBlockElement(pds, ti);
+
+                    switchList.AddLast(pds);
+                    elements.Add(pds);
+                }
+            }
+
+
+
             //The platforms.
             Layer layer = levelLoader.getLayerByName("Middle");
             elements.AddRange(Load(layer, author, CollisionType.Platform));
@@ -167,6 +195,29 @@ namespace MagicWorld.StaticLevelContent
                 }
 
                 elements.Add(e);
+            }
+
+
+
+                    
+                    // get switchable items
+
+            foreach (Item item in specialLayer.Items)
+            {
+                if(item.CustomProperties.ContainsKey(PROPERTY_DOOR))
+                {
+                    TextureItem ti = (TextureItem)item;
+
+                    Door door = new Door(ti.asset_name,level,ti.Position);
+                    getCorrectedPositionBlockElement(door, ti);
+
+                    if(item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                    {
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
+                        connectSwitchable(switchList, id, door);
+                        elements.Add(door);
+                    }
+                }
             }
 
             return elements;
@@ -289,6 +340,33 @@ namespace MagicWorld.StaticLevelContent
         {
             Layer ingredientLayer = levelLoader.getLayerByName(LAYER_COLLECTABLEITEMS);
             return ingredientLayer.Items.Count;
+        }
+
+
+        //private void getCorrectedPosition(BasicGameElement element, TextureItem ti)
+        //{
+        //    element.Position -= ti.Origin;
+        //    //element.Width = (int)t.Origin.X * 2;
+        //    //element.Height = (int)t.Origin.Y * 2;
+        //}
+
+        private void getCorrectedPositionBlockElement(BlockElement element, TextureItem ti)
+        {
+            element.Position = ti.Position - ti.Origin;
+            element.Width = (int)ti.Origin.X * 2;
+            element.Height = (int)ti.Origin.Y * 2;
+        }
+
+
+        private void connectSwitchable(LinkedList<AbstractSwitch> switchList, String id, IActivation switchableObject)
+        {
+            foreach(PushDownSwitch sw in switchList)
+            {
+                if(sw.ID.Equals(id)) {
+                    sw.SwitchableObjects.AddLast(switchableObject);
+                }
+            }
+
         }
 
 
