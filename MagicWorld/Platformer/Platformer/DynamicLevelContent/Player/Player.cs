@@ -23,15 +23,7 @@ namespace MagicWorld
         IEnemyService enemyService;
 
         #region input constants
-        //TODO PUT INTO CLASS/INTERFACE
-        public const Keys FullscreenToggleKey = Keys.F11;
-        public const Keys ExitGameKey = Keys.Escape;
-        public const Keys ToggleSound = Keys.F6;
-
-        public const Keys DebugToggleKey = Keys.F3;
-        public const Keys DEBUG_NO_MANA_COST = Keys.F2;
-        public const Keys DEBUG_NEXT_LEVEL = Keys.F4;
-        public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F5;
+        
 
         // Input configuration
         private const float MoveStickScale = 1.0f;

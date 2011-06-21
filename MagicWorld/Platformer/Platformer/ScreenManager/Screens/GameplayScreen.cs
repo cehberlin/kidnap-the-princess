@@ -185,32 +185,50 @@ namespace MagicWorld
             //}
 
             //Options
-            if (keyboardState.IsKeyUp(Player.ToggleSound) && oldKeyboardState.IsKeyDown(Player.ToggleSound))
+            if (keyboardState.IsKeyUp(GameOptionsControls.ToggleSound) && oldKeyboardState.IsKeyDown(GameOptionsControls.ToggleSound))
             {
                 MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
             }
 
 
-            if (keyboardState.IsKeyUp(Player.FullscreenToggleKey) && oldKeyboardState.IsKeyDown(Player.FullscreenToggleKey))
+            if (keyboardState.IsKeyUp(GameOptionsControls.FullscreenToggleKey) && oldKeyboardState.IsKeyDown(GameOptionsControls.FullscreenToggleKey))
             {
                 ScreenManager.Graphics.ToggleFullScreen();
             }
 
-            if (keyboardState.IsKeyUp(Player.DebugToggleKey) && oldKeyboardState.IsKeyDown(Player.DebugToggleKey))
+#if DEBUG
+
+
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_SHOW_BOUNDINGS) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_SHOW_BOUNDINGS))
             {
                 DebugValues.DEBUG = !DebugValues.DEBUG;
             }
-            if (keyboardState.IsKeyUp(Player.DEBUG_NO_MANA_COST) && oldKeyboardState.IsKeyDown(Player.DEBUG_NO_MANA_COST))
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_NO_MANA_COST) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_NO_MANA_COST))
             {
                 DebugValues.DEBUG_NO_MANA_COST = !DebugValues.DEBUG_NO_MANA_COST;
             }
 
-            if (keyboardState.IsKeyUp(Player.DEBUG_NEXT_LEVEL) && oldKeyboardState.IsKeyDown(Player.DEBUG_NEXT_LEVEL))
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_NEXT_LEVEL) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_NEXT_LEVEL))
+            {
+                LoadNextLevel();
+            }
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_PREV_LEVEL) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_PREV_LEVEL))
+            {
+                levelIndex--;
+                if (levelIndex < 1)
+                {
+                    levelIndex = 1;
+                }
+                LoadLevel(levelIndex);
+            }
+
+
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_RELOAD_LEVEL) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_RELOAD_LEVEL))
             {
                 level.OnExitReached();
             }
 
-            if (keyboardState.IsKeyUp(Player.DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER) && oldKeyboardState.IsKeyDown(Player.DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER))
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER))
             {
                 level.Player.nogravityHasInfluenceOnPlayer = !level.Player.nogravityHasInfluenceOnPlayer;
             }
@@ -223,6 +241,9 @@ namespace MagicWorld
             {
                 camera.Zoom += 0.1f;
             }
+
+#endif
+
             wasContinuePressed = continuePressed;
             oldKeyboardState = keyboardState;
         }

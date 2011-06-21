@@ -76,6 +76,7 @@
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Constants\SpellInfluenceValues.cs" />
     <Compile Include="Controls\DefaultControl.cs" />
+    <Compile Include="Controls\GameOptionsControls.cs" />
     <Compile Include="Controls\IPlayerControl.cs" />
     <Compile Include="Controls\LaptopControl.cs" />
     <Compile Include="Controls\PlayerControlFactory.cs" />
