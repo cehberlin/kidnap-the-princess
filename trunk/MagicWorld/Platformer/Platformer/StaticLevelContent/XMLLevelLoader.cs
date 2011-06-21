@@ -210,12 +210,12 @@ namespace MagicWorld.StaticLevelContent
 
                     Door door = new Door(ti.asset_name,level,ti.Position);
                     getCorrectedPositionBlockElement(door, ti);
+                    elements.Add(door);
 
                     if(item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
                     {
                         String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
                         connectSwitchable(switchList, id, door);
-                        elements.Add(door);
                     }
                 }
             }
