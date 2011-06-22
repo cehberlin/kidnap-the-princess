@@ -1,6 +1,5 @@
 = in Progress =
-  * implementation for switch that opens a door -> christopher
-
+  # BUG: collision with created matter seems buggy: its hard to stand on matter --> christopher
 
 = TODO =
   == pre Beta (15.06)  == 
@@ -8,7 +7,6 @@
   # movable platform -> john
   # movable platform on/off switch
   # savegames and replaying of levels (for better score) --> amauri
-  # BUG: collision with created matter seems buggy: its hard to stand on matter
   # new level
 
 
@@ -22,6 +20,8 @@
   # save configuration (save settings like sound/resolutions)--> amauri
   # spider: only moves in defined web area (in all directions)
   # graphics for bat 
+  # replace or add better fitting FREE sounds and music
+  # instruction screen for level and spells (AGREE? )
 
 
 == pre Final (13.07) ==
