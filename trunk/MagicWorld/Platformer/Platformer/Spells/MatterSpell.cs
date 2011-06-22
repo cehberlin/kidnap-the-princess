@@ -46,9 +46,25 @@ namespace MagicWorld
             get
             {
                 // Calculate bounds within texture size.
-                float radius = ((matterTexture.Width + matterTexture.Height)/4 * currentScale); 
-                return new Bounds(position, radius);
+                float width = (matterTexture.Width * 0.6f) * currentScale;
+                float height = (matterTexture.Height * 0.9f) * currentScale;
+                float left = (float)Math.Round(position.X - width / 2);
+                float top = (float)Math.Round(position.Y - height / 2); 
+                return new Bounds(left, top, width, height);
             }
+        }
+
+        /// <summary>
+        /// calculates drawing rectangle
+        /// </summary>
+        /// <returns></returns>
+        Rectangle getDrawingRectagle()
+        {
+                float width = (matterTexture.Width) * currentScale;
+                float height = (matterTexture.Height ) * currentScale;
+                float left = (float)Math.Round(position.X - width / 2);
+                float top = (float)Math.Round(position.Y - height / 2);
+                return new Rectangle((int)left, (int)top, (int)width, (int)height);
         }
 
         public override void LoadContent(string spriteSet)
@@ -97,7 +113,7 @@ namespace MagicWorld
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(matterTexture, Bounds.getRectangle(), Color.White);
+            spriteBatch.Draw(matterTexture, getDrawingRectagle(), Color.White);
             base.Draw(gameTime, spriteBatch);
         }
 
