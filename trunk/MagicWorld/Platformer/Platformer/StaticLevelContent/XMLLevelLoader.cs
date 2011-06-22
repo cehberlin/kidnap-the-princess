@@ -198,7 +198,20 @@ namespace MagicWorld.StaticLevelContent
             }
 
 
-
+            //The moveable platform layer.
+            Layer moveablePlatformLayer = levelLoader.getLayerByName("Moveable Platform");
+            //elements.AddRange(Load(ingredientLayer, author, CollisionType.Passable));
+            foreach (Item item in moveablePlatformLayer.Items)
+            {
+                //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                TextureItem t = (TextureItem)item;
+                PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
+                m.Position -= t.Origin;
+                m.Width = (int)t.Origin.X * 2;
+                m.Height = (int)t.Origin.Y * 2;
+                elements.Add(m);
+            }
                     
                     // get switchable items
 

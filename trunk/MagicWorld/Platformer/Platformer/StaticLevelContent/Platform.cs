@@ -18,6 +18,12 @@ namespace MagicWorld.StaticLevelContent
 
         private Rectangle drawRec;
 
+        public Rectangle DrawRec
+        {
+            get { return drawRec; }
+            set { drawRec = value;}
+        }
+
         public Platform(String texture, CollisionType collision,Level level,Vector2 position)
             : base(texture, collision, level, position)
         {
