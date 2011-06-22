@@ -9,6 +9,7 @@ using MagicWorld.Controls;
 using MagicWorld.HelperClasses;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.Services;
+using System.Diagnostics;
 
 namespace MagicWorld
 {
@@ -210,10 +211,12 @@ namespace MagicWorld
 
             if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_NEXT_LEVEL) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_NEXT_LEVEL))
             {
+                Debug.WriteLine("DEBUG: load level ");
                 LoadNextLevel();
             }
             if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_PREV_LEVEL) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_PREV_LEVEL))
             {
+                Debug.WriteLine("DEBUG: Last level ");
                 levelIndex--;
                 if (levelIndex < 1)
                 {
@@ -278,6 +281,8 @@ namespace MagicWorld
         #region level
         private void LoadLevel(int num)
         {
+            levelIndex = num;
+            Debug.WriteLine("load level " + num);
             // Unloads the content for the current level before loading the next one.
             if (level != null)
                 level.Dispose();
@@ -290,21 +295,10 @@ namespace MagicWorld
             ScreenManager.Game.Services.AddService(typeof(Level), level);
             levelAddedToService = true;
             // }
-            levelIndex = 1;
         }
         private void LoadNextLevel()
         {
-            // move to the next level
-            levelIndex = (levelIndex + 1);// % numberOfLevels;
-
-            ScreenManager.Game.Services.RemoveService(typeof(Level));
-            // Unloads the content for the current level before loading the next one.
-            if (level != null)
-                level.Dispose();
-
-            // Load the level.
-            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(levelIndex), ScreenManager.Game);
-            ScreenManager.Game.Services.AddService(typeof(Level), level);
+            LoadLevel(levelIndex + 1);
         }
 
         private void ReloadCurrentLevel()
