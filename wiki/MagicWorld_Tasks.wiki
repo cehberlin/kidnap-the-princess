@@ -1,5 +1,4 @@
 = in Progress =
-  # BUG: collision with created matter seems buggy: its hard to stand on matter --> christopher
 
 = TODO =
   == pre Beta (15.06)  == 
