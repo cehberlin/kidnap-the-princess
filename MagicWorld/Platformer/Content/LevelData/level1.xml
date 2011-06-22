@@ -514,6 +514,9 @@
                         <Property Name="max time" Type="string" Description="60">
                             <string>60</string>
                         </Property>
+                        <Property Name="electric" Type="string" Description="">
+                            <string />
+                        </Property>
                     </CustomProperties>
                     <Radius>93.40771</Radius>
                     <FillColor>
@@ -1079,7 +1082,7 @@
     <CustomProperties />
     <EditorRelated>
         <NextItemNumber>44</NextItemNumber>
-        <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content</ContentRootFolder>
+        <ContentRootFolder>F:\Game Design\Magic\Platformer\Content</ContentRootFolder>
         <CameraPosition>
             <X>50.0000458</X>
             <Y>-75.00016</Y>

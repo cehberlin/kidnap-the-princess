@@ -149,8 +149,7 @@ namespace MagicWorld
                 level.ReachedExit ||
                 level.TimeRemaining == TimeSpan.Zero ||
                 level.Player.Position.X.Equals(this.Position.X)
-                || isFroozen
-                )
+                || isFroozen)
             {
                 sprite.PlayAnimation(idleAnimation);
             }
