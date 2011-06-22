@@ -12,6 +12,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent.ParticleEffects;
 using ParticleEffects;
 using MagicWorld.BlendInClasses;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -129,6 +130,7 @@ namespace MagicWorld
             Components.Add(hud);
             aid = new AimingAid(this);
             Components.Add(aid);
+            Components.Add(new AudioManager(this));
 
             tutManager = new TutorialManager(this);
             tutManager.AddInstruction("Hello and welcome to our kickass game.\nThis message you are currently seeing is a test string!");

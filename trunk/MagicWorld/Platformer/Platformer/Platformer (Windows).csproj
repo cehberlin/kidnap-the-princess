@@ -69,6 +69,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="BlendInClasses\AimingAid.cs" />
     <Compile Include="BlendInClasses\TutorialInstruction.cs" />
     <Compile Include="BlendInClasses\TutorialManager.cs" />
