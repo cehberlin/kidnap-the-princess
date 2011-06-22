@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using MagicWorld.Constants;
 using System.Diagnostics;
 using MagicWorld.Services;
+using MagicWorld.StaticLevelContent;
 
 namespace MagicWorld
 {
@@ -28,12 +29,12 @@ namespace MagicWorld
         /// <summary>
         /// How long this enemy has been waiting before turning around.
         /// </summary>
-        private TimeSpan waitTime = new TimeSpan(0,0,0,0,0);
+        private TimeSpan waitTime = new TimeSpan(0, 0, 0, 0, 0);
 
         /// <summary>
         /// How long to wait before turning around.
         /// </summary>
-        private TimeSpan MaxWaitTime = new TimeSpan(0,0,0,2,0);
+        private TimeSpan MaxWaitTime = new TimeSpan(0, 0, 0, 2, 0);
 
         /// <summary>
         /// The speed at which this enemy moves along the X axis.
@@ -57,6 +58,7 @@ namespace MagicWorld
         public ShadowCreature(Level level, Vector2 position, string spriteSet)
             : base(level, position, spriteSet)
         {
+            collisionCallback = HandleCollisionWithObject;
         }
 
         /// <summary>
@@ -107,7 +109,8 @@ namespace MagicWorld
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
                 }
-            } else if (isElectrified)
+            }
+            else if (isElectrified)
             {
                 if (CurrentVelocity.X < 0 && !isConfused)
                 {
@@ -131,13 +134,16 @@ namespace MagicWorld
 
             if (!isFroozen) // ****** can move ******
             {
-                float currentDelta = level.Player.Position.X - position.X;
-                currentDelta = Math.Abs(currentDelta);
-                if (level.Player.Position.X > this.position.X && currentDelta < enemyDelta)
+                float currentDeltaX = level.Player.Position.X - position.X;
+                float currentDeltaY = level.Player.Position.Y - position.Y;
+                currentDeltaX = Math.Abs(currentDeltaX);
+                currentDeltaY = Math.Abs(currentDeltaY);
+                //If player is nearby
+                if (level.Player.Position.X > this.position.X && currentDeltaX < enemyDelta && currentDeltaY < enemyDelta)
                 {
                     CurrentVelocity = new Vector2(MoveSpeed, CurrentVelocity.Y);
                 }
-                else if (level.Player.Position.X < this.position.X && currentDelta < enemyDelta)
+                else if (level.Player.Position.X < this.position.X && currentDeltaX < enemyDelta && currentDeltaY < enemyDelta)
                 {
                     CurrentVelocity = new Vector2(-MoveSpeed, CurrentVelocity.Y);
                 }
@@ -153,13 +159,26 @@ namespace MagicWorld
                     acceleration = 1;
                 }
                 waitTime = waitTime.Add(gameTime.ElapsedGameTime);
+                oldPosition = Position;
                 Position = Position + velocity * elapsed * acceleration;
+
+                //if enemy can not move forward
+                if (isOnGround)
+                {
+                    float enemyMovementDelta = oldPosition.X - Position.X;
+                    enemyMovementDelta = Math.Abs(enemyMovementDelta);
+                    if (enemyMovementDelta < 1)
+                    {
+                        CurrentVelocity = CurrentVelocity * -1;
+                    }
+                }
             }
             //only handles physics collision
             level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
-            
-            if(isOnGround){
-                CurrentVelocity = new Vector2 (CurrentVelocity.X, 0);
+
+            if (isOnGround)
+            {
+                CurrentVelocity = new Vector2(CurrentVelocity.X, 0);
             }
         }
 
@@ -227,5 +246,24 @@ namespace MagicWorld
         }
 
         #endregion
+
+        protected void HandleCollisionWithObject(BasicGameElement element)
+        {
+            //TODO SET WAITTIME OR SOMETHING LIKE THIS
+            if (element.GetType() == typeof(BlockElement))
+            {
+                BlockElement e = (BlockElement)element;
+                if (!e.Texture.Name.Contains("ground"))
+                {
+                    CurrentVelocity = CurrentVelocity * -1;
+                    //waitTime = MaxWaitTime;
+                }
+            }
+            else if (element.GetType() == typeof(ShadowCreature))
+            {
+                ShadowCreature e = (ShadowCreature)element;
+                CurrentVelocity = CurrentVelocity * -1;
+            }
+        }
     }
 }
