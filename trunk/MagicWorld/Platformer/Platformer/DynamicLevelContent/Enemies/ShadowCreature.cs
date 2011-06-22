@@ -40,8 +40,14 @@ namespace MagicWorld
         /// </summary>
         private const float MoveSpeed = 64.0f;
 
+        private float acceleration = 1;
+
+        private float enemyDelta = 100;
+
         Bounds oldBounds;
         bool isOnGround = false;
+
+        bool isConfused = false;
 
         #region loading
 
@@ -83,6 +89,7 @@ namespace MagicWorld
 
             if (isFroozen) // ****** isFrozen ******
             {
+                CurrentVelocity = new Vector2(CurrentVelocity.X, 0);
                 currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
                 if (currentFreezeTime >= SpellInfluenceValues.maxFreezeTime)
                 {
@@ -100,33 +107,39 @@ namespace MagicWorld
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
                 }
-            }
-
-            // ****** isElectrified ******
-            if (isElectrified || isFroozen)
+            } else if (isElectrified)
             {
-                CurrentVelocity = new Vector2(MoveSpeed, 0);
-                //currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
-                //if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
-                //{
-                //    isElectrified = false;
-                //}
-            }
-
-            float acceleration = 1;
-
-            if (!isFroozen && !isElectrified) // ****** can move ******
-            {
-                //TODO let enemies run in player direction, is buggy because enemies are shakeing at obstacles
-                if (level.Player.Position.X > this.position.X && waitTime > MaxWaitTime)
+                if (CurrentVelocity.X < 0 && !isConfused)
                 {
-                        CurrentVelocity = new Vector2(MoveSpeed, 0);
-                        waitTime = new TimeSpan(0, 0, 0, 0);
+                    CurrentVelocity = new Vector2(MoveSpeed, 0);
+                    isConfused = true;
                 }
-                else if (level.Player.Position.X < this.position.X && waitTime > MaxWaitTime)
+                else if (CurrentVelocity.X > 0 && !isConfused)
                 {
-                        CurrentVelocity = new Vector2(-MoveSpeed, 0);
-                        waitTime = new TimeSpan(0, 0, 0, 0);
+                    CurrentVelocity = new Vector2(-MoveSpeed, 0);
+                    isConfused = true;
+                }
+
+                currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
+                if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
+                {
+                    CurrentVelocity = new Vector2(-CurrentVelocity.X, 0);
+                    isElectrified = false;
+                    isConfused = false;
+                }
+            }
+
+            if (!isFroozen) // ****** can move ******
+            {
+                float currentDelta = level.Player.Position.X - position.X;
+                currentDelta = Math.Abs(currentDelta);
+                if (level.Player.Position.X > this.position.X && currentDelta < enemyDelta)
+                {
+                    CurrentVelocity = new Vector2(MoveSpeed, CurrentVelocity.Y);
+                }
+                else if (level.Player.Position.X < this.position.X && currentDelta < enemyDelta)
+                {
+                    CurrentVelocity = new Vector2(-MoveSpeed, CurrentVelocity.Y);
                 }
 
                 HandleCollision();
@@ -146,7 +159,7 @@ namespace MagicWorld
             level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
             
             if(isOnGround){
-                ResetVelocity();
+                CurrentVelocity = new Vector2 (CurrentVelocity.X, 0);
             }
         }
 
@@ -206,6 +219,8 @@ namespace MagicWorld
             {
                 isElectrified = true;
                 currentElectrifiedTime = new TimeSpan(0, 0, 0);
+                spellDurationOfActionMs = spell.DurationOfActionMs;
+                return true;
             }
 
             return false;

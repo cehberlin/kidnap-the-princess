@@ -12,7 +12,7 @@ namespace MagicWorld.Constants
 
 #region "Enemy influence"
 
-        public static TimeSpan maxElectrifiedTime = new TimeSpan(0, 0, 5);
+        public static TimeSpan maxElectrifiedTime = new TimeSpan(0, 0, 4);
 
         public static TimeSpan maxFreezeTime = new TimeSpan(0, 0, 5);
 
