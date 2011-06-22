@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<Gleed2dLevelLoader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Level_02" Visible="true">
-    <Layers>
+<Gleed2dLevelLoader xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Level_01" Visible="true">
+  <Layers>
         <Layer Name="Zero" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0026" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0001" Visible="true">
                     <Position>
-                        <X>-1867</X>
-                        <Y>-44</Y>
+                        <X>-3968</X>
+                        <Y>2304</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -38,10 +38,37 @@
         </Layer>
         <Layer Name="Background" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0029" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0040" Visible="true">
                     <Position>
-                        <X>1360</X>
-                        <Y>-124</Y>
+                        <X>-1024</X>
+                        <Y>-512</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Background\caveLayer1a.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Background\caveLayer1a</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0041" Visible="true">
+                    <Position>
+                        <X>1216</X>
+                        <Y>-512</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -62,13 +89,13 @@
                     <asset_name>LevelContent\Cave\Background\cavelayer1e</asset_name>
                     <Origin>
                         <X>798</X>
-                        <Y>313</Y>
+                        <Y>400</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0032" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0042" Visible="true">
                     <Position>
-                        <X>-596</X>
-                        <Y>50</Y>
+                        <X>-256</X>
+                        <Y>-384</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -85,11 +112,38 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Background\caveLayer1f.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Background\caveLayer1f</asset_name>
+                    <texture_filename>LevelContent\Cave\Background\caveLayer1c.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Background\caveLayer1c</asset_name>
                     <Origin>
-                        <X>439</X>
-                        <Y>107</Y>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0043" Visible="true">
+                    <Position>
+                        <X>576</X>
+                        <Y>-320</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Background\caveLayer1b.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Background\caveLayer1b</asset_name>
+                    <Origin>
+                        <X>856</X>
+                        <Y>400</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -100,91 +154,10 @@
         </Layer>
         <Layer Name="Middle" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0019" Visible="true">
-                    <Position>
-                        <X>528</X>
-                        <Y>284</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1a.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1a</asset_name>
-                    <Origin>
-                        <X>25</X>
-                        <Y>13</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0014" Visible="true">
-                    <Position>
-                        <X>-128</X>
-                        <Y>199</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1a.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1a</asset_name>
-                    <Origin>
-                        <X>25</X>
-                        <Y>13</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0015" Visible="true">
-                    <Position>
-                        <X>-76</X>
-                        <Y>242</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1a.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1a</asset_name>
-                    <Origin>
-                        <X>25</X>
-                        <Y>13</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0016" Visible="true">
                     <Position>
-                        <X>-128</X>
-                        <Y>280</Y>
+                        <X>-582</X>
+                        <Y>-67</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -210,8 +183,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0017" Visible="true">
                     <Position>
-                        <X>530</X>
-                        <Y>195</Y>
+                        <X>-531</X>
+                        <Y>-114</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -237,8 +210,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0018" Visible="true">
                     <Position>
-                        <X>483</X>
-                        <Y>237</Y>
+                        <X>-579</X>
+                        <Y>-161</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -262,10 +235,37 @@
                         <Y>13</Y>
                     </Origin>
                 </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0019" Visible="true">
+                    <Position>
+                        <X>-572</X>
+                        <Y>-254</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\platform1b.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1b</asset_name>
+                    <Origin>
+                        <X>44</X>
+                        <Y>16</Y>
+                    </Origin>
+                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0020" Visible="true">
                     <Position>
-                        <X>-152</X>
-                        <Y>103</Y>
+                        <X>-65</X>
+                        <Y>-200</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -289,10 +289,10 @@
                         <Y>16</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0044" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0021" Visible="true">
                     <Position>
-                        <X>238</X>
-                        <Y>114</Y>
+                        <X>326</X>
+                        <Y>-44</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -309,25 +309,17 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1b.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1b</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\platform1a.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1a</asset_name>
                     <Origin>
-                        <X>44</X>
-                        <Y>16</Y>
+                        <X>25</X>
+                        <Y>13</Y>
                     </Origin>
                 </Item>
-            </Items>
-            <ScrollSpeed>
-                <X>1</X>
-                <Y>1</Y>
-            </ScrollSpeed>
-        </Layer>
-        <Layer Name="Front" Visible="true">
-            <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0033" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0022" Visible="true">
                     <Position>
-                        <X>170</X>
-                        <Y>-342</Y>
+                        <X>284</X>
+                        <Y>-88</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -344,17 +336,17 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Front\caveLayer1c.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Front\caveLayer1c</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\platform1a.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1a</asset_name>
                     <Origin>
-                        <X>417</X>
-                        <Y>95</Y>
+                        <X>25</X>
+                        <Y>13</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0034" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0023" Visible="true">
                     <Position>
-                        <X>-601</X>
-                        <Y>-314</Y>
+                        <X>333</X>
+                        <Y>-138</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -371,38 +363,11 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Front\caveTop2.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Front\caveTop2</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\platform1a.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1a</asset_name>
                     <Origin>
-                        <X>402</X>
-                        <Y>122</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0035" Visible="true">
-                    <Position>
-                        <X>-1299</X>
-                        <Y>-405</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Front\caveTop.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Front\caveTop</asset_name>
-                    <Origin>
-                        <X>404</X>
-                        <Y>32</Y>
+                        <X>25</X>
+                        <Y>13</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -413,37 +378,10 @@
         </Layer>
         <Layer Name="Special" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="start" Visible="true">
-                    <Position>
-                        <X>-682</X>
-                        <Y>45</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\start.png</texture_filename>
-                    <asset_name>LevelContent\Cave\start</asset_name>
-                    <Origin>
-                        <X>132</X>
-                        <Y>88</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="exit" Visible="true">
                     <Position>
-                        <X>1120</X>
-                        <Y>74</Y>
+                        <X>799</X>
+                        <Y>-280</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -467,14 +405,41 @@
                         <Y>88</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="RectangleItem" Name="topLeft" Visible="true">
+                <Item xsi:type="TextureItem" Name="start" Visible="true">
                     <Position>
-                        <X>-1698</X>
-                        <Y>-804</Y>
+                        <X>-960</X>
+                        <Y>-320</Y>
                     </Position>
                     <CustomProperties />
-                    <Width>345</Width>
-                    <Height>180</Height>
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\start.png</texture_filename>
+                    <asset_name>LevelContent\Cave\start</asset_name>
+                    <Origin>
+                        <X>132</X>
+                        <Y>88</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="RectangleItem" Name="topLeft" Visible="true">
+                    <Position>
+                        <X>-1879</X>
+                        <Y>-1147</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Width>90</Width>
+                    <Height>110</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -485,12 +450,12 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="bottomRight" Visible="true">
                     <Position>
-                        <X>2012</X>
-                        <Y>536</Y>
+                        <X>1861</X>
+                        <Y>683</Y>
                     </Position>
                     <CustomProperties />
-                    <Width>175</Width>
-                    <Height>205</Height>
+                    <Width>120</Width>
+                    <Height>95</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -501,24 +466,24 @@
                 </Item>
                 <Item xsi:type="CircleItem" Name="LevelProperties" Visible="true">
                     <Position>
-                        <X>-268</X>
-                        <Y>-1184</Y>
+                        <X>-699</X>
+                        <Y>-1672</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="cold" Type="string" Description="">
                             <string />
                         </Property>
-                        <Property Name="min item" Type="string" Description="3">
-                            <string>3</string>
-                        </Property>
-                        <Property Name="max time" Type="string" Description="60">
-                            <string>60</string>
-                        </Property>
                         <Property Name="electric" Type="string" Description="">
                             <string />
                         </Property>
+                        <Property Name="min item" Type="string" Description="">
+                            <string>3</string>
+                        </Property>
+                        <Property Name="max time" Type="string" Description="">
+                            <string>60</string>
+                        </Property>
                     </CustomProperties>
-                    <Radius>93.40771</Radius>
+                    <Radius>116.726173</Radius>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -535,10 +500,10 @@
         </Layer>
         <Layer Name="Ingredient" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0039" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0024" Visible="true">
                     <Position>
-                        <X>470</X>
-                        <Y>278</Y>
+                        <X>-53</X>
+                        <Y>-257</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -562,10 +527,10 @@
                         <Y>26</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0040" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0025" Visible="true">
                     <Position>
-                        <X>-390</X>
-                        <Y>102</Y>
+                        <X>-640</X>
+                        <Y>-256</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -589,10 +554,10 @@
                         <Y>26</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0041" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0026" Visible="true">
                     <Position>
-                        <X>745</X>
-                        <Y>106</Y>
+                        <X>485</X>
+                        <Y>-246</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -616,10 +581,10 @@
                         <Y>26</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0042" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0027" Visible="true">
                     <Position>
-                        <X>240</X>
-                        <Y>68</Y>
+                        <X>250</X>
+                        <Y>-51</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -651,10 +616,10 @@
         </Layer>
         <Layer Name="Enemy" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0012" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0038" Visible="true">
                     <Position>
-                        <X>351</X>
-                        <Y>216</Y>
+                        <X>87</X>
+                        <Y>-121</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="EnemyType" Type="string" Description="">
@@ -682,10 +647,10 @@
                         <Y>90</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0013" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0039" Visible="true">
                     <Position>
-                        <X>169</X>
-                        <Y>209</Y>
+                        <X>-98</X>
+                        <Y>-125</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="EnemyType" Type="string" Description="">
@@ -721,10 +686,10 @@
         </Layer>
         <Layer Name="Blockade" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0001" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0037" Visible="true">
                     <Position>
-                        <X>204</X>
-                        <Y>328</Y>
+                        <X>-768</X>
+                        <Y>384</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -745,175 +710,13 @@
                     <asset_name>LevelContent\Cave\Middle\ground</asset_name>
                     <Origin>
                         <X>400</X>
-                        <Y>21</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0002" Visible="true">
-                    <Position>
-                        <X>-555</X>
-                        <Y>170</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
-                    <Origin>
-                        <X>400</X>
-                        <Y>21</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0003" Visible="true">
-                    <Position>
-                        <X>964</X>
-                        <Y>166</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
-                    <Origin>
-                        <X>400</X>
-                        <Y>21</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0004" Visible="true">
-                    <Position>
-                        <X>-177</X>
-                        <Y>294</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
-                    <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0005" Visible="true">
-                    <Position>
-                        <X>-179</X>
-                        <Y>265</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
-                    <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0006" Visible="true">
-                    <Position>
-                        <X>-178</X>
-                        <Y>207</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
-                    <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0007" Visible="true">
-                    <Position>
-                        <X>-178</X>
-                        <Y>237</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
-                    <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
+                        <Y>400</Y>
                     </Origin>
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0008" Visible="true">
                     <Position>
-                        <X>582</X>
-                        <Y>299</Y>
+                        <X>0</X>
+                        <Y>384</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -930,17 +733,17 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
                     <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
+                        <X>400</X>
+                        <Y>400</Y>
                     </Origin>
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0009" Visible="true">
                     <Position>
-                        <X>582</X>
-                        <Y>267</Y>
+                        <X>-1024</X>
+                        <Y>192</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -957,17 +760,17 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
                     <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
+                        <X>400</X>
+                        <Y>400</Y>
                     </Origin>
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0010" Visible="true">
                     <Position>
-                        <X>583</X>
-                        <Y>235</Y>
+                        <X>768</X>
+                        <Y>192</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -984,17 +787,17 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
                     <Origin>
-                        <X>20</X>
-                        <Y>16</Y>
+                        <X>400</X>
+                        <Y>400</Y>
                     </Origin>
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0011" Visible="true">
                     <Position>
-                        <X>583</X>
-                        <Y>204</Y>
+                        <X>-1536</X>
+                        <Y>192</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1011,17 +814,538 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>Tiles\BlockA0.png</texture_filename>
-                    <asset_name>Tiles\BlockA0</asset_name>
+                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0012" Visible="true">
+                    <Position>
+                        <X>1536</X>
+                        <Y>192</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\ground.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\ground</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0013" Visible="true">
+                    <Position>
+                        <X>1280</X>
+                        <Y>-384</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\blockade.png</texture_filename>
+                    <asset_name>LevelContent\Cave\blockade</asset_name>
+                    <Origin>
+                        <X>320</X>
+                        <Y>240</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0015" Visible="true">
+                    <Position>
+                        <X>-1834</X>
+                        <Y>-322</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Blockades\blockade0002.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Blockades\blockade0002</asset_name>
+                    <Origin>
+                        <X>477</X>
+                        <Y>165</Y>
+                    </Origin>
+                </Item>
+            </Items>
+            <ScrollSpeed>
+                <X>1</X>
+                <Y>1</Y>
+            </ScrollSpeed>
+        </Layer>
+        <Layer Name="Front" Visible="true">
+            <Items>
+                <Item xsi:type="TextureItem" Name="Texture_0044" Visible="true">
+                    <Position>
+                        <X>320</X>
+                        <Y>-1088</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\caveTop2.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\caveTop2</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0045" Visible="true">
+                    <Position>
+                        <X>1088</X>
+                        <Y>-1216</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\caveTop.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\caveTop</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0046" Visible="true">
+                    <Position>
+                        <X>1856</X>
+                        <Y>-1088</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\caveLayer1c.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\caveLayer1c</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>383</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0047" Visible="true">
+                    <Position>
+                        <X>-448</X>
+                        <Y>-1152</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\caveLayer1c.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\caveLayer1c</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>383</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0048" Visible="true">
+                    <Position>
+                        <X>-1216</X>
+                        <Y>-1280</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\caveTop.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\caveTop</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0049" Visible="true">
+                    <Position>
+                        <X>-1984</X>
+                        <Y>-1088</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\caveTop2.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\caveTop2</asset_name>
+                    <Origin>
+                        <X>400</X>
+                        <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0050" Visible="true">
+                    <Position>
+                        <X>-549</X>
+                        <Y>-293</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom3.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom3</asset_name>
+                    <Origin>
+                        <X>13</X>
+                        <Y>23</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0051" Visible="true">
+                    <Position>
+                        <X>-570</X>
+                        <Y>-311</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom5.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom5</asset_name>
+                    <Origin>
+                        <X>16</X>
+                        <Y>41</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0052" Visible="true">
+                    <Position>
+                        <X>-561</X>
+                        <Y>-287</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom2.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom2</asset_name>
+                    <Origin>
+                        <X>10</X>
+                        <Y>17</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0053" Visible="true">
+                    <Position>
+                        <X>-241</X>
+                        <Y>-35</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\frontsmall.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\frontsmall</asset_name>
+                    <Origin>
+                        <X>31</X>
+                        <Y>25</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0055" Visible="true">
+                    <Position>
+                        <X>1016</X>
+                        <Y>-281</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\frontbig.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\frontbig</asset_name>
+                    <Origin>
+                        <X>54</X>
+                        <Y>172</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0056" Visible="true">
+                    <Position>
+                        <X>-196</X>
+                        <Y>-33</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\shovel.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\shovel</asset_name>
+                    <Origin>
+                        <X>16</X>
+                        <Y>20</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0057" Visible="true">
+                    <Position>
+                        <X>-270</X>
+                        <Y>-30</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\pickaxe.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\pickaxe</asset_name>
+                    <Origin>
+                        <X>16</X>
+                        <Y>18</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0058" Visible="true">
+                    <Position>
+                        <X>-1322</X>
+                        <Y>-234</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom4.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom4</asset_name>
+                    <Origin>
+                        <X>24</X>
+                        <Y>30</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0059" Visible="true">
+                    <Position>
+                        <X>-1293</X>
+                        <Y>-247</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom5.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom5</asset_name>
+                    <Origin>
+                        <X>16</X>
+                        <Y>41</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0060" Visible="true">
+                    <Position>
+                        <X>-1266</X>
+                        <Y>-241</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom6.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom6</asset_name>
                     <Origin>
                         <X>20</X>
-                        <Y>16</Y>
+                        <Y>35</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0022" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0061" Visible="true">
                     <Position>
-                        <X>-1205</X>
-                        <Y>-48</Y>
+                        <X>-1282</X>
+                        <Y>-221</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1038,17 +1362,17 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\blockade.png</texture_filename>
-                    <asset_name>LevelContent\Cave\blockade</asset_name>
+                    <texture_filename>LevelContent\Cave\Front\mushroom2.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom2</asset_name>
                     <Origin>
-                        <X>320</X>
-                        <Y>240</Y>
+                        <X>10</X>
+                        <Y>17</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0023" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0062" Visible="true">
                     <Position>
-                        <X>1621</X>
-                        <Y>-52</Y>
+                        <X>-1346</X>
+                        <Y>-220</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1065,11 +1389,92 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\blockade.png</texture_filename>
-                    <asset_name>LevelContent\Cave\blockade</asset_name>
+                    <texture_filename>LevelContent\Cave\Front\mushroom2.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom2</asset_name>
                     <Origin>
-                        <X>320</X>
-                        <Y>240</Y>
+                        <X>10</X>
+                        <Y>17</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0063" Visible="true">
+                    <Position>
+                        <X>-100</X>
+                        <Y>-239</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom3.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom3</asset_name>
+                    <Origin>
+                        <X>13</X>
+                        <Y>23</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0064" Visible="true">
+                    <Position>
+                        <X>-26</X>
+                        <Y>-232</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\mushroom2.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\mushroom2</asset_name>
+                    <Origin>
+                        <X>10</X>
+                        <Y>17</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0065" Visible="true">
+                    <Position>
+                        <X>555</X>
+                        <Y>-227</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\frontsmall.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\frontsmall</asset_name>
+                    <Origin>
+                        <X>31</X>
+                        <Y>25</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -1081,11 +1486,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>44</NextItemNumber>
-        <ContentRootFolder>F:\Game Design\Magic\Platformer\Content</ContentRootFolder>
+        <NextItemNumber>65</NextItemNumber>
+        <ContentRootFolder>C:\NOREFACTOR\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>50.0000458</X>
-            <Y>-75.00016</Y>
+            <X>608.3346</X>
+            <Y>-175.000336</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>

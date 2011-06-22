@@ -12,6 +12,5 @@ namespace MagicWorld.Services
         Boolean IsBurning { get; set; }
         Boolean IsFroozen { get; set; }
         Boolean IsElectrified { get; set; }
-
     }
 }
