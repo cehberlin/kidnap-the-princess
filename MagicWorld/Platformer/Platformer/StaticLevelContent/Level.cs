@@ -24,7 +24,7 @@ namespace MagicWorld
     /// The level owns the player and controls the game's win and lose
     /// conditions as well as scoring.
     /// </summary>
-    public class Level : IDisposable, IServiceProvider
+    public class Level : IDisposable
     {
         // Entities in the level.
         public Player Player
@@ -402,10 +402,5 @@ namespace MagicWorld
         }
 
         #endregion
-        //TODO: Level is not going to remain a service but it will provide a service that exhibits all important values.
-        public object GetService(Type serviceType)
-        {
-            return this;
-        }
     }
 }
