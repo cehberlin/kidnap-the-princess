@@ -161,6 +161,7 @@
     <Compile Include="HelperClasses\Collision\RectangleExtensions.cs" />
     <Compile Include="StaticLevelContent\LevelLoaderFactory.cs" />
     <Compile Include="Gleed2dLevelContent\SerializableDictionary.cs" />
+    <Compile Include="StaticLevelContent\MoveablePlatform.cs" />
     <Compile Include="StaticLevelContent\Platform.cs" />
     <Compile Include="StaticLevelContent\StaticLevelLoader.cs" />
     <Compile Include="StaticLevelContent\BlockElement.cs" />
