@@ -24,14 +24,14 @@ namespace MagicWorld.StaticLevelContent
         const String PROPERTY_DOOR = "door";
 
 
-    #region "Level Properties"
+        #region "Level Properties"
         // Item name of Item with all custom properties for the level
-        const String ITEM_NAME_LEVEL_PROPERTIES = "LevelProperties"; 
+        const String ITEM_NAME_LEVEL_PROPERTIES = "LevelProperties";
 
         const String PROPERTY_NAME_MIN_ITEM = "min item";
 
         const String PROPERTY_NAME_MAX_TIME = "max time";
-            
+
         //custom property names for spells
         const String USABLE_SPELL_FIRE = "warm";
         const String USABLE_SPELL_FREEZE = "cold";
@@ -40,7 +40,7 @@ namespace MagicWorld.StaticLevelContent
         const String USABLE_SPELL_ELECTRIC = "electric";
         const String USABLE_SPELL_NOGRAVITY = "nogravity";
         const String USABLE_SPELL_MATTER = "matter";
-    #endregion
+        #endregion
 
         Level level;
         private SpellType[] useableSpells_default = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.ElectricSpell, SpellType.PullSpell, SpellType.PushSpell };
@@ -200,24 +200,26 @@ namespace MagicWorld.StaticLevelContent
 
             //The moveable platform layer.
             Layer moveablePlatformLayer = levelLoader.getLayerByName("Moveable Platform");
-            //elements.AddRange(Load(ingredientLayer, author, CollisionType.Passable));
-            foreach (Item item in moveablePlatformLayer.Items)
+            if (moveablePlatformLayer != null)
             {
-                //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                TextureItem t = (TextureItem)item;
-                PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
-                m.Position -= t.Origin;
-                m.Width = (int)t.Origin.X * 2;
-                m.Height = (int)t.Origin.Y * 2;
-                elements.Add(m);
+                foreach (Item item in moveablePlatformLayer.Items)
+                {
+                    //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                    TextureItem t = (TextureItem)item;
+                    PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                    MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
+                    m.Position -= t.Origin;
+                    m.Width = (int)t.Origin.X * 2;
+                    m.Height = (int)t.Origin.Y * 2;
+                    elements.Add(m);
+                }
             }
-                    
-                    // get switchable items
+
+            // get switchable items
 
             foreach (Item item in specialLayer.Items)
             {
-                if(item.CustomProperties.ContainsKey(PROPERTY_DOOR))
+                if (item.CustomProperties.ContainsKey(PROPERTY_DOOR))
                 {
                     TextureItem ti = (TextureItem)item;
 
@@ -225,7 +227,7 @@ namespace MagicWorld.StaticLevelContent
                     correctWidhAndHeight(door, ti);
                     elements.Add(door);
 
-                    if(item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                    if (item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
                     {
                         String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
                         connectSwitchable(switchList, id, door);
@@ -379,9 +381,10 @@ namespace MagicWorld.StaticLevelContent
 
         private void connectSwitchable(LinkedList<AbstractSwitch> switchList, String id, IActivation switchableObject)
         {
-            foreach(PushDownSwitch sw in switchList)
+            foreach (PushDownSwitch sw in switchList)
             {
-                if(sw.ID.Equals(id)) {
+                if (sw.ID.Equals(id))
+                {
                     sw.SwitchableObjects.AddLast(switchableObject);
                 }
             }
