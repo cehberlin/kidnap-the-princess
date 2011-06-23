@@ -15,6 +15,8 @@ namespace MagicWorld.BlendInClasses
         SpriteFont font;
         SpriteBatch spriteBatch;
         IPlayerService playerService;
+        Texture2D bg;
+        Vector2 textOffset = new Vector2(20, 20);
 
         public void AddInstruction(String text, Vector2 pos)
         {
@@ -44,6 +46,7 @@ namespace MagicWorld.BlendInClasses
             font = Game.Content.Load<SpriteFont>("Instructions/InstructionFont");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
+            bg = Game.Content.Load<Texture2D>("Instructions/InstructionBG");
             base.LoadContent();
         }
 
@@ -84,7 +87,8 @@ namespace MagicWorld.BlendInClasses
             {
                 if (instructions[i].IsActive)
                 {
-                    spriteBatch.DrawString(font, instructions[i].Text, instructions[i].Position, Color.White * instructions[i].Transparency);
+                    spriteBatch.Draw(bg, instructions[i].Position, Color.White * instructions[i].Transparency);
+                    spriteBatch.DrawString(font, instructions[i].Text, instructions[i].Position + textOffset, Color.Black * instructions[i].Transparency);
                 }
             }
             spriteBatch.End();
