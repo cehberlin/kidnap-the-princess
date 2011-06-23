@@ -84,15 +84,15 @@ namespace MagicWorld
             {
                 if (spell.GetType() == typeof(WarmSpell))
                 {                       
-                    spellState = SpellState.BURNED;
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    //spellState = SpellState.BURNED;
+                    //spellDurationOfActionMs = spell.DurationOfActionMs;
                     
                     return true;
                 }
                 if (spell.GetType() == typeof(ColdSpell))
                 {
-                    spellState = SpellState.FROZEN;
-                    spellDurationOfActionMs = spell.DurationOfActionMs;
+                    //spellState = SpellState.FROZEN;
+                    //spellDurationOfActionMs = spell.DurationOfActionMs;
                     return true;
                 }
             }
