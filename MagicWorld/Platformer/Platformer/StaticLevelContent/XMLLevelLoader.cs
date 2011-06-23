@@ -9,6 +9,7 @@ using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.Ingredients;
 using MagicWorld.DynamicLevelContent.SwitchRiddles;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -31,6 +32,8 @@ namespace MagicWorld.StaticLevelContent
         const String PROPERTY_NAME_MIN_ITEM = "min item";
 
         const String PROPERTY_NAME_MAX_TIME = "max time";
+
+        const String PROPERTY_NAME_INSTRUCTION = "Instruction";
 
         //custom property names for spells
         const String USABLE_SPELL_FIRE = "warm";
@@ -151,14 +154,6 @@ namespace MagicWorld.StaticLevelContent
             //The platforms.
             Layer layer = levelLoader.getLayerByName("Middle");
             elements.AddRange(Load(layer, author, CollisionType.Platform));
-            //foreach (Item item in layer.Items)
-            //{
-            //    TextureItem t = (TextureItem)item;
-            //    BlockElement b = new BlockElement(t.asset_name, CollisionType.Platform, level, t.Position - t.Origin);
-            //    b.Width = (int)t.Origin.X * 2;
-            //    b.Height = (int)t.Origin.Y * 2;
-            //    elements.Add(b);
-            //}
 
             Layer blockades = levelLoader.getLayerByName("Blockade");
             elements.AddRange(Load(blockades, author, CollisionType.Impassable));
@@ -340,6 +335,23 @@ namespace MagicWorld.StaticLevelContent
             return new HelperClasses.Bounds(left, right.X - left.X, right.Y - left.Y);
         }
 
+        public List<TutorialInstruction> GetTutorialInstructions()
+        {
+            List<TutorialInstruction> instructs = new List<TutorialInstruction>();
+            Layer l = levelLoader.getLayerByName("Special");
+            foreach (Item item in l.Items)
+            {
+                if (item.CustomProperties.Count == 1)
+                {
+                    if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
+                    {
+                        instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(0, 0)));
+                    }
+                }
+            }
+            return instructs;
+        }
+
         #endregion
 
         Gleed2dLevelLoader levelLoader;
@@ -357,14 +369,6 @@ namespace MagicWorld.StaticLevelContent
             return ingredientLayer.Items.Count;
         }
 
-
-        //private void getCorrectedPosition(BasicGameElement element, TextureItem ti)
-        //{
-        //    element.Position -= ti.Origin;
-        //    //element.Width = (int)t.Origin.X * 2;
-        //    //element.Height = (int)t.Origin.Y * 2;
-        //}
-
         private void correctWidhAndHeight(BlockElement element, TextureItem ti)
         {
             element.Width = (int)ti.Origin.X * 2;
@@ -377,8 +381,6 @@ namespace MagicWorld.StaticLevelContent
             return pos;
         }
 
-
-
         private void connectSwitchable(LinkedList<AbstractSwitch> switchList, String id, IActivation switchableObject)
         {
             foreach (PushDownSwitch sw in switchList)
@@ -390,7 +392,6 @@ namespace MagicWorld.StaticLevelContent
             }
 
         }
-
 
         /// <summary>
         /// Let's us know who has created the level.

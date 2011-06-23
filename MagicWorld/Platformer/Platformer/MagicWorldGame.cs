@@ -130,12 +130,11 @@ namespace MagicWorld
             Components.Add(hud);
             aid = new AimingAid(this);
             Components.Add(aid);
-            Components.Add(new AudioManager(this));
 
-            tutManager = new TutorialManager(this);
-            tutManager.AddInstruction("Hello and welcome to our kickass game.\nThis message you are currently seeing is a test string!");
-            Components.Add(tutManager);
-
+            TutorialManager tut = new TutorialManager(this);
+            Services.AddService(typeof(TutorialManager), tut);
+            Components.Add(tut);
+            
             explosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
             magicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
             iceMagicParticleSystem = ParticleSystemFactory.getIceMagic(this, 10);

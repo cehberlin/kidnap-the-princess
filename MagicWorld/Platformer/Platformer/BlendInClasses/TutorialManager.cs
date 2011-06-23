@@ -4,21 +4,28 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.Services;
 
 namespace MagicWorld.BlendInClasses
 {
-    class TutorialManager : DrawableGameComponent
+    public class TutorialManager : DrawableGameComponent
     {
         //TODO: add some basic scripting/placement trough level editor/add texture/add custom font
         List<TutorialInstruction> instructions;
         SpriteFont font;
         SpriteBatch spriteBatch;
+        IPlayerService playerService;
 
-        public void AddInstruction(String text)
+        public void AddInstruction(String text, Vector2 pos)
         {
-            TutorialInstruction t = new TutorialInstruction(text);
+            TutorialInstruction t = new TutorialInstruction(text, pos);
             t.Manager = this;
             instructions.Add(t);
+        }
+
+        public void AddInstructionSet(List<TutorialInstruction> instructs)
+        {
+            instructions.AddRange(instructs);
         }
 
         public TutorialManager(Game game)
@@ -36,11 +43,13 @@ namespace MagicWorld.BlendInClasses
         {
             font = Game.Content.Load<SpriteFont>("Instructions/InstructionFont");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             for (int i = 0; i < instructions.Count; i++)
             {
                 if (instructions[i].IsActive)
@@ -49,6 +58,13 @@ namespace MagicWorld.BlendInClasses
                         instructions.Remove(instructions[i]);
                     else
                         instructions[i].DisplayTime = instructions[i].DisplayTime.Subtract(gameTime.ElapsedGameTime);
+                }
+                else
+                {
+                    if (instructions[i].Position.X < playerService.Position.X)
+                    {
+                        instructions[i].IsActive = true;
+                    }
                 }
             }
             base.Update(gameTime);

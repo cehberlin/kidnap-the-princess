@@ -149,5 +149,13 @@ namespace MagicWorld.StaticLevelContent
         {
             return 3;
         }
+
+
+
+
+        public List<BlendInClasses.TutorialInstruction> GetTutorialInstructions()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
