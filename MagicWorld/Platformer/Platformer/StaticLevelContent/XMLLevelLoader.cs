@@ -348,7 +348,7 @@ namespace MagicWorld.StaticLevelContent
                     {
                         if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
                         {
-                            instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(0, 0)));
+                            instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(200, 50)));
                         }
                     }
                     catch (KeyNotFoundException k) { }
