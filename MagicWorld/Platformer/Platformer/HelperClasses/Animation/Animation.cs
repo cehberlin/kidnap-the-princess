@@ -110,7 +110,7 @@ namespace MagicWorld
             this.frameCount = frameCount;
             this.frameTime = frameTime;
             this.isLooping = true;
-            Frames = AnimationLoader.FromFile(SpriteSheet).GetAnimationFrames(number);
+            Frames = AnimationLoader.FromFile(SpriteSheet).GetAnimationFrames(number, frameCount);
             this.frameHeight = Frames[0].Height;
             this.frameWidth = Frames[0].Width;
         }
