@@ -35,19 +35,6 @@ namespace MagicWorld
         /// </summary>
         private const float MoveSpeed = 64.0f;
 
-
-        public override Bounds Bounds
-        {
-            get
-            {
-                float width = (sprite.Animation.FrameWidth * 0.5f);
-                float height = (sprite.Animation.FrameHeight * 0.5f);
-                float left = (float)Math.Round(Position.X - width / 2);
-                float top = (float)Math.Round(Position.Y - height / 2);
-                return new Bounds(left, top + 30, width, height);
-            }
-        }
-
         /// <summary>
         /// callback delegate for collision with specific objects
         /// </summary>
