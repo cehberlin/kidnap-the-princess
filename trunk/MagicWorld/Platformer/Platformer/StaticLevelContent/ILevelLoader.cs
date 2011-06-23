@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.HelperClasses;
 using MagicWorld.Spells;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -89,5 +90,11 @@ namespace MagicWorld.StaticLevelContent
         /// </summary>
         /// <returns></returns>
         int getMaxItmesToCollect();
+
+        /// <summary>
+        /// Gets the instructions the player will see on screen, helping him to finish the level or use the controls.
+        /// </summary>
+        /// <returns></returns>
+        List<TutorialInstruction> GetTutorialInstructions();
     }
 }

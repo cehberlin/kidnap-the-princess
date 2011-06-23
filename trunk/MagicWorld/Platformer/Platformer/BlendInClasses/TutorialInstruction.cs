@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace MagicWorld.BlendInClasses
 {
-    class TutorialInstruction
+    public class TutorialInstruction
     {
         TutorialManager manager;
         public TutorialManager Manager
@@ -47,10 +47,10 @@ namespace MagicWorld.BlendInClasses
             set { isActive = value; }
         }
         
-        public TutorialInstruction(String text)
+        public TutorialInstruction(String text,Vector2 pos)
         {
-            //TODO: make this dynamic
-            position = new Vector2(100, 100);
+            position = pos;
+            //Calculate how long the instruction is shown according to the length of the text.
             displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10);
             initialTime = TimeSpan.FromSeconds((text.Length + 10) / 10).TotalMilliseconds;
             color = Color.White;

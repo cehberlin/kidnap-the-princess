@@ -15,6 +15,7 @@ using MagicWorld.HelperClasses.Collision;
 using ParticleEffects;
 using MagicWorld.Spells;
 using MagicWorld.DynamicLevelContent.ParticleEffects;
+using MagicWorld.BlendInClasses;
 using System.Diagnostics;
 
 namespace MagicWorld
@@ -97,8 +98,6 @@ namespace MagicWorld
             set { endPoint = value; }
         }
 
-        
-
         // Level game state.
         private Random random = new Random(354668); // Arbitrary, but constant seed
 
@@ -160,6 +159,12 @@ namespace MagicWorld
             get { return game; }
         }
 
+        TutorialManager tutManager;
+        public TutorialManager TutorialManager
+        {
+            get { return tutManager; }
+        }
+
         /// <summary>
         /// Constructs a new level.
         /// </summary>
@@ -169,7 +174,7 @@ namespace MagicWorld
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader,MagicWorldGame game)
+        public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader, MagicWorldGame game)
         {
             this.game = game;
             // Create a new content manager to load content used just by this level.
@@ -219,9 +224,9 @@ namespace MagicWorld
 
 #if DEBUG
             Debug.Write("usable spells in level: ");
-            foreach(SpellType spell in levelLoader.UsableSpells)
+            foreach (SpellType spell in levelLoader.UsableSpells)
             {
-                Debug.Write(System.Enum.GetName(typeof(SpellType),spell) + ", ");
+                Debug.Write(System.Enum.GetName(typeof(SpellType), spell) + ", ");
             }
             Debug.WriteLine("");
 #endif
@@ -247,6 +252,9 @@ namespace MagicWorld
 
             // Load sounds.
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
+
+            tutManager =(TutorialManager) Game.Services.GetService(typeof(TutorialManager));
+            tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
         }
 
         /// <summary>
