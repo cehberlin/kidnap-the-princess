@@ -11,11 +11,10 @@
 
   == Beta (29.06) ==
   # implement some mechanic of putting references to other objects in level editor. Is nesessary for swichtes and doors
-  # Gamelogo
+  # Gamelogo & menu background screen
   # push/pull graphics
   # electric spell graphics
   # warm/cold spell: better gravition physics(christopher: whats wrong with it?)
-  # BUG: enemies still move while pausing the game
   # save configuration (save settings like sound/resolutions)--> amauri
   # spider: only moves in defined web area (in all directions)
   # graphics for bat 
