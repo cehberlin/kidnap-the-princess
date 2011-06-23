@@ -17,7 +17,7 @@ namespace MagicWorld.Controls
 
         public const Keys DEBUG_NO_MANA_COST = Keys.F2;
         public const Keys DEBUG_SHOW_BOUNDINGS = Keys.F3;
-        public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F8;
+        public const Keys DEBUG_TOGGLE_GRAVITY_INFLUECE_ON_PLAYER = Keys.F8; //not resolved at the moment
 
         
         public const Keys DEBUG_PREV_LEVEL = Keys.F4;
