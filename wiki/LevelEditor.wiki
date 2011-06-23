@@ -79,6 +79,19 @@ Put all switches and switchable objects on special layer.
 For Switches add one custom property (type: free text) "switch" with a unique id.
 For the switchable item add a custom property (type: free text) "switchable" with the id of the switch.
 
+  ==Switches==
+|| Switches Property Name || activation || comment ||
+|| switch || by created matter / player / enemy || ||
+|| switch_electricitySwitch || by electricity || optional property: switchTime ||
+|| switch_torch_on || by fire || ||
+|| switch_torch_off || by ice || ||
+
+ ==optional==
+Some switches can use extra propertys. Just add to the switchable item (type: free text).
+   === switchTime ===
+Use the switchTime property to set a time when the switch resets to off.
+The value must be a double value.
+
 == switchable objects ==
 
 === door ===
