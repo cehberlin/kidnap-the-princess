@@ -1,35 +1,54 @@
+= DELETE DONE WORK !!! PAY ATTENTION TO PRIORITY !!! =
+
 = in Progress =
 
-= TODO =
-  == pre Beta (15.06)  == 
-  # shadow creature -> stops at walls/chasm and change direction --> John
-  # movable platform -> john
-  # movable platform on/off switch
-  # savegames and replaying of levels (for better score) --> amauri
-  # new level
+  # new switches in leveleditor -> Marian
 
+
+= TODO =
 
   == Beta (29.06) ==
-  # implement some mechanic of putting references to other objects in level editor. Is nesessary for swichtes and doors
-  # Gamelogo & menu background screen
-  # push/pull graphics
-  # electric spell graphics
-  # warm/cold spell: better gravition physics(christopher: whats wrong with it?)
-  # save configuration (save settings like sound/resolutions)--> amauri
-  # spider: only moves in defined web area (in all directions)
-  # graphics for bat 
-  # replace or add better fitting FREE sounds and music
-  # instruction screen for level and spells (AGREE? )
+  # savegames and replaying of levels (for better score) --> amauri
+  # shadow creature -> stops at chasm and change direction --> John
+  # Gamelogo & menu background screen -> Pascal
+  # new door graphic -> Pascal
+  # icicle in editor -> Pascal
+  # ligthing particles on enemy -> Christopher
+  # push/pull graphics -> Pascal
+  # electric spell graphics -> Pascal
+  # elements that are influenced by push/pull -> Christopher
+  # level textures -> Pascal
+  # torch as switch -> Christopher
+  # torch texture -> Pascal
+  # pushable/pullable platform -> john
+  # froozen creature graphic -> Pascal
+  # level reset in menu ->  *???*
+  # level with torch switch -> *???*
+    * one torch lighting opens door to ingredient (with instruction)
+    * one torch extinguish opens door to ingredient
+  # level with icecle (only pass enemy by killing it with icecle)  -> *???*
+  # level with push puzzle (see design doc) -> *???*
+  # level with pullable platform and movable platform -> *???*
+  # slow motion while casting -> *???*
+
+ 
+
 
 
 == pre Final (13.07) ==
- # elements that are influenced by push/pull
+  # instruction screen for level and spells (AGREE? )
+  # spider: only moves in defined web area (in all directions)
+  # save configuration (save settings like sound/resolutions)--> amauri
+  # replace or add better fitting FREE sounds and music
+  # vulcano
+  # warm/cold spell: better gravition physics
 
 == Final (06.07) ==
-
+  # rope 
+  
 
  === optional ===
- # Sound menu (turn sound and/or music on/off)
+  # Sound menu (turn sound and/or music on/off)
 
 
 == rejected To Dos ==
