@@ -35,7 +35,11 @@ namespace MagicWorld.HelperClasses.Animation
         {
             Frames = new List<Frame>();
         }
-
+        /// <summary>
+        /// Uses a xml file and a spritesheet to load an animation.
+        /// </summary>
+        /// <param name="filename">This string is the folder in which the spritesheet and xml is, plus the name of the files. The xml and spritesheet must have the same name.</param>
+        /// <returns>An AnimationLoader.</returns>
         public static AnimationLoader FromFile(string filename)
         {
             FileStream stream = File.Open(filename + ".xml", FileMode.Open);
@@ -59,26 +63,7 @@ namespace MagicWorld.HelperClasses.Animation
         public List<Rectangle> GetAnimationFrames(int animationNumber, int animFrames)
         {
             List<Rectangle> r = new List<Rectangle>();
-            //TODO: do this elegantly
-            //if (FrameCount < 24)
-            //{
-            //    if (FrameCount > 1)
-            //    {
-            //        for (int i = 3 * animationNumber; i < 3 * (animationNumber + 1); i++)
-            //        {
-            //            r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
-            //        }
-            //    }
-            //    if(FrameCount==1)
-            //        r.Add(new Rectangle((int)Frames[0].Position.X, (int)Frames[0].Position.Y, FrameWidth, FrameHeight));
-            //}
-            //else
-            //{
-            //    for (int i = 24 * animationNumber; i < 24 * (animationNumber + 1); i++)
-            //    {
-            //        r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
-            //    }
-            //}
+
             for (int i = animFrames * animationNumber; i < animFrames * (animationNumber + 1); i++)
             {
                 r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));

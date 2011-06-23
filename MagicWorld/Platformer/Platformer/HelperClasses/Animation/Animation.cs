@@ -100,10 +100,14 @@ namespace MagicWorld
             this.frameTime = frameTime;
             this.isLooping = isLooping;
         }
-
         /// <summary>
         /// Constructs a new animation out of a multilined spritesheet. Also supports more than one animation.
         /// </summary>
+        /// <param name="SpriteSheet">A string containing the relative path to the content folder in which the xml and texture file of the animation are located.</param>
+        /// <param name="frameTime">How long is one frames displayed in the animation.</param>
+        /// <param name="frameCount">Tells how many frames make up one animation.</param>
+        /// <param name="texture">The actual spritesheet. An image file of the xna supported formats like png.</param>
+        /// <param name="number">Which animation in the spritesheet are we loading.</param>
         public Animation(string SpriteSheet, float frameTime, int frameCount, Texture2D texture, int number)
         {
             this.texture = texture;
