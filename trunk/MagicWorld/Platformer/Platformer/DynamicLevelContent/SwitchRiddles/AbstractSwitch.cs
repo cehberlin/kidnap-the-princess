@@ -25,10 +25,11 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         /// </summary>
         public string ID { get; set; }
 
-        public AbstractSwitch(String texture, CollisionType collision, Level level, Vector2 position)
+        public AbstractSwitch(String texture, CollisionType collision, Level level, Vector2 position, String id)
             : base(texture, collision, level, position) 
         {
-            SwitchableObjects = new LinkedList<IActivation>();
+            this.ID = id;
+            this.SwitchableObjects = new LinkedList<IActivation>();
         }
 
         /// <summary>

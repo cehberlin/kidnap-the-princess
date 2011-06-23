@@ -17,7 +17,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         CollisionManager.OnCollisionWithCallback collisionCallback;
 
         public PushDownSwitch(String texture, Level level, Vector2 position, string id)
-            :base(texture,CollisionType.Passable,level,position)
+            :base(texture,CollisionType.Passable,level,position, id)
         {
             this.ID = id;
 
