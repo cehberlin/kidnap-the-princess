@@ -27,11 +27,11 @@ namespace MagicWorld.BlendInClasses
             get { return displayTime; }
             set { displayTime = value; }
         }
-        Color color;
-        public Color Color
+        float transparency;
+        public float Transparency
         {
-            get { return color; }
-            set { color = value; }
+            get { return transparency; }
+            set { transparency = value; }
         }
         private double initialTime;
         public double InitialTime
@@ -53,7 +53,6 @@ namespace MagicWorld.BlendInClasses
             //Calculate how long the instruction is shown according to the length of the text.
             displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10);
             initialTime = TimeSpan.FromSeconds((text.Length + 10) / 10).TotalMilliseconds;
-            color = Color.White;
             this.text = text;
             isActive = false;
         }

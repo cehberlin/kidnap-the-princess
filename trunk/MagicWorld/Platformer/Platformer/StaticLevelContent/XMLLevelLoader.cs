@@ -341,6 +341,7 @@ namespace MagicWorld.StaticLevelContent
             Layer l = levelLoader.getLayerByName("Special");
             foreach (Item item in l.Items)
             {
+                //TODO: Make a real check if we found a tutorial instruction.
                 if (item.CustomProperties.Count == 1)
                 {
                     if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
