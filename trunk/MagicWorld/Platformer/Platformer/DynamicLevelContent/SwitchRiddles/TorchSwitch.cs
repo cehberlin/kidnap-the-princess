@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
-    public class TorchSwitch : AbstractSwitch
+    class TorchSwitch : AbstractSwitch
     {
 
         /// <summary>
