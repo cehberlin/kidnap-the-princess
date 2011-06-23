@@ -344,10 +344,14 @@ namespace MagicWorld.StaticLevelContent
                 //TODO: Make a real check if we found a tutorial instruction.
                 if (item.CustomProperties.Count == 1)
                 {
-                    if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
+                    try
                     {
-                        instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(0, 0)));
+                        if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
+                        {
+                            instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(0, 0)));
+                        }
                     }
+                    catch (KeyNotFoundException k) { }
                 }
             }
             return instructs;
