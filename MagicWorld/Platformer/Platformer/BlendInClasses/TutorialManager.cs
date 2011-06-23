@@ -10,7 +10,7 @@ namespace MagicWorld.BlendInClasses
 {
     public class TutorialManager : DrawableGameComponent
     {
-        //TODO: add some basic scripting/placement trough level editor/add texture/add custom font
+        //TODO: Polishing: Improve Appearance of instructions.
         List<TutorialInstruction> instructions;
         SpriteFont font;
         SpriteBatch spriteBatch;
@@ -49,21 +49,28 @@ namespace MagicWorld.BlendInClasses
 
         public override void Update(GameTime gameTime)
         {
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
-            for (int i = 0; i < instructions.Count; i++)
+            if (playerService == null)
+                playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
+            else
             {
-                if (instructions[i].IsActive)
+                for (int i = 0; i < instructions.Count; i++)
                 {
-                    if (instructions[i].DisplayTime <= TimeSpan.Zero)
-                        instructions.Remove(instructions[i]);
-                    else
-                        instructions[i].DisplayTime = instructions[i].DisplayTime.Subtract(gameTime.ElapsedGameTime);
-                }
-                else
-                {
-                    if (instructions[i].Position.X < playerService.Position.X)
+                    if (instructions[i].IsActive)
                     {
-                        instructions[i].IsActive = true;
+                        if (instructions[i].DisplayTime <= TimeSpan.Zero)
+                            instructions.Remove(instructions[i]);//Check if the instruction has run for long enough
+                        else
+                        {
+                            instructions[i].DisplayTime = instructions[i].DisplayTime.Subtract(gameTime.ElapsedGameTime);
+                            instructions[i].Transparency = (float)(instructions[i].DisplayTime.TotalMilliseconds / instructions[i].InitialTime);
+                        }
+                    }
+                    else
+                    {//Check if an instruction needs to be activated
+                        if (instructions[i].Position.X < playerService.Position.X)
+                        {
+                            instructions[i].IsActive = true;
+                        }
                     }
                 }
             }
@@ -77,7 +84,7 @@ namespace MagicWorld.BlendInClasses
             {
                 if (instructions[i].IsActive)
                 {
-                    spriteBatch.DrawString(font, instructions[i].Text, instructions[i].Position, instructions[i].Color);
+                    spriteBatch.DrawString(font, instructions[i].Text, instructions[i].Position, Color.White * instructions[i].Transparency);
                 }
             }
             spriteBatch.End();
