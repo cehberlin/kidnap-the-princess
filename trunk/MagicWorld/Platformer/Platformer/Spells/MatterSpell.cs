@@ -22,6 +22,8 @@ namespace MagicWorld
         
         protected PushPullHandler pushPullHandler = new PushPullHandler();
 
+        protected double startSurvivalTime;
+
 
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
@@ -34,6 +36,7 @@ namespace MagicWorld
         {            
             Force = SpellConstantsValues.CreateMatterSpell_Force;
             survivalTimeMs = MATTER_EXISTENCE_TIME;
+            startSurvivalTime = survivalTimeMs;
             MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;
             currentScale = SpellConstantsValues.CreateMatterSpell_currentScale;
             accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
@@ -107,13 +110,14 @@ namespace MagicWorld
         protected override void OnWorkingStart()
         {
             survivalTimeMs *= Force;
+            startSurvivalTime = survivalTimeMs;
             Debug.WriteLine("Matter starts working TIme:" +survivalTimeMs);
             base.OnWorkingStart();
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(matterTexture, getDrawingRectagle(), Color.White);
+            spriteBatch.Draw(matterTexture, getDrawingRectagle(), Color.White * (float)(survivalTimeMs/startSurvivalTime));
             base.Draw(gameTime, spriteBatch);
         }
 

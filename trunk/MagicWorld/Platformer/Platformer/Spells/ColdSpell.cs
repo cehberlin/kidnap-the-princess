@@ -28,8 +28,10 @@ namespace MagicWorld
             spriteSet = "Sprites/" + spriteSet + "/";
             //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
             runAnimation = new Animation("Content/Sprites/ColdSpell/Run", 0.1f, 3, level.Content.Load<Texture2D>(spriteSet + "Run"), 0);
+            runAnimation.Opacity = 0.8f;
             //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
             idleAnimation = runAnimation;
+
 
             base.LoadContent(spriteSet);
         }
