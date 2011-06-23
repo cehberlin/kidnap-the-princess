@@ -295,14 +295,20 @@ namespace MagicWorld
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movementX = -1.0f;
-                lastMovementRight = false;
+                if (!IsCasting)
+                {
+                    lastMovementRight = false;
+                }
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
                      keyboardState.IsKeyDown(controls.Keys_Right))
             //keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movementX = 1.0f;
-                lastMovementRight = true;
+                if (!IsCasting)
+                {
+                    lastMovementRight = true;
+                }
             }
             else
             {
