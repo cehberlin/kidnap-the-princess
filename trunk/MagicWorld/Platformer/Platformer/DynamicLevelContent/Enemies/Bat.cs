@@ -48,7 +48,7 @@ namespace MagicWorld
         /// <summary>
         /// The speed at which this enemy moves along the X axis.
         /// </summary>
-        private const float MoveSpeed = 64.0f;
+        private const float MoveSpeed = 128f;//64.0f;
 
         Bounds oldBounds;
 
@@ -78,8 +78,8 @@ namespace MagicWorld
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
-            base.runAnimation = new Animation("Content/Sprites/Bat/bat", 1f, 1, level.Content.Load<Texture2D>("Sprites/Bat/bat"), 0);
-            base.idleAnimation = new Animation("Content/Sprites/Bat/bat", 1f, 1, level.Content.Load<Texture2D>("Sprites/Bat/bat"), 0);
+            base.runAnimation = new Animation("Content/Sprites/Bat/BatSpritesheet", 0.02f, 12, level.Content.Load<Texture2D>("Sprites/Bat/BatSpritesheet"), 0);
+            base.idleAnimation = new Animation("Content/Sprites/Bat/BatSpritesheet", 0.02f, 12, level.Content.Load<Texture2D>("Sprites/Bat/BatSpritesheet"), 0);
             sprite.PlayAnimation(idleAnimation);
 
             oldBounds = this.Bounds;
