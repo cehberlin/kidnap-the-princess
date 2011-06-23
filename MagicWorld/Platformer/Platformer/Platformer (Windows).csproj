@@ -91,6 +91,7 @@
     <Compile Include="DynamicLevelContent\SwitchRiddles\OnOffElectricitySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\TimedElectricitySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\PushDownSwitch.cs" />
+    <Compile Include="DynamicLevelContent\SwitchRiddles\TorchSwitch.cs" />
     <Compile Include="Gleed2dLevelContent\PathItem.cs" />
     <Compile Include="Services\IEnemyService.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />

@@ -21,6 +21,11 @@ namespace MagicWorld.StaticLevelContent
         const String LAYER_SPECIAL = "Special";
 
         const String PROPERTY_SWITCH = "switch";
+        const String PROPERTY_SWITCH_ELECTRICITY = "switch_electricitySwitch";
+        const String PROPERTY_SWITCH_TORCH_ON = "switch_torch_on";
+        const String PROPERTY_SWITCH_TORCH_OFF = "switch_torch_off";
+        const String PROPERTY_SWITCH_TIME = "switchTime";
+
         const String PROPERTY_SWITCHABLE = "switchable";
         const String PROPERTY_DOOR = "door";
 
@@ -132,22 +137,7 @@ namespace MagicWorld.StaticLevelContent
 
             // get switches
 
-            LinkedList<AbstractSwitch> switchList = new LinkedList<AbstractSwitch>();
-            Layer specialLayer = levelLoader.getLayerByName(LAYER_SPECIAL);
-            foreach (Item item in specialLayer.Items)
-            {
-                if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH))
-                {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
-                    TextureItem ti = (TextureItem)item;
-
-                    PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
-                    correctWidhAndHeight(pds, ti);
-
-                    switchList.AddLast(pds);
-                    elements.Add(pds);
-                }
-            }
+            LinkedList<AbstractSwitch> switchList = loadSwitches(elements);
 
 
 
@@ -211,7 +201,7 @@ namespace MagicWorld.StaticLevelContent
             }
 
             // get switchable items
-
+            Layer specialLayer = levelLoader.getLayerByName(LAYER_SPECIAL);
             foreach (Item item in specialLayer.Items)
             {
                 if (item.CustomProperties.ContainsKey(PROPERTY_DOOR))
@@ -232,6 +222,8 @@ namespace MagicWorld.StaticLevelContent
 
             return elements;
         }
+
+        
 
         public List<BasicGameElement> getBackgroundObjects()
         {
@@ -374,6 +366,9 @@ namespace MagicWorld.StaticLevelContent
             return ingredientLayer.Items.Count;
         }
 
+
+ #region "helper methods"
+
         private void correctWidhAndHeight(BlockElement element, TextureItem ti)
         {
             element.Width = (int)ti.Origin.X * 2;
@@ -385,6 +380,72 @@ namespace MagicWorld.StaticLevelContent
             Vector2 pos = ti.Position - ti.Origin;
             return pos;
         }
+
+        private LinkedList<AbstractSwitch> loadSwitches(List<BasicGameElement> elements)
+        {
+            LinkedList<AbstractSwitch> switchList = new LinkedList<AbstractSwitch>();
+            Layer specialLayer = levelLoader.getLayerByName(LAYER_SPECIAL);
+            foreach (Item item in specialLayer.Items)
+            {
+                if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH))
+                {
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    TextureItem ti = (TextureItem)item;
+
+                    PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                    correctWidhAndHeight(pds, ti);
+
+                    switchList.AddLast(pds);
+                    elements.Add(pds);
+                }
+                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_ELECTRICITY))
+                {
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    TextureItem ti = (TextureItem)item;
+                    AbstractSwitch sw = null;
+
+                    if(item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TIME))
+                    {
+                        double time = Double.Parse((String)item.CustomProperties[PROPERTY_SWITCH_TIME].value);
+                        sw = new TimedElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, time);
+                    } 
+                    else
+                    {
+                        sw = new OnOffElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                    }
+
+                    correctWidhAndHeight(sw, ti);
+
+                    switchList.AddLast(sw);
+                    elements.Add(sw);
+                }
+                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_ON))
+                {
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    TextureItem ti = (TextureItem)item;
+
+                    TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, true);
+                    correctWidhAndHeight(pds, ti);
+
+                    switchList.AddLast(pds);
+                    elements.Add(pds);
+                }
+                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_OFF))
+                {
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    TextureItem ti = (TextureItem)item;
+
+                    TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, false);
+                    correctWidhAndHeight(pds, ti);
+
+                    switchList.AddLast(pds);
+                    elements.Add(pds);
+                }
+            }
+
+            return switchList;
+        }
+
 
         private void connectSwitchable(LinkedList<AbstractSwitch> switchList, String id, IActivation switchableObject)
         {
@@ -428,4 +489,6 @@ namespace MagicWorld.StaticLevelContent
             //}
         }
     }
+
+ #endregion
 }

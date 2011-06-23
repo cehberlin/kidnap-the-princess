@@ -18,10 +18,8 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         double currentTimeMs;
 
         public TimedElectricitySwitch(String texture, Level level, Vector2 position, string id, double resetTimeMs)
-            : base(texture, CollisionType.Impassable, level, position)
+            : base(texture, CollisionType.Impassable, level, position, id)
         {
-            this.ID = id;
-
             //calculate bounds
             int left = (int)Math.Round(position.X);
             int top = (int)Math.Round(position.Y);
