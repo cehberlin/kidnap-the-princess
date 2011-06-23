@@ -62,10 +62,15 @@ namespace MagicWorld.HelperClasses.Animation
             //TODO: do this elegantly
             if (FrameCount < 24)
             {
-                for (int i = 3 * animationNumber; i < 3 * (animationNumber + 1); i++)
+                if (FrameCount > 1)
                 {
-                    r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
+                    for (int i = 3 * animationNumber; i < 3 * (animationNumber + 1); i++)
+                    {
+                        r.Add(new Rectangle((int)Frames[i].Position.X, (int)Frames[i].Position.Y, FrameWidth, FrameHeight));
+                    }
                 }
+                if(FrameCount==1)
+                    r.Add(new Rectangle((int)Frames[0].Position.X, (int)Frames[0].Position.Y, FrameWidth, FrameHeight));
             }
             else
             {

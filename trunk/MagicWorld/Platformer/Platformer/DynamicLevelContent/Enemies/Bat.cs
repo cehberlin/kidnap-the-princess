@@ -1,13 +1,4 @@
-﻿#region File Description
-//-----------------------------------------------------------------------------
-// Enemy.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-using System;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
@@ -87,8 +78,8 @@ namespace MagicWorld
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
-            base.runAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
-            base.idleAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
+            base.runAnimation = new Animation("Content/Sprites/Bat/bat", 1f, 1, level.Content.Load<Texture2D>("Sprites/Bat/bat"), 0);
+            base.idleAnimation = new Animation("Content/Sprites/Bat/bat", 1f, 1, level.Content.Load<Texture2D>("Sprites/Bat/bat"), 0);
             sprite.PlayAnimation(idleAnimation);
 
             oldBounds = this.Bounds;
