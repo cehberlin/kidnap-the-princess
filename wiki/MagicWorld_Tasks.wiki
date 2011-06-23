@@ -2,8 +2,6 @@
 
 = in Progress =
 
-  # new switches in leveleditor -> Marian
-
 
 = TODO =
 
