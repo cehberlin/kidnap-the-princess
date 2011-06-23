@@ -77,6 +77,8 @@ namespace MagicWorld
 
         public float Scale = 1.0f;
 
+        public float Opacity = 1.0f;
+
         public Color TextureColor = Color.White;
 
         private List<Rectangle> frames;
