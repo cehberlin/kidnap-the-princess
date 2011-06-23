@@ -125,6 +125,10 @@ namespace MagicWorld
 
         public bool nogravityHasInfluenceOnPlayer = true;
 
+        /// <summary>
+        /// save last movement direction on x axis
+        /// </summary>
+        private bool lastMovementRight=true;
 
         public Mana Mana { get; set; }
 
@@ -291,12 +295,14 @@ namespace MagicWorld
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movementX = -1.0f;
+                lastMovementRight = false;
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
                      keyboardState.IsKeyDown(controls.Keys_Right))
             //keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movementX = 1.0f;
+                lastMovementRight = true;
             }
             else
             {
@@ -579,7 +585,7 @@ namespace MagicWorld
         {
             get
             {
-                if (lastVelocity.X >= 0)
+                if (lastMovementRight)
                 {
                     return spellAimAngle;
                 }
@@ -692,7 +698,7 @@ namespace MagicWorld
             double angle;
 
             /// keeps in mind working direction of the player (mirrors the angle)
-            if (lastVelocity.X >= 0)
+            if (lastMovementRight)
             {
                 angle = spellAimAngle;
             }
