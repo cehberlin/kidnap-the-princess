@@ -34,8 +34,9 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         /// <summary>
         /// activated all switchable Objects
         /// </summary>
-        public void Activate()
+        public virtual void Activate()
         {
+            Activated = true;
             foreach(IActivation switchable in SwitchableObjects)
             {
                 switchable.activate();
@@ -45,8 +46,9 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         /// <summary>
         /// Dectivate all switchable Objects
         /// </summary>
-        public void Dectivate()
+        public virtual void Dectivate()
         {
+            Activated = false;
             foreach (IActivation switchable in SwitchableObjects)
             {
                 switchable.deactivate();

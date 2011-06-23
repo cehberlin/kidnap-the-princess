@@ -51,7 +51,8 @@ namespace MagicWorld.StaticLevelContent
             Door testDoor = new Door("LevelContent/Cave/door", level, new Vector2(600f, 50));
             elements.Add(testDoor);
 
-            PushDownSwitch sw = new PushDownSwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
+            //AbstractSwitch sw = new PushDownSwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
+            AbstractSwitch sw = new TimedElectricitySwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "",5000);
             sw.SwitchableObjects.AddLast(testDoor);
 
             elements.Add(sw);
@@ -113,7 +114,7 @@ namespace MagicWorld.StaticLevelContent
             return new BlockElement("Tiles/" + name, collision, level, position,width,height);
         }
 
-        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.PullSpell,SpellType.PushSpell };
+        private SpellType[] useableSpells = { SpellType.ColdSpell, SpellType.CreateMatterSpell, SpellType.NoGravitySpell, SpellType.WarmingSpell, SpellType.PullSpell,SpellType.PushSpell,SpellType.ElectricSpell };
         public Spells.SpellType[] UsableSpells
         {
             get

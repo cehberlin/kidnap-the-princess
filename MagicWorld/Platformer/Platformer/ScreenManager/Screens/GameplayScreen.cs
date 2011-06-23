@@ -108,20 +108,23 @@ namespace MagicWorld
                                                        bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, false);
-            if (!level.Player.IsAlive)
+
+            if (!coveredByOtherScreen)
             {
-                ReloadCurrentLevel();
-            } else if(level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)
-            {
-                LoadNextLevel();
+                if (!level.Player.IsAlive)
+                {
+                    ReloadCurrentLevel();
+                }
+                else if (level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)
+                {
+                    LoadNextLevel();
+                }
+
+                // update our level, passing down the GameTime along with all of our input states
+                level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
+
+                camera.Position = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
             }
-
-
-
-            // update our level, passing down the GameTime along with all of our input states
-            level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
-
-            camera.Position = new Vector2(level.Player.Position.X, level.Player.Position.Y - 150);
         }
 
 
