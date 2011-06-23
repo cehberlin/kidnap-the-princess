@@ -9,7 +9,7 @@ using MagicWorld.HelperClasses;
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
     /// <summary>
-    /// this switch reacts on a electric spell and puts the switched for a defined time to on
+    /// this switch reacts on a electric spell and puts the switch on for a defined time 
     /// </summary>
     class TimedElectricitySwitch : AbstractSwitch
     {
@@ -68,7 +68,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                 currentTimeMs -= time.ElapsedGameTime.TotalMilliseconds;
                 if (currentTimeMs < 0)
                 {
-                    Dectivate();
+                    Deactivate();
                 }
             }
         }

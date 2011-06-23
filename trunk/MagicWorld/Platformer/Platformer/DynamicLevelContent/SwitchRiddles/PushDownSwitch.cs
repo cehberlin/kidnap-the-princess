@@ -65,7 +65,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
                     if (!Activated)
                     {
-                        Dectivate();
+                        Deactivate();
                     }
                 }
             }
