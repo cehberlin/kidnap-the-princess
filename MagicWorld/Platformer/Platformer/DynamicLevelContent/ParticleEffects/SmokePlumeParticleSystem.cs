@@ -47,11 +47,11 @@ namespace ParticleEffects
 
             // long lifetime, this can be changed to create thinner or thicker smoke.
             // tweak minNumParticles and maxNumParticles to complement the effect.
-            minLifetime = 5.0f;
-            maxLifetime = 7.0f;
+            minLifetime = 1.5f;
+            maxLifetime = 2.5f;
 
-            minScale = .5f;
-            maxScale = 1.0f;
+            minScale = .08f;
+            maxScale = 0.3f;
 
             // we need to reduce the number of particles on Windows Phone in order to keep
             // a good framerate
