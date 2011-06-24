@@ -91,6 +91,7 @@
     <Compile Include="DynamicLevelContent\Enemies\Bat.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\Enemies\ShadowCreature.cs" />
+    <Compile Include="DynamicLevelContent\PushPullElement.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\AbstractSwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\Door.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\IActivation.cs" />

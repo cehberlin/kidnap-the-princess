@@ -82,17 +82,8 @@ namespace MagicWorld
         {
             if (Texture != null)
             {
-                if (spell.GetType() == typeof(WarmSpell))
-                {                       
-                    //spellState = SpellState.BURNED;
-                    //spellDurationOfActionMs = spell.DurationOfActionMs;
-                    
-                    return true;
-                }
-                if (spell.GetType() == typeof(ColdSpell))
-                {
-                    //spellState = SpellState.FROZEN;
-                    //spellDurationOfActionMs = spell.DurationOfActionMs;
+                if (spell.GetType() == typeof(WarmSpell)||spell.GetType() == typeof(ColdSpell))
+                {                      
                     return true;
                 }
             }
