@@ -8,6 +8,7 @@
   == Beta (29.06) ==
   # savegames and replaying of levels (for better score) --> amauri
   # shadow creature -> stops at chasm and change direction --> John
+  # add one time destroyable switch to level editor -->marian
   # Gamelogo & menu background screen -> Pascal
   # new door graphic -> Pascal
   # icicle in editor -> Pascal
