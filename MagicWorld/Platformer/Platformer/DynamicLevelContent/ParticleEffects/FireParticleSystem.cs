@@ -22,9 +22,9 @@ namespace ParticleEffects
     /// SmokePlumeParticleSystem is a specialization of ParticleSystem which sends up a
     /// plume of smoke. The smoke is blown to the right by the wind.
     /// </summary>
-    class SmokePlumeParticleSystem : ParticleSystem
+    class FireParticleSystem : ParticleSystem
     {
-        public SmokePlumeParticleSystem(MagicWorldGame game, int howManyEffects)
+        public FireParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game,howManyEffects)
         {
         }
@@ -35,10 +35,10 @@ namespace ParticleEffects
         /// </summary>
         protected override void InitializeConstants()
         {
-            textureFilename = "smoke";
+            textureFilename = "fire";
 
             minInitialSpeed = 20;
-            maxInitialSpeed = 100;
+            maxInitialSpeed = 50;
 
             // we don't want the particles to accelerate at all, aside from what we
             // do in our overriden InitializeParticle.
@@ -47,11 +47,11 @@ namespace ParticleEffects
 
             // long lifetime, this can be changed to create thinner or thicker smoke.
             // tweak minNumParticles and maxNumParticles to complement the effect.
-            minLifetime = 1.5f;
-            maxLifetime = 2.5f;
+            minLifetime = 1f;
+            maxLifetime = 2.0f;
 
-            minScale = .08f;
-            maxScale = 0.3f;
+            minScale = .05f;
+            maxScale = 0.2f;
 
             // we need to reduce the number of particles on Windows Phone in order to keep
             // a good framerate
@@ -60,8 +60,8 @@ namespace ParticleEffects
             maxNumParticles = 10;
 
             // rotate slowly, we want a fairly relaxed effect
-            minRotationSpeed = -MathHelper.PiOver4 / 2.0f;
-            maxRotationSpeed = MathHelper.PiOver4 / 2.0f;
+            minRotationSpeed = 0;
+            maxRotationSpeed = 0;
 
 			blendState = BlendState.AlphaBlend;
 
@@ -78,7 +78,7 @@ namespace ParticleEffects
             // Point the particles somewhere between 80 and 100 degrees.
             // tweak this to make the smoke have more or less spread.
             float radians = RandomBetween(
-                MathHelper.ToRadians(80), MathHelper.ToRadians(100));
+                MathHelper.ToRadians(85), MathHelper.ToRadians(95));
 
             Vector2 direction = Vector2.Zero;
             // from the unit circle, cosine is the x coordinate and sine is the
@@ -102,5 +102,10 @@ namespace ParticleEffects
             // heading to the right.
             p.Acceleration.X += RandomBetween(10, 50);
         }
+
+       protected override float getOpacityFactor(Particle p){
+           float normalizedLifetime = getNormalizedLifetime(p);
+           return 2*normalizedLifetime * (1 - normalizedLifetime);
+       }
     }
 }

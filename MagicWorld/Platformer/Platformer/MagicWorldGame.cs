@@ -67,6 +67,14 @@ namespace MagicWorld
             get { return smokeParticleSystem; }
             set { smokeParticleSystem = value; }
         }
+
+        ParticleSystem fireParticleSystem;
+        public ParticleSystem FireParticleSystem
+        {
+            get { return fireParticleSystem; }
+            set { fireParticleSystem = value; }
+        }
+
         ParticleSystem explosionSmokeParticleSystem;
 
         public ParticleSystem ExplosionSmokeParticleSystem
@@ -150,6 +158,7 @@ namespace MagicWorld
             smokeParticleSystem = ParticleSystemFactory.getSmoke(this, 10);
             explosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 10);
             matterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
+            fireParticleSystem = ParticleSystemFactory.getFire(this, 10);
 
             Components.Add(explosionParticleSystem);
             Components.Add(magicParticleSystem);
@@ -158,6 +167,7 @@ namespace MagicWorld
             Components.Add(smokeParticleSystem);
             Components.Add(explosionSmokeParticleSystem);
             Components.Add(matterCreationParticleSystem);
+            Components.Add(fireParticleSystem);
 
             base.Initialize();
         }
