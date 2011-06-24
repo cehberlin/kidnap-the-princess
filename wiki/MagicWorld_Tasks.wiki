@@ -16,7 +16,8 @@
   # electric spell graphics -> Pascal
   # add to leveleditor elements that are influenced by push/pull -> ??
   # level textures -> Pascal
-  # torch as switch -> Christopher
+  # fire particle effect for torch -> Christopher
+  # add torch texture -> Pascal
   # torch texture -> Pascal
   # pushable/pullable platform -> john
   # froozen creature graphic -> Pascal
