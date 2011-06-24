@@ -60,7 +60,11 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             {
                 if (level.Game.SmokeParticleSystem.CurrentParticles() < 20)
                 {
-                    level.Game.SmokeParticleSystem.AddParticles(Position + new Vector2(Width / 2, -10));
+                    level.Game.SmokeParticleSystem.AddParticles(Position + new Vector2(Width / 2, -20));
+                }
+                if (level.Game.FireParticleSystem.CurrentParticles() < 20)
+                {
+                    level.Game.FireParticleSystem.AddParticles(Position + new Vector2(Width / 2, -20));
                 }
             }
             base.Draw(gameTime, spriteBatch);
