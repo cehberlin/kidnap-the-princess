@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Media;
 using MagicWorld.Spells;
 using MagicWorld.Ingredients;
 using MagicWorld.DynamicLevelContent.SwitchRiddles;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -50,6 +51,12 @@ namespace MagicWorld.StaticLevelContent
 
             Door testDoor = new Door("LevelContent/Cave/door", level, new Vector2(600f, 50));
             elements.Add(testDoor);
+
+            //examples for pushable pullable element
+            elements.Add(new PushPullElement("LevelContent/Cave/Front/mushroom",CollisionType.Impassable,level,new Vector2(550,50)));
+
+            //element without gravity influence
+            elements.Add(new PushPullElement("LevelContent/Cave/Front/mushroom", CollisionType.Impassable, level, new Vector2(500, 50),false));
 
             //AbstractSwitch sw = new PushDownSwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
             //AbstractSwitch sw = new TimedElectricitySwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "",5000);
@@ -151,11 +158,11 @@ namespace MagicWorld.StaticLevelContent
         }
 
 
-
-
         public List<BlendInClasses.TutorialInstruction> GetTutorialInstructions()
         {
-            throw new NotImplementedException();
+            List<TutorialInstruction> instructs = new List<TutorialInstruction>();
+            
+            return instructs;
         }
     }
 }
