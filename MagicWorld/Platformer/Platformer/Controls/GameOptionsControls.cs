@@ -24,6 +24,12 @@ namespace MagicWorld.Controls
         public const Keys DEBUG_NEXT_LEVEL = Keys.F5;
         public const Keys DEBUG_RELOAD_LEVEL = Keys.F7;
 
+        public const Keys DEBUG_CONSTANT_NEXTGROUP = Keys.LeftShift;
+        public const Keys DEBUG_CONSTANT_NEXTGROUPITEM = Keys.Tab;
+        public const Keys DEBUG_CONSTANT_ITEM_INCREASE = Keys.D2;
+        public const Keys DEBUG_CONSTANT_ITEM_DECREASE = Keys.D1;
+        public const Keys DEBUG_CONSTANT_ITEM_SWITCH_INTERNAL = Keys.LeftAlt;
+
         #endregion
     }
 }

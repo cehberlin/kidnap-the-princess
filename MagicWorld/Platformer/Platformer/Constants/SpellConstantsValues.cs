@@ -3,37 +3,84 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld.Constants
 {
-    public class SpellConstantsValues
+    class SpellConstantsValues
     {
         private SpellConstantsValues() { }
 
         /// <summary>
+        /// Please add constants from the bottom if you want to change them online
+        /// </summary>
+        /// <returns></returns>
+        public static List<ConstantGroup> getChangeableConstants()
+        {
+            List<ConstantGroup> Constants = new List<ConstantGroup>();
+
+            //group spell casting
+            List<IConstantChangerItem> grouptSpellCasting = new List<IConstantChangerItem>();
+            grouptSpellCasting.Add(spellAimingRotationSpeedInternal);
+            grouptSpellCasting.Add(spellPowerUpDownSpeedInternal);
+            grouptSpellCasting.Add(defaultSpellGrowRate);            
+            Constants.Add(new ConstantGroup("SpellCasting", grouptSpellCasting));
+
+            //group mana
+            List<IConstantChangerItem> groupMana = new List<IConstantChangerItem>();
+            groupMana.Add(max_mana);
+            groupMana.Add(mana_regenration_rate);
+            groupMana.Add(mana_regenration_rate);
+            Constants.Add(new ConstantGroup("Mana", groupMana));
+
+            return Constants;
+        }
+
+        /// <summary>
         /// value how fast the spell is rotated while in casting mode
         /// </summary>
-        public static double spellAimingRotationSpeed = 150.0f;
+        public static double spellAimingRotationSpeed
+        {
+            get { return spellAimingRotationSpeedInternal.value; }
+        }
+        static ConstantChangerItemDouble spellAimingRotationSpeedInternal = new ConstantChangerItemDouble("spellAimingRotationSpeed", 100, 1);
 
         /// <summary>
         /// speed of the powering up and down of the spell in casting mode
         /// </summary>
-        public static double spellPowerUpDownSpeed = 500.0f;
+        public static double spellPowerUpDownSpeed
+        {
+            get { return spellPowerUpDownSpeedInternal.value; }
+        }
+        static ConstantChangerItemDouble spellPowerUpDownSpeedInternal = new ConstantChangerItemDouble("spellPowerUpDownSpeed", 500, 5);
+
 
         /// <summary>
         /// how fast the spell grows if more mana is pumped into it
         /// </summary>
-        public static float DefaultSpellGrowRate = 0.006f;//0.02f;
+        public static float DefaultSpellGrowRate
+        {
+            get { return defaultSpellGrowRate.value; }
+        }
+        static ConstantChangerItemFloat defaultSpellGrowRate = new ConstantChangerItemFloat("DefaultSpellGrowRate", 0.006f, 0.0001f);
 
         /// <summary>
         /// Max mana a player can have
         /// </summary>
-        public static int MAX_MANA = 1000;
-
+        public static int MAX_MANA
+        {
+            get { return max_mana.value; }
+        }
+        static ConstantChangerItemInteger max_mana = new ConstantChangerItemInteger("MAX_MANA", 1000, 10);
+ 
         /// <summary>
         /// regeneration rate of players mana
         /// </summary>
-        public static float MANA_REGENERATION_RATE = 0.25f;
+        public static float MANA_REGENERATION_RATE
+        {
+            get { return mana_regenration_rate.value; }
+        }
+        static ConstantChangerItemFloat mana_regenration_rate = new ConstantChangerItemFloat("MANA_REGENERATION_RATE", 0.25f, 0.001f);
 
         /// <summary>
         /// distance of casting from the player mid point

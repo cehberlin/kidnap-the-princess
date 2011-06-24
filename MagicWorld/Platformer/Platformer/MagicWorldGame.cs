@@ -13,6 +13,7 @@ using MagicWorld.DynamicLevelContent.ParticleEffects;
 using ParticleEffects;
 using MagicWorld.BlendInClasses;
 using MagicWorld.Audio;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
@@ -28,6 +29,8 @@ namespace MagicWorld
         HUD hud;
         AimingAid aid;
         TutorialManager tutManager;
+
+        ConstantChanger constantChanger;
 
         ParticleSystem explosionParticleSystem;
 
@@ -130,6 +133,11 @@ namespace MagicWorld
             Components.Add(hud);
             aid = new AimingAid(this);
             Components.Add(aid);
+
+            #if DEBUG
+                constantChanger = new ConstantChanger(this);
+                Components.Add(constantChanger);
+            #endif
 
             TutorialManager tut = new TutorialManager(this);
             Services.AddService(typeof(TutorialManager), tut);
