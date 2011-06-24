@@ -251,7 +251,7 @@ namespace MagicWorld
             {
                 if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
                 {
-                    if (Velocity.X > 0)
+                    if (lastMovementRight)
                         sprite.PlayAnimation(runRightAnimation);
                     else
                         sprite.PlayAnimation(runLeftAnimation);
@@ -648,7 +648,8 @@ namespace MagicWorld
                 SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
-                            // casting angle
+                    // casting angle
+                    Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
                     if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
                     {
                         spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;

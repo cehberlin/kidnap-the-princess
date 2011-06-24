@@ -70,9 +70,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="Constants\ConstantChanger\ConstantChanger.cs" />
     <Compile Include="BlendInClasses\AimingAid.cs" />
     <Compile Include="BlendInClasses\TutorialInstruction.cs" />
     <Compile Include="BlendInClasses\TutorialManager.cs" />
+    <Compile Include="Constants\ConstantChanger\ConstantChangerItemInteger.cs" />
+    <Compile Include="Constants\ConstantChanger\IConstantChangerItem.cs" />
+    <Compile Include="Constants\ConstantChanger\ConstantChangerItemDouble.cs" />
+    <Compile Include="Constants\ConstantChanger\ConstantChangerItemFloat.cs" />
+    <Compile Include="Constants\ConstantChanger\ConstantChangerItemVector.cs" />
     <Compile Include="Constants\PhysicValues.cs" />
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Constants\SpellInfluenceValues.cs" />

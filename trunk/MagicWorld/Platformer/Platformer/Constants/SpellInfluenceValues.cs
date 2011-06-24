@@ -5,8 +5,19 @@ using System.Text;
 
 namespace MagicWorld.Constants
 {
-    public class SpellInfluenceValues
+    class SpellInfluenceValues
     {
+        /// <summary>
+        /// Please add constants from the bottom if you want to change them online
+        /// </summary>
+        /// <returns></returns>
+        public static List<ConstantGroup> getChangeableConstants()
+        {
+            List<ConstantGroup> Constants = new List<ConstantGroup>();
+
+            return Constants;
+        }
+
         private SpellInfluenceValues(){}
 
 
