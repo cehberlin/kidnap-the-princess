@@ -17,3 +17,10 @@ keyboard movement: wasd
     * No Mana Costs -> F2
     * Level Win, Next Level -> F4
     * Toggle no gravity influence on player ->F5
+
+Runtime edit of constants:
+  * Switch through current constant -> TAB
+  * Switch throughcurrent constant group -> LEFT SHIFT
+  * Increase current constant -> 2
+  * Decrease current constant -> 1
+  * Switch through intenal values of constant -> LEFT ALT
