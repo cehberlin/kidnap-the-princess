@@ -37,7 +37,7 @@
   # save configuration (save settings like sound/resolutions)--> amauri
   # replace or add better fitting FREE sounds and music
   # vulcano
-  # warm/cold spell: better gravition physics
+  # warm/cold spell: better gravition physics --> please explain!!
 
 == Final (06.07) ==
   # rope 
