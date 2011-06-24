@@ -43,6 +43,12 @@ namespace MagicWorld
             base.HandleMovement(gameTime);
         }
 
+        protected override void OnRemove()
+        {
+            level.Game.IceParticleSystem.AddParticles(position);
+            base.OnRemove();
+        }
+
 
         /// <summary>
         /// speed depends on spell size/mana consumption

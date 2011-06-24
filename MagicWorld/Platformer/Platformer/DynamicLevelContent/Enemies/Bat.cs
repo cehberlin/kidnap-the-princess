@@ -105,6 +105,11 @@ namespace MagicWorld
         #region updating
 
         /// <summary>
+        /// modulo count for adding particles
+        /// </summary>
+        int currentParticles = 0;
+
+        /// <summary>
         /// Paces back and forth along a platform, waiting at either end.
         /// </summary>
         public override void Update(GameTime gameTime)
@@ -142,6 +147,12 @@ namespace MagicWorld
                 //{
                 //    isElectrified = false;
                 //}
+                currentParticles++;
+
+                if (currentParticles % 4 == 0) //only every 4 update cycle
+                {
+                    level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                }
             }
 
             float acceleration = 1;

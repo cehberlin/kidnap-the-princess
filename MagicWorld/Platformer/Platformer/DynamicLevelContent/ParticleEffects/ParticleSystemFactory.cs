@@ -53,5 +53,10 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
         {
             return new LightningParticleSystem(game, howManyEffectsMax);
         }
+
+        public static ParticleSystem getIce(MagicWorldGame game, int howManyEffectsMax)
+        {
+            return new IceParticleSystem(game, howManyEffectsMax);
+        }
     }
 }

@@ -39,6 +39,13 @@ namespace MagicWorld
             set { explosionParticleSystem = value; }
         }
 
+        ParticleSystem iceParticleSystem;
+        public ParticleSystem IceParticleSystem
+        {
+            get { return iceParticleSystem; }
+            set { iceParticleSystem = value; }
+        }
+
         ParticleSystem magicParticleSystem;
         public ParticleSystem MagicParticleSystem
         {
@@ -165,8 +172,10 @@ namespace MagicWorld
             matterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
             fireParticleSystem = ParticleSystemFactory.getFire(this, 10);
             lightningCreationParticleSystem = ParticleSystemFactory.getLightning(this, 100);
+            iceParticleSystem = ParticleSystemFactory.getIce(this, 10);
 
             Components.Add(explosionParticleSystem);
+            Components.Add(iceParticleSystem);
             Components.Add(magicParticleSystem);
             Components.Add(iceMagicParticleSystem);
             Components.Add(fireMagicParticleSystem);

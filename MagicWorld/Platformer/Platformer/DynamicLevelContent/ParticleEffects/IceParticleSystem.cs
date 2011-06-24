@@ -23,9 +23,9 @@ namespace ParticleEffects
     /// fiery explosion. It should be combined with ExplosionSmokeParticleSystem for
     /// best effect.
     /// </summary>
-    class ExplosionParticleSystem : ParticleSystem
+    class IceParticleSystem : ParticleSystem
     {
-        public ExplosionParticleSystem(MagicWorldGame game, int howManyEffects)
+        public IceParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game, howManyEffects)
         {
         }
@@ -36,12 +36,12 @@ namespace ParticleEffects
         /// </summary>
         protected override void InitializeConstants()
         {
-            textureFilename = "explosion";
+            textureFilename = "ice";
 
             // high initial speed with lots of variance.  make the values closer
             // together to have more consistently circular explosions.
-            minInitialSpeed = 200;
-            maxInitialSpeed = 700;
+            minInitialSpeed = 100;
+            maxInitialSpeed = 560;
 
             // doesn't matter what these values are set to, acceleration is tweaked in
             // the override of InitializeParticle.
@@ -52,17 +52,19 @@ namespace ParticleEffects
             minLifetime = .3f;
             maxLifetime = .7f;
 
-            minScale = .05f;
-            maxScale = .20f;
+            minScale = .02f;
+            maxScale = 0.1f;
 
-            minNumParticles = 5;
-            maxNumParticles = 12;
+            minNumParticles = 3;
+            maxNumParticles = 8;
 
-            minRotationSpeed = -MathHelper.PiOver4;
-            maxRotationSpeed = MathHelper.PiOver4;
+            baseOpacity = 0.6f;
+
+            minRotationSpeed = -MathHelper.PiOver4/2;
+            maxRotationSpeed = MathHelper.PiOver4/2;
 
             // additive blending is very good at creating fiery effects.
-			blendState = BlendState.Additive;
+			blendState = BlendState.AlphaBlend;
 
             //DrawOrder = AdditiveDrawOrder;
         }

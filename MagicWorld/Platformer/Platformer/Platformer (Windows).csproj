@@ -92,6 +92,7 @@
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\Enemies\ShadowCreature.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\FireParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\IceParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\LightningParticleSystem..cs" />
     <Compile Include="DynamicLevelContent\PushPullElement.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\AbstractSwitch.cs" />
