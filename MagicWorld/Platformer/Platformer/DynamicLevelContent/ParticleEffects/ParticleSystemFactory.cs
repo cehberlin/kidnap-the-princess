@@ -48,5 +48,10 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
         {
             return new FireParticleSystem(game, howManyEffectsMax);
         }
+
+        public static ParticleSystem getLightning(MagicWorldGame game, int howManyEffectsMax)
+        {
+            return new LightningParticleSystem(game, howManyEffectsMax);
+        }
     }
 }

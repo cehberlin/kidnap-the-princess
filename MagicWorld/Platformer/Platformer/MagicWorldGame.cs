@@ -33,35 +33,34 @@ namespace MagicWorld
         ConstantChanger constantChanger;
 
         ParticleSystem explosionParticleSystem;
-
         public ParticleSystem ExplosionParticleSystem
         {
             get { return explosionParticleSystem; }
             set { explosionParticleSystem = value; }
         }
-        ParticleSystem magicParticleSystem;
 
+        ParticleSystem magicParticleSystem;
         public ParticleSystem MagicParticleSystem
         {
             get { return magicParticleSystem; }
             set { magicParticleSystem = value; }
         }
-        ParticleSystem iceMagicParticleSystem;
 
+        ParticleSystem iceMagicParticleSystem;
         public ParticleSystem IceMagicParticleSystem
         {
             get { return iceMagicParticleSystem; }
             set { iceMagicParticleSystem = value; }
         }
-        ParticleSystem fireMagicParticleSystem;
 
+        ParticleSystem fireMagicParticleSystem;
         public ParticleSystem FireMagicParticleSystem
         {
             get { return fireMagicParticleSystem; }
             set { fireMagicParticleSystem = value; }
         }
-        ParticleSystem smokeParticleSystem;
 
+        ParticleSystem smokeParticleSystem;
         public ParticleSystem SmokeParticleSystem
         {
             get { return smokeParticleSystem; }
@@ -76,18 +75,24 @@ namespace MagicWorld
         }
 
         ParticleSystem explosionSmokeParticleSystem;
-
         public ParticleSystem ExplosionSmokeParticleSystem
         {
             get { return explosionSmokeParticleSystem; }
             set { explosionSmokeParticleSystem = value; }
         }
-        ParticleSystem matterCreationParticleSystem;
 
+        ParticleSystem matterCreationParticleSystem;
         public ParticleSystem MatterCreationParticleSystem
         {
             get { return matterCreationParticleSystem; }
             set { matterCreationParticleSystem = value; }
+        }
+
+        ParticleSystem lightningCreationParticleSystem;
+        public ParticleSystem LightningCreationParticleSystem
+        {
+            get { return lightningCreationParticleSystem; }
+            set { lightningCreationParticleSystem = value; }
         } 
 
 
@@ -159,6 +164,7 @@ namespace MagicWorld
             explosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 10);
             matterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
             fireParticleSystem = ParticleSystemFactory.getFire(this, 10);
+            lightningCreationParticleSystem = ParticleSystemFactory.getLightning(this, 100);
 
             Components.Add(explosionParticleSystem);
             Components.Add(magicParticleSystem);
@@ -168,6 +174,7 @@ namespace MagicWorld
             Components.Add(explosionSmokeParticleSystem);
             Components.Add(matterCreationParticleSystem);
             Components.Add(fireParticleSystem);
+            Components.Add(lightningCreationParticleSystem);
 
             base.Initialize();
         }

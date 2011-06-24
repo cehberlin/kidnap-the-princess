@@ -92,6 +92,7 @@
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\Enemies\ShadowCreature.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\FireParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\LightningParticleSystem..cs" />
     <Compile Include="DynamicLevelContent\PushPullElement.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\AbstractSwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\Door.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="DynamicLevelContent\SwitchRiddles\PushDownSwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\TorchSwitch.cs" />
     <Compile Include="Gleed2dLevelContent\PathItem.cs" />
+    <Compile Include="HelperClasses\GeometryCalculationHelper.cs" />
     <Compile Include="Services\IEnemyService.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionSmokeParticleSystem.cs" />

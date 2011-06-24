@@ -42,6 +42,8 @@ namespace ParticleEffects
         // used to calculate how many particles we will need.
         private int howManyEffects;
 
+        public float baseOpacity = 1f;
+
         // the array of particles used by this system. these are reused, so that calling
         // AddParticles will not cause any allocations.
         Particle[] particles;
@@ -231,7 +233,7 @@ namespace ParticleEffects
         /// AddParticles will have no effect.
         /// </summary>
         /// <param name="pos_center">where the particle effect should be created</param>
-        public void AddParticles(Vector2 pos_center)
+        public virtual void AddParticles(Vector2 pos_center)
         {
             // the number of particles we want for this effect is a random number
             // somewhere between the two constants specified by the subclasses.
@@ -395,7 +397,7 @@ namespace ParticleEffects
             // .25
             // since we want the maximum alpha to be 1, not .25, we'll scale the 
             // entire equation by 4.
-            return  4 * normalizedLifetime * (1 - normalizedLifetime);
+            return baseOpacity*4 * normalizedLifetime * (1 - normalizedLifetime);
             
         }
 
