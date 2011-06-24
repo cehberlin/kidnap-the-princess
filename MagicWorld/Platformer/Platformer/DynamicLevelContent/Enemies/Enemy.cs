@@ -159,6 +159,21 @@ namespace MagicWorld
         public Boolean isFroozen { get; set; }
         public Boolean isElectrified { get; set; }
 
+        public Boolean isPushed { get; set; }
+        public Boolean isPulled { get; set; }
+
+        public Boolean IsPushed
+        {
+            get { return isPushed; }
+            set { isPushed = value; }
+        }
+
+        public Boolean IsPulled
+        {
+            get { return isPulled; }
+            set { isPulled = value; }
+        }
+
         public Boolean IsBurning
         {
             get { return isBurning; }
