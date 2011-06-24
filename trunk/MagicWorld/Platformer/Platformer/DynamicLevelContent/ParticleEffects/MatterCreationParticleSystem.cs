@@ -14,6 +14,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace ParticleEffects
@@ -82,10 +83,7 @@ namespace ParticleEffects
 
         protected override Vector2 getStartPositionRelativeToCenter(Vector2 pos_center)
         {
-            //random points on cycle bow
-            float angle = (float)(random.NextDouble() * 2 * Math.PI);
-
-            return pos_center + new Vector2((float)Math.Sin(angle) * radius, (float)Math.Cos(angle) * radius); 
+            return GeometryCalculationHelper.getRandomPositionOnCycleBow(pos_center,radius);
         }
 
         protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)

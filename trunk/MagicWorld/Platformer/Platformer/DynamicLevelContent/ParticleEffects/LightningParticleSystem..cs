@@ -23,9 +23,9 @@ namespace ParticleEffects
     /// fiery explosion. It should be combined with ExplosionSmokeParticleSystem for
     /// best effect.
     /// </summary>
-    class ExplosionParticleSystem : ParticleSystem
+    class LightningParticleSystem : ParticleSystem
     {
-        public ExplosionParticleSystem(MagicWorldGame game, int howManyEffects)
+        public LightningParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game, howManyEffects)
         {
         }
@@ -36,12 +36,12 @@ namespace ParticleEffects
         /// </summary>
         protected override void InitializeConstants()
         {
-            textureFilename = "explosion";
+            textureFilename = "lightning";
 
             // high initial speed with lots of variance.  make the values closer
             // together to have more consistently circular explosions.
-            minInitialSpeed = 40;
-            maxInitialSpeed = 400;
+            minInitialSpeed = 0;
+            maxInitialSpeed = 200;
 
             // doesn't matter what these values are set to, acceleration is tweaked in
             // the override of InitializeParticle.
@@ -49,22 +49,23 @@ namespace ParticleEffects
             maxAcceleration = 0;
 
             // explosions should be relatively short lived
-            minLifetime = .3f;
-            maxLifetime = .7f;
+            minLifetime = .5f;
+            maxLifetime = 1f;
 
             minScale = .005f;
             maxScale = .10f;
 
-            minNumParticles = 5;
-            maxNumParticles = 12;
+            baseOpacity = 1f;
 
-            minRotationSpeed = -MathHelper.PiOver4;
-            maxRotationSpeed = MathHelper.PiOver4;
+            minNumParticles = 2;
+            maxNumParticles = 5;
+
+            minRotationSpeed =0;
+            maxRotationSpeed =0;
 
             // additive blending is very good at creating fiery effects.
 			blendState = BlendState.Additive;
 
-            //DrawOrder = AdditiveDrawOrder;
         }
 
         protected override void InitializeParticle(Particle p, Vector2 where)
@@ -83,5 +84,23 @@ namespace ParticleEffects
             // We'll solve the equation for a0, using t = p.Lifetime and vt = 0.
             p.Acceleration = -p.Velocity / p.Lifetime;
         }
+
+
+        protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
+        {
+            float angle = RandomBetween(0, MathHelper.PiOver4/2);
+            return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+        }
+
+
+        //protected override void AddParticles(Vector2 pos_center)
+        //{
+        //    base.AddParticles(pos_center);
+        //}
+
+        //protected override void AddParticles(Vector2 pos_center,Vector2 direction)
+        //{
+        //    base.AddParticles(pos_center);
+        //}
     }
 }

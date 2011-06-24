@@ -6,11 +6,20 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Spells;
 using MagicWorld.Constants;
+using MagicWorld.HelperClasses;
 
 namespace MagicWorld
 {
     class ElectricSpell:Spell 
     {
+
+        public override Bounds Bounds
+        {
+            get
+            {
+                return new Bounds(position, currentScale*20);
+            }
+        }
 
         public ElectricSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.ElectricSpellConstants.BasicCastingCost, SpellConstantsValues.ElectricSpellConstants.CastingCostPerSecond, SpellType.ElectricSpell)
@@ -18,25 +27,36 @@ namespace MagicWorld
             Force = SpellConstantsValues.ElectricSpell_Force;
             survivalTimeMs = SpellConstantsValues.ElectricSpell_survivalTimeMs;
             MoveSpeed = SpellConstantsValues.ElectricSpell_MoveSpeed;
-            sprite.PlayAnimation(idleAnimation);
+        
             durationOfActionMs = SpellConstantsValues.ElectricSpell_durationOfActionMs;
         }
 
-        public override void LoadContent(string spriteSet)
-        {
-            // Load animations.
-            spriteSet = "Sprites/ElectricSpell/";//"Sprites/" + spriteSet + "/";
-            //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
-            runAnimation = new Animation("Content/Sprites/ElectricSpell/Run", 0.1f, 3, level.Content.Load<Texture2D>(spriteSet + "Run"), 0);
-            //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
-            idleAnimation = runAnimation;
-
-            base.LoadContent(spriteSet);
-        }
+        int currentParticles = 0;
 
         public override void Update(GameTime gameTime)
         {
+            currentParticles++;
+            if (SpellState == State.CREATING)
+            {
+                if (currentParticles%4==0) //only every 4 update cycle
+                {
+                    level.Game.LightningCreationParticleSystem.AddParticles(position);
+                }
+            }
+            else
+            {
+
+                if (currentParticles % 2 == 0) //only every 2 update cycle
+                {
+                    level.Game.LightningCreationParticleSystem.AddParticles(position);
+                }
+            }
             base.Update(gameTime);
+        }
+
+        public override void AddOnCreationParticles()
+        {
+            //do not
         }
     }
 }
