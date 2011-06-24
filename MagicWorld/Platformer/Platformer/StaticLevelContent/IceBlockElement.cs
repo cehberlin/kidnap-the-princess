@@ -39,7 +39,6 @@ namespace MagicWorld
 
             if (spell.GetType() == typeof(WarmSpell))
             {
-                spellDurationOfActionMs = spell.DurationOfActionMs;
                 this.IsRemovable = true;
 
                 return true;

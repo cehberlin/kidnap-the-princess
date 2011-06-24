@@ -16,13 +16,9 @@ namespace MagicWorld.DynamicLevelContent
     /// basic element which could be influenced by push and pull spell
     /// gravity could also has influence
     /// </summary>
-    class PushPullElement : BlockElement
+    class PushPullElement : GravityElement
     {
-        Bounds oldBounds;
-        bool isOnGround = false;
-
-        bool enableGravity;
-
+      
         protected PushPullHandler pushPullHandler = new PushPullHandler();
 
         /// <summary>
@@ -34,36 +30,15 @@ namespace MagicWorld.DynamicLevelContent
         /// <param name="position">startposition</param>
         /// <param name="enableGravity">true=object is influenced by gravity; false only influence by push and pull</param>
         public PushPullElement(String texture, CollisionType collision, Level level, Vector2 position,bool enableGravity=true)
-            : base (texture, collision, level, position)
+            : base (texture, collision, level, position,true,enableGravity)
         {
-            this.enableGravity = enableGravity;
-            oldBounds = this.Bounds;
         }
 
         public override void Update(GameTime gameTime)
         {
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             pushPullHandler.Update(gameTime);
-            
-            if(enableGravity){
-                level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
-            }
 
-            Position = Position + velocity * elapsed;
-
-            level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround);
-            
-            if (isOnGround)
-            {
-                ResetVelocity();
-            }
- 
-        }
-
-        protected void ResetVelocity()
-        {
-            velocity = Vector2.Zero;
+            base.Update(gameTime);
         }
 
         /// <summary>

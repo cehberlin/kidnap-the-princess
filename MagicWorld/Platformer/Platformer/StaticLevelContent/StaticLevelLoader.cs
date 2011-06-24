@@ -65,10 +65,17 @@ namespace MagicWorld.StaticLevelContent
 
             //AbstractSwitch sw = new OneTimeDestroySwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
             sw.SwitchableObjects.AddLast(testDoor);
-
             elements.Add(sw);
 
             elements.Add(LoadBlock("BlockA2", CollisionType.Impassable, new Vector2(0, 335), 150, 45));
+            elements.Add(LoadBlock("BlockA1", CollisionType.Impassable, new Vector2(800, 230), 200, 45));
+
+            //add a destroyable switch which activates gravity of a gravity element
+            AbstractSwitch destroySW = new OneTimeDestroySwitch("LevelContent/Cave/switch", level, new Vector2(620f, 150), "");
+            GravityElement graveElement = new GravityElement("LevelContent/Cave/Front/shovel", CollisionType.Impassable, level, new Vector2(620, 0),true);
+            elements.Add(destroySW);
+            elements.Add(graveElement);
+            destroySW.SwitchableObjects.AddLast(graveElement);
             
             return elements;
         }
@@ -94,7 +101,7 @@ namespace MagicWorld.StaticLevelContent
 
         public BasicGameElement getLevelExit()
         {
-            BasicGameElement exit = LoadBlock("Exit", CollisionType.Passable,new Vector2(650,160));
+            BasicGameElement exit = LoadBlock("Exit", CollisionType.Passable,new Vector2(800,200));
             return exit;
         }
 

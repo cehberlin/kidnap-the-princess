@@ -65,6 +65,8 @@ namespace ParticleEffects
 
 			blendState = BlendState.AlphaBlend;
 
+            baseOpacity = 0.5f;
+
             //DrawOrder = AlphaBlendDrawOrder;
         }
 
@@ -102,10 +104,5 @@ namespace ParticleEffects
             // heading to the right.
             p.Acceleration.X += RandomBetween(10, 50);
         }
-
-       protected override float getOpacityFactor(Particle p){
-           float normalizedLifetime = getNormalizedLifetime(p);
-           return 2*normalizedLifetime * (1 - normalizedLifetime);
-       }
     }
 }
