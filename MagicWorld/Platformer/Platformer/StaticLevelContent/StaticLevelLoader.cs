@@ -62,6 +62,8 @@ namespace MagicWorld.StaticLevelContent
             //AbstractSwitch sw = new TimedElectricitySwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "",5000);
             //AbstractSwitch sw = new OnOffElectricitySwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
             AbstractSwitch sw = new TorchSwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "",true);
+
+            //AbstractSwitch sw = new OneTimeDestroySwitch("LevelContent/Cave/switch", level, new Vector2(0f, 300), "");
             sw.SwitchableObjects.AddLast(testDoor);
 
             elements.Add(sw);

@@ -17,7 +17,6 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         public OnOffElectricitySwitch(String texture, Level level, Vector2 position, string id)
             : base(texture, CollisionType.Impassable, level, position,id)
         {
-            this.ID = id;
 
             //calculate bounds
             int left = (int)Math.Round(position.X);
