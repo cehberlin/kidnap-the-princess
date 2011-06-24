@@ -159,10 +159,9 @@ namespace MagicWorld
 
             if (!isFroozen && !isElectrified) // ****** can move ******
             {
+                // Calculates the speed for x and y axis
                 deltaX = 0;
                 deltaY = 0;
-                if (nextPosition == 2)
-                    nextPosition = 2;
                 deltaX = Math.Abs(currentPathPosition.X) - Math.Abs(nextPathPosition.X);
                 deltaX = Math.Abs(deltaX);
                 deltaY = Math.Abs(currentPathPosition.Y) - Math.Abs(nextPathPosition.Y);

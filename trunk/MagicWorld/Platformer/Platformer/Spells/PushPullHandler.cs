@@ -98,5 +98,53 @@ namespace MagicWorld.Spells
                 }
             }
         }
+
+        public void Update(GameTime gameTime, Vector2 currentPath, Vector2 nextPath)
+        {
+            if (element != null)
+            {
+                if (influenceTimeInMs > 0)
+                {
+                    float elapsed = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    //accelaration
+                    currentAccelarationX += (float)elapsed / 1000 * accelarationChangeFactorX;
+                    if (currentAccelarationX < accelarationMinX)
+                        currentAccelarationX = accelarationMinX;
+                    if (currentAccelarationX > accelarationMaxX)
+                        currentAccelarationX = accelarationMaxX;
+
+                    currentAccelarationY += (float)elapsed / 1000 * accelarationChangeFactorY;
+                    if (currentAccelarationY < accelarationMinY)
+                        currentAccelarationY = accelarationMinY;
+                    if (currentAccelarationY > accelarationMaxY)
+                        currentAccelarationY = accelarationMaxY;
+
+                    // Move in the current direction.
+                    influenceVelocity = new Vector2((float)influenceVelocity.X * currentAccelarationX, (float)influenceVelocity.Y * currentAccelarationY);
+
+                    if(influenceVelocity.X > 0)
+                    {
+                        if (element.Position.X < nextPath.X)
+                        {
+                            element.Position += influenceVelocity;
+                        }
+                    }
+                    else if (influenceVelocity.X < 0)
+                    {
+                        if (element.Position.X > currentPath.X)
+                        {
+                            element.Position += influenceVelocity;
+                        }
+                    }
+
+                    influenceTimeInMs -= elapsed;
+                }
+                else
+                {
+                    //remove current handled element
+                    element = null;
+                }
+            }
+        }
     }
 }

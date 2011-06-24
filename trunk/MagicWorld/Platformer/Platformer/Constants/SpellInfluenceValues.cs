@@ -28,6 +28,11 @@ namespace MagicWorld.Constants
         public static TimeSpan maxFreezeTime = new TimeSpan(0, 0, 5);
 
         public static TimeSpan maxBurningTime = new TimeSpan(0, 0, 3);
+
+        public static TimeSpan maxPushingTime = new TimeSpan(0, 0, 1);
+
+        public static TimeSpan maxPullingTime = new TimeSpan(0, 0, 1);
+
         public static float burningMovingSpeedFactor = 2f; // Factor the enemy is moving faster while under influence of warm spell
 
 #endregion

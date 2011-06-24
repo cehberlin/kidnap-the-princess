@@ -179,6 +179,7 @@
     <Compile Include="Gleed2dLevelContent\SerializableDictionary.cs" />
     <Compile Include="StaticLevelContent\MoveablePlatform.cs" />
     <Compile Include="StaticLevelContent\Platform.cs" />
+    <Compile Include="StaticLevelContent\SpellMoveablePlatform.cs" />
     <Compile Include="StaticLevelContent\StaticLevelLoader.cs" />
     <Compile Include="StaticLevelContent\BlockElement.cs" />
     <Compile Include="Spells\WarmSpell.cs" />

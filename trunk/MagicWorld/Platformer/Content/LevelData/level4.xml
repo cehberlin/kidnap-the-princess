@@ -797,12 +797,6 @@
                         <Y>-1032</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="cold" Type="string" Description="">
-                            <string />
-                        </Property>
-                        <Property Name="nogravity" Type="string" Description="">
-                            <string />
-                        </Property>
                         <Property Name="matter" Type="string" Description="">
                             <string />
                         </Property>
@@ -812,7 +806,10 @@
                         <Property Name="max time" Type="string" Description="">
                             <string>60</string>
                         </Property>
-                        <Property Name="electric" Type="string" Description="">
+                        <Property Name="push" Type="string" Description="">
+                            <string />
+                        </Property>
+                        <Property Name="pull" Type="string" Description="">
                             <string />
                         </Property>
                     </CustomProperties>
@@ -1096,7 +1093,7 @@
                 </Item>
                 <Item xsi:type="PathItem" Name="Path_0209" Visible="true">
                     <Position>
-                        <X>1280</X>
+                        <X>-192</X>
                         <Y>192</Y>
                     </Position>
                     <CustomProperties />
@@ -1112,11 +1109,11 @@
                     </LocalPoints>
                     <WorldPoints>
                         <Vector2>
-                            <X>1280</X>
+                            <X>-192</X>
                             <Y>192</Y>
                         </Vector2>
                         <Vector2>
-                            <X>1600</X>
+                            <X>128</X>
                             <Y>192</Y>
                         </Vector2>
                     </WorldPoints>
@@ -2317,6 +2314,9 @@
                     </Position>
                     <CustomProperties>
                         <Property Name="Path" Type="Item" Description="">Path_0104</Property>
+                        <Property Name="Spell" Type="bool" Description="">
+                            <boolean>false</boolean>
+                        </Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
@@ -2341,11 +2341,14 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0120" Visible="true">
                     <Position>
-                        <X>1280</X>
+                        <X>-192</X>
                         <Y>192</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Path" Type="Item" Description="">Path_0209</Property>
+                        <Property Name="Spell" Type="bool" Description="">
+                            <boolean>true</boolean>
+                        </Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
@@ -2380,8 +2383,8 @@
         <NextItemNumber>209</NextItemNumber>
         <ContentRootFolder>F:\Game Design\Magic\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>1533.33911</X>
-            <Y>125.000267</Y>
+            <X>233.3338</X>
+            <Y>166.666977</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
