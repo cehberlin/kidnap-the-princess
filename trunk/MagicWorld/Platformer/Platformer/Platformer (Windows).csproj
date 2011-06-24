@@ -91,6 +91,7 @@
     <Compile Include="DynamicLevelContent\Enemies\Bat.cs" />
     <Compile Include="DynamicLevelContent\Icecicle.cs" />
     <Compile Include="DynamicLevelContent\Enemies\ShadowCreature.cs" />
+    <Compile Include="DynamicLevelContent\GravityElement.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\FireParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\IceParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\LightningParticleSystem..cs" />

@@ -65,6 +65,8 @@ namespace ParticleEffects
 
 			blendState = BlendState.AlphaBlend;
 
+            baseOpacity = 0.7f;
+
             //DrawOrder = AlphaBlendDrawOrder;
         }
 
