@@ -98,6 +98,7 @@
     <Compile Include="DynamicLevelContent\SwitchRiddles\AbstractSwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\Door.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\IActivation.cs" />
+    <Compile Include="DynamicLevelContent\SwitchRiddles\OneTimeDestroySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\OnOffElectricitySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\TimedElectricitySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\PushDownSwitch.cs" />

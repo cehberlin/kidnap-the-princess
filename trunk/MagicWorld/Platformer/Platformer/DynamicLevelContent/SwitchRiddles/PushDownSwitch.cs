@@ -19,7 +19,6 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         public PushDownSwitch(String texture, Level level, Vector2 position, string id)
             :base(texture,CollisionType.Passable,level,position, id)
         {
-            this.ID = id;
 
             //calculate bounds
             int left = (int)Math.Round(position.X);
