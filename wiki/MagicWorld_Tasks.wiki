@@ -14,7 +14,7 @@
   # ligthing particles on enemy -> Christopher
   # push/pull graphics -> Pascal
   # electric spell graphics -> Pascal
-  # elements that are influenced by push/pull -> Christopher
+  # add to leveleditor elements that are influenced by push/pull -> ??
   # level textures -> Pascal
   # torch as switch -> Christopher
   # torch texture -> Pascal
