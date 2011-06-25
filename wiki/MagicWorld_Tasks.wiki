@@ -2,19 +2,18 @@
 
 = in Progress =
 
-
+  # add one time destroyable switch to level editor -->christopher
+  # add to leveleditor elements that are influenced by push/pull -> christopher
 = TODO =
 
   == Beta (29.06) ==
   # savegames and replaying of levels (for better score) --> amauri
   # shadow creature -> stops at chasm and change direction --> John
-  # add one time destroyable switch to level editor -->marian
   # Gamelogo & menu background screen -> Pascal
   # new door graphic -> Pascal
   # icicle in editor -> Pascal
   # push/pull graphics -> Pascal
   # electric spell graphics -> Pascal
-  # add to leveleditor elements that are influenced by push/pull -> ??
   # level textures -> Pascal
   # add torch texture -> Pascal
   # pushable/pullable platform -> john
