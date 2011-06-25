@@ -24,6 +24,7 @@ Although the level loading is not completely implemented yet it is already fairl
 ||Ingredient||Layer for Ingredients||
 ||Enemy||Layer for enemies||
 ||Blockade||Impassable objects.||
+||PushPull||Objects which are influenced with push and pull||
 
  # Start by creating layers and name them according to their ingame alias (see above).
  # Add textures to the layers (except special layer) to create your level. Do not scale or rotate textures as it is not supported yet.
@@ -34,6 +35,13 @@ Although the level loading is not completely implemented yet it is already fairl
  # The first and last element in the xml are called Level. Change them to *Gleed2dLevelLoader* (note the lower case d).
 
 Note: Please name the xml level files "levelN.xml" where N is the number of the level and put the xml files in the LevelData folder.
+
+=== Push Pull ===
+Pushable and pullable objects have two optional parameters (custom properties:
+ # enable_gravity - this is a boolean value, set it to true or false
+ # collision_type - this is a (type: free text) value with possible content of impassable,passable,platform
+
+default values are enable_gravity=false and collision_type=impassable
 
 = Special layer =
 
@@ -97,3 +105,17 @@ The value must be a double value.
 
 === door ===
 For Switches add one custom property (type: free text) "door".
+
+=== gravity elements===
+For Switches add one custom property (type: free text) "gravity_element". This element could be used as a switchable item, but it is not necessary.
+It has some optional custom properties:
+ # enable_gravity - this is a boolean value, set it to true or false
+ # enable_collision - this is a boolean value, set it to true or false
+ # collision_type - this is a (type: free text) value with possible content of impassable,passable,platform
+
+Info: If you set enable_gravity to false it will fall through the ground after activation, but maybe you want this behavior only for an action effect. Enable gravity is only the start value for this object it could be influenced by connected switch.
+
+Default configuration for optional custom properties is:
+enable_gravity=false; enable_collision=false;collision_type="impassable"
+
+
