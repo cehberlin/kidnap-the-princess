@@ -48,7 +48,7 @@ namespace MagicWorld.DynamicLevelContent
         /// <returns></returns>
         public override bool SpellInfluenceAction(Spell spell)
         {
-            if (spell.SpellType == SpellType.PushSpell)
+            if (spell.SpellType == SpellType.PullSpell)
             {
                 //TODO put values into constant class
                 Vector2 push = this.Position - spell.Position;
@@ -57,7 +57,7 @@ namespace MagicWorld.DynamicLevelContent
                 pushPullHandler.start(this,1000, push);
                 return false;
             }
-            else if (spell.SpellType == SpellType.PullSpell)
+            else if (spell.SpellType == SpellType.PushSpell)
             {
                 //TODO put values into constant class
                 Vector2 pull = spell.Position - this.Position;

@@ -78,6 +78,7 @@ namespace MagicWorld
             oldBounds = this.Bounds;
         }
 
+        double nogravityInfluenceTime = 0;
         Bounds oldBounds;
         bool isOnGround = false;
         public override void Update(GameTime gameTime)
@@ -89,9 +90,17 @@ namespace MagicWorld
                 {
                     level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
                 }
-                else
+            }
+
+            if (gravityIsSetOffBySpell)
+            {
+                if (nogravityInfluenceTime <= 0)
                 {
                     gravityIsSetOffBySpell = false;
+                }
+                else
+                {
+                    nogravityInfluenceTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
             }
 
@@ -144,6 +153,8 @@ namespace MagicWorld
             else if (spell.GetType() == typeof(NoGravitySpell))
             {
                 gravityIsSetOffBySpell = true;
+                nogravityInfluenceTime = spell.DurationOfActionMs;
+                ResetVelocity();
                 return false; //do not remove spell
             }
             else if (spell.SpellType == SpellType.PushSpell)

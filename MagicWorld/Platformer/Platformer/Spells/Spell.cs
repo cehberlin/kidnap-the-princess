@@ -391,8 +391,8 @@ namespace MagicWorld
         /// </summary>
         public virtual void HandleCollision()
         {
-            //player collision
-            HandlePlayerCollision();   
+            //player collision not used in the moment
+            //HandlePlayerCollision();   
 
             //check if spells leaves the level
             HandleOutOfLevelCollision();

@@ -102,7 +102,7 @@ namespace MagicWorld.HelperClasses
 
         public static void releaseSpell(Player player)
         {
-            Debug.WriteLine("SPELL: FIRED after button release [usedMana:" + player.CurrentSpell.UsedMana+"]");
+            //Debug.WriteLine("SPELL: FIRED after button release [usedMana:" + player.CurrentSpell.UsedMana+"]");
             player.Mana.CurrentMana -= player.CurrentSpell.UsedMana;
             player.CurrentSpell.FireUp();
             player.CurrentSpell = null;

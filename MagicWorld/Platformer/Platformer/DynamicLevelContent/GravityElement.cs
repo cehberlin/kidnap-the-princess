@@ -24,6 +24,8 @@ namespace MagicWorld.DynamicLevelContent
 
         protected bool enableGravity;
 
+        bool noGravityInfluence = false;
+
         public bool EnableGravity
         {
             get { return enableGravity; }
@@ -56,11 +58,26 @@ namespace MagicWorld.DynamicLevelContent
             oldBounds = this.Bounds;
         }
 
+
+        double nogravityInfluenceTime = 0;
+
         public override void Update(GameTime gameTime)
-        {  
-            
-            if(enableGravity){
+        {
+            if (enableGravity && !noGravityInfluence)
+            {
                 level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
+            }
+
+            if (noGravityInfluence)
+            {
+                if (nogravityInfluenceTime <= 0)
+                {
+                    noGravityInfluence = false;
+                }
+                else
+                {
+                    nogravityInfluenceTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
             }
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -75,12 +92,23 @@ namespace MagicWorld.DynamicLevelContent
                     ResetVelocity();
                 }
             }
- 
+            noGravityInfluence = false; 
         }
 
         protected void ResetVelocity()
         {
             velocity = Vector2.Zero;
+        }
+
+        public override bool SpellInfluenceAction(Spell spell)
+        {
+            if (spell.SpellType == Spells.SpellType.NoGravitySpell)
+            {
+                noGravityInfluence = true;
+                nogravityInfluenceTime = spell.DurationOfActionMs;
+                ResetVelocity();
+            }
+            return false;
         }
 
         #region IActivation Member

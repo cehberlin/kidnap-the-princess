@@ -111,16 +111,17 @@ namespace MagicWorld.Constants
         public static float WarmSpell_MoveSpeedManaFactor = 0.005f;  //describes the ratio between used mana and move speed increase
 
         public static Spells.SpellConstants CreateMatterSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static float CreateMatterSpell_MoveSpeed = 80f;
+        public static float CreateMatterSpell_MoveSpeed = 130;
         public static int CreateMatterSpell_Force = 1;
         public static float CreateMatterSpell_currentScale = 0.7f;
         public static float CreateMatterSpell_accelarationChangeFactor = -0.1f;
 
         public static Spells.SpellConstants NoGravitationSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static float NoGravitationSpell_MoveSpeed = 10f;
-        public static int NoGravitationSpell_survivalTimeMs = 5000;
-        public static int NoGravitationSpell_durationOfActionMs = 5000;
+        public static float NoGravitationSpell_MoveSpeed = 100;
+        public static int NoGravitationSpell_survivalTimeMs = 9000;
+        public static int NoGravitationSpell_durationOfActionMs = 10;
         public static int NoGravitationSpell_Force = 1;
+        public static float NoGravitationSpell_accelarationChangeFactor = -0.05f;
 
         public static Spells.SpellConstants ElectricSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ElectricSpell_MoveSpeed = 500f;

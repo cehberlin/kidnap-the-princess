@@ -19,6 +19,8 @@ namespace MagicWorld.Spells
             MoveSpeed = SpellConstantsValues.NoGravitationSpell_MoveSpeed;
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.NoGravitationSpell_durationOfActionMs;
+            accelarationChangeFactorX = SpellConstantsValues.NoGravitationSpell_accelarationChangeFactor;
+            accelarationChangeFactorY = SpellConstantsValues.NoGravitationSpell_accelarationChangeFactor;
         }
         
         public override void LoadContent(string spriteSet)
@@ -31,6 +33,13 @@ namespace MagicWorld.Spells
             idleAnimation = runAnimation;
 
             base.LoadContent(spriteSet);
+        }
+
+
+        protected override void HandleObjectCollision()
+        {
+            //do not resolve collision
+            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
         }
     }
 }
