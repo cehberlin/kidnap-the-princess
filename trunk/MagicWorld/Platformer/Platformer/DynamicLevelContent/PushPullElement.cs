@@ -48,29 +48,23 @@ namespace MagicWorld.DynamicLevelContent
         /// <returns></returns>
         public override bool SpellInfluenceAction(Spell spell)
         {
-            //TODO BUG!! we must decide on which side of the wizard is the element
             if (spell.SpellType == SpellType.PullSpell)
             {
-                //TODO put values into constant class
-                Vector2 push = this.Position - spell.Position;
+                Vector2 push = spell.Position - this.Position;
                 push.Normalize();
-                pushPullHandler.setXAcceleration(1.1f, 0, 2, -0.2f);
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
                 pushPullHandler.start(this,1000, push);
                 return false;
             }
             else if (spell.SpellType == SpellType.PushSpell)
             {
-                //TODO put values into constant class
-                Vector2 pull = spell.Position - this.Position;
+                Vector2 pull = this.Position - spell.Position;
                 pull.Normalize();
-                pushPullHandler.setXAcceleration(1f,0, 1.1f, 0.07f);                
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                
                 pushPullHandler.start(this, 1000,pull);
                 return false;
             }
             return base.SpellInfluenceAction(spell);
-        }
-   
-
-        
+        }      
     }
 }

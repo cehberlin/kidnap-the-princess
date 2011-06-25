@@ -157,22 +157,20 @@ namespace MagicWorld
                 ResetVelocity();
                 return false; //do not remove spell
             }
-            else if (spell.SpellType == SpellType.PushSpell)
-            {
-                //TODO put values into constant class
-                Vector2 push = this.Position - spell.Position;
-                push.Normalize();
-                pushPullHandler.setXAcceleration(1.1f, 0, 2, -0.2f);
-                pushPullHandler.start(this,1000, push);
-                return false;
-            }
             else if (spell.SpellType == SpellType.PullSpell)
             {
-                //TODO put values into constant class
-                Vector2 pull = spell.Position - this.Position;
+                Vector2 push = spell.Position - this.Position;
+                push.Normalize();
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.start(this, 1000, push);
+                return false;
+            }
+            else if (spell.SpellType == SpellType.PushSpell)
+            {
+                Vector2 pull = this.Position - spell.Position;
                 pull.Normalize();
-                pushPullHandler.setXAcceleration(1f,0, 1.1f, 0.07f);                
-                pushPullHandler.start(this, 1000,pull);
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.start(this, 1000, pull);
                 return false;
             }
             return base.SpellInfluenceAction(spell);
