@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
@@ -275,6 +276,93 @@ namespace MagicWorld
             // Dispose the container, to commit changes.
             container.Dispose();
 
+        }
+
+        public void LoadGame(int level)
+        {
+            string fileName;
+            IAsyncResult result;
+
+            fileName = "Level" + level.ToString();
+
+            // Open a storage container.
+
+            result = StorageDevice.BeginShowSelector(
+                            PlayerIndex.One, null, null);
+
+
+            StorageDevice device = StorageDevice.EndShowSelector(result);
+
+            // Open a storage container.
+            result =device.BeginOpenContainer("MagicWorld", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result);
+
+            // Close the wait handle.
+            result.AsyncWaitHandle.Close();
+
+            
+
+            // Check to see whether the save exists.
+            if (!container.FileExists(fileName))
+            {
+                // If not, dispose of the container and return.
+                container.Dispose();
+                return;
+            }
+
+            // Open the file.
+            Stream stream = container.OpenFile(fileName, FileMode.Open);
+
+            // Read the data from the file.
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
+            SaveGameData GameData = (SaveGameData)serializer.Deserialize(stream);
+
+            // Close the file.
+            stream.Close();
+
+            // Dispose the container.
+            container.Dispose();
+
+            // Report the data to the console.
+            //Debug.WriteLine("Name:     " + GameData.PlayerName);
+            //Debug.WriteLine("Level:    " + GameData.Level.ToString());
+            //Debug.WriteLine("Score:    " + GameData.Score.ToString());
+            //Debug.WriteLine("Position: " + GameData.AvatarPosition.ToString());
+        }
+        public string[] GetSavedFiles()
+        {
+            string[] files;
+
+            IAsyncResult result;
+            
+
+            // Open a storage container.
+
+            result = StorageDevice.BeginShowSelector(
+                            PlayerIndex.One, null, null);
+
+
+            StorageDevice device = StorageDevice.EndShowSelector(result);
+
+            // Open a storage container.
+            result = device.BeginOpenContainer("MagicWorld", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result);
+
+            // Close the wait handle.
+            result.AsyncWaitHandle.Close();
+
+
+            files = container.GetFileNames();
+            return files;
+            
         }
         
     }

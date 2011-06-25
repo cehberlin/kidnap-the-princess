@@ -18,6 +18,12 @@ namespace MagicWorld
     /// </summary>
     class MainMenuScreen : MenuScreen
     {
+
+        string[] files;
+        bool filesLoaded = false;
+        int selectedFile = 0;
+        MenuEntry playGameMenuEntry;
+
         #region Initialization
 
 
@@ -28,7 +34,7 @@ namespace MagicWorld
             : base("Main Menu")
         {
             // Create our menu entries.
-            MenuEntry playGameMenuEntry = new MenuEntry("New Game");            
+            playGameMenuEntry = new MenuEntry("New Game Level1");            
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
@@ -47,6 +53,54 @@ namespace MagicWorld
         #endregion
 
         #region Handle Input
+        public override void HandleInput(InputState input)
+        {
+            if (!filesLoaded)
+            {
+                LoadFiles();
+                filesLoaded = true;
+            }
+
+            //check the selection of rigth and left when on "New game" menu
+            if (input.IsMenuRight(ControllingPlayer))
+            {
+                if (SelectedEntry == 0) //New game
+                {
+                    if (files.Length > 0)
+                    {
+                        selectedFile++;
+                        if (selectedFile > (files.Length - 1))
+                        {
+                            selectedFile = 0;
+                        }
+                        ScreenManager.Game.LoadGame(selectedFile + 1);
+                        playGameMenuEntry.Text = "New Game " + files[selectedFile];
+                        ShowGameInfo();
+                    }
+
+                }
+            }
+
+            //check the selection of rigth and left when on "New game" menu
+            if (input.IsMenuLeft(ControllingPlayer))
+            {
+                if (SelectedEntry == 0) //New game
+                {
+                    if (files.Length > 0)
+                    {
+                        selectedFile--;
+                        if (selectedFile < 0)
+                        {
+                            selectedFile = files.Length - 1;
+                        }
+                        ScreenManager.Game.LoadGame(selectedFile + 1);
+                        playGameMenuEntry.Text = "New Game " + files[selectedFile];
+                    }
+                }
+            }
+
+            base.HandleInput(input);
+        }
 
 
         /// <summary>
@@ -58,10 +112,12 @@ namespace MagicWorld
             GameplayScreen gameScreen=new GameplayScreen();
             //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);
 
+            
+
             ScreenManager.AddScreen(gameScreen, e.PlayerIndex);
             //load the level      
             gameScreen.LoadContent();
-            gameScreen.LoadLevel(1);            
+            gameScreen.LoadLevel(selectedFile+1);//selectedfile is always one number less levelnumber            
             ScreenManager.Game.ResetElapsedTime();
         }        
 
@@ -98,7 +154,26 @@ namespace MagicWorld
             ScreenManager.Game.Exit();
         }
 
+        private void ShowGameInfo()
+        {
 
+        }
+
+        #endregion
+
+        #region load files
+        /// <summary>
+        /// Load saved files name to a list
+        /// </summary>
+        private void LoadFiles()
+        {
+            files=ScreenManager.Game.GetSavedFiles();
+            if (files.Length > 1)
+            {
+                playGameMenuEntry.Text = "New Game " + files[0];
+            }
+            
+        }
         #endregion
     }
 }

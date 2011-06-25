@@ -204,6 +204,33 @@ namespace MagicWorld
                    IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
         }
 
+        /// <summary>
+        /// Check if Right was selected when in menu screen
+        /// </summary>
+        /// <param name="controllingPlayer"></param>
+        /// <returns></returns>
+        public bool IsMenuRight(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Right, controllingPlayer, out playerIndex) ||
+                   IsNewButtonPress(Buttons.DPadRight, controllingPlayer, out playerIndex) ||
+                   IsNewButtonPress(Buttons.LeftThumbstickRight, controllingPlayer, out playerIndex);
+        }
+
+        /// <summary>
+        /// Check if Left was selected when in menu screen
+        /// </summary>
+        /// <param name="controllingPlayer"></param>
+        /// <returns></returns>
+        public bool IsMenuLeft(PlayerIndex? controllingPlayer)
+        {
+            PlayerIndex playerIndex;
+
+            return IsNewKeyPress(Keys.Left, controllingPlayer, out playerIndex) ||
+                   IsNewButtonPress(Buttons.DPadLeft, controllingPlayer, out playerIndex) ||
+                   IsNewButtonPress(Buttons.LeftThumbstickLeft, controllingPlayer, out playerIndex);
+        }
 
         /// <summary>
         /// Checks for a "pause the game" input action.
