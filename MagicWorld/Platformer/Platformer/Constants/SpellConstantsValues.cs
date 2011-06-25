@@ -33,6 +33,13 @@ namespace MagicWorld.Constants
             groupMana.Add(mana_regenration_rate);
             Constants.Add(new ConstantGroup("Mana", groupMana));
 
+
+            //group pushpull
+            List<IConstantChangerItem> groupPushPull = new List<IConstantChangerItem>();
+            groupPushPull.Add(pushpull_default_start_acceleration);
+            groupPushPull.Add(pushpull_default_acceleration_change_factor);
+            Constants.Add(new ConstantGroup("PushPull", groupPushPull));                      
+
             return Constants;
         }
 
@@ -143,6 +150,26 @@ namespace MagicWorld.Constants
         public static int PullSpell_Force = PushSpell_Force;
         public static float PullSpell_MaxSize = PushSpell_MaxSize;
         public static float PullSpell_GrowRate =0.52f;
+
+
+        /// <summary>
+        /// start acceleration for push and pull handler, used default
+        /// </summary>
+        public static float PUSHPULL_DEFAULT_START_ACCELERATION
+        {
+            get { return pushpull_default_start_acceleration.value; }
+        }
+        static ConstantChangerItemFloat pushpull_default_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_START_ACCELERATION", 1.1f, 0.01f);
+
+        /// <summary>
+        /// start acceleration for push and pull handler, used default
+        /// </summary>
+        public static float PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR
+        {
+            get { return pushpull_default_acceleration_change_factor.value; }
+        }
+        static ConstantChangerItemFloat pushpull_default_acceleration_change_factor = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR", -0.2f, 0.001f);
+
 
     }
 }

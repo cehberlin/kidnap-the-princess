@@ -155,20 +155,18 @@ namespace MagicWorld.StaticLevelContent
         public override Boolean SpellInfluenceAction(Spell spell)
         {
             if (spell.SpellType == SpellType.PushSpell)
-            {
-                //TODO put values into constant class
+            {                
                 Vector2 push = calculatesVelocity(true);
                 push.Normalize();
-                pushPullHandler.setXAcceleration(1.1f, 0, 2, -0.2f);
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                
                 pushPullHandler.start(this,1000, push);
                 return false;
             }
             else if (spell.SpellType == SpellType.PullSpell)
             {
-                //TODO put values into constant class
                 Vector2 pull = calculatesVelocity(false);
                 pull.Normalize();
-                pushPullHandler.setXAcceleration(1f,0, 1.1f, 0.07f);                
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                           
                 pushPullHandler.start(this, 1000,pull);
                 return false;
             }
