@@ -32,8 +32,7 @@ Although the level loading is not completely implemented yet it is already fairl
  # Add a circle primitive to the special layer and name it *start* to add the starting point for the level.
  # Do the same again but name the circle *exit* to set the exit point of the level.
  # Finally place two rectangle primitives. One at the top left corner of the level and the other at the bottom right corner of the level. Name them *bottomRight* and *topLeft* according to their position.
- # Save the file and add it to your project, then open it.
- # The first and last element in the xml are called Level. Change them to *Gleed2dLevelLoader* (note the lower case d).
+ # Save the file and add it to your project
 
 Note: Please name the xml level files "levelN.xml" where N is the number of the level and put the xml files in the LevelData folder.
 
