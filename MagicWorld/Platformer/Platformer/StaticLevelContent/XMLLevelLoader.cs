@@ -153,59 +153,71 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
 
-
             // get switches
             LinkedList<AbstractSwitch> switchList = loadSwitches(elements);
             
 
             //The platforms.
-            Layer layer = levelLoader.getLayerByName("Middle");
-            elements.AddRange(Load(layer, author, CollisionType.Platform));
+            Layer middleLayer = levelLoader.getLayerByName("Middle");
+            if (middleLayer != null)
+            {
+                elements.AddRange(Load(middleLayer, author, CollisionType.Platform));
+            }
 
             Layer blockades = levelLoader.getLayerByName("Blockade");
-            elements.AddRange(Load(blockades, author, CollisionType.Impassable));
+            if (blockades != null)
+            {
+                elements.AddRange(Load(blockades, author, CollisionType.Impassable));
+            }
 
             //The ingredient layer.
             Layer ingredientLayer = levelLoader.getLayerByName("Ingredient");
-            //elements.AddRange(Load(ingredientLayer, author, CollisionType.Passable));
-            foreach (Item item in ingredientLayer.Items)
+            if (ingredientLayer != null)
             {
-                //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                Ingredient i = new Ingredient("LevelContent/Cave/bone", CollisionType.Passable, level, item.Position);
-                elements.Add(i);
+                //elements.AddRange(Load(ingredientLayer, author, CollisionType.Passable));
+                foreach (Item item in ingredientLayer.Items)
+                {
+                    //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                    Ingredient i = new Ingredient("LevelContent/Cave/bone", CollisionType.Passable, level, item.Position);
+                    elements.Add(i);
+                }
             }
 
             //The enemies layer.
             Layer enemiesLayer = levelLoader.getLayerByName("Enemy");
-            foreach (Item item in enemiesLayer.Items)
+            if (enemiesLayer != null)
             {
-                Enemy e = null;
-                String monsterName = (String)item.CustomProperties["EnemyType"].value;
-                if (monsterName.Equals("ShadowCreature"))
+                foreach (Item item in enemiesLayer.Items)
                 {
-                    e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
-                }
-                else if (monsterName.Equals("Bat"))
-                {
-                    PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                    e = new Bat(level, item.Position, "Sprites/ShadowCreatureSpriteSheet", pathItem);
-                }
-                if (author == 2 && e != null)
-                {
-                    TextureItem t = (TextureItem)item;
-                    e.Position -= t.Origin;
+                    Enemy e = null;
+                    String monsterName = (String)item.CustomProperties["EnemyType"].value;
+                    if (monsterName.Equals("ShadowCreature"))
+                    {
+                        e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
+                    }
+                    else if (monsterName.Equals("Bat"))
+                    {
+                        PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                        e = new Bat(level, item.Position, "Sprites/ShadowCreatureSpriteSheet", pathItem);
+                    }
+                    if (author == 2 && e != null)
+                    {
+                        TextureItem t = (TextureItem)item;
+                        e.Position -= t.Origin;
 
-                }
-                if (e != null)
-                {
-                    elements.Add(e);
+                    }
+                    if (e != null)
+                    {
+                        elements.Add(e);
+                    }
                 }
             }
 
-            try
+
+            //The layer of push and pullable items.
+            Layer pushPullLayer = levelLoader.getLayerByName("PushPull");
+            if (pushPullLayer != null)
             {
-                //The layer of push and pullable items.
-                Layer pushPullLayer = levelLoader.getLayerByName("PushPull");
                 foreach (Item item in pushPullLayer.Items)
                 {
                     bool enablegravity = false;
@@ -219,14 +231,12 @@ namespace MagicWorld.StaticLevelContent
                     elements.Add(pushPullElement);
                 }
             }
-            catch {
-                //no handling because layer is optional
-            }
 
-            try
+
+            //The moveable platform layer.
+            Layer moveablePlatformLayer = levelLoader.getLayerByName("Moveable Platform");
+            if (moveablePlatformLayer != null)
             {
-                //The moveable platform layer.
-                Layer moveablePlatformLayer = levelLoader.getLayerByName("Moveable Platform");
                 if (moveablePlatformLayer != null)
                 {
                     foreach (Item item in moveablePlatformLayer.Items)
@@ -255,50 +265,50 @@ namespace MagicWorld.StaticLevelContent
                     }
                 }
             }
-            catch
-            {
-                //no handling because layer is optional
-            }
+
 
             // get switchable items
             Layer specialLayer = levelLoader.getLayerByName(LAYER_SPECIAL);
-            foreach (Item item in specialLayer.Items)
+            if (specialLayer != null)
             {
-                if (item.CustomProperties.ContainsKey(PROPERTY_DOOR))
+                foreach (Item item in specialLayer.Items)
                 {
-                    TextureItem ti = (TextureItem)item;
-
-                    Door door = new Door(ti.asset_name, level, getCorrectedStartPosition(ti));
-                    correctWidhAndHeight(door, ti);
-                    elements.Add(door);
-
-                    if (item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                    if (item.CustomProperties.ContainsKey(PROPERTY_DOOR))
                     {
-                        String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
-                        connectSwitchable(switchList, id, door);
+                        TextureItem ti = (TextureItem)item;
+
+                        Door door = new Door(ti.asset_name, level, getCorrectedStartPosition(ti));
+                        correctWidhAndHeight(door, ti);
+                        elements.Add(door);
+
+                        if (item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                        {
+                            String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
+                            connectSwitchable(switchList, id, door);
+                        }
                     }
-                }
-                else if (item.CustomProperties.ContainsKey(PROPERTY_GRAVITY_ELEMENT))
-                {
-                    bool enablegravity = false;
-                    enablegravity = checkForEnabledGravity(item, enablegravity);
-
-                    bool enablecollision=false;
-                    enablecollision = checkForEnabledCollision(item, enablecollision);
-
-                    TextureItem ti = (TextureItem)item;
-
-                    CollisionType collisionType = CollisionType.Impassable;
-                    collisionType = getCollisionType(item, collisionType);
-
-                    GravityElement gravityElement = new GravityElement(ti.asset_name, collisionType, level, getCorrectedStartPosition(ti), enablecollision, enablegravity);
-                    correctWidhAndHeight(gravityElement, ti);
-                    elements.Add(gravityElement);
-
-                    if (item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                    else if (item.CustomProperties.ContainsKey(PROPERTY_GRAVITY_ELEMENT))
                     {
-                        String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
-                        connectSwitchable(switchList, id, gravityElement);
+                        bool enablegravity = false;
+                        enablegravity = checkForEnabledGravity(item, enablegravity);
+
+                        bool enablecollision = false;
+                        enablecollision = checkForEnabledCollision(item, enablecollision);
+
+                        TextureItem ti = (TextureItem)item;
+
+                        CollisionType collisionType = CollisionType.Impassable;
+                        collisionType = getCollisionType(item, collisionType);
+
+                        GravityElement gravityElement = new GravityElement(ti.asset_name, collisionType, level, getCorrectedStartPosition(ti), enablecollision, enablegravity);
+                        correctWidhAndHeight(gravityElement, ti);
+                        elements.Add(gravityElement);
+
+                        if (item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                        {
+                            String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
+                            connectSwitchable(switchList, id, gravityElement);
+                        }
                     }
                 }
             }
@@ -370,17 +380,28 @@ namespace MagicWorld.StaticLevelContent
         {
             List<BasicGameElement> elements = new List<BasicGameElement>();
             Layer zeroLayer = levelLoader.getLayerByName("Zero");
-            elements.AddRange(Load(zeroLayer, author, CollisionType.Passable));
+            if (zeroLayer != null)
+            {
+                elements.AddRange(Load(zeroLayer, author, CollisionType.Passable));
+            }
             //The background.
             Layer backgroundLayer = levelLoader.getLayerByName("Background");
-            elements.AddRange(Load(backgroundLayer, author, CollisionType.Passable));
+            if (backgroundLayer != null)
+            {
+                elements.AddRange(Load(backgroundLayer, author, CollisionType.Passable));
+            }
             return elements;
         }
 
         public List<BasicGameElement> getForegroundObjects()
         {
+            List<BasicGameElement> foreGroundElements = new List<BasicGameElement>();
             Layer frontLayer = levelLoader.getLayerByName("Front");
-            return Load(frontLayer, author, CollisionType.Passable);
+            if (frontLayer != null)
+            {
+                foreGroundElements.AddRange(Load(frontLayer, author, CollisionType.Passable));
+            }
+            return foreGroundElements;
         }
 
 
@@ -394,7 +415,6 @@ namespace MagicWorld.StaticLevelContent
             foreach (Item item in layer.Items)
             {
                 t = (TextureItem)item;
-
 
                 if (t.asset_name.Contains("platform"))
                 {
@@ -472,19 +492,22 @@ namespace MagicWorld.StaticLevelContent
         {
             List<TutorialInstruction> instructs = new List<TutorialInstruction>();
             Layer l = levelLoader.getLayerByName("Special");
-            foreach (Item item in l.Items)
+            if (l != null)
             {
-                //TODO: Make a real check if we found a tutorial instruction.
-                if (item.CustomProperties.Count == 1)
+                foreach (Item item in l.Items)
                 {
-                    try
+                    //TODO: Make a real check if we found a tutorial instruction.
+                    if (item.CustomProperties.Count == 1)
                     {
-                        if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
+                        try
                         {
-                            instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(200, 50)));
+                            if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
+                            {
+                                instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Vector2(200, 50)));
+                            }
                         }
+                        catch (KeyNotFoundException k) { }
                     }
-                    catch (KeyNotFoundException k) { }
                 }
             }
             return instructs;
@@ -504,7 +527,14 @@ namespace MagicWorld.StaticLevelContent
         public int getMaxItmesToCollect()
         {
             Layer ingredientLayer = levelLoader.getLayerByName(LAYER_COLLECTABLEITEMS);
-            return ingredientLayer.Items.Count;
+            if (ingredientLayer != null)
+            {
+                return ingredientLayer.Items.Count;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
 
@@ -526,72 +556,75 @@ namespace MagicWorld.StaticLevelContent
         {
             LinkedList<AbstractSwitch> switchList = new LinkedList<AbstractSwitch>();
             Layer specialLayer = levelLoader.getLayerByName(LAYER_SPECIAL);
-            foreach (Item item in specialLayer.Items)
+            if (specialLayer != null)
             {
-                if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH))
+                foreach (Item item in specialLayer.Items)
                 {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
-                    TextureItem ti = (TextureItem)item;
-
-                    PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
-                    correctWidhAndHeight(pds, ti);
-
-                    switchList.AddLast(pds);
-                    elements.Add(pds);
-                }
-                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_ELECTRICITY))
-                {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
-                    TextureItem ti = (TextureItem)item;
-                    AbstractSwitch sw = null;
-
-                    if(item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TIME))
+                    if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH))
                     {
-                        double time = Double.Parse((String)item.CustomProperties[PROPERTY_SWITCH_TIME].value);
-                        sw = new TimedElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, time);
-                    } 
-                    else
-                    {
-                        sw = new OnOffElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                        TextureItem ti = (TextureItem)item;
+
+                        PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                        correctWidhAndHeight(pds, ti);
+
+                        switchList.AddLast(pds);
+                        elements.Add(pds);
                     }
+                    else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_ELECTRICITY))
+                    {
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                        TextureItem ti = (TextureItem)item;
+                        AbstractSwitch sw = null;
 
-                    correctWidhAndHeight(sw, ti);
+                        if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TIME))
+                        {
+                            double time = Double.Parse((String)item.CustomProperties[PROPERTY_SWITCH_TIME].value);
+                            sw = new TimedElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, time);
+                        }
+                        else
+                        {
+                            sw = new OnOffElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                        }
 
-                    switchList.AddLast(sw);
-                    elements.Add(sw);
-                }
-                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_ON))
-                {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH_TORCH_ON].value;
-                    TextureItem ti = (TextureItem)item;
+                        correctWidhAndHeight(sw, ti);
 
-                    TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, true);
-                    correctWidhAndHeight(pds, ti);
+                        switchList.AddLast(sw);
+                        elements.Add(sw);
+                    }
+                    else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_ON))
+                    {
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCH_TORCH_ON].value;
+                        TextureItem ti = (TextureItem)item;
 
-                    switchList.AddLast(pds);
-                    elements.Add(pds);
-                }
-                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_OFF))
-                {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH_TORCH_OFF].value;
-                    TextureItem ti = (TextureItem)item;
+                        TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, true);
+                        correctWidhAndHeight(pds, ti);
 
-                    TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, false);
-                    correctWidhAndHeight(pds, ti);
+                        switchList.AddLast(pds);
+                        elements.Add(pds);
+                    }
+                    else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_OFF))
+                    {
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCH_TORCH_OFF].value;
+                        TextureItem ti = (TextureItem)item;
 
-                    switchList.AddLast(pds);
-                    elements.Add(pds);
-                }
-                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_DESTROY))
-                {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH_DESTROY].value;
-                    TextureItem ti = (TextureItem)item;
+                        TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, false);
+                        correctWidhAndHeight(pds, ti);
 
-                    OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
-                    correctWidhAndHeight(pds, ti);
+                        switchList.AddLast(pds);
+                        elements.Add(pds);
+                    }
+                    else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_DESTROY))
+                    {
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCH_DESTROY].value;
+                        TextureItem ti = (TextureItem)item;
 
-                    switchList.AddLast(pds);
-                    elements.Add(pds);
+                        OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                        correctWidhAndHeight(pds, ti);
+
+                        switchList.AddLast(pds);
+                        elements.Add(pds);
+                    }
                 }
             }
 
