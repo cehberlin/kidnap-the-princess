@@ -85,6 +85,7 @@ For the switchable item add a custom property (type: free text) "switchable" wit
 || switch_electricitySwitch || by electricity || optional property: switchTime ||
 || switch_torch_on || by fire || ||
 || switch_torch_off || by ice || ||
+|| switch_destroy || by fire || ||
 
  ==optional==
 Some switches can use extra propertys. Just add to the switchable item (type: free text).
