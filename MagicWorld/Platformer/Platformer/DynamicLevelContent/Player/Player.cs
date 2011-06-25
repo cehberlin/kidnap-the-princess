@@ -23,7 +23,7 @@ namespace MagicWorld
         IEnemyService enemyService;
 
         #region input constants
-        
+
 
         // Input configuration
         private const float MoveStickScale = 1.0f;
@@ -128,7 +128,7 @@ namespace MagicWorld
         /// <summary>
         /// save last movement direction on x axis
         /// </summary>
-        private bool lastMovementRight=true;
+        private bool lastMovementRight = true;
 
         public Mana Mana { get; set; }
 
@@ -236,7 +236,7 @@ namespace MagicWorld
             {
                 this.level.ReachedExit = false;
             }
-            
+
 
             Mana.update(gameTime);
             GetInput(keyboardState, gamePadState, orientation);
@@ -244,7 +244,7 @@ namespace MagicWorld
 
             HandleSpellCreation(gameTime, keyboardState, gamePadState, orientation);
 
-            
+
             ApplyPhysics(gameTime);
 
             if (IsAlive && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
@@ -279,7 +279,6 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
-
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
 
             // Get analog horizontal movement.
@@ -300,7 +299,7 @@ namespace MagicWorld
                     lastMovementRight = false;
                 }
             }
-            else if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
+            else if (gamePadState.IsButtonDown(controls.GamePad_Right) ||
                      keyboardState.IsKeyDown(controls.Keys_Right))
             //keyboardState.IsKeyDown(RightKeyAlternative))
             {
@@ -309,6 +308,11 @@ namespace MagicWorld
                 {
                     lastMovementRight = true;
                 }
+            }
+            else if (Math.Abs(gamePadState.ThumbSticks.Left.X) > 0.5f)
+            {
+                //TODO: Fix moonwalk
+                movementX = gamePadState.ThumbSticks.Left.X;
             }
             else
             {
@@ -524,8 +528,8 @@ namespace MagicWorld
             if (element.GetType() == typeof(Enemy))
             {
                 Enemy e = (Enemy)element;
-                enemyService = (IEnemyService)e.GetService(typeof (IEnemyService));
-                if(!enemyService.IsFroozen)
+                enemyService = (IEnemyService)e.GetService(typeof(IEnemyService));
+                if (!enemyService.IsFroozen)
                 {
                     OnKilled(e);
                 }
@@ -610,8 +614,6 @@ namespace MagicWorld
         /// <param name="gameTime"></param>
         /// <param name="keyboardState"></param>
         /// <param name="gamePadState"></param>
-        /// <param name="touchState"></param>
-        /// <param name="accelState"></param>
         /// <param name="orientation"></param>
         private void HandleSpellCreation(GameTime gameTime,
             KeyboardState keyboardState,
@@ -632,12 +634,12 @@ namespace MagicWorld
                 {
                     isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_B, this.level);
                 }
-                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellA) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellA)) // spell A select
+                else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellA) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellA) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellA)) // spell A select
                 {
                     selectedSpellIndex_A = selectNextSpell(selectedSpellIndex_A);
                     Debug.WriteLine("changed selection for SpellSlot A: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_A));
                 }
-                else if (gamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellB) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
+                else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellB) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellB) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
                 {
                     selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
                     Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
@@ -648,6 +650,8 @@ namespace MagicWorld
                 SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
+                    //Use Thumbstick to aim the spell
+                    spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
                     // casting angle
                     Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
                     if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
@@ -659,7 +663,7 @@ namespace MagicWorld
                         spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                     }
 
-                            //casting power
+                    //casting power
                     if (keyboardState.IsKeyDown(controls.Keys_Right) || gamePadState.IsButtonDown(controls.GamePad_Right)) // more power
                     {
                         if (isPlayerFacingRight())
@@ -677,11 +681,27 @@ namespace MagicWorld
                         {
                             SpellCreationManager.lessPower(this, this.level, gameTime);
                         }
-                        else 
+                        else
                         {
                             SpellCreationManager.morePower(this, this.level, gameTime);
                         }
                         //TODO spell casting
+                    }
+                    //else if (gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell))
+                    //{
+                    //    SpellCreationManager.morePower(this, this.level, gameTime);
+                    //}
+                    //else if (gamePadState.IsButtonDown(controls.GamePad_DecreaseSpell))
+                    //{
+                    //    SpellCreationManager.lessPower(this, this.level, gameTime);
+                    //}
+                    else if (gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell))
+                    {
+                        SpellCreationManager.morePower(this, this.level, gameTime);
+                    }
+                    else if (gamePadState.IsButtonDown(controls.GamePad_DecreaseSpell))
+                    {
+                        SpellCreationManager.lessPower(this, this.level, gameTime);
                     }
                 }
                 else
