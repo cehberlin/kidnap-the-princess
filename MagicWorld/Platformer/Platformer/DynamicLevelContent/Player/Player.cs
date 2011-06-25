@@ -172,6 +172,7 @@ namespace MagicWorld
 
             collisionCallback = HandleCollisionForOneObject;
 
+            selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
         }
 
         /// <summary>
