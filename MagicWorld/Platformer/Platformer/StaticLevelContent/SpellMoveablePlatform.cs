@@ -49,32 +49,6 @@ namespace MagicWorld.StaticLevelContent
         public override void Update(GameTime gameTime)
         {
             pushPullHandler.Update(gameTime, currentPathPosition, nextPathPosition);
-            //if (isPushed && Position.X < nextPathPosition.X)
-            //{
-            //    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //    // Calculates the delta for x and y axis
-            //    Vector2 velocity = calculatesVelocity();
-            //    velocity = new Vector2(movementSpeedX, movementSpeedY);
-            //    Position = Position + velocity * elapsed * acceleration;
-            //    currentPushingTime = currentPushingTime.Add(gameTime.ElapsedGameTime);
-            //    if (currentPushingTime >= SpellInfluenceValues.maxPushingTime && isPushed)
-            //    {
-            //        isPushed = false;
-            //    }
-            //}
-            //else if (isPulled && Position.X > currentPathPosition.X)
-            //{
-            //    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //    // Calculates the delta for x and y axis
-            //    Vector2 velocity = calculatesVelocity();
-            //    velocity = new Vector2(-movementSpeedX, movementSpeedY);
-            //    Position = Position + velocity * elapsed * acceleration;
-            //    currentPullingTime = currentPullingTime.Add(gameTime.ElapsedGameTime);
-            //    if (currentPullingTime >= SpellInfluenceValues.maxPullingTime && isPulled)
-            //    {
-            //        isPulled = false;
-            //    }
-            //}
         }
 
         #endregion
@@ -100,9 +74,9 @@ namespace MagicWorld.StaticLevelContent
         {
             float deltaX = 0;
             float deltaY = 0;
-            deltaX = Math.Abs(currentPathPosition.X) - Math.Abs(nextPathPosition.X);
+            deltaX = currentPathPosition.X - nextPathPosition.X;
             deltaX = Math.Abs(deltaX);
-            deltaY = Math.Abs(currentPathPosition.Y) - Math.Abs(nextPathPosition.Y);
+            deltaY = currentPathPosition.Y - nextPathPosition.Y;
             deltaY = Math.Abs(deltaY);
             if (deltaX > deltaY)
             {
@@ -138,9 +112,10 @@ namespace MagicWorld.StaticLevelContent
                 else
                     movementSpeedY = MoveSpeed;
             }
-            if(!push)
+            if (!push)
             {
                 movementSpeedX = -movementSpeedX;
+                movementSpeedY = -movementSpeedY;
             }
             return new Vector2(movementSpeedX, movementSpeedY);
         }
@@ -158,7 +133,18 @@ namespace MagicWorld.StaticLevelContent
             {                
                 Vector2 push = calculatesVelocity(true);
                 push.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                
+                
+                if(this.position.X < spell.Position.X)
+                {
+                    push.X = -push.X;
+                }
+                if (this.position.Y > spell.Position.Y)
+                {
+                    push.Y = -push.Y;
+                }
+                
                 pushPullHandler.start(this,1000, push);
                 return false;
             }
@@ -166,7 +152,18 @@ namespace MagicWorld.StaticLevelContent
             {
                 Vector2 pull = calculatesVelocity(false);
                 pull.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                           
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+
+                if (this.position.X < spell.Position.X)
+                {
+                    pull.X = -pull.X;
+                }
+                if (this.position.Y > spell.Position.Y)
+                {
+                    pull.Y = -pull.Y;
+                }
+
                 pushPullHandler.start(this, 1000,pull);
                 return false;
             }
