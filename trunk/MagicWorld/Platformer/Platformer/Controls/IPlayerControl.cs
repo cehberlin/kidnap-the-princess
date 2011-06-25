@@ -11,6 +11,15 @@ namespace MagicWorld.Controls
     /// </summary>
     public interface IPlayerControl
     {
+        /// <summary>
+        /// GamePad Button for decreasing the power of the spell
+        /// </summary>
+        Buttons GamePad_DecreaseSpell { get; }
+
+        /// <summary>
+        /// GamePad Button for increasing the power of the spell
+        /// </summary>
+        Buttons GamePad_IncreaseSpell { get; }
 
         /// <summary>
         /// GamePad Button for Casting Selected Spell A
@@ -33,22 +42,22 @@ namespace MagicWorld.Controls
         Keys Keys_CastSelectedSpellB { get; }
 
         /// <summary>
-        /// GamePad Button for Selecteing Next Spell A
+        /// GamePad Button for Selecting Next Spell A
         /// </summary>
         Buttons GamePad_SelectedSpellA { get; }
 
         /// <summary>
-        /// GamePad Button for Selecteing Next Spell A
+        /// GamePad Button for Selecting Next Spell A
         /// </summary>
         Keys Keys_SelectedSpellA { get; }
 
         /// <summary>
-        /// GamePad Button for Selecteing Next Spell B
+        /// GamePad Button for Selecting Next Spell B
         /// </summary>
         Buttons GamePad_SelectedSpellB { get; }
 
         /// <summary>
-        /// Keyboard Button for Selecteing Next Spell B
+        /// Keyboard Button for Selecting Next Spell B
         /// </summary>
         Keys Keys_SelectedSpellB { get; }
 
@@ -111,7 +120,5 @@ namespace MagicWorld.Controls
         /// Keys button for moving right 
         /// </summary>
         Keys Keys_Right { get; }
-
-
     }
 }
