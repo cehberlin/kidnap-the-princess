@@ -20,15 +20,32 @@ namespace MagicWorld.StaticLevelContent
         const String LAYER_COLLECTABLEITEMS = "Ingredient";
         const String LAYER_SPECIAL = "Special";
 
+        #region switch and switchable
+
         const String PROPERTY_SWITCH = "switch";
         const String PROPERTY_SWITCH_ELECTRICITY = "switch_electricitySwitch";
         const String PROPERTY_SWITCH_TORCH_ON = "switch_torch_on";
         const String PROPERTY_SWITCH_TORCH_OFF = "switch_torch_off";
         const String PROPERTY_SWITCH_TIME = "switchTime";
+        const String PROPERTY_SWITCH_DESTROY = "switch_destroy";
 
         const String PROPERTY_SWITCHABLE = "switchable";
         const String PROPERTY_DOOR = "door";
+        const String PROPERTY_GRAVITY_ELEMENT = "gravity_element";
+        const String PROPERTY_ENABLE_GRAVITY = "enable_gravity";
+        const String PROPERTY_ENABLE_COLLISION = "enable_collision";
 
+        #endregion
+
+        #region collision type
+        const String PROPERTY_COLLISION_TYPE = "collision_type";
+        const String PROPERTY_COLLISION_TYPE_PASSABLE = "passable";
+        const String PROPERTY_COLLISION_TYPE_IMPASSABLE = "impassable";
+        const String PROPERTY_COLLISION_TYPE_PLATFORM = "platform";
+        #endregion
+
+        const String PROPERTY_TRUE = "True";
+        const String PROPERTY_FALSE = "False";
 
         #region "Level Properties"
         // Item name of Item with all custom properties for the level
@@ -103,7 +120,6 @@ namespace MagicWorld.StaticLevelContent
                     usableSpellList.AddLast(SpellType.PushSpell);
                 }
 
-
                 return usableSpellList.ToArray();
             }
             set
@@ -112,7 +128,10 @@ namespace MagicWorld.StaticLevelContent
             }
         }
 
-
+        /// <summary>
+        /// minimum ingredients
+        /// </summary>
+        /// <returns></returns>
         public int getMinimumItemsToEndLevel()
         {
 
@@ -136,10 +155,8 @@ namespace MagicWorld.StaticLevelContent
 
 
             // get switches
-
             LinkedList<AbstractSwitch> switchList = loadSwitches(elements);
-
-
+            
 
             //The platforms.
             Layer layer = levelLoader.getLayerByName("Middle");
@@ -157,6 +174,7 @@ namespace MagicWorld.StaticLevelContent
                 Ingredient i = new Ingredient("LevelContent/Cave/bone", CollisionType.Passable, level, item.Position);
                 elements.Add(i);
             }
+
             //The enemies layer.
             Layer enemiesLayer = levelLoader.getLayerByName("Enemy");
             foreach (Item item in enemiesLayer.Items)
@@ -182,35 +200,62 @@ namespace MagicWorld.StaticLevelContent
                 elements.Add(e);
             }
 
-
-            //The moveable platform layer.
-            Layer moveablePlatformLayer = levelLoader.getLayerByName("Moveable Platform");
-            if (moveablePlatformLayer != null)
+            try
             {
-                foreach (Item item in moveablePlatformLayer.Items)
+                //The layer of push and pullable items.
+                Layer pushPullLayer = levelLoader.getLayerByName("PushPull");
+                foreach (Item item in pushPullLayer.Items)
                 {
-                    //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                    if (!(Boolean)item.CustomProperties["Spell"].value)
+                    bool enablegravity = false;
+                    enablegravity = checkForEnabledGravity(item, enablegravity);
+                    TextureItem ti = (TextureItem)item;
+
+                    CollisionType collisionType = CollisionType.Impassable;
+                    collisionType = getCollisionType(item, collisionType);
+                    PushPullElement pushPullElement = new PushPullElement(ti.asset_name, collisionType, level, item.Position, enablegravity);
+
+                    elements.Add(pushPullElement);
+                }
+            }
+            catch {
+                //no handling because layer is optional
+            }
+
+            try
+            {
+                //The moveable platform layer.
+                Layer moveablePlatformLayer = levelLoader.getLayerByName("Moveable Platform");
+                if (moveablePlatformLayer != null)
+                {
+                    foreach (Item item in moveablePlatformLayer.Items)
                     {
-                        TextureItem t = (TextureItem)item;
-                        PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                        MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
-                        m.Position -= t.Origin;
-                        m.Width = (int)t.Origin.X * 2;
-                        m.Height = (int)t.Origin.Y * 2;
-                        elements.Add(m);
-                    }
-                    else
-                    {
-                        TextureItem t = (TextureItem)item;
-                        PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                        SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
-                        m.Position -= t.Origin;
-                        m.Width = (int)t.Origin.X * 2;
-                        m.Height = (int)t.Origin.Y * 2;
-                        elements.Add(m);
+                        //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
+                        if (!(Boolean)item.CustomProperties["Spell"].value)
+                        {
+                            TextureItem t = (TextureItem)item;
+                            PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                            MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
+                            m.Position -= t.Origin;
+                            m.Width = (int)t.Origin.X * 2;
+                            m.Height = (int)t.Origin.Y * 2;
+                            elements.Add(m);
+                        }
+                        else
+                        {
+                            TextureItem t = (TextureItem)item;
+                            PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                            SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
+                            m.Position -= t.Origin;
+                            m.Width = (int)t.Origin.X * 2;
+                            m.Height = (int)t.Origin.Y * 2;
+                            elements.Add(m);
+                        }
                     }
                 }
+            }
+            catch
+            {
+                //no handling because layer is optional
             }
 
             // get switchable items
@@ -231,9 +276,106 @@ namespace MagicWorld.StaticLevelContent
                         connectSwitchable(switchList, id, door);
                     }
                 }
+                else if (item.CustomProperties.ContainsKey(PROPERTY_GRAVITY_ELEMENT))
+                {
+                    bool enablegravity = false;
+                    enablegravity = checkForEnabledGravity(item, enablegravity);
+
+                    bool enablecollision=false;
+                    enablecollision = checkForEnabledCollision(item, enablecollision);
+
+                    TextureItem ti = (TextureItem)item;
+
+                    CollisionType collisionType = CollisionType.Impassable;
+                    collisionType = getCollisionType(item, collisionType);
+
+                    GravityElement gravityElement = new GravityElement(ti.asset_name, collisionType, level, getCorrectedStartPosition(ti), enablecollision, enablegravity);
+                    correctWidhAndHeight(gravityElement, ti);
+                    elements.Add(gravityElement);
+
+                    if (item.CustomProperties.ContainsKey(PROPERTY_SWITCHABLE))
+                    {
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
+                        connectSwitchable(switchList, id, gravityElement);
+                    }
+                }
             }
 
             return elements;
+        }
+
+        /// <summary>
+        /// analyse the enable collision property
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="enablecollision"></param>
+        /// <returns></returns>
+        private static bool checkForEnabledCollision(Item item, bool enablecollision)
+        {
+            if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_COLLISION))
+            {
+                String enablegrav = (String)item.CustomProperties[PROPERTY_ENABLE_COLLISION].value;
+                if (enablegrav.Equals(PROPERTY_TRUE))
+                {
+                    enablecollision = true;
+                }
+                else
+                {
+                    enablecollision = false;
+                }
+            }
+            return enablecollision;
+        }
+
+        /// <summary>
+        /// analyse the enable gravity property
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="enablegravity"></param>
+        /// <returns></returns>
+        private static bool checkForEnabledGravity(Item item, bool enablegravity)
+        {
+            if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_GRAVITY))
+            {
+                String enablegrav = (String)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;
+                if (enablegrav.Equals(PROPERTY_TRUE))
+                {
+                    enablegravity = true;
+                }
+                else
+                {
+                    enablegravity = false;
+                }
+            }
+            return enablegravity;
+        }
+
+
+        /// <summary>
+        /// analyses the custom property collision type
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="defaultCollision"></param>
+        /// <returns></returns>
+        private static CollisionType getCollisionType(Item item, CollisionType defaultCollision)
+        {
+            if (item.CustomProperties.ContainsKey(PROPERTY_COLLISION_TYPE))
+            {
+                String collisiontype = (String)item.CustomProperties[PROPERTY_COLLISION_TYPE].value;
+                if (collisiontype.Equals(PROPERTY_COLLISION_TYPE_IMPASSABLE))
+                {
+                    defaultCollision = CollisionType.Impassable;
+                }
+                else if (collisiontype.Equals(PROPERTY_COLLISION_TYPE_PASSABLE))
+                {
+                    defaultCollision = CollisionType.Passable;
+                }
+                else if (collisiontype.Equals(PROPERTY_COLLISION_TYPE_PLATFORM))
+                {
+                    defaultCollision = CollisionType.Platform;
+                }
+            }
+            return defaultCollision;
         }
 
         
@@ -449,6 +591,17 @@ namespace MagicWorld.StaticLevelContent
                     TextureItem ti = (TextureItem)item;
 
                     TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, false);
+                    correctWidhAndHeight(pds, ti);
+
+                    switchList.AddLast(pds);
+                    elements.Add(pds);
+                }
+                else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_DESTROY))
+                {
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    TextureItem ti = (TextureItem)item;
+
+                    OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
                     correctWidhAndHeight(pds, ti);
 
                     switchList.AddLast(pds);
