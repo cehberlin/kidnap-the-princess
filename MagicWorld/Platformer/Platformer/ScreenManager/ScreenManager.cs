@@ -276,6 +276,25 @@ namespace MagicWorld
             return screens.ToArray();
         }
 
+        /// <summary>
+        /// Get the play screen from the list
+        /// </summary>
+        /// <param name="ScreenName"></param>
+        /// <returns></returns>
+        public GameScreen GetPlayScreen()
+        {
+            GameScreen[] screens = GetScreens();
+            foreach (GameScreen screen in screens)
+            {
+                if (screen.GetType().Equals(typeof(GameplayScreen)))
+                {
+                    return screen;
+                }
+            }
+            return null;
+        }
+
+
         public bool IsGameplayScreenActive()
         {
             GameScreen[] screens = GetScreens();

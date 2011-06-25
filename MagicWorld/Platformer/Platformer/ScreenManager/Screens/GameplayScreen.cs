@@ -282,7 +282,7 @@ namespace MagicWorld
         }
 
         #region level
-        private void LoadLevel(int num)
+        public void LoadLevel(int num)
         {
             levelIndex = num;
             Debug.WriteLine("load level " + num);
@@ -297,10 +297,25 @@ namespace MagicWorld
             ScreenManager.Game.Services.RemoveService(typeof(Level));
             ScreenManager.Game.Services.AddService(typeof(Level), level);
             levelAddedToService = true;
+
+            //actualize information to save the game
+            ScreenManager.Game.GameData.Level = num;
+            ScreenManager.Game.GameData.ItemsCollected = 0;
+            ScreenManager.Game.GameData.TotalItems = level.MaxIngredientsCount;
+            ScreenManager.Game.GameData.Completed = "Failed";
+            ScreenManager.Game.SaveGame(num);
+
             // }
         }
         private void LoadNextLevel()
         {
+            //save the game
+
+            ScreenManager.Game.GameData.Level = levelIndex;
+            ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;            
+            ScreenManager.Game.GameData.Completed = "Accomplished";
+            ScreenManager.Game.SaveGame(levelIndex);
+
             LoadLevel(levelIndex + 1);
         }
 

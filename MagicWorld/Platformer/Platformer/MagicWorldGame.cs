@@ -1,10 +1,13 @@
 using System;
 using System.IO;
+using System.Xml.Serialization;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Storage;
 using MagicWorld.StaticLevelContent;
 using MagicWorld.Gleed2dLevelContent;
 using MagicWorld.HUDClasses;
@@ -15,11 +18,25 @@ using MagicWorld.BlendInClasses;
 using MagicWorld.Audio;
 using MagicWorld.Constants;
 
+
 namespace MagicWorld
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+    /// 
+
+    [Serializable]
+    public struct SaveGameData
+    {       
+        
+        public int Level;
+        public int ItemsCollected;
+        public int TotalItems;
+        public string Completed;
+    }
+
+
     public class MagicWorldGame : Microsoft.Xna.Framework.Game
     {
 
@@ -30,6 +47,7 @@ namespace MagicWorld
         AimingAid aid;
         TutorialManager tutManager;
 
+        public SaveGameData GameData;
         ConstantChanger constantChanger;
 
         ParticleSystem explosionParticleSystem;
@@ -207,6 +225,56 @@ namespace MagicWorld
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
             
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Save the game
+        /// the game name is Level<level Number>
+        /// </summary>
+        /// <param name="level"></param>
+        public void SaveGame(int level)
+        {
+            IAsyncResult result;
+            
+            string fileName="Level" + level.ToString();
+
+            // Open a storage container.
+
+            result = StorageDevice.BeginShowSelector(
+                            PlayerIndex.One, null, null);
+            
+
+            StorageDevice device = StorageDevice.EndShowSelector(result);
+
+            result = device.BeginOpenContainer("MagicWorld", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result);
+
+            // Close the wait handle.
+            result.AsyncWaitHandle.Close();
+
+            
+            // Check to see whether the save exists.
+            if (container.FileExists(fileName))
+                // Delete it so that we can create one fresh.
+                container.DeleteFile(fileName);
+
+            // Create the file.
+            Stream stream = container.CreateFile(fileName);
+
+            // Convert the object to XML data and put it in the stream.
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
+            serializer.Serialize(stream, GameData);
+
+            // Close the file.
+            stream.Close();
+
+            // Dispose the container, to commit changes.
+            container.Dispose();
+
         }
         
     }
