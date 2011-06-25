@@ -1931,6 +1931,71 @@
                         <Y>240</Y>
                     </Origin>
                 </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0268" Visible="true">
+                    <Position>
+                        <X>2535</X>
+                        <Y>1917</Y>
+                    </Position>
+                    <CustomProperties>
+                        <Property Name="switchable" Type="string" Description="">
+                            <string>door01</string>
+                        </Property>
+                        <Property Name="door" Type="string" Description="">
+                            <string />
+                        </Property>
+                    </CustomProperties>
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\door.png</texture_filename>
+                    <asset_name>LevelContent\Cave\door</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>78</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0269" Visible="true">
+                    <Position>
+                        <X>2130</X>
+                        <Y>1972</Y>
+                    </Position>
+                    <CustomProperties>
+                        <Property Name="switch_torch_off" Type="string" Description="">
+                            <string>door01</string>
+                        </Property>
+                    </CustomProperties>
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\switch.png</texture_filename>
+                    <asset_name>LevelContent\Cave\switch</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>19</Y>
+                    </Origin>
+                </Item>
             </Items>
             <ScrollSpeed>
                 <X>1</X>
@@ -2376,6 +2441,33 @@
                     <Origin>
                         <X>400</X>
                         <Y>400</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0267" Visible="true">
+                    <Position>
+                        <X>2969</X>
+                        <Y>1675</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Blockades\blockade0002.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Blockades\blockade0002</asset_name>
+                    <Origin>
+                        <X>477</X>
+                        <Y>165</Y>
                     </Origin>
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0193" Visible="true">
@@ -2844,11 +2936,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>266</NextItemNumber>
+        <NextItemNumber>269</NextItemNumber>
         <ContentRootFolder>F:\workspace\gameprogramming\trunk\MagicWorld\Platformer\Content\</ContentRootFolder>
         <CameraPosition>
-            <X>691.668335</X>
-            <Y>1608.33936</Y>
+            <X>2325.00562</X>
+            <Y>1550.00574</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>

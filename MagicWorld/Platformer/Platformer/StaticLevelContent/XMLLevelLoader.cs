@@ -562,7 +562,7 @@ namespace MagicWorld.StaticLevelContent
                 }
                 else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_ON))
                 {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH_TORCH_ON].value;
                     TextureItem ti = (TextureItem)item;
 
                     TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, true);
@@ -573,7 +573,7 @@ namespace MagicWorld.StaticLevelContent
                 }
                 else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_TORCH_OFF))
                 {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH_TORCH_OFF].value;
                     TextureItem ti = (TextureItem)item;
 
                     TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, false);
