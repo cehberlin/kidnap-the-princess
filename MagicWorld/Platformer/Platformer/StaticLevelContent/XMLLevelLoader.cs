@@ -492,11 +492,11 @@ namespace MagicWorld.StaticLevelContent
 
         #endregion
 
-        Gleed2dLevelLoader levelLoader;
+        MagicWorld.Gleed2dLevelContent.Level levelLoader;
 
         public XMLLevelLoader(int levelNumber)
         {
-            levelLoader = Gleed2dLevelLoader.FromFile("Content/LevelData/level" + levelNumber.ToString() + ".xml");
+            levelLoader = MagicWorld.Gleed2dLevelContent.Level.FromFile("Content/LevelData/level" + levelNumber.ToString() + ".xml");
             author = DetectAuthor();
         }
 
