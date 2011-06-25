@@ -24,3 +24,4 @@ Runtime edit of constants:
   * Increase current constant -> 2
   * Decrease current constant -> 1
   * Switch through intenal values of constant -> LEFT ALT
+  * Reset to hardcoded start calue -> 5
