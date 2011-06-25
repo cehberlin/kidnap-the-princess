@@ -92,6 +92,11 @@ namespace MagicWorld.Constants
                 Constants[currentGroupIdx].ConstantValues[currentGroupItemIdx].switchInternalValues();
             }
 
+            if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_CONSTANT_ITEM_RESET) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_CONSTANT_ITEM_RESET))
+            {
+                Constants[currentGroupIdx].ConstantValues[currentGroupItemIdx].resetToStart();
+            }
+
             if (keyboardState.IsKeyDown(GameOptionsControls.DEBUG_CONSTANT_ITEM_INCREASE))
             {
                 Constants[currentGroupIdx].ConstantValues[currentGroupItemIdx].Increment();

@@ -29,6 +29,7 @@ namespace MagicWorld.Controls
         public const Keys DEBUG_CONSTANT_ITEM_INCREASE = Keys.D2;
         public const Keys DEBUG_CONSTANT_ITEM_DECREASE = Keys.D1;
         public const Keys DEBUG_CONSTANT_ITEM_SWITCH_INTERNAL = Keys.LeftAlt;
+        public const Keys DEBUG_CONSTANT_ITEM_RESET = Keys.D5;        
 
         #endregion
     }
