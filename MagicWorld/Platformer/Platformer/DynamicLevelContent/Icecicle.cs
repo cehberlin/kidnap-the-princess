@@ -130,7 +130,7 @@ namespace MagicWorld
             }
         }
 
-        protected void HandleCollisionForOneObject(BasicGameElement element)
+        protected void HandleCollisionForOneObject(BasicGameElement element,bool xAxisCollision, bool yAxisCollision)
         {
             if (element.GetType() == typeof(Enemy))
             {

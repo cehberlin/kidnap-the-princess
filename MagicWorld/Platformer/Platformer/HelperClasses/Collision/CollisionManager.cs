@@ -12,7 +12,13 @@ namespace MagicWorld.HelperClasses
     {
         Level level;
 
-        public delegate void OnCollisionWithCallback(BasicGameElement element);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="xAxisCollision">if true collision on x axis</param>
+        /// <param name="xAxisCollision">if true collision on y axis</param>
+        public delegate void OnCollisionWithCallback(BasicGameElement element, bool xAxisCollision, bool yAxisCollision);
 
         public CollisionManager(Level level)
         {
@@ -128,11 +134,11 @@ namespace MagicWorld.HelperClasses
         /// <param name="movement"></param>
         /// <param name="callback"></param>
         /// <param name="ignorePlatforms"></param>
-        public void HandleGeneralCollisions(BasicGameElement elem, OnCollisionWithCallback callback = null,  bool ignorePlatforms = false,bool resolveCollision = true)
+        public void HandleGeneralCollisions(BasicGameElement elem, OnCollisionWithCallback callback = null, bool ignorePlatforms = false, bool resolveCollision = true)
         {
             Bounds dummy_bounds = new Bounds(Vector2.Zero, 0);
             bool isOnGroundDummy = false;
-            HandleGeneralCollisionsInternal(elem, ref dummy_bounds, ref isOnGroundDummy , callback, ignorePlatforms,resolveCollision,true);
+            HandleGeneralCollisionsInternal(elem, ref dummy_bounds, ref isOnGroundDummy, callback, ignorePlatforms, resolveCollision, true);
         }
 
         /// <summary>
@@ -144,9 +150,9 @@ namespace MagicWorld.HelperClasses
         /// <param name="IsOnGround">give you information if the object is on ground or not</param>
         /// <param name="callback">delegate which called for every object which has collision</param>
         /// <param name="ignorePlatforms">set true if plattforms should ignored ->allows moving down thourogh plattforms</param>
-        public void HandleGeneralCollisions(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback = null, bool ignorePlatforms = false,bool resolveCollision = true)
+        public void HandleGeneralCollisions(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback = null, bool ignorePlatforms = false, bool resolveCollision = true)
         {
-            HandleGeneralCollisionsInternal(elem, ref oldBounds, ref IsOnGround,callback, ignorePlatforms,resolveCollision,false);
+            HandleGeneralCollisionsInternal(elem, ref oldBounds, ref IsOnGround, callback, ignorePlatforms, resolveCollision, false);
         }
 
         /// <summary>
@@ -168,9 +174,9 @@ namespace MagicWorld.HelperClasses
             IsOnGround = false;
 
             foreach (BasicGameElement t in collisionObjects)
-            {                
+            {
                 CollisionType collision = t.Collision;
-                if (collision != CollisionType.Passable && t!=elem)
+                if (collision != CollisionType.Passable && t != elem)
                 {
                     if (collision == CollisionType.Platform && ignorePlatforms)
                     {
@@ -185,7 +191,7 @@ namespace MagicWorld.HelperClasses
                         float absDepthY = Math.Abs(depth.Y);
 
                         // Resolve the collision along the y axis.
-                        if (absDepthY < absDepthX || collision == CollisionType.Platform )
+                        if (absDepthY < absDepthX || collision == CollisionType.Platform)
                         {
                             if (oldBounds.Position.Y != elem.Bounds.Position.Y || ignoreBounds)
                             {
@@ -200,15 +206,15 @@ namespace MagicWorld.HelperClasses
                                     //this condition is necessary if we ware on ground and have a collision with another plattform with upper player body
                                     || IsOnGround && t.Bounds.getRectangle().Bottom > elem.Bounds.getRectangle().Bottom)
                                 {
-                                        if (resolveCollision)
-                                        {
-                                            // Resolve the collision along the Y axis.
-                                            elem.Position = new Vector2(elem.Position.X, elem.Position.Y + depth.Y);
-                                        }
-                                        if (callback != null)
-                                        {
-                                            callback.Invoke(t);
-                                        }                                    
+                                    if (resolveCollision)
+                                    {
+                                        // Resolve the collision along the Y axis.
+                                        elem.Position = new Vector2(elem.Position.X, elem.Position.Y + depth.Y);
+                                    }
+                                    if (callback != null)
+                                    {
+                                        callback.Invoke(t, false, true);
+                                    }
                                 }
                             }
                         }
@@ -224,7 +230,7 @@ namespace MagicWorld.HelperClasses
                                 }
                                 if (callback != null)
                                 {
-                                    callback.Invoke(t);
+                                    callback.Invoke(t, true, false);
                                 }
                             }
                         }
@@ -253,7 +259,13 @@ namespace MagicWorld.HelperClasses
                 {
                     if (callback != null)
                     {
-                        callback.Invoke(t);
+                        //get depth of intersection
+                        Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
+
+                        if (depth != Vector2.Zero)
+                        {
+                            callback.Invoke(t, depth.X != 0, depth.Y != 0);
+                        }
                     }
                 }
             }

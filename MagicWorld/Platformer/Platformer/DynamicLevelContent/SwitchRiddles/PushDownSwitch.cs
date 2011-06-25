@@ -40,7 +40,8 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             base.Update(gameTime);
         }
 
-        protected void HandleCollisionWithSingleObject(BasicGameElement element){
+        protected void HandleCollisionWithSingleObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
+        {
             if (element.GetType() == typeof(MatterSpell) || element.GetType() == typeof(ShadowCreature))
             {
                 Activate();

@@ -270,7 +270,7 @@ namespace MagicWorld
 
         #endregion
 
-        protected void HandleCollisionWithObject(BasicGameElement element)
+        protected void HandleCollisionWithObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
             //TODO SET WAITTIME OR SOMETHING LIKE THIS
             if (element.GetType() == typeof(BlockElement))

@@ -378,7 +378,7 @@ namespace MagicWorld
         /// </summary>
         protected CollisionManager.OnCollisionWithCallback collisionCallback;
 
-        protected virtual void HandleCollisionForOneObject(BasicGameElement element)
+        protected virtual void HandleCollisionForOneObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
             if (element.SpellInfluenceAction(this))
             {
