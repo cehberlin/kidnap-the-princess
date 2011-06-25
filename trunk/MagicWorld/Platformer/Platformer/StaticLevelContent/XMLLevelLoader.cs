@@ -22,7 +22,7 @@ namespace MagicWorld.StaticLevelContent
 
         #region switch and switchable
 
-        const String PROPERTY_SWITCH = "switch";
+        const String PROPERTY_SWITCH = "switch_weight";
         const String PROPERTY_SWITCH_ELECTRICITY = "switch_electricitySwitch";
         const String PROPERTY_SWITCH_TORCH_ON = "switch_torch_on";
         const String PROPERTY_SWITCH_TORCH_OFF = "switch_torch_off";
@@ -196,8 +196,10 @@ namespace MagicWorld.StaticLevelContent
                     e.Position -= t.Origin;
 
                 }
-
-                elements.Add(e);
+                if (e != null)
+                {
+                    elements.Add(e);
+                }
             }
 
             try
@@ -314,15 +316,7 @@ namespace MagicWorld.StaticLevelContent
         {
             if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_COLLISION))
             {
-                String enablegrav = (String)item.CustomProperties[PROPERTY_ENABLE_COLLISION].value;
-                if (enablegrav.Equals(PROPERTY_TRUE))
-                {
-                    enablecollision = true;
-                }
-                else
-                {
-                    enablecollision = false;
-                }
+                enablecollision = (bool)item.CustomProperties[PROPERTY_ENABLE_COLLISION].value;                
             }
             return enablecollision;
         }
@@ -337,15 +331,7 @@ namespace MagicWorld.StaticLevelContent
         {
             if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_GRAVITY))
             {
-                String enablegrav = (String)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;
-                if (enablegrav.Equals(PROPERTY_TRUE))
-                {
-                    enablegravity = true;
-                }
-                else
-                {
-                    enablegravity = false;
-                }
+                enablegravity = (bool)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;                
             }
             return enablegravity;
         }
@@ -598,7 +584,7 @@ namespace MagicWorld.StaticLevelContent
                 }
                 else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_DESTROY))
                 {
-                    String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                    String id = (String)item.CustomProperties[PROPERTY_SWITCH_DESTROY].value;
                     TextureItem ti = (TextureItem)item;
 
                     OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
@@ -615,7 +601,7 @@ namespace MagicWorld.StaticLevelContent
 
         private void connectSwitchable(LinkedList<AbstractSwitch> switchList, String id, IActivation switchableObject)
         {
-            foreach (PushDownSwitch sw in switchList)
+            foreach (AbstractSwitch sw in switchList)
             {
                 if (sw.ID.Equals(id))
                 {
