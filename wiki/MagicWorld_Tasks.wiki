@@ -2,8 +2,6 @@
 
 = in Progress =
 
-  # add one time destroyable switch to level editor -->christopher
-  # add to leveleditor elements that are influenced by push/pull -> christopher
 = TODO =
 
   == Beta (29.06) ==
