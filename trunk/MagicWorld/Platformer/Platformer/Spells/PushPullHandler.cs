@@ -122,6 +122,7 @@ namespace MagicWorld.Spells
                     // Move in the current direction.
                     influenceVelocity = new Vector2((float)influenceVelocity.X * currentAccelarationX, (float)influenceVelocity.Y * currentAccelarationY);
 
+                    //pushing X Axis
                     if(influenceVelocity.X > 0)
                     {
                         if (element.Position.X < nextPath.X)
@@ -129,9 +130,25 @@ namespace MagicWorld.Spells
                             element.Position += influenceVelocity;
                         }
                     }
+                    //pulling X Axis
                     else if (influenceVelocity.X < 0)
                     {
                         if (element.Position.X > currentPath.X)
+                        {
+                            element.Position += influenceVelocity;
+                        }
+                    }
+                    //pull Y Axis
+                    else if (influenceVelocity.X == 0 && influenceVelocity.Y > 0)
+                    {
+                        if (element.Position.Y < currentPath.Y)
+                        {
+                            element.Position += influenceVelocity;
+                        }
+                    }
+                    else if (influenceVelocity.X == 0 && influenceVelocity.Y < 0)
+                    {
+                        if (element.Position.Y < currentPath.Y)
                         {
                             element.Position += influenceVelocity;
                         }
