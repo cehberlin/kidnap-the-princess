@@ -9,6 +9,7 @@
 
 #region Using Statements
 using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,6 +30,7 @@ namespace MagicWorld
         List<MenuEntry> menuEntries = new List<MenuEntry>();
         int selectedEntry = 0;
         string menuTitle;
+        
 
         #endregion
 
@@ -44,6 +46,10 @@ namespace MagicWorld
             get { return menuEntries; }
         }
 
+        protected int SelectedEntry
+        {
+            get { return selectedEntry;}
+        }
 
         #endregion
 
@@ -58,7 +64,7 @@ namespace MagicWorld
             this.menuTitle = menuTitle;
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
-            TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);            
         }
 
 
@@ -73,6 +79,9 @@ namespace MagicWorld
         /// </summary>
         public override void HandleInput(InputState input)
         {
+
+            
+
             // Move to the previous menu entry?
             if (input.IsMenuUp(ControllingPlayer))
             {
@@ -90,6 +99,7 @@ namespace MagicWorld
                 if (selectedEntry >= menuEntries.Count)
                     selectedEntry = 0;
             }
+            
 
             // Accept or cancel the menu? We pass in our ControllingPlayer, which may
             // either be null (to accept input from any player) or a specific index.
@@ -106,6 +116,9 @@ namespace MagicWorld
             {
                 OnCancel(playerIndex);
             }
+
+            
+
         }
 
 
@@ -135,6 +148,8 @@ namespace MagicWorld
             OnCancel(e.PlayerIndex);
         }
 
+
+        
 
         #endregion
 
