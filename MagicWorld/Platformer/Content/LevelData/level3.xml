@@ -475,13 +475,13 @@
                         <Y>78</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="switch" Visible="true">
+                <Item xsi:type="TextureItem" Name="switch_weight" Visible="true">
                     <Position>
                         <X>505</X>
                         <Y>-28</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="switch" Type="string" Description="">
+                        <Property Name="switch_weight" Type="string" Description="">
                             <string>door01</string>
                         </Property>
                     </CustomProperties>

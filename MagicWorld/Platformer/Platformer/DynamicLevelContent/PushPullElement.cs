@@ -48,6 +48,7 @@ namespace MagicWorld.DynamicLevelContent
         /// <returns></returns>
         public override bool SpellInfluenceAction(Spell spell)
         {
+            //TODO BUG!! we must decide on which side of the wizard is the element
             if (spell.SpellType == SpellType.PullSpell)
             {
                 //TODO put values into constant class
