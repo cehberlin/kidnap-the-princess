@@ -106,7 +106,7 @@ namespace MagicWorld.Gleed2dLevelContent
         /// Must be called after all Items have been deserialized. 
         /// Restores the Item references in CustomProperties of type Item.
         /// </summary>
-        public void RestoreItemAssociations(Gleed2dLevelLoader level)
+        public void RestoreItemAssociations(Level level)
         {
             foreach (CustomProperty cp in Values)
             {
