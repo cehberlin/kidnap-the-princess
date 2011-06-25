@@ -13,10 +13,12 @@ namespace MagicWorld.Constants
         /// increment value
         /// </summary>
         void Increment();
+
         /// <summary>
         /// decrement value
         /// </summary>
         void Decrement();
+
         /// <summary>
         /// draw value
         /// </summary>
@@ -31,5 +33,10 @@ namespace MagicWorld.Constants
         void switchInternalValues();
 
         string Name();
+
+        /// <summary>
+        /// reset to start configuration
+        /// </summary>
+        void resetToStart();
     }
 }

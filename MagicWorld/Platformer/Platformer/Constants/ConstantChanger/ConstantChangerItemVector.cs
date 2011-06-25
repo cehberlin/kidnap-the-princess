@@ -17,6 +17,8 @@ namespace MagicWorld.Constants
 
         bool changeX = true;
 
+        Vector2 startValue;
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -28,6 +30,7 @@ namespace MagicWorld.Constants
             this.value = value;
             this.changeFactor = changeFactor;
             this.name = name;
+            startValue = value;
         }
 
         #region IConstantChangerItem Member
@@ -69,6 +72,11 @@ namespace MagicWorld.Constants
         public string Name()
         {
             return this.name;
+        }
+
+        public void resetToStart()
+        {
+            this.value = startValue;
         }
 
         #endregion
