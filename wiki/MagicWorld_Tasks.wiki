@@ -1,27 +1,27 @@
-= DELETE DONE WORK !!! PAY ATTENTION TO PRIORITY !!! =
-
+= PAY ATTENTION TO PRIORITY !!! DELETE DONE WORK !!!  =
+----
 = in Progress =
 
 = TODO =
 
   == Beta (29.06) ==
   # savegames and replaying of levels (for better score) --> amauri
-  # Gamelogo & menu background screen -> Pascal
-  # icicle in editor -> Pascal
-  # push/pull graphics -> Pascal
-  # electric spell graphics -> Pascal
-  # level textures -> Pascal
-  # pushable/pullable platform -> john
+  # Gamelogo -> Pascal
   # froozen creature graphic -> Pascal
   # level reset in menu ->  *???*
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
-  # level with icecle (only pass enemy by killing it with icecle)  -> *???*
   # level with push puzzle (see design doc) -> *???*
   # level with pullable platform and movable platform -> *???*
+  # level with icecle (only pass enemy by killing it with icecle)  -> *???*
+  # icicle in editor -> Pascal
+  # push/pull graphics -> Pascal
+  # electric spell graphics -> Pascal
+  # level textures -> Pascal
+  # pushable/pullable platform -> john
   # slow motion while casting -> *???*
-
+  # menu background -> Pascal
  
 
 
