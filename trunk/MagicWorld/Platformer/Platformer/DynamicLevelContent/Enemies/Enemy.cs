@@ -33,7 +33,7 @@ namespace MagicWorld
         /// <summary>
         /// The speed at which this enemy moves along the X axis.
         /// </summary>
-        private const float MoveSpeed = 64.0f;
+        private const float MoveSpeed = 120;
 
         /// <summary>
         /// callback delegate for collision with specific objects
