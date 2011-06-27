@@ -8,12 +8,10 @@
   # savegames and replaying of levels (for better score) --> amauri
   # shadow creature -> stops at chasm and change direction --> John
   # Gamelogo & menu background screen -> Pascal
-  # new door graphic -> Pascal
   # icicle in editor -> Pascal
   # push/pull graphics -> Pascal
   # electric spell graphics -> Pascal
   # level textures -> Pascal
-  # add torch texture -> Pascal
   # pushable/pullable platform -> john
   # froozen creature graphic -> Pascal
   # level reset in menu ->  *???*
