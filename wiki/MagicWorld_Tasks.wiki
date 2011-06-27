@@ -6,7 +6,6 @@
 
   == Beta (29.06) ==
   # savegames and replaying of levels (for better score) --> amauri
-  # shadow creature -> stops at chasm and change direction --> John
   # Gamelogo & menu background screen -> Pascal
   # icicle in editor -> Pascal
   # push/pull graphics -> Pascal
