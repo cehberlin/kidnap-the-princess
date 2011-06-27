@@ -40,7 +40,7 @@ namespace MagicWorld
         // levels in our content are 0-based and that all numbers under this constant
         // have a level file present. This allows us to not need to check for the file
         // or handle exceptions, both of which can add unnecessary time to level loading.
-        private const int numberOfLevels = 1;
+        //private const int numberOfLevels = 1;
 
         //check if the level was already added to a service
         bool levelAddedToService = false;

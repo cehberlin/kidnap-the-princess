@@ -652,7 +652,10 @@ namespace MagicWorld
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
                     //Use Thumbstick to aim the spell
-                    spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
+                    if (gamePadState.ThumbSticks.Left.Length() > 0.5f)
+                    {
+                        spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
+                    }
                     // casting angle
                     Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
                     if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
