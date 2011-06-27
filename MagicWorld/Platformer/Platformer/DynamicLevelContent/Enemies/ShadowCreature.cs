@@ -39,7 +39,7 @@ namespace MagicWorld
         /// <summary>
         /// The speed at which this enemy moves along the X axis.
         /// </summary>
-        private const float MoveSpeed = 64.0f;
+        private const float MoveSpeed = 120;
 
         private float acceleration = 1;
 
@@ -48,7 +48,8 @@ namespace MagicWorld
         Bounds oldBounds;
         bool isOnGround = false;
 
-        bool isConfused = false;
+        bool isPatralyzed = false;
+        bool isOnFire = false;
 
         public override Bounds Bounds
         {
@@ -118,9 +119,22 @@ namespace MagicWorld
             }
             else if (isBurning) // ****** isBurning ******
             {
+                if (CurrentVelocity.X < 0 && !isOnFire)
+                {
+                    CurrentVelocity = new Vector2(MoveSpeed, 0);
+                    isOnFire = true;
+                }
+                else if (CurrentVelocity.X > 0 && !isOnFire)
+                {
+                    CurrentVelocity = new Vector2(-MoveSpeed, 0);
+                    isOnFire = true;
+                }
+                
                 currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
                 if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)
                 {
+                    CurrentVelocity = new Vector2(-CurrentVelocity.X, 0);
+                    isOnFire= false;
                     isBurning = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
@@ -128,23 +142,11 @@ namespace MagicWorld
             }
             else if (isElectrified)
             {
-                if (CurrentVelocity.X < 0 && !isConfused)
-                {
-                    CurrentVelocity = new Vector2(MoveSpeed, 0);
-                    isConfused = true;
-                }
-                else if (CurrentVelocity.X > 0 && !isConfused)
-                {
-                    CurrentVelocity = new Vector2(-MoveSpeed, 0);
-                    isConfused = true;
-                }
-
                 currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
                 if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
                 {
-                    CurrentVelocity = new Vector2(-CurrentVelocity.X, 0);
                     isElectrified = false;
-                    isConfused = false;
+                    isPatralyzed = false;
                 }
 
                 currentParticles++;
@@ -177,6 +179,10 @@ namespace MagicWorld
                 {
                     acceleration = SpellInfluenceValues.burningMovingSpeedFactor;
                 }
+                else if (isElectrified)
+                {
+                    acceleration = 0.4f;
+                }
                 else
                 {
                     acceleration = 1;
@@ -185,16 +191,6 @@ namespace MagicWorld
                 oldPosition = Position;
                 Position = Position + velocity * elapsed * acceleration;
 
-                //if enemy can not move forward
-                if (isOnGround)
-                {
-                    float enemyMovementDelta = oldPosition.X - Position.X;
-                    enemyMovementDelta = Math.Abs(enemyMovementDelta);
-                    if (enemyMovementDelta < 1)
-                    {
-                        CurrentVelocity = CurrentVelocity * -1;
-                    }
-                }
             }
             //only handles physics collision
             level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
@@ -202,6 +198,11 @@ namespace MagicWorld
             if (isOnGround)
             {
                 CurrentVelocity = new Vector2(CurrentVelocity.X, 0);
+            }
+
+            if (checkIfEnemyWillFallDown() && isOnGround)
+            {
+                CurrentVelocity = turnarround(CurrentVelocity);
             }
         }
 
@@ -275,18 +276,38 @@ namespace MagicWorld
             //TODO SET WAITTIME OR SOMETHING LIKE THIS
             if (element.GetType() == typeof(BlockElement))
             {
-                BlockElement e = (BlockElement)element;
-                if (!e.Texture.Name.Contains("ground"))
+                if(xAxisCollision)
                 {
-                    CurrentVelocity = CurrentVelocity * -1;
-                    //waitTime = MaxWaitTime;
+                    CurrentVelocity = turnarround(CurrentVelocity);
                 }
             }
             else if (element.GetType() == typeof(ShadowCreature))
             {
                 ShadowCreature e = (ShadowCreature)element;
-                CurrentVelocity = CurrentVelocity * -1;
+                CurrentVelocity = turnarround(CurrentVelocity);
             }
+        }
+
+        private Vector2 turnarround(Vector2 velocity)
+        {
+            return velocity * -1;
+        }
+
+        private bool checkIfEnemyWillFallDown()
+        {
+            Bounds nextBound = this.Bounds;
+            if (CurrentVelocity.X > 0)
+                nextBound.Position = nextBound.Position + new Vector2(this.Bounds.Width, 10);
+            else
+                nextBound.Position = nextBound.Position + new Vector2(-this.Bounds.Width, 10);
+            foreach (BasicGameElement b in level.GeneralColliadableGameElements)
+            {
+                if (b.Bounds.Box.Intersects(nextBound.Box) && b.GetType() == typeof(BlockElement))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

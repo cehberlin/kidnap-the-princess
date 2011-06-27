@@ -24,10 +24,8 @@ namespace MagicWorld.StaticLevelContent
         private float movementSpeedY = 0;
         private PathItem path = null;
         private Bounds oldBounds = null;
-        private float acceleration = 1;
+        private Bounds currentBounds = null;
 
-        private Boolean isPushed;
-        private Boolean isPulled;
         protected PushPullHandler pushPullHandler = new PushPullHandler();
 
 
@@ -37,7 +35,9 @@ namespace MagicWorld.StaticLevelContent
             currentPathPosition = path.WorldPoints[pathPosition];
             nextPathPosition = path.WorldPoints[nextPosition];
             this.path = path;
-            oldBounds = this.Bounds;
+            this.Position = currentPathPosition;
+            currentBounds = new Bounds(this.Position, Width, Height);
+            oldBounds = currentBounds;
         }
 
         public override void LoadContent(string spriteSet)
@@ -48,7 +48,7 @@ namespace MagicWorld.StaticLevelContent
         #region Update
         public override void Update(GameTime gameTime)
         {
-            pushPullHandler.Update(gameTime, currentPathPosition, nextPathPosition);
+            pushPullHandler.Update(gameTime, currentPathPosition, nextPathPosition, currentBounds);
         }
 
         #endregion
@@ -125,22 +125,20 @@ namespace MagicWorld.StaticLevelContent
 
         private TimeSpan currentPushingTime = new TimeSpan(0, 0, 0);
 
-        double spellDurationOfActionMs = 0;
-
         public override Boolean SpellInfluenceAction(Spell spell)
         {
             if (spell.SpellType == SpellType.PushSpell)
-            {                
+            {  
                 Vector2 push = calculatesVelocity(true);
                 push.Normalize();
                 pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                
-                
-                if(this.position.X < spell.Position.X)
+                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+
+                if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
                 {
                     push.X = -push.X;
                 }
-                if (this.position.Y > spell.Position.Y)
+                if (this.position.Y >= spell.Position.Y)
                 {
                     push.Y = -push.Y;
                 }
@@ -155,7 +153,7 @@ namespace MagicWorld.StaticLevelContent
                 pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
                 pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
 
-                if (this.position.X < spell.Position.X)
+                if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
                 {
                     pull.X = -pull.X;
                 }

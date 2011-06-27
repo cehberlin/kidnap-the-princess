@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using MagicWorld.DynamicLevelContent;
+using MagicWorld.HelperClasses;
 
 namespace MagicWorld.Spells
 {
@@ -99,7 +100,7 @@ namespace MagicWorld.Spells
             }
         }
 
-        public void Update(GameTime gameTime, Vector2 currentPath, Vector2 nextPath)
+        public void Update(GameTime gameTime, Vector2 currentPath, Vector2 nextPath, Bounds bounds)
         {
             if (element != null)
             {
@@ -125,7 +126,7 @@ namespace MagicWorld.Spells
                     //pushing X Axis
                     if(influenceVelocity.X > 0)
                     {
-                        if (element.Position.X < nextPath.X)
+                        if (element.Position.X < nextPath.X - bounds.Width / 2)
                         {
                             element.Position += influenceVelocity;
                         }
@@ -133,7 +134,7 @@ namespace MagicWorld.Spells
                     //pulling X Axis
                     else if (influenceVelocity.X < 0)
                     {
-                        if (element.Position.X > currentPath.X)
+                        if (element.Position.X > currentPath.X - bounds.Width / 2)
                         {
                             element.Position += influenceVelocity;
                         }
@@ -141,14 +142,14 @@ namespace MagicWorld.Spells
                     //pull Y Axis
                     else if (influenceVelocity.X == 0 && influenceVelocity.Y > 0)
                     {
-                        if (element.Position.Y < currentPath.Y)
+                        if (element.Position.Y < currentPath.Y - bounds.Height / 2)
                         {
                             element.Position += influenceVelocity;
                         }
                     }
                     else if (influenceVelocity.X == 0 && influenceVelocity.Y < 0)
                     {
-                        if (element.Position.Y < currentPath.Y)
+                        if (element.Position.Y > nextPath.Y - bounds.Height / 2)
                         {
                             element.Position += influenceVelocity;
                         }
