@@ -5,7 +5,7 @@
 = TODO =
 
   == Beta (29.06) ==
-  # savegames and replaying of levels (for better score) --> amauri
+  # savegames and replaying of levels (for better score) --> 80% done. missing show the statistics. amauri
   # Gamelogo -> Pascal
   # froozen creature graphic -> Pascal
   # level reset in menu ->  *???*
@@ -27,6 +27,7 @@
 
 
 == pre Final (13.07) ==
+  # level transition -->amauri
   # instruction screen for level and spells (AGREE? )
   # spider: only moves in defined web area (in all directions)
   # save configuration (save settings like sound/resolutions)--> amauri
