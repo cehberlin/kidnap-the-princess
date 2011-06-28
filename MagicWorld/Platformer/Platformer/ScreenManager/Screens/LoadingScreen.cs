@@ -56,7 +56,7 @@ namespace MagicWorld
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
         }
 
-
+        
         /// <summary>
         /// Activates the loading screen.
         /// </summary>
@@ -75,6 +75,8 @@ namespace MagicWorld
 
             screenManager.AddScreen(loadingScreen, controllingPlayer);
         }
+
+        
 
 
         #endregion

@@ -32,15 +32,18 @@ namespace MagicWorld
             // Create our menu entries.
             MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game");
             MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
+            MenuEntry restartLevelMenuEntry = new MenuEntry("Restart Level");
             MenuEntry optionsGameMenuEntry = new MenuEntry("Options");
             
             // Hook up menu event handlers.
             resumeGameMenuEntry.Selected += OnCancel;
             quitGameMenuEntry.Selected += QuitGameMenuEntrySelected;
+            restartLevelMenuEntry.Selected += RestartLevelMenuEntrySelected;
             optionsGameMenuEntry.Selected += OptionsMenuEntrySelected;
 
             // Add entries to the menu.
             MenuEntries.Add(resumeGameMenuEntry);
+            MenuEntries.Add(restartLevelMenuEntry);
             MenuEntries.Add(optionsGameMenuEntry);
             MenuEntries.Add(quitGameMenuEntry);
         }
@@ -88,6 +91,32 @@ namespace MagicWorld
                 
             LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
                                                            new MainMenuScreen());
+        }
+
+        void RestartLevelMenuEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            
+            const string message = "Are you sure you want to restart the level?";
+
+            MessageBoxScreen confirmQuitMessageBox = new MessageBoxScreen(message);
+
+            confirmQuitMessageBox.Accepted += RestartLevelMessageBoxAccepted;
+
+            ScreenManager.AddScreen(confirmQuitMessageBox, ControllingPlayer);
+
+            
+        }
+
+        void RestartLevelMessageBoxAccepted(object sender, PlayerIndexEventArgs e)
+        {
+            GameplayScreen gameScreen;            
+
+            gameScreen = (GameplayScreen)ScreenManager.GetPlayScreen();
+            
+            gameScreen.ReloadCurrentLevel();
+
+            ScreenManager.AddScreen(gameScreen, ControllingPlayer);            
+            
         }
 
         /// <summary>

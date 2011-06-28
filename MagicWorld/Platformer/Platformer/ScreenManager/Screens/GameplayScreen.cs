@@ -319,7 +319,7 @@ namespace MagicWorld
             LoadLevel(levelIndex + 1);
         }
 
-        private void ReloadCurrentLevel()
+        public void ReloadCurrentLevel()
         {
             LoadLevel(levelIndex);
         }
