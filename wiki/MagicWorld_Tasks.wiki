@@ -8,7 +8,7 @@
   # savegames and replaying of levels (for better score) --> 80% done. missing show the statistics. amauri
   # Gamelogo -> Pascal
   # froozen creature graphic -> Pascal
-  # level reset in menu ->  amauri
+  # level reset in menu ->  amauri - Done
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
