@@ -72,7 +72,7 @@ namespace MagicWorld
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
             
-            LoadLevel(1);
+            //LoadLevel(1);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
