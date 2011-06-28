@@ -27,7 +27,7 @@ namespace MagicWorld
 
         private MagicWorldGame game;
 
-        public  new MagicWorldGame Game
+        public  MagicWorldGame Game
         {
             get { return game; }
             set { game = value; }
@@ -156,6 +156,7 @@ namespace MagicWorld
                 screensToUpdate.Add(screen);
 
             bool otherScreenHasFocus = !Game.IsActive;
+            
             bool coveredByOtherScreen = false;
 
             // Loop as long as there are screens waiting to be updated.
