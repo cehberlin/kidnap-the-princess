@@ -25,6 +25,12 @@ namespace MagicWorld
     /// </summary>
     abstract class MenuScreen : GameScreen
     {
+        //Animation player;
+        //Animation[] bats;
+        //Animation[] shadowCreatures;
+        //Texture2D[] ground;
+        //Texture2D[] background;
+
         #region Fields
 
         List<MenuEntry> menuEntries = new List<MenuEntry>();
@@ -35,7 +41,6 @@ namespace MagicWorld
         #endregion
 
         #region Properties
-
 
         /// <summary>
         /// Gets the list of menu entries, so derived classes can add
@@ -64,7 +69,12 @@ namespace MagicWorld
             this.menuTitle = menuTitle;
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
-            TransitionOffTime = TimeSpan.FromSeconds(0.5);            
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);   
+         
+            //Init animations
+            //bats = new Animation[6];
+            //shadowCreatures = new Animation[2];
+            //bats[0] = new Animation();
         }
 
 
@@ -79,9 +89,6 @@ namespace MagicWorld
         /// </summary>
         public override void HandleInput(InputState input)
         {
-
-            
-
             // Move to the previous menu entry?
             if (input.IsMenuUp(ControllingPlayer))
             {
@@ -116,11 +123,7 @@ namespace MagicWorld
             {
                 OnCancel(playerIndex);
             }
-
-            
-
         }
-
 
         /// <summary>
         /// Handler for when the user has chosen a menu entry.
@@ -130,7 +133,6 @@ namespace MagicWorld
             menuEntries[entryIndex].OnSelectEntry(playerIndex);
         }
 
-
         /// <summary>
         /// Handler for when the user has cancelled the menu.
         /// </summary>
@@ -138,7 +140,6 @@ namespace MagicWorld
         {
             ExitScreen();
         }
-
 
         /// <summary>
         /// Helper overload makes it easy to use OnCancel as a MenuEntry event handler.
@@ -148,14 +149,9 @@ namespace MagicWorld
             OnCancel(e.PlayerIndex);
         }
 
-
-        
-
         #endregion
 
         #region Update and Draw
-
-
         /// <summary>
         /// Allows the screen the chance to position the menu entries. By default
         /// all menu entries are lined up in a vertical list, centered on the screen.
@@ -191,7 +187,6 @@ namespace MagicWorld
             }
         }
 
-
         /// <summary>
         /// Updates the menu.
         /// </summary>
@@ -208,7 +203,6 @@ namespace MagicWorld
                 menuEntries[i].Update(this, isSelected, gameTime);
             }
         }
-
 
         /// <summary>
         /// Draws the menu.
