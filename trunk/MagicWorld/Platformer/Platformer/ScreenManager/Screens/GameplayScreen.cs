@@ -307,6 +307,7 @@ namespace MagicWorld
             ScreenManager.Game.GameData.Completed = "Failed";
             ScreenManager.Game.SaveGame(num);
 
+            ice.Clear();
             // }
         }
         private void LoadNextLevel()

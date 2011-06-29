@@ -69,5 +69,11 @@ namespace MagicWorld.BlendInClasses
         {
             return this;
         }
+
+
+        public void Clear()
+        {
+            positions.Clear();
+        }
     }
 }

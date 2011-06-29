@@ -15,7 +15,7 @@ namespace MagicWorld.StaticLevelContent
         public static ILevelLoader getLevel(int nr){
             //return new StaticLevelLoader(); //testing
             //return new XMLLevelLoader(5);//TEST
-            if (nr <= 6) 
+            if (nr <= 7) 
             {
                 return new XMLLevelLoader(nr); 
             } 
