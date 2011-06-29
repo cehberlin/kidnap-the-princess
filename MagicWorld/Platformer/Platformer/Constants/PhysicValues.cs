@@ -11,11 +11,6 @@ namespace MagicWorld
         class PhysicValues
         {
             /// <summary>
-            /// TODO balanced value (this is just a dummy value because somebody forgot to impl it)
-            /// </summary>
-            public static Vector2 PUSHPULL_ELEMENT_GRAVITY = new Vector2(0, 1);
-
-            /// <summary>
             /// Please add constants from the bottom if you want to change them online
             /// </summary>
             /// <returns></returns>
@@ -43,6 +38,7 @@ namespace MagicWorld
                 //group general physics
                 List<IConstantChangerItem> groupgeneralPhysics = new List<IConstantChangerItem>();
                 groupgeneralPhysics.Add(new ConstantChangerItemVector("DEFAULT_GRAVITY",ref DEFAULT_GRAVITY,0.01f));
+                groupgeneralPhysics.Add(new ConstantChangerItemVector("PUSHPULL_ELEMENT_GRAVITY", ref PUSHPULL_ELEMENT_GRAVITY, 0.01f));
                 groupgeneralPhysics.Add(slow_motion_factor);
                 Constants.Add(new ConstantGroup("generalPhysics", groupgeneralPhysics));              
 
@@ -53,6 +49,7 @@ namespace MagicWorld
             #region general Physics
 
             public static Vector2 DEFAULT_GRAVITY = new Vector2(0f,1f);
+            public static Vector2 PUSHPULL_ELEMENT_GRAVITY = new Vector2(0f, 0.5f);
 
 
             public static float SLOW_MOTION_FACTOR
