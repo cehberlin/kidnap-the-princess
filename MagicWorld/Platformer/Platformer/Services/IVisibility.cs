@@ -7,5 +7,6 @@ namespace MagicWorld.Services
     {
         void Add(Rectangle pos);
         void Remove(Rectangle pos);
+        void Clear();
     }
 }
