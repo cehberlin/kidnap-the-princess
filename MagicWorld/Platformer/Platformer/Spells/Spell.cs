@@ -403,8 +403,8 @@ namespace MagicWorld
 
         protected virtual void HandleObjectCollision()
         {
-            //do not resolve collision
-            level.CollisionManager.HandleGeneralCollisions(this, collisionCallback,false,false);
+            //do not resolve collision            
+            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
         }
 
         #endregion collision

@@ -191,5 +191,10 @@ namespace MagicWorld
             HandleOutOfLevelCollision();
          }
 
+        protected override void HandleObjectCollision()
+        {
+            level.CollisionManager.HandleGeneralCollisions(this, collisionCallback, false, false);
+        }
+
     }
 }
