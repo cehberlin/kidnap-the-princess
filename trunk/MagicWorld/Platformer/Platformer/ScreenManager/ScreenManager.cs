@@ -75,6 +75,14 @@ namespace MagicWorld
             set { traceEnabled = value; }
         }
 
+        ContentManager content;
+
+        public ContentManager ContentManager
+        {
+            get { return content; }
+            set { content = value; }
+        }
+
 
         #endregion
 
@@ -88,6 +96,7 @@ namespace MagicWorld
             : base(game)
         {
             this.game = game;
+            this.content = game.Content;
             Graphics = game.graphics;
         }
 
@@ -109,7 +118,7 @@ namespace MagicWorld
         protected override void LoadContent()
         {
             // Load content belonging to the screen manager.
-            ContentManager content = Game.Content;
+            //ContentManager content = Game.Content;
 
             font = content.Load<SpriteFont>("MenuScreen/menufont");
             blankTexture = content.Load<Texture2D>("MenuScreen/blank");

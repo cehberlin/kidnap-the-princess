@@ -1,24 +1,16 @@
 using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Storage;
-using MagicWorld.StaticLevelContent;
-using MagicWorld.Gleed2dLevelContent;
 using MagicWorld.HUDClasses;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent.ParticleEffects;
 using ParticleEffects;
 using MagicWorld.BlendInClasses;
-using MagicWorld.Audio;
 using MagicWorld.Constants;
-
+using MagicWorld.Services;
 
 namespace MagicWorld
 {
@@ -29,14 +21,12 @@ namespace MagicWorld
 
     [Serializable]
     public struct SaveGameData
-    {       
-        
+    {        
         public int Level;
         public int ItemsCollected;
         public int TotalItems;
         public string Completed;
     }
-
 
     public class MagicWorldGame : Microsoft.Xna.Framework.Game
     {
@@ -47,6 +37,7 @@ namespace MagicWorld
         HUD hud;
         AimingAid aid;
         TutorialManager tutManager;
+        IcedVisibility ice;
 
         public SaveGameData GameData;
         ConstantChanger constantChanger;
@@ -172,6 +163,9 @@ namespace MagicWorld
             Components.Add(hud);
             aid = new AimingAid(this);
             Components.Add(aid);
+            ice = new IcedVisibility(this);
+            Components.Add(ice);
+            Services.AddService(typeof(IVisibility),ice);
 
             #if DEBUG
                 constantChanger = new ConstantChanger(this);

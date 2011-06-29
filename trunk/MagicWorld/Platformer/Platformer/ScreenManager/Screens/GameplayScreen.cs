@@ -19,6 +19,7 @@ namespace MagicWorld
     class GameplayScreen : GameScreen, IServiceProvider
     {
         ICameraService camera;
+        IVisibility ice;
         #region Fields
 
         ContentManager content;
@@ -65,6 +66,7 @@ namespace MagicWorld
         public override void LoadContent()
         {
             camera = (ICameraService)ScreenManager.Game.Services.GetService(typeof(ICameraService));
+            ice = (IVisibility)ScreenManager.Game.Services.GetService(typeof(IVisibility));
 
             if(ScreenManager.Game.Services.GetService(typeof(GameplayScreen))==null){
                 ScreenManager.Game.Services.AddService(typeof(GameplayScreen), this);

@@ -1,22 +1,10 @@
-﻿#region File Description
-//-----------------------------------------------------------------------------
-// Enemy.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-using System;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
-using System.Collections.Generic;
 using MagicWorld.Constants;
-using System.Diagnostics;
 using MagicWorld.Services;
-using MagicWorld.StaticLevelContent;
 
 namespace MagicWorld
 {
@@ -102,15 +90,16 @@ namespace MagicWorld
         public override void Update(GameTime gameTime)
         {
             level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
-
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (isFroozen) // ****** isFrozen ******
             {
                 CurrentVelocity = new Vector2(CurrentVelocity.X, 0);
                 currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
+                level.visibilityService.Add(this.Bounds.getRectangle());
                 if (currentFreezeTime >= SpellInfluenceValues.maxFreezeTime)
                 {
+                    level.visibilityService.Remove(this.Bounds.getRectangle());
                     isFroozen = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
@@ -128,12 +117,12 @@ namespace MagicWorld
                     CurrentVelocity = new Vector2(-MoveSpeed, 0);
                     isOnFire = true;
                 }
-                
+
                 currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
                 if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)
                 {
                     CurrentVelocity = new Vector2(-CurrentVelocity.X, 0);
-                    isOnFire= false;
+                    isOnFire = false;
                     isBurning = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
@@ -151,7 +140,7 @@ namespace MagicWorld
 
                 if (currentParticles % 4 == 0) //only every 4 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position,40));
+                    level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 40));
                 }
             }
 
@@ -273,7 +262,7 @@ namespace MagicWorld
         {
             if (element.GetType() == typeof(BlockElement))
             {
-                if(xAxisCollision)
+                if (xAxisCollision)
                 {
                     CurrentVelocity = turnarround(CurrentVelocity);
                 }
