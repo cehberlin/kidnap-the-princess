@@ -40,7 +40,6 @@ namespace MagicWorld.DynamicLevelContent
             set { checkCollision = value; }
         }
 
-
         /// <summary>
         /// constructor
         /// </summary>
@@ -65,7 +64,7 @@ namespace MagicWorld.DynamicLevelContent
         {
             if (enableGravity && !noGravityInfluence)
             {
-                level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
+                level.PhysicsManager.ApplyGravity(this, PhysicValues.PUSHPULL_ELEMENT_GRAVITY, gameTime);
             }
 
             if (noGravityInfluence)

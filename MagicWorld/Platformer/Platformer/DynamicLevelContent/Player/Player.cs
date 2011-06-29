@@ -657,7 +657,7 @@ namespace MagicWorld
                         spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
                     }
                     // casting angle
-                    Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
+                    //Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
                     if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
                     {
                         spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;

@@ -23,7 +23,7 @@ namespace MagicWorld.Spells
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
             MaxScale = SpellConstantsValues.PullSpell_MaxSize;
-            growFactor = SpellConstantsValues.PullSpell_GrowRate;
+            growFactor = SpellConstantsValues.PullSpell_GrowRate;            
         }
         
         public override void LoadContent(string spriteSet)
@@ -32,6 +32,7 @@ namespace MagicWorld.Spells
             spriteSet = "Sprites/NoGravitySpell/";//"Sprites/" + spriteSet + "/";
             //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
             runAnimation = new Animation("Content/Sprites/NoGravitySpell/Run", 0.1f, 3, level.Content.Load<Texture2D>(spriteSet + "Run"), 0);
+            runAnimation.Opacity = 0.5f;
             //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
             idleAnimation = runAnimation;
 

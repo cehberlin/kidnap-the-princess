@@ -16,7 +16,8 @@ namespace MagicWorld.Spells
         {
             Force = SpellConstantsValues.NoGravitationSpell_Force;
             survivalTimeMs = SpellConstantsValues.NoGravitationSpell_survivalTimeMs;;
-            MoveSpeed = SpellConstantsValues.NoGravitationSpell_MoveSpeed;
+            //MoveSpeed = SpellConstantsValues.NoGravitationSpell_MoveSpeed;
+            MaxScale = 3;
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.NoGravitationSpell_durationOfActionMs;
             accelarationChangeFactorX = SpellConstantsValues.NoGravitationSpell_accelarationChangeFactor;
@@ -33,6 +34,12 @@ namespace MagicWorld.Spells
             idleAnimation = runAnimation;
 
             base.LoadContent(spriteSet);
+        }
+
+        protected override void OnWorkingStart()
+        {
+            MoveSpeed = UsedMana/4;
+            base.OnWorkingStart();
         }
 
 
