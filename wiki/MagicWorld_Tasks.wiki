@@ -23,6 +23,7 @@
   # level textures -> Pascal
   # slow motion while casting -> *???*
   # menu background -> Pascal
+  # push & pull no casting with aiming function... 
  
 
 
@@ -35,6 +36,7 @@
   # replace or add better fitting FREE sounds and music
   # vulcano
   # warm/cold spell: better gravition physics --> please explain!!
+  # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
 
 == Final (06.07) ==
   
