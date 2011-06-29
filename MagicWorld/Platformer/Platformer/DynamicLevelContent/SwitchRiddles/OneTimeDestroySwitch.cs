@@ -15,7 +15,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
     {
 
         public OneTimeDestroySwitch(String texture, Level level, Vector2 position, string id)
-            : base(texture, CollisionType.Impassable, level, position,id)
+            : base(texture, CollisionType.Platform, level, position,id)
         {         
         }
 

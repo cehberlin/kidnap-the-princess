@@ -150,8 +150,8 @@ namespace MagicWorld.StaticLevelContent
             {  
                 Vector2 push = calculatesVelocity(true);
                 push.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
 
                 if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
                 {
@@ -169,8 +169,8 @@ namespace MagicWorld.StaticLevelContent
             {
                 Vector2 pull = calculatesVelocity(false);
                 pull.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
 
                 if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
                 {
