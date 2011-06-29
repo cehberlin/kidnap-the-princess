@@ -48,7 +48,6 @@ namespace MagicWorld
         Bounds oldBounds;
         bool isOnGround = false;
 
-        bool isPatralyzed = false;
         bool isOnFire = false;
 
         public override Bounds Bounds
@@ -146,7 +145,6 @@ namespace MagicWorld
                 if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
                 {
                     isElectrified = false;
-                    isPatralyzed = false;
                 }
 
                 currentParticles++;
@@ -273,7 +271,6 @@ namespace MagicWorld
 
         protected void HandleCollisionWithObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
-            //TODO SET WAITTIME OR SOMETHING LIKE THIS
             if (element.GetType() == typeof(BlockElement))
             {
                 if(xAxisCollision)
@@ -281,11 +278,11 @@ namespace MagicWorld
                     CurrentVelocity = turnarround(CurrentVelocity);
                 }
             }
-            else if (element.GetType() == typeof(ShadowCreature))
-            {
-                ShadowCreature e = (ShadowCreature)element;
-                CurrentVelocity = turnarround(CurrentVelocity);
-            }
+            //else if (element.GetType() == typeof(ShadowCreature))
+            //{
+            //    ShadowCreature e = (ShadowCreature)element;
+            //    CurrentVelocity = turnarround(CurrentVelocity);
+            //}
         }
 
         private Vector2 turnarround(Vector2 velocity)

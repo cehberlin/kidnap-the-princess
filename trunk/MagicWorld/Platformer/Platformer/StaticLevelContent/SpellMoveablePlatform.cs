@@ -16,6 +16,8 @@ namespace MagicWorld.StaticLevelContent
     {
         private Vector2 currentPathPosition;
         private Vector2 nextPathPosition;
+        private Vector2 oldPathPosition;
+        private int oldPosition = 0;
         private int pathPosition = 0;
         private int nextPosition = 1;
         private float steps = 0;
@@ -32,6 +34,7 @@ namespace MagicWorld.StaticLevelContent
         public SpellMoveablePlatform(String texture, CollisionType collision, Level level, Vector2 position, PathItem path)
             : base(texture, collision, level, position)
         {
+            oldPathPosition = path.WorldPoints[path.WorldPoints.Length-1];
             currentPathPosition = path.WorldPoints[pathPosition];
             nextPathPosition = path.WorldPoints[nextPosition];
             this.path = path;
@@ -61,13 +64,29 @@ namespace MagicWorld.StaticLevelContent
         void setNextPath()
         {
             if (pathPosition >= path.WorldPoints.Length - 1)
+            {
                 pathPosition = 0;
+            }
             else
+            {
                 pathPosition++;
+            }
             if (nextPosition >= path.WorldPoints.Length - 1)
+            {
                 nextPosition = 0;
+            }
             else
+            {
                 nextPosition++;
+            }
+            oldPosition = pathPosition - 1;
+            if(oldPosition <0){
+                oldPosition = 0;
+            }
+
+            currentPathPosition = path.WorldPoints[pathPosition];
+            nextPathPosition = path.WorldPoints[nextPosition];
+            oldPathPosition = path.WorldPoints[oldPosition];
         }
 
         private Vector2 calculatesVelocity(Boolean push)
@@ -82,7 +101,7 @@ namespace MagicWorld.StaticLevelContent
             {
                 steps = deltaX / MoveSpeed;
                 if (currentPathPosition.X > nextPathPosition.X)
-                    movementSpeedX = -MoveSpeed;
+                    movementSpeedX = MoveSpeed;
                 else
                     movementSpeedX = MoveSpeed;
                 if (currentPathPosition.Y > nextPathPosition.Y)
@@ -96,7 +115,7 @@ namespace MagicWorld.StaticLevelContent
                 if (currentPathPosition.Y > nextPathPosition.Y)
                     movementSpeedY = -MoveSpeed;
                 else
-                    movementSpeedY = MoveSpeed;
+                    movementSpeedY = -MoveSpeed;
                 movementSpeedX = deltaX / steps;
             }
             else if (deltaY == deltaX)
