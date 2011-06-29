@@ -26,6 +26,7 @@ namespace MagicWorld
 
         Vector2 currentPathPosition;
         Vector2 nextPathPosition;
+        Vector2[] worldPoints;
 
         private float deltaX;
         private float deltaY;
@@ -34,6 +35,9 @@ namespace MagicWorld
 
         private float movementSpeedX = 0;
         private float movementSpeedY = 0;
+
+        private bool isOnFire = false;
+        private bool switchvelocity = false;
 
         /// <summary>
         /// How long this enemy has been waiting before turning around.
@@ -64,6 +68,7 @@ namespace MagicWorld
         }
 
         Bounds oldBounds;
+        float acceleration = 1;
 
 
         /// <summary>
@@ -80,8 +85,9 @@ namespace MagicWorld
             : base(level, position, spriteSet)
         {
             this.path = path;
-            currentPathPosition = path.WorldPoints[pathPosition];
-            nextPathPosition = path.WorldPoints[nextPosition];
+            worldPoints = path.WorldPoints;
+            currentPathPosition = worldPoints[pathPosition];
+            nextPathPosition = worldPoints[nextPosition];
             base.position = currentPathPosition + new Vector2(sprite.Animation.FrameWidth * 0.25f, sprite.Animation.FrameHeight * 0.25f);
         }
 
@@ -130,23 +136,28 @@ namespace MagicWorld
             }
             else if (isBurning) // ****** isBurning ******
             {
+                if(!isOnFire)
+                {
+                    isOnFire = true;
+                    switchvelocity = true;
+                }
                 currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
                 if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)
                 {
                     isBurning = false;
+                    isOnFire = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
                 }
             }
             else if (isElectrified)
             {
-                //if (isOnGround)
-                //    velocity = new Vector2(MoveSpeed, 0);
-                //currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
-                //if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
-                //{
-                //    isElectrified = false;
-                //}
+                currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
+                if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
+                {
+                    isElectrified = false;
+                }
+
                 currentParticles++;
 
                 if (currentParticles % 4 == 0) //only every 4 update cycle
@@ -155,54 +166,10 @@ namespace MagicWorld
                 }
             }
 
-            float acceleration = 1;
-
-            if (!isFroozen && !isElectrified) // ****** can move ******
+            if (!isFroozen) // ****** can move ******
             {
-                // Calculates the speed for x and y axis
-                deltaX = 0;
-                deltaY = 0;
-                deltaX = Math.Abs(currentPathPosition.X) - Math.Abs(nextPathPosition.X);
-                deltaX = Math.Abs(deltaX);
-                deltaY = Math.Abs(currentPathPosition.Y) - Math.Abs(nextPathPosition.Y);
-                deltaY = Math.Abs(deltaY);
 
-                if (deltaX > deltaY)
-                {
-                    steps = deltaX / MoveSpeed;
-                    if (currentPathPosition.X > nextPathPosition.X)
-                        movementSpeedX = -MoveSpeed;
-                    else
-                        movementSpeedX = MoveSpeed;
-                    if (currentPathPosition.Y > nextPathPosition.Y)
-                        movementSpeedY = deltaY / steps * -1;
-                    else
-                        movementSpeedY = deltaY / steps;
-                }
-                else if (deltaY > deltaX)
-                {
-                    steps = deltaY / MoveSpeed;
-                    if (currentPathPosition.Y > nextPathPosition.Y)
-                        movementSpeedY = -MoveSpeed;
-                    else
-                        movementSpeedY = MoveSpeed;
-                    movementSpeedX = deltaX / steps;
-                }
-                else if (deltaY == deltaX)
-                {
-                    steps = deltaX / MoveSpeed;
-                    if (currentPathPosition.X > nextPathPosition.X)
-                        movementSpeedX = -MoveSpeed;
-                    else
-                        movementSpeedX = MoveSpeed;
-
-                    if (currentPathPosition.Y > nextPathPosition.Y)
-                        movementSpeedY = -MoveSpeed;
-                    else
-                        movementSpeedY = MoveSpeed;
-                }
-
-                velocity = new Vector2(movementSpeedX, movementSpeedY);
+                velocity = calculatesVelocity();
 
                 HandleCollision();
                 // Move in the current direction.
@@ -220,13 +187,13 @@ namespace MagicWorld
                 //from left to right
                 if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y == nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.X < nextPathPosition.X - oldBounds.Width / 2)
+                    if (pathPosition <= worldPoints.Length - 1 && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -235,13 +202,13 @@ namespace MagicWorld
                 }
                 else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2)
+                    if (pathPosition <= worldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -251,13 +218,13 @@ namespace MagicWorld
                 //from right to left
                 else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y == nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.X > nextPathPosition.X - oldBounds.Width / 2)
+                    if (pathPosition <= worldPoints.Length - 1 && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -266,13 +233,13 @@ namespace MagicWorld
                 //from top to bottom
                 else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2)
+                    if (pathPosition <= worldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -281,14 +248,14 @@ namespace MagicWorld
                 //from lower left to upper right
                 else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
+                    if (pathPosition <= worldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
                         && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -297,14 +264,14 @@ namespace MagicWorld
                 //from top left to lower right
                 else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
+                    if (pathPosition <= worldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
                         && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -313,14 +280,14 @@ namespace MagicWorld
                 //from top right to lower left
                 else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
+                    if (pathPosition <= worldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
                         && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -329,14 +296,14 @@ namespace MagicWorld
                 //from lower right to top right
                 else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
                 {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
+                    if (pathPosition <= worldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
                         && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
-                        if (pathPosition >= path.WorldPoints.Length - 1)
+                        if (pathPosition >= worldPoints.Length - 1)
                             pathPosition = 0;
                         else
                             pathPosition++;
-                        if (nextPosition >= path.WorldPoints.Length - 1)
+                        if (nextPosition >= worldPoints.Length - 1)
                             nextPosition = 0;
                         else
                             nextPosition++;
@@ -344,8 +311,22 @@ namespace MagicWorld
                 }
                 #endregion Enemy Movement
 
-                currentPathPosition = path.WorldPoints[pathPosition];
-                nextPathPosition = path.WorldPoints[nextPosition];
+                if (isElectrified)
+                {
+                    acceleration = 0.4f;
+                }
+                else if(isBurning)
+                {
+                    //currentPathPosition = worldPoints[nextPosition];
+                    //nextPathPosition = worldPoints[pathPosition];
+                    //velocity = -velocity;
+                }
+                else
+                {
+                    acceleration = 1f;
+                }
+                currentPathPosition = worldPoints[pathPosition];
+                nextPathPosition = worldPoints[nextPosition];
                 Position = Position + velocity * elapsed * acceleration;
             }
             //only handles physics collision
@@ -426,5 +407,56 @@ namespace MagicWorld
         }
 
         #endregion
+
+        Vector2 calculatesVelocity()
+        {
+            // Calculates the speed for x and y axis
+            deltaX = 0;
+            deltaY = 0;
+            deltaX = currentPathPosition.X - nextPathPosition.X;
+            deltaX = Math.Abs(deltaX);
+            deltaY = currentPathPosition.Y - nextPathPosition.Y;
+            deltaY = Math.Abs(deltaY);
+
+            if (deltaX > deltaY)
+            {
+                steps = deltaX / MoveSpeed;
+                if (currentPathPosition.X > nextPathPosition.X)
+                    movementSpeedX = -MoveSpeed;
+                else
+                    movementSpeedX = MoveSpeed;
+                if (currentPathPosition.Y > nextPathPosition.Y)
+                    movementSpeedY = deltaY / steps * -1;
+                else
+                    movementSpeedY = deltaY / steps;
+            }
+            else if (deltaY > deltaX)
+            {
+                steps = deltaY / MoveSpeed;
+                if (currentPathPosition.Y > nextPathPosition.Y)
+                    movementSpeedY = -MoveSpeed;
+                else
+                    movementSpeedY = MoveSpeed;
+                if (currentPathPosition.X > nextPathPosition.X)
+                    movementSpeedX = deltaX / steps * -1;
+                else
+                    movementSpeedX = deltaX / steps;
+            }
+            else if (deltaY == deltaX)
+            {
+                steps = deltaX / MoveSpeed;
+                if (currentPathPosition.X > nextPathPosition.X)
+                    movementSpeedX = -MoveSpeed;
+                else
+                    movementSpeedX = MoveSpeed;
+
+                if (currentPathPosition.Y > nextPathPosition.Y)
+                    movementSpeedY = -MoveSpeed;
+                else
+                    movementSpeedY = MoveSpeed;
+            }
+
+            return new Vector2(movementSpeedX, movementSpeedY);
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace MagicWorld
 
             LoadContent(spriteSet);
 
-            Collision = CollisionType.Impassable;
+            Collision = CollisionType.Platform;
 
             //init spell states
             isBurning = false;

@@ -31,9 +31,9 @@ namespace MagicWorld.Spells
 
         protected Vector2 influenceVelocity;
 
-        public PushPullHandler(BasicGameElement elem,float influenceTimeInMs,Vector2 startVelocity)
+        public PushPullHandler(BasicGameElement elem, float influenceTimeInMs, Vector2 startVelocity)
         {
-           start(elem,influenceTimeInMs,startVelocity);
+            start(elem, influenceTimeInMs, startVelocity);
         }
 
         public PushPullHandler()
@@ -72,13 +72,13 @@ namespace MagicWorld.Spells
                 {
                     float elapsed = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                     //accelaration
-                    currentAccelarationX += (float)elapsed/1000 * accelarationChangeFactorX;
+                    currentAccelarationX += (float)elapsed / 1000 * accelarationChangeFactorX;
                     if (currentAccelarationX < accelarationMinX)
                         currentAccelarationX = accelarationMinX;
                     if (currentAccelarationX > accelarationMaxX)
                         currentAccelarationX = accelarationMaxX;
 
-                    currentAccelarationY += (float)elapsed/1000 * accelarationChangeFactorY;
+                    currentAccelarationY += (float)elapsed / 1000 * accelarationChangeFactorY;
                     if (currentAccelarationY < accelarationMinY)
                         currentAccelarationY = accelarationMinY;
                     if (currentAccelarationY > accelarationMaxY)
@@ -89,7 +89,7 @@ namespace MagicWorld.Spells
 
                     element.Position += influenceVelocity;
 
-   
+
                     influenceTimeInMs -= elapsed;
                 }
                 else
@@ -124,34 +124,74 @@ namespace MagicWorld.Spells
                     influenceVelocity = new Vector2((float)influenceVelocity.X * currentAccelarationX, (float)influenceVelocity.Y * currentAccelarationY);
 
                     //pushing X Axis
-                    if(influenceVelocity.X > 0)
+                    if (influenceVelocity.X > 0)
                     {
-                        if (element.Position.X < nextPath.X - bounds.Width / 2)
+                        if (currentPath.X < nextPath.X)
                         {
-                            element.Position += influenceVelocity;
+                            if (element.Position.X < nextPath.X - bounds.Width / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
+                        }
+                        else
+                        {
+                            if (element.Position.X < currentPath.X - bounds.Width / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
                         }
                     }
                     //pulling X Axis
                     else if (influenceVelocity.X < 0)
                     {
-                        if (element.Position.X > currentPath.X - bounds.Width / 2)
+                        if (currentPath.X < nextPath.X)
                         {
-                            element.Position += influenceVelocity;
+                            if (element.Position.X > currentPath.X - bounds.Width / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
+                        }
+                        else
+                        {
+                            if (element.Position.X > nextPath.X - bounds.Width / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
                         }
                     }
                     //pull Y Axis
                     else if (influenceVelocity.X == 0 && influenceVelocity.Y > 0)
                     {
-                        if (element.Position.Y < currentPath.Y - bounds.Height / 2)
+                        if (currentPath.Y > nextPath.Y)
                         {
-                            element.Position += influenceVelocity;
+                            if (element.Position.Y < currentPath.Y - bounds.Height / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
                         }
-                    }
+                        else
+                        {
+                            if (element.Position.Y <= nextPath.Y - bounds.Height / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
+                        }
+                    }//push y Axis
                     else if (influenceVelocity.X == 0 && influenceVelocity.Y < 0)
                     {
-                        if (element.Position.Y > nextPath.Y - bounds.Height / 2)
+                        if (currentPath.Y > nextPath.Y)
                         {
-                            element.Position += influenceVelocity;
+                            if (element.Position.Y > nextPath.Y - bounds.Height / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
+                        }
+                        else
+                        {
+                            if (element.Position.Y > currentPath.Y - bounds.Height / 2)
+                            {
+                                element.Position += influenceVelocity;
+                            }
                         }
                     }
 

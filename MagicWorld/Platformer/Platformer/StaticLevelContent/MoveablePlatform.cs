@@ -195,5 +195,10 @@ namespace MagicWorld.StaticLevelContent
             else
                 nextPosition++;
         }
+
+        public Vector2 getPosition()
+        {
+            return position;
+        }
     }
 }
