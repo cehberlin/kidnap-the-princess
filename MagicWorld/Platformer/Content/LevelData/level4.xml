@@ -1902,7 +1902,7 @@
                 <Item xsi:type="TextureItem" Name="Texture_0266" Visible="true">
                     <Position>
                         <X>1645</X>
-                        <Y>9</Y>
+                        <Y>-37</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
