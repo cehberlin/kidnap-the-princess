@@ -4,18 +4,15 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
-using System.IO;
-using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.HelperClasses.Collision;
-using ParticleEffects;
 using MagicWorld.Spells;
-using MagicWorld.DynamicLevelContent.ParticleEffects;
 using MagicWorld.BlendInClasses;
+using MagicWorld.Services;
 using System.Diagnostics;
 
 namespace MagicWorld
@@ -33,6 +30,8 @@ namespace MagicWorld
             get { return player; }
         }
         Player player;
+
+        public IVisibility visibilityService;
 
         // Physical structure of the level.
 
@@ -185,6 +184,8 @@ namespace MagicWorld
             physicsManager = new PhysicsManager(this);
 
             this.levelLoader = levelLoader;
+
+            visibilityService =(IVisibility) game.Services.GetService(typeof(IVisibility));
 
             initLevel();
         }

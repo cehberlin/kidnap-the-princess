@@ -25,12 +25,6 @@ namespace MagicWorld
     /// </summary>
     abstract class MenuScreen : GameScreen
     {
-        //Animation player;
-        //Animation[] bats;
-        //Animation[] shadowCreatures;
-        //Texture2D[] ground;
-        //Texture2D[] background;
-
         #region Fields
 
         List<MenuEntry> menuEntries = new List<MenuEntry>();
@@ -70,11 +64,6 @@ namespace MagicWorld
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);   
-         
-            //Init animations
-            //bats = new Animation[6];
-            //shadowCreatures = new Animation[2];
-            //bats[0] = new Animation();
         }
 
 

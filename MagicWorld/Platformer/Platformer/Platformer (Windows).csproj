@@ -70,6 +70,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="BlendInClasses\IcedVisibility.cs" />
     <Compile Include="Constants\ConstantChanger\ConstantChanger.cs" />
     <Compile Include="BlendInClasses\AimingAid.cs" />
     <Compile Include="BlendInClasses\TutorialInstruction.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="ScreenManager\Screens\ResolutionMenuScreen.cs" />
     <Compile Include="Services\ICameraService.cs" />
     <Compile Include="Services\IPlayerService.cs" />
+    <Compile Include="Services\IVisibility.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />
     <Compile Include="Spells\ElectricSpell.cs" />
