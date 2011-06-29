@@ -10,6 +10,10 @@ namespace MagicWorld
     {
         class PhysicValues
         {
+            /// <summary>
+            /// TODO balanced value (this is just a dummy value because somebody forgot to impl it)
+            /// </summary>
+            public static Vector2 PUSHPULL_ELEMENT_GRAVITY = new Vector2(0, 1);
 
             /// <summary>
             /// Please add constants from the bottom if you want to change them online
