@@ -124,7 +124,7 @@ namespace MagicWorld.Constants
         public static float CreateMatterSpell_accelarationChangeFactor = -0.1f;
 
         public static Spells.SpellConstants NoGravitationSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
-        public static float NoGravitationSpell_MoveSpeed = 100;
+        //public static float NoGravitationSpell_MoveSpeed = 120;
         public static int NoGravitationSpell_survivalTimeMs = 9000;
         public static int NoGravitationSpell_durationOfActionMs = 10;
         public static int NoGravitationSpell_Force = 1;
@@ -141,7 +141,7 @@ namespace MagicWorld.Constants
         public static int PushSpell_survivalTimeMs = 1000;
         public static int PushSpell_durationOfActionMs = 5000;
         public static int PushSpell_Force = 1;
-        public static float PushSpell_MaxSize = 20f;
+        public static float PushSpell_MaxSize = 4.5f;
         public static float PushSpell_GrowRate = 0.52f;
 
         public static Spells.SpellConstants PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
@@ -159,7 +159,7 @@ namespace MagicWorld.Constants
         {
             get { return pushpull_default_start_acceleration.value; }
         }
-        static ConstantChangerItemFloat pushpull_default_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_START_ACCELERATION", 1.1f, 0.01f);
+        static ConstantChangerItemFloat pushpull_default_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_START_ACCELERATION", 1.12f, 0.01f);
 
         /// <summary>
         /// start acceleration for push and pull handler, used default
