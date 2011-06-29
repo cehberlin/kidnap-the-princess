@@ -267,11 +267,11 @@ namespace MagicWorld
                     CurrentVelocity = turnarround(CurrentVelocity);
                 }
             }
-            //else if (element.GetType() == typeof(ShadowCreature))
-            //{
-            //    ShadowCreature e = (ShadowCreature)element;
-            //    CurrentVelocity = turnarround(CurrentVelocity);
-            //}
+            else if (element.GetType() == typeof(ShadowCreature))
+            {
+                ShadowCreature e = (ShadowCreature)element;
+                CurrentVelocity = turnarround(CurrentVelocity);
+            }
         }
 
         private Vector2 turnarround(Vector2 velocity)
