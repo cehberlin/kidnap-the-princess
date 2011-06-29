@@ -38,6 +38,7 @@ namespace MagicWorld.Constants
             List<IConstantChangerItem> groupPushPull = new List<IConstantChangerItem>();
             groupPushPull.Add(pushpull_default_start_acceleration);
             groupPushPull.Add(pushpull_default_acceleration_change_factor);
+            groupPushPull.Add(pushpull_moveabel_platforms_start_acceleration);
             Constants.Add(new ConstantGroup("PushPull", groupPushPull));                      
 
             return Constants;
@@ -160,6 +161,16 @@ namespace MagicWorld.Constants
             get { return pushpull_default_start_acceleration.value; }
         }
         static ConstantChangerItemFloat pushpull_default_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_START_ACCELERATION", 1.12f, 0.01f);
+
+        /// <summary>
+        /// start acceleration for push and pull handler, used default
+        /// </summary>
+        public static float PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION
+        {
+            get { return pushpull_moveabel_platforms_start_acceleration.value; }
+        }
+        static ConstantChangerItemFloat pushpull_moveabel_platforms_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION", 1.1f, 0.01f);
+
 
         /// <summary>
         /// start acceleration for push and pull handler, used default
