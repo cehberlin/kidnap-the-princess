@@ -2,7 +2,6 @@
 ----
 = in Progress =
 
-  # level with push puzzle (see design doc) -> christopher
   # level with pullable platform and movable platform -> John
 
 = TODO =
@@ -22,6 +21,8 @@
   # push & pull no casting with aiming function...
   # gray out background in casting mode
   # slowmotion for all objects 
+  # texture for portal
+  # animation for no gravity
  
   # level transition -->amauri
   # instruction screen for level and spells (AGREE? )
