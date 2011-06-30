@@ -20,17 +20,19 @@ namespace MagicWorld.Spells
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
-            MaxScale = SpellConstantsValues.PushSpell_MaxSize;
-            growFactor = SpellConstantsValues.PushSpell_GrowRate;
+            //MaxScale = SpellConstantsValues.PushSpell_MaxSize;
+            //growFactor = SpellConstantsValues.PushSpell_GrowRate;
+            MaxScale = 2;
+            growFactor = 0.1f;
         }
 
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
-            spriteSet = "Sprites/NoGravitySpell/";//"Sprites/" + spriteSet + "/";
+            spriteSet = "Sprites/PullSpell/";//"Sprites/" + spriteSet + "/";
             //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
-            runAnimation = new Animation("Content/Sprites/NoGravitySpell/Run", 0.1f, 3, level.Content.Load<Texture2D>(spriteSet + "Run"), 0);
-            runAnimation.Opacity = 0.5f;
+            runAnimation = new Animation("Content/Sprites/PullSpell/push", 0.1f,12, level.Content.Load<Texture2D>(spriteSet + "push"), 0);
+            runAnimation.Opacity = 1f;
             //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
             idleAnimation = runAnimation;
 
