@@ -1,9 +1,9 @@
 = PAY ATTENTION TO PRIORITY !!! DELETE DONE WORK !!!  =
 ----
 = in Progress =
-# level with push puzzle (see design doc) -> christopher
-# level with pullable platform and movable platform -> John
-# open close door --> Christopher
+
+  # level with push puzzle (see design doc) -> christopher
+  # level with pullable platform and movable platform -> John
 
 = TODO =
 
@@ -39,6 +39,7 @@
   # avoid choosing same spell twice
   # give magican another wand and put every wand in one animation
   # more easier start levels!
+  # more intuitive displaying of collected and needed ingridients
 
 == Final (06.07) ==
   
