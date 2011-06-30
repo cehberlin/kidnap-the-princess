@@ -104,7 +104,16 @@ The value must be a double value.
 == switchable objects ==
 
 === door ===
-For Switches add one custom property (type: free text) "door".
+Add the name of prefered door as custom propery (type: free text)
+Use the switchabel interface like described above.
+
+Doors:
+
+  # updown_door: a door which moves up if open, the start status could be set by a custom property of type boolean named: "open", default is closed
+
+  # openclose_door: Depending on the texture path which must include the word "open" or "closed" the open/close status is detected. You must have a open and closed texture, with the only difference in path of "open" and closed
+
+
 
 === gravity elements===
 For Switches add one custom property (type: free text) "gravity_element". This element could be used as a switchable item, but it is not necessary.
