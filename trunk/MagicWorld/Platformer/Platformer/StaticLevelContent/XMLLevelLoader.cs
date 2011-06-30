@@ -202,12 +202,7 @@ namespace MagicWorld.StaticLevelContent
                         PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
                         e = new Bat(level, item.Position, "Sprites/ShadowCreatureSpriteSheet", pathItem);
                     }
-                    if (author == 2 && e != null)
-                    {
-                        TextureItem t = (TextureItem)item;
-                        e.Position -= t.Origin;
-
-                    }
+                    
                     if (e != null)
                     {
                         elements.Add(e);
@@ -342,6 +337,35 @@ namespace MagicWorld.StaticLevelContent
                             connectSwitchable(switchList, id, gravityElement);
                         }
                     }
+                }
+            }
+
+            //The portal layer.
+            Layer portalLayer = levelLoader.getLayerByName("Portal");
+            if (portalLayer != null)
+            {
+                foreach (Item item in portalLayer.Items)
+                {
+                    TextureItem ti = (TextureItem)item;
+                    TextureItem destination = (TextureItem)item.CustomProperties["Destination"].value;
+
+                    if (destination != null)
+                    {
+                        String portalHandlingType = (String)item.CustomProperties["Type"].value;
+
+                        PortalHandlingType type;
+
+                        if(portalHandlingType.Equals("ShadowCreature")){
+                            type=PortalHandlingType.SHADOW_CREATURE;
+                        }else if(portalHandlingType.Equals("PushPull")){
+                            type=PortalHandlingType.PUSHPULL;
+                        }else{
+                            type=PortalHandlingType.PLAYER;
+                        }
+
+                        Portal portal = new Portal(ti.asset_name, level, item.Position, destination.Position, type);
+                        elements.Add(portal);
+                    }                   
                 }
             }
 
