@@ -680,7 +680,7 @@
                         <Y>301</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="door" Type="string" Description="">
+                        <Property Name="updown_door" Type="string" Description="">
                             <string />
                         </Property>
                     </CustomProperties>
@@ -1064,7 +1064,7 @@
                         <Property Name="switchable" Type="string" Description="">
                             <string>door01</string>
                         </Property>
-                        <Property Name="door" Type="string" Description="">
+                        <Property Name="updown_door" Type="string" Description="">
                             <string />
                         </Property>
                     </CustomProperties>

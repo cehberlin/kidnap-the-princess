@@ -1964,7 +1964,7 @@
                         <Y>1922</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="door" Type="string" Description="">
+                        <Property Name="updown_door" Type="string" Description="">
                             <string />
                         </Property>
                         <Property Name="switchable" Type="string" Description="">
