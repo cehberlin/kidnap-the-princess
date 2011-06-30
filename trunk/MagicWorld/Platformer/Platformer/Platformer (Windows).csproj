@@ -25,8 +25,7 @@
     </SupportedCultures>
     <ApplicationIcon>
     </ApplicationIcon>
-    <Thumbnail>
-    </Thumbnail>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -98,10 +97,12 @@
     <Compile Include="DynamicLevelContent\ParticleEffects\LightningParticleSystem..cs" />
     <Compile Include="DynamicLevelContent\PushPullElement.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\AbstractSwitch.cs" />
-    <Compile Include="DynamicLevelContent\SwitchRiddles\Door.cs" />
+    <Compile Include="DynamicLevelContent\SwitchRiddles\UpDownDoor.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\IActivation.cs" />
+    <Compile Include="DynamicLevelContent\SwitchRiddles\AbstractDoor.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\OneTimeDestroySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\OnOffElectricitySwitch.cs" />
+    <Compile Include="DynamicLevelContent\SwitchRiddles\OpenCloseDoor.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\TimedElectricitySwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\PushDownSwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\TorchSwitch.cs" />
