@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Storage;
@@ -20,7 +21,7 @@ namespace MagicWorld
     /// 
 
     [Serializable]
-    public struct SaveGameData
+    public class SaveGameData
     {        
         public int Level;
         public int ItemsCollected;
@@ -39,7 +40,7 @@ namespace MagicWorld
         TutorialManager tutManager;
         IcedVisibility ice;
 
-        public SaveGameData GameData;
+        public SaveGameData GameData=new SaveGameData();
         ConstantChanger constantChanger;
 
         ParticleSystem explosionParticleSystem;
@@ -313,7 +314,7 @@ namespace MagicWorld
 
             // Read the data from the file.
             XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
-            SaveGameData GameData = (SaveGameData)serializer.Deserialize(stream);
+            GameData = (SaveGameData)serializer.Deserialize(stream);
 
             // Close the file.
             stream.Close();
@@ -322,9 +323,9 @@ namespace MagicWorld
             container.Dispose();
 
             // Report the data to the console.
-            //Debug.WriteLine("Name:     " + GameData.PlayerName);
-            //Debug.WriteLine("Level:    " + GameData.Level.ToString());
-            //Debug.WriteLine("Score:    " + GameData.Score.ToString());
+            Debug.WriteLine("Completed:     " + GameData.Completed);
+            Debug.WriteLine("Level:    " + GameData.Level.ToString());
+            Debug.WriteLine("Items:    " + GameData.ItemsCollected.ToString());
             //Debug.WriteLine("Position: " + GameData.AvatarPosition.ToString());
         }
         public string[] GetSavedFiles()
