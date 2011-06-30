@@ -30,7 +30,7 @@ namespace MagicWorld
         List<MenuEntry> menuEntries = new List<MenuEntry>();
         int selectedEntry = 0;
         string menuTitle;
-        
+
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace MagicWorld
 
         protected int SelectedEntry
         {
-            get { return selectedEntry;}
+            get { return selectedEntry; }
         }
 
         #endregion
@@ -63,7 +63,7 @@ namespace MagicWorld
             this.menuTitle = menuTitle;
 
             TransitionOnTime = TimeSpan.FromSeconds(0.5);
-            TransitionOffTime = TimeSpan.FromSeconds(0.5);   
+            TransitionOffTime = TimeSpan.FromSeconds(0.5);
         }
 
 
@@ -95,7 +95,7 @@ namespace MagicWorld
                 if (selectedEntry >= menuEntries.Count)
                     selectedEntry = 0;
             }
-            
+
 
             // Accept or cancel the menu? We pass in our ControllingPlayer, which may
             // either be null (to accept input from any player) or a specific index.
@@ -159,7 +159,7 @@ namespace MagicWorld
             for (int i = 0; i < menuEntries.Count; i++)
             {
                 MenuEntry menuEntry = menuEntries[i];
-                
+
                 // each entry is to be centered horizontally
                 position.X = ScreenManager.GraphicsDevice.Viewport.Width / 2 - menuEntry.GetWidth(this) / 2;
 
@@ -225,7 +225,8 @@ namespace MagicWorld
             // Draw the menu title centered on the screen
             Vector2 titlePosition = new Vector2(graphics.Viewport.Width / 2, 80);
             Vector2 titleOrigin = font.MeasureString(menuTitle) / 2;
-            Color titleColor = new Color(192, 192, 192) * TransitionAlpha;
+            //Color titleColor = new Color(192, 192, 192) * TransitionAlpha;
+            Color titleColor = new Color(96, 76, 59) * TransitionAlpha;
             float titleScale = 1.25f;
 
             titlePosition.Y -= transitionOffset * 100;
@@ -238,5 +239,7 @@ namespace MagicWorld
 
 
         #endregion
+
+        List<Animation> animations;
     }
 }
