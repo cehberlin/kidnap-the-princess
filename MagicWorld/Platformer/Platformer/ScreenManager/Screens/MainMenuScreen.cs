@@ -9,6 +9,7 @@
 
 #region Using Statements
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 #endregion
 
 namespace MagicWorld
@@ -23,6 +24,7 @@ namespace MagicWorld
         bool filesLoaded = false;
         int selectedFile = 0;
         MenuEntry playGameMenuEntry;
+        SpriteFont font;
 
         #region Initialization
 
@@ -47,6 +49,8 @@ namespace MagicWorld
             MenuEntries.Add(playGameMenuEntry);            
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
+
+            
         }
 
 
@@ -75,7 +79,7 @@ namespace MagicWorld
                         }
                         ScreenManager.Game.LoadGame(selectedFile + 1);
                         playGameMenuEntry.Text = "New Game " + files[selectedFile];
-                        ShowGameInfo();
+                        //ShowGameInfo();
                     }
 
                 }
@@ -152,7 +156,30 @@ namespace MagicWorld
 
         private void ShowGameInfo()
         {
+            
+            string statistics = "Level " + ScreenManager.Game.GameData.Completed +
+                                " Items available: " + ScreenManager.Game.GameData.TotalItems.ToString() +
+                                " Items collected: " + ScreenManager.Game.GameData.ItemsCollected.ToString();
+            
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+            font = ScreenManager.Font; 
+            GraphicsDevice graphics = ScreenManager.GraphicsDevice;
+            Vector2 titlePosition = new Vector2(20, graphics.Viewport.Height-80);
+            Vector2 titleOrigin = Vector2.Zero;
+            Color titleColor = Color.Yellow;
+            float titleScale = 0.7f;
 
+            spriteBatch.Begin();
+
+            spriteBatch.DrawString(font, statistics, titlePosition, titleColor, 0,
+                                   titleOrigin, titleScale, SpriteEffects.None, 0);
+            spriteBatch.End();
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            ShowGameInfo();
+            base.Draw(gameTime);
         }
 
         #endregion
@@ -167,6 +194,7 @@ namespace MagicWorld
             if (files.Length > 1)
             {
                 playGameMenuEntry.Text = "New Game " + files[0];
+                ScreenManager.Game.LoadGame(1);
             }
             
         }
