@@ -8,7 +8,6 @@
 
   == Beta (29.06) ==
   # savegames and replaying of levels (for better score) --> 80% done. missing show the statistics. amauri
-  # Gamelogo -> Pascal
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
@@ -17,7 +16,6 @@
   # electric spell graphics -> Pascal
   # level textures -> Pascal
   # slow motion while casting -> *???*
-  # menu background -> Pascal
   # push & pull no casting with aiming function... 
  
 
