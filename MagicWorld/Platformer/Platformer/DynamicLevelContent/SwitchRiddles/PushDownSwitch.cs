@@ -40,12 +40,18 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             base.Update(gameTime);
         }
 
+        bool collisionOccured = false;
+
         protected void HandleCollisionWithSingleObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
-            if (element.GetType() == typeof(MatterSpell) || element.GetType() == typeof(ShadowCreature))
-            {
-                Activate();
-            }
+                if (element.GetType() == typeof(MatterSpell) || element.GetType() == typeof(ShadowCreature))
+                {
+                    if (!Activated)
+                    {
+                        Activate();  
+                    }
+                    collisionOccured = true;
+                }           
         }
 
         /// <summary>
@@ -57,13 +63,16 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             {
                 if (level.CollisionManager.CollidateWithPlayer(this))
                 {
-                    Activate();
+                    if (!Activated)
+                    {
+                        Activate();
+                    }
                 }
                 else
                 {
-                    Activated = false;
+                    collisionOccured = false;
                     level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
-                    if (!Activated)
+                    if (Activated && !collisionOccured)
                     {
                         Deactivate();
                     }

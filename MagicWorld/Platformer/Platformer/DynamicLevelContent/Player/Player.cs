@@ -291,7 +291,9 @@ namespace MagicWorld
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
-                keyboardState.IsKeyDown(controls.Keys_Left))
+                keyboardState.IsKeyDown(controls.Keys_Left)||
+                gamePadState.ThumbSticks.Left.X<0
+                )
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
                 movementX = -1.0f;
@@ -301,7 +303,9 @@ namespace MagicWorld
                 }
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Right) ||
-                     keyboardState.IsKeyDown(controls.Keys_Right))
+                     keyboardState.IsKeyDown(controls.Keys_Right) ||
+                gamePadState.ThumbSticks.Left.X > 0
+                )
             //keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movementX = 1.0f;
@@ -658,11 +662,11 @@ namespace MagicWorld
                     }
                     // casting angle
                     //Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
-                    if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
+                    if (keyboardState.IsKeyDown(controls.Keys_Up))
                     {
                         spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                     }
-                    else if (keyboardState.IsKeyDown(controls.Keys_Down) || gamePadState.IsButtonDown(controls.GamePad_Down))
+                    else if (keyboardState.IsKeyDown(controls.Keys_Down))
                     {
                         spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                     }
