@@ -30,10 +30,8 @@ namespace MagicWorld.Spells
         {
             // Load animations.
             spriteSet = "Sprites/PullSpell/";//"Sprites/" + spriteSet + "/";
-            //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
             runAnimation = new Animation("Content/Sprites/PullSpell/push", 0.1f,12, level.Content.Load<Texture2D>(spriteSet + "push"), 0);
             runAnimation.Opacity = 1f;
-            //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
             idleAnimation = runAnimation;
 
             base.LoadContent(spriteSet);
