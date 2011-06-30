@@ -10,7 +10,7 @@
   == Beta (29.06) ==
 
   == pre Final (13.07) ==
-  # savegames and replaying of levels (for better score) --> 80% done. missing show the statistics. amauri
+  # savegames and replaying of levels (for better score) --> amauri done. 
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
