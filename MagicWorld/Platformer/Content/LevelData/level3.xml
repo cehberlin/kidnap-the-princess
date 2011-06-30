@@ -450,7 +450,7 @@
                         <Property Name="switchable" Type="string" Description="">
                             <string>door01</string>
                         </Property>
-                        <Property Name="door" Type="string" Description="">
+                        <Property Name="openclose_door" Type="string" Description="">
                             <string />
                         </Property>
                     </CustomProperties>
@@ -468,8 +468,8 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\door.png</texture_filename>
-                    <asset_name>LevelContent\Cave\door</asset_name>
+                    <texture_filename>LevelContent\Cave\Doors\closed.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Doors\closed</asset_name>
                     <Origin>
                         <X>50</X>
                         <Y>78</Y>
