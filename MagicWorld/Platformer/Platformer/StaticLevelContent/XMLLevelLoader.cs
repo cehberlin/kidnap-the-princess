@@ -30,7 +30,9 @@ namespace MagicWorld.StaticLevelContent
         const String PROPERTY_SWITCH_DESTROY = "switch_destroy";
 
         const String PROPERTY_SWITCHABLE = "switchable";
-        const String PROPERTY_DOOR = "door";
+        const String PROPERTY_DOOR_UPDOWN = "updown_door";
+        const String PROPERTY_DOOR_OPENCLOSE = "openclose_door";
+        const String PROPERTY_DOOR_OPEN = "open";
         const String PROPERTY_GRAVITY_ELEMENT = "gravity_element";
         const String PROPERTY_ENABLE_GRAVITY = "enable_gravity";
         const String PROPERTY_ENABLE_COLLISION = "enable_collision";
@@ -273,11 +275,41 @@ namespace MagicWorld.StaticLevelContent
             {
                 foreach (Item item in specialLayer.Items)
                 {
-                    if (item.CustomProperties.ContainsKey(PROPERTY_DOOR))
+                    if (item.CustomProperties.ContainsKey(PROPERTY_DOOR_UPDOWN) 
+                        || item.CustomProperties.ContainsKey(PROPERTY_DOOR_OPENCLOSE))
                     {
                         TextureItem ti = (TextureItem)item;
 
-                        Door door = new Door(ti.asset_name, level, getCorrectedStartPosition(ti));
+                        AbstractDoor door;
+
+                        if (item.CustomProperties.ContainsKey(PROPERTY_DOOR_UPDOWN)) //up down door
+                        {
+                            bool opened = false;                            
+                            opened = checkForOpenDoorStatus(item, opened);
+                            door = new UpDownDoor(ti.asset_name, level, getCorrectedStartPosition(ti), opened);
+                        }
+                        else //open close door
+                        {
+                            //detect open/close status on naming
+                            //we assume that the texture  path for open door contains the word "open"
+                            //the corresponding closed texture needs to have the same path with
+                            //open replaced by "closed"
+                            string otherTexture = ti.asset_name;
+                            if (ti.asset_name.Contains("open"))
+                            {
+                                otherTexture = otherTexture.Replace("open", "closed");
+                                door = new OpenCloseDoor(ti.asset_name,otherTexture, level, getCorrectedStartPosition(ti), true);
+                            }
+                            else if (ti.asset_name.Contains("closed"))
+                            {
+                                otherTexture = otherTexture.Replace("closed", "open");
+                                door = new OpenCloseDoor(otherTexture,ti.asset_name, level, getCorrectedStartPosition(ti), false);
+                            }
+                            else
+                            {
+                                throw new ArgumentException("Door does not fit nameing convension!");
+                            }
+                        }
                         correctWidhAndHeight(door, ti);
                         elements.Add(door);
 
@@ -344,6 +376,21 @@ namespace MagicWorld.StaticLevelContent
                 enablegravity = (bool)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;                
             }
             return enablegravity;
+        }
+
+        /// <summary>
+        /// analyse the enable gravity property
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="enablegravity"></param>
+        /// <returns></returns>
+        private static bool checkForOpenDoorStatus(Item item, bool opened)
+        {
+            if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_GRAVITY))
+            {
+                opened = (bool)item.CustomProperties[PROPERTY_DOOR_OPEN].value;
+            }
+            return opened;
         }
 
 

@@ -49,7 +49,7 @@ namespace MagicWorld.StaticLevelContent
             elements.Add(ingredient2);
             elements.Add(ingredient3);
 
-            Door testDoor = new Door("LevelContent/Cave/door", level, new Vector2(600f, 50));
+            UpDownDoor testDoor = new UpDownDoor("LevelContent/Cave/door", level, new Vector2(600f, 50));
             elements.Add(testDoor);
 
             //examples for pushable pullable element
