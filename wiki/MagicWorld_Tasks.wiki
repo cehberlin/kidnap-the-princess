@@ -3,10 +3,13 @@
 = in Progress =
 # level with push puzzle (see design doc) -> christopher
 # level with pullable platform and movable platform -> John
+# open close door --> Christopher
 
 = TODO =
 
   == Beta (29.06) ==
+
+  == pre Final (13.07) ==
   # savegames and replaying of levels (for better score) --> 80% done. missing show the statistics. amauri
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
@@ -16,12 +19,10 @@
   # electric spell graphics -> Pascal
   # level textures -> Pascal
   # slow motion while casting -> *???*
-  # push & pull no casting with aiming function... 
+  # push & pull no casting with aiming function...
+  # gray out background in casting mode
+  # slowmotion for all objects 
  
-
-
-
-== pre Final (13.07) ==
   # level transition -->amauri
   # instruction screen for level and spells (AGREE? )
   # spider: only moves in defined web area (in all directions)
@@ -30,6 +31,14 @@
   # vulcano
   # warm/cold spell: better gravition physics --> please explain!!
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
+  # recreate push pull objects with switch or something like this
+  # put steps(several plattforms over each other) in levels where you could fall down (some level)
+  # BUG with aiming on gamepad
+  # track textures
+  # you should move with moveable plattforms
+  # avoid choosing same spell twice
+  # give magican another wand and put every wand in one animation
+  # more easier start levels!
 
 == Final (06.07) ==
   
