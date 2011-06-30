@@ -33,7 +33,7 @@
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
   # recreate push pull objects with switch or something like this
   # put steps(several plattforms over each other) in levels where you could fall down (some level)
-  # BUG with aiming on gamepad
+  # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution)
   # track textures
   # you should move with moveable plattforms
   # avoid choosing same spell twice
