@@ -367,7 +367,7 @@ namespace MagicWorld.StaticLevelContent
                             type=PortalHandlingType.PLAYER;
                         }
 
-                        Portal portal = new Portal(ti.asset_name, level, item.Position, destination.Position, type);
+                        Portal portal = new Portal(ti.asset_name, level, getCorrectedStartPosition(ti), destination.Position, type);
                         correctWidhAndHeight(portal, ti);
                         elements.Add(portal);
                     }                   
