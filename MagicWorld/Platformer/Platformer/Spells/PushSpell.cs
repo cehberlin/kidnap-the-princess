@@ -20,10 +20,9 @@ namespace MagicWorld.Spells
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
-            //MaxScale = SpellConstantsValues.PushSpell_MaxSize;
-            //growFactor = SpellConstantsValues.PushSpell_GrowRate;
-            MaxScale = 2;
-            growFactor = 0.1f;
+            MaxScale = SpellConstantsValues.PushSpell_MaxSize;
+            growFactor = SpellConstantsValues.PushSpell_GrowRate;
+            currentScale = SpellConstantsValues.PushSpell_StartScale;
         }
 
         public override void LoadContent(string spriteSet)

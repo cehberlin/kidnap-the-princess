@@ -826,5 +826,16 @@ namespace MagicWorld
             if (lastVelocity.X < 0) { return true; }
             return false;
         }
+
+
+        #region IPlayerService Member
+
+
+        public bool isAiming
+        {
+            get { return IsCasting && currentSpell.GetType() != typeof(PushSpell) && currentSpell.GetType() != typeof(PullSpell); }
+        }
+
+        #endregion
     }
 }

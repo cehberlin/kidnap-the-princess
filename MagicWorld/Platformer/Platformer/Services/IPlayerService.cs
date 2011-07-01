@@ -11,6 +11,8 @@ namespace MagicWorld.Services
         bool IsCasting { get; }
         bool IsAlive { get; }
 
+        bool isAiming { get; }
+
         Mana Mana { get; }
         //int CollectedIngredients { get; }
 

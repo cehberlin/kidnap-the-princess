@@ -55,7 +55,7 @@ namespace MagicWorld.BlendInClasses
         {
             if (servicesAcquired)
             {
-                if (playerService.IsCasting)
+                if (playerService.isAiming)
                 {
                     spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraService.TransformationMatrix);
                     spriteBatch.Draw(circleTex, playerService.Position, null, Color.White * transparencyFactor, 0, origin, 1.0f, SpriteEffects.None, 0f);

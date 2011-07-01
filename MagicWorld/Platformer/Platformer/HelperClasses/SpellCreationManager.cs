@@ -90,14 +90,17 @@ namespace MagicWorld.HelperClasses
         public static void furtherSpellCasting(Player player, Level level, GameTime gameTime)
         {
             //update position and direction and drawing angle
-            Vector2 pos = player.getCurrentSpellPosition();
-            Vector2 direction = pos - player.Position;
-            direction.Normalize();
-            player.CurrentSpell.Direction = direction;
-            player.CurrentSpell.Position = pos;
-            player.CurrentSpell.Rotation = -(float)(level.Player.SpellAimAngle + Math.PI / 2);
-            //add new particle effects
-            player.CurrentSpell.AddOnCreationParticles();
+            if (player.isAiming)
+            {
+                Vector2 pos = player.getCurrentSpellPosition();
+                Vector2 direction = pos - player.Position;
+                direction.Normalize();
+                player.CurrentSpell.Direction = direction;
+                player.CurrentSpell.Position = pos;
+                player.CurrentSpell.Rotation = -(float)(level.Player.SpellAimAngle + Math.PI / 2);
+                //add new particle effects
+                player.CurrentSpell.AddOnCreationParticles();
+            }
         }
 
         public static void releaseSpell(Player player)
