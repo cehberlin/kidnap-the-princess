@@ -655,11 +655,19 @@ namespace MagicWorld
                 else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellA) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellA) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellA)) // spell A select
                 {
                     selectedSpellIndex_A = selectNextSpell(selectedSpellIndex_A);
+                    if (selectedSpellIndex_A == selectedSpellIndex_B)
+                    {
+                        selectedSpellIndex_A = selectNextSpell(selectedSpellIndex_A);
+                    }
                     Debug.WriteLine("changed selection for SpellSlot A: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_A));
                 }
                 else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellB) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellB) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
                 {
                     selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
+                    if (selectedSpellIndex_A == selectedSpellIndex_B)
+                    {
+                        selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
+                    }
                     Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
                 }
             }
@@ -746,6 +754,7 @@ namespace MagicWorld
             double angle;
 
             /// keeps in mind working direction of the player (mirrors the angle)
+            //TODO DISABLE WHILE GAMEPAD AIMING, THIS SHOULD FIX ONE OF THE BUGS
             if (lastMovementRight)
             {
                 angle = spellAimAngle;
