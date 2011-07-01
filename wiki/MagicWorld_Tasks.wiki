@@ -15,7 +15,6 @@
     * one torch extinguish opens door to ingredient
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
   # icicle in editor -> Pascal
-  # electric spell graphics -> Pascal
   # level textures -> Pascal
   # slow motion while casting -> *???*
   # push & pull no casting with aiming function...
@@ -48,6 +47,7 @@
 
  === optional ===
   # Sound menu (turn sound and/or music on/off)
+  # electric spell graphics -> Pascal (current one should work)
 
 
 == rejected To Dos ==
