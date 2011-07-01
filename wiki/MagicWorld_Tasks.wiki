@@ -22,7 +22,6 @@
   # slowmotion for all objects 
   # texture for portal
   # animation for no gravity
- 
   # level transition -->amauri
   # instruction screen for level and spells (AGREE? )
   # spider: only moves in defined web area (in all directions)
@@ -32,11 +31,8 @@
   # warm/cold spell: better gravition physics --> please explain!!
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
   # recreate push pull objects with switch or something like this
-  # put steps(several plattforms over each other) in levels where you could fall down (some level)
   # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution)
   # track textures
-
-  # avoid choosing same spell twice
   # give magican another wand and put every wand in one animation
   # more easier start levels!
   # more intuitive displaying of collected and needed ingridients
