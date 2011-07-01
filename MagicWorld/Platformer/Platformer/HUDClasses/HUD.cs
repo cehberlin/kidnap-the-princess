@@ -84,21 +84,31 @@ namespace MagicWorld.HUDClasses
         /// Used for loading the hud textures.
         /// </summary>
         ContentManager content;
+
+        static Color ingredientsColor = Color.White * 0.7f; //a bit transparency
+
         #endregion
         IPlayerService playerService;
+
+
         public HUD(Game game)
             : base(game)
         {
-            position = new Vector2(10, 10);
-            resolution = new Vector2(game.GraphicsDevice.Viewport.Width, game.GraphicsDevice.Viewport.Height);
+            position = new Vector2(10, 10);           
             content = Game.Content;
             visible = false;
             screenManager = (ScreenManager)game.Services.GetService(typeof(ScreenManager));
             manaBar = new ManaBar(position);
-            ingredientBar = new IngredientBar(new Vector2(resolution.X / 2, position.Y));
-            spellBarLeft = new SpellBar(new Vector2(resolution.X * 0.75f, position.Y));
+            ingredientBar = new IngredientBar(new Vector2(80, 10));
+            refreshSpellBarPosition();
+        }
+
+        private void refreshSpellBarPosition()
+        {
+            resolution = new Vector2(Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height);
+            spellBarLeft = new SpellBar(new Vector2(resolution.X - 200, position.Y));
             spellBarLeft.Width = 100;
-            spellBarRight = new SpellBar(new Vector2(resolution.X * 0.75f + spellBarLeft.Width, position.Y));
+            spellBarRight = new SpellBar(new Vector2(resolution.X - 200 + spellBarLeft.Width, position.Y));
         }
 
         protected override void LoadContent()
@@ -143,6 +153,7 @@ namespace MagicWorld.HUDClasses
                     UpdateRunes(playerService.selectedSpell_A, ref leftSpell);
                     UpdateRunes(playerService.selectedSpell_B, ref rightSpell);
                 }
+                refreshSpellBarPosition();
 
                 Level level = (Level)Game.Services.GetService(typeof(Level)); 
                 if (level != null)
@@ -172,7 +183,7 @@ namespace MagicWorld.HUDClasses
                 spriteBatch.Begin();
                 spriteBatch.Draw(liquidTex, manaBar.Filling, Color.White);
                 spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
-                spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, Color.White);
+                spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, ingredientsColor);
                 spriteBatch.Draw(leftSpell, spellBarLeft.Position, Color.White);
                 spriteBatch.Draw(rightSpell, spellBarRight.Position, Color.White);
                 spriteBatch.End();
