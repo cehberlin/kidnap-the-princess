@@ -39,7 +39,7 @@
   
 
  === optional ===
-  # Sound menu (turn sound and/or music on/off)
+  # Sound menu (turn sound and/or music on/off) -> Amauri
   # electric spell graphics -> Pascal (current one should work)
   # you should move with moveable plattforms -->rounding problem??
 
