@@ -30,12 +30,10 @@
   # vulcano
   # warm/cold spell: better gravition physics --> please explain!!
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
-  # recreate push pull objects with switch or something like this
   # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution)
   # track textures
   # give magican another wand and put every wand in one animation
   # more easier start levels!
-  # more intuitive displaying of collected and needed ingridients
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it!
 
 == Final (06.07) ==
