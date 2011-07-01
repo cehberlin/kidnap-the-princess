@@ -12,6 +12,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.Controls;
 using MagicWorld.Constants;
 using MagicWorld.Services;
+using MagicWorld.StaticLevelContent;
 
 namespace MagicWorld
 {
@@ -538,6 +539,18 @@ namespace MagicWorld
                 {
                     OnKilled(e);
                 }
+            }
+            //move with platforms
+            else if (isOnGround && 
+                element.GetType() == typeof(MoveablePlatform) )
+            {
+                this.Position += ((MoveablePlatform)element).LastMovement;
+                Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
+            }
+            else if (isOnGround &&element.GetType() == typeof(SpellMoveablePlatform))
+            {
+                this.Position += ((SpellMoveablePlatform)element).LastMovement;
+                Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
             }
         }
 

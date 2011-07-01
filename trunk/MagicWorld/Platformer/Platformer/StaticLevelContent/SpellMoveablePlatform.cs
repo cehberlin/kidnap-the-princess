@@ -30,6 +30,13 @@ namespace MagicWorld.StaticLevelContent
 
         protected PushPullHandler pushPullHandler = new PushPullHandler();
 
+        Vector2 lastMovement = Vector2.Zero;
+
+        public Vector2 LastMovement
+        {
+            get { return lastMovement; }
+        }
+
 
         public SpellMoveablePlatform(String texture, CollisionType collision, Level level, Vector2 position, PathItem path)
             : base(texture, collision, level, position)
@@ -51,7 +58,9 @@ namespace MagicWorld.StaticLevelContent
         #region Update
         public override void Update(GameTime gameTime)
         {
+            Vector2 lastPosition = Position;
             pushPullHandler.Update(gameTime, currentPathPosition, nextPathPosition, currentBounds);
+            lastMovement = Position - lastPosition;
         }
 
         #endregion
