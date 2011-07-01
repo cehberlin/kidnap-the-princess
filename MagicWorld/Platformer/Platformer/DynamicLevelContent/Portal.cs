@@ -36,7 +36,17 @@ namespace MagicWorld.DynamicLevelContent
 
         public override void Update(GameTime gameTime)
         {
-            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
+            if (handleType != PortalHandlingType.PLAYER)
+            {
+                level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
+            }
+            else
+            {
+                if (level.CollisionManager.CollidateWithPlayer(this))
+                {
+                    level.Player.Position = portalDestination;
+                }
+            }
             base.Update(gameTime);
         }
 
@@ -44,12 +54,6 @@ namespace MagicWorld.DynamicLevelContent
         {
             switch (handleType)
             {
-                case PortalHandlingType.PLAYER:
-                    if (element.GetType() == typeof(MagicWorld.Player))
-                    {
-                        element.Position = portalDestination;
-                    }
-                    break;
                 case PortalHandlingType.PUSHPULL:
                     if (element.GetType() == typeof(PushPullElement))
                     {
@@ -62,8 +66,7 @@ namespace MagicWorld.DynamicLevelContent
                         element.Position = portalDestination;
                     }
                     break;
-            }
-           
+            }           
         }
     }
 }

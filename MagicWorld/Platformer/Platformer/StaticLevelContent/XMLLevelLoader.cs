@@ -347,11 +347,15 @@ namespace MagicWorld.StaticLevelContent
                 foreach (Item item in portalLayer.Items)
                 {
                     TextureItem ti = (TextureItem)item;
-                    TextureItem destination = (TextureItem)item.CustomProperties["Destination"].value;
+                    
+                    Item destination = (Item)item.CustomProperties["Destination"].value;
 
                     if (destination != null)
                     {
-                        String portalHandlingType = (String)item.CustomProperties["Type"].value;
+                        String portalHandlingType = "";
+                        if(item.CustomProperties.ContainsKey("Type")){
+                            portalHandlingType = (String)item.CustomProperties["Type"].value;
+                        }
 
                         PortalHandlingType type;
 
@@ -364,6 +368,7 @@ namespace MagicWorld.StaticLevelContent
                         }
 
                         Portal portal = new Portal(ti.asset_name, level, item.Position, destination.Position, type);
+                        correctWidhAndHeight(portal, ti);
                         elements.Add(portal);
                     }                   
                 }
