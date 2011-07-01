@@ -11,8 +11,6 @@ namespace MagicWorld.Spells
     public class PullSpell : Spell
     {
 
-
-
         public PullSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.PullSpellConstants.BasicCastingCost, SpellConstantsValues.PullSpellConstants.CastingCostPerSecond, SpellType.PullSpell)
         {
@@ -22,10 +20,9 @@ namespace MagicWorld.Spells
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
-            //MaxScale = SpellConstantsValues.PullSpell_MaxSize;
-            //growFactor = SpellConstantsValues.PullSpell_GrowRate; 
-            MaxScale = 2;
-            growFactor = 0.1f;
+            MaxScale = SpellConstantsValues.PullSpell_MaxSize;
+            growFactor = SpellConstantsValues.PullSpell_GrowRate;
+            currentScale = SpellConstantsValues.PullSpell_StartScale;
         }
         
         public override void LoadContent(string spriteSet)
