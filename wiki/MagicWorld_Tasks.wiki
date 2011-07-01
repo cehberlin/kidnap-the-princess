@@ -21,6 +21,7 @@
   # texture for portal -> Pascal
   # animation for no gravity -> Pascal
   # level transition -->amauri
+  # BUG: portal placing difference between editor and game. Help`?
   # instruction screen for level and spells (AGREE? )
   # spider: only moves in defined web area (in all directions)
   # save configuration (save settings like sound/resolutions)--> amauri
