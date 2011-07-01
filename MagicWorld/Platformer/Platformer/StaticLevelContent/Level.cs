@@ -354,15 +354,16 @@ namespace MagicWorld
             }
 
             List<BasicGameElement> removableObjects = new List<BasicGameElement>();
-            foreach (BasicGameElement elem in generalColliadableGameElements)
-            {
-                elem.Update(objectTime);
-
-                if (elem.IsRemovable)
+            for (int i = 0; i < generalColliadableGameElements.Count;i++ )                
                 {
-                    removableObjects.Add(elem);
+                    BasicGameElement elem = generalColliadableGameElements[i];
+                    elem.Update(objectTime);
+
+                    if (elem.IsRemovable)
+                    {
+                        removableObjects.Add(elem);
+                    }
                 }
-            }
             //remove destroyed elements
             foreach (BasicGameElement elem in removableObjects)
             {

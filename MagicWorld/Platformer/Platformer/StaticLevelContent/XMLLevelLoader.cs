@@ -10,6 +10,8 @@ using MagicWorld.DynamicLevelContent;
 using MagicWorld.Ingredients;
 using MagicWorld.DynamicLevelContent.SwitchRiddles;
 using MagicWorld.BlendInClasses;
+using MagicWorld.DynamicLevelContent.Enemies;
+using System.Diagnostics;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -192,15 +194,44 @@ namespace MagicWorld.StaticLevelContent
                 foreach (Item item in enemiesLayer.Items)
                 {
                     Enemy e = null;
-                    String monsterName = (String)item.CustomProperties["EnemyType"].value;
-                    if (monsterName.Equals("ShadowCreature"))
+                    if (item.CustomProperties.ContainsKey("EnemyType"))
                     {
-                        e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
-                    }
-                    else if (monsterName.Equals("Bat"))
-                    {
-                        PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                        e = new Bat(level, item.Position, "Sprites/ShadowCreatureSpriteSheet", pathItem);
+                        String monsterName = (String)item.CustomProperties["EnemyType"].value;
+                        if (monsterName.Equals("ShadowCreature"))
+                        {
+                            e = new ShadowCreature(level, item.Position, "Sprites/ShadowCreatureSpriteSheet");
+                        }
+                        else if (monsterName.Equals("Bat"))
+                        {
+                            PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                            e = new Bat(level, item.Position, "Sprites/ShadowCreatureSpriteSheet", pathItem);
+                        }
+                        else if (monsterName.Equals("Bullet"))
+                        {
+                            if (item.CustomProperties.ContainsKey("Aim"))
+                            {
+                                bool enable_gravity = true;//default
+                                enable_gravity = checkForEnabledGravity(item, enable_gravity);
+                                int delaytime = 2000;//Default
+                                delaytime = getDelayTime(item, delaytime);
+
+                                Item aim = (Item)item.CustomProperties["Aim"].value;
+
+                                TextureItem ti = (TextureItem)item;
+
+                                Vector2 startPos = getCorrectedStartPosition(ti);
+
+                                Vector2 velocity = aim.Position - startPos;
+
+                                BulletLauncher launcher = new BulletLauncher(ti.asset_name, "Sprites/WarmSpell/Run", level,
+                                    startPos, velocity, delaytime, enable_gravity);
+                                elements.Add(launcher);
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Bullet Enemy needs Aim for calculating shooting direction and velocity");
+                            }
+                        }
                     }
                     
                     if (e != null)
@@ -405,6 +436,21 @@ namespace MagicWorld.StaticLevelContent
                 enablegravity = (bool)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;                
             }
             return enablegravity;
+        }
+
+        /// <summary>
+        /// get delay time custom property
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="enablegravity"></param>
+        /// <returns></returns>
+        private static int getDelayTime(Item item, int time)
+        {
+            if (item.CustomProperties.ContainsKey("DelayTime"))
+            {
+                time = (int)item.CustomProperties["DelayTime"].value;
+            }
+            return time;
         }
 
         /// <summary>
