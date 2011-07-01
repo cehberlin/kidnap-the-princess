@@ -35,6 +35,7 @@
   # give magican another wand and put every wand in one animation
   # more easier start levels!
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it!
+  # fullscreen option in menu --> amauri?
 
 == Final (06.07) ==
   
