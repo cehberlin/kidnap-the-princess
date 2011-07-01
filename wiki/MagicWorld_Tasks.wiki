@@ -16,12 +16,10 @@
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
   # icicle in editor -> Pascal
   # level textures -> Pascal
-  # slow motion while casting -> *???*
   # push & pull no casting with aiming function...
   # gray out background in casting mode
-  # slowmotion for all objects 
-  # texture for portal
-  # animation for no gravity
+  # texture for portal -> Pascal
+  # animation for no gravity -> Pascal
   # level transition -->amauri
   # instruction screen for level and spells (AGREE? )
   # spider: only moves in defined web area (in all directions)
@@ -31,10 +29,10 @@
   # warm/cold spell: better gravition physics --> please explain!!
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
   # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution)
-  # track textures
-  # give magican another wand and put every wand in one animation
+  # track textures -> Pascal
+  # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
-  # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it!
+  # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
   # fullscreen option in menu --> amauri?
 
 == Final (06.07) ==
