@@ -16,7 +16,6 @@
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
   # icicle in editor -> Pascal
   # level textures -> Pascal
-  # push & pull no casting with aiming function...
   # gray out background in casting mode
   # texture for portal -> Pascal
   # animation for no gravity -> Pascal
@@ -29,7 +28,7 @@
   # vulcano
   # warm/cold spell: better gravition physics --> please explain!!
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
-  # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution)
+  # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution or search todos)
   # track textures -> Pascal
   # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
