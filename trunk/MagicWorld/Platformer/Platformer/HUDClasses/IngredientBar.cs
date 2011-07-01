@@ -29,7 +29,7 @@ namespace MagicWorld.HUDClasses
 
         public String IngredientString
         {
-            get { return current.ToString() + "/" + needed.ToString() + "/" + max.ToString(); }
+            get { return "Ingredients: "+ current.ToString() + "\nNeeded: "+ needed.ToString() + " of " + max.ToString(); }
         }
 
         public void SetState(int cur, int need, int total)
