@@ -14,6 +14,7 @@ using MagicWorld.Spells;
 using MagicWorld.BlendInClasses;
 using MagicWorld.Services;
 using System.Diagnostics;
+using MagicWorld.Constants;
 
 namespace MagicWorld
 {
@@ -339,10 +340,23 @@ namespace MagicWorld
                 elem.Update(gameTime);
             }
 
+            GameTime objectTime;
+
+            if (player.IsCasting) //slow motion
+            {
+                TimeSpan total = new TimeSpan((long)(gameTime.TotalGameTime.Ticks*PhysicValues.SLOW_MOTION_FACTOR));
+                TimeSpan elapsed = new TimeSpan((long)(gameTime.ElapsedGameTime.Ticks*PhysicValues.SLOW_MOTION_FACTOR));
+                objectTime = new GameTime(total, elapsed);
+            }
+            else
+            {
+                objectTime = gameTime;
+            }
+
             List<BasicGameElement> removableObjects = new List<BasicGameElement>();
             foreach (BasicGameElement elem in generalColliadableGameElements)
             {
-                elem.Update(gameTime);
+                elem.Update(objectTime);
 
                 if (elem.IsRemovable)
                 {
