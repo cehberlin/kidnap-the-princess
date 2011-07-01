@@ -261,18 +261,9 @@ namespace MagicWorld
             
             Position = Position + velocity*elapsed;
                         base.Update(gameTime);
-            RotateToDirection();
-            Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
-        }
 
-        /// <summary>
-        /// calculate the sprite rotation towards the direction
-        /// </summary>
-        private void RotateToDirection()
-        {
-            Vector2 change = Position - oldPosition;
-            float changeAngle = (float)Math.Atan2(change.Y, change.X);
-            rotation =(float)( changeAngle+Math.PI);   //+ PI is necessary because of the right direction spritesheet          
+            rotation = GeometryCalculationHelper.RotateToDirection(oldPosition, position);
+            Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
         }
 
         /// <summary>

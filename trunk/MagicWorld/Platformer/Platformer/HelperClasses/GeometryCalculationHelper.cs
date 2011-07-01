@@ -16,5 +16,15 @@ namespace MagicWorld.HelperClasses
 
             return pos_center + new Vector2((float)Math.Sin(angle) * radius, (float)Math.Cos(angle) * radius);
         }
+
+        /// <summary>
+        /// calculate the sprite rotation towards the direction
+        /// </summary>
+        public static float RotateToDirection(Vector2 oldPosition,Vector2 position)
+        {
+            Vector2 change = position - oldPosition;
+            float changeAngle = (float)Math.Atan2(change.Y, change.X);
+            return (float)(changeAngle + Math.PI);   //+ PI is necessary because of the right direction spritesheet          
+        }
     }
 }
