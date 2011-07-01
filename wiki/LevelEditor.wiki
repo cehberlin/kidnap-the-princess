@@ -55,7 +55,7 @@ In the future this layer will also be used to place enemies and their waypoints 
 
 == Portal ==
 A Portal moves the colliding object to a destination point.
-You specify destination by adding new custom property named "destination" with type item and choose a item from the select dialog (same way selecting a path for bats/platforms), the position of this item is the destination. Default the portal only reacts on player collision. If you want reaction with ShadowCreature add custom property free text with name "Type" and write freetext "ShadowCreature", write free text "PushPull" for pushable and pullable objects.
+You specify destination by adding new custom property named "Destination" with type item and choose a item from the select dialog (same way selecting a path for bats/platforms), the position of this item is the destination. Default the portal only reacts on player collision. If you want reaction with ShadowCreature add custom property free text with name "Type" and write freetext "ShadowCreature", write free text "PushPull" for pushable and pullable objects.
 
 == Ingredients ==
 Ingredients must be placed on the Ingredients layer.
