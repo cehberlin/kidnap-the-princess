@@ -35,7 +35,7 @@
   # put steps(several plattforms over each other) in levels where you could fall down (some level)
   # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution)
   # track textures
-  # you should move with moveable plattforms
+
   # avoid choosing same spell twice
   # give magican another wand and put every wand in one animation
   # more easier start levels!
@@ -48,6 +48,7 @@
  === optional ===
   # Sound menu (turn sound and/or music on/off)
   # electric spell graphics -> Pascal (current one should work)
+  # you should move with moveable plattforms -->rounding problem??
 
 
 == rejected To Dos ==
