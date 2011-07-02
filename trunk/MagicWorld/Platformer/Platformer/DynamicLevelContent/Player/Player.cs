@@ -676,11 +676,6 @@ namespace MagicWorld
                 SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
-                    //Use Thumbstick to aim the spell
-                    if (gamePadState.ThumbSticks.Left.Length() > 0.1f)
-                    {
-                        spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
-                    }
                     // casting angle
                     //Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
                     if (keyboardState.IsKeyDown(controls.Keys_Up))
@@ -691,7 +686,11 @@ namespace MagicWorld
                     {
                         spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                     }
-
+                    //Use Thumbstick to aim the spell
+                    if (gamePadState.ThumbSticks.Left.Length() > 0.1f)
+                    {
+                        spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
+                    }
                     //casting power
                     if (keyboardState.IsKeyDown(controls.Keys_Right) || gamePadState.IsButtonDown(controls.GamePad_Right)) // more power
                     {
@@ -716,14 +715,6 @@ namespace MagicWorld
                         }
                         //TODO spell casting
                     }
-                    //else if (gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell))
-                    //{
-                    //    SpellCreationManager.morePower(this, this.level, gameTime);
-                    //}
-                    //else if (gamePadState.IsButtonDown(controls.GamePad_DecreaseSpell))
-                    //{
-                    //    SpellCreationManager.lessPower(this, this.level, gameTime);
-                    //}
                     else if (gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell))
                     {
                         SpellCreationManager.morePower(this, this.level, gameTime);
@@ -754,8 +745,12 @@ namespace MagicWorld
             double angle;
 
             /// keeps in mind working direction of the player (mirrors the angle)
-            //TODO DISABLE WHILE GAMEPAD AIMING, THIS SHOULD FIX ONE OF THE BUGS
-            if (lastMovementRight)
+            // TODO DISABLE WHILE GAMEPAD AIMING, THIS SHOULD FIX ONE OF THE BUGS
+            if (lastMovementRight || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0.3f)
+            {
+                angle = spellAimAngle;
+            }
+            else if (GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0.3f)
             {
                 angle = spellAimAngle;
             }
