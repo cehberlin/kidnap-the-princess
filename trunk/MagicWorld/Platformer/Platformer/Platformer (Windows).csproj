@@ -110,6 +110,7 @@
     <Compile Include="DynamicLevelContent\SwitchRiddles\PushDownSwitch.cs" />
     <Compile Include="DynamicLevelContent\SwitchRiddles\TorchSwitch.cs" />
     <Compile Include="Gleed2dLevelContent\PathItem.cs" />
+    <Compile Include="HelperClasses\Animation\SimpleAnimator.cs" />
     <Compile Include="HelperClasses\GeometryCalculationHelper.cs" />
     <Compile Include="Services\IEnemyService.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\ExplosionParticleSystem.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="ScreenManager\Screens\ResolutionMenuScreen.cs" />
     <Compile Include="Services\ICameraService.cs" />
     <Compile Include="Services\IPlayerService.cs" />
+    <Compile Include="Services\ISimpleAnimator.cs" />
     <Compile Include="Services\IVisibility.cs" />
     <Compile Include="Spells\ISpellInfluenceable.cs" />
     <Compile Include="Spells\ColdSpell.cs" />

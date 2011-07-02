@@ -33,6 +33,7 @@ namespace MagicWorld
         Player player;
 
         public IVisibility visibilityService;
+        ISimpleAnimator simpleAnimator;
 
         // Physical structure of the level.
 
@@ -186,8 +187,7 @@ namespace MagicWorld
 
             this.levelLoader = levelLoader;
 
-            visibilityService =(IVisibility) game.Services.GetService(typeof(IVisibility));
-
+            visibilityService = (IVisibility)game.Services.GetService(typeof(IVisibility));
             initLevel();
         }
 
@@ -255,8 +255,11 @@ namespace MagicWorld
             // Load sounds.
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
 
-            tutManager =(TutorialManager) Game.Services.GetService(typeof(TutorialManager));
+            tutManager = (TutorialManager)Game.Services.GetService(typeof(TutorialManager));
             tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
+
+            simpleAnimator = (ISimpleAnimator)game.Services.GetService(typeof(ISimpleAnimator));
+            //TODO: add portals to the service/ask christopher about the best way to "get" them
         }
 
         /// <summary>
@@ -344,8 +347,8 @@ namespace MagicWorld
 
             if (player.IsCasting) //slow motion
             {
-                TimeSpan total = new TimeSpan((long)(gameTime.TotalGameTime.Ticks*PhysicValues.SLOW_MOTION_FACTOR));
-                TimeSpan elapsed = new TimeSpan((long)(gameTime.ElapsedGameTime.Ticks*PhysicValues.SLOW_MOTION_FACTOR));
+                TimeSpan total = new TimeSpan((long)(gameTime.TotalGameTime.Ticks * PhysicValues.SLOW_MOTION_FACTOR));
+                TimeSpan elapsed = new TimeSpan((long)(gameTime.ElapsedGameTime.Ticks * PhysicValues.SLOW_MOTION_FACTOR));
                 objectTime = new GameTime(total, elapsed);
             }
             else

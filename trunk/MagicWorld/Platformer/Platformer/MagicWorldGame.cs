@@ -12,6 +12,7 @@ using ParticleEffects;
 using MagicWorld.BlendInClasses;
 using MagicWorld.Constants;
 using MagicWorld.Services;
+using MagicWorld.HelperClasses.Animation;
 
 namespace MagicWorld
 {
@@ -39,6 +40,7 @@ namespace MagicWorld
         AimingAid aid;
         TutorialManager tutManager;
         IcedVisibility ice;
+        SimpleAnimator simpleAnimator;
 
         public SaveGameData GameData=new SaveGameData();
         ConstantChanger constantChanger;
@@ -167,7 +169,9 @@ namespace MagicWorld
             ice = new IcedVisibility(this);
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
-
+            simpleAnimator = new SimpleAnimator(this);
+            //Components.Add(simpleAnimator);
+            
             #if DEBUG
                 constantChanger = new ConstantChanger(this);
                 Components.Add(constantChanger);
