@@ -36,51 +36,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ingredients\Gem.png">
-      <Name>Gem</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterA\Idle.png">
-      <Name>Idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterA\Run.png">
-      <Name>Run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterB\Idle.png">
-      <Name>Idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterB\Run.png">
-      <Name>Run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterC\Idle.png">
-      <Name>Idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterC\Run.png">
-      <Name>Run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterD\Idle.png">
-      <Name>Idle</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Sprites\MonsterD\Run.png">
-      <Name>Run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Sprites\Player\Celebrate.png">
       <Name>Celebrate</Name>
       <Importer>TextureImporter</Importer>
@@ -106,56 +61,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Tiles\BlockA0.png">
-      <Name>BlockA0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockA1.png">
-      <Name>BlockA1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockA2.png">
-      <Name>BlockA2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockA3.png">
-      <Name>BlockA3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockA4.png">
-      <Name>BlockA4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockA5.png">
-      <Name>BlockA5</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockA6.png">
-      <Name>BlockA6</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockB0.png">
-      <Name>BlockB0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\BlockB1.png">
-      <Name>BlockB1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Tiles\Platform.png">
-      <Name>Platform</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fonts\Hud.spritefont">
@@ -165,32 +70,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Overlays\you_died.png">
-      <Name>you_died</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Overlays\you_lose.png">
-      <Name>you_lose</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Overlays\you_win.png">
-      <Name>you_win</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\white.png">
       <Name>white</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tiles\Exit.png">
-      <Name>Exit</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -280,13 +161,6 @@
     </Compile>
     <Compile Include="Sprites\MatterSpell\Run.png">
       <Name>Run</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Tiles\Ice_Tile.png">
-      <Name>Ice_Tile</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
