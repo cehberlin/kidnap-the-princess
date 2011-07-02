@@ -455,7 +455,7 @@ namespace MagicWorld.StaticLevelContent
         {
             if (item.CustomProperties.ContainsKey("DelayTime"))
             {
-                time = (int)item.CustomProperties["DelayTime"].value;
+                time = (int)Convert.ToInt32((string)item.CustomProperties["DelayTime"].value);
             }
             return time;
         }
