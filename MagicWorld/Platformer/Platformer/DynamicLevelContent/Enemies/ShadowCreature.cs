@@ -96,10 +96,10 @@ namespace MagicWorld
             {
                 CurrentVelocity = new Vector2(CurrentVelocity.X, 0);
                 currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
-                level.visibilityService.Add(this.Bounds.getRectangle());
+                level.visibilityService.Add(this);
                 if (currentFreezeTime >= SpellInfluenceValues.maxFreezeTime)
                 {
-                    level.visibilityService.Remove(this.Bounds.getRectangle());
+                    level.visibilityService.Remove(this);
                     isFroozen = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;

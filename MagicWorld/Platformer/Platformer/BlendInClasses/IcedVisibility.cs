@@ -12,12 +12,12 @@ namespace MagicWorld.BlendInClasses
         ContentManager content;
         SpriteBatch spriteBatch;
         ICameraService camera;
-        List<Rectangle> positions;
+        List<IIcedVisibility> positions;
 
         public IcedVisibility(Game game)
             : base(game)
         {
-            positions = new List<Rectangle>();
+            positions = new List<IIcedVisibility>();
             this.content = game.Content;
         }
 
@@ -40,24 +40,24 @@ namespace MagicWorld.BlendInClasses
             if (camera != null)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, camera.TransformationMatrix);
-                foreach (Rectangle pos in positions)
+                foreach (IIcedVisibility obj in positions)
                 {
-                    spriteBatch.Draw(icedTexture, pos, Color.White);
+                    spriteBatch.Draw(icedTexture, obj.getDrawingArea(), Color.White);
                 }
                 spriteBatch.End();
             }
             base.Draw(gameTime);
         }
 
-        public void Add(Rectangle pos)
+        public void Add(IIcedVisibility obj)
         {
-            if (!positions.Contains(pos))
-                positions.Add(pos);
+            if (!positions.Contains(obj))
+                positions.Add(obj);
         }
 
-        public void Remove(Rectangle pos)
+        public void Remove(IIcedVisibility obj)
         {
-            positions.Remove(pos);
+            positions.Remove(obj);
         }
 
         public void Remove()
