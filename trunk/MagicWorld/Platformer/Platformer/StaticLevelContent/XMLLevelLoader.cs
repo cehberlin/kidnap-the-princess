@@ -252,9 +252,10 @@ namespace MagicWorld.StaticLevelContent
                     enablegravity = checkForEnabledGravity(item, enablegravity);
                     TextureItem ti = (TextureItem)item;
 
+                    
                     CollisionType collisionType = CollisionType.Impassable;
                     collisionType = getCollisionType(item, collisionType);
-                    PushPullElement pushPullElement = new PushPullElement(ti.asset_name, collisionType, level, item.Position, enablegravity);
+                    PushPullElement pushPullElement = new PushPullElement(ti.asset_name, collisionType, level, item.Position, ti.TintColor, enablegravity);
 
                     elements.Add(pushPullElement);
                 }
@@ -274,7 +275,7 @@ namespace MagicWorld.StaticLevelContent
                         {
                             TextureItem t = (TextureItem)item;
                             PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                            MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
+                            MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem,t.TintColor);
                             m.Position -= t.Origin;
                             m.Width = (int)t.Origin.X * 2;
                             m.Height = (int)t.Origin.Y * 2;
@@ -284,7 +285,7 @@ namespace MagicWorld.StaticLevelContent
                         {
                             TextureItem t = (TextureItem)item;
                             PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                            SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem);
+                            SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem,t.TintColor);
                             m.Position -= t.Origin;
                             m.Width = (int)t.Origin.X * 2;
                             m.Height = (int)t.Origin.Y * 2;
@@ -405,7 +406,7 @@ namespace MagicWorld.StaticLevelContent
                             type = PortalHandlingType.PLAYER;
                         }
 
-                        Portal portal = new Portal(ti.asset_name, level, getCorrectedStartPosition(ti), destination.Position, type);
+                        Portal portal = new Portal(ti.asset_name, level, getCorrectedStartPosition(ti), destination.Position,ti.TintColor, type);
                         correctWidhAndHeight(portal, ti);
                         elements.Add(portal);
                     }
@@ -420,7 +421,7 @@ namespace MagicWorld.StaticLevelContent
                 {
                     TextureItem ti = (TextureItem)item;
 
-                    Icecicle ice = new Icecicle(ti.asset_name, level, getCorrectedStartPosition(ti));
+                    Icecicle ice = new Icecicle(ti.asset_name, level, getCorrectedStartPosition(ti),ti.TintColor);
                         
                     elements.Add(ice);                   
                 }
@@ -561,7 +562,7 @@ namespace MagicWorld.StaticLevelContent
 
                 if (t.asset_name.Contains("platform"))
                 {
-                    b = new Platform(t.asset_name, collisionType, level, t.Position);
+                    b = new Platform(t.asset_name, collisionType, level, t.Position,t.TintColor);
                 }
                 else
                 {
@@ -762,7 +763,7 @@ namespace MagicWorld.StaticLevelContent
                         String id = (String)item.CustomProperties[PROPERTY_SWITCH_DESTROY].value;
                         TextureItem ti = (TextureItem)item;
 
-                        OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
+                        OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id,ti.TintColor);
                         correctWidhAndHeight(pds, ti);
 
                         switchList.AddLast(pds);

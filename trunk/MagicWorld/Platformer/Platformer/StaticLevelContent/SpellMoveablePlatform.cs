@@ -38,8 +38,8 @@ namespace MagicWorld.StaticLevelContent
         }
 
 
-        public SpellMoveablePlatform(String texture, CollisionType collision, Level level, Vector2 position, PathItem path)
-            : base(texture, collision, level, position)
+        public SpellMoveablePlatform(String texture, CollisionType collision, Level level, Vector2 position, PathItem path, Color drawColor)
+            : base(texture, collision, level, position, drawColor)
         {
             oldPathPosition = path.WorldPoints[path.WorldPoints.Length-1];
             currentPathPosition = path.WorldPoints[pathPosition];

@@ -7,14 +7,14 @@ using MagicWorld.HelperClasses;
 namespace MagicWorld
 {
     /// <summary>
-    /// Stores the appearance and collision behavior of a tile.
+    /// a very genereal interactive level element, has collision bounds ...
     /// </summary>
     class BlockElement:BasicGameElement
     {
         public Texture2D Texture;
 
-        public int Width = 40;
-        public int Height = 32;
+        public int Width = 0;
+        public int Height = 0;
 
         private bool positionChanged = true; // true if the position was changed but no new bounding box was calculated
 
@@ -23,6 +23,8 @@ namespace MagicWorld
             get { return position; }
             set { position = value; positionChanged = true; }
         }
+
+        protected Color drawColor = Color.White;
 
         /// <summary>
         /// some variables for spell reaction
@@ -37,10 +39,11 @@ namespace MagicWorld
         protected double spellDurationOfActionMs = 0;
 
         /// <summary>
-        /// Constructs a new tile.
+        /// Constructor with color
         /// </summary>
-        public BlockElement(String texture, CollisionType collision,Level level,Vector2 position):base(level)
+        public BlockElement(String texture, CollisionType collision,Level level,Vector2 position,Color drawColor):base(level)
         {
+            this.drawColor = drawColor;
             this.level = level;            
             Collision = collision;
             this.position = position;
@@ -54,10 +57,18 @@ namespace MagicWorld
         }
 
         /// <summary>
-        /// Constructs a new tile.
+        ///Constructor
+        /// </summary>
+        public BlockElement(String texture, CollisionType collision, Level level, Vector2 position)
+            : this(texture,collision,level,position,Color.White)
+        {           
+        }
+
+        /// <summary>
+        /// Constructor with width and height
         /// </summary>
         public BlockElement(String texture, CollisionType collision, Level level, Vector2 position,int width,int height)
-            : this(texture,collision,level,position)
+            : this(texture,collision,level,position,Color.White)
         {
             this.Width = width;
             this.Height = height;
@@ -103,18 +114,8 @@ namespace MagicWorld
         {
             if (Texture != null)
             {
-                // Draw it in screen space.                
-                if (spellState == SpellState.BURNED) {
-                    spriteBatch.Draw(Texture, Bounds.getRectangle(),Color.Red);
-                }
-                else if (spellState == SpellState.FROZEN)
-                {
-                    spriteBatch.Draw(Texture, Bounds.getRectangle(), Color.Blue);
-                }
-                else
-                {
-                    spriteBatch.Draw(Texture,Bounds.getRectangle(), Color.White);
-                }
+                spriteBatch.Draw(Texture,Bounds.getRectangle(), drawColor);
+               
                 base.Draw(gameTime, spriteBatch);
             }            
         }

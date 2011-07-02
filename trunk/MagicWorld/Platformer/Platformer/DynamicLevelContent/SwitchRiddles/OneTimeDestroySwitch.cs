@@ -5,6 +5,7 @@ using System.Text;
 using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework;
 using MagicWorld.HelperClasses;
+using MagicWorld.Constants;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
@@ -14,8 +15,8 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
     class OneTimeDestroySwitch : AbstractSwitch
     {
 
-        public OneTimeDestroySwitch(String texture, Level level, Vector2 position, string id)
-            : base(texture, CollisionType.Impassable, level, position,id)
+        public OneTimeDestroySwitch(String texture, Level level, Vector2 position, string id,Color drawColor)
+            : base(texture, CollisionType.Impassable, level, position, id, drawColor)
         {         
         }
 
