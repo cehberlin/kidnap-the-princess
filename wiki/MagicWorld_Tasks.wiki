@@ -2,13 +2,11 @@
 ----
 = in Progress =
 
-  # level with pullable platform and movable platform -> John
-
 = TODO =
 
   == Beta (29.06) ==
 
-  == pre Final (13.07) ==
+  == pre Final (06.07) ==
   # savegames and replaying of levels (for better score) --> amauri done. 
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
@@ -17,31 +15,29 @@
   # icicle in editor -> Pascal
   # level textures -> Pascal
   # gray out background in casting mode
-  # texture for portal -> Pascal
   # animation for no gravity -> Pascal
   # level transition -->amauri
-  # BUG: portal placing difference between editor and game. Help`?
   # instruction screen for level and spells (AGREE? )
   # spider: only moves in defined web area (in all directions)
   # save configuration (save settings like sound/resolutions)--> amauri
   # replace or add better fitting FREE sounds and music
   # vulcano
   # warm/cold spell: better gravition physics --> please explain!!
-  # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect
+  # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect->Pascal (I would draw another texture, is that fine with you guys?)
   # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution or search todos)
-  # track textures -> Pascal
+  # track textures -> Pascal asks: As in mine cart tracks?
   # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
   # fullscreen option in menu --> amauri?
 
-== Final (06.07) ==
+== Final (13.07) ==
   
 
  === optional ===
   # Sound menu (turn sound and/or music on/off) -> Amauri
   # electric spell graphics -> Pascal (current one should work)
-  # you should move with moveable plattforms -->rounding problem??
+  # you should move with moveable plattforms -->rounding problem?? (Also: while casting on the platform the player no longer moves with a platform)
 
 
 == rejected To Dos ==
