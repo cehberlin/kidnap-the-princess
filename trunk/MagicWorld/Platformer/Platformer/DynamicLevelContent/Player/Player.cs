@@ -292,8 +292,8 @@ namespace MagicWorld
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
-                keyboardState.IsKeyDown(controls.Keys_Left)||
-                gamePadState.ThumbSticks.Left.X<0
+                keyboardState.IsKeyDown(controls.Keys_Left) ||
+                gamePadState.ThumbSticks.Left.X < 0
                 )
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
@@ -541,13 +541,13 @@ namespace MagicWorld
                 }
             }
             //move with platforms
-            else if (isOnGround && 
-                element.GetType() == typeof(MoveablePlatform) )
+            else if (isOnGround &&
+                element.GetType() == typeof(MoveablePlatform))
             {
                 this.Position += ((MoveablePlatform)element).LastMovement;
                 Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
             }
-            else if (isOnGround &&element.GetType() == typeof(SpellMoveablePlatform))
+            else if (isOnGround && element.GetType() == typeof(SpellMoveablePlatform))
             {
                 this.Position += ((SpellMoveablePlatform)element).LastMovement;
                 Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
@@ -613,7 +613,7 @@ namespace MagicWorld
         {
             get
             {
-                if (lastMovementRight)
+                if (lastMovementRight || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0.3f)
                 {
                     return spellAimAngle;
                 }
