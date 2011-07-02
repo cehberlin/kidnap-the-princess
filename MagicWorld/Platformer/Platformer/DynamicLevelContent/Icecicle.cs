@@ -30,8 +30,8 @@ namespace MagicWorld
         }
         private float fallVelocity;
 
-        public Icecicle(String texture, Level level, Vector2 position)
-            : base(texture,CollisionType.Impassable,level,position)
+        public Icecicle(String texture, Level level, Vector2 position,Color drawColor)
+            : base(texture,CollisionType.Impassable,level,position,drawColor)
             
         {
             icecicleState = IcecicleState.NORMAL;

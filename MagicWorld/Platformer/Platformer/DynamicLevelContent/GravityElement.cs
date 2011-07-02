@@ -49,12 +49,26 @@ namespace MagicWorld.DynamicLevelContent
         /// <param name="position">startposition</param>
         /// <param name="enableGravity">true=object collision is checked,makes sense in combination with enabled gravity</param>
         /// <param name="enableGravity">true=object is influenced by gravity; false only influence by push and pull</param>
-        public GravityElement(String texture, CollisionType collision, Level level, Vector2 position, bool checkCollision=false, bool enableGravity = false)
-            : base (texture, collision, level, position)
+        public GravityElement(String texture, CollisionType collision, Level level, Vector2 position,Color drawColor, bool checkCollision=false, bool enableGravity = false)
+            : base (texture, collision, level, position,drawColor)
         {
             this.enableGravity = enableGravity;
             this.checkCollision = checkCollision;
             oldBounds = this.Bounds;
+        }
+
+        /// <summary>
+        /// constructor
+        /// </summary>
+        /// <param name="texture">texture for this object</param>
+        /// <param name="collision">collision type</param>
+        /// <param name="level">reference to level</param>
+        /// <param name="position">startposition</param>
+        /// <param name="enableGravity">true=object collision is checked,makes sense in combination with enabled gravity</param>
+        /// <param name="enableGravity">true=object is influenced by gravity; false only influence by push and pull</param>
+        public GravityElement(String texture, CollisionType collision, Level level, Vector2 position, bool checkCollision = false, bool enableGravity = false)
+            : this(texture, collision, level, position, Color.White,checkCollision,enableGravity)
+        {
         }
 
 

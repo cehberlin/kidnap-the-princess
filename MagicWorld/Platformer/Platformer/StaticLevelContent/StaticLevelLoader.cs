@@ -71,7 +71,7 @@ namespace MagicWorld.StaticLevelContent
             elements.Add(LoadBlock("BlockA1", CollisionType.Impassable, new Vector2(800, 230), 200, 45));
 
             //add a destroyable switch which activates gravity of a gravity element
-            AbstractSwitch destroySW = new OneTimeDestroySwitch("LevelContent/Cave/switch", level, new Vector2(620f, 150), "");
+            AbstractSwitch destroySW = new OneTimeDestroySwitch("LevelContent/Cave/switch", level, new Vector2(620f, 150), "",Color.White);
             GravityElement graveElement = new GravityElement("LevelContent/Cave/Front/shovel", CollisionType.Impassable, level, new Vector2(620, 0),true);
             elements.Add(destroySW);
             elements.Add(graveElement);

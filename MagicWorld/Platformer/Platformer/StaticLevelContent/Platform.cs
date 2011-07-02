@@ -24,8 +24,8 @@ namespace MagicWorld.StaticLevelContent
             set { drawRec = value;}
         }
 
-        public Platform(String texture, CollisionType collision,Level level,Vector2 position)
-            : base(texture, collision, level, position)
+        public Platform(String texture, CollisionType collision,Level level,Vector2 position,Color drawColor)
+            : base(texture, collision, level, position, drawColor)
         {
 
             int left = (int)Math.Round(position.X);
@@ -65,7 +65,7 @@ namespace MagicWorld.StaticLevelContent
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(base.Texture, drawRec, Color.White);
+            spriteBatch.Draw(base.Texture, drawRec, drawColor);
             if (DebugValues.DEBUG)
             {
                 spriteBatch.Draw(debugTexture, Bounds.getRectangle(), debugColor);

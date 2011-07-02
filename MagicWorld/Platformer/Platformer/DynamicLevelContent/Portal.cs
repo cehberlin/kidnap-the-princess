@@ -25,8 +25,8 @@ namespace MagicWorld.DynamicLevelContent
 
         CollisionManager.OnCollisionWithCallback collisionCallback;
 
-        public Portal(String texture, Level level, Vector2 position, Vector2 portalDestination,PortalHandlingType handleType=PortalHandlingType.PLAYER)
-            : base(texture, CollisionType.Passable, level, position)
+        public Portal(String texture, Level level, Vector2 position, Vector2 portalDestination, Color drawColor, PortalHandlingType handleType = PortalHandlingType.PLAYER)
+            : base(texture, CollisionType.Passable, level, position, drawColor)
         {
             this.portalDestination = portalDestination;
             this.handleType = handleType;
