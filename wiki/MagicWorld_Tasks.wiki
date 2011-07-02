@@ -22,7 +22,6 @@
   # save configuration (save settings like sound/resolutions)--> Amauri
   # REPLACE or ADD better fitting FREE sounds and music
   # warm/cold spell: better gravition physics --> please explain!!
-  # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect->Pascal (I would draw another texture, is that fine with you guys?)
   # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
@@ -44,3 +43,4 @@
 
 Nicht mehr so wichtig wegen Zeit:
   # spider: only moves in defined web area (in all directions) --> John
+  # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect->Pascal (I would draw another texture, is that fine with you guys?) solved by colorizing
