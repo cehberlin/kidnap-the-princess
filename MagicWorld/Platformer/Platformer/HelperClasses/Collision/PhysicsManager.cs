@@ -27,7 +27,18 @@ namespace MagicWorld.HelperClasses.Collision
         /// <param name="acceleration">the vector with which strength and direction the gravity goes</param>
         public virtual void ApplyGravity(BasicGameElement elem, Vector2 acceleration, GameTime time)
         {
-            elem.Velocity += acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
+            elem.Velocity += getGravity(acceleration, time);
+        }
+
+        /// <summary>
+        /// gets the velocity change value
+        /// </summary>
+        /// <param name="acceleration"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public virtual Vector2 getGravity( Vector2 acceleration, GameTime time)
+        {
+            return acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
         }
     }
         

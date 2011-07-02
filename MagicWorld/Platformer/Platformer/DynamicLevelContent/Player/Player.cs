@@ -531,7 +531,7 @@ namespace MagicWorld
 
         protected void HandleCollisionForOneObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
-            if (element.GetType() == typeof(Enemy))
+            if (element.GetType().IsSubclassOf(typeof(Enemy)))
             {
                 Enemy e = (Enemy)element;
                 enemyService = (IEnemyService)e.GetService(typeof(IEnemyService));
