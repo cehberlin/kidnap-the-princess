@@ -182,10 +182,18 @@ namespace MagicWorld
             return this;
         }
 
-        public Rectangle getDrawingArea()
+        /// <summary>
+        /// default uses whole animation frame
+        /// </summary>
+        /// <returns></returns>
+        public virtual Rectangle getDrawingArea()
         {
-            //TODO replace by creater box
-            return Bounds.getRectangle();
+            float width = (sprite.Animation.FrameWidth);
+            float height = (sprite.Animation.FrameHeight);
+            float left = (float)Math.Round(Position.X - width / 2);
+            float top = (float)Math.Round(Position.Y - height / 2);
+
+            return new Rectangle((int)left, (int)top, (int)width, (int)height); 
         }
     }
 }
