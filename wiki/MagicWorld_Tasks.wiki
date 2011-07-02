@@ -12,7 +12,6 @@
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
-  # icicle in editor -> Pascal
   # level textures -> Pascal
   # gray out background in casting mode
   # animation for no gravity -> Pascal
