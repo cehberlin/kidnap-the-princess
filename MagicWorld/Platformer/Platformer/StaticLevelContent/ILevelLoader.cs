@@ -17,7 +17,6 @@ namespace MagicWorld.StaticLevelContent
     /// </summary>
     public interface ILevelLoader
     {
-
         /// <summary>
         /// this function is only necessary to pass the level object which is necessary to create several 
         /// game objects; this function should be called first

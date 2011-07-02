@@ -27,7 +27,7 @@ namespace MagicWorld
 
         private MagicWorldGame game;
 
-        public  MagicWorldGame Game
+        public MagicWorldGame Game
         {
             get { return game; }
             set { game = value; }

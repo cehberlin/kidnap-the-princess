@@ -174,5 +174,11 @@ namespace MagicWorld.StaticLevelContent
             
             return instructs;
         }
+
+
+        public List<BasicGameElement> GetPortals()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

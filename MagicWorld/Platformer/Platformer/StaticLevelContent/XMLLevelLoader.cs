@@ -159,7 +159,7 @@ namespace MagicWorld.StaticLevelContent
 
             // get switches
             LinkedList<AbstractSwitch> switchList = loadSwitches(elements);
-            
+
 
             //The platforms.
             Layer middleLayer = levelLoader.getLayerByName("Middle");
@@ -233,7 +233,7 @@ namespace MagicWorld.StaticLevelContent
                             }
                         }
                     }
-                    
+
                     if (e != null)
                     {
                         elements.Add(e);
@@ -301,7 +301,7 @@ namespace MagicWorld.StaticLevelContent
             {
                 foreach (Item item in specialLayer.Items)
                 {
-                    if (item.CustomProperties.ContainsKey(PROPERTY_DOOR_UPDOWN) 
+                    if (item.CustomProperties.ContainsKey(PROPERTY_DOOR_UPDOWN)
                         || item.CustomProperties.ContainsKey(PROPERTY_DOOR_OPENCLOSE))
                     {
                         TextureItem ti = (TextureItem)item;
@@ -310,7 +310,7 @@ namespace MagicWorld.StaticLevelContent
 
                         if (item.CustomProperties.ContainsKey(PROPERTY_DOOR_UPDOWN)) //up down door
                         {
-                            bool opened = false;                            
+                            bool opened = false;
                             opened = checkForOpenDoorStatus(item, opened);
                             door = new UpDownDoor(ti.asset_name, level, getCorrectedStartPosition(ti), opened);
                         }
@@ -324,12 +324,12 @@ namespace MagicWorld.StaticLevelContent
                             if (ti.asset_name.Contains("open"))
                             {
                                 otherTexture = otherTexture.Replace("open", "closed");
-                                door = new OpenCloseDoor(ti.asset_name,otherTexture, level, getCorrectedStartPosition(ti), true);
+                                door = new OpenCloseDoor(ti.asset_name, otherTexture, level, getCorrectedStartPosition(ti), true);
                             }
                             else if (ti.asset_name.Contains("closed"))
                             {
                                 otherTexture = otherTexture.Replace("closed", "open");
-                                door = new OpenCloseDoor(otherTexture,ti.asset_name, level, getCorrectedStartPosition(ti), false);
+                                door = new OpenCloseDoor(otherTexture, ti.asset_name, level, getCorrectedStartPosition(ti), false);
                             }
                             else
                             {
@@ -371,6 +371,7 @@ namespace MagicWorld.StaticLevelContent
                 }
             }
 
+
             //The portal layer.
             Layer portalLayer = levelLoader.getLayerByName("Portal");
             if (portalLayer != null)
@@ -378,30 +379,36 @@ namespace MagicWorld.StaticLevelContent
                 foreach (Item item in portalLayer.Items)
                 {
                     TextureItem ti = (TextureItem)item;
-                    
+
                     Item destination = (Item)item.CustomProperties["Destination"].value;
 
                     if (destination != null)
                     {
                         String portalHandlingType = "";
-                        if(item.CustomProperties.ContainsKey("Type")){
+                        if (item.CustomProperties.ContainsKey("Type"))
+                        {
                             portalHandlingType = (String)item.CustomProperties["Type"].value;
                         }
 
                         PortalHandlingType type;
 
-                        if(portalHandlingType.Equals("ShadowCreature")){
-                            type=PortalHandlingType.SHADOW_CREATURE;
-                        }else if(portalHandlingType.Equals("PushPull")){
-                            type=PortalHandlingType.PUSHPULL;
-                        }else{
-                            type=PortalHandlingType.PLAYER;
+                        if (portalHandlingType.Equals("ShadowCreature"))
+                        {
+                            type = PortalHandlingType.SHADOW_CREATURE;
+                        }
+                        else if (portalHandlingType.Equals("PushPull"))
+                        {
+                            type = PortalHandlingType.PUSHPULL;
+                        }
+                        else
+                        {
+                            type = PortalHandlingType.PLAYER;
                         }
 
                         Portal portal = new Portal(ti.asset_name, level, getCorrectedStartPosition(ti), destination.Position, type);
                         correctWidhAndHeight(portal, ti);
                         elements.Add(portal);
-                    }                   
+                    }
                 }
             }
 
@@ -418,7 +425,7 @@ namespace MagicWorld.StaticLevelContent
         {
             if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_COLLISION))
             {
-                enablecollision = (bool)item.CustomProperties[PROPERTY_ENABLE_COLLISION].value;                
+                enablecollision = (bool)item.CustomProperties[PROPERTY_ENABLE_COLLISION].value;
             }
             return enablecollision;
         }
@@ -433,7 +440,7 @@ namespace MagicWorld.StaticLevelContent
         {
             if (item.CustomProperties.ContainsKey(PROPERTY_ENABLE_GRAVITY))
             {
-                enablegravity = (bool)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;                
+                enablegravity = (bool)item.CustomProperties[PROPERTY_ENABLE_GRAVITY].value;
             }
             return enablegravity;
         }
@@ -496,7 +503,7 @@ namespace MagicWorld.StaticLevelContent
             return defaultCollision;
         }
 
-        
+
 
         public List<BasicGameElement> getBackgroundObjects()
         {
@@ -660,7 +667,7 @@ namespace MagicWorld.StaticLevelContent
         }
 
 
- #region "helper methods"
+        #region "helper methods"
 
         private void correctWidhAndHeight(BlockElement element, TextureItem ti)
         {
@@ -797,5 +804,5 @@ namespace MagicWorld.StaticLevelContent
         }
     }
 
- #endregion
+        #endregion
 }
