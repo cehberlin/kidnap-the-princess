@@ -10,15 +10,11 @@ using MagicWorld.Services;
 namespace MagicWorld
 {
     enum IcecicleState { NORMAL, FALLING, DESTROYED };
-    class Icecicle : BasicGameElement
+    class Icecicle : BlockElement
     {
         IEnemyService enemyService;
 
-        private Texture2D texture;
-        private Vector2 origin;
         private SoundEffect hitSound;
-        protected AnimationPlayer sprite;
-        protected Animation idleAnimation;
 
         private IcecicleState icecicleState;
 
@@ -34,42 +30,19 @@ namespace MagicWorld
         }
         private float fallVelocity;
 
-        public const int Width = 40;
-        public const int Height = 41;
-
-        public override Bounds Bounds
-        {
-            get
-            {
-                int left = (int)Math.Round(position.X - Width / 2);
-                int top = (int)Math.Round(position.Y - Height);
-
-                return new Bounds(left, top, Width, Height);
-            }
-        }
-
-
-        public Icecicle(Level level, Vector2 position)
-            : base(level)
+        public Icecicle(String texture, Level level, Vector2 position)
+            : base(texture,CollisionType.Impassable,level,position)
             
         {
-            this.position = position;
             icecicleState = IcecicleState.NORMAL;
-            LoadContent("Sprites/Icecicle");
-            sprite.PlayAnimation(idleAnimation);
-
             collisionCallback = HandleCollisionForOneObject;
+            fallVelocity = 0.8f;
         }
 
         public override void LoadContent(string spriteSet)
-        {
-            texture = level.Content.Load<Texture2D>(spriteSet);
-            origin = new Vector2(texture.Width / 2.0f, texture.Height / 2.0f);
+        {           
+            base.LoadContent(spriteSet);
             hitSound = level.Content.Load<SoundEffect>("Sounds/Icehit");
-            idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet), 0.15f, true, 1);            
-            fallVelocity = 0.8f;
-            debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
-            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
         }
 
      
@@ -84,20 +57,7 @@ namespace MagicWorld
             else return false;
         }   
    
-        
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-
-            SpriteEffects flip = SpriteEffects.None;
-            // Draw it in screen space.                
-            if (icecicleState != IcecicleState.DESTROYED)
-            {
-                sprite.Draw(gameTime, spriteBatch, position, flip);
-            }
-
-            base.Draw(gameTime, spriteBatch);            
-        }
-
+       
         public override void Update(GameTime gameTime)
         {
             if (icecicleState == IcecicleState.FALLING)
@@ -132,23 +92,23 @@ namespace MagicWorld
 
         protected void HandleCollisionForOneObject(BasicGameElement element,bool xAxisCollision, bool yAxisCollision)
         {
-            if (element.GetType() == typeof(Enemy))
+            if (element.GetType().IsSubclassOf(typeof(Enemy)))
             {
                 Enemy e = (Enemy)element;
                 if (!enemyService.IsFroozen)
                 {
                     //destroy enemy
                     hitSound.Play();
-                    icecicleState = IcecicleState.DESTROYED;
+                    IcecicleState = IcecicleState.DESTROYED;
                     e.IsRemovable = true;
                 }
             }
             else
             {
-                this.isRemovable = true;
+                IcecicleState = IcecicleState.DESTROYED;
             }
+            level.Game.IceParticleSystem.AddParticles(position);
         }
-
 
         /// <summary>
         /// handels collision with level bounds

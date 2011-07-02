@@ -1598,6 +1598,9 @@
                         <Property Name="nogravity" Type="string" Description="">
                             <string />
                         </Property>
+                        <Property Name="warm" Type="string" Description="">
+                            <string />
+                        </Property>
                     </CustomProperties>
                     <Radius>163</Radius>
                     <FillColor>
@@ -1956,6 +1959,9 @@
                         <Property Name="Aim" Type="Item" Description="">Circle_0349</Property>
                         <Property Name="enable_gravity" Type="bool" Description="">
                             <boolean>true</boolean>
+                        </Property>
+                        <Property Name="DelayTime" Type="string" Description="">
+                            <string>4000</string>
                         </Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
@@ -2429,14 +2435,76 @@
                 <Y>1</Y>
             </ScrollSpeed>
         </Layer>
+        <Layer Name="Icecicle" Visible="true">
+            <Items>
+                <Item xsi:type="TextureItem" Name="Texture_0351" Visible="true">
+                    <Position>
+                        <X>307</X>
+                        <Y>358</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>Sprites\icecicle.png</texture_filename>
+                    <asset_name>Sprites\icecicle</asset_name>
+                    <Origin>
+                        <X>16</X>
+                        <Y>32</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0352" Visible="true">
+                    <Position>
+                        <X>407</X>
+                        <Y>356</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>Sprites\icecicle.png</texture_filename>
+                    <asset_name>Sprites\icecicle</asset_name>
+                    <Origin>
+                        <X>16</X>
+                        <Y>32</Y>
+                    </Origin>
+                </Item>
+            </Items>
+            <ScrollSpeed>
+                <X>1</X>
+                <Y>1</Y>
+            </ScrollSpeed>
+        </Layer>
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>350</NextItemNumber>
+        <NextItemNumber>352</NextItemNumber>
         <ContentRootFolder>C:\gameprogramming\trunk\MagicWorld\Platformer\Content\</ContentRootFolder>
         <CameraPosition>
-            <X>741.6686</X>
-            <Y>416.6671</Y>
+            <X>566.6677</X>
+            <Y>450.0005</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
