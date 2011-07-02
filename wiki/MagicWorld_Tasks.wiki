@@ -19,7 +19,6 @@
   # animation for no gravity -> Pascal
   # level transition -->amauri
      # instruction screen for level and spells
-  # spider: only moves in defined web area (in all directions) --> John
   # save configuration (save settings like sound/resolutions)--> Amauri
   # REPLACE or ADD better fitting FREE sounds and music
   # warm/cold spell: better gravition physics --> please explain!!
@@ -43,3 +42,6 @@
 
 == rejected To Dos ==
  * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player. -> This will be solved by placing impassable items at the left and right bounds so the player can't touch the. Also no platform will be put so high that the player can reach the top.
+
+Nicht mehr so wichtig wegen Zeit:
+  # spider: only moves in defined web area (in all directions) --> John
