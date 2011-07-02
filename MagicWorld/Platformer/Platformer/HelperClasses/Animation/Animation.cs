@@ -94,6 +94,7 @@ namespace MagicWorld
 
         /// <summary>
         /// Constructors a new animation.
+        /// this is the easy animation with only frames of same size in a row.
         /// </summary>        
         public Animation(Texture2D texture, float frameTime, bool isLooping, int frameCount)
         {
@@ -101,6 +102,12 @@ namespace MagicWorld
             this.texture = texture;
             this.frameTime = frameTime;
             this.isLooping = isLooping;
+            this.frameHeight = texture.Height;
+            this.frameWidth = texture.Width/frameCount;
+            frames = new List<Rectangle>();
+            for(int i=0;i<frameCount;i++){
+                frames.Add(new Rectangle(i*frameWidth,0,frameWidth,FrameHeight));
+            }            
         }
         /// <summary>
         /// Constructs a new animation out of a multilined spritesheet. Also supports more than one animation.

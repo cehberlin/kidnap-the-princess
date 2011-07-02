@@ -412,6 +412,20 @@ namespace MagicWorld.StaticLevelContent
                 }
             }
 
+            //The iceicle layer.
+            Layer icecleLayer = levelLoader.getLayerByName("Icecicle");
+            if (icecleLayer != null)
+            {
+                foreach (Item item in icecleLayer.Items)
+                {
+                    TextureItem ti = (TextureItem)item;
+
+                    Icecicle ice = new Icecicle(ti.asset_name, level, getCorrectedStartPosition(ti));
+                        
+                    elements.Add(ice);                   
+                }
+            }
+
             return elements;
         }
 

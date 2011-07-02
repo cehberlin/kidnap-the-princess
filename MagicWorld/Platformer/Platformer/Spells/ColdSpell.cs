@@ -32,7 +32,6 @@ namespace MagicWorld
             //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
             idleAnimation = runAnimation;
 
-
             base.LoadContent(spriteSet);
         }
 

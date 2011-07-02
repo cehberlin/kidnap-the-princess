@@ -142,8 +142,8 @@ namespace MagicWorld.Constants
         public static int PushSpell_survivalTimeMs = 1000;
         public static int PushSpell_durationOfActionMs = 5000;
         public static int PushSpell_Force = 1;
-        public static float PushSpell_MaxSize = 0.01f;
-        public static float PushSpell_GrowRate = 0.01f;
+        public static float PushSpell_MaxSize = 0.02f;
+        public static float PushSpell_GrowRate = 0.001f;
         public static float PushSpell_StartScale = 0.01f;
 
         public static Spells.SpellConstants PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
