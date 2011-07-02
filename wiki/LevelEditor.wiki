@@ -27,6 +27,7 @@ Although the level loading is not completely implemented yet it is already fairl
 ||PushPull||Objects which are influenced with push and pull - Optional Layer||
 ||Moveable Platform||TODO John - Optional Layer||
 ||Portal||Define Portals for moving objects in time and space - Optional Layer ||
+||Icecicle|| Falling down Objects, which explodes on collision and kills hitted enemies ||
 
  # Start by creating layers and name them according to their ingame alias (see above).
  # Add textures to the layers (except special layer) to create your level. Do not scale or rotate textures as it is not supported yet.
@@ -68,6 +69,9 @@ You specify destination by adding new custom property named "Destination" with t
 
 == Ingredients ==
 Ingredients must be placed on the Ingredients layer.
+
+==Icecicle==
+But every texture you wand on this layer, which should behave like a falling down icecicle, no need to use a icecicle texture.
 
 
 == setting the level properties ==
