@@ -7,8 +7,8 @@
   == Beta (29.06) ==
 
   == pre Final (06.07) ==
-  # Bug with growing and shrinking -> you cant shrink from biggest state all states; push and pull growing does not work in general
-    # @marian I cant find the code where you put the growing/shrinking..there must be a bug
+  # shrink animation of push pull -> necessary because we cant shrink so much, because run into problems with float precision. --> pascal
+  # make difference for push pull with color --> pascal
   # savegames and replaying of levels (for better score) --> amauri done. 
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
