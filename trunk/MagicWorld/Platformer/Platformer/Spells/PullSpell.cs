@@ -5,24 +5,39 @@ using System.Text;
 using MagicWorld.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.HelperClasses;
 
 namespace MagicWorld.Spells
 {
     public class PullSpell : Spell
     {
 
+        //public override Bounds Bounds
+        //{
+        //    get
+        //    {
+        //        float radius = 0;
+        //        if (sprite.Animation != null)
+        //        {
+        //            // Calculate bounds within texture size.
+        //            radius = (sprite.Animation.FrameWidth + sprite.Animation.FrameHeight) / 2  * currentScale;
+        //        }
+        //        return new Bounds(position, radius);
+        //    }
+        //}
+
+
         public PullSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.PullSpellConstants.BasicCastingCost, SpellConstantsValues.PullSpellConstants.CastingCostPerSecond, SpellType.PullSpell)
         {
-            Force = SpellConstantsValues.PullSpell_Force;
             survivalTimeMs = SpellConstantsValues.PullSpell_survivalTimeMs;
             MoveSpeed = 0;
             sprite.PlayAnimation(idleAnimation);
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
             MaxScale = SpellConstantsValues.PullSpell_MaxSize;
-            growFactor = SpellConstantsValues.PullSpell_GrowRate;
-            currentScale = SpellConstantsValues.PullSpell_StartScale;
+            growFactor = SpellConstantsValues.PullSpell_GrowRate;            
+            currentScale = ManaBasicCost * SpellConstantsValues.PullSpell_GrowRate;            
         }
         
         public override void LoadContent(string spriteSet)
@@ -42,7 +57,7 @@ namespace MagicWorld.Spells
             {
                 base.Position = level.Player.Position;
 
-                Grow();
+                SetScaleDependingOnManaCost();
                 //only start playing if animation changes because frame position is reseted
                 if (sprite.Animation != idleAnimation)
                 {

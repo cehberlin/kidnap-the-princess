@@ -10,8 +10,6 @@ namespace MagicWorld.DynamicLevelContent.Player
 {
     public class Mana
     {
-        public const int MAX_MANA = 1000;
-        private const float MANA_REGENERATION_RATE = 0.25f;
 
         private MagicWorld.Player player;
 
@@ -30,7 +28,7 @@ namespace MagicWorld.DynamicLevelContent.Player
         /// </summary>
         public Mana(MagicWorld.Player player)
         {
-            _currentMana = MAX_MANA;
+            _currentMana = SpellConstantsValues.MAX_MANA;
             this.player = player;
         }
 
@@ -42,10 +40,10 @@ namespace MagicWorld.DynamicLevelContent.Player
         public void update(GameTime gameTime) {
             if (!player.IsCasting)
             {
-                _currentMana += (int)(gameTime.ElapsedGameTime.Milliseconds * MANA_REGENERATION_RATE);
-                if (_currentMana > MAX_MANA)
+                _currentMana += (int)(gameTime.ElapsedGameTime.Milliseconds * SpellConstantsValues.MANA_REGENERATION_RATE);
+                if (_currentMana > SpellConstantsValues.MAX_MANA)
                 {
-                    _currentMana = MAX_MANA;
+                    _currentMana = SpellConstantsValues.MAX_MANA;
                 }
                 
             }

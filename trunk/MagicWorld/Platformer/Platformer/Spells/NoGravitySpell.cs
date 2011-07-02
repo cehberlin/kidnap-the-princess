@@ -14,7 +14,6 @@ namespace MagicWorld.Spells
         public NoGravitySpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.NoGravitationSpellConstants.BasicCastingCost, SpellConstantsValues.NoGravitationSpellConstants.CastingCostPerSecond, SpellType.NoGravitySpell)
         {
-            Force = SpellConstantsValues.NoGravitationSpell_Force;
             survivalTimeMs = SpellConstantsValues.NoGravitationSpell_survivalTimeMs;;
             //MoveSpeed = SpellConstantsValues.NoGravitationSpell_MoveSpeed;
             MaxScale = 3;
