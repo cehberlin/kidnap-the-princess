@@ -138,7 +138,7 @@ namespace MagicWorld.HelperClasses
         {
             Bounds dummy_bounds = new Bounds(Vector2.Zero, 0);
             bool isOnGroundDummy = false;
-            HandleGeneralCollisionsInternal(elem, ref dummy_bounds, ref isOnGroundDummy, callback, ignorePlatforms, resolveCollision, true);
+            HandleGeneralCollisionsInternal(elem, ref dummy_bounds, ref isOnGroundDummy, callback, ignorePlatforms, resolveCollision);
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace MagicWorld.HelperClasses
         /// <param name="ignorePlatforms">set true if plattforms should ignored ->allows moving down thourogh plattforms</param>
         public void HandleGeneralCollisions(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback = null, bool ignorePlatforms = false, bool resolveCollision = true)
         {
-            HandleGeneralCollisionsInternal(elem, ref oldBounds, ref IsOnGround, callback, ignorePlatforms, resolveCollision, false);
+            HandleGeneralCollisionsInternal(elem, ref oldBounds, ref IsOnGround, callback, ignorePlatforms, resolveCollision);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace MagicWorld.HelperClasses
         /// <param name="callback">delegate which called for every object which has collision</param>
         /// <param name="ignorePlatforms">set true if plattforms should ignored ->allows moving down thourogh plattforms</param>
         /// <param name="ignoreBounds">ignore position change of bounds, only a internal parameter see method above</param>
-        protected void HandleGeneralCollisionsInternal(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback, bool ignorePlatforms, bool resolveCollision, bool ignoreBounds)
+        protected void HandleGeneralCollisionsInternal(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback, bool ignorePlatforms, bool resolveCollision)
         {
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(elem, ref collisionObjects);
@@ -193,8 +193,7 @@ namespace MagicWorld.HelperClasses
                         // Resolve the collision along the y axis.
                         if (absDepthY < absDepthX || collision == CollisionType.Platform)
                         {
-                            if (oldBounds.Position.Y != elem.Bounds.Position.Y || ignoreBounds)
-                            {
+                        
                                 // If we crossed the top of a tile, we are on the ground.
                                 if (oldBounds.getRectangle().Bottom <= t.Bounds.getRectangle().Top)
                                 {
@@ -215,10 +214,9 @@ namespace MagicWorld.HelperClasses
                                     {
                                         callback.Invoke(t, false, true);
                                     }
-                                }
-                            }
+                                }                            
                         }
-                        else if (collision == CollisionType.Impassable && (oldBounds.Position.X != elem.Bounds.Position.X || ignoreBounds)) // Ignore platforms. //only handles this if object is in move
+                        else if (collision == CollisionType.Impassable) // Ignore platforms. //only handles this if object is in move
                         {
                             //Debug.WriteLine("xCollision" + absDepthX + " " +absDepthY);
                             if (absDepthY > 10) //tolereance delta
