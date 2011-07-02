@@ -136,6 +136,54 @@ namespace MagicWorld
 
 
         /// <summary>
+        /// Check if any button was pressed
+        /// </summary>
+        public bool IsAnyButtonPress(PlayerIndex? controllingPlayer)
+        {
+            int i;
+            PlayerIndex playerIndex;
+            if (controllingPlayer.HasValue)
+            {
+                playerIndex = controllingPlayer.Value;
+
+                i = (int)playerIndex;
+            }
+            else
+            {
+                i = (int)PlayerIndex.One;
+            }
+
+
+
+            if (CurrentGamePadStates[i].IsButtonDown(Buttons.A) ||
+                CurrentGamePadStates[i].IsButtonDown(Buttons.B) ||
+                CurrentGamePadStates[i].IsButtonDown(Buttons.X) ||
+                CurrentGamePadStates[i].IsButtonDown(Buttons.Y) ||
+                CurrentGamePadStates[i].IsButtonDown(Buttons.Start))
+                return (true);            
+            else
+                return (false);
+                //return (CurrentGamePadStates[i].IsButtonUp(Buttons.A));
+                       
+                        
+           
+        }
+        /// <summary>
+        /// Check if any key was pressed
+        /// </summary>
+        public bool IsContinuePress(PlayerIndex? controllingPlayer,
+                                 out PlayerIndex playerIndex)
+        {
+            return IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
+                    IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex) ||
+                    IsNewButtonPress(Buttons.A, controllingPlayer, out playerIndex) ||
+                    IsNewButtonPress(Buttons.Start, controllingPlayer, out playerIndex);
+
+
+
+        }
+
+        /// <summary>
         /// Checks for a "menu select" input action.
         /// The controllingPlayer parameter specifies which player to read input for.
         /// If this is null, it will accept input from any player. When the action
