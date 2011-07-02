@@ -7,6 +7,8 @@ namespace MagicWorld.StaticLevelContent
 {
     class LevelLoaderFactory
     {
+
+        public const int NumberOfLevels = 8;
         /// <summary>
         /// Factory which gives you a new LevelLoader
         /// </summary>
@@ -14,8 +16,8 @@ namespace MagicWorld.StaticLevelContent
         /// <returns></returns>
         public static ILevelLoader getLevel(int nr){
             //return new StaticLevelLoader(); //testing
-            return new XMLLevelLoader(8);//TEST
-            if (nr <= 7) 
+            //return new XMLLevelLoader(8);//TEST
+            if (nr <= NumberOfLevels) 
             {
                 return new XMLLevelLoader(nr); 
             } 

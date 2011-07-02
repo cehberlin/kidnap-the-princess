@@ -219,7 +219,7 @@ namespace MagicWorld.StaticLevelContent
 
                                 TextureItem ti = (TextureItem)item;
 
-                                Vector2 startPos = getCorrectedStartPosition(ti);
+                                Vector2 startPos = ti.Position;
 
                                 Vector2 velocity = aim.Position - startPos;
 

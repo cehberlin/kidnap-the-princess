@@ -102,35 +102,6 @@ namespace MagicWorld
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-
-        }
-
-        /// <summary>
-        /// Checks for collision with level elements like bounds...
-        /// </summary>
-        /// <returns>returns true if collision occured</returns>
-        protected void HandleCollision()
-        {
-            if (level.CollisionManager.CollidateWithLevelBounds(this))
-            {
-                this.isRemovable = true;
-            }
-
-            if (level.CollisionManager.CollidateWithPlayer(this))
-            {
-                level.Player.OnKilled(this);
-            }
-        }
-
-        #endregion
-
-        #region drawing
-
-        /// <summary>
-        /// Draws the animated enemy.
-        /// </summary>
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
             // Stop running when the game is paused or before turning around.
             if (!level.Player.IsAlive ||
                 level.ReachedExit ||
@@ -144,7 +115,29 @@ namespace MagicWorld
             {
                 sprite.PlayAnimation(runAnimation);
             }
+        }
 
+        /// <summary>
+        /// Checks for collision with level elements like bounds...
+        /// </summary>
+        /// <returns>returns true if collision occured</returns>
+        protected virtual void HandleCollision()
+        {
+            if (level.CollisionManager.CollidateWithLevelBounds(this))
+            {
+                this.isRemovable = true;
+            }
+        }
+
+        #endregion
+
+        #region drawing
+
+        /// <summary>
+        /// Draws the animated enemy.
+        /// </summary>
+        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        {  
             //Draw facing the way the enemy is moving.
             SpriteEffects flip = velocity.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);
