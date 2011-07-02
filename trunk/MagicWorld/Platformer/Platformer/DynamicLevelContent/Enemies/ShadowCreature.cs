@@ -295,5 +295,15 @@ namespace MagicWorld
             }
             return true;
         }
+
+        public override Rectangle getDrawingArea()
+        {
+            float width = (sprite.Animation.FrameWidth);
+            float height = (sprite.Animation.FrameHeight);
+            float left = (float)Math.Round(Position.X - width / 2);
+            float top = (float)Math.Round(Position.Y - height / 2);
+
+            return new Rectangle((int)left+30, (int)top + 70, (int)width-30, (int)height - 65);
+        }
     }
 }
