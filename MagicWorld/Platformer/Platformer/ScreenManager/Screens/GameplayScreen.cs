@@ -27,6 +27,7 @@ namespace MagicWorld
         private int levelIndex = 0;
         private Level level;
         private bool wasContinuePressed;
+        private bool loadingLevel;
 
         // When the time remaining is less than the warning time, it blinks on the hud
         private static readonly TimeSpan WarningTime = TimeSpan.FromSeconds(30);
@@ -111,7 +112,7 @@ namespace MagicWorld
         {
             base.Update(gameTime, otherScreenHasFocus, false);
 
-            if (!coveredByOtherScreen)
+            if (!coveredByOtherScreen && !loadingLevel)
             {
                 if (!level.Player.IsAlive)
                 {
@@ -312,14 +313,26 @@ namespace MagicWorld
         }
         private void LoadNextLevel()
         {
-            //save the game
 
+            //save the game
+            loadingLevel = true;
             ScreenManager.Game.GameData.Level = levelIndex;
             ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;            
             ScreenManager.Game.GameData.Completed = "Accomplished";
             ScreenManager.Game.SaveGame(levelIndex);
+            
+            //load transition screen
+            LevelTransitionScreen levelTransition = new LevelTransitionScreen("Congratulation.\nLevel ACCOMPLISHED.");
+            levelTransition.Accepted += ProceedNextLevel;            
+            ScreenManager.AddScreen(levelTransition, ControllingPlayer);
 
+            
+        }
+        void ProceedNextLevel(object sender, PlayerIndexEventArgs e)
+        {
+            loadingLevel = false;
             LoadLevel(levelIndex + 1);
+            
         }
 
         public void ReloadCurrentLevel()
