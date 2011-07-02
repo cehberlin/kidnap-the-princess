@@ -51,7 +51,16 @@ What was not covered before is the placement of the collectibles.
 Collectibles are added through circle primitives, but instead of naming them you have to add a custom property to them (John please elaborate!).
 
 
-In the future this layer will also be used to place enemies and their waypoints as well as all other game objects. 
+== Instructions/Ingame messages==
+
+An instruction can be placed in the following way:
+
+ * Add a rectangle to the special layer.
+ * Add a custom property to the rectangle by the name of Instruction.
+ * Assign its value whatever you want the message to be.
+
+How it works:
+The instruction is displayed as soon as the player crosses its x coordinate. The length the instruction is displayed relates to the length of the message. ATM there is no automatic /n implemented so format your messages yourself or adjust the code.
 
 == Portal ==
 A Portal moves the colliding object to a destination point.
