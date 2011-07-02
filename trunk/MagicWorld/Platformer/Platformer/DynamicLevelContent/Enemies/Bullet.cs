@@ -85,7 +85,7 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                 level.Game.ExplosionSmokeParticleSystem.AddParticles(position);
                 if (isFroozen)
                 {
-                    level.visibilityService.Remove(this.Bounds.getRectangle());
+                    level.visibilityService.Remove(this);
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                 isRemovable = true;
                 if (isFroozen)
                 {
-                    level.visibilityService.Remove(this.Bounds.getRectangle());
+                    level.visibilityService.Remove(this);
                 }
             }
         }
@@ -138,12 +138,12 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                 {
                     isFroozen = false;
                     frozenVelocity = Vector2.Zero;
-                    //level.visibilityService.Remove(this.Bounds.getRectangle());
+                    level.visibilityService.Remove(this);
                 }
                 else
                 {
                     frozenInfluenceTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-                    //level.visibilityService.Add(this.Bounds.getRectangle());
+                    level.visibilityService.Add(this);
                 }
             }
         }

@@ -7,13 +7,14 @@ using System.Collections.Generic;
 using MagicWorld.Constants;
 using System.Diagnostics;
 using MagicWorld.Services;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld
 {
     /// <summary>
     /// A monster who is impeding the progress of our fearless adventurer.
     /// </summary>
-    public class Enemy : BasicGameElement, IEnemyService
+    public class Enemy : BasicGameElement, IEnemyService,IIcedVisibility
     {
 
         // Animations
@@ -179,6 +180,12 @@ namespace MagicWorld
         public object GetService(Type serviceType)
         {
             return this;
+        }
+
+        public Rectangle getDrawingArea()
+        {
+            //TODO replace by creater box
+            return Bounds.getRectangle();
         }
     }
 }
