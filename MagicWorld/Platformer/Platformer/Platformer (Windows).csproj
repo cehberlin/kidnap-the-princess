@@ -172,7 +172,7 @@
     <Compile Include="DynamicLevelContent\Enemies\Enemy.cs" />
     <Compile Include="Gleed2dLevelContent\CustomProperty.cs" />
     <Compile Include="Gleed2dLevelContent\Gleed2dLevelLoader.cs" />
-    <Compile Include="Spells\SpellConstants.cs" />
+    <Compile Include="Spells\SpellConfiguration.cs" />
     <Compile Include="Spells\SpellConstantsFactory.cs" />
     <Compile Include="Spells\SpellType.cs" />
     <Compile Include="StaticLevelContent\IceBlockElement.cs" />

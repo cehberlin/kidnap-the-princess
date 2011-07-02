@@ -8,7 +8,7 @@ namespace MagicWorld.Spells
     /// <summary>
     /// Constant Values for a spell
     /// </summary>
-    public class SpellConstants
+    public class SpellConfiguration
     {
         /// <summary>
         /// Basic Cost when start casting a spell
@@ -31,7 +31,7 @@ namespace MagicWorld.Spells
         /// </summary>
         virtual public TimeSpan CoolDown { get; protected set; }
 
-        public SpellConstants(int basicCastingCost, int castingCostPerSecond, int maximalSpellPower, TimeSpan coolDown)
+        public SpellConfiguration(int basicCastingCost, int castingCostPerSecond, int maximalSpellPower, TimeSpan coolDown)
         {
             this.BasicCastingCost = basicCastingCost;
             this.CastingCostPerSecond = castingCostPerSecond;

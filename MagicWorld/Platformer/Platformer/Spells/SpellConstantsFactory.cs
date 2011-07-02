@@ -13,7 +13,7 @@ namespace MagicWorld.Spells
     {
         private SpellConstantsFactory() { }
 
-        public static SpellConstants getSpellConstants(SpellType type)
+        public static SpellConfiguration getSpellConstants(SpellType type)
         {
             switch (type)
             {

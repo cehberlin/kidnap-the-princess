@@ -34,11 +34,9 @@ namespace MagicWorld
         public MatterSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.CreateMatterSpellConstants.BasicCastingCost, SpellConstantsValues.CreateMatterSpellConstants.CastingCostPerSecond, SpellType.CreateMatterSpell)
         {            
-            Force = SpellConstantsValues.CreateMatterSpell_Force;
             survivalTimeMs = MATTER_EXISTENCE_TIME;
             startSurvivalTime = survivalTimeMs;
-            MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;
-            currentScale = SpellConstantsValues.CreateMatterSpell_currentScale;
+            MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;                        
             accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
             accelarationChangeFactorY = 0;
             this.Collision = CollisionType.Platform;
@@ -118,7 +116,7 @@ namespace MagicWorld
 
         protected override void OnWorkingStart()
         {
-            survivalTimeMs *= Force;
+            survivalTimeMs *= UsedMana;
             startSurvivalTime = survivalTimeMs;
             Debug.WriteLine("Matter starts working TIme:" +survivalTimeMs);
             base.OnWorkingStart();

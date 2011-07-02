@@ -15,7 +15,6 @@ namespace MagicWorld
         public WarmSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.WarmSpellConstants.BasicCastingCost, SpellConstantsValues.WarmSpellConstants.CastingCostPerSecond, SpellType.WarmingSpell)
         {
-            Force = SpellConstantsValues.WarmSpell_Force;
             survivalTimeMs = SpellConstantsValues.WarmSpell_survivalTimeMs;
             MoveSpeed = SpellConstantsValues.WarmSpell_MoveSpeed;
             sprite.PlayAnimation(idleAnimation);

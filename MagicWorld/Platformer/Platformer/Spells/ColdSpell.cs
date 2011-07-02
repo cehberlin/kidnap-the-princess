@@ -15,7 +15,6 @@ namespace MagicWorld
         public ColdSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.ColdSpellConstants.BasicCastingCost, SpellConstantsValues.ColdSpellConstants.CastingCostPerSecond, SpellType.ColdSpell)
         {
-            Force = SpellConstantsValues.ColdSpell_Force;
             survivalTimeMs = SpellConstantsValues.ColdSpell_survivalTimeMs;
             MoveSpeed = SpellConstantsValues.ColdSpell_MoveSpeed;
             sprite.PlayAnimation(idleAnimation);

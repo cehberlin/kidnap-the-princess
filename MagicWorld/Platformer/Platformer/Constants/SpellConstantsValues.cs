@@ -30,15 +30,18 @@ namespace MagicWorld.Constants
             List<IConstantChangerItem> groupMana = new List<IConstantChangerItem>();
             groupMana.Add(max_mana);
             groupMana.Add(mana_regenration_rate);
-            groupMana.Add(mana_regenration_rate);
             Constants.Add(new ConstantGroup("Mana", groupMana));
 
 
             //group pushpull
             List<IConstantChangerItem> groupPushPull = new List<IConstantChangerItem>();
+            groupPushPull.Add(pushspell_maxsize);
+            groupPushPull.Add(pushspell_growrate);
+            groupPushPull.Add(pullspell_maxsize);
+            groupPushPull.Add(pullspell_growrate);           
             groupPushPull.Add(pushpull_default_start_acceleration);
             groupPushPull.Add(pushpull_default_acceleration_change_factor);
-            groupPushPull.Add(pushpull_moveabel_platforms_start_acceleration);
+            groupPushPull.Add(pushpull_moveabel_platforms_start_acceleration);            
             Constants.Add(new ConstantGroup("PushPull", groupPushPull));                      
 
             return Constants;
@@ -102,59 +105,72 @@ namespace MagicWorld.Constants
 
         
 
-        public static Spells.SpellConstants ColdSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration ColdSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ColdSpell_MoveSpeed = 150f;
         public static int ColdSpell_survivalTimeMs = 5000;
-        public static int ColdSpell_durationOfActionMs = 5000;
-        public static int ColdSpell_Force = 1;
+        public static int ColdSpell_durationOfActionMs = 7;
         public static Vector2 ColdSpellGravity = new Vector2(0f, 0.2f);
         public static float ColdSpell_MoveSpeedManaFactor = 0.004f; //describes the ratio between used mana and move speed increase
 
-        public static Spells.SpellConstants WarmSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration WarmSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float WarmSpell_MoveSpeed = 160f;
         public static int WarmSpell_survivalTimeMs = 3000;
-        public static int WarmSpell_durationOfActionMs = 5000;
-        public static int WarmSpell_Force = 1;
+        public static int WarmSpell_durationOfActionMs = 7;
         public static Vector2 WarmSpellGravity = new Vector2(0f, 0.2f);
         public static float WarmSpell_MoveSpeedManaFactor = 0.005f;  //describes the ratio between used mana and move speed increase
 
-        public static Spells.SpellConstants CreateMatterSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration CreateMatterSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float CreateMatterSpell_MoveSpeed = 130;
-        public static int CreateMatterSpell_Force = 1;
         public static float CreateMatterSpell_currentScale = 0.7f;
         public static float CreateMatterSpell_accelarationChangeFactor = -0.1f;
 
-        public static Spells.SpellConstants NoGravitationSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration NoGravitationSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         //public static float NoGravitationSpell_MoveSpeed = 120;
         public static int NoGravitationSpell_survivalTimeMs = 9000;
-        public static int NoGravitationSpell_durationOfActionMs = 10;
-        public static int NoGravitationSpell_Force = 1;
+        public static int NoGravitationSpell_durationOfActionMs = 1;
         public static float NoGravitationSpell_accelarationChangeFactor = -0.05f;
 
-        public static Spells.SpellConstants ElectricSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration ElectricSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ElectricSpell_MoveSpeed = 500f;
         public static int ElectricSpell_survivalTimeMs = 5000;
-        public static int ElectricSpell_durationOfActionMs = 5000;
-        public static int ElectricSpell_Force = 1;
+        public static int ElectricSpell_durationOfActionMs = 5;
 
 
-        public static Spells.SpellConstants PushSpellConstants = new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration PushSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static int PushSpell_survivalTimeMs = 1000;
-        public static int PushSpell_durationOfActionMs = 5000;
-        public static int PushSpell_Force = 1;
-        public static float PushSpell_MaxSize = 0.02f;
-        public static float PushSpell_GrowRate = 0.001f;
-        public static float PushSpell_StartScale = 0.01f;
+        public static int PushSpell_durationOfActionMs = 5;
 
-        public static Spells.SpellConstants PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
+
+        public static float PushSpell_MaxSize
+        {
+            get { return pushspell_maxsize.value; }
+        }
+        static ConstantChangerItemFloat pushspell_maxsize = new ConstantChangerItemFloat("PushSpell_MaxSize", 3f, 0.01f);
+
+        public static float PushSpell_GrowRate
+        {
+            get { return pushspell_growrate.value; }
+        }
+        static ConstantChangerItemFloat pushspell_growrate = new ConstantChangerItemFloat("PushSpell_GrowRate", 0.045f, 0.001f);
+
+   
+        public static Spells.SpellConfiguration PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
         public static int PullSpell_survivalTimeMs = PushSpell_survivalTimeMs;
         public static int PullSpell_durationOfActionMs = PushSpell_durationOfActionMs;
-        public static int PullSpell_Force = PushSpell_Force;
-        public static float PullSpell_MaxSize = PushSpell_MaxSize;
-        public static float PullSpell_GrowRate = PushSpell_GrowRate;
-        public static float PullSpell_StartScale = PushSpell_StartScale;
 
+        public static float PullSpell_MaxSize
+        {
+            get { return pullspell_maxsize.value; }
+        }
+        static ConstantChangerItemFloat pullspell_maxsize = new ConstantChangerItemFloat("PullSpell_MaxSize", PushSpell_MaxSize, 0.01f);
 
+        public static float PullSpell_GrowRate
+        {
+            get { return pullspell_growrate.value; }
+        }
+        static ConstantChangerItemFloat pullspell_growrate = new ConstantChangerItemFloat("PullSpell_GrowRate", PushSpell_GrowRate, 0.01f);
+
+   
         /// <summary>
         /// start acceleration for push and pull handler, used default
         /// </summary>

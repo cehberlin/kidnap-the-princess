@@ -43,7 +43,7 @@ namespace MagicWorld
                 }
                 set {
                     usedMana = value;
-                    Grow();
+                    SetScaleDependingOnManaCost();
                 }
             }
 
@@ -92,17 +92,6 @@ namespace MagicWorld
         protected float currentScale = 1.0f;
         protected float MaxScale = 3.0f;
         protected float MoveSpeed = 0;
-
-        /// <summary>
-        /// Force of the spell.
-        /// It may work as factor that scale distance,velocity or time
-        /// </summary>
-        private int force;
-        public int Force
-        {
-            set { force = value; }
-            get { return force; }
-        }
 
         protected SpriteEffects flip = SpriteEffects.None;
 
@@ -159,7 +148,7 @@ namespace MagicWorld
         /// </summary>
         public double DurationOfActionMs
         {
-            get { return durationOfActionMs * Force; }
+            get { return durationOfActionMs * UsedMana; }
         }
 
         #endregion
@@ -175,7 +164,8 @@ namespace MagicWorld
             this.manaCastingCost = manaCastingCost;
             debugColor = Color.Blue;
 
-            Force = 0;
+            currentScale = ManaBasicCost * SpellConstantsValues.DefaultSpellGrowRate;
+
             Position = position;
             this.level = level;
             SpellState = State.CREATING;
@@ -293,16 +283,15 @@ namespace MagicWorld
         {
         }
 
-        public virtual void Grow()
+        public virtual void SetScaleDependingOnManaCost()
         {
+            currentScale = growFactor * UsedMana;
             if (currentScale <= MaxScale)
             {
-                currentScale = growFactor*UsedMana;
                 if(idleAnimation!=null)
                     idleAnimation.Scale = currentScale;
                 if(runAnimation!=null)
                     runAnimation.Scale = currentScale;
-                Force++;
             }
         }
 
