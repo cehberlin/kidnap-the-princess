@@ -1,7 +1,7 @@
 = PAY ATTENTION TO PRIORITY !!! DELETE DONE WORK !!!  =
 ----
 = in Progress =
-  # vulcano -> christopher
+
 = TODO =
 
   == Beta (29.06) ==
@@ -12,30 +12,32 @@
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
+  # vulcano freezing state-> Pascal help? by christopher
   # icicle in editor -> Pascal
   # level textures -> Pascal
   # gray out background in casting mode
   # animation for no gravity -> Pascal
   # level transition -->amauri
-  # instruction screen for level and spells (AGREE? )
-  # spider: only moves in defined web area (in all directions)
-  # save configuration (save settings like sound/resolutions)--> amauri
-  # replace or add better fitting FREE sounds and music
+     # instruction screen for level and spells
+  # spider: only moves in defined web area (in all directions) --> John
+  # save configuration (save settings like sound/resolutions)--> Amauri
+  # REPLACE or ADD better fitting FREE sounds and music
   # warm/cold spell: better gravition physics --> please explain!!
   # make magic influenceabel objects like push pull objects visible by color, unique texture or special effect->Pascal (I would draw another texture, is that fine with you guys?)
   # BUG with aiming on gamepad --> pascal (please contact me (christopher) if have an idea for solution or search todos)
-  # track textures -> Pascal asks: As in mine cart tracks?
+  # track textures -> Pascal asks: As in mine cart tracks? Dont know you and John talked about tracks for moveable platforms, I only added this task.(christopher)
   # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
-  # fullscreen option in menu --> amauri?
+  # fullscreen option in menu --> Amauri
+  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
 
 == Final (13.07) ==
   
 
  === optional ===
   # Sound menu (turn sound and/or music on/off) -> Amauri
-  # electric spell graphics -> Pascal (current one should work)
+  # electric spell graphics -> Pascal (current one should work??)
   # you should move with moveable plattforms -->rounding problem?? (Also: while casting on the platform the player no longer moves with a platform)
 
 
