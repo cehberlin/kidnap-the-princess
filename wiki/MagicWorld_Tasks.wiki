@@ -11,7 +11,7 @@
   # make difference for push pull with color --> pascal
   # REPLACE or ADD better fitting FREE sounds and music --> maybe john could do this task?pascal should first draw...
   # savegames and replaying of levels (for better score) --> amauri  
-     * NOTDONE! you cant show all this stuff in start menu its very ugly -> seperate menu after press play for choosing level and showing statistics...like explained thuersday
+     * NOTDONE! you cant show all this stuff in start menu is very ugly -> seperate menu after press play for choosing level and showing statistics...like explained thuersday
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
@@ -26,6 +26,7 @@
      # instruction screen for level and spells for a starting level
      # show statistics in this screen!!
   # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
+     * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # save configuration (save settings like sound/resolutions)--> Amauri
   # fullscreen option in menu --> Amauri
   # give magican another wand and put every wand in one animation ->Pascal
