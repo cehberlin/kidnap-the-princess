@@ -28,7 +28,6 @@
   # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
      * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # save configuration (save settings like sound/resolutions)--> Amauri
-  # fullscreen option in menu --> Amauri
   # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
