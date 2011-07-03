@@ -12,12 +12,15 @@ namespace MagicWorld.BlendInClasses
         ContentManager content;
         SpriteBatch spriteBatch;
         ICameraService camera;
+        IPlayerService playerService;
         List<IIcedVisibility> positions;
+        Effect effect;
 
         public IcedVisibility(Game game)
             : base(game)
         {
             positions = new List<IIcedVisibility>();
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             this.content = game.Content;
         }
 
@@ -26,12 +29,14 @@ namespace MagicWorld.BlendInClasses
             icedTexture = content.Load<Texture2D>("frozen");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
+            effect = content.Load<Effect>("HelperShader"); 
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
             camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             base.Update(gameTime);
         }
 
@@ -40,6 +45,10 @@ namespace MagicWorld.BlendInClasses
             if (camera != null)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, null, camera.TransformationMatrix);
+                if(playerService != null){
+                    if (playerService.IsCasting)
+                        effect.CurrentTechnique.Passes[0].Apply();
+                }
                 foreach (IIcedVisibility obj in positions)
                 {
                     spriteBatch.Draw(icedTexture, obj.getDrawingArea(), Color.White);

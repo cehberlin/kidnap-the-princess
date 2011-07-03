@@ -69,12 +69,13 @@ namespace MagicWorld
             camera = (ICameraService)ScreenManager.Game.Services.GetService(typeof(ICameraService));
             ice = (IVisibility)ScreenManager.Game.Services.GetService(typeof(IVisibility));
 
-            if(ScreenManager.Game.Services.GetService(typeof(GameplayScreen))==null){
+            if (ScreenManager.Game.Services.GetService(typeof(GameplayScreen)) == null)
+            {
                 ScreenManager.Game.Services.AddService(typeof(GameplayScreen), this);
             }
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
-            
+
             //LoadLevel(1);
 
             // once the load has finished, we use ResetElapsedTime to tell the game's
@@ -263,6 +264,7 @@ namespace MagicWorld
         /// </summary>
         public override void Draw(GameTime gameTime)
         {
+            //Draw Background
             ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
             BlendState.AlphaBlend,
             null,
@@ -271,9 +273,62 @@ namespace MagicWorld
             null,
             camera.TransformationMatrix);
 
-            level.Draw(gameTime, ScreenManager.SpriteBatch);
+            level.DrawBackground(gameTime, ScreenManager.SpriteBatch);
 
             ScreenManager.SpriteBatch.End();
+
+            //Draw Colideable gameelements except Spells
+            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
+            BlendState.AlphaBlend,
+            null,
+            null,
+            null,
+            null,
+            camera.TransformationMatrix);
+
+            level.DrawColideableGameelements(gameTime, ScreenManager.SpriteBatch);
+
+            ScreenManager.SpriteBatch.End();
+
+            //Draw Spells
+            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
+            BlendState.AlphaBlend,
+            null,
+            null,
+            null,
+            null,
+            camera.TransformationMatrix);
+
+            level.DrawSpells(gameTime, ScreenManager.SpriteBatch);
+
+            ScreenManager.SpriteBatch.End();
+
+            //Draw Player
+            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
+            BlendState.AlphaBlend,
+            null,
+            null,
+            null,
+            null,
+            camera.TransformationMatrix);
+
+            level.DrawPlayer(gameTime, ScreenManager.SpriteBatch);
+
+            ScreenManager.SpriteBatch.End();
+
+            //Draw Foreground
+            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
+            BlendState.AlphaBlend,
+            null,
+            null,
+            null,
+            null,
+            camera.TransformationMatrix);
+
+            level.DrawForeground(gameTime, ScreenManager.SpriteBatch);
+
+            ScreenManager.SpriteBatch.End();
+
 
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0 || pauseAlpha > 0)
@@ -317,22 +372,22 @@ namespace MagicWorld
             //save the game
             loadingLevel = true;
             ScreenManager.Game.GameData.Level = levelIndex;
-            ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;            
+            ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;
             ScreenManager.Game.GameData.Completed = "Accomplished";
             ScreenManager.Game.SaveGame(levelIndex);
-            
+
             //load transition screen
             LevelTransitionScreen levelTransition = new LevelTransitionScreen("Congratulation.\nLevel ACCOMPLISHED.");
-            levelTransition.Accepted += ProceedNextLevel;            
+            levelTransition.Accepted += ProceedNextLevel;
             ScreenManager.AddScreen(levelTransition, ControllingPlayer);
 
-            
+
         }
         void ProceedNextLevel(object sender, PlayerIndexEventArgs e)
         {
             loadingLevel = false;
             LoadLevel(levelIndex + 1);
-            
+
         }
 
         public void ReloadCurrentLevel()

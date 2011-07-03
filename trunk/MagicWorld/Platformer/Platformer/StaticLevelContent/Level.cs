@@ -15,6 +15,7 @@ using MagicWorld.BlendInClasses;
 using MagicWorld.Services;
 using System.Diagnostics;
 using MagicWorld.Constants;
+using MagicWorld.Ingredients;
 
 namespace MagicWorld
 {
@@ -410,29 +411,54 @@ namespace MagicWorld
         /// <summary>
         /// Draw everything in the level from background to foreground.
         /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void DrawPlayer(GameTime gameTime, SpriteBatch spriteBatch)
         {
+            Player.Draw(gameTime, spriteBatch);
+        }
+
+        public void DrawForeground(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (player.IsCasting)
+                effect.CurrentTechnique.Passes[0].Apply();
+            //update foreground
+            foreach (BasicGameElement elem in foregroundGameElements)
+            {
+                elem.Draw(gameTime, spriteBatch);
+            }
+        }
+
+        public void DrawBackground(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (player.IsCasting)
+                effect.CurrentTechnique.Passes[0].Apply();
             //update background
             foreach (BasicGameElement elem in backgroundGameElements)
             {
-                if(player.IsCasting)
-                    effect.CurrentTechnique.Passes[0].Apply();
                 elem.Draw(gameTime, spriteBatch);
             }
 
             endPoint.Draw(gameTime, spriteBatch);
 
+        }
+
+        public void DrawColideableGameelements(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            if (player.IsCasting)
+                effect.CurrentTechnique.Passes[0].Apply();
             foreach (BasicGameElement elem in generalColliadableGameElements)
             {
-                elem.Draw(gameTime, spriteBatch);
+                if (!elem.GetType().IsSubclassOf(typeof(Spell)))
+                    elem.Draw(gameTime, spriteBatch);
+
             }
+        }
 
-            Player.Draw(gameTime, spriteBatch);
-
-            //update background
-            foreach (BasicGameElement elem in foregroundGameElements)
+        public void DrawSpells(GameTime gameTime, SpriteBatch spriteBatch)
+        {
+            foreach (BasicGameElement elem in generalColliadableGameElements)
             {
-                elem.Draw(gameTime, spriteBatch);
+                if (elem.GetType().IsSubclassOf(typeof(Spell)))
+                    elem.Draw(gameTime, spriteBatch);
             }
         }
 
