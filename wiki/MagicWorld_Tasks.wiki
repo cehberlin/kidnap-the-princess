@@ -9,7 +9,9 @@
   == pre Final (06.07) ==
   # shrink animation of push pull -> necessary because we cant shrink so much, because run into problems with float precision. --> pascal
   # make difference for push pull with color --> pascal
-  # savegames and replaying of levels (for better score) --> amauri done. 
+  # REPLACE or ADD better fitting FREE sounds and music --> maybe john could do this task?pascal should first draw...
+  # savegames and replaying of levels (for better score) --> amauri  
+     * NOTDONE! you cant show all this stuff in start menu its very ugly -> seperate menu after press play for choosing level and showing statistics...like explained thuersday
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
@@ -20,16 +22,16 @@
     * rope or chain
   # gray out background in casting mode
   # animation for no gravity -> Pascal
-  # level transition -->amauri
-     # instruction screen for level and spells
+  # level transition -->all amauri
+     # instruction screen for level and spells for a starting level
+     # show statistics in this screen!!
+  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
   # save configuration (save settings like sound/resolutions)--> Amauri
-  # REPLACE or ADD better fitting FREE sounds and music
-  # warm/cold spell: better gravition physics --> please explain!!
+  # fullscreen option in menu --> Amauri
   # give magican another wand and put every wand in one animation ->Pascal
   # more easier start levels!
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
-  # fullscreen option in menu --> Amauri
-  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
+  # warm/cold spell: better gravition physics --> please explain!!
   # track textures -> Pascal asks: As in mine cart tracks? Dont know you and John talked about tracks for moveable platforms, I only added this task.(christopher)
 
 == Final (13.07) ==
