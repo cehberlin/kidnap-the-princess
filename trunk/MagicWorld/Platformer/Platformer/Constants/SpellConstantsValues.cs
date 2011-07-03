@@ -108,14 +108,14 @@ namespace MagicWorld.Constants
         public static Spells.SpellConfiguration ColdSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ColdSpell_MoveSpeed = 150f;
         public static int ColdSpell_survivalTimeMs = 5000;
-        public static int ColdSpell_durationOfActionMs = 7;
+        public static int ColdSpell_durationOfActionMs = 7; //-->muliplication factor for used mana
         public static Vector2 ColdSpellGravity = new Vector2(0f, 0.2f);
         public static float ColdSpell_MoveSpeedManaFactor = 0.004f; //describes the ratio between used mana and move speed increase
 
         public static Spells.SpellConfiguration WarmSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float WarmSpell_MoveSpeed = 160f;
         public static int WarmSpell_survivalTimeMs = 3000;
-        public static int WarmSpell_durationOfActionMs = 7;
+        public static int WarmSpell_durationOfActionMs = 7;//-->muliplication factor for used mana
         public static Vector2 WarmSpellGravity = new Vector2(0f, 0.2f);
         public static float WarmSpell_MoveSpeedManaFactor = 0.005f;  //describes the ratio between used mana and move speed increase
 
@@ -123,22 +123,23 @@ namespace MagicWorld.Constants
         public static float CreateMatterSpell_MoveSpeed = 130;
         public static float CreateMatterSpell_currentScale = 0.7f;
         public static float CreateMatterSpell_accelarationChangeFactor = -0.1f;
+        public static int   MATTER_EXISTENCE_TIME = 25; // time that created Matter exist -->muliplication factor for used mana
 
         public static Spells.SpellConfiguration NoGravitationSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         //public static float NoGravitationSpell_MoveSpeed = 120;
         public static int NoGravitationSpell_survivalTimeMs = 9000;
-        public static int NoGravitationSpell_durationOfActionMs = 1;
+        public static int NoGravitationSpell_durationOfActionMs = 1;//-->muliplication factor for used mana
         public static float NoGravitationSpell_accelarationChangeFactor = -0.05f;
 
         public static Spells.SpellConfiguration ElectricSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static float ElectricSpell_MoveSpeed = 500f;
         public static int ElectricSpell_survivalTimeMs = 5000;
-        public static int ElectricSpell_durationOfActionMs = 5;
+        public static int ElectricSpell_durationOfActionMs = 5;//-->muliplication factor for used mana
 
 
         public static Spells.SpellConfiguration PushSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
         public static int PushSpell_survivalTimeMs = 1000;
-        public static int PushSpell_durationOfActionMs = 5;
+        public static int PushSpell_durationOfActionMs = 5;//-->muliplication factor for used mana
 
 
         public static float PushSpell_MaxSize

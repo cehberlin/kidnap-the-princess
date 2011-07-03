@@ -13,8 +13,7 @@ using MagicWorld.Constants;
 namespace MagicWorld
 {
     class MatterSpell:Spell 
-    {
-        private const int MATTER_EXISTENCE_TIME = 500; // time that created Matter exist
+    {       
 
         Texture2D matterTexture;
 
@@ -33,8 +32,8 @@ namespace MagicWorld
         /// <param name="level"></param>
         public MatterSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.CreateMatterSpellConstants.BasicCastingCost, SpellConstantsValues.CreateMatterSpellConstants.CastingCostPerSecond, SpellType.CreateMatterSpell)
-        {            
-            survivalTimeMs = MATTER_EXISTENCE_TIME;
+        {
+            survivalTimeMs = SpellConstantsValues.MATTER_EXISTENCE_TIME;
             startSurvivalTime = survivalTimeMs;
             MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;                        
             accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
