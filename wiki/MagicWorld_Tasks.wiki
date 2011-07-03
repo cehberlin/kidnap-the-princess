@@ -15,6 +15,9 @@
     * one torch extinguish opens door to ingredient
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
   # level textures -> Pascal
+    * vulcano
+    * one texture for ever switch type
+    * rope or chain
   # gray out background in casting mode
   # animation for no gravity -> Pascal
   # level transition -->amauri
