@@ -9,7 +9,7 @@
   == pre Final (06.07) ==
   # shrink animation of push pull -> necessary because we cant shrink so much, because run into problems with float precision. --> pascal
   # make difference for push pull with color --> pascal
-  # REPLACE or ADD better fitting FREE sounds and music --> maybe john could do this task?pascal should first draw...
+  # REPLACE or ADD better fitting FREE sounds and music --> john
   # savegames and replaying of levels (for better score) --> amauri  
      * NOTDONE! you cant show all this stuff in start menu is very ugly -> seperate menu after press play for choosing level and showing statistics...like explained thuersday
   # level with torch switch -> *???*
@@ -20,7 +20,7 @@
     * vulcano
     * one texture for ever switch type
     * rope or chain
-  # gray out background in casting mode
+  # gray out background in casting mode -> john
   # animation for no gravity -> Pascal
   # level transition -->all amauri
      # instruction screen for level and spells for a starting level
