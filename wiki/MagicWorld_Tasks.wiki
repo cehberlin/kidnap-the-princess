@@ -34,12 +34,12 @@
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
   # warm/cold spell: better gravition physics --> please explain!!
   # track textures -> Pascal asks: As in mine cart tracks? Dont know you and John talked about tracks for moveable platforms, I only added this task.(christopher)
+  # Sound menu (turn sound and/or music on/off) -> Amauri
 
 == Final (13.07) ==
   
 
  === optional ===
-  # Sound menu (turn sound and/or music on/off) -> Amauri
   # electric spell graphics -> Pascal (current one should work??)
   # you should move with moveable plattforms -->rounding problem?? (Also: while casting on the platform the player no longer moves with a platform)
 
