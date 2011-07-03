@@ -34,6 +34,9 @@ namespace MagicWorld
 
         public IVisibility visibilityService;
         ISimpleAnimator simpleAnimator;
+        
+        Effect effect;
+        IPlayerService playerService;
 
         // Physical structure of the level.
 
@@ -177,9 +180,11 @@ namespace MagicWorld
         /// </param>
         public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader, MagicWorldGame game)
         {
+
             this.game = game;
             // Create a new content manager to load content used just by this level.
             content = new ContentManager(serviceProvider, "Content");
+            effect = content.Load<Effect>("HelperShader"); 
 
             collisionManager = new CollisionManager(this);
 
@@ -292,6 +297,7 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             // Pause while the player is dead or time is expired.
             if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
             {
@@ -409,6 +415,8 @@ namespace MagicWorld
             //update background
             foreach (BasicGameElement elem in backgroundGameElements)
             {
+                if(player.IsCasting)
+                    effect.CurrentTechnique.Passes[0].Apply();
                 elem.Draw(gameTime, spriteBatch);
             }
 
