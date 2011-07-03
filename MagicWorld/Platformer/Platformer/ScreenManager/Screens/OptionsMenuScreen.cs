@@ -31,7 +31,7 @@ namespace MagicWorld
             // Create our menu entries.
             mnuControls = new MenuEntry("Controls");
             mnuSound = new MenuEntry("Sound");
-            mnuResolution = new MenuEntry("Resolution");
+            mnuResolution = new MenuEntry("Display");
 
             MenuEntry back = new MenuEntry("Back");
 

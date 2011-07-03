@@ -148,7 +148,7 @@ namespace MagicWorld.HUDClasses
                     //TODO: remove 1000 and get the value dynamically
                     manaBar.Update(playerService.Mana.CurrentMana, 1000);
                     //TODO: Constant polling is not good, call back is better.
-                    spellBarLeft.Update(playerService.selectedSpell_A);
+                    spellBarLeft.Update(playerService.selectedSpell_A);                    
                     spellBarRight.Update(playerService.selectedSpell_B);
                     UpdateRunes(playerService.selectedSpell_A, ref leftSpell);
                     UpdateRunes(playerService.selectedSpell_B, ref rightSpell);

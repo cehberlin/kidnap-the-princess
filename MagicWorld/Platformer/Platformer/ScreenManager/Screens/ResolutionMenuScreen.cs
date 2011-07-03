@@ -17,6 +17,7 @@ namespace MagicWorld
             : base("Options")
         {
             // Create our menu entries.
+            MenuEntry mnuFullScreen = new MenuEntry("Full Screen");
             MenuEntry mnu800x600 = new MenuEntry("800X600");
             MenuEntry mnu1024x768 = new MenuEntry("1024X768");
             MenuEntry mnu1152x864 = new MenuEntry("1152X864");
@@ -26,6 +27,7 @@ namespace MagicWorld
             MenuEntry back = new MenuEntry("Back");
 
             // Hook up menu event handlers.
+            mnuFullScreen.Selected += ResolutionFullScreenEntrySelected;
             mnu800x600.Selected  += ResolutionMenu800x600EntrySelected;
             mnu1024x768.Selected += ResolutionMenu1024x768EntrySelected;
             mnu1152x864.Selected += ResolutionMenu1152x864EntrySelected;
@@ -35,6 +37,7 @@ namespace MagicWorld
             back.Selected += OnCancel;
             
             // Add entries to the menu.
+            MenuEntries.Add(mnuFullScreen);
             MenuEntries.Add(mnu800x600);
             MenuEntries.Add(mnu1024x768);
             MenuEntries.Add(mnu1152x864);
@@ -49,7 +52,13 @@ namespace MagicWorld
 
         #region Handle Input
 
-
+        /// <summary>
+        /// Event handler for when the Ungulate menu entry is selected.
+        /// </summary>
+        void ResolutionFullScreenEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.Graphics.ToggleFullScreen();
+        }
         /// <summary>
         /// Event handler for when the Ungulate menu entry is selected.
         /// </summary>
