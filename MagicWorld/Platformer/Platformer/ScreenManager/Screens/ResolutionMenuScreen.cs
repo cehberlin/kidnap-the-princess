@@ -9,15 +9,16 @@ namespace MagicWorld
     {
         #region Initialization
 
-
+        MenuEntry mnuFullScreen;
+        bool toogleScreen = false;
         /// <summary>
         /// Constructor.
         /// </summary>
         public ResolutionMenuScreen()
             : base("Options")
         {
-            // Create our menu entries.
-            MenuEntry mnuFullScreen = new MenuEntry("Full Screen");
+            // Create our menu entries.            
+            mnuFullScreen = new MenuEntry("Full Screen <Off>");
             MenuEntry mnu800x600 = new MenuEntry("800X600");
             MenuEntry mnu1024x768 = new MenuEntry("1024X768");
             MenuEntry mnu1152x864 = new MenuEntry("1152X864");
@@ -57,7 +58,16 @@ namespace MagicWorld
         /// </summary>
         void ResolutionFullScreenEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            toogleScreen = !toogleScreen;
             ScreenManager.Graphics.ToggleFullScreen();
+            if (toogleScreen)
+            {
+                mnuFullScreen.Text = "Full Screen <On>";                
+            }
+            else
+            {                
+                mnuFullScreen.Text = "Full Screen <Off>";
+            }
         }
         /// <summary>
         /// Event handler for when the Ungulate menu entry is selected.
