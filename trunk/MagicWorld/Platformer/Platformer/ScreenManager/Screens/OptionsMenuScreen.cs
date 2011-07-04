@@ -73,7 +73,7 @@ namespace MagicWorld
 
         void ResolutionMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new ResolutionMenuScreen(), e.PlayerIndex);
+            ScreenManager.AddScreen(new ResolutionMenuScreen(ScreenManager), e.PlayerIndex);
         }
 
         /// <summary>
@@ -82,6 +82,9 @@ namespace MagicWorld
         protected override void OnCancel(PlayerIndex playerIndex)
         {
             bool a;
+
+            ScreenManager.Game.SaveGameConfig();
+
             foreach (GameScreen screen in ScreenManager.GetScreens())
             {
                 if (screen.GetType().Equals(typeof(MainMenuScreen)))

@@ -34,12 +34,14 @@ namespace MagicWorld
         {
             ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
             PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.defaultControl);
+            ScreenManager.Game.GameStatus.Control = "Default";
         }
 
         void laptopConfigSelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
             PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.laptopControl);
+            ScreenManager.Game.GameStatus.Control = "Laptop";
         }
 
         private SpriteBatch spriteBatch;

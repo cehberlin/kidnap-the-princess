@@ -14,11 +14,17 @@ namespace MagicWorld
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ResolutionMenuScreen()
+        public ResolutionMenuScreen(ScreenManager screenManager)
             : base("Options")
         {
-            // Create our menu entries.            
-            mnuFullScreen = new MenuEntry("Full Screen <Off>");
+            // Create our menu entries.       
+            toogleScreen = screenManager.Game.GameStatus.FullScreenMode;
+            if (toogleScreen )
+                mnuFullScreen = new MenuEntry("Full Screen <On>");
+            else
+                mnuFullScreen = new MenuEntry("Full Screen <Off>");
+
+
             MenuEntry mnu800x600 = new MenuEntry("800X600");
             MenuEntry mnu1024x768 = new MenuEntry("1024X768");
             MenuEntry mnu1152x864 = new MenuEntry("1152X864");
@@ -47,6 +53,8 @@ namespace MagicWorld
 
             
             MenuEntries.Add(back);
+
+            
         }
 
         #endregion
@@ -68,6 +76,8 @@ namespace MagicWorld
             {                
                 mnuFullScreen.Text = "Full Screen <Off>";
             }
+            
+            ScreenManager.Game.GameStatus.FullScreenMode = toogleScreen;
         }
         /// <summary>
         /// Event handler for when the Ungulate menu entry is selected.
@@ -75,6 +85,8 @@ namespace MagicWorld
         void ResolutionMenu800x600EntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.setScreenResolution(800, 600);
+            ScreenManager.Game.GameStatus.Resolution.X = 800;
+            ScreenManager.Game.GameStatus.Resolution.Y = 600;
         }
 
         /// <summary>
@@ -83,21 +95,29 @@ namespace MagicWorld
         void ResolutionMenu1024x768EntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.setScreenResolution(1024, 768);
+            ScreenManager.Game.GameStatus.Resolution.X = 1024;
+            ScreenManager.Game.GameStatus.Resolution.Y = 768;
         }
 
         void ResolutionMenu1152x864EntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.setScreenResolution(1152,864);
+            ScreenManager.Game.GameStatus.Resolution.X = 1152;
+            ScreenManager.Game.GameStatus.Resolution.Y = 864;
         }
 
         void ResolutionMenu1366x768EntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.setScreenResolution(1366, 768);
+            ScreenManager.Game.GameStatus.Resolution.X = 1366;
+            ScreenManager.Game.GameStatus.Resolution.Y = 768;
         }
 
         void ResolutionMenu1280x800EntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.setScreenResolution(1280, 800);
+            ScreenManager.Game.GameStatus.Resolution.X = 1280;
+            ScreenManager.Game.GameStatus.Resolution.Y = 800;
         }
 
         #endregion

@@ -35,7 +35,6 @@ namespace MagicWorld
             MenuEntries.Add(playGameMenuEntry);            
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-
             
         }
         
