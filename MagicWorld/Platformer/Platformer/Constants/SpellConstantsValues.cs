@@ -23,7 +23,8 @@ namespace MagicWorld.Constants
             List<IConstantChangerItem> grouptSpellCasting = new List<IConstantChangerItem>();
             grouptSpellCasting.Add(spellAimingRotationSpeedInternal);
             grouptSpellCasting.Add(spellPowerUpDownSpeedInternal);
-            grouptSpellCasting.Add(defaultSpellGrowRate);            
+            grouptSpellCasting.Add(defaultSpellGrowRate);
+            grouptSpellCasting.Add(matterSpellGrowRate);
             Constants.Add(new ConstantGroup("SpellCasting", grouptSpellCasting));
 
             //group mana
@@ -76,6 +77,16 @@ namespace MagicWorld.Constants
         static ConstantChangerItemFloat defaultSpellGrowRate = new ConstantChangerItemFloat("DefaultSpellGrowRate", 0.006f, 0.0001f);
 
         /// <summary>
+        /// how fast the spell matter grows if more mana is pumped into it
+        /// </summary>
+        public static float MatterSpellGrowRate
+        {
+            get { return matterSpellGrowRate.value; }
+        }
+        static ConstantChangerItemFloat matterSpellGrowRate = new ConstantChangerItemFloat("MatterSpellGrowRate", 0.004f, 0.0001f);
+
+
+        /// <summary>
         /// Max mana a player can have
         /// </summary>
         public static int MAX_MANA
@@ -119,7 +130,7 @@ namespace MagicWorld.Constants
         public static Vector2 WarmSpellGravity = new Vector2(0f, 0.2f);
         public static float WarmSpell_MoveSpeedManaFactor = 0.005f;  //describes the ratio between used mana and move speed increase
 
-        public static Spells.SpellConfiguration CreateMatterSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration CreateMatterSpellConstants = new Spells.SpellConfiguration(300, 1, 200, new TimeSpan(0, 0, 1));
         public static float CreateMatterSpell_MoveSpeed = 130;
         public static float CreateMatterSpell_currentScale = 0.7f;
         public static float CreateMatterSpell_accelarationChangeFactor = -0.1f;
