@@ -264,10 +264,19 @@ namespace MagicWorld
                 if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
                 {
                     if (lastMovementRight) {
+                        if (isFacingLeft)
+                        {
+                            spellAimAngle = -spellAimAngle;
+                        }
                         isFacingLeft = false;
                         sprite.PlayAnimation(runRightAnimation);
+                        
                     }
                     else {
+                        if (!isFacingLeft)
+                        {
+                            spellAimAngle = -spellAimAngle;
+                        }
                         isFacingLeft = true;
                         sprite.PlayAnimation(runLeftAnimation);
                     }
@@ -634,7 +643,7 @@ namespace MagicWorld
         {
             get
             {
-                if (lastMovementRight || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0.3f)
+                if (isPlayerFacingRight() || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0.3f)
                 {
                     return spellAimAngle;
                 }
@@ -701,11 +710,21 @@ namespace MagicWorld
                     //Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
                     if (keyboardState.IsKeyDown(controls.Keys_Up))
                     {
-                        spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                        if (isFacingLeft)
+                        {
+                            spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                        } else {
+                            spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                        }
                     }
                     else if (keyboardState.IsKeyDown(controls.Keys_Down))
                     {
-                        spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                        if (!isFacingLeft)
+                        {
+                            spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                        } else {
+                            spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
+                        }
                     }
                     //Use Thumbstick to aim the spell
                     if (gamePadState.ThumbSticks.Left.Length() > 0.1f)
