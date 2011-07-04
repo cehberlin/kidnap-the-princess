@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.Spells;
 #endregion
 
 namespace MagicWorld
@@ -12,7 +13,7 @@ namespace MagicWorld
     /// A popup message box screen, used to display "are you sure?"
     /// confirmation messages.
     /// </summary>
-    class LevelTransitionScreen : GameScreen
+    class LevelInfoScreen : GameScreen
     {
         #region Fields
 
@@ -24,7 +25,7 @@ namespace MagicWorld
         #region Events
 
         public event EventHandler<PlayerIndexEventArgs> Accepted;
-   
+        Level level;
 
         #endregion
 
@@ -36,17 +37,19 @@ namespace MagicWorld
         /// Constructor lets the caller specify whether to include the standard
         /// "A=ok, B=cancel" usage text prompt.
         /// </summary>
-        public LevelTransitionScreen(string message)
+        public LevelInfoScreen(string message,Level level)
             
         {
             const string usageText = "\nPress any key";
 
+            this.level = level;
             this.message = message;// +usageText;
  
             IsPopup = true;
 
             TransitionOnTime = TimeSpan.FromSeconds(0.2);
             TransitionOffTime = TimeSpan.FromSeconds(0.2);
+            
         }
 
 
@@ -84,6 +87,7 @@ namespace MagicWorld
                     
                 }
             }
+            
         }
 
 
@@ -99,7 +103,7 @@ namespace MagicWorld
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
-            string tempString = "aaaaaaaaaaaaaaa\na\na\na\n";
+            string tempString = "Spells Available\na\na\na\n";
 
             // Darken down any other screens that were drawn beneath the popup.
             ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
@@ -123,7 +127,7 @@ namespace MagicWorld
             // Draw the message box text.
             spriteBatch.DrawString(font, message, textPosition, color,0,Vector2.Zero,1.0f,SpriteEffects.None,0);
             textPosition += vecIncrease*3;            
-            spriteBatch.DrawString(font, "Your performance", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "Spells Available", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             textPosition += vecIncrease;
             spriteBatch.DrawString(font, "Elapsed Time: " + ScreenManager.Game.GameData.Time.ToString("#0.0") + "s", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             textPosition += vecIncrease;

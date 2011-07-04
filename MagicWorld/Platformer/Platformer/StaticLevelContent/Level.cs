@@ -157,6 +157,11 @@ namespace MagicWorld
 
         protected ILevelLoader levelLoader;
 
+        public ILevelLoader LevelLoader
+        {
+            get { return levelLoader; }
+        }
+
         private MagicWorldGame game;
 
         public MagicWorldGame Game

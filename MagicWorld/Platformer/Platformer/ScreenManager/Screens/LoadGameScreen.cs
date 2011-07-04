@@ -68,7 +68,7 @@ namespace MagicWorld
             font = ScreenManager.Font;
             
             Vector2 titleOrigin = Vector2.Zero;
-            Color titleColor = Color.Blue;
+            Color titleColor = Color.WhiteSmoke;
             float titleScale = 0.7f;
 
             spriteBatch.Begin();
@@ -135,7 +135,8 @@ namespace MagicWorld
         #region Draw
 
         public override void Draw(GameTime gameTime)
-        {            
+        {
+            ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
             DrawLevelEntry();
             ShowGameInfo();
             base.Draw(gameTime);
