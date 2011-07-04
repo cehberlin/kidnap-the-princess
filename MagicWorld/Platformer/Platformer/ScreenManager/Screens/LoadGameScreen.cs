@@ -82,15 +82,12 @@ namespace MagicWorld
         {
             Vector2 pos;
 
-            int distance = 30;
-            string statistics = "Level " + ScreenManager.Game.GameData.Completed +
-                                " Items available: " + ScreenManager.Game.GameData.TotalItems.ToString() +
-                                " Items collected: " + ScreenManager.Game.GameData.ItemsCollected.ToString();
+            int distance = 30;            
 
             pos = new Vector2(back.Position.X, back.Position.Y);
             pos.Y += distance;
             pos.X = 40;
-            ShowString("Last Performance",pos);
+            ShowString("Last Game",pos);
             pos.Y += distance;
             ShowString("Level " + ScreenManager.Game.GameData.Completed, pos);
             pos.Y += distance;
@@ -99,6 +96,20 @@ namespace MagicWorld
             ShowString("Items available: " + ScreenManager.Game.GameData.TotalItems.ToString() , pos);
             pos.Y += distance;
             ShowString("Items collected: " + ScreenManager.Game.GameData.ItemsCollected.ToString(), pos);
+
+            //best performance
+            pos.Y = back.Position.Y;
+            pos.Y += distance;
+            pos.X = 350;
+            ShowString("Best Game", pos);
+            pos.Y += distance;
+            ShowString("Level " + ScreenManager.Game.BestGameData.Completed, pos);
+            pos.Y += distance;
+            ShowString("Elapsed Time: " + ScreenManager.Game.BestGameData.Time.ToString("#0.0") + "s", pos);
+            pos.Y += distance;
+            ShowString("Items available: " + ScreenManager.Game.BestGameData.TotalItems.ToString(), pos);
+            pos.Y += distance;
+            ShowString("Items collected: " + ScreenManager.Game.BestGameData.ItemsCollected.ToString(), pos);
 
 
         }
@@ -111,10 +122,11 @@ namespace MagicWorld
         /// </summary>
         private void LoadFiles()
         {
-            files = ScreenManager.Game.GetSavedFiles();
+            files = ScreenManager.Game.GetSavedFiles(false);
             if (files.Length > 0)
             {                
-                ScreenManager.Game.LoadGame(1);
+                ScreenManager.Game.LoadGame(1,false);
+                ScreenManager.Game.LoadGame(1, true);
             }
 
         }
@@ -156,7 +168,9 @@ namespace MagicWorld
                         {
                             selectedFile = 0;
                         }
-                        ScreenManager.Game.LoadGame(selectedFile + 1);                        
+                        ScreenManager.Game.LoadGame(selectedFile + 1,false);
+                        //best game
+                        ScreenManager.Game.LoadGame(selectedFile + 1, true);
                        
                     }
 
@@ -175,7 +189,9 @@ namespace MagicWorld
                         {
                             selectedFile = files.Length - 1;
                         }
-                        ScreenManager.Game.LoadGame(selectedFile + 1);                        
+                        ScreenManager.Game.LoadGame(selectedFile + 1,false);
+                        //best game
+                        ScreenManager.Game.LoadGame(selectedFile + 1, true);
                     }
                 }
             }

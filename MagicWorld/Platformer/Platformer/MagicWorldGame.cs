@@ -30,6 +30,7 @@ namespace MagicWorld
         public int TotalItems;
         public string Completed;
         public float Time;
+        public int TotalPoints;
     }
 
     [Serializable]
@@ -54,6 +55,7 @@ namespace MagicWorld
         SimpleAnimator simpleAnimator;
 
         public SaveGameData GameData=new SaveGameData();
+        public SaveGameData BestGameData = new SaveGameData();
         public SaveGameStatus GameStatus = new SaveGameStatus();
 
         ConstantChanger constantChanger;
@@ -251,11 +253,18 @@ namespace MagicWorld
         /// the game name is Level<level Number>
         /// </summary>
         /// <param name="level"></param>
-        public void SaveGame(int level)
+        public void SaveGame(int level,bool bestGame)
         {
             IAsyncResult result;
-            
-            string fileName="Level" + level.ToString();
+            string fileName;
+            if (bestGame)
+            {
+                fileName = "HighScore" + level.ToString(); 
+            }
+            else
+            {
+                fileName = "Level" + level.ToString();
+            }
 
             // Open a storage container.
 
@@ -296,12 +305,22 @@ namespace MagicWorld
 
         }
 
-        public void LoadGame(int level)
+        public void LoadGame(int level, bool bestGame)
         {
             string fileName;
             IAsyncResult result;
+            SaveGameData tempData = new SaveGameData();
 
-            fileName = "Level" + level.ToString();
+            ClearGameData(bestGame);
+
+            if (bestGame)
+            {
+                fileName = "HighScore" + level.ToString();
+            }
+            else
+            {
+                fileName = "Level" + level.ToString();
+            }            
 
             // Open a storage container.
 
@@ -337,7 +356,17 @@ namespace MagicWorld
 
             // Read the data from the file.
             XmlSerializer serializer = new XmlSerializer(typeof(SaveGameData));
-            GameData = (SaveGameData)serializer.Deserialize(stream);
+            tempData = (SaveGameData)serializer.Deserialize(stream);
+
+            if (bestGame)
+            {
+                BestGameData = tempData;
+            }
+            else
+            {
+                GameData = tempData;
+            }
+
 
             // Close the file.
             stream.Close();
@@ -351,7 +380,7 @@ namespace MagicWorld
             //Debug.WriteLine("Items:    " + GameData.ItemsCollected.ToString());
             //Debug.WriteLine("Position: " + GameData.AvatarPosition.ToString());
         }
-        public string[] GetSavedFiles()
+        public string[] GetSavedFiles(bool bestGame)
         {
             string[] files;
 
@@ -377,8 +406,14 @@ namespace MagicWorld
             // Close the wait handle.
             result.AsyncWaitHandle.Close();
 
-
-            files = container.GetFileNames("Level*");
+            if (bestGame)
+            {
+                files = container.GetFileNames("High*");
+            }
+            else
+            {
+                files = container.GetFileNames("Level*");
+            }
             return files;
 
         }
@@ -518,6 +553,51 @@ namespace MagicWorld
         }
         #endregion
 
+        #region Calculate Points
+
+        public int CalulateTotalPoints()
+        {
+            return (int)(((GameData.ItemsCollected / GameData.TotalItems) * GeneralValues.PointsParam1)/ GameData.Time);
+        }
+
+        public bool PlayerGotBetterPerformance()
+        {
+            bool result=false;
+            if (BestGameData.ItemsCollected <= GameData.ItemsCollected)
+            {
+                if (BestGameData.Time>0)
+                    result = (BestGameData.Time >= GameData.Time) ? true : false;
+                else                
+                    result = true;                
+            }
+            return result;
+        }
+
+        private void ClearGameData(bool bestGame)
+        {
+            if (!bestGame)
+            {
+                GameData.ItemsCollected = 0;
+                GameData.Completed = "Failed";
+                GameData.Level = 0;
+                GameData.Time = 0;
+                GameData.TotalItems = 0;
+                GameData.TotalPoints = 0;
+            }
+            else
+            {
+
+                BestGameData.ItemsCollected = 0;
+                BestGameData.Completed = "Failed";
+                BestGameData.Level = 0;
+                BestGameData.Time = 0;
+                BestGameData.TotalItems = 0;
+                BestGameData.TotalPoints = 0;
+            }
+
+
+        }
+        #endregion
     }
         
 }
