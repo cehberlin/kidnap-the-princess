@@ -46,6 +46,7 @@ namespace MagicWorld
         private Animation jumpLeftAnimation;
         private Animation jumpRightAnimation;
         private Animation idleAnimation;
+        private Animation idleAnimationFacingLeft;
         private Animation celebrateAnimation;
 
         // Sounds
@@ -63,6 +64,12 @@ namespace MagicWorld
             get { return isAlive; }
         }
         bool isAlive;
+
+
+        /// <summary>
+        /// true if player is Facing Left
+        /// </summary>
+        private Boolean isFacingLeft = false;
 
         private Bounds oldBounds;
         public override Bounds Bounds
@@ -187,6 +194,9 @@ namespace MagicWorld
             jumpLeftAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 2);
             jumpRightAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 3);
             idleAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 1f, 1, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
+
+            idleAnimationFacingLeft = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 1f, 1, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 29);
+
             //TODO: Use the real animations
             dieAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
             celebrateAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
@@ -253,14 +263,25 @@ namespace MagicWorld
             {
                 if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
                 {
-                    if (lastMovementRight)
+                    if (lastMovementRight) {
+                        isFacingLeft = false;
                         sprite.PlayAnimation(runRightAnimation);
-                    else
+                    }
+                    else {
+                        isFacingLeft = true;
                         sprite.PlayAnimation(runLeftAnimation);
+                    }
                 }
                 else
                 {
-                    sprite.PlayAnimation(idleAnimation);
+                    if (isFacingLeft)
+                    {
+                        sprite.PlayAnimation(idleAnimationFacingLeft);
+                    }
+                    else
+                    {
+                        sprite.PlayAnimation(idleAnimation);
+                    }
                 }
             }
 
@@ -808,8 +829,7 @@ namespace MagicWorld
         /// <returns>true if the player is walking to the rigth </returns>
         public bool isPlayerFacingRight()
         {
-            if (lastVelocity.X >= 0) { return true; }
-            return false;
+            return !isFacingLeft;
         }
 
         /// <summary>
@@ -818,8 +838,7 @@ namespace MagicWorld
         /// <returns>true if the player is walking to the left</returns>
         public bool isPlayerFacingLeft()
         {
-            if (lastVelocity.X < 0) { return true; }
-            return false;
+            return isFacingLeft;
         }
 
 
