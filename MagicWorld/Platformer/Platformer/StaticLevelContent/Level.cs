@@ -26,6 +26,8 @@ namespace MagicWorld
     /// </summary>
     public class Level : IDisposable
     {
+
+        #region properties
         // Entities in the level.
         public Player Player
         {
@@ -153,8 +155,6 @@ namespace MagicWorld
 
         private SoundEffect exitReachedSound;
 
-        #region Loading
-
         protected ILevelLoader levelLoader;
 
         private MagicWorldGame game;
@@ -170,6 +170,10 @@ namespace MagicWorld
             get { return tutManager; }
         }
 
+        #endregion
+
+        #region Loading
+
         /// <summary>
         /// Constructs a new level.
         /// </summary>
@@ -183,6 +187,7 @@ namespace MagicWorld
         {
 
             this.game = game;
+            
             // Create a new content manager to load content used just by this level.
             content = new ContentManager(serviceProvider, "Content");
             effect = content.Load<Effect>("HelperShader"); 
@@ -200,6 +205,8 @@ namespace MagicWorld
 
         protected void initLevel()
         {
+            game.GameData.Time = 0;
+
             levelLoader.init(this);
 
             Debug.WriteLine("load level ");
@@ -250,7 +257,7 @@ namespace MagicWorld
             //So we have to catch the exception and throw it away
             try
             {
-                MediaPlayer.IsMuted = true;
+                MediaPlayer.IsMuted = !game.GameStatus.PlayBackGroundMusic;
                 MediaPlayer.IsRepeating = true;
                 MediaPlayer.Play(levelLoader.getBackgroundMusic());
             }
@@ -298,6 +305,8 @@ namespace MagicWorld
             GamePadState gamePadState,
             DisplayOrientation orientation)
         {
+            game.GameData.Time += gameTime.ElapsedGameTime.Milliseconds;
+
             playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             // Pause while the player is dead or time is expired.
             if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)

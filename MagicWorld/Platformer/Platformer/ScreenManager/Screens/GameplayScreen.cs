@@ -374,6 +374,7 @@ namespace MagicWorld
             ScreenManager.Game.GameData.Level = levelIndex;
             ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;
             ScreenManager.Game.GameData.Completed = "Accomplished";
+            ScreenManager.Game.GameData.Time = ScreenManager.Game.GameData.Time/1000;//transfor to seconds
             ScreenManager.Game.SaveGame(levelIndex);
 
             //load transition screen

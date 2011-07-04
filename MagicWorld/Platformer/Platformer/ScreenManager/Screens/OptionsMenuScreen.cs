@@ -68,7 +68,7 @@ namespace MagicWorld
         /// </summary>
         void SoundMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new SoundMenuScreen(), e.PlayerIndex);
+            ScreenManager.AddScreen(new SoundMenuScreen(ScreenManager), e.PlayerIndex);
         }
 
         void ResolutionMenuEntrySelected(object sender, PlayerIndexEventArgs e)

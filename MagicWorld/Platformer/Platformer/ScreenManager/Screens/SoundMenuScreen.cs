@@ -16,12 +16,19 @@ namespace MagicWorld
         /// <summary>
         /// Constructor.
         /// </summary>
-        public SoundMenuScreen()
+        public SoundMenuScreen(ScreenManager screenManager)
             : base("Options")
         {
             // Create our menu entries.
-
-            mnuPlayBackGroundMusic = new MenuEntry("Background Music <Off>");            
+            playingBackMusic = screenManager.Game.GameStatus.PlayBackGroundMusic;
+            if (playingBackMusic)
+            {
+                mnuPlayBackGroundMusic = new MenuEntry("Background Music <On>");            
+            }
+            else
+            {
+                mnuPlayBackGroundMusic = new MenuEntry("Background Music <Off>");
+            }
 
             MenuEntry back = new MenuEntry("Back");
 
@@ -59,7 +66,7 @@ namespace MagicWorld
                 mnuPlayBackGroundMusic.Text = "Background Music <On>";
                 try
                 {
-                    MediaPlayer.IsMuted = false;
+                    MediaPlayer.IsMuted = playingBackMusic;
                     MediaPlayer.IsRepeating = true;
                     MediaPlayer.Play(ScreenManager.ContentManager.Load<Song>("Sounds/Backgroundmusic"));
                 }
@@ -67,6 +74,7 @@ namespace MagicWorld
             }
 
             playingBackMusic=!playingBackMusic;
+            ScreenManager.Game.GameStatus.PlayBackGroundMusic = playingBackMusic;
 
         }
        
