@@ -586,7 +586,6 @@ namespace MagicWorld
             }
             else
             {
-
                 BestGameData.ItemsCollected = 0;
                 BestGameData.Completed = "Failed";
                 BestGameData.Level = 0;
