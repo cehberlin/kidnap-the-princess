@@ -31,7 +31,7 @@ namespace MagicWorld
         public TouchCollection TouchState;
 
         public readonly List<GestureSample> Gestures = new List<GestureSample>();
-        IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
+        IPlayerControl controls;
 
         #endregion
 
@@ -50,6 +50,7 @@ namespace MagicWorld
             LastGamePadStates = new GamePadState[MaxInputs];
 
             GamePadWasConnected = new bool[MaxInputs];
+            
         }
 
 
@@ -63,6 +64,7 @@ namespace MagicWorld
         /// </summary>
         public void Update()
         {
+            controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
             for (int i = 0; i < MaxInputs; i++)
             {
                 LastKeyboardStates[i] = CurrentKeyboardStates[i];

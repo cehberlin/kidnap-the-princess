@@ -350,8 +350,7 @@ namespace MagicWorld
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num), ScreenManager.Game);
-            // if (!levelAddedToService)
-            // {
+            
             ScreenManager.Game.Services.RemoveService(typeof(Level));
             ScreenManager.Game.Services.AddService(typeof(Level), level);
             levelAddedToService = true;
@@ -361,7 +360,7 @@ namespace MagicWorld
             ScreenManager.Game.GameData.ItemsCollected = 0;
             ScreenManager.Game.GameData.TotalItems = level.MaxIngredientsCount;
             ScreenManager.Game.GameData.Completed = "Failed";
-            ScreenManager.Game.SaveGame(num);
+            ScreenManager.Game.SaveGame(num,false);
 
             ice.Clear();
             // }
@@ -375,7 +374,13 @@ namespace MagicWorld
             ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;
             ScreenManager.Game.GameData.Completed = "Accomplished";
             ScreenManager.Game.GameData.Time = ScreenManager.Game.GameData.Time/1000;//transfor to seconds
-            ScreenManager.Game.SaveGame(levelIndex);
+            //ScreenManager.Game.GameData.TotalPoints = ScreenManager.Game.CalulateTotalPoints();            
+            ScreenManager.Game.SaveGame(levelIndex,false);
+
+            if (ScreenManager.Game.PlayerGotBetterPerformance())
+            {
+                ScreenManager.Game.SaveGame(levelIndex,true);
+            }
 
             //load transition screen
             LevelTransitionScreen levelTransition = new LevelTransitionScreen("Congratulation.\nLevel ACCOMPLISHED.");
