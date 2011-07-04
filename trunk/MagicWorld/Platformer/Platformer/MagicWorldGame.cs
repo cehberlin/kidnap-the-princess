@@ -28,6 +28,14 @@ namespace MagicWorld
         public int ItemsCollected;
         public int TotalItems;
         public string Completed;
+        public float Time;
+    }
+
+    public class SaveGameStatus
+    {
+        public bool PlayBackGroundMusic=false;
+        public bool FullScreenMode=false;
+        public string Resolution;
     }
 
     public class MagicWorldGame : Microsoft.Xna.Framework.Game
@@ -43,6 +51,8 @@ namespace MagicWorld
         SimpleAnimator simpleAnimator;
 
         public SaveGameData GameData=new SaveGameData();
+        public SaveGameStatus GameStatus = new SaveGameStatus();
+
         ConstantChanger constantChanger;
 
         ParticleSystem explosionParticleSystem;
@@ -327,9 +337,9 @@ namespace MagicWorld
             container.Dispose();
 
             // Report the data to the console.
-            Debug.WriteLine("Completed:     " + GameData.Completed);
-            Debug.WriteLine("Level:    " + GameData.Level.ToString());
-            Debug.WriteLine("Items:    " + GameData.ItemsCollected.ToString());
+            //Debug.WriteLine("Completed:     " + GameData.Completed);
+            //Debug.WriteLine("Level:    " + GameData.Level.ToString());
+            //Debug.WriteLine("Items:    " + GameData.ItemsCollected.ToString());
             //Debug.WriteLine("Position: " + GameData.AvatarPosition.ToString());
         }
         public string[] GetSavedFiles()

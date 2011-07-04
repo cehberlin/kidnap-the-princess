@@ -9,14 +9,9 @@ namespace MagicWorld
     /// The main menu screen is the first thing displayed when the game starts up.
     /// </summary>
     class MainMenuScreen : MenuScreen
-    {
-
-        string[] files;
-        bool filesLoaded = false;
-        int selectedFile = 0;
+    {                
         MenuEntry playGameMenuEntry;
-        SpriteFont font;
-
+       
         #region Initialization
 
 
@@ -27,7 +22,7 @@ namespace MagicWorld
             : base("Main Menu")
         {
             // Create our menu entries.
-            playGameMenuEntry = new MenuEntry("New Game Level1");            
+            playGameMenuEntry = new MenuEntry("Play Game");            
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
@@ -43,73 +38,16 @@ namespace MagicWorld
 
             
         }
-
-
-        #endregion
-
-        #region Handle Input
-        public override void HandleInput(InputState input)
-        {
-            if (!filesLoaded)
-            {
-                LoadFiles();
-                filesLoaded = true;
-            }
-
-            //check the selection of rigth and left when on "New game" menu
-            if (input.IsMenuRight(ControllingPlayer))
-            {
-                if (SelectedEntry == 0) //New game
-                {
-                    if (files.Length > 0)
-                    {
-                        selectedFile++;
-                        if (selectedFile > (files.Length - 1))
-                        {
-                            selectedFile = 0;
-                        }
-                        ScreenManager.Game.LoadGame(selectedFile + 1);
-                        playGameMenuEntry.Text = "New Game " + files[selectedFile];
-                        //ShowGameInfo();
-                    }
-
-                }
-            }
-
-            //check the selection of rigth and left when on "New game" menu
-            if (input.IsMenuLeft(ControllingPlayer))
-            {
-                if (SelectedEntry == 0) //New game
-                {
-                    if (files.Length > 0)
-                    {
-                        selectedFile--;
-                        if (selectedFile < 0)
-                        {
-                            selectedFile = files.Length - 1;
-                        }
-                        ScreenManager.Game.LoadGame(selectedFile + 1);
-                        playGameMenuEntry.Text = "New Game " + files[selectedFile];
-                    }
-                }
-            }
-
-            base.HandleInput(input);
-        }
-
+        
+        #endregion       
 
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            
-            GameplayScreen gameScreen=new GameplayScreen();
-            gameScreen.ScreenManager = ScreenManager;
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);
-            gameScreen.LoadContent();
-            gameScreen.LoadLevel(selectedFile + 1);//selectedfile is always one number less levelnumber                
-            ScreenManager.Game.ResetElapsedTime();
+
+            ScreenManager.AddScreen(new LoadGameScreen(ScreenManager), e.PlayerIndex);
         }        
 
         /// <summary>
@@ -145,50 +83,15 @@ namespace MagicWorld
             ScreenManager.Game.Exit();
         }
 
-        private void ShowGameInfo()
-        {
-            
-            string statistics = "Level " + ScreenManager.Game.GameData.Completed +
-                                " Items available: " + ScreenManager.Game.GameData.TotalItems.ToString() +
-                                " Items collected: " + ScreenManager.Game.GameData.ItemsCollected.ToString();
-            
-            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            font = ScreenManager.Font; 
-            GraphicsDevice graphics = ScreenManager.GraphicsDevice;
-            Vector2 titlePosition = new Vector2(20, graphics.Viewport.Height-80);
-            Vector2 titleOrigin = Vector2.Zero;
-            Color titleColor = Color.Yellow;
-            float titleScale = 0.7f;
-
-            spriteBatch.Begin();
-
-            spriteBatch.DrawString(font, statistics, titlePosition, titleColor, 0,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0);
-            spriteBatch.End();
-        }
+       
 
         public override void Draw(GameTime gameTime)
         {
-            ShowGameInfo();
+            //ShowGameInfo();
             base.Draw(gameTime);
         }
 
-        #endregion
-
-        #region load files
-        /// <summary>
-        /// Load saved files name to a list
-        /// </summary>
-        private void LoadFiles()
-        {
-            files=ScreenManager.Game.GetSavedFiles();
-            if (files.Length > 1)
-            {
-                playGameMenuEntry.Text = "New Game " + files[0];
-                ScreenManager.Game.LoadGame(1);
-            }
-            
-        }
-        #endregion
+       
+        
     }
 }
