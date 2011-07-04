@@ -13,6 +13,7 @@ using MagicWorld.BlendInClasses;
 using MagicWorld.Constants;
 using MagicWorld.Services;
 using MagicWorld.HelperClasses.Animation;
+using MagicWorld.Controls;
 
 namespace MagicWorld
 {
@@ -31,11 +32,13 @@ namespace MagicWorld
         public float Time;
     }
 
+    [Serializable]
     public class SaveGameStatus
     {
         public bool PlayBackGroundMusic=false;
         public bool FullScreenMode=false;
-        public string Resolution;
+        public Vector2 Resolution;
+        public string Control;
     }
 
     public class MagicWorldGame : Microsoft.Xna.Framework.Game
@@ -158,6 +161,7 @@ namespace MagicWorld
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
+            
         }
 
         protected override void LoadContent()
@@ -213,6 +217,9 @@ namespace MagicWorld
             Components.Add(fireParticleSystem);
             Components.Add(lightningCreationParticleSystem);
 
+            //Load saved config
+            ConfigGame();
+
             base.Initialize();
         }
 
@@ -236,6 +243,8 @@ namespace MagicWorld
             
             base.Draw(gameTime);
         }
+
+        #region save game
 
         /// <summary>
         /// Save the game
@@ -369,11 +378,146 @@ namespace MagicWorld
             result.AsyncWaitHandle.Close();
 
 
-            files = container.GetFileNames();
+            files = container.GetFileNames("Level*");
             return files;
-            
+
         }
-        
+
+        #endregion
+
+        #region save config
+
+        /// <summary>
+        /// Save game configuration
+        /// the game name is Level<level Number>
+        /// </summary>
+        /// <param name="level"></param>
+        public void SaveGameConfig()
+        {
+            IAsyncResult result;
+
+            string fileName = "Config.sav";
+
+            // Open a storage container.
+
+            result = StorageDevice.BeginShowSelector(
+                            PlayerIndex.One, null, null);
+
+
+            StorageDevice device = StorageDevice.EndShowSelector(result);
+
+            result = device.BeginOpenContainer("MagicWorld", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result);
+
+            // Close the wait handle.
+            result.AsyncWaitHandle.Close();
+
+
+            // Check to see whether the save exists.
+            if (container.FileExists(fileName))
+                // Delete it so that we can create one fresh.
+                container.DeleteFile(fileName);
+
+            // Create the file.
+            Stream stream = container.CreateFile(fileName);
+
+            // Convert the object to XML data and put it in the stream.
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveGameStatus));
+            serializer.Serialize(stream, GameStatus);
+
+            // Close the file.
+            stream.Close();
+
+            // Dispose the container, to commit changes.
+            container.Dispose();
+
+        }
+
+        private void LoadGameConfig()
+        {
+            string fileName;
+            IAsyncResult result;
+
+            fileName = "Config.sav";
+
+            // Open a storage container.
+
+            result = StorageDevice.BeginShowSelector(
+                            PlayerIndex.One, null, null);
+
+
+            StorageDevice device = StorageDevice.EndShowSelector(result);
+
+            // Open a storage container.
+            result = device.BeginOpenContainer("MagicWorld", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result);
+
+            // Close the wait handle.
+            result.AsyncWaitHandle.Close();
+
+
+            // Check to see whether the save exists.
+            if (!container.FileExists(fileName))
+            {
+                // If not, dispose of the container and return.
+                container.Dispose();
+                SetGameDefaultParam();
+                return;
+            }
+
+            // Open the file.
+            Stream stream = container.OpenFile(fileName, FileMode.Open);
+
+            // Read the data from the file.
+            XmlSerializer serializer = new XmlSerializer(typeof(SaveGameStatus));
+            GameStatus = (SaveGameStatus)serializer.Deserialize(stream);
+
+            // Close the file.
+            stream.Close();
+
+            // Dispose the container.
+            container.Dispose();
+           
+        }
+
+        private void SetGameDefaultParam()
+        {
+            GameStatus.Control = "Laptop";
+            GameStatus.FullScreenMode = false;
+            GameStatus.PlayBackGroundMusic = false;
+            GameStatus.Resolution = new Vector2 (800,600);
+        }
+
+        public void ConfigGame()
+        {
+            LoadGameConfig();
+
+            if (GameStatus.FullScreenMode)
+            {
+                graphics.ToggleFullScreen();
+            }
+
+            if (GameStatus.Control.Equals("Default"))
+            {
+                PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.defaultControl);
+            }
+            else
+            {
+                PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.laptopControl);
+            }
+
+            screenManager.setScreenResolution((int)GameStatus.Resolution.X, (int)GameStatus.Resolution.Y);
+        }
+        #endregion
+
     }
         
 }
