@@ -23,7 +23,6 @@ namespace MagicWorld
 
         protected double startSurvivalTime;
 
-
         /// <summary>
         /// Created Tile lifetime depends on Force (spell creation time) also the life time of the spell itself(so it flies a shorter time)
         /// </summary>
@@ -39,6 +38,7 @@ namespace MagicWorld
             accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
             accelarationChangeFactorY = 0;
             this.Collision = CollisionType.Platform;
+            this.growFactor = SpellConstantsValues.MatterSpellGrowRate; // max size
         }
 
         public override Bounds Bounds
