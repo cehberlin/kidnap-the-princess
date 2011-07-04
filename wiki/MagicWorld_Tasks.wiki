@@ -42,6 +42,7 @@
 
 == Final (13.07) ==
   # BUG: big blockades have an ugly bounding box
+  # BUG: game exit throws exception
 
  === optional ===
   # you should move with moveable plattforms -->rounding problem?? (Also: while casting on the platform the player no longer moves with a platform)
