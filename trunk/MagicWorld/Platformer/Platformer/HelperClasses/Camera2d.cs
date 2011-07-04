@@ -10,7 +10,7 @@ namespace MagicWorld.HelperClasses
         public Camera2d(Game game)
             : base(game)
         {
-            zoom = 0.7f;
+            zoom = 0.55f;
             game.Services.AddService(typeof(ICameraService), this);
         }
         public override void Initialize()
