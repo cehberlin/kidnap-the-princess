@@ -7,6 +7,7 @@
   == Beta (29.06) ==
 
   == pre Final (06.07) ==
+  # BUG: If you exit the running game from pause menu you got an exception
   # shrink animation of push pull -> necessary because we cant shrink so much, because run into problems with float precision. --> pascal
   # make difference for push pull with color --> pascal
   # REPLACE or ADD better fitting FREE sounds and music --> john
