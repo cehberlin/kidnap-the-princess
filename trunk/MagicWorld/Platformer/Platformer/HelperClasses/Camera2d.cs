@@ -76,5 +76,11 @@ namespace MagicWorld.HelperClasses
         {
             return this;
         }
+
+
+        public void Init()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

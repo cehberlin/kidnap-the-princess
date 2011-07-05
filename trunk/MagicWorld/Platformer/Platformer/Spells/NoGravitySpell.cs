@@ -27,9 +27,7 @@ namespace MagicWorld.Spells
         {
             // Load animations.
             spriteSet = "Sprites/" + spriteSet + "/";
-            //runAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Run"), 0.1f, true,3);
-            runAnimation = new Animation("Content/Sprites/NoGravitySpell/Run", 0.1f, 3, level.Content.Load<Texture2D>(spriteSet + "Run"), 0);
-            //idleAnimation = new Animation(level.Content.Load<Texture2D>(spriteSet + "Idle"), 0.15f, true,3);
+            runAnimation = new Animation("Content/Sprites/NoGravitySpell/AntiGravSpriteSheet", 0.1f, 12, level.Content.Load<Texture2D>(spriteSet + "AntiGravSpriteSheet"), 0);
             idleAnimation = runAnimation;
 
             base.LoadContent(spriteSet);
