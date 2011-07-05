@@ -67,23 +67,13 @@ namespace MagicWorld
         /// </summary>
         void ConfirmQuitMessageBoxAccepted(object sender, PlayerIndexEventArgs e)
         {            
-            //List<GameScreen> screens=new List<GameScreen> (ScreenManager.GetScreens()); 
+           
+            //GameplayScreen gameScreen;
 
-            //find the current Gameplay screen and delete it
-           // for (int i = 0; i < screens.Count; i++)
-           // {
-           //     if ((screens[i]) is GameplayScreen)
-           //     {
-           //         screens[i].ExitScreen();
-                    //ScreenManager.RemoveScreen(screens[i]);
-           //     }                
-          //  }
-
-            GameplayScreen gameScreen;
-
-            gameScreen = (GameplayScreen)ScreenManager.GetPlayScreen();
-            gameScreen.UnloadContent();
-            gameScreen.ExitScreen();
+            
+            //gameScreen = (GameplayScreen)ScreenManager.GetPlayScreen();
+            //gameScreen.UnloadContent();
+            //gameScreen.ExitScreen();
                 
             LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
                                                            new MainMenuScreen());
