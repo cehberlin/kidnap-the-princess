@@ -23,8 +23,7 @@
     <TileTitle>Platformer4</TileTitle>
     <SupportedCultures>
     </SupportedCultures>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>GameThumbnail.ico</ApplicationIcon>
     <Thumbnail>GameThumbnail.png</Thumbnail>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
@@ -53,7 +52,7 @@
     <Optimize>false</Optimize>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
-    <XnaCompressContent>false</XnaCompressContent>
+    <XnaCompressContent>True</XnaCompressContent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\x86\Release</OutputPath>
@@ -231,6 +230,7 @@
   <ItemGroup>
     <Content Include="Background.png" />
     <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
