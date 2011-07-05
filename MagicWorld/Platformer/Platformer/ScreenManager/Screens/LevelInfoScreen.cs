@@ -5,10 +5,18 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.Spells;
+using System.Collections.Generic;
 #endregion
 
 namespace MagicWorld
 {
+
+    class SpellsInfo
+    {
+        public Vector2 pos;
+        public SpellType spell;
+        public Texture2D texture;
+    }
     /// <summary>
     /// A popup message box screen, used to display "are you sure?"
     /// confirmation messages.
@@ -20,6 +28,19 @@ namespace MagicWorld
         string message;
         Texture2D gradientTexture;
 
+        Texture2D antigrav;
+        Texture2D electricity;
+        Texture2D heat;
+        Texture2D cold;
+        Texture2D pull;
+        Texture2D push;
+        Texture2D matter;
+        Texture2D wind;
+        Texture2D water;
+
+        List<SpellsInfo> levelSpells=new List<SpellsInfo>();
+
+        
         #endregion
 
         #region Events
@@ -40,8 +61,6 @@ namespace MagicWorld
         public LevelInfoScreen(string message,Level level)
             
         {
-            const string usageText = "\nPress any key";
-
             this.level = level;
             this.message = message;// +usageText;
  
@@ -50,8 +69,11 @@ namespace MagicWorld
             TransitionOnTime = TimeSpan.FromSeconds(0.2);
             TransitionOffTime = TimeSpan.FromSeconds(0.2);
             
+            
+            
         }
 
+        
 
         /// <summary>
         /// Loads graphics content for this screen. This uses the shared ContentManager
@@ -64,10 +86,59 @@ namespace MagicWorld
             ContentManager content = ScreenManager.Game.Content;
 
             gradientTexture = content.Load<Texture2D>("MenuScreen/gradient");
+            antigrav = content.Load<Texture2D>("SpellRunes/antigrav");
+            electricity = content.Load<Texture2D>("SpellRunes/electricty");
+            heat = content.Load<Texture2D>("SpellRunes/heat");
+            cold = content.Load<Texture2D>("SpellRunes/cold");
+            pull = content.Load<Texture2D>("SpellRunes/pull");
+            push = content.Load<Texture2D>("SpellRunes/push");
+            matter = content.Load<Texture2D>("SpellRunes/matter");
+            wind = content.Load<Texture2D>("SpellRunes/wind");
+            water = content.Load<Texture2D>("SpellRunes/water");
+            LoadSpells();
+            CalculateSpeelsPosition();
         }
 
 
+        private void LoadSpells()
+        {
+            
+
+            foreach (SpellType spell in level.LevelLoader.UsableSpells)
+            {
+                SpellsInfo spellsInfo = new SpellsInfo();
+                spellsInfo.spell = spell;
+                switch (spell)
+                {
+                    case SpellType.ColdSpell:
+                        spellsInfo.texture = cold;
+                        break;
+                    case SpellType.CreateMatterSpell:
+                        spellsInfo.texture = matter;
+                        break;
+                    case SpellType.ElectricSpell:
+                        spellsInfo.texture = electricity;
+                        break;
+                    case SpellType.NoGravitySpell:
+                        spellsInfo.texture = antigrav;
+                        break;
+                    case SpellType.PullSpell:
+                        spellsInfo.texture = pull;
+                        break;
+                    case SpellType.PushSpell:
+                        spellsInfo.texture = push;
+                        break;
+                    case SpellType.WarmingSpell:
+                        spellsInfo.texture = heat;
+                        break;
+                }
+                levelSpells.Add(spellsInfo);
+            }
+        }
+
         #endregion
+
+
 
         #region Handle Input
 
@@ -103,7 +174,7 @@ namespace MagicWorld
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
-            string tempString = "Spells Available\na\na\na\n";
+            string tempString = "You can use the spells";
 
             // Darken down any other screens that were drawn beneath the popup.
             ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
@@ -113,32 +184,45 @@ namespace MagicWorld
             Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
             Vector2 textSize = font.MeasureString(tempString);
             Vector2 textPosition = (viewportSize - textSize) / 2;
-            Vector2 vecIncrease = new Vector2(0, 30);
-
             
 
-           
 
             // Fade the popup alpha during transitions.
             Color color = Color.White * TransitionAlpha;
 
             spriteBatch.Begin();            
 
-            // Draw the message box text.
-            spriteBatch.DrawString(font, message, textPosition, color,0,Vector2.Zero,1.0f,SpriteEffects.None,0);
-            textPosition += vecIncrease*3;            
-            spriteBatch.DrawString(font, "Spells Available", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-            textPosition += vecIncrease;
-            spriteBatch.DrawString(font, "Elapsed Time: " + ScreenManager.Game.GameData.Time.ToString("#0.0") + "s", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-            textPosition += vecIncrease;
-            spriteBatch.DrawString(font, "Items collected: " + ScreenManager.Game.GameData.ItemsCollected.ToString(), textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-            textPosition += vecIncrease;
-            spriteBatch.DrawString(font, "Items available: " + ScreenManager.Game.GameData.TotalItems.ToString(), textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-
-
+            // Draw the message box text.            
+            //textPosition += vecIncrease*3;            
+            spriteBatch.DrawString(font, tempString, textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            textPosition.Y += 60;            
+            foreach (SpellsInfo spell in levelSpells)
+            {
+                spell.pos.Y = textPosition.Y;
+                spriteBatch.Draw(spell.texture, spell.pos, Color.White);
+            }
+           
             spriteBatch.End();
         }
 
+        void CalculateSpeelsPosition()
+        {
+            int textureSize = cold.Width+ 20;//assuming all are equal
+            int i = levelSpells.Count;
+            int allsize = textureSize * i;
+            int startpos;
+            //get the screen size
+            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+            Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
+            startpos =(int) viewportSize.X / 2 - allsize / 2;
+
+
+            foreach (SpellsInfo spell in levelSpells)
+            {
+                spell.pos.X = startpos;
+                startpos += textureSize;
+            }
+        }
 
         #endregion
     }
