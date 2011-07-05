@@ -27,7 +27,6 @@
   # Reset Game profile
   # Iceblock instead of color change when freezing a bat
   # show level in background in the level selction screen
-  # BUG: Aiming aid is not visible -->John
 
  === optional ===
   # you should move with moveable plattforms -->rounding problem?? (Also: while casting on the platform the player no longer moves with a platform)
