@@ -182,7 +182,8 @@ namespace MagicWorld.StaticLevelContent
                 foreach (Item item in ingredientLayer.Items)
                 {
                     //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                    Ingredient i = new Ingredient("LevelContent/Cave/bone", CollisionType.Passable, level, item.Position);
+                    TextureItem ti = (TextureItem)item;
+                    Ingredient i = new Ingredient(ti.asset_name, CollisionType.Passable, level, getCorrectedStartPosition(ti));
                     elements.Add(i);
                 }
             }
