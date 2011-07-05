@@ -21,7 +21,7 @@
   # Texture to visualize the track push/pull platform can move -> Pascal
   # effect/bug shadow creatures push created matter. is this wanted?
   # tuorial levels: planning for the first levels with instructions to learn game mechanic (level 1-3) -> Pascal
-  #  level selction screen accessible from pause mode -> Amauri
+
 
 == Final (13.07) ==
   # BUG: big blockades have an ugly bounding box
