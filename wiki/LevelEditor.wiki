@@ -152,5 +152,14 @@ It has some optional custom properties:
 
 Info: If you set enable_gravity to false it will fall through the ground after activation, but maybe you want this behavior only for an action effect. Enable gravity is only the start value for this object it could be influenced by connected switch.
 
-Default configuration for optional custom properties is:
-enable_gravity=false; enable_collision=false;collision_type="impassable"
+=== Platforms===
+=== Moveable Platforms===
+Add Primitive with type path to the level editor in the special layer. Set the waypoint in the Leveleditor with left mouse click press 2 if you are done (or middlemouse click).
+Add the platform texture which you want to use to the Layer "Moveable Platform"
+
+Add a custom property "Path" from type Item to the platform which you want to add the path. Link the PathItem with the custom property in the platform.
+
+Add a custom property Spell from type bool to the platform to define if the platform should be automatically move along the waypoints or it should be move using push and pull spell.
+
+Pushable platforms can just be defines between 2 waypoint and it can just move along the X or Y Axis. (Not Diagonaly)
+Moveable platforms can move diagonaly and can have several waypoints.
