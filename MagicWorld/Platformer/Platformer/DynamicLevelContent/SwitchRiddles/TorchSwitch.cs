@@ -53,19 +53,17 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             return base.SpellInfluenceAction(spell);
         }
 
-
+        int currentParticles = 0;
         public override void Draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
             if (IsLit)
             {
-                if (level.Game.SmokeParticleSystem.CurrentParticles() < 20)
+                if (currentParticles % 12 == 0) //only every .. update cycle
                 {
                     level.Game.SmokeParticleSystem.AddParticles(Position + new Vector2(Width / 2, -20));
-                }
-                if (level.Game.FireParticleSystem.CurrentParticles() < 20)
-                {
                     level.Game.FireParticleSystem.AddParticles(Position + new Vector2(Width / 2, -20));
                 }
+                currentParticles++;
             }
             base.Draw(gameTime, spriteBatch);
         }
