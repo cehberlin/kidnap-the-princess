@@ -5,6 +5,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.Constants;
 using MagicWorld.Services;
+using MagicWorld.DynamicLevelContent.SwitchRiddles;
 
 namespace MagicWorld
 {
@@ -283,7 +284,7 @@ namespace MagicWorld
 
         protected void HandleCollisionWithObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
-            if (element.GetType() == typeof(BlockElement))
+            if (element.GetType() == typeof(BlockElement)||element.GetType().IsSubclassOf(typeof(BlockElement)))
             {
                 if (xAxisCollision)
                 {

@@ -44,7 +44,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
         protected void HandleCollisionWithSingleObject(BasicGameElement element, bool xAxisCollision, bool yAxisCollision)
         {
-                if (element.GetType() == typeof(MatterSpell) || element.GetType() == typeof(ShadowCreature))
+            if (element.GetType() == typeof(MatterSpell) || element.GetType() == typeof(ShadowCreature) || element.GetType() == typeof(PushPullElement))
                 {
                     if (!Activated)
                     {
