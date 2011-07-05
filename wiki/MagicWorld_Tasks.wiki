@@ -7,7 +7,7 @@
   == Beta (29.06) ==
 
   == pre Final (06.07) ==
-  # BUG: If you exit the running game from pause menu you got an exception
+  # BUG: If you exit the running game from pause menu you got an exception - Solved Amauri
   # REPLACE or ADD better fitting FREE sounds and music --> john
   # enhace menus appareance --> amauri
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
