@@ -119,8 +119,8 @@ For the switchable item add a custom property (type: free text) "switchable" wit
 || Switches Property Name || activation || comment ||
 || switch_weight|| by created matter / player / enemy || ||
 || switch_electricitySwitch || by electricity || optional property: switchTime ||
-|| switch_torch_on || by fire || ||
-|| switch_torch_off || by ice || ||
+|| switch_torch_off || by fire || ||
+|| switch_torch_on || by ice || ||
 || switch_destroy || by fire || ||
 
  ==optional==
@@ -141,6 +141,13 @@ Doors:
 
   # openclose_door: Depending on the texture path which must include the word "open" or "closed" the open/close status is detected. You must have a open and closed texture, with the only difference in path of "open" and closed
 
+=== moveable Platforms === 
+==== switchable moveable Platform ====
+For the switchable moveable Platforms item add a custom property (type: free text) "switchable" with the id of the switch to an existing moveable platform (see Moveable Platforms). The Platfrom will go to the rndpoint if activated and stops there. The next time it is activated it goes to the other endpoint.
+
+====auto moveable==== 
+Use all stepts like in the switchable moveable Platforms. Add a custom property (type: free text) "autoPlatform". If the platform is activated it will start moving. If it is deactivated it will stop.
+Optional you can add a custom property (type: boolean) "isActivated". If isActivated is false the Platform will NOT start moving from the begining.
 
 
 === gravity elements===
