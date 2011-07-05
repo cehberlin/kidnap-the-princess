@@ -32,6 +32,35 @@ namespace MagicWorld
         /// </summary>
         protected CollisionManager.OnCollisionWithCallback collisionCallback;
 
+        /// <summary>
+        /// greater bounds if enemy is frozen
+        /// </summary>
+        protected virtual Bounds FrozenBounds{
+            get
+            {
+                float width = (sprite.Animation.FrameWidth);
+                float height = (sprite.Animation.FrameHeight);
+                float left = (float)Math.Round(Position.X - width / 2);
+                float top = (float)Math.Round(Position.Y - height / 2);
+
+                return new Bounds(left, top, width, height); 
+            }
+    }
+
+        public override Bounds Bounds
+        {
+            get
+            {
+                if (isFroozen)
+                {
+                    return FrozenBounds;
+                }
+                else
+                {
+                    return base.Bounds;
+                }
+            }
+        }
         #region loading
 
         /// <summary>
@@ -188,12 +217,7 @@ namespace MagicWorld
         /// <returns></returns>
         public virtual Rectangle getDrawingArea()
         {
-            float width = (sprite.Animation.FrameWidth);
-            float height = (sprite.Animation.FrameHeight);
-            float left = (float)Math.Round(Position.X - width / 2);
-            float top = (float)Math.Round(Position.Y - height / 2);
-
-            return new Rectangle((int)left, (int)top, (int)width, (int)height); 
+            return FrozenBounds.getRectangle(); 
         }
     }
 }
