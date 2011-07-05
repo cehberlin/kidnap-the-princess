@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.Services;
+using System.Diagnostics;
 
 namespace MagicWorld.BlendInClasses
 {
@@ -23,11 +24,13 @@ namespace MagicWorld.BlendInClasses
             TutorialInstruction t = new TutorialInstruction(text, pos);
             t.Manager = this;
             instructions.Add(t);
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
 
         public void AddInstructionSet(List<TutorialInstruction> instructs)
         {
             instructions.AddRange(instructs);
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
 
         public TutorialManager(Game game)
@@ -38,6 +41,7 @@ namespace MagicWorld.BlendInClasses
 
         public override void Initialize()
         {
+            instructions = new List<TutorialInstruction>();
             base.Initialize();
         }
 
@@ -70,6 +74,7 @@ namespace MagicWorld.BlendInClasses
                     }
                     else
                     {//Check if an instruction needs to be activated
+                        //Debug.WriteLine("Tutorial Manager: instr.pos: " + instructions[i].Position.X +" < player.pos: "+ playerService.Position.X);//TEST
                         if (instructions[i].Position.X < playerService.Position.X)
                         {
                             instructions[i].IsActive = true;
@@ -80,6 +85,8 @@ namespace MagicWorld.BlendInClasses
             base.Update(gameTime);
         }
 
+        private Vector2 pos = new Vector2(200, 50);
+
         public override void Draw(GameTime gameTime)
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -87,8 +94,10 @@ namespace MagicWorld.BlendInClasses
             {
                 if (instructions[i].IsActive)
                 {
-                    spriteBatch.Draw(bg, instructions[i].Position, Color.White * instructions[i].Transparency);
-                    spriteBatch.DrawString(font, instructions[i].Text, instructions[i].Position + textOffset, Color.Black * instructions[i].Transparency);
+                    //instructions[i].Position;
+                    //Debug.WriteLine("TutorialInstrucion pos: " + pos);//TEST
+                    spriteBatch.Draw(bg, pos, Color.White * instructions[i].Transparency);
+                    spriteBatch.DrawString(font, instructions[i].Text, pos + textOffset, Color.Black * instructions[i].Transparency);
                 }
             }
             spriteBatch.End();

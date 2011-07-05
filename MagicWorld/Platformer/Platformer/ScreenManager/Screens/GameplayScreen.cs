@@ -10,6 +10,7 @@ using MagicWorld.HelperClasses;
 using Microsoft.Xna.Framework.Media;
 using MagicWorld.Services;
 using System.Diagnostics;
+using MagicWorld.BlendInClasses;
 
 namespace MagicWorld
 {
@@ -344,6 +345,15 @@ namespace MagicWorld
         #region level
         public void LoadLevel(int num)
         {
+            TutorialManager tutManager = (TutorialManager)ScreenManager.Game.Services.GetService(typeof(TutorialManager));
+            tutManager.Initialize();
+
+            IPlayerService p = (IPlayerService)ScreenManager.Game.Services.GetService(typeof(IPlayerService));
+            if (p != null)
+            {
+                p.Position = new Vector2(Int32.MinValue, Int32.MinValue); // set position so no instructions are shown while loading the game
+            }
+
             loadingLevel = true;
             levelIndex = num;
             Debug.WriteLine("load level " + num);
@@ -358,7 +368,8 @@ namespace MagicWorld
             LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
             levelInfoTransition.Accepted += FinishLoadingLevel;
             ScreenManager.AddScreen(levelInfoTransition, ControllingPlayer);
-            
+
+
         }
 
         void FinishLoadingLevel(object sender, PlayerIndexEventArgs e)
@@ -366,6 +377,10 @@ namespace MagicWorld
             ScreenManager.Game.Services.RemoveService(typeof(Level));
             ScreenManager.Game.Services.AddService(typeof(Level), level);
             levelAddedToService = true;
+
+            
+            TutorialManager tutManager = (TutorialManager)ScreenManager.Game.Services.GetService(typeof(TutorialManager));
+            tutManager.Enabled = true;
 
             //actualize information to save the game
             ScreenManager.Game.GameData.Level = levelIndex;

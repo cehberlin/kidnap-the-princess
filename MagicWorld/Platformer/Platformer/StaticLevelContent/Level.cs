@@ -273,12 +273,14 @@ namespace MagicWorld
             // Load sounds.
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
 
-            tutManager = (TutorialManager)Game.Services.GetService(typeof(TutorialManager));
-            tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
-
             simpleAnimator = (ISimpleAnimator)game.Services.GetService(typeof(ISimpleAnimator));
             //TODO: add portals to the service/ask christopher about the best way to "get" them
+
+            tutManager = (TutorialManager)Game.Services.GetService(typeof(TutorialManager));
+            tutManager.Initialize();
+            tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
         }
+
 
         /// <summary>
         /// Unloads the level content.

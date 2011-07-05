@@ -7,7 +7,7 @@ namespace MagicWorld.Services
 {
     interface IPlayerService : IServiceProvider
     {
-        Vector2 Position { get; }
+        Vector2 Position { get; set; }
         bool IsCasting { get; }
         bool IsAlive { get; }
 

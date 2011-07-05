@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using System.Diagnostics;
 
 namespace MagicWorld.BlendInClasses
 {
@@ -50,6 +51,7 @@ namespace MagicWorld.BlendInClasses
         public TutorialInstruction(String text,Vector2 pos)
         {
             position = pos;
+            //Debug.WriteLine("TutorialInstrucion pos: " + pos);//TEST
             //Calculate how long the instruction is shown according to the length of the text.
             displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10);
             initialTime = TimeSpan.FromSeconds((text.Length + 10) / 10).TotalMilliseconds;
