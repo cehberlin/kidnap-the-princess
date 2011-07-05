@@ -24,7 +24,7 @@
 
 == Final (13.07) ==
   # BUG: big blockades have an ugly bounding box
-  # BUG: game exit throws exception
+  # BUG: game exit throws exception - not happening anymore
   # Reset Game profile
   # Iceblock instead of color change when freezing a bat
   # show level in background in the level selction screen
