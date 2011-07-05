@@ -272,7 +272,7 @@ namespace MagicWorld.StaticLevelContent
                     foreach (Item item in moveablePlatformLayer.Items)
                     {
                         //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                        if (!(Boolean)item.CustomProperties["Spell"].value)
+                        if (item.CustomProperties.ContainsKey("Spell"))
                         {
                             TextureItem t = (TextureItem)item;
                             PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
@@ -286,11 +286,22 @@ namespace MagicWorld.StaticLevelContent
                         {
                             TextureItem t = (TextureItem)item;
                             PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                            SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem,t.TintColor);
-                            m.Position -= t.Origin;
-                            m.Width = (int)t.Origin.X * 2;
-                            m.Height = (int)t.Origin.Y * 2;
-                            elements.Add(m);
+
+                            if (item.CustomProperties.ContainsKey(XMLLevelLoader.PROPERTY_SWITCHABLE))
+                            {
+                                SwitchableMoveablePlatform m = new SwitchableMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem,t.TintColor);
+                                m.Width = (int)t.Origin.X * 2;
+                                m.Height = (int)t.Origin.Y * 2;
+                                elements.Add(m);
+
+                                String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
+                                connectSwitchable(switchList, id, m);
+                            } else {
+                                SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem,t.TintColor);
+                                m.Width = (int)t.Origin.X * 2;
+                                m.Height = (int)t.Origin.Y * 2;
+                                elements.Add(m);
+                            }
                         }
                     }
                 }
@@ -584,7 +595,7 @@ namespace MagicWorld.StaticLevelContent
         //TODO: Add a texture for the level starting point.
         public Microsoft.Xna.Framework.Vector2 getPlayerStartPosition()
         {
-            return levelLoader.getItemByName("start").Position - new Vector2(200, 0);
+            return getCorrectedStartPosition((TextureItem)levelLoader.getItemByName("start"));
         }
 
         public BasicGameElement getLevelExit()
@@ -718,7 +729,7 @@ namespace MagicWorld.StaticLevelContent
                     }
                     else if (item.CustomProperties.ContainsKey(PROPERTY_SWITCH_ELECTRICITY))
                     {
-                        String id = (String)item.CustomProperties[PROPERTY_SWITCH].value;
+                        String id = (String)item.CustomProperties[PROPERTY_SWITCH_ELECTRICITY].value;
                         TextureItem ti = (TextureItem)item;
                         AbstractSwitch sw = null;
 
