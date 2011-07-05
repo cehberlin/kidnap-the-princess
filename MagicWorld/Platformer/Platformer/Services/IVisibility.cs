@@ -9,5 +9,6 @@ namespace MagicWorld.Services
         void Add(IIcedVisibility pos);
         void Remove(IIcedVisibility pos);
         void Clear();
+        void Init();
     }
 }

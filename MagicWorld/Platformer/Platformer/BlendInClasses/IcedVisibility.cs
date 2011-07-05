@@ -20,7 +20,6 @@ namespace MagicWorld.BlendInClasses
             : base(game)
         {
             positions = new List<IIcedVisibility>();
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             this.content = game.Content;
         }
 
@@ -28,15 +27,12 @@ namespace MagicWorld.BlendInClasses
         {
             icedTexture = content.Load<Texture2D>("frozen");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
             effect = content.Load<Effect>("HelperShader"); 
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             base.Update(gameTime);
         }
 
@@ -83,6 +79,12 @@ namespace MagicWorld.BlendInClasses
         public void Clear()
         {
             positions.Clear();
+        }
+
+        public void Init()
+        {
+            camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
     }
 }

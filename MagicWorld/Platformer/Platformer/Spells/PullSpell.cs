@@ -43,8 +43,8 @@ namespace MagicWorld.Spells
         public override void LoadContent(string spriteSet)
         {
             // Load animations.
-            spriteSet = "Sprites/PullSpell/";//"Sprites/" + spriteSet + "/";
-            runAnimation = new Animation("Content/Sprites/PullSpell/push", 0.1f, 12, level.Content.Load<Texture2D>(spriteSet + "push"), 0);
+            spriteSet = "Sprites/PullSpell/";
+            runAnimation = new Animation("Content/Sprites/PullSpell/PullSpriteSheet", 0.1f, 10, level.Content.Load<Texture2D>(spriteSet + "PullSpriteSheet"), 0);
             runAnimation.Opacity = 1f;
             idleAnimation = runAnimation;
 
