@@ -192,6 +192,11 @@ namespace MagicWorld.StaticLevelContent
             move = true;
         }
 
+        public bool getMove()
+        {
+            return move;
+        }
+
         private bool move = false;
     }
 
