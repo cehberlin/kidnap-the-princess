@@ -19,9 +19,9 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         public OpenCloseDoor(String textureOpen, String textureClose, Level level, Vector2 position, bool opened = false)
             : base(textureClose, level, position, opened)
         {
-            refreshOpenCloseTexture();
             texOpen = level.Content.Load<Texture2D>(textureOpen);
             texClosed = level.Content.Load<Texture2D>(textureClose);
+            refreshOpenCloseTexture();
         }
 
         public override void Update(GameTime gameTime)
