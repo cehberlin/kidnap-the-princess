@@ -110,6 +110,7 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                     //from bottom to top
                 }
@@ -118,6 +119,7 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
 
                 }
@@ -127,6 +129,7 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                 }
                 //from top to bottom
@@ -135,6 +138,7 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                 }
                 //from lower left to upper right
@@ -144,6 +148,7 @@ namespace MagicWorld.StaticLevelContent
                         && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                 }
                 //from top left to lower right
@@ -153,6 +158,7 @@ namespace MagicWorld.StaticLevelContent
                         && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                 }
                 //from top right to lower left
@@ -162,6 +168,7 @@ namespace MagicWorld.StaticLevelContent
                         && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                 }
                 //from lower right to top right
@@ -171,6 +178,7 @@ namespace MagicWorld.StaticLevelContent
                         && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
+                        deactivate();
                     }
                 }
                 #endregion Platform Movement
@@ -221,8 +229,10 @@ namespace MagicWorld.StaticLevelContent
 
         public void deactivate()
         {
+            move = false;
         }
 
         private bool move = false;
     }
+
 }
