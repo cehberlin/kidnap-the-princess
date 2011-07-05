@@ -26,11 +26,11 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
         public override void Update(GameTime gameTime)
         {
-            //only used for first activation if object is created lit
-            if (!Activated && IsLit)
-            {
-                Activate();
-            }
+            ////only used for first activation if object is created lit
+            //if (!Activated && IsLit)
+            //{
+            //    Activate();
+            //}
             base.Update(gameTime);
         }
 
