@@ -49,7 +49,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
     <PlatformTarget>x86</PlatformTarget>
     <XnaCompressContent>True</XnaCompressContent>
@@ -112,6 +112,7 @@
     <Compile Include="DynamicLevelContent\SwitchRiddles\TorchSwitch.cs" />
     <Compile Include="Gleed2dLevelContent\PathItem.cs" />
     <Compile Include="HelperClasses\Animation\SimpleAnimator.cs" />
+    <Compile Include="HelperClasses\GcFpsCounter.cs" />
     <Compile Include="HelperClasses\GeometryCalculationHelper.cs" />
     <Compile Include="ScreenManager\Screens\LevelInfoScreen.cs" />
     <Compile Include="ScreenManager\Screens\LoadGameScreen.cs" />
