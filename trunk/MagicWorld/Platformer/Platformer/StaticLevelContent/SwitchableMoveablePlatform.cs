@@ -110,16 +110,16 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.X < nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
-                        deactivate();
+                        move = false;
                     }
-                    //from bottom to top
                 }
+                //from bottom to top
                 else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
                 {
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2)
                     {
                         setNextPath();
-                        deactivate();
+                        move = false;
                     }
 
                 }
@@ -129,7 +129,7 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.X > nextPathPosition.X - oldBounds.Width / 2)
                     {
                         setNextPath();
-                        deactivate();
+                        move = false;
                     }
                 }
                 //from top to bottom
@@ -138,47 +138,7 @@ namespace MagicWorld.StaticLevelContent
                     if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2)
                     {
                         setNextPath();
-                        deactivate();
-                    }
-                }
-                //from lower left to upper right
-                else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
-                {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
-                        && Position.X > nextPathPosition.X - oldBounds.Width / 2)
-                    {
-                        setNextPath();
-                        deactivate();
-                    }
-                }
-                //from top left to lower right
-                else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
-                {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
-                        && Position.X > nextPathPosition.X - oldBounds.Width / 2)
-                    {
-                        setNextPath();
-                        deactivate();
-                    }
-                }
-                //from top right to lower left
-                else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
-                {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
-                        && Position.X < nextPathPosition.X - oldBounds.Width / 2)
-                    {
-                        setNextPath();
-                        deactivate();
-                    }
-                }
-                //from lower right to top right
-                else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
-                {
-                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
-                        && Position.X < nextPathPosition.X - oldBounds.Width / 2)
-                    {
-                        setNextPath();
-                        deactivate();
+                        move = false;
                     }
                 }
                 #endregion Platform Movement
@@ -229,7 +189,6 @@ namespace MagicWorld.StaticLevelContent
 
         public void deactivate()
         {
-            move = false;
         }
 
         private bool move = false;
