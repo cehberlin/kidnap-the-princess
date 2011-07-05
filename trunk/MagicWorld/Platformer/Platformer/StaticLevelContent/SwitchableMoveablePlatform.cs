@@ -189,6 +189,7 @@ namespace MagicWorld.StaticLevelContent
 
         public void deactivate()
         {
+            move = true;
         }
 
         private bool move = false;

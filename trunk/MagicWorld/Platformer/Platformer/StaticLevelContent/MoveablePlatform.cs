@@ -8,10 +8,11 @@ using MagicWorld.Constants;
 using System.Diagnostics;
 using MagicWorld.Services;
 using MagicWorld.Gleed2dLevelContent;
+using MagicWorld.DynamicLevelContent.SwitchRiddles;
 
 namespace MagicWorld.StaticLevelContent
 {
-    class MoveablePlatform : Platform
+    class MoveablePlatform : Platform, IActivation
     {
         private float deltaX = 0;
         private float deltaY = 0;
@@ -52,138 +53,141 @@ namespace MagicWorld.StaticLevelContent
         #region Update
         public override void Update(GameTime gameTime)
         {
-            float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            deltaX = 0;
-            deltaY = 0;
-            deltaX = Math.Abs(currentPathPosition.X) - Math.Abs(nextPathPosition.X);
-            deltaX = Math.Abs(deltaX);
-            deltaY = Math.Abs(currentPathPosition.Y) - Math.Abs(nextPathPosition.Y);
-            deltaY = Math.Abs(deltaY);
-
-            if (deltaX > deltaY)
+            if (move)
             {
-                steps = deltaX / MoveSpeed;
-                if (currentPathPosition.X > nextPathPosition.X)
-                    movementSpeedX = -MoveSpeed;
-                else
-                    movementSpeedX = MoveSpeed;
-                if (currentPathPosition.Y > nextPathPosition.Y)
-                    movementSpeedY = deltaY / steps * -1;
-                else
-                    movementSpeedY = deltaY / steps;
-            }
-            else if (deltaY > deltaX)
-            {
-                steps = deltaY / MoveSpeed;
-                if (currentPathPosition.Y > nextPathPosition.Y)
-                    movementSpeedY = -MoveSpeed;
-                else
-                    movementSpeedY = MoveSpeed;
-                movementSpeedX = deltaX / steps;
-            }
-            else if (deltaY == deltaX)
-            {
-                steps = deltaX / MoveSpeed;
-                if (currentPathPosition.X > nextPathPosition.X)
-                    movementSpeedX = -MoveSpeed;
-                else
-                    movementSpeedX = MoveSpeed;
+                float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (currentPathPosition.Y > nextPathPosition.Y)
-                    movementSpeedY = -MoveSpeed;
-                else
-                    movementSpeedY = MoveSpeed;
-            }
+                deltaX = 0;
+                deltaY = 0;
+                deltaX = Math.Abs(currentPathPosition.X) - Math.Abs(nextPathPosition.X);
+                deltaX = Math.Abs(deltaX);
+                deltaY = Math.Abs(currentPathPosition.Y) - Math.Abs(nextPathPosition.Y);
+                deltaY = Math.Abs(deltaY);
 
-            velocity = new Vector2(movementSpeedX, movementSpeedY);
-
-            // Move in the current direction.
-
-            #region Platform Movement
-            //from left to right
-            if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y == nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.X < nextPathPosition.X - oldBounds.Width / 2)
+                if (deltaX > deltaY)
                 {
-                    setNextPath();
+                    steps = deltaX / MoveSpeed;
+                    if (currentPathPosition.X > nextPathPosition.X)
+                        movementSpeedX = -MoveSpeed;
+                    else
+                        movementSpeedX = MoveSpeed;
+                    if (currentPathPosition.Y > nextPathPosition.Y)
+                        movementSpeedY = deltaY / steps * -1;
+                    else
+                        movementSpeedY = deltaY / steps;
                 }
-                //from bottom to top
-            }
-            else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2)
+                else if (deltaY > deltaX)
                 {
-                    setNextPath();
+                    steps = deltaY / MoveSpeed;
+                    if (currentPathPosition.Y > nextPathPosition.Y)
+                        movementSpeedY = -MoveSpeed;
+                    else
+                        movementSpeedY = MoveSpeed;
+                    movementSpeedX = deltaX / steps;
+                }
+                else if (deltaY == deltaX)
+                {
+                    steps = deltaX / MoveSpeed;
+                    if (currentPathPosition.X > nextPathPosition.X)
+                        movementSpeedX = -MoveSpeed;
+                    else
+                        movementSpeedX = MoveSpeed;
+
+                    if (currentPathPosition.Y > nextPathPosition.Y)
+                        movementSpeedY = -MoveSpeed;
+                    else
+                        movementSpeedY = MoveSpeed;
                 }
 
-            }
-            //from right to left
-            else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y == nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.X > nextPathPosition.X - oldBounds.Width / 2)
-                {
-                    setNextPath();
-                }
-            }
-            //from top to bottom
-            else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2)
-                {
-                    setNextPath();
-                }
-            }
-            //from lower left to upper right
-            else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
-                    && Position.X > nextPathPosition.X - oldBounds.Width / 2)
-                {
-                    setNextPath();
-                }
-            }
-            //from top left to lower right
-            else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
-                    && Position.X > nextPathPosition.X - oldBounds.Width / 2)
-                {
-                    setNextPath();
-                }
-            }
-            //from top right to lower left
-            else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
-                    && Position.X < nextPathPosition.X - oldBounds.Width / 2)
-                {
-                    setNextPath();
-                }
-            }
-            //from lower right to top right
-            else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
-            {
-                if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
-                    && Position.X < nextPathPosition.X - oldBounds.Width / 2)
-                {
-                    setNextPath();
-                }
-            }
-            #endregion Platform Movement
+                velocity = new Vector2(movementSpeedX, movementSpeedY);
 
-            currentPathPosition = path.WorldPoints[pathPosition];
-            nextPathPosition = path.WorldPoints[nextPosition];
-            Vector2 newPos=Position + velocity * elapsed * acceleration;
-            lastMovement = newPos - Position;
-            Position = newPos;
+                // Move in the current direction.
 
-            int left = (int)Math.Round(Position.X);
-            int top = (int)Math.Round(Position.Y);
+                #region Platform Movement
+                //from left to right
+                if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y == nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.X < nextPathPosition.X - oldBounds.Width / 2)
+                    {
+                        setNextPath();
+                    }
+                    //from bottom to top
+                }
+                else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2)
+                    {
+                        setNextPath();
+                    }
 
-            int yOffset = 10;
-            this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
-            DrawRec = new Rectangle(left, top, Width, Height);
+                }
+                //from right to left
+                else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y == nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.X > nextPathPosition.X - oldBounds.Width / 2)
+                    {
+                        setNextPath();
+                    }
+                }
+                //from top to bottom
+                else if (currentPathPosition.X == nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2)
+                    {
+                        setNextPath();
+                    }
+                }
+                //from lower left to upper right
+                else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
+                        && Position.X > nextPathPosition.X - oldBounds.Width / 2)
+                    {
+                        setNextPath();
+                    }
+                }
+                //from top left to lower right
+                else if (currentPathPosition.X < nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
+                        && Position.X > nextPathPosition.X - oldBounds.Width / 2)
+                    {
+                        setNextPath();
+                    }
+                }
+                //from top right to lower left
+                else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y < nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y > nextPathPosition.Y - oldBounds.Height / 2
+                        && Position.X < nextPathPosition.X - oldBounds.Width / 2)
+                    {
+                        setNextPath();
+                    }
+                }
+                //from lower right to top right
+                else if (currentPathPosition.X > nextPathPosition.X && currentPathPosition.Y > nextPathPosition.Y)
+                {
+                    if (pathPosition <= path.WorldPoints.Length - 1 && Position.Y < nextPathPosition.Y - oldBounds.Height / 2
+                        && Position.X < nextPathPosition.X - oldBounds.Width / 2)
+                    {
+                        setNextPath();
+                    }
+                }
+                #endregion Platform Movement
+
+                currentPathPosition = path.WorldPoints[pathPosition];
+                nextPathPosition = path.WorldPoints[nextPosition];
+                Vector2 newPos = Position + velocity * elapsed * acceleration;
+                lastMovement = newPos - Position;
+                Position = newPos;
+
+                int left = (int)Math.Round(Position.X);
+                int top = (int)Math.Round(Position.Y);
+
+                int yOffset = 10;
+                this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
+                DrawRec = new Rectangle(left, top, Width, Height);
+            }
         }
 
         #endregion
@@ -208,6 +212,21 @@ namespace MagicWorld.StaticLevelContent
         public Vector2 getPosition()
         {
             return position;
+        }
+
+        public void activate()
+        {
+            move = true;
+        }
+
+        public void deactivate()
+        {
+            move = false;
+        }
+        private Boolean move = true;
+        public Boolean isMoving { 
+            get { return move; }
+            set{move = value;} 
         }
     }
 }
