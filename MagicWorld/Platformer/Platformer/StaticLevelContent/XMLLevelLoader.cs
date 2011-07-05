@@ -48,6 +48,9 @@ namespace MagicWorld.StaticLevelContent
         const String PROPERTY_COLLISION_TYPE_PLATFORM = "platform";
         #endregion
 
+        const String PROPERTY_AUTO_MOVEABLE_PLATFORM = "autoPlatform";
+        const String PROPERTY_IS_ACTIVATED = "isActivated";
+
         const String PROPERTY_TRUE = "True";
         const String PROPERTY_FALSE = "False";
 
@@ -272,32 +275,55 @@ namespace MagicWorld.StaticLevelContent
                     foreach (Item item in moveablePlatformLayer.Items)
                     {
                         //String ingredientName = (String)item.CustomProperties["Ingredient"].value;
-                        if (item.CustomProperties.ContainsKey("Spell"))
+                        if (item.CustomProperties.ContainsKey("Spell") && (bool)item.CustomProperties["Spell"].value == true)
                         {
                             TextureItem t = (TextureItem)item;
                             PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
-                            MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem,t.TintColor);
-                            m.Position -= t.Origin;
+                            SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem, t.TintColor);
                             m.Width = (int)t.Origin.X * 2;
                             m.Height = (int)t.Origin.Y * 2;
                             elements.Add(m);
                         }
+                        else if (item.CustomProperties.ContainsKey(PROPERTY_AUTO_MOVEABLE_PLATFORM))
+                        {
+                            TextureItem t = (TextureItem)item;
+                            PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
+                            MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem, t.TintColor);
+                            m.Width = (int)t.Origin.X * 2;
+                            m.Height = (int)t.Origin.Y * 2;
+                            elements.Add(m);
+
+                            if (item.CustomProperties.ContainsKey(XMLLevelLoader.PROPERTY_IS_ACTIVATED))
+                            {
+                                bool isMoving = (bool)item.CustomProperties[PROPERTY_IS_ACTIVATED].value;
+                                m.isMoving = isMoving;
+                            }
+                            
+                            if (item.CustomProperties.ContainsKey(XMLLevelLoader.PROPERTY_SWITCHABLE))
+                            {
+                                String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
+                                connectSwitchable(switchList, id, m);
+                            }
+                        }
                         else
                         {
+
                             TextureItem t = (TextureItem)item;
                             PathItem pathItem = (PathItem)item.CustomProperties["Path"].value;
 
                             if (item.CustomProperties.ContainsKey(XMLLevelLoader.PROPERTY_SWITCHABLE))
                             {
-                                SwitchableMoveablePlatform m = new SwitchableMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem,t.TintColor);
+                                SwitchableMoveablePlatform m = new SwitchableMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem, t.TintColor);
                                 m.Width = (int)t.Origin.X * 2;
                                 m.Height = (int)t.Origin.Y * 2;
                                 elements.Add(m);
-
                                 String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
                                 connectSwitchable(switchList, id, m);
-                            } else {
-                                SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem,t.TintColor);
+                            }
+                            else
+                            {
+                                MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, item.Position, pathItem, t.TintColor);
+                                m.Position -= t.Origin;
                                 m.Width = (int)t.Origin.X * 2;
                                 m.Height = (int)t.Origin.Y * 2;
                                 elements.Add(m);
