@@ -22,7 +22,7 @@ namespace MagicWorld
         {
             // Create our menu entries.
             MenuEntry resumeGameMenuEntry = new MenuEntry("Resume Game");
-            MenuEntry quitGameMenuEntry = new MenuEntry("Quit Game");
+            MenuEntry quitGameMenuEntry = new MenuEntry("Main Menu");
             MenuEntry restartLevelMenuEntry = new MenuEntry("Restart Level");
             MenuEntry optionsGameMenuEntry = new MenuEntry("Options");
             
