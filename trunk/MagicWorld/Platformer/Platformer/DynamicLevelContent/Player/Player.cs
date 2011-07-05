@@ -582,6 +582,11 @@ namespace MagicWorld
                 this.Position += ((SpellMoveablePlatform)element).LastMovement;
                 Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
             }
+            else if (isOnGround && element.GetType() == typeof(SwitchableMoveablePlatform))
+            {
+                this.Position += ((SwitchableMoveablePlatform)element).LastMovement;
+                Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
+            }
         }
 
         /// <summary>
