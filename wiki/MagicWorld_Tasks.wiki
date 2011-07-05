@@ -11,6 +11,7 @@
   # shrink animation of push pull -> necessary because we cant shrink so much, because run into problems with float precision. --> pascal
   # make difference for push pull with color --> pascal
   # REPLACE or ADD better fitting FREE sounds and music --> john
+  # enhace menus appareance --> amauri
   # level with torch switch -> *???*
     * one torch lighting opens door to ingredient (with instruction)
     * one torch extinguish opens door to ingredient
@@ -20,8 +21,6 @@
     * one texture for ever switch type
     * rope or chain
   # animation for no gravity -> Pascal
-  # level transition -->all amauri
-     # instruction screen for level and spells for a starting level
   # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
      * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # give magican another wand and put every wand in one animation ->Pascal
