@@ -147,7 +147,7 @@ namespace MagicWorld
             spriteBatch.Begin();
 
             // Draw the background rectangle.
-            spriteBatch.Draw(gradientTexture, backgroundRectangle, color);
+            spriteBatch.Draw(gradientTexture, backgroundRectangle, color*0.5f);
 
             // Draw the message box text.
             spriteBatch.DrawString(font, message, textPosition, color);

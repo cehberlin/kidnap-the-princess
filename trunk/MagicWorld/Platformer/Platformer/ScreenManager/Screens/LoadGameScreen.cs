@@ -41,7 +41,8 @@ namespace MagicWorld
         public LoadGameScreen(ScreenManager screenManager)
             : base("Load Game")            
         {
-            ScreenManager = screenManager;            
+            ScreenManager = screenManager;
+            font = ScreenManager.Font;
             // Create our menu entries.
             mnuLevel = new MenuEntry("Level");            
             back = new MenuEntry("Back");
@@ -64,11 +65,10 @@ namespace MagicWorld
 
         private void ShowString(string info,Vector2  pos)
         {            
-            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            font = ScreenManager.Font;
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;            
             
             Vector2 titleOrigin = Vector2.Zero;
-            Color titleColor = Color.WhiteSmoke;
+            Color titleColor = Color.Black;
             float titleScale = 0.7f;
 
             spriteBatch.Begin();
@@ -80,13 +80,18 @@ namespace MagicWorld
 
         private void ShowGameInfo()
         {
+            string tempString = "Items available:     ";
             Vector2 pos;
+            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+            Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
+            Vector2 textSize = font.MeasureString(tempString);
 
-            int distance = 30;            
+            int distance =(int) textSize.Y+5;            
 
             pos = new Vector2(back.Position.X, back.Position.Y);
+            pos.X = viewportSize.X/6;
             pos.Y += distance;
-            pos.X = 40;
+            //pos.X = 40;
             ShowString("Last Game",pos);
             pos.Y += distance;
             ShowString("Level " + ScreenManager.Game.GameData.Completed, pos);
@@ -100,7 +105,7 @@ namespace MagicWorld
             //best performance
             pos.Y = back.Position.Y;
             pos.Y += distance;
-            pos.X = 350;
+            pos.X = 4*viewportSize.X / 6; 
             ShowString("Best Game", pos);
             pos.Y += distance;
             ShowString("Level " + ScreenManager.Game.BestGameData.Completed, pos);
@@ -136,7 +141,7 @@ namespace MagicWorld
 
         public override void Draw(GameTime gameTime)
         {
-            ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
+            //ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
             DrawLevelEntry();
             ShowGameInfo();
             base.Draw(gameTime);
@@ -206,10 +211,10 @@ namespace MagicWorld
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
 
-            GameplayScreen gameScreen = new GameplayScreen();
-            gameScreen.ScreenManager = ScreenManager;
+            GameplayScreen gameScreen = new GameplayScreen(ScreenManager);
+            //gameScreen.ScreenManager = ScreenManager;
             LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);
-            gameScreen.LoadContent();
+            //gameScreen.LoadContent();
             gameScreen.LoadLevel(selectedFile + 1);//selectedfile is always one number less levelnumber                
             ScreenManager.Game.ResetElapsedTime();
         }        

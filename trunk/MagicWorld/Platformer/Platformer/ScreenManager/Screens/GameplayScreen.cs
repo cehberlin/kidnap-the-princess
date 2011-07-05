@@ -55,10 +55,12 @@ namespace MagicWorld
         /// <summary>
         /// Constructor.
         /// </summary>
-        public GameplayScreen()
+        public GameplayScreen(ScreenManager screenManager)
         {
+            this.ScreenManager = screenManager;
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+            LoadContent();
         }
 
         /// <summary>
@@ -342,6 +344,7 @@ namespace MagicWorld
         #region level
         public void LoadLevel(int num)
         {
+            loadingLevel = true;
             levelIndex = num;
             Debug.WriteLine("load level " + num);
             // Unloads the content for the current level before loading the next one.
@@ -350,21 +353,33 @@ namespace MagicWorld
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num), ScreenManager.Game);
+
+            //load info screen
+            LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
+            levelInfoTransition.Accepted += FinishLoadingLevel;
+            ScreenManager.AddScreen(levelInfoTransition, ControllingPlayer);
             
+        }
+
+        void FinishLoadingLevel(object sender, PlayerIndexEventArgs e)
+        {
             ScreenManager.Game.Services.RemoveService(typeof(Level));
             ScreenManager.Game.Services.AddService(typeof(Level), level);
             levelAddedToService = true;
 
             //actualize information to save the game
-            ScreenManager.Game.GameData.Level = num;
+            ScreenManager.Game.GameData.Level = levelIndex;
             ScreenManager.Game.GameData.ItemsCollected = 0;
             ScreenManager.Game.GameData.TotalItems = level.MaxIngredientsCount;
             ScreenManager.Game.GameData.Completed = "Failed";
-            ScreenManager.Game.SaveGame(num,false);
+            ScreenManager.Game.SaveGame(levelIndex, false);
 
             ice.Clear();
+            loadingLevel = false;
             // }
+
         }
+
         private void LoadNextLevel()
         {
 
@@ -390,11 +405,12 @@ namespace MagicWorld
 
         }
         void ProceedNextLevel(object sender, PlayerIndexEventArgs e)
-        {
-            loadingLevel = false;
+        {            
             LoadLevel(levelIndex + 1);
 
         }
+
+
 
         public void ReloadCurrentLevel()
         {
