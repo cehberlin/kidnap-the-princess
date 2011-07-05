@@ -58,7 +58,11 @@ namespace MagicWorld
         public SaveGameData BestGameData = new SaveGameData();
         public SaveGameStatus GameStatus = new SaveGameStatus();
 
+#if DEBUG
         ConstantChanger constantChanger;
+        DikiLib.extensions.GARBAGE_COLLECTIONS_COUNTER gc_counter;
+        DikiLib.extensions.FPS_COUNTER fps_counter;
+#endif
 
         ParticleSystem explosionParticleSystem;
         public ParticleSystem ExplosionParticleSystem
@@ -134,7 +138,7 @@ namespace MagicWorld
         // Resources for drawing.
         public GraphicsDeviceManager graphics;
 
-                // The particle systems will all need a SpriteBatch to draw their particles,
+        // The particle systems will all need a SpriteBatch to draw their particles,
         // so let's make one they can share. We'll use this to draw our SpriteFont
         // too.
         SpriteBatch spriteBatch;
@@ -150,8 +154,7 @@ namespace MagicWorld
             graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-           
-            //Content.RootDirectory = "Content";
+
             // Create the screen manager component.
             screenManager = new ScreenManager(this);
             
@@ -189,8 +192,14 @@ namespace MagicWorld
             //Components.Add(simpleAnimator);
             
             #if DEBUG
+
                 constantChanger = new ConstantChanger(this);
                 Components.Add(constantChanger);
+
+                gc_counter = new DikiLib.extensions.GARBAGE_COLLECTIONS_COUNTER(this);
+                fps_counter = new DikiLib.extensions.FPS_COUNTER(this);
+                Components.Add(gc_counter);
+                Components.Add(fps_counter);
             #endif
 
             TutorialManager tut = new TutorialManager(this);
