@@ -10,13 +10,9 @@
   # REPLACE or ADD better fitting FREE sounds and music --> john
   # enhace menus appareance --> amauri
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
-  # level textures -> Pascal
-    * one texture for ever switch type
-    * rope or chain
   # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
      * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # give magican another wand and put every wand in one animation ->Pascal
-  # Texture to visualize the track push/pull platform can move -> Pascal
   # effect/bug shadow creatures push created matter. is this wanted?
   # tuorial levels: planning for the first levels with instructions to learn game mechanic (level 1-3) -> Pascal
 
