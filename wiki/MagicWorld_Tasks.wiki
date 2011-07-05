@@ -8,21 +8,17 @@
 
   == pre Final (06.07) ==
   # BUG: If you exit the running game from pause menu you got an exception
-  # shrink animation of push pull -> necessary because we cant shrink so much, because run into problems with float precision. --> pascal
-  # make difference for push pull with color --> pascal
   # REPLACE or ADD better fitting FREE sounds and music --> john
   # enhace menus appareance --> amauri
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
   # level textures -> Pascal
-    * vulcano
     * one texture for ever switch type
     * rope or chain
-  # animation for no gravity -> Pascal
   # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
      * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # give magican another wand and put every wand in one animation ->Pascal
   # check level 7 if the new door implementation works like expected with level idea --> I think its Johns Level --> Check it! ->John
-  # track textures -> Pascal asks: As in mine cart tracks? Dont know you and John talked about tracks for moveable platforms, I only added this task.(christopher)  
+  # Texture to visualize the track push/pull platform can move -> Pascal
   # effect/bug shadow creatures push created matter. is this wanted?
   # tuorial levels: planning for the first levels with instructions to learn game mechanic (level 1-3) -> Pascal
   #  level selction screen accessible from pause mode -> Amauri
