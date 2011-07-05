@@ -1190,8 +1190,8 @@
             <Items>
                 <Item xsi:type="TextureItem" Name="Texture_0133" Visible="true">
                     <Position>
-                        <X>-1122</X>
-                        <Y>-322</Y>
+                        <X>-1152</X>
+                        <Y>-367</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1217,8 +1217,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0134" Visible="true">
                     <Position>
-                        <X>213</X>
-                        <Y>-197</Y>
+                        <X>178</X>
+                        <Y>-367</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1244,8 +1244,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0135" Visible="true">
                     <Position>
-                        <X>-430</X>
-                        <Y>-454</Y>
+                        <X>-460</X>
+                        <Y>-499</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1271,8 +1271,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0136" Visible="true">
                     <Position>
-                        <X>593</X>
-                        <Y>-402</Y>
+                        <X>563</X>
+                        <Y>-447</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1298,8 +1298,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0137" Visible="true">
                     <Position>
-                        <X>1329</X>
-                        <Y>-410</Y>
+                        <X>1289</X>
+                        <Y>-500</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1325,8 +1325,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0158" Visible="true">
                     <Position>
-                        <X>1925</X>
-                        <Y>-354</Y>
+                        <X>1900</X>
+                        <Y>-434</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1352,8 +1352,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0159" Visible="true">
                     <Position>
-                        <X>2672</X>
-                        <Y>-415</Y>
+                        <X>2642</X>
+                        <Y>-460</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1379,8 +1379,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0331" Visible="true">
                     <Position>
-                        <X>3333</X>
-                        <Y>-547</Y>
+                        <X>3303</X>
+                        <Y>-592</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1428,9 +1428,6 @@
                             <string />
                         </Property>
                         <Property Name="pull" Type="string" Description="">
-                            <string />
-                        </Property>
-                        <Property Name="cold" Type="string" Description="">
                             <string />
                         </Property>
                         <Property Name="nogravity" Type="string" Description="">
