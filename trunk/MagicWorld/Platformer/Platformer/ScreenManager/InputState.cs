@@ -173,6 +173,7 @@ namespace MagicWorld
                     IsNewButtonPress(controls.GamePad_SelectedSpellA, controllingPlayer, out playerIndex) ||
                     IsNewButtonPress(controls.GamePad_SelectedSpellB, controllingPlayer, out playerIndex) ||
                     IsNewButtonPress(controls.GamePad_Up, controllingPlayer, out playerIndex);
+                    
 
             return result;
                        
@@ -224,14 +225,17 @@ namespace MagicWorld
                                  out PlayerIndex playerIndex)
         {
             return IsNewKeyPress(controls.Keys_CastSelectedSpellA, controllingPlayer, out playerIndex) ||
-                   IsNewKeyPress(controls.Keys_CastSelectedSpellB, controllingPlayer, out playerIndex) ||                   
+                   IsNewKeyPress(controls.Keys_CastSelectedSpellB, controllingPlayer, out playerIndex) ||
                    IsNewKeyPress(controls.Keys_SelectedSpellA, controllingPlayer, out playerIndex) ||
                    IsNewKeyPress(controls.Keys_SelectedSpellB, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Enter, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Space, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_CastSelectedSpellA, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_CastSelectedSpellB, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_Jump, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_SelectedSpellA, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_SelectedSpellB, controllingPlayer, out playerIndex);
+                   
             //IsNewKeyPress(controls.Keys_Jump, controllingPlayer, out playerIndex) ||
                    
         }
@@ -262,6 +266,7 @@ namespace MagicWorld
             PlayerIndex playerIndex;
 
             return IsNewKeyPress(controls.Keys_Up, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_Up, controllingPlayer, out playerIndex);
         }
 
@@ -276,6 +281,7 @@ namespace MagicWorld
             PlayerIndex playerIndex;
 
             return IsNewKeyPress(controls.Keys_Down, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_Down, controllingPlayer, out playerIndex);
         }
 
@@ -289,6 +295,7 @@ namespace MagicWorld
             PlayerIndex playerIndex;
 
             return IsNewKeyPress(controls.Keys_Right, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Right, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_Right, controllingPlayer, out playerIndex);
         }
 
@@ -302,6 +309,7 @@ namespace MagicWorld
             PlayerIndex playerIndex;
 
             return IsNewKeyPress(controls.Keys_Left, controllingPlayer, out playerIndex) ||
+                   IsNewKeyPress(Keys.Left, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(controls.GamePad_Left, controllingPlayer, out playerIndex);
         }
 
