@@ -148,7 +148,7 @@ namespace MagicWorld.Constants
         public static int ElectricSpell_durationOfActionMs = 5;//-->muliplication factor for used mana
 
 
-        public static Spells.SpellConfiguration PushSpellConstants = new Spells.SpellConfiguration(150, 1, 200, new TimeSpan(0, 0, 1));
+        public static Spells.SpellConfiguration PushSpellConstants = new Spells.SpellConfiguration(1, 1, 1000, new TimeSpan(0, 0, 1));
         public static int PushSpell_survivalTimeMs = 1000;
         public static int PushSpell_durationOfActionMs = 5;//-->muliplication factor for used mana
 
@@ -157,13 +157,13 @@ namespace MagicWorld.Constants
         {
             get { return pushspell_maxsize.value; }
         }
-        static ConstantChangerItemFloat pushspell_maxsize = new ConstantChangerItemFloat("PushSpell_MaxSize", 3f, 0.01f);
+        static ConstantChangerItemFloat pushspell_maxsize = new ConstantChangerItemFloat("PushSpell_MaxSize", 100, 0.1f); //TODO was not reached
 
         public static float PushSpell_GrowRate
         {
             get { return pushspell_growrate.value; }
         }
-        static ConstantChangerItemFloat pushspell_growrate = new ConstantChangerItemFloat("PushSpell_GrowRate", 0.045f, 0.001f);
+        static ConstantChangerItemFloat pushspell_growrate = new ConstantChangerItemFloat("PushSpell_GrowRate", DefaultSpellGrowRate, 0.1f);
 
    
         public static Spells.SpellConfiguration PullSpellConstants = PushSpellConstants;//new Spells.SpellConstants(150, 1, 200, new TimeSpan(0, 0, 1));
@@ -174,7 +174,7 @@ namespace MagicWorld.Constants
         {
             get { return pullspell_maxsize.value; }
         }
-        static ConstantChangerItemFloat pullspell_maxsize = new ConstantChangerItemFloat("PullSpell_MaxSize", PushSpell_MaxSize, 0.01f);
+        static ConstantChangerItemFloat pullspell_maxsize = new ConstantChangerItemFloat("PullSpell_MaxSize", PushSpell_MaxSize, 0.1f);
 
         public static float PullSpell_GrowRate
         {
