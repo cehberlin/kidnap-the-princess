@@ -102,7 +102,10 @@ For every Enemy on the Enemy Layer you need to add the custom property type free
   * Bullet 
 
 === Bullet ===
-Bullet defines an object(texture is free) which itself is not dangerous but shoots dangerous bullets/fireballs in defined direction. To define the shooting diretion and velocity you need to add a custom property of type item named "Aim" and reference it to a cycle primitive. The primitive sets the shooting direction and the distance between the Bullet/Vulcano defines the velocity. More far away gives higher velocity. Moreover you could define if the bullets should be influenced by gravity (see gravity elements) and you could define the shooting interval in milliseconds with the custom property type free text and name DelayTime.
+Bullet defines an object(texture is free) which itself is not dangerous but shoots dangerous bullets/fireballs in defined direction. To define the shooting diretion and velocity you need to add a custom property of type item named "Aim" and reference it to a cycle primitive. 
+The primitive sets the shooting direction and the distance between the Bullet/Vulcano defines the velocity. More far away gives higher velocity. 
+Moreover you could define if the bullets should be influenced by gravity (see gravity elements).
+You could define the shooting interval in milliseconds with the custom property type free text and name "DelayTime".
 Default for enable_gravity ist true and for delay milliseconds 2000.
 
 === Set path for Enemy ===
