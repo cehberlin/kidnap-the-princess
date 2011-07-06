@@ -114,6 +114,7 @@
     <Compile Include="HelperClasses\Animation\SimpleAnimator.cs" />
     <Compile Include="HelperClasses\GcFpsCounter.cs" />
     <Compile Include="HelperClasses\GeometryCalculationHelper.cs" />
+    <Compile Include="ScreenManager\Screens\CreditsScreen.cs" />
     <Compile Include="ScreenManager\Screens\LevelInfoScreen.cs" />
     <Compile Include="ScreenManager\Screens\LoadGameScreen.cs" />
     <Compile Include="ScreenManager\Screens\SoundMenuScreen.cs" />
