@@ -16,6 +16,8 @@
   # give magican another wand and put every wand in one animation ->Pascal
   # effect/bug shadow creatures push created matter. is this wanted?
   # tuorial levels: planning for the first levels with instructions to learn game mechanic (level 1-3) -> Pascal
+  # new rune texture for fire
+  # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
 
 
 == Final (13.07) ==
