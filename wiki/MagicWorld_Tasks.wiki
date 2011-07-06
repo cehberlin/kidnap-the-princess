@@ -26,7 +26,7 @@
   # Reset Game profile
   # Iceblock instead of color change when freezing a bat
   # show level in background in the level selction screen
-  #Sounds
+  # Sounds
      #spring
      #sterben
      #level beendet
