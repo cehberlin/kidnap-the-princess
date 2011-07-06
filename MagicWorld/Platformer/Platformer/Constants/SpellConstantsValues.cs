@@ -55,7 +55,7 @@ namespace MagicWorld.Constants
         {
             get { return spellAimingRotationSpeedInternal.value; }
         }
-        static ConstantChangerItemDouble spellAimingRotationSpeedInternal = new ConstantChangerItemDouble("spellAimingRotationSpeed", 100, 1);
+        static ConstantChangerItemDouble spellAimingRotationSpeedInternal = new ConstantChangerItemDouble("spellAimingRotationSpeed", 70, 1);
 
         /// <summary>
         /// speed of the powering up and down of the spell in casting mode
