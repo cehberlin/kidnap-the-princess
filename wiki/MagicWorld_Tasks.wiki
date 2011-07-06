@@ -1,4 +1,4 @@
-= PAY ATTENTION TO PRIORITY !!! DELETE DONE WORK !!!  =
+  = PAY ATTENTION TO PRIORITY !!! DELETE DONE WORK !!!  =
 ----
 = in Progress =
 
@@ -27,13 +27,13 @@
   # Iceblock instead of color change when freezing a bat
   # show level in background in the level selction screen
   # Sounds
-     #spring
-     #sterben
-     #level beendet
-     #spell casting
-     #backgroung music
-     #sammeln
-     #spell on enemy
+     # spring
+     # sterben
+     # level beendet
+     # spell casting
+     # backgroung music
+     # sammeln
+     # spell on enemy
 
  === optional ===
   # better boundings: big blockades have an ugly bounding box
