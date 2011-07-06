@@ -12,19 +12,19 @@ namespace MagicWorld.Spells
     public class PullSpell : Spell
     {
 
-        //public override Bounds Bounds
-        //{
-        //    get
-        //    {
-        //        float radius = 0;
-        //        if (sprite.Animation != null)
-        //        {
-        //            // Calculate bounds within texture size.
-        //            radius = (sprite.Animation.FrameWidth + sprite.Animation.FrameHeight) / 2  * currentScale;
-        //        }
-        //        return new Bounds(position, radius);
-        //    }
-        //}
+        public override Bounds Bounds
+        {
+            get
+            {
+                float radius = 0;
+                if (sprite.Animation != null)
+                {
+                    // Calculate bounds within texture size.
+                    radius = (sprite.Animation.FrameWidth) / 2 * 1f * currentScale;
+                }
+                return new Bounds(position, radius);
+            }
+        }
 
 
         public PullSpell(string spriteSet, Vector2 _origin, Level level)
@@ -36,8 +36,8 @@ namespace MagicWorld.Spells
             durationOfActionMs = SpellConstantsValues.PullSpell_durationOfActionMs;
             base.Position = level.Player.Position;
             MaxScale = SpellConstantsValues.PullSpell_MaxSize;
-            growFactor = SpellConstantsValues.PullSpell_GrowRate;            
-            currentScale = ManaBasicCost * SpellConstantsValues.PullSpell_GrowRate;            
+            growFactor = SpellConstantsValues.PullSpell_GrowRate;
+            currentScale = ManaBasicCost * growFactor;            
         }
         
         public override void LoadContent(string spriteSet)
@@ -57,7 +57,6 @@ namespace MagicWorld.Spells
             {
                 base.Position = level.Player.Position;
 
-                SetScaleDependingOnManaCost();
                 //only start playing if animation changes because frame position is reseted
                 if (sprite.Animation != idleAnimation)
                 {

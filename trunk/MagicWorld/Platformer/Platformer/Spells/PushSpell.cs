@@ -12,19 +12,19 @@ namespace MagicWorld.Spells
     public class PushSpell : Spell
     {
 
-        //public override Bounds Bounds
-        //{
-        //    get
-        //    {
-        //        float radius = 0;
-        //        if (sprite.Animation != null)
-        //        {
-        //            // Calculate bounds within texture size.
-        //            radius = (sprite.Animation.FrameWidth + sprite.Animation.FrameHeight) / 2 * currentScale;
-        //        }
-        //        return new Bounds(position, radius);
-        //    }
-        //}
+        public override Bounds Bounds
+        {
+            get
+            {
+                float radius = 0;
+                if (sprite.Animation != null)
+                {
+                    // Calculate bounds within texture size.
+                    radius = (sprite.Animation.FrameWidth) / 2 * 1f * currentScale;
+                }
+                return new Bounds(position, radius);
+            }
+        }
 
         public PushSpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.PushSpellConstants.BasicCastingCost, SpellConstantsValues.PushSpellConstants.CastingCostPerSecond, SpellType.PushSpell)
@@ -36,7 +36,7 @@ namespace MagicWorld.Spells
             base.Position = level.Player.Position;
             MaxScale = SpellConstantsValues.PushSpell_MaxSize;
             growFactor = SpellConstantsValues.PushSpell_GrowRate;
-            currentScale = ManaBasicCost * SpellConstantsValues.PushSpell_GrowRate;
+            currentScale = ManaBasicCost * growFactor;
         }
 
         public override void LoadContent(string spriteSet)
@@ -56,7 +56,6 @@ namespace MagicWorld.Spells
             {
                 base.Position = level.Player.Position;
 
-                SetScaleDependingOnManaCost();
                 //only start playing if animation changes because frame position is reseted
                 if (sprite.Animation != idleAnimation)
                 {
