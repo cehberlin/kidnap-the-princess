@@ -50,7 +50,7 @@ namespace MagicWorld.BlendInClasses
         public TutorialInstruction(String text, Vector2 pos)
         {
             position = pos;
-            displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10);
+            displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10)+TimeSpan.FromSeconds(2);
             initialTime = TimeSpan.FromSeconds((text.Length + 10) / 10).TotalMilliseconds;
             this.text = text;
             SplitText();
