@@ -228,7 +228,9 @@ namespace MagicWorld.StaticLevelContent
                                 Vector2 velocity = aim.Position - startPos;
 
                                 BulletLauncher launcher = new BulletLauncher(ti.asset_name, "Sprites/WarmSpell/Run", level,
-                                    startPos, velocity, delaytime, enable_gravity);
+                                   getCorrectedStartPosition(ti), velocity, delaytime, enable_gravity);
+                                launcher.Width = (int)ti.Origin.X * 2;
+                                launcher.Height = (int)ti.Origin.Y * 2;
                                 elements.Add(launcher);
                             }
                             else
