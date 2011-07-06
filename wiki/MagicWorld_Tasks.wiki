@@ -8,15 +8,16 @@
 
   == pre Final (06.07) ==
   # BUG: no jumping and turn direction possible on upwards moving plattform
-  # REPLACE or ADD better fitting FREE sounds and music --> john
+  # enhace menus appareance --> amauri
   # level with icecle (only pass enemy by killing it with icecle)  -> *???*
-  # give magican another wand and put every wand in one animation ->Pascal
+  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
+     * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # effect/bug shadow creatures push created matter. is this wanted?
   # tuorial levels: planning for the first levels with instructions to learn game mechanic (level 1-3) -> Pascal
-  # new rune texture for fire
-  # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
+  # Level 4 with torch -> Marian
+  # Level 5 with platform -> John
+  # Level 6 switchriddle -> John
   # BUG: push und pull texture should be resizeable
-
 
 == Final (13.07) ==
   # BUG: game exit throws exception - not happening anymore
@@ -31,6 +32,11 @@
      # backgroung music
      # sammeln
      # spell on enemy
+  # dieing animation
+  # 3D Levelending
+  # new rune texture for fire
+  # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
+  # REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use)
 
  === optional ===
   # better boundings: big blockades have an ugly bounding box
