@@ -94,8 +94,8 @@ namespace MagicWorld
         {
             if (element.GetType().IsSubclassOf(typeof(Enemy)))
             {
-                Enemy e = (Enemy)element;
-                if (!enemyService.IsFroozen)
+                Enemy e = (Enemy)element; 
+                if (! e.isFroozen)//enemyService.IsFroozen)
                 {
                     //destroy enemy
                     hitSound.Play();

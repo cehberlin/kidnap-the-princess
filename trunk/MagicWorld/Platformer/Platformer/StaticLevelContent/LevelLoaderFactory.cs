@@ -8,7 +8,7 @@ namespace MagicWorld.StaticLevelContent
     class LevelLoaderFactory
     {
 
-        public const int NumberOfLevels = 12;
+        public const int NumberOfLevels = 13;
         /// <summary>
         /// Factory which gives you a new LevelLoader
         /// </summary>
