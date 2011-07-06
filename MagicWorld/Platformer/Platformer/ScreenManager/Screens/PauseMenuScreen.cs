@@ -66,14 +66,7 @@ namespace MagicWorld
         /// transition from the game back to the main menu screen.
         /// </summary>
         void ConfirmQuitMessageBoxAccepted(object sender, PlayerIndexEventArgs e)
-        {            
-           
-            //GameplayScreen gameScreen;
-
-            
-            //gameScreen = (GameplayScreen)ScreenManager.GetPlayScreen();
-            //gameScreen.UnloadContent();
-            //gameScreen.ExitScreen();
+        {   
                 
             LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
                                                            new MainMenuScreen());

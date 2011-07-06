@@ -25,27 +25,42 @@ namespace MagicWorld
             playGameMenuEntry = new MenuEntry("Play Game");            
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
+            //MenuEntry testMenuEntry = new MenuEntry("Test Credits");
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;            
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
+            //testMenuEntry.Selected+=TestEntry;
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);            
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
+            //MenuEntries.Add(testMenuEntry);
             
         }
         
         #endregion       
+
+        void TestEntry(object sender, PlayerIndexEventArgs e)
+        {
+            CreditsScreen cred = new CreditsScreen(ScreenManager);
+            cred.Accepted += confirmTest;
+            ScreenManager.AddScreen(cred, e.PlayerIndex);
+        }
+
+        void confirmTest(object sender, PlayerIndexEventArgs e)
+        {
+            LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
+                                                           new MainMenuScreen());
+        }
 
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-
             ScreenManager.AddScreen(new LoadGameScreen(ScreenManager), e.PlayerIndex);
         }        
 

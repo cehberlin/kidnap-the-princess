@@ -343,6 +343,8 @@ namespace MagicWorld
             }
         }
 
+        #endregion
+
         #region level
         public void LoadLevel(int num)
         {
@@ -421,8 +423,17 @@ namespace MagicWorld
 
         }
         void ProceedNextLevel(object sender, PlayerIndexEventArgs e)
-        {            
-            LoadLevel(levelIndex + 1);
+        {
+            if ((levelIndex + 1) > LevelLoaderFactory.NumberOfLevels)
+            {
+                CreditsScreen cred = new CreditsScreen(ScreenManager);
+                cred.Accepted += EventCreditScreen;
+                ScreenManager.AddScreen(cred, e.PlayerIndex);
+            }
+            else
+            {
+                LoadLevel(levelIndex + 1);
+            }
 
         }
 
@@ -438,6 +449,12 @@ namespace MagicWorld
         {
             ScreenManager.SpriteBatch.DrawString(font, value, position + new Vector2(1.0f, 1.0f), Color.Black);
             ScreenManager.SpriteBatch.DrawString(font, value, position, color);
+        }       
+
+        void EventCreditScreen(object sender, PlayerIndexEventArgs e)
+        {
+            LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
+                                                           new MainMenuScreen());
         }
 
         #region IServiceProvider Member
@@ -450,6 +467,6 @@ namespace MagicWorld
         #endregion
     }
 
-        #endregion
+        
 
 }
