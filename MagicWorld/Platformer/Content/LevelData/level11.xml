@@ -1180,6 +1180,114 @@
                         <Y>16</Y>
                     </Origin>
                 </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0376" Visible="true">
+                    <Position>
+                        <X>2236</X>
+                        <Y>467</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\platform1b.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1b</asset_name>
+                    <Origin>
+                        <X>44</X>
+                        <Y>16</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0377" Visible="true">
+                    <Position>
+                        <X>2236</X>
+                        <Y>411</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\platform1b.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1b</asset_name>
+                    <Origin>
+                        <X>44</X>
+                        <Y>16</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0378" Visible="true">
+                    <Position>
+                        <X>2236</X>
+                        <Y>347</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\platform1b.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1b</asset_name>
+                    <Origin>
+                        <X>44</X>
+                        <Y>16</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0379" Visible="true">
+                    <Position>
+                        <X>2236</X>
+                        <Y>285</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\platform1b.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1b</asset_name>
+                    <Origin>
+                        <X>44</X>
+                        <Y>16</Y>
+                    </Origin>
+                </Item>
             </Items>
             <ScrollSpeed>
                 <X>1</X>
@@ -1789,6 +1897,46 @@
                         <Y>19</Y>
                     </Origin>
                 </Item>
+                <Item xsi:type="RectangleItem" Name="Rectangle_0381" Visible="true">
+                    <Position>
+                        <X>1280</X>
+                        <Y>128</Y>
+                    </Position>
+                    <CustomProperties>
+                        <Property Name="Instruction" Type="string" Description="">
+                            <string>Solve this riddel to get the bone.</string>
+                        </Property>
+                    </CustomProperties>
+                    <Width>72</Width>
+                    <Height>61</Height>
+                    <FillColor>
+                        <R>192</R>
+                        <G>0</G>
+                        <B>192</B>
+                        <A>145</A>
+                        <PackedValue>2445279424</PackedValue>
+                    </FillColor>
+                </Item>
+                <Item xsi:type="RectangleItem" Name="Rectangle_0382" Visible="true">
+                    <Position>
+                        <X>256</X>
+                        <Y>64</Y>
+                    </Position>
+                    <CustomProperties>
+                        <Property Name="Instruction" Type="string" Description="">
+                            <string>Your have to use this stone to get all the bones.</string>
+                        </Property>
+                    </CustomProperties>
+                    <Width>72</Width>
+                    <Height>61</Height>
+                    <FillColor>
+                        <R>192</R>
+                        <G>0</G>
+                        <B>192</B>
+                        <A>145</A>
+                        <PackedValue>2445279424</PackedValue>
+                    </FillColor>
+                </Item>
             </Items>
             <ScrollSpeed>
                 <X>1</X>
@@ -2062,8 +2210,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0301" Visible="true">
                     <Position>
-                        <X>666</X>
-                        <Y>661</Y>
+                        <X>670</X>
+                        <Y>652</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2278,8 +2426,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0300" Visible="true">
                     <Position>
-                        <X>570</X>
-                        <Y>289</Y>
+                        <X>577</X>
+                        <Y>281</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2520,11 +2668,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>375</NextItemNumber>
-        <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content\</ContentRootFolder>
+        <NextItemNumber>382</NextItemNumber>
+        <ContentRootFolder>F:\Game Design\MagicWorld2\Platformer\Content\</ContentRootFolder>
         <CameraPosition>
-            <X>1141.67053</X>
-            <Y>216.667053</Y>
+            <X>1375.005</X>
+            <Y>158.333649</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
