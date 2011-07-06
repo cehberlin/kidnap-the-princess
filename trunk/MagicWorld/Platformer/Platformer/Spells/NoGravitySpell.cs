@@ -5,11 +5,25 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.Constants;
+using MagicWorld.HelperClasses;
 
 namespace MagicWorld.Spells
 {
     class NoGravitySpell : Spell 
     {
+        public override Bounds Bounds
+        {
+            get
+            {
+                float radius = 0;
+                if (sprite.Animation != null)
+                {
+                    // Calculate bounds within texture size.
+                    radius = (sprite.Animation.FrameWidth) / 2 * 1f * currentScale;
+                }
+                return new Bounds(position, radius);
+            }
+        }
 
         public NoGravitySpell(string spriteSet, Vector2 _origin, Level level)
             : base(spriteSet, _origin, level, SpellConstantsValues.NoGravitationSpellConstants.BasicCastingCost, SpellConstantsValues.NoGravitationSpellConstants.CastingCostPerSecond, SpellType.NoGravitySpell)
@@ -28,6 +42,7 @@ namespace MagicWorld.Spells
             // Load animations.
             spriteSet = "Sprites/" + spriteSet + "/";
             runAnimation = new Animation("Content/Sprites/NoGravitySpell/AntiGravSpriteSheet", 0.1f, 12, level.Content.Load<Texture2D>(spriteSet + "AntiGravSpriteSheet"), 0);
+            runAnimation.Opacity = 0.72f;
             idleAnimation = runAnimation;
 
             base.LoadContent(spriteSet);
