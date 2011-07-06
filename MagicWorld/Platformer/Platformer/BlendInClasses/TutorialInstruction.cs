@@ -41,22 +41,27 @@ namespace MagicWorld.BlendInClasses
             set { initialTime = value; }
         }
         private bool isActive;
-
         public bool IsActive
         {
             get { return isActive; }
             set { isActive = value; }
         }
-        
-        public TutorialInstruction(String text,Vector2 pos)
+
+        public TutorialInstruction(String text, Vector2 pos)
         {
             position = pos;
-            //Debug.WriteLine("TutorialInstrucion pos: " + pos);//TEST
-            //Calculate how long the instruction is shown according to the length of the text.
             displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10);
             initialTime = TimeSpan.FromSeconds((text.Length + 10) / 10).TotalMilliseconds;
             this.text = text;
+            SplitText();
             isActive = false;
+        }
+
+        private void SplitText()
+        {
+            int LineLength = 30;
+            for (int i = 0; i < text.Length / LineLength; i++)
+                text = text.Insert((i+1) * LineLength, "\n");
         }
     }
 }
