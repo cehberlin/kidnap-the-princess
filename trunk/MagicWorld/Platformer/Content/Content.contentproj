@@ -536,8 +536,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level2.xml">
-      <Name>level2</Name>
+    <None Include="LevelData\level2_leg.xml">
+      <Name>level2_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1023,6 +1023,14 @@
   <ItemGroup>
     <None Include="LevelData\level1.xml">
       <Name>level1</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LevelData\level2.xml">
+      <Name>level2</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
