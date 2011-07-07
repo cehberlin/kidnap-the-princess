@@ -122,6 +122,7 @@ namespace MagicWorld
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
+           
 
             // Darken down any other screens that were drawn beneath the popup.
             ScreenManager.FadeBackBufferToBlack(TransitionAlpha * 2 / 3);
@@ -150,7 +151,8 @@ namespace MagicWorld
             spriteBatch.Draw(gradientTexture, backgroundRectangle, color*0.5f);
 
             // Draw the message box text.
-            spriteBatch.DrawString(font, message, textPosition, color);
+            textPosition.X += hPad;
+            spriteBatch.DrawString(font, message, textPosition, color,0,Vector2.Zero,0.8f,SpriteEffects.None,0);
 
             spriteBatch.End();
         }

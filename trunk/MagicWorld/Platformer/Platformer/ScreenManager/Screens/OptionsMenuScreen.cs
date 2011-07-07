@@ -16,6 +16,7 @@ namespace MagicWorld
         MenuEntry mnuControls;
         MenuEntry mnuSound;
         MenuEntry mnuResolution;
+        MenuEntry mnuEraseProfile;
 
         #endregion
 
@@ -32,6 +33,7 @@ namespace MagicWorld
             mnuControls = new MenuEntry("Controls");
             mnuSound = new MenuEntry("Sound");
             mnuResolution = new MenuEntry("Display");
+            mnuEraseProfile = new MenuEntry("Erase Profile");
 
             MenuEntry back = new MenuEntry("Back");
 
@@ -39,6 +41,7 @@ namespace MagicWorld
             mnuControls.Selected += ControlsMenuEntrySelected;
             mnuSound.Selected += SoundMenuEntrySelected;
             mnuResolution.Selected += ResolutionMenuEntrySelected;
+            mnuEraseProfile.Selected += EraseProfileEntrySelected;
             
             back.Selected += OnCancel;
             
@@ -46,6 +49,7 @@ namespace MagicWorld
             MenuEntries.Add(mnuControls);
             MenuEntries.Add(mnuSound);
             MenuEntries.Add(mnuResolution);
+            MenuEntries.Add(mnuEraseProfile);
             
             MenuEntries.Add(back);
         }
@@ -61,6 +65,29 @@ namespace MagicWorld
         void ControlsMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.AddScreen(new ControlsMenu(), e.PlayerIndex);
+        }
+
+        /// <summary>
+        /// Event handler for when the Language menu entry is selected.
+        /// </summary>
+        void EraseProfileEntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+
+            const string message = "Are you sure you want to erase your profile?\nIt will delete all your saved files.";
+
+            MessageBoxScreen confirmExitMessageBox = new MessageBoxScreen(message);
+
+            confirmExitMessageBox.Accepted += EraseProfileConfirmed;
+
+            ScreenManager.AddScreen(confirmExitMessageBox, e.PlayerIndex);
+
+            
+        }
+
+        void EraseProfileConfirmed(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.Game.EraseProfile();
+            mnuEraseProfile.Text = "Erase Profile <Done>";
         }
 
         /// <summary>
