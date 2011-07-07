@@ -30,8 +30,6 @@
   # level start background (where the available spells are shown)
   # Draw 3D level exit -> Pascal
   # enhace menus appareance --> amauri
-     # outlines for text
-  # BUG: particles are in front of instructions
   # Better looking torch texture -> Pascal
   # Another texture for moveable platforms -> Pascal
   # Use die animation -> John
