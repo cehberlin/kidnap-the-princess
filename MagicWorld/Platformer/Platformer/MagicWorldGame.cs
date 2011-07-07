@@ -201,10 +201,6 @@ namespace MagicWorld
                 Components.Add(gc_counter);
                 Components.Add(fps_counter);
             #endif
-
-            TutorialManager tut = new TutorialManager(this);
-            Services.AddService(typeof(TutorialManager), tut);
-            Components.Add(tut);
             
             explosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
             magicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
@@ -227,6 +223,10 @@ namespace MagicWorld
             Components.Add(matterCreationParticleSystem);
             Components.Add(fireParticleSystem);
             Components.Add(lightningCreationParticleSystem);
+
+            TutorialManager tut = new TutorialManager(this);
+            Services.AddService(typeof(TutorialManager), tut);
+            Components.Add(tut);
 
             //Load saved config
             ConfigGame();
