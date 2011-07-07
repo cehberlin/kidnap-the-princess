@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace MagicWorld
@@ -230,8 +231,8 @@ namespace MagicWorld
 
             titlePosition.Y -= transitionOffset * 100;
 
-            spriteBatch.DrawString(font, menuTitle, titlePosition, titleColor, 0,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0);
+
+            Text.DrawOutlinedText(spriteBatch, font, menuTitle, titlePosition, titleColor, titleOrigin, titleScale);
 
             //spriteBatch.Draw(gradientTexture, CalculateMenusRectangle(), titleColor * 0.3f);
 
@@ -247,11 +248,14 @@ namespace MagicWorld
             SpriteFont font = ScreenManager.Font;
             Vector2 fontSize = Vector2.Zero; //font.MeasureString(menuTitle) / 2;
             Vector2 tempfontSize = Vector2.Zero;
-            int xpad = 40;
-            int ypad = 40;
+
+            int padding = 100;
+            int xpad = 40+padding;
+            int ypad = 40+padding;
 
             for (int i = 0; i < menuEntries.Count; i++)
             {
+             
                 //get the bigest size
                 MenuEntry menuEntry = menuEntries[i];
                 tempfontSize = font.MeasureString(menuEntry.Text);
@@ -261,14 +265,14 @@ namespace MagicWorld
                 }
                 if (fontSize.Y < menuEntry.Position.Y)
                 {
-                    //fontSize.Y = menuEntry.Position.Y;
+                    fontSize.Y += menuEntry.Position.Y;
                 }
             }
 
-            tempRectangle = new Rectangle((int)menuEntries[0].Position.X -10,
-                                          (int)menuEntries[0].Position.Y - 20,
+            tempRectangle = new Rectangle((int)menuEntries[0].Position.X -xpad,
+                                          (int)menuEntries[0].Position.Y - ypad,
                                           (int)fontSize.X + xpad,
-                                          (int)(menuEntries[menuEntries.Count - 1].Position.Y - menuEntries[0].Position.Y + ypad + fontSize.Y));
+                                          (int)(fontSize.Y)+ypad);
             return tempRectangle;
 
         }

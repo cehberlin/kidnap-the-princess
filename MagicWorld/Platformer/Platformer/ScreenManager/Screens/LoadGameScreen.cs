@@ -10,6 +10,7 @@
 #region Using Statements
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace MagicWorld
@@ -73,8 +74,8 @@ namespace MagicWorld
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(font, info, pos, titleColor, 0,
-                                   titleOrigin, titleScale, SpriteEffects.None, 0);
+            Text.DrawOutlinedText(spriteBatch, font, info, pos, titleColor, titleOrigin, titleScale);
+        
             spriteBatch.End();
         }
 

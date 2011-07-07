@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.Spells;
 using System.Collections.Generic;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace MagicWorld
@@ -188,13 +189,13 @@ namespace MagicWorld
 
 
             // Fade the popup alpha during transitions.
-            Color color = Color.White * TransitionAlpha;
+            Color color = Color.Black * TransitionAlpha;
 
             spriteBatch.Begin();            
 
             // Draw the message box text.            
             //textPosition += vecIncrease*3;            
-            spriteBatch.DrawString(font, tempString, textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            Text.DrawOutlinedText(spriteBatch, font, tempString, textPosition, color);
             textPosition.Y += 60;            
             foreach (SpellsInfo spell in levelSpells)
             {
