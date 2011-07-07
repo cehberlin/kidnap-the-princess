@@ -6,9 +6,8 @@
 
 == Final (13.07) ==
   # BUG: no jumping and turn direction possible on upwards moving plattform
-  # BUG: push/pull bounding bounding box
+  # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
   # Reset Game profile
-  # Iceblock instead of color change when freezing a bat
   # Show level in background in the level selection screen
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ )
      * jumping
@@ -32,11 +31,10 @@
   # Better looking torch texture -> Pascal
   # Another texture for moveable platforms -> Pascal
   # Use die animation -> John
-  # effect/bug shadow creatures push created matter. is this wanted?
+  # BUG: shadow creatures push created matter.
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
-  # optional: show used mana for spell during casting mode
   # optional: highlight objects that are infuenced by push/pull while casting
   # optional: startgame - story from game (pictures or aimation)
   # optional: HUD ELements nicht so nahe am Bildschirmrand
