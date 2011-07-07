@@ -596,15 +596,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level4.xml">
-      <Name>level4</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="LevelContent\Cave\Enemies\bat.png">
       <Name>bat</Name>
       <Importer>TextureImporter</Importer>
@@ -1039,6 +1030,14 @@
   <ItemGroup>
     <None Include="LevelData\level5.xml">
       <Name>level5</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LevelData\level4.xml">
+      <Name>level4</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
