@@ -499,7 +499,7 @@ namespace MagicWorld
                         jumpSound.Play();
 
                     jumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    if (Velocity.X > 0)
+                    if (!isFacingLeft)
                         sprite.PlayAnimation(jumpRightAnimation);
                     else
                         sprite.PlayAnimation(jumpLeftAnimation);
