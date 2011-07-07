@@ -7,7 +7,6 @@
 == Final (13.07) ==
   # BUG: no jumping and turn direction possible on upwards moving plattform
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
-  # Show level in background in the level selection screen
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
      * dying
@@ -36,6 +35,7 @@
   # optional: HUD ELements nicht so nahe am Bildschirmrand
   # optional: button for spell under the rune in the HUD
   # optional: matter fading -> at the start no transperence, at the end faster fading out
+  # optional: show level in background in the level selection screen
 
 
  === optional ===
