@@ -1262,16 +1262,16 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="Rectangle_0151" Visible="true">
                     <Position>
-                        <X>-1280</X>
-                        <Y>-192</Y>
+                        <X>-1344</X>
+                        <Y>-384</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
                             <string>Switches can move platforms and open doors. Some work different than others.</string>
                         </Property>
                     </CustomProperties>
-                    <Width>64</Width>
-                    <Height>64</Height>
+                    <Width>448</Width>
+                    <Height>448</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -1282,16 +1282,16 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="Rectangle_0152" Visible="true">
                     <Position>
-                        <X>-448</X>
-                        <Y>-192</Y>
+                        <X>-832</X>
+                        <Y>-320</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
                             <string>Carefull if you fall into the pit you are dead!</string>
                         </Property>
                     </CustomProperties>
-                    <Width>64</Width>
-                    <Height>64</Height>
+                    <Width>448</Width>
+                    <Height>448</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -2491,7 +2491,7 @@
         <ContentRootFolder>C:\NOREFACTOR\Platformer\Content</ContentRootFolder>
         <CameraPosition>
             <X>-566.657349</X>
-            <Y>-108.334358</Y>
+            <Y>-150.0011</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>

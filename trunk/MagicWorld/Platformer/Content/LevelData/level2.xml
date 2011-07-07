@@ -1007,16 +1007,16 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="Rectangle_0079" Visible="true">
                     <Position>
-                        <X>-1177</X>
-                        <Y>-362</Y>
+                        <X>-1344</X>
+                        <Y>-512</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
                             <string>You have to collect just 4 bones to finish this level!</string>
                         </Property>
                     </CustomProperties>
-                    <Width>50</Width>
-                    <Height>50</Height>
+                    <Width>281</Width>
+                    <Height>328</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -1027,16 +1027,16 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="Rectangle_0080" Visible="true">
                     <Position>
-                        <X>-262</X>
-                        <Y>-139</Y>
+                        <X>-448</X>
+                        <Y>-256</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
                             <string>Beware of the dangerous creatures lurking in the shadows! Their touch is deadly.</string>
                         </Property>
                     </CustomProperties>
-                    <Width>48</Width>
-                    <Height>50</Height>
+                    <Width>298</Width>
+                    <Height>295</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -1047,16 +1047,16 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="Rectangle_0081" Visible="true">
                     <Position>
-                        <X>181</X>
-                        <Y>-331</Y>
+                        <X>64</X>
+                        <Y>-448</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
                             <string>If you want the bone below, you will have to use your spells.</string>
                         </Property>
                     </CustomProperties>
-                    <Width>55</Width>
-                    <Height>55</Height>
+                    <Width>247</Width>
+                    <Height>247</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -1067,16 +1067,16 @@
                 </Item>
                 <Item xsi:type="RectangleItem" Name="Rectangle_0083" Visible="true">
                     <Position>
-                        <X>1188</X>
-                        <Y>-194</Y>
+                        <X>1024</X>
+                        <Y>-384</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
                             <string>Only your spells can get you up there!</string>
                         </Property>
                     </CustomProperties>
-                    <Width>105</Width>
-                    <Height>70</Height>
+                    <Width>397</Width>
+                    <Height>454</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -2059,8 +2059,8 @@
         <NextItemNumber>103</NextItemNumber>
         <ContentRootFolder>C:\NOREFACTOR\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>-624.9956</X>
-            <Y>-266.667053</Y>
+            <X>1041.67566</X>
+            <Y>-225.000336</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
