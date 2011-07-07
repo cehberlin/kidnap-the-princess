@@ -7,7 +7,6 @@
 == Final (13.07) ==
   # BUG: no jumping and turn direction possible on upwards moving plattform
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
-  # Reset Game profile
   # Show level in background in the level selection screen
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
@@ -19,13 +18,10 @@
      * spell hit enemy
      * menu sound
      * laughter if enemy is killd by icicle
-  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri . Done
-     * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # new rune texture for fire -> Pascal
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # switch feedback - show that switch is activated (weigth switch & electricity)
   # KEYPAD MAPPING
-  # level start background (where the available spells are shown)
   # Draw 3D level exit -> Pascal
   # enhace menus appareance --> amauri
   # Better looking torch texture -> Pascal
