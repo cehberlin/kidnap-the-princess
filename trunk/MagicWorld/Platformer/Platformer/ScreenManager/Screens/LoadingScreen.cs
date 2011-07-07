@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace MagicWorld
@@ -140,11 +141,11 @@ namespace MagicWorld
                 Vector2 textSize = font.MeasureString(message);
                 Vector2 textPosition = (viewportSize - textSize) / 2;
 
-                Color color = Color.White * TransitionAlpha;
+                Color color = Color.Black * TransitionAlpha;
 
                 // Draw the text.
                 spriteBatch.Begin();
-                spriteBatch.DrawString(font, message, textPosition, color);
+                Text.DrawOutlinedText(spriteBatch, font, message, textPosition, color);
                 spriteBatch.End();
             }
         }

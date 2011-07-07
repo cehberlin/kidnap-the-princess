@@ -154,8 +154,7 @@ namespace MagicWorld
 
             Vector2 origin = new Vector2(0, font.LineSpacing / 2);
 
-            spriteBatch.DrawString(font, text, position, color, 0,
-                                   origin, scale, SpriteEffects.None, 0);
+            HelperClasses.Text.DrawOutlinedText(spriteBatch, font, text, position, color, origin, scale);
         }
 
 
