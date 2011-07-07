@@ -76,6 +76,12 @@ namespace MagicWorld.BlendInClasses
                     {//Check if an instruction needs to be activated
                         if (instructions[i].Position.Contains((int)playerService.Position.X, (int)playerService.Position.Y))
                         {
+                            // set all other instructions inactive
+                            foreach (TutorialInstruction inst in instructions)
+                            {
+                                inst.IsActive = false;
+                            }
+                            //set new instructions active
                             instructions[i].IsActive = true;
                         }
                     }
