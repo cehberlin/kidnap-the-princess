@@ -12,15 +12,15 @@
   # Iceblock instead of color change when freezing a bat
   # Show level in background in the level selection screen
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ )
-     # jumping
-     # dying
-     # level complete
-     # spell casting
-     # backgroung music
-     # ingredient collected
-     # spell hit enemy
-     # menu sound
-     # laughter if enemy is killd by icicle
+     * jumping
+     * dying
+     * level complete
+     * spell casting
+     * backgroung music
+     * ingredient collected
+     * spell hit enemy
+     * menu sound
+     * laughter if enemy is killd by icicle
  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
      * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # new rune texture for fire -> Pascal
