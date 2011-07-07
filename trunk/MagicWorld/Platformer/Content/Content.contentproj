@@ -750,8 +750,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level7.xml">
-      <Name>level7</Name>
+    <None Include="LevelData\level7_leg.xml">
+      <Name>level7_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1057,6 +1057,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="LevelData\level6.xml">
+      <Name>level6</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="LevelData\level4.xml">
       <Name>level4</Name>
       <Importer>XmlImporter</Importer>
@@ -1065,8 +1073,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level6.xml">
-      <Name>level6</Name>
+    <None Include="LevelData\level7.xml">
+      <Name>level7</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
