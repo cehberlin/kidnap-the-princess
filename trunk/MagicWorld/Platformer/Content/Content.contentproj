@@ -947,6 +947,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LevelContent\Cave\Additional\trackPoint.png">
+      <Name>trackPoint</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LevelContent\Cave\Additional\trackHorizontal.png">
+      <Name>trackHorizontal</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LevelContent\Cave\Additional\trackVertical.png">
+      <Name>trackVertical</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="LevelData\level11.xml">
       <Name>level11</Name>
       <Importer>XmlImporter</Importer>
