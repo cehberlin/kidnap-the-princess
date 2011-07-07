@@ -9,7 +9,7 @@
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
   # Reset Game profile
   # Show level in background in the level selection screen
-  # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ )
+  # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
      * dying
      * level complete
