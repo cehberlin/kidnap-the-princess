@@ -366,7 +366,8 @@ namespace MagicWorld
 
             // Load the level.
             level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num), ScreenManager.Game);
-
+            level.LevelNumber = num;
+            camera.Position = level.LevelLoader.getPlayerStartPosition();
             //load info screen
             LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
             levelInfoTransition.Accepted += FinishLoadingLevel;

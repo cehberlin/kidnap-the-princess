@@ -175,6 +175,7 @@ namespace MagicWorld
         {
             SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
             SpriteFont font = ScreenManager.Font;
+            string levelName = "Level " + level.LevelNumber.ToString();
             string tempString = "You can use the spells";
 
             // Darken down any other screens that were drawn beneath the popup.
@@ -183,8 +184,7 @@ namespace MagicWorld
             // Center the message text in the viewport.
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
-            Vector2 textSize = font.MeasureString(tempString);
-            Vector2 textPosition = (viewportSize - textSize) / 2;
+            
             
 
 
@@ -194,8 +194,16 @@ namespace MagicWorld
             spriteBatch.Begin();            
 
             // Draw the message box text.            
-            //textPosition += vecIncrease*3;            
+            //textPosition += vecIncrease*3;  
+            Vector2 textSize = font.MeasureString(levelName);
+            Vector2 textPosition = (viewportSize - textSize) / 2;
+            textPosition.Y -= 40;
+            Text.DrawOutlinedText(spriteBatch, font, levelName, textPosition, color);
+
+            textSize = font.MeasureString(tempString);
+            textPosition = (viewportSize - textSize) / 2;
             Text.DrawOutlinedText(spriteBatch, font, tempString, textPosition, color);
+
             textPosition.Y += 60;            
             foreach (SpellsInfo spell in levelSpells)
             {
