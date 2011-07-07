@@ -681,13 +681,14 @@ namespace MagicWorld.StaticLevelContent
                 foreach (Item item in l.Items)
                 {
                     //TODO: Make a real check if we found a tutorial instruction.
-                    if (item.CustomProperties.Count == 1)
+                    if (item.CustomProperties.ContainsKey("Instruction"))
                     {
+                        RectangleItem r = (RectangleItem)item;
                         try
                         {
                             if (item.CustomProperties[PROPERTY_NAME_INSTRUCTION] != null)
                             {
-                                instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), item.Position));//new Vector2(200, 50)));
+                                instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Rectangle((int)r.Position.X, (int)r.Position.Y, r.Width, r.Height)));
                             }
                         }
                         catch (KeyNotFoundException k) { }

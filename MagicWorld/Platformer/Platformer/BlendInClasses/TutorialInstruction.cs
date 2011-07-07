@@ -12,8 +12,8 @@ namespace MagicWorld.BlendInClasses
             get { return manager; }
             set { manager = value; }
         }
-        Vector2 position;
-        public Vector2 Position
+        Rectangle position;
+        public Rectangle Position
         {
             get { return position; }
         }
@@ -47,7 +47,7 @@ namespace MagicWorld.BlendInClasses
             set { isActive = value; }
         }
 
-        public TutorialInstruction(String text, Vector2 pos)
+        public TutorialInstruction(String text, Rectangle pos)
         {
             position = pos;
             displayTime = TimeSpan.FromSeconds((text.Length + 10) / 10)+TimeSpan.FromSeconds(2);

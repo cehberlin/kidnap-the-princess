@@ -19,7 +19,7 @@ namespace MagicWorld.BlendInClasses
         Texture2D bg;
         Vector2 textOffset = new Vector2(20, 20);
 
-        public void AddInstruction(String text, Vector2 pos)
+        public void AddInstruction(String text, Rectangle pos)
         {
             TutorialInstruction t = new TutorialInstruction(text, pos);
             t.Manager = this;
@@ -74,8 +74,7 @@ namespace MagicWorld.BlendInClasses
                     }
                     else
                     {//Check if an instruction needs to be activated
-                        //Debug.WriteLine("Tutorial Manager: instr.pos: " + instructions[i].Position.X +" < player.pos: "+ playerService.Position.X);//TEST
-                        if (instructions[i].Position.X < playerService.Position.X)
+                        if (instructions[i].Position.Contains((int)playerService.Position.X, (int)playerService.Position.Y))
                         {
                             instructions[i].IsActive = true;
                         }
