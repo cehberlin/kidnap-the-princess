@@ -7,6 +7,24 @@ namespace MagicWorld.HUDClasses
     class ManaBar : HUDElement
     {
         /// <summary>
+        /// milliseconds blink interval
+        /// </summary>
+        const double COLOR_UPDATE_CYCLE = 400;
+        /// <summary>
+        /// default color for liquid
+        /// </summary>
+        static readonly Color DefaultColor = Color.OrangeRed;
+        /// <summary>
+        /// toggling blink color for liquid
+        /// </summary>
+        static readonly Color BlinkColor = Color.Purple;
+
+        /// <summary>
+        /// mana percentage when blinking starts
+        /// </summary>
+        const float BlinkPercentage = 0.35f;
+
+        /// <summary>
         /// Percentage of current mana the player has.
         /// </summary>
         float status;
@@ -34,11 +52,42 @@ namespace MagicWorld.HUDClasses
         {
             status = 100;
         }
-
+        /// <summary>
+        /// temporary store of last mana values
+        /// </summary>
+        private int currentMana;
+        private int  maxMana;
         public void Update(int currentMana, int maxMana)
         {
+            this.currentMana = currentMana;
+            this.maxMana = maxMana;
             this.status = currentMana * 100 / maxMana;
             filling.Y = (int)(fullY + (fullHeight - (fullHeight * (status / 100))));
+        }
+
+        Color currentColor = DefaultColor;
+
+        double colorUpdateCycle;
+
+        public Color getTextureOverlay(GameTime gameTime)
+        {
+            if (currentMana < maxMana * BlinkPercentage)
+            {
+                if(colorUpdateCycle<=0){
+                    if (currentColor == DefaultColor)
+                    {
+                        currentColor = BlinkColor;
+                    }
+                    else
+                    {
+                        currentColor = DefaultColor;
+                    }
+                    colorUpdateCycle=COLOR_UPDATE_CYCLE;
+                }
+                colorUpdateCycle-=gameTime.ElapsedGameTime.TotalMilliseconds;
+                return currentColor;
+            }
+            return DefaultColor;
         }
     }
 }

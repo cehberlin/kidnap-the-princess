@@ -20,7 +20,7 @@ namespace MagicWorld.HelperClasses
         /// <returns>true if casting started successfull</returns>
         public static bool tryStartCasting(Player player, SpellType type, Level level)
         {
-            int basicCastingCost = SpellConstantsFactory.getSpellConstants(type).BasicCastingCost;
+           int basicCastingCost = SpellConstantsFactory.getSpellConstants(type).BasicCastingCost;
            if(player.Mana.CurrentMana > basicCastingCost)
            {
                Vector2 pos = player.getCurrentSpellPosition();
@@ -101,6 +101,7 @@ namespace MagicWorld.HelperClasses
                 //add new particle effects
                 player.CurrentSpell.AddOnCreationParticles();
             }
+            player.Mana.TempMana = player.Mana.CurrentMana- player.CurrentSpell.UsedMana;
         }
 
         public static void releaseSpell(Player player)
