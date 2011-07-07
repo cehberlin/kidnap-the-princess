@@ -767,6 +767,303 @@
                         <Y>41</Y>
                     </Origin>
                 </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0153" Visible="true">
+                    <Position>
+                        <X>-192</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackPoint.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackPoint</asset_name>
+                    <Origin>
+                        <X>31</X>
+                        <Y>31</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0154" Visible="true">
+                    <Position>
+                        <X>-832</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackPoint.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackPoint</asset_name>
+                    <Origin>
+                        <X>31</X>
+                        <Y>31</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0155" Visible="true">
+                    <Position>
+                        <X>-256</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0156" Visible="true">
+                    <Position>
+                        <X>-320</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0157" Visible="true">
+                    <Position>
+                        <X>-384</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0158" Visible="true">
+                    <Position>
+                        <X>-448</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0159" Visible="true">
+                    <Position>
+                        <X>-512</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0160" Visible="true">
+                    <Position>
+                        <X>-576</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0161" Visible="true">
+                    <Position>
+                        <X>-640</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0162" Visible="true">
+                    <Position>
+                        <X>-704</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0163" Visible="true">
+                    <Position>
+                        <X>-768</X>
+                        <Y>-64</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Additional\trackHorizontal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Additional\trackHorizontal</asset_name>
+                    <Origin>
+                        <X>50</X>
+                        <Y>2</Y>
+                    </Origin>
+                </Item>
             </Items>
             <ScrollSpeed>
                 <X>1</X>
@@ -930,7 +1227,7 @@
                 <Item xsi:type="PathItem" Name="Path_0148" Visible="true">
                     <Position>
                         <X>-832</X>
-                        <Y>0</Y>
+                        <Y>-64</Y>
                     </Position>
                     <CustomProperties />
                     <LocalPoints>
@@ -946,11 +1243,11 @@
                     <WorldPoints>
                         <Vector2>
                             <X>-832</X>
-                            <Y>0</Y>
+                            <Y>-64</Y>
                         </Vector2>
                         <Vector2>
                             <X>-192</X>
-                            <Y>0</Y>
+                            <Y>-64</Y>
                         </Vector2>
                     </WorldPoints>
                     <IsPolygon>false</IsPolygon>
@@ -1014,7 +1311,7 @@
                 <Item xsi:type="TextureItem" Name="Texture_0149" Visible="true">
                     <Position>
                         <X>-576</X>
-                        <Y>-64</Y>
+                        <Y>-128</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2152,7 +2449,7 @@
                 <Item xsi:type="TextureItem" Name="Texture_0147" Visible="true">
                     <Position>
                         <X>-832</X>
-                        <Y>0</Y>
+                        <Y>-64</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="switchable" Type="string" Description="">
@@ -2190,10 +2487,10 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>152</NextItemNumber>
+        <NextItemNumber>163</NextItemNumber>
         <ContentRootFolder>C:\NOREFACTOR\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>-908.3257</X>
+            <X>-566.657349</X>
             <Y>-108.334358</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
