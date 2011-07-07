@@ -162,6 +162,13 @@ namespace MagicWorld
             get { return levelLoader; }
         }
 
+        private int levelNumer;
+        public int LevelNumber
+        {
+            set { levelNumer = value; }
+            get {return levelNumer;}
+        }
+
         private MagicWorldGame game;
 
         public MagicWorldGame Game
