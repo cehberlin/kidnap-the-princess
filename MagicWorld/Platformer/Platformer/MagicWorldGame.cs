@@ -14,6 +14,7 @@ using MagicWorld.Constants;
 using MagicWorld.Services;
 using MagicWorld.HelperClasses.Animation;
 using MagicWorld.Controls;
+using System.Collections.Generic;
 
 namespace MagicWorld
 {
@@ -423,7 +424,53 @@ namespace MagicWorld
             {
                 files = container.GetFileNames("Level*");
             }
+
+            container.Dispose();
             return files;
+
+        }
+
+        #endregion
+
+        #region Erase Profile
+
+        public void EraseProfile()
+        {
+            IAsyncResult result;
+            
+
+            // Open a storage container.
+
+            result = StorageDevice.BeginShowSelector(
+                            PlayerIndex.One, null, null);
+
+
+            StorageDevice device = StorageDevice.EndShowSelector(result);
+
+            // Open a storage container.
+            result = device.BeginOpenContainer("MagicWorld", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result);
+
+            // Close the wait handle.
+            result.AsyncWaitHandle.Close();
+            
+            foreach (string file in container.GetFileNames("High*"))
+            {
+                container.DeleteFile(file);
+
+            }
+
+            foreach (string file in container.GetFileNames("Level*"))
+            {
+                container.DeleteFile(file);
+
+            }
+
+            container.Dispose();
 
         }
 

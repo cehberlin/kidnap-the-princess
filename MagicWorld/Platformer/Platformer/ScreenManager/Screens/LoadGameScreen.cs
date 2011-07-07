@@ -214,9 +214,11 @@ namespace MagicWorld
 
             GameplayScreen gameScreen = new GameplayScreen(ScreenManager);
             //gameScreen.ScreenManager = ScreenManager;
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);
-            //gameScreen.LoadContent();
-            gameScreen.LoadLevel(selectedFile + 1);//selectedfile is always one number less levelnumber                
+            //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);
+            gameScreen.LoadContent();
+            ScreenManager.AddScreen(gameScreen, e.PlayerIndex);  
+            gameScreen.LoadLevel(selectedFile + 1);//selectedfile is always one number less levelnumber 
+             
             ScreenManager.Game.ResetElapsedTime();
         }        
 
