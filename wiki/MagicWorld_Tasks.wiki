@@ -4,18 +4,14 @@
 
 = TODO =
 
-  == pre Final (06.07) ==
-  # BUG: no jumping and turn direction possible on upwards moving plattform
-  # enhace menus appareance --> amauri
-  # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
-     * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
-  # effect/bug shadow creatures push created matter. is this wanted?
-
 == Final (13.07) ==
+  # BUG: no jumping and turn direction possible on upwards moving plattform
+  # BUG: push/pull bounding bounding box
+  # BUG: if the player jums he is always facing left
   # Reset Game profile
   # Iceblock instead of color change when freezing a bat
   # Show level in background in the level selection screen
-  # Sounds for:
+  # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ )
      # jumping
      # dying
      # level complete
@@ -23,13 +19,33 @@
      # backgroung music
      # ingredient collected
      # spell hit enemy
+     # menu sound
+     # laughter if enemy is killd by icicle
+ # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
+     * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # new rune texture for fire -> Pascal
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
-  # REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use)
+  # switch feedback - show that switch is activated (weigth switch & electricity)
+  # KEYPAD MAPPING
+  # level start background (where the available spells are shown)
   # Draw 3D level exit -> Pascal
+  # enhace menus appareance --> amauri
+     # outlines for text
+  # BUG: particles are in front of instructions
   # Better looking torch texture -> Pascal
   # Another texture for moveable platforms -> Pascal
   # Use die animation -> John
+  # effect/bug shadow creatures push created matter. is this wanted?
+  # Manual
+  # 5 Screenshots, Groupname, Game Description
+  # presentation plan
+  # optional: show used mana for spell during casting mode
+  # optional: highlight objects that are infuenced by push/pull while casting
+  # optional: startgame - story from game (pictures or aimation)
+  # optional: HUD ELements nicht so nahe am Bildschirmrand
+  # optional: button for spell under the rune in the HUD
+  # optional: matter fading -> at the start no transperence, at the end faster fading out
+
 
  === optional ===
   # better boundings: big blockades have an ugly bounding box
