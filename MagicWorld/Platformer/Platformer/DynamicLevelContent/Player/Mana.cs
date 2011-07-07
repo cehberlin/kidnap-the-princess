@@ -10,10 +10,17 @@ namespace MagicWorld.DynamicLevelContent.Player
 {
     public class Mana
     {
-
         private MagicWorld.Player player;
 
         private int _currentMana;
+
+        private int tempMana;
+
+        public int TempMana
+        {
+            get { return tempMana; }
+            set { tempMana = value; }
+        }
 
         public int CurrentMana {
             get { return _currentMana; }

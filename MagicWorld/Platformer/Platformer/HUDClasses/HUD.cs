@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using MagicWorld.Services;
+using MagicWorld.Constants;
 
 namespace MagicWorld.HUDClasses
 {
@@ -145,8 +146,11 @@ namespace MagicWorld.HUDClasses
             {
                 if ( playerService!= null)
                 {
-                    //TODO: remove 1000 and get the value dynamically
-                    manaBar.Update(playerService.Mana.CurrentMana, 1000);
+                    if (playerService.IsCasting) {
+                        manaBar.Update(playerService.Mana.TempMana, SpellConstantsValues.MAX_MANA);
+                    } else {
+                        manaBar.Update(playerService.Mana.CurrentMana, SpellConstantsValues.MAX_MANA);
+                    }
                     //TODO: Constant polling is not good, call back is better.
                     spellBarLeft.Update(playerService.selectedSpell_A);                    
                     spellBarRight.Update(playerService.selectedSpell_B);
@@ -181,7 +185,7 @@ namespace MagicWorld.HUDClasses
             if (visible)
             {
                 spriteBatch.Begin();
-                spriteBatch.Draw(liquidTex, manaBar.Filling, Color.White);
+                spriteBatch.Draw(liquidTex, manaBar.Filling, manaBar.getTextureOverlay(gameTime));
                 spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
                 spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, ingredientsColor);
                 spriteBatch.Draw(leftSpell, spellBarLeft.Position, Color.White);

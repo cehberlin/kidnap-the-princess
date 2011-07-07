@@ -59,11 +59,18 @@ namespace MagicWorld
         {
             get
             {
-                float width = (sprite.Animation.FrameWidth * 0.5f);
-                float height = (sprite.Animation.FrameHeight * 0.5f);
-                float left = (float)Math.Round(Position.X - width / 2);
-                float top = (float)Math.Round(Position.Y - height / 2);
-                return new Bounds(left, top, width, height);
+                if (isFroozen)
+                {
+                    return FrozenBounds;
+                }
+                else
+                {
+                    float width = (sprite.Animation.FrameWidth * 0.5f);
+                    float height = (sprite.Animation.FrameHeight * 0.5f);
+                    float left = (float)Math.Round(Position.X - width / 2);
+                    float top = (float)Math.Round(Position.Y - height / 2);
+                    return new Bounds(left, top, width, height);
+                }
             }
         }
 
@@ -127,8 +134,10 @@ namespace MagicWorld
             if (isFroozen) // ****** isFrozen ******
             {
                 currentFreezeTime = currentFreezeTime.Add(gameTime.ElapsedGameTime);
+                level.visibilityService.Add(this);
                 if (currentFreezeTime >= SpellInfluenceValues.maxFreezeTime)
                 {
+                    level.visibilityService.Remove(this);
                     isFroozen = false;
                     idleAnimation.TextureColor = Color.White;
                     runAnimation.TextureColor = Color.White;
