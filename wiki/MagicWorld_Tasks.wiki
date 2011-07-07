@@ -21,7 +21,7 @@
      * spell hit enemy
      * menu sound
      * laughter if enemy is killd by icicle
- # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri
+ # fix behavior if you reach last level -> show congratulation and finish screen, show credits and continue to main menu --> Amauri . Done
      * Show which button to press, also add JUMP-Key (NOT ONLY ENTER)
   # new rune texture for fire -> Pascal
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
