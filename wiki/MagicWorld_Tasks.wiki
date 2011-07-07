@@ -7,7 +7,6 @@
 == Final (13.07) ==
   # BUG: no jumping and turn direction possible on upwards moving plattform
   # BUG: push/pull bounding bounding box
-  # BUG: if the player jums he is always facing left
   # Reset Game profile
   # Iceblock instead of color change when freezing a bat
   # Show level in background in the level selection screen
