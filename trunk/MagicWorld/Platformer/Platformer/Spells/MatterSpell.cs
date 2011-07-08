@@ -105,7 +105,7 @@ namespace MagicWorld
 
             if (SpellState == State.WORKING)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround);
+                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround,null,false,true,false);
                 if (isOnGround)
                 {
                     ResetVelocity();
@@ -123,7 +123,9 @@ namespace MagicWorld
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(matterTexture, getDrawingRectagle(), Color.White * (float)(survivalTimeMs/startSurvivalTime));
+            //+0.30 has the effect of longer full visibility and short time of very less visibility
+            float opacity = (float)((survivalTimeMs / startSurvivalTime) + 0.30);
+            spriteBatch.Draw(matterTexture, getDrawingRectagle(), Color.White * opacity);
             base.Draw(gameTime, spriteBatch);
         }
 
@@ -186,12 +188,6 @@ namespace MagicWorld
         {   
             //check if spells leaves the level
             HandleOutOfLevelCollision();
-         }
-
-        protected override void HandleObjectCollision()
-        {
-            level.CollisionManager.HandleGeneralCollisions(this, collisionCallback, false, false);
         }
-
     }
 }
