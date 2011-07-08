@@ -98,7 +98,7 @@ namespace MagicWorld.DynamicLevelContent
 
             if (checkCollision)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround);
+                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround,null,false,true,false);
 
                 if (isOnGround)
                 {
