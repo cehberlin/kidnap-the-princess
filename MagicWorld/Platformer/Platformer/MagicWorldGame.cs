@@ -182,27 +182,12 @@ namespace MagicWorld
 
         protected override void Initialize()
         {
-            hud = new HUD(this);
-            Components.Add(hud);
-            aid = new AimingAid(this);
-            Components.Add(aid);
             ice = new IcedVisibility(this);
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
             simpleAnimator = new SimpleAnimator(this);
             //Components.Add(simpleAnimator);
-            
-            #if DEBUG
-
-                constantChanger = new ConstantChanger(this);
-                Components.Add(constantChanger);
-
-                gc_counter = new DikiLib.extensions.GARBAGE_COLLECTIONS_COUNTER(this);
-                fps_counter = new DikiLib.extensions.FPS_COUNTER(this);
-                Components.Add(gc_counter);
-                Components.Add(fps_counter);
-            #endif
-            
+                        
             explosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
             magicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
             iceMagicParticleSystem = ParticleSystemFactory.getIceMagic(this, 10);
@@ -224,6 +209,21 @@ namespace MagicWorld
             Components.Add(matterCreationParticleSystem);
             Components.Add(fireParticleSystem);
             Components.Add(lightningCreationParticleSystem);
+
+#if DEBUG
+            constantChanger = new ConstantChanger(this);
+            Components.Add(constantChanger);
+
+            gc_counter = new DikiLib.extensions.GARBAGE_COLLECTIONS_COUNTER(this);
+            fps_counter = new DikiLib.extensions.FPS_COUNTER(this);
+            Components.Add(gc_counter);
+            Components.Add(fps_counter);
+#endif
+
+            hud = new HUD(this);
+            Components.Add(hud);
+            aid = new AimingAid(this);
+            Components.Add(aid);
 
             TutorialManager tut = new TutorialManager(this);
             Services.AddService(typeof(TutorialManager), tut);
