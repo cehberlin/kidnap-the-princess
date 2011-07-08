@@ -18,6 +18,7 @@
      * menu sound
      * laughter if enemy is killd by icicle
   # new rune texture for fire -> Pascal
+  # BUG: Push and pull does not work correct -> Is depended of position of player in contrast to influenced object if a spell works as push or pull
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # switch feedback - show that switch is activated (weigth switch & electricity)
   # KEYPAD MAPPING
@@ -26,7 +27,6 @@
   # Better looking torch texture -> Pascal
   # Another texture for moveable platforms -> Pascal
   # Use die animation -> John
-  # BUG: shadow creatures push created matter.
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
@@ -34,7 +34,6 @@
   # optional: startgame - story from game (pictures or aimation)
   # optional: HUD ELements nicht so nahe am Bildschirmrand
   # optional: button for spell under the rune in the HUD
-  # optional: matter fading -> at the start no transperence, at the end faster fading out
   # optional: show level in background in the level selection screen
 
 
