@@ -24,7 +24,7 @@ namespace MagicWorld
     /// The level owns the player and controls the game's win and lose
     /// conditions as well as scoring.
     /// </summary>
-    public class Level : IDisposable
+    public class Level : DrawableGameComponent
     {
 
         #region properties
@@ -39,7 +39,6 @@ namespace MagicWorld
         ISimpleAnimator simpleAnimator;
         
         Effect effect;
-        IPlayerService playerService;
 
         // Physical structure of the level.
 
@@ -171,7 +170,7 @@ namespace MagicWorld
 
         private MagicWorldGame game;
 
-        public MagicWorldGame Game
+        public new MagicWorldGame Game
         {
             get { return game; }
         }
@@ -182,6 +181,12 @@ namespace MagicWorld
             get { return tutManager; }
         }
 
+        private InputState inputState = new InputState();
+
+        private SpriteBatch spriteBatch;
+
+        ICameraService camera;
+
         #endregion
 
         #region Loading
@@ -189,34 +194,38 @@ namespace MagicWorld
         /// <summary>
         /// Constructs a new level.
         /// </summary>
-        /// <param name="serviceProvider">
-        /// The service provider that will be used to construct a ContentManager.
-        /// </param>
         /// <param name="fileStream">
         /// A stream containing the tile data.
         /// </param>
-        public Level(IServiceProvider serviceProvider, ILevelLoader levelLoader, MagicWorldGame game)
+        public Level( MagicWorldGame game):
+            base(game)
         {
-
             this.game = game;
             
             // Create a new content manager to load content used just by this level.
-            content = new ContentManager(serviceProvider, "Content");
+            content = game.Content;
             effect = content.Load<Effect>("HelperShader"); 
 
             collisionManager = new CollisionManager(this);
 
             physicsManager = new PhysicsManager(this);
 
-            this.levelLoader = levelLoader;
-
             visibilityService = (IVisibility)game.Services.GetService(typeof(IVisibility));
-            initLevel();
+        }
+
+        protected override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(Game.GraphicsDevice);
+            base.LoadContent();
         }
 
 
-        protected void initLevel()
+        public void initLevel(ILevelLoader levelLoader)
         {
+            camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
+
+            this.levelLoader = levelLoader;
+
             game.GameData.Time = 0;
 
             levelLoader.init(this);
@@ -257,7 +266,15 @@ namespace MagicWorld
             }
             Debug.WriteLine("");
 #endif
-            player = new Player(this, startPoint, levelLoader.UsableSpells);
+            if (player == null)
+            {
+                player = new Player(this, startPoint, levelLoader.UsableSpells);
+            }
+            else
+            {
+                player.Reset(startPoint);
+                player.UsableSpells = levelLoader.UsableSpells;
+            }
 
             endPoint = levelLoader.getLevelExit();
 
@@ -292,10 +309,11 @@ namespace MagicWorld
         /// <summary>
         /// Unloads the level content.
         /// </summary>
-        public void Dispose()
+        public new void Dispose()
         {
             StopBackgroundSound();
             Content.Unload();
+            base.Dispose();
         }
 
         //Stop sound
@@ -313,44 +331,43 @@ namespace MagicWorld
         /// Updates all objects in the world, performs collision between them,
         /// and handles the time limit with scoring.
         /// </summary>
-        public void Update(
-            GameTime gameTime,
-            KeyboardState keyboardState,
-            GamePadState gamePadState,
-            DisplayOrientation orientation)
+        public override void Update(GameTime gameTime)
         {
-            game.GameData.Time += gameTime.ElapsedGameTime.Milliseconds;
-
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
-            // Pause while the player is dead or time is expired.
-            if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
+            if (player != null)
             {
-                // Still want to perform physics on the player.
-                Player.ApplyPhysics(gameTime);
-            }
-            //else if (ReachedExit)
-            //{
-            //    // Animate the time being converted into points.
-            //    int seconds = (int)Math.Round(gameTime.ElapsedGameTime.TotalSeconds * 100.0f);
-            //    seconds = Math.Min(seconds, (int)Math.Ceiling(TimeRemaining.TotalSeconds));
-            //    timeRemaining -= TimeSpan.FromSeconds(seconds);
-            //}
-            else
-            {
-                timeRemaining -= gameTime.ElapsedGameTime;
+                inputState.Update();
+                game.GameData.Time += gameTime.ElapsedGameTime.Milliseconds;
 
-                Player.Update(gameTime, keyboardState, gamePadState, orientation);
+                // Pause while the player is dead or time is expired.
+                if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)
+                {
+                    // Still want to perform physics on the player.
+                    Player.ApplyPhysics(gameTime);
+                }
+                //else if (ReachedExit)
+                //{
+                //    // Animate the time being converted into points.
+                //    int seconds = (int)Math.Round(gameTime.ElapsedGameTime.TotalSeconds * 100.0f);
+                //    seconds = Math.Min(seconds, (int)Math.Ceiling(TimeRemaining.TotalSeconds));
+                //    timeRemaining -= TimeSpan.FromSeconds(seconds);
+                //}
+                else
+                {
+                    timeRemaining -= gameTime.ElapsedGameTime;
 
-                UpdateObjects(gameTime);
-            }
+                    Player.Update(gameTime, inputState.CurrentKeyboardStates[0], inputState.CurrentGamePadStates[0]);
 
-            // Clamp the time remaining at zero.
-            if (timeRemaining < TimeSpan.Zero)
-                timeRemaining = TimeSpan.Zero;
+                    UpdateObjects(gameTime);
+                }
 
-            if (backgroundGameElements.Count > 0)
-            {
-                backgroundGameElements[0].Position = player.Position - new Vector2(backgroundGameElements[0].Bounds.Width / 2, backgroundGameElements[0].Bounds.Height / 2);
+                // Clamp the time remaining at zero.
+                if (timeRemaining < TimeSpan.Zero)
+                    timeRemaining = TimeSpan.Zero;
+
+                if (backgroundGameElements.Count > 0)
+                {
+                    backgroundGameElements[0].Position = player.Position - new Vector2(backgroundGameElements[0].Bounds.Width / 2, backgroundGameElements[0].Bounds.Height / 2);
+                }
             }
         }
 
@@ -483,6 +500,78 @@ namespace MagicWorld
                 if (elem.GetType().IsSubclassOf(typeof(Spell)))
                     elem.Draw(gameTime, spriteBatch);
             }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            if (camera != null)
+            {
+                //Draw Background
+                spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                camera.TransformationMatrix);
+
+                DrawBackground(gameTime, spriteBatch);
+
+                spriteBatch.End();
+
+                //Draw Colideable gameelements except Spells
+                spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                camera.TransformationMatrix);
+
+                DrawColideableGameelements(gameTime, spriteBatch);
+
+                spriteBatch.End();
+
+                //Draw Spells
+                spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                camera.TransformationMatrix);
+
+                DrawSpells(gameTime, spriteBatch);
+
+                spriteBatch.End();
+
+                //Draw Player
+                spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                camera.TransformationMatrix);
+
+                DrawPlayer(gameTime, spriteBatch);
+
+                spriteBatch.End();
+
+                //Draw Foreground
+                spriteBatch.Begin(SpriteSortMode.Immediate,
+                BlendState.AlphaBlend,
+                null,
+                null,
+                null,
+                null,
+                camera.TransformationMatrix);
+
+                DrawForeground(gameTime, spriteBatch);
+
+                spriteBatch.End();
+            }
+            base.Draw(gameTime);
         }
 
         #endregion

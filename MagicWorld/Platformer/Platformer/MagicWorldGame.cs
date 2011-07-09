@@ -54,6 +54,12 @@ namespace MagicWorld
         TutorialManager tutManager;
         IcedVisibility ice;
         SimpleAnimator simpleAnimator;
+        Level level;
+
+        public Level Level
+        {
+            get { return level; }
+        }
 
         public SaveGameData GameData=new SaveGameData();
         public SaveGameData BestGameData = new SaveGameData();
@@ -155,10 +161,27 @@ namespace MagicWorld
             graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
+           
+        }
+
+        protected override void LoadContent()
+        {
+            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            base.LoadContent();
+        }
+
+        protected override void Initialize()
+        {
+            //The camera needs access to the graphics device which is only loaded before LoadContent.
+            Camera2d camera = new Camera2d(this);
+            Components.Add(camera);
+
+            level = new Level(this);            
+            Components.Add(level);
 
             // Create the screen manager component.
             screenManager = new ScreenManager(this);
-            
+
             //with this entry the framework call the update itself
             //don't need to add in update method
             Components.Add(screenManager);
@@ -167,21 +190,7 @@ namespace MagicWorld
             // Activate the first screens.
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
-            
-        }
 
-        protected override void LoadContent()
-        {
-            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-
-            //The camera needs access to the graphics device which is only loaded before LoadContent.
-            Camera2d camera = new Camera2d(this);
-            Components.Add(camera);
-            base.LoadContent();
-        }
-
-        protected override void Initialize()
-        {
             ice = new IcedVisibility(this);
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
@@ -251,7 +260,7 @@ namespace MagicWorld
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.Black);
             
             base.Draw(gameTime);
         }

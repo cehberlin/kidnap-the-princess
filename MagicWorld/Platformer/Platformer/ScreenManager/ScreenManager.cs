@@ -117,9 +117,6 @@ namespace MagicWorld
         /// </summary>
         protected override void LoadContent()
         {
-            // Load content belonging to the screen manager.
-            //ContentManager content = Game.Content;
-
             font = content.Load<SpriteFont>("MenuScreen/menufont");
             blankTexture = content.Load<Texture2D>("MenuScreen/blank");
 
@@ -293,8 +290,7 @@ namespace MagicWorld
         /// <returns></returns>
         public GameScreen GetPlayScreen()
         {
-            GameScreen[] screens = GetScreens();
-            foreach (GameScreen screen in screens)
+            foreach (GameScreen screen in GetScreens())
             {
                 if (screen.GetType().Equals(typeof(GameplayScreen)))
                 {
@@ -307,10 +303,14 @@ namespace MagicWorld
 
         public bool IsGameplayScreenActive()
         {
-            GameScreen[] screens = GetScreens();
-            foreach (GameScreen screen in screens)
+            foreach (GameScreen screen in GetScreens())
             {
-                if (screen.IsActive && screen.GetType().Equals(typeof(GameplayScreen)))
+                if (screen.IsActive && (
+                    screen.GetType().Equals(typeof(GameplayScreen))
+                    || screen.GetType().Equals(typeof(LevelTransitionScreen)) 
+                    || screen.GetType().Equals(typeof(PauseMenuScreen))
+                    || screen.GetType().Equals(typeof(LevelInfoScreen))
+                    ))
                 {
                     return true;
                 }

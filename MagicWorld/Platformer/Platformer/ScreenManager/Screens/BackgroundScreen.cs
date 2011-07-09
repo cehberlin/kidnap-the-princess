@@ -82,17 +82,20 @@ namespace MagicWorld
         /// Draws the background screen.
         /// </summary>
         public override void Draw(GameTime gameTime)
-        {
-            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
-            Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
-            Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
+        {        
+            if (!ScreenManager.IsGameplayScreenActive())
+            {
+                SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+                Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
+                Rectangle fullscreen = new Rectangle(0, 0, viewport.Width, viewport.Height);
 
-            spriteBatch.Begin();
+                spriteBatch.Begin();
 
-            spriteBatch.Draw(backgroundTexture, fullscreen,
-                             new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
+                spriteBatch.Draw(backgroundTexture, fullscreen,
+                                 new Color(TransitionAlpha, TransitionAlpha, TransitionAlpha));
 
-            spriteBatch.End();
+                spriteBatch.End();
+            }
         }
 
 

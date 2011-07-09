@@ -31,7 +31,7 @@ namespace MagicWorld
 
         #endregion
 
-        public SpellType[] UsableSpells { get; private set; }
+        public SpellType[] UsableSpells { get; set; }
 
         #region "Animation & sound"
         // Animations
@@ -236,8 +236,7 @@ namespace MagicWorld
         public void Update(
             GameTime gameTime,
             KeyboardState keyboardState,
-            GamePadState gamePadState,
-            DisplayOrientation orientation)
+            GamePadState gamePadState)
         {
             if (collisionManager.CollidateWithLevelExit(this))
             {
@@ -250,10 +249,10 @@ namespace MagicWorld
 
 
             Mana.update(gameTime);
-            GetInput(keyboardState, gamePadState, orientation);
+            GetInput(keyboardState, gamePadState);
 
 
-            HandleSpellCreation(gameTime, keyboardState, gamePadState, orientation);
+            HandleSpellCreation(gameTime, keyboardState, gamePadState);
 
 
             ApplyPhysics(gameTime);
@@ -307,8 +306,7 @@ namespace MagicWorld
         /// </summary>
         private void GetInput(
             KeyboardState keyboardState,
-            GamePadState gamePadState,
-            DisplayOrientation orientation)
+            GamePadState gamePadState)
         {
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
 
@@ -649,8 +647,7 @@ namespace MagicWorld
         /// <param name="orientation"></param>
         private void HandleSpellCreation(GameTime gameTime,
             KeyboardState keyboardState,
-            GamePadState gamePadState,
-            DisplayOrientation orientation)
+            GamePadState gamePadState)
         {
             Boolean isCastingSpell = false;
 

@@ -29,7 +29,6 @@ namespace MagicWorld
         ContentManager content;
         // Meta-level game state.
         private int levelIndex = 0;
-        private Level level;
         private bool wasContinuePressed;
         private bool loadingLevel;
 
@@ -41,6 +40,8 @@ namespace MagicWorld
         private GamePadState gamePadState;
         private KeyboardState keyboardState;
         private KeyboardState oldKeyboardState;
+
+        private Level level;
 
         // The number of levels in the Levels directory of our content. We assume that
         // levels in our content are 0-based and that all numbers under this constant
@@ -60,6 +61,7 @@ namespace MagicWorld
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
             LoadContent();
+            level = ScreenManager.Game.Level;
         }
 
         /// <summary>
@@ -78,8 +80,6 @@ namespace MagicWorld
             if (content == null)
                 content = new ContentManager(ScreenManager.Game.Services, "Content");
 
-            //LoadLevel(1);
-
             // once the load has finished, we use ResetElapsedTime to tell the game's
             // timing mechanism that we have just finished a very long frame, and that
             // it should not try to catch up.
@@ -92,8 +92,6 @@ namespace MagicWorld
         /// </summary>
         public override void UnloadContent()
         {
-            if (level != null)
-                level.Dispose();
             content.Unload();
             ScreenManager.Game.Services.RemoveService(typeof(Level));
             ExitScreen();
@@ -132,7 +130,6 @@ namespace MagicWorld
                 }
 
                 // update our level, passing down the GameTime along with all of our input states
-                level.Update(gameTime, keyboardState, gamePadState, ScreenManager.Game.Window.CurrentOrientation);
 
                 camera.Position = new Vector2(level.Player.Position.X, level.Player.Position.Y);
             }
@@ -170,41 +167,11 @@ namespace MagicWorld
             bool continuePressed = keyboardState.IsKeyDown(control.Keys_Up) ||
                 gamePadState.IsButtonDown(control.GamePad_Up);
 
-            // Perform the appropriate action to advance the game and
-            // to get the player back to playing.
-            //if (!wasContinuePressed && continuePressed)
-            //{
-            //    if (!level.Player.IsAlive)
-            //    {
-            //        ReloadCurrentLevel();
-            //    }
-            //    else if (level.TimeRemaining == TimeSpan.Zero)
-            //    {
-            //        if (level.ReachedExit)
-            //            LoadNextLevel();
-            //        else
-            //            ReloadCurrentLevel();
-            //    }
-            //    else if (level.ReachedExit)
-            //    {
-            //        if(level.Ingredients.Count <= level.NeededIngredients)
-            //        {
-
-            //        }
-            //        else
-            //        {
-            //            LoadNextLevel();
-            //        }
-
-            //    }
-            //}
-
             //Options
             if (keyboardState.IsKeyUp(GameOptionsControls.ToggleSound) && oldKeyboardState.IsKeyDown(GameOptionsControls.ToggleSound))
             {
                 MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
             }
-
 
             if (keyboardState.IsKeyUp(GameOptionsControls.FullscreenToggleKey) && oldKeyboardState.IsKeyDown(GameOptionsControls.FullscreenToggleKey))
             {
@@ -212,8 +179,6 @@ namespace MagicWorld
             }
 
 #if DEBUG
-
-
             if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_SHOW_BOUNDINGS) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_SHOW_BOUNDINGS))
             {
                 DebugValues.DEBUG = !DebugValues.DEBUG;
@@ -239,7 +204,6 @@ namespace MagicWorld
                 LoadLevel(levelIndex);
             }
 
-
             if (keyboardState.IsKeyUp(GameOptionsControls.DEBUG_RELOAD_LEVEL) && oldKeyboardState.IsKeyDown(GameOptionsControls.DEBUG_RELOAD_LEVEL))
             {
                 level.OnExitReached();
@@ -258,7 +222,6 @@ namespace MagicWorld
             {
                 camera.Zoom += 0.1f;
             }
-
 #endif
 
             wasContinuePressed = continuePressed;
@@ -270,73 +233,7 @@ namespace MagicWorld
         /// Draws the gameplay screen.
         /// </summary>
         public override void Draw(GameTime gameTime)
-        {
-            //Draw Background
-            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
-            BlendState.AlphaBlend,
-            null,
-            null,
-            null,
-            null,
-            camera.TransformationMatrix);
-
-            level.DrawBackground(gameTime, ScreenManager.SpriteBatch);
-
-            ScreenManager.SpriteBatch.End();
-
-            //Draw Colideable gameelements except Spells
-            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
-            BlendState.AlphaBlend,
-            null,
-            null,
-            null,
-            null,
-            camera.TransformationMatrix);
-
-            level.DrawColideableGameelements(gameTime, ScreenManager.SpriteBatch);
-
-            ScreenManager.SpriteBatch.End();
-
-            //Draw Spells
-            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
-            BlendState.AlphaBlend,
-            null,
-            null,
-            null,
-            null,
-            camera.TransformationMatrix);
-
-            level.DrawSpells(gameTime, ScreenManager.SpriteBatch);
-
-            ScreenManager.SpriteBatch.End();
-
-            //Draw Player
-            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
-            BlendState.AlphaBlend,
-            null,
-            null,
-            null,
-            null,
-            camera.TransformationMatrix);
-
-            level.DrawPlayer(gameTime, ScreenManager.SpriteBatch);
-
-            ScreenManager.SpriteBatch.End();
-
-            //Draw Foreground
-            ScreenManager.SpriteBatch.Begin(SpriteSortMode.Immediate,
-            BlendState.AlphaBlend,
-            null,
-            null,
-            null,
-            null,
-            camera.TransformationMatrix);
-
-            level.DrawForeground(gameTime, ScreenManager.SpriteBatch);
-
-            ScreenManager.SpriteBatch.End();
-
-
+        {  
             // If the game is transitioning on or off, fade it out to black.
             if (TransitionPosition > 0)
             {
@@ -364,19 +261,15 @@ namespace MagicWorld
             levelIndex = num;
             Debug.WriteLine("load level " + num);
             // Unloads the content for the current level before loading the next one.
-            if (level != null)
-                level.Dispose();
 
             // Load the level.
-            level = new Level(ScreenManager.Game.Services, LevelLoaderFactory.getLevel(num), ScreenManager.Game);
+            level.initLevel(LevelLoaderFactory.getLevel(num));
             level.LevelNumber = num;
             camera.Position = level.LevelLoader.getPlayerStartPosition();
             //load info screen
             LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
             levelInfoTransition.Accepted += FinishLoadingLevel;
             ScreenManager.AddScreen(levelInfoTransition, ControllingPlayer);
-
-
         }
 
         void FinishLoadingLevel(object sender, PlayerIndexEventArgs e)
@@ -436,7 +329,6 @@ namespace MagicWorld
             {
                 LoadLevel(levelIndex + 1);
             }
-
         }
 
 
