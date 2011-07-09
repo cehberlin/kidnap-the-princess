@@ -19,7 +19,6 @@ namespace MagicWorld.DynamicLevelContent
     /// </summary>
     class GravityElement : BlockElement,IActivation
     {
-        Bounds oldBounds;
         protected bool isOnGround = false;
 
         protected bool enableGravity;
@@ -54,7 +53,6 @@ namespace MagicWorld.DynamicLevelContent
         {
             this.enableGravity = enableGravity;
             this.checkCollision = checkCollision;
-            oldBounds = this.Bounds;
         }
 
         /// <summary>
@@ -98,7 +96,7 @@ namespace MagicWorld.DynamicLevelContent
 
             if (checkCollision)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround,null,false,true,false);
+                level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround,null,false,true,false);
 
                 if (isOnGround)
                 {

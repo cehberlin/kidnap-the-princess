@@ -177,7 +177,7 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                 frozenVelocity += level.PhysicsManager.getGravity(SpellConstantsValues.WarmSpellGravity, gameTime);
                 Position = Position + frozenVelocity * elapsed;
             }
-            rotation = GeometryCalculationHelper.RotateToDirection(oldPosition, position);
+            rotation = GeometryCalculationHelper.RotateToDirection(OldPosition, position);
             Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
             
             base.Update(gameTime);

@@ -34,7 +34,6 @@ namespace MagicWorld
 
         private float enemyDelta = 100;
 
-        Bounds oldBounds;
         bool isOnGround = false;
 
         bool isOnFire = false;
@@ -95,7 +94,6 @@ namespace MagicWorld
             base.idleAnimation = new Animation("Content/Sprites/ShadowCreatures/ShadowCreatureSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/ShadowCreatures/ShadowCreatureSpriteSheet"), 0);
             sprite.PlayAnimation(idleAnimation);
 
-            oldBounds = this.Bounds;
             base.LoadContent("");
         }
 
@@ -199,12 +197,12 @@ namespace MagicWorld
                     acceleration = 1;
                 }
                 waitTime = waitTime.Add(gameTime.ElapsedGameTime);
-                oldPosition = Position;
+                OldPosition = Position;
                 Position = Position + velocity * elapsed * acceleration;
 
             }
             //only handles physics collision
-            level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround, collisionCallback);
+            level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround, collisionCallback);
 
             if (isOnGround)
             {
