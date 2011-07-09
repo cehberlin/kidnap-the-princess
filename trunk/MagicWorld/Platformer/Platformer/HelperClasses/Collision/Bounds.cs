@@ -80,6 +80,14 @@ namespace MagicWorld.HelperClasses
             }
         }
 
+        public Vector2 Center
+        {
+            get { 
+                Rectangle rect=getRectangle();
+                return new Vector2(rect.Center.X, rect.Center.Y);
+            }
+        }
+
         /// <summary>
         /// create cycle bound
         /// </summary>

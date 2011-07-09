@@ -63,20 +63,20 @@ namespace MagicWorld.DynamicLevelContent
         {
             if (spell.SpellType == SpellType.PullSpell)
             {
-                Vector2 push = spell.Position - this.Position;
-                push.Normalize();
+                Vector2 pull = spell.Position - this.Bounds.Center;
+                pull.Normalize();
                 pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
                 pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.start(this,2000, push);
+                pushPullHandler.start(this, 2000, pull);
                 return false;
             }
             else if (spell.SpellType == SpellType.PushSpell)
             {
-                Vector2 pull = this.Position - spell.Position;
-                pull.Normalize();
+                Vector2 push = this.Bounds.Center - spell.Position;
+                push.Normalize();
                 pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);                
-                pushPullHandler.start(this, 2000,pull);
+                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                pushPullHandler.start(this, 2000, push);
                 return false;
             }
             return base.SpellInfluenceAction(spell);
