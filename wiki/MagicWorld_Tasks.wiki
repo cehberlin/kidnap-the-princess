@@ -5,7 +5,7 @@
 = TODO =
 
 == Final (13.07) ==
-  # Audiomanagaer -> John
+  # Audiomanager -> John
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
@@ -16,30 +16,27 @@
      * ingredient collected
      * spell hit enemy
      * menu sound
-     * laughter if enemy is killd by icicle
-  # new rune texture for fire -> Pascal
+     * laughter if enemy is killed by icicle
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # KEYPAD MAPPING
   # Draw 3D level exit -> Pascal
   # enhace menus appareance --> amauri
      * make messagebox convenient to menu design, also check text
-  # Better looking torch texture -> Pascal
-  # Another texture for moveable platforms -> Pascal
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
   # optional: highlight objects that are infuenced by push/pull while casting
-  # optional: startgame - story from game (pictures or aimation)
-  # optional: HUD ELements nicht so nahe am Bildschirmrand
-  # optional: button for spell under the rune in the HUD
-  # optional: show level in background in the level selection screen
+
 
 
  === optional ===
   # better boundings: big blockades have an ugly bounding box
-  # optimize platform textures -> Pascal
   # Bigger and better "wall" textures -> Pascal
-
+  # startgame - story from game (pictures or aimation)
+  # HUD ELements nicht so nahe am Bildschirmrand
+  # button for spell under the rune in the HUD
+  # show level in background in the level selection screen
+  # Adjust levels with old platforms and adjust value responisble for the "player ground sinking"
 
 
 == rejected To Dos ==
