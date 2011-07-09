@@ -5,6 +5,7 @@
 = TODO =
 
 == Final (13.07) ==
+  # Audiomanagaer -> John
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
@@ -19,7 +20,7 @@
   # new rune texture for fire -> Pascal
   # BUG: Push and pull does not work correct -> Is depended of position of player in contrast to influenced object if a spell works as push or pull --> not sure maybe I am confused with the icons
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
-  # switch feedback - show that switch is activated (weigth switch & electricity)
+  # switch feedback - show that switch is activated (weigth switch)
   # KEYPAD MAPPING
   # Draw 3D level exit -> Pascal
   # enhace menus appareance --> amauri
