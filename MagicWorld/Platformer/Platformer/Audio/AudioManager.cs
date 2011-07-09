@@ -36,7 +36,6 @@ namespace MagicWorld.Audio
             : base(game)
         {
             sounds = new Hashtable(); ;
-            game.Services.AddService(typeof(IAudioService), this);
         }
 
         public new void Initialize()
