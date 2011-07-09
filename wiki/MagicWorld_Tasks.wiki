@@ -5,7 +5,6 @@
 = TODO =
 
 == Final (13.07) ==
-  # BUG: no jumping and turn direction possible on upwards moving plattform
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
@@ -24,6 +23,7 @@
   # KEYPAD MAPPING
   # Draw 3D level exit -> Pascal
   # enhace menus appareance --> amauri
+     * make messagebox convenient to menu design, also check text
   # Better looking torch texture -> Pascal
   # Another texture for moveable platforms -> Pascal
   # Use die animation -> John
