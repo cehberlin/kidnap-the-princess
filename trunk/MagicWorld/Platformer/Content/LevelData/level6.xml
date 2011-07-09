@@ -2637,6 +2637,9 @@
                         <Property Name="enable_gravity" Type="bool" Description="">
                             <boolean>true</boolean>
                         </Property>
+                      <Property Name="Magic" Type="string" Description="">
+                        <string></string>
+                      </Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>

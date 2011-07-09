@@ -61,6 +61,7 @@ namespace MagicWorld.StaticLevelContent
             {
                 level.Player.Position += Position - lastPosition;
             }
+            base.Update(gameTime);
         }
 
         #endregion

@@ -262,6 +262,7 @@ namespace MagicWorld.StaticLevelContent
                     CollisionType collisionType = CollisionType.Impassable;
                     collisionType = getCollisionType(item, collisionType);
                     PushPullElement pushPullElement = new PushPullElement(ti.asset_name, collisionType, level, item.Position, ti.TintColor, enablegravity);
+                    pushPullElement.isMagic = isMagic(item);
 
                     elements.Add(pushPullElement);
                 }
@@ -284,6 +285,7 @@ namespace MagicWorld.StaticLevelContent
                             SpellMoveablePlatform m = new SpellMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem, t.TintColor);
                             m.Width = (int)t.Origin.X * 2;
                             m.Height = (int)t.Origin.Y * 2;
+                            m.isMagic = isMagic(item);
                             elements.Add(m);
                         }
                         else if (item.CustomProperties.ContainsKey(PROPERTY_AUTO_MOVEABLE_PLATFORM))
@@ -293,6 +295,7 @@ namespace MagicWorld.StaticLevelContent
                             MoveablePlatform m = new MoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem, t.TintColor);
                             m.Width = (int)t.Origin.X * 2;
                             m.Height = (int)t.Origin.Y * 2;
+                            m.isMagic = isMagic(item);
                             elements.Add(m);
 
                             if (item.CustomProperties.ContainsKey(XMLLevelLoader.PROPERTY_IS_ACTIVATED))
@@ -318,6 +321,7 @@ namespace MagicWorld.StaticLevelContent
                                 SwitchableMoveablePlatform m = new SwitchableMoveablePlatform(t.asset_name, CollisionType.Impassable, level, getCorrectedStartPosition(t), pathItem, t.TintColor);
                                 m.Width = (int)t.Origin.X * 2;
                                 m.Height = (int)t.Origin.Y * 2;
+                                m.isMagic = isMagic(item);
                                 elements.Add(m);
                                 String id = (String)item.CustomProperties[PROPERTY_SWITCHABLE].value;
                                 connectSwitchable(switchList, id, m);
@@ -328,6 +332,7 @@ namespace MagicWorld.StaticLevelContent
                                 m.Position -= t.Origin;
                                 m.Width = (int)t.Origin.X * 2;
                                 m.Height = (int)t.Origin.Y * 2;
+                                m.isMagic = isMagic(item);
                                 elements.Add(m);
                             }
                         }
@@ -400,6 +405,8 @@ namespace MagicWorld.StaticLevelContent
                         collisionType = getCollisionType(item, collisionType);
 
                         GravityElement gravityElement = new GravityElement(ti.asset_name, collisionType, level, getCorrectedStartPosition(ti), enablecollision, enablegravity);
+                        gravityElement.isMagic = isMagic(item);
+
                         correctWidhAndHeight(gravityElement, ti);
                         elements.Add(gravityElement);
 
@@ -528,6 +535,21 @@ namespace MagicWorld.StaticLevelContent
                 opened = (bool)item.CustomProperties[PROPERTY_DOOR_OPEN].value;
             }
             return opened;
+        }
+
+        /// <summary>
+        /// analyse the enable gravity property
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="enablegravity"></param>
+        /// <returns></returns>
+        private static bool isMagic(Item item)
+        {
+            if (item.CustomProperties.ContainsKey("Magic"))
+            {
+                return true;
+            }
+            return false;
         }
 
 
@@ -752,6 +774,7 @@ namespace MagicWorld.StaticLevelContent
 
                         PushDownSwitch pds = new PushDownSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
                         correctWidhAndHeight(pds, ti);
+                        pds.isMagic = isMagic(item);
 
                         switchList.AddLast(pds);
                         elements.Add(pds);
@@ -771,7 +794,7 @@ namespace MagicWorld.StaticLevelContent
                         {
                             sw = new OnOffElectricitySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id);
                         }
-
+                        sw.isMagic = isMagic(item);
                         correctWidhAndHeight(sw, ti);
 
                         switchList.AddLast(sw);
@@ -784,6 +807,7 @@ namespace MagicWorld.StaticLevelContent
 
                         TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, true);
                         correctWidhAndHeight(pds, ti);
+                        pds.isMagic = isMagic(item);
 
                         switchList.AddLast(pds);
                         elements.Add(pds);
@@ -795,6 +819,7 @@ namespace MagicWorld.StaticLevelContent
 
                         TorchSwitch pds = new TorchSwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id, false);
                         correctWidhAndHeight(pds, ti);
+                        pds.isMagic = isMagic(item);
 
                         switchList.AddLast(pds);
                         elements.Add(pds);
@@ -806,6 +831,7 @@ namespace MagicWorld.StaticLevelContent
 
                         OneTimeDestroySwitch pds = new OneTimeDestroySwitch(ti.asset_name, level, getCorrectedStartPosition(ti), id,ti.TintColor);
                         correctWidhAndHeight(pds, ti);
+                        pds.isMagic=isMagic(item);
 
                         switchList.AddLast(pds);
                         elements.Add(pds);

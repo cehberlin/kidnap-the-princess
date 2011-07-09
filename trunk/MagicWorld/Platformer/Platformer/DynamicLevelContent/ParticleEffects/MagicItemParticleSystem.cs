@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace ParticleEffects
@@ -14,9 +15,9 @@ namespace ParticleEffects
     /// fiery explosion. It should be combined with ExplosionSmokeParticleSystem for
     /// best effect.
     /// </summary>
-    class LightningParticleSystem : ParticleSystem
+    class MagicItemParticleSystem : ParticleSystem
     {
-        public LightningParticleSystem(MagicWorldGame game, int howManyEffects)
+        public MagicItemParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game, howManyEffects)
         {
         }
@@ -27,7 +28,7 @@ namespace ParticleEffects
         /// </summary>
         protected override void InitializeConstants()
         {
-            textureFilename = "lightning";
+            textureFilename = "magicItem";
 
             // high initial speed with lots of variance.  make the values closer
             // together to have more consistently circular explosions.
@@ -79,19 +80,15 @@ namespace ParticleEffects
 
         protected override Vector2 PicDirection(ParticleSetting particleSetting, Vector2 startPosition)
         {
-            float angle = RandomBetween(0, MathHelper.PiOver4/2);
+            float angle = RandomBetween(0, MathHelper.Pi*2);
             return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
         }
 
+        protected override Vector2 getStartPositionRelativeToCenter(ParticleSetting particleSetting)
+        {
+            return GeometryCalculationHelper.getRandomPositionOnCycleBow(particleSetting.position, random.Next(0,(int)particleSetting.distance));
+        }
 
-        //protected override void AddParticles(Vector2 pos_center)
-        //{
-        //    base.AddParticles(pos_center);
-        //}
 
-        //protected override void AddParticles(Vector2 pos_center,Vector2 direction)
-        //{
-        //    base.AddParticles(pos_center);
-        //}
     }
 }

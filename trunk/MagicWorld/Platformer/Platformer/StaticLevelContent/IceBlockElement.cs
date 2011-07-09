@@ -11,6 +11,18 @@ namespace MagicWorld
     /// </summary>
     class IceBlockElement : BlockElement
     {
+        
+        /// <summary>
+        /// some variables for spell reaction
+        /// </summary>
+        public enum SpellState { NORMAL, BURNED, FROZEN, DESTROYED };
+        protected SpellState spellState = SpellState.NORMAL;
+
+        public SpellState State
+        {
+            get { return spellState; }
+        }
+        protected double spellDurationOfActionMs = 0;
 
         /// <summary>
         /// Constructs a new tile.
@@ -23,6 +35,22 @@ namespace MagicWorld
         public IceBlockElement(Level level, Vector2 position, int width, int height) :
             base("Tiles/Ice_Tile", CollisionType.Impassable, level, position, width, height)
         {
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if (spellState != SpellState.NORMAL)
+            {
+                if (spellDurationOfActionMs > 0)
+                {
+                    spellDurationOfActionMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                }
+                else
+                {
+                    spellDurationOfActionMs = 0;
+                    spellState = SpellState.NORMAL;
+                }
+            }
         }
 
         public override Boolean SpellInfluenceAction(Spell spell)
