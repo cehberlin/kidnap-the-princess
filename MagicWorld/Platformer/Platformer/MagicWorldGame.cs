@@ -143,6 +143,14 @@ namespace MagicWorld
             set { pullCreationParticleSystem = value; }
         }
 
+        ParticleSystem magicItemParticleSystem;
+
+        public ParticleSystem MagicItemParticleSystem
+        {
+            get { return magicItemParticleSystem; }
+            set { magicItemParticleSystem = value; }
+        }
+
         // Resources for drawing.
         public GraphicsDeviceManager graphics;
 
@@ -208,7 +216,9 @@ namespace MagicWorld
             iceParticleSystem = ParticleSystemFactory.getIce(this, 10);
             pullCreationParticleSystem = ParticleSystemFactory.getPull(this, 20);
             pushCreationParticleSystem = ParticleSystemFactory.getPush(this, 20);
+            magicItemParticleSystem = ParticleSystemFactory.getMagicItem(this, 120);
 
+            Components.Add(magicItemParticleSystem);
             Components.Add(explosionParticleSystem);
             Components.Add(iceParticleSystem);
             Components.Add(magicParticleSystem);

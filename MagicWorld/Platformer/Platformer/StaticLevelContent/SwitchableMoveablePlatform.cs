@@ -151,6 +151,7 @@ namespace MagicWorld.StaticLevelContent
                 this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
                 DrawRec = new Rectangle(left, top, Width, Height);
             }
+            base.Update(gameTime);
         }
 
         #endregion

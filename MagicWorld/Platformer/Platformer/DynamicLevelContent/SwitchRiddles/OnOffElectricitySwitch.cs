@@ -62,6 +62,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     }
                 }
             }
+            base.Update(gameTime);
         }
 
 

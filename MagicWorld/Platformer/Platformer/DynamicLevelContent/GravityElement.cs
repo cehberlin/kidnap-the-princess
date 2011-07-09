@@ -103,7 +103,8 @@ namespace MagicWorld.DynamicLevelContent
                     ResetVelocity();
                 }
             }
-            noGravityInfluence = false; 
+            noGravityInfluence = false;
+            base.Update(gameTime);
         }
 
         protected void ResetVelocity()

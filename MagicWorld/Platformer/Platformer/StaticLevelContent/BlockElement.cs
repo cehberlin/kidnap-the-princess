@@ -18,17 +18,7 @@ namespace MagicWorld
             
         protected Color drawColor = Color.White;
 
-        /// <summary>
-        /// some variables for spell reaction
-        /// </summary>
-        public enum SpellState { NORMAL, BURNED, FROZEN , DESTROYED};
-        protected SpellState spellState = SpellState.NORMAL;
-
-        public SpellState State
-        {
-            get { return spellState; }
-        }
-        protected double spellDurationOfActionMs = 0;
+        public bool isMagic=false;
 
         /// <summary>
         /// Constructor with color
@@ -112,21 +102,20 @@ namespace MagicWorld
             }            
         }
 
+        int particleUpdateCounter = 0;
         public override void Update(GameTime gameTime)
         {
-            if (spellState != SpellState.NORMAL)
+            if (isMagic )
             {
-                if (spellDurationOfActionMs>0)
-                {
-                    spellDurationOfActionMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                if(particleUpdateCounter % 12==0){
+                    Bounds bounds = Bounds;
+                    level.Game.MagicItemParticleSystem.AddParticles(new ParticleEffects.ParticleSetting(bounds.Center,bounds.Width+bounds.Height/4));
                 }
-                else
-                {
-                    spellDurationOfActionMs = 0;
-                    spellState = SpellState.NORMAL;
-                }                
+                particleUpdateCounter++;
             }
+            base.Update(gameTime);
         }
+        
         #endregion
 
     }
