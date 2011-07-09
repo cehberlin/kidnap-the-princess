@@ -39,9 +39,7 @@ namespace MagicWorld
         public LevelTransitionScreen(string message)
             
         {
-            const string usageText = "\nPress any key";
-
-            this.message = message;// +usageText;
+            this.message = message;
  
             IsPopup = true;
 

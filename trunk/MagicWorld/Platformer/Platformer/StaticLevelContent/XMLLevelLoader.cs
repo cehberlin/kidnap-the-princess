@@ -691,7 +691,7 @@ namespace MagicWorld.StaticLevelContent
                                 instructs.Add(new TutorialInstruction(item.CustomProperties[PROPERTY_NAME_INSTRUCTION].value.ToString(), new Rectangle((int)r.Position.X, (int)r.Position.Y, r.Width, r.Height)));
                             }
                         }
-                        catch (KeyNotFoundException k) { }
+                        catch (KeyNotFoundException) { }
                     }
                 }
             }

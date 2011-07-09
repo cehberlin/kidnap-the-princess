@@ -34,19 +34,6 @@ namespace MagicWorld.StaticLevelContent
             drawRec = new Rectangle(left, top, Width, Height);
         }
 
-        private bool positionChanged = true;
-        public override Vector2 Position
-        {
-            get
-            {
-                return base.Position;
-            }
-            set
-            {
-                base.Position = value;
-            }
-        }
-
         public override HelperClasses.Bounds Bounds
         {
             get

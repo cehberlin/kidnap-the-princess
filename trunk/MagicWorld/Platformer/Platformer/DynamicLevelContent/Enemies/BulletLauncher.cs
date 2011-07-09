@@ -45,7 +45,7 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                 {
                     currentDelay = delayTimeMs;
 
-                    Bullet bullet = new Bullet(level, position, launchVelocity, bulletSprite, enableGravityForBullets);
+                    Bullet bullet = new Bullet(level, Position, launchVelocity, bulletSprite, enableGravityForBullets);
 
                     level.GeneralColliadableGameElements.Add(bullet);
                 }

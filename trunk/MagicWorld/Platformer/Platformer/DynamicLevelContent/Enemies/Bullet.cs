@@ -50,7 +50,7 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                     // Calculate bounds within texture size.
                     radius = (sprite.Animation.FrameWidth + sprite.Animation.FrameHeight) / 2 * 0.3f * scale;
                 }
-                return new Bounds(position, radius);
+                return new Bounds(Position, radius);
             }
         }
 

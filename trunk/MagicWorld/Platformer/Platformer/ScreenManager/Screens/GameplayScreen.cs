@@ -45,11 +45,6 @@ namespace MagicWorld
         // or handle exceptions, both of which can add unnecessary time to level loading.
         //private const int numberOfLevels = 1;
 
-        //check if the level was already added to a service
-        bool levelAddedToService = false;
-
-        float pauseAlpha;
-
         #endregion
         #region Initialization
 
@@ -335,9 +330,9 @@ namespace MagicWorld
 
 
             // If the game is transitioning on or off, fade it out to black.
-            if (TransitionPosition > 0 || pauseAlpha > 0)
+            if (TransitionPosition > 0)
             {
-                float alpha = MathHelper.Lerp(1f - TransitionAlpha, 1f, pauseAlpha / 2);
+                float alpha = MathHelper.Lerp(1f - TransitionAlpha, 1f, 0);
 
                 ScreenManager.FadeBackBufferToBlack(alpha);
             }
@@ -380,9 +375,7 @@ namespace MagicWorld
         {
             ScreenManager.Game.Services.RemoveService(typeof(Level));
             ScreenManager.Game.Services.AddService(typeof(Level), level);
-            levelAddedToService = true;
-
-            
+             
             TutorialManager tutManager = (TutorialManager)ScreenManager.Game.Services.GetService(typeof(TutorialManager));
             tutManager.Enabled = true;
 

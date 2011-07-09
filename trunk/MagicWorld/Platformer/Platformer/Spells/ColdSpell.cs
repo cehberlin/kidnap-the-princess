@@ -43,7 +43,7 @@ namespace MagicWorld
 
         protected override void OnRemove()
         {
-            level.Game.IceParticleSystem.AddParticles(position);
+            level.Game.IceParticleSystem.AddParticles(Position);
             base.OnRemove();
         }
 

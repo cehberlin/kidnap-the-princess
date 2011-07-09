@@ -225,9 +225,9 @@ namespace MagicWorld
             aid = new AimingAid(this);
             Components.Add(aid);
 
-            TutorialManager tut = new TutorialManager(this);
-            Services.AddService(typeof(TutorialManager), tut);
-            Components.Add(tut);
+            tutManager = new TutorialManager(this);
+            Services.AddService(typeof(TutorialManager), tutManager);
+            Components.Add(tutManager);
 
             //Load saved config
             ConfigGame();

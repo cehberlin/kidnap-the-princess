@@ -90,12 +90,13 @@ namespace MagicWorld
             get { return position; }
             set
             {
+                Vector2 newPosition = new Vector2((float)Math.Round(value.X), (float)Math.Round(value.Y));
                 //move spell in creation together with player
                 if (currentSpell != null)
                 {
-                    currentSpell.Position = currentSpell.Position + (value - position);
+                    currentSpell.Position = currentSpell.Position + (newPosition - position);
                 }
-                position = value;
+                position = newPosition;
             }
         }
 
@@ -450,9 +451,6 @@ namespace MagicWorld
                 lastVelocity = velocity;
             }
 
-
-            Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
-
             // If the player is now colliding with the level, separate them.
             HandleCollisions();
 
@@ -566,27 +564,6 @@ namespace MagicWorld
                 if (!enemyService.IsFroozen)
                 {
                     OnKilled(e);
-                }
-            }
-            //move with platforms
-            else if (isOnGround &&
-                element.GetType() == typeof(MoveablePlatform))
-            {
-                this.Position += ((MoveablePlatform)element).LastMovement;
-                Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
-            }
-            else if (isOnGround && element.GetType() == typeof(SpellMoveablePlatform))
-            {
-                this.Position += ((SpellMoveablePlatform)element).LastMovement;
-                Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
-            }
-            else if (isOnGround && element.GetType() == typeof(SwitchableMoveablePlatform))
-            {
-                bool ismoving = ((SwitchableMoveablePlatform)element).getMove();
-                if (ismoving)
-                {
-                    this.Position += ((SwitchableMoveablePlatform)element).LastMovement;
-                    Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
                 }
             }
         }
@@ -806,7 +783,7 @@ namespace MagicWorld
                 angle = -spellAimAngle;
             }
 
-            pos = position + new Vector2((float)(Math.Sin(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
+            pos = Position + new Vector2((float)(Math.Sin(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint), (float)(Math.Cos(angle) * SpellConstantsValues.spellDistanceToPlayerMidPoint));
             return pos;
         }
 
