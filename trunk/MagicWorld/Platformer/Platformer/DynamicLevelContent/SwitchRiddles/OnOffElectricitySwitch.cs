@@ -13,6 +13,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
     /// </summary>
     class OnOffElectricitySwitch : AbstractSwitch
     {
+        int currentParticles = 0;
 
         public OnOffElectricitySwitch(String texture, Level level, Vector2 position, string id)
             : base(texture, CollisionType.Platform, level, position,id)
@@ -27,6 +28,18 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             int boundsHeight = 30;
             this.bounds = new Bounds(left + Width / 2 - boundsWith / 2, top + Height - boundsHeight, boundsWith, boundsHeight);
 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if(Activated){
+                currentParticles++;
+
+                if (currentParticles % 4 == 0) //only every 4 update cycle
+                {
+                    level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                }
+            }
         }
 
 
@@ -45,6 +58,6 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                 return true;
             }
             return base.SpellInfluenceAction(spell);
-        }     
+        }
     }
 }
