@@ -38,6 +38,9 @@ Although the level loading is not completely implemented yet it is already fairl
 
 Note: Please name the xml level files "levelN.xml" where N is the number of the level and put the xml files in the LevelData folder.
 
+=== General ===
+You could add the custom string property named "Magic" to all switches, all types of moveable plattforms, gravity elements and push and pull elements to enable a particle effect which shows that this item has some special behavior and the player should interact with it.
+
 === Push Pull ===
 Pushable and pullable objects have two optional parameters (custom properties:
  # enable_gravity - this is a boolean value, set it to true or false
