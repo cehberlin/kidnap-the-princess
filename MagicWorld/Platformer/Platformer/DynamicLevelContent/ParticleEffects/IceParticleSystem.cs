@@ -57,7 +57,7 @@ namespace ParticleEffects
             // additive blending is very good at creating fiery effects.
 			blendState = BlendState.AlphaBlend;
 
-            //DrawOrder = AdditiveDrawOrder;
+            DrawOrder = AdditiveDrawOrder;
         }
 
         protected override void InitializeParticle(Particle p, Vector2 where)

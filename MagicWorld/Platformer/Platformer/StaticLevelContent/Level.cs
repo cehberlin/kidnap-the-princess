@@ -336,7 +336,10 @@ namespace MagicWorld
             if (player != null)
             {
                 inputState.Update();
-                game.GameData.Time += gameTime.ElapsedGameTime.Milliseconds;
+                if (player.IsAlive && !reachedExit)
+                {
+                    game.GameData.Time += gameTime.ElapsedGameTime.Milliseconds;
+                }
 
                 // Pause while the player is dead or time is expired.
                 if (!Player.IsAlive || TimeRemaining == TimeSpan.Zero)

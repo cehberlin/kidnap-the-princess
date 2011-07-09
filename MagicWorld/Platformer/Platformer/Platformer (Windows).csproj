@@ -97,6 +97,8 @@
     <Compile Include="DynamicLevelContent\GravityElement.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\FireParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\IceParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\PullCreationParticleSystem.cs" />
+    <Compile Include="DynamicLevelContent\ParticleEffects\PushCreationParticleSystem.cs" />
     <Compile Include="DynamicLevelContent\ParticleEffects\LightningParticleSystem..cs" />
     <Compile Include="DynamicLevelContent\Portal.cs" />
     <Compile Include="DynamicLevelContent\PushPullElement.cs" />

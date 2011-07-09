@@ -98,9 +98,9 @@ namespace MagicWorld.HelperClasses
                 player.CurrentSpell.Direction = direction;
                 player.CurrentSpell.Position = pos;
                 player.CurrentSpell.Rotation = -(float)(level.Player.SpellAimAngle + Math.PI / 2);
-                //add new particle effects
-                player.CurrentSpell.AddOnCreationParticles();
             }
+            //add new particle effects
+            player.CurrentSpell.AddOnCreationParticles();
             player.Mana.TempMana = player.Mana.CurrentMana- player.CurrentSpell.UsedMana;
         }
 

@@ -74,5 +74,13 @@ namespace MagicWorld.Spells
             SpellState = State.REMOVE;
         }
 
+        public override void AddOnCreationParticles()
+        {
+            if (level.Game.PullCreationParticleSystem.CurrentParticles() < 10)
+            {
+                level.Game.PullCreationParticleSystem.AddParticles(position);
+            }
+        }
+
     }
 }

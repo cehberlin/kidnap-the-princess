@@ -61,7 +61,7 @@ namespace ParticleEffects
 
 			blendState = BlendState.AlphaBlend;
 
-            //DrawOrder = AlphaBlendDrawOrder;
+            DrawOrder = AlphaBlendDrawOrder;
         }
     }
 }
