@@ -72,11 +72,9 @@ namespace MagicWorld
             matterTexture = level.Content.Load<Texture2D>("Sprites\\MatterSpell\\matter");
 
             base.LoadContent(spriteSet);
-            oldBounds = this.Bounds;
         }
 
         double nogravityInfluenceTime = 0;
-        Bounds oldBounds;
         bool isOnGround = false;
         public override void Update(GameTime gameTime)
         {            
@@ -105,7 +103,7 @@ namespace MagicWorld
 
             if (SpellState == State.WORKING)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, ref oldBounds, ref isOnGround,null,false,true,false);
+                level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround,null,false,true,false);
                 if (isOnGround)
                 {
                     ResetVelocity();

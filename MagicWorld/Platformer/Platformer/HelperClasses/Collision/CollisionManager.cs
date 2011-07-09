@@ -136,9 +136,8 @@ namespace MagicWorld.HelperClasses
         /// <param name="ignorePlatforms"></param>
         public void HandleGeneralCollisions(BasicGameElement elem, OnCollisionWithCallback callback = null, bool ignorePlatforms = false, bool resolveCollision = true)
         {
-            Bounds dummy_bounds = new Bounds(Vector2.Zero, 0);
             bool isOnGroundDummy = false;
-            HandleGeneralCollisionsInternal(elem, ref dummy_bounds, ref isOnGroundDummy, callback, ignorePlatforms, resolveCollision);
+            HandleGeneralCollisionsInternal(elem, ref isOnGroundDummy, callback, ignorePlatforms, resolveCollision);
         }
 
         /// <summary>
@@ -150,9 +149,9 @@ namespace MagicWorld.HelperClasses
         /// <param name="IsOnGround">give you information if the object is on ground or not</param>
         /// <param name="callback">delegate which called for every object which has collision</param>
         /// <param name="ignorePlatforms">set true if plattforms should ignored ->allows moving down thourogh plattforms</param>
-        public void HandleGeneralCollisions(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback = null, bool ignorePlatforms = false, bool resolveCollision = true,bool resolveWithoutPositionUpdate=true)
+        public void HandleGeneralCollisions(BasicGameElement elem, ref bool IsOnGround, OnCollisionWithCallback callback = null, bool ignorePlatforms = false, bool resolveCollision = true, bool resolveWithoutPositionUpdate = true)
         {
-            HandleGeneralCollisionsInternal(elem, ref oldBounds, ref IsOnGround, callback, ignorePlatforms, resolveCollision, resolveWithoutPositionUpdate);
+            HandleGeneralCollisionsInternal(elem, ref IsOnGround, callback, ignorePlatforms, resolveCollision, resolveWithoutPositionUpdate);
         }
 
         /// <summary>
@@ -165,7 +164,7 @@ namespace MagicWorld.HelperClasses
         /// <param name="callback">delegate which called for every object which has collision</param>
         /// <param name="ignorePlatforms">set true if plattforms should ignored ->allows moving down thourogh plattforms</param>
         /// <param name="ignoreBounds">ignore position change of bounds, only a internal parameter see method above</param>
-        protected void HandleGeneralCollisionsInternal(BasicGameElement elem, ref Bounds oldBounds, ref bool IsOnGround, OnCollisionWithCallback callback, bool ignorePlatforms, bool resolveCollision,bool resolveWithoutPositionUpdate=true)
+        protected void HandleGeneralCollisionsInternal(BasicGameElement elem, ref bool IsOnGround, OnCollisionWithCallback callback, bool ignorePlatforms, bool resolveCollision, bool resolveWithoutPositionUpdate = true)
         {
             List<BasicGameElement> collisionObjects = new List<BasicGameElement>();
             level.CollisionManager.CollidateWithGeneralLevelElements(elem, ref collisionObjects);
@@ -173,11 +172,14 @@ namespace MagicWorld.HelperClasses
             //// Reset flag to search for ground collision.
             IsOnGround = false;
 
-            Bounds elemBounds;
+            float resolvedYCollision=0;
 
-            Bounds obstacleBounds;
+            Rectangle elemRectangle;
             Rectangle obstacleRectangle;
-            Rectangle oldBoundsRect=oldBounds.getRectangle();
+
+            elemRectangle = elem.Bounds.getRectangle();
+            int elemLeftXCorner = elemRectangle.X;
+            int elemRightXCorner = elemLeftXCorner + elemRectangle.Width;
 
             foreach (BasicGameElement t in collisionObjects)
             {
@@ -188,50 +190,59 @@ namespace MagicWorld.HelperClasses
                     {
                         continue;
                     }
-                    
+
                     //get depth of intersection
                     Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
-                    elemBounds = elem.Bounds;
 
                     if (depth != Vector2.Zero)
                     {
                         float absDepthX = Math.Abs(depth.X);
                         float absDepthY = Math.Abs(depth.Y);
 
-                        obstacleBounds = t.Bounds;
-                        obstacleRectangle = obstacleBounds.getRectangle();
-                     
+                        obstacleRectangle = t.Bounds.getRectangle();
+
                         // Resolve the collision along the y axis.
                         if (absDepthY < absDepthX || collision == CollisionType.Platform)
-                        {                        
-                            // If we crossed the top of a tile, we are on the ground.
-                            if (oldBoundsRect.Bottom <= obstacleRectangle.Top)
-                                {
-                                    IsOnGround = true;
-                                }
+                        {
+                            int obstacleLeftXCorner = obstacleRectangle.X;
+                            int obstacleRightXCorner = obstacleLeftXCorner + obstacleRectangle.Width;
 
-                                // Ignore platforms, unless we are on the ground.
-                                if (collision == CollisionType.Impassable
-                                    //this condition is necessary if we ware on ground and have a collision with another plattform with upper player body
-                                    || IsOnGround && obstacleRectangle.Bottom > elemBounds.getRectangle().Bottom)
-                                {
-                                    if (resolveCollision && (resolveWithoutPositionUpdate || oldBounds.Position.Y != elemBounds.Position.Y))
+                            // If we crossed the top of a tile, we are on the ground.
+                            if (obstacleRectangle.Top > elemRectangle.Bottom - 10 && (//is higher than colliding object 
+                                //and the x bounds are in the same area like the colliding object
+                                elemLeftXCorner > obstacleLeftXCorner && elemLeftXCorner < obstacleRightXCorner ||
+                                elemRightXCorner > obstacleLeftXCorner && elemRightXCorner < obstacleRightXCorner))
+                            {
+                                IsOnGround = true;
+                            }
+
+                            // Ignore platforms, unless we are on the ground.
+                            if (collision == CollisionType.Impassable
+                                //this condition is necessary if we ware on ground and have a collision with another plattform with upper player body
+                                || IsOnGround && obstacleRectangle.Bottom > elemRectangle.Bottom)
+                            {
+                                //if we already resolved a collision to the bottom do not resolve to the top
+                                if (resolvedYCollision > 0 || depth.Y < 0)
+                                { 
+                                    if (resolveCollision && (resolveWithoutPositionUpdate || elem.OldPosition.Y != elem.Position.Y))
                                     {
+
                                         // Resolve the collision along the Y axis.
                                         elem.Position = new Vector2(elem.Position.X, elem.Position.Y + depth.Y);
+                                        resolvedYCollision += depth.Y;
                                     }
-                                    if (callback != null)
-                                    {
-                                        callback.Invoke(t, false, true);
-                                    }
-                                }                            
+                                }
+                                if (callback != null)
+                                {
+                                    callback.Invoke(t, false, true);
+                                }
+                            }
                         }
                         else if (collision == CollisionType.Impassable) // Ignore platforms. //only handles this if object is in move
                         {
-                            //Debug.WriteLine("xCollision" + absDepthX + " " +absDepthY);
                             if (absDepthY > 10) //tolerance delta
                             {
-                                if (resolveCollision && (resolveWithoutPositionUpdate || oldBounds.Position.X != elemBounds.Position.X))
+                                if (resolveCollision && (resolveWithoutPositionUpdate || elem.OldPosition.X != elem.Position.X))
                                 {
                                     // Resolve the collision along the X axis.
                                     elem.Position = new Vector2(elem.Position.X + depth.X, elem.Position.Y);
@@ -245,9 +256,6 @@ namespace MagicWorld.HelperClasses
                     }
                 }
             }
-
-            // Save the new bounds bottom.
-            oldBounds = elem.Bounds;
         }
 
         /// <summary>
