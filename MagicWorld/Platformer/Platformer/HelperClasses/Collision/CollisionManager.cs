@@ -207,6 +207,8 @@ namespace MagicWorld.HelperClasses
                             int obstacleLeftXCorner = obstacleRectangle.X;
                             int obstacleRightXCorner = obstacleLeftXCorner + obstacleRectangle.Width;
 
+                            bool localOnGround = false;
+
                             // If we crossed the top of a tile, we are on the ground.
                             if (obstacleRectangle.Top > elemRectangle.Bottom - 10 && (//is higher than colliding object 
                                 //and the x bounds are in the same area like the colliding object
@@ -214,19 +216,19 @@ namespace MagicWorld.HelperClasses
                                 elemRightXCorner > obstacleLeftXCorner && elemRightXCorner < obstacleRightXCorner))
                             {
                                 IsOnGround = true;
+                                localOnGround = true;
                             }
 
                             // Ignore platforms, unless we are on the ground.
                             if (collision == CollisionType.Impassable
                                 //this condition is necessary if we ware on ground and have a collision with another plattform with upper player body
-                                || IsOnGround && obstacleRectangle.Bottom > elemRectangle.Bottom)
+                                || localOnGround && obstacleRectangle.Bottom > elemRectangle.Bottom)
                             {
                                 //if we already resolved a collision to the bottom do not resolve to the top
                                 if (resolvedYCollision > 0 || depth.Y < 0)
                                 { 
                                     if (resolveCollision && (resolveWithoutPositionUpdate || elem.OldPosition.Y != elem.Position.Y))
                                     {
-
                                         // Resolve the collision along the Y axis.
                                         elem.Position = new Vector2(elem.Position.X, elem.Position.Y + depth.Y);
                                         resolvedYCollision += depth.Y;
