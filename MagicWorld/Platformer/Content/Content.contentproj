@@ -1073,6 +1073,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sprites\Player\dieSpriteSheet.png">
+      <Name>dieSpriteSheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="Sprites\Player\dieSpriteSheet.xml">
+      <Name>dieSpriteSheet</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <None Include="LevelData\level7.xml">
       <Name>level7</Name>
       <Importer>XmlImporter</Importer>

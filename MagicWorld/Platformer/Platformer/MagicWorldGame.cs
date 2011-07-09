@@ -208,7 +208,6 @@ namespace MagicWorld
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
             simpleAnimator = new SimpleAnimator(this);
-            //Components.Add(simpleAnimator);
                         
             explosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
             magicParticleSystem = ParticleSystemFactory.getMagic(this, 30);
