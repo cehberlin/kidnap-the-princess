@@ -38,7 +38,6 @@
 
  === optional ===
   # better boundings: big blockades have an ugly bounding box
-  # you should move with moveable plattforms -->rounding problem?? (Also: while casting on the platform the player no longer moves with a platform)
   # optimize platform textures -> Pascal
   # Bigger and better "wall" textures -> Pascal
 
