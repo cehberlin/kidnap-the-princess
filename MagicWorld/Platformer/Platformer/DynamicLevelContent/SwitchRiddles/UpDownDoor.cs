@@ -32,7 +32,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         {
             float movement = Texture.Height * OpenCloseSpeedFactor*(float)gameTime.ElapsedGameTime.TotalSeconds;
             //open the door step by step
-            if (Open && position.Y > openedPosition.Y)
+            if (Open && Position.Y > openedPosition.Y)
             {
                 Position += new Vector2(0, -movement);
             }

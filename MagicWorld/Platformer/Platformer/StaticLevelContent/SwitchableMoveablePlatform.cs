@@ -28,14 +28,6 @@ namespace MagicWorld.StaticLevelContent
         private Bounds oldBounds = null;
         private float acceleration = 1;
 
-        Vector2 lastMovement = Vector2.Zero;
-
-        public Vector2 LastMovement
-        {
-            get { return lastMovement; }
-        }
-
-
         public SwitchableMoveablePlatform(String texture, CollisionType collision, Level level, Vector2 position, PathItem path, Color drawColor)
             : base(texture, collision, level, position, drawColor)
         {
@@ -145,10 +137,13 @@ namespace MagicWorld.StaticLevelContent
 
                 currentPathPosition = path.WorldPoints[pathPosition];
                 nextPathPosition = path.WorldPoints[nextPosition];
-                Vector2 newPos = Position + velocity * elapsed * acceleration;
-                lastMovement = newPos - Position;
-                Position = newPos;
-
+                Vector2 movement = velocity * elapsed * acceleration;
+                Position += movement;
+                if (level.Player.IsOnGround && level.CollisionManager.CollidateWithPlayer(this))
+                {
+                    level.Player.Position += movement;
+                }
+  
                 int left = (int)Math.Round(Position.X);
                 int top = (int)Math.Round(Position.Y);
 

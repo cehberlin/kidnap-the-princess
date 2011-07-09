@@ -6,8 +6,6 @@ namespace MagicWorld.HUDClasses
 {
     class SpellBar : HUDElement
     {
-        //TODO: Display more than the current spell (Prev and next). 
-        List<Spells.SpellType> spells;
         /// <summary>
         /// The currently selected spell.
         /// </summary>

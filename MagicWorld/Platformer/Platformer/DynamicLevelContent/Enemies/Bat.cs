@@ -37,7 +37,6 @@ namespace MagicWorld
         private float movementSpeedY = 0;
 
         private bool isOnFire = false;
-        private bool switchvelocity = false;
 
         /// <summary>
         /// How long this enemy has been waiting before turning around.
@@ -148,7 +147,6 @@ namespace MagicWorld
                 if(!isOnFire)
                 {
                     isOnFire = true;
-                    switchvelocity = true;
                 }
                 currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
                 if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)

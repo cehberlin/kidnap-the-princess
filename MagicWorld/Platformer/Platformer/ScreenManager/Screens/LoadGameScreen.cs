@@ -29,8 +29,7 @@ namespace MagicWorld
         string[] files;        
         int selectedFile = 0;
         SpriteFont font;
-        GraphicsDevice graphics;
-
+   
         #endregion
 
         #region Initialization

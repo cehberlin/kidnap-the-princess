@@ -17,7 +17,7 @@ namespace MagicWorld
         {
             get
             {
-                return new Bounds(position, currentScale*20);
+                return new Bounds(Position, currentScale*20);
             }
         }
 

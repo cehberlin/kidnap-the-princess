@@ -25,13 +25,6 @@ namespace MagicWorld.StaticLevelContent
             {
                 return new XMLLevelLoader(1); 
             }
-            //switch (nr) { 
-            //    case 1:
-            //    case 2:
-            //        return new XMLLevelLoader(nr);
-            //    default:
-            //        return new XMLLevelLoader(1);
-            //}
     }
     }
 }

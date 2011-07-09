@@ -19,7 +19,7 @@ namespace MagicWorld.Ingredients
 
         public override Vector2 Position
         {
-            get { return position; }
+            get { return Position; }
             set { position = value; }
         }
 

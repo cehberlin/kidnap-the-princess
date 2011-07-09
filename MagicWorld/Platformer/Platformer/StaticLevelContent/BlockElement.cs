@@ -15,15 +15,7 @@ namespace MagicWorld
 
         public int Width = 0;
         public int Height = 0;
-
-        private bool positionChanged = true; // true if the position was changed but no new bounding box was calculated
-
-        public override Vector2 Position
-        {
-            get { return position; }
-            set { position = value; positionChanged = true; }
-        }
-
+            
         protected Color drawColor = Color.White;
 
         /// <summary>

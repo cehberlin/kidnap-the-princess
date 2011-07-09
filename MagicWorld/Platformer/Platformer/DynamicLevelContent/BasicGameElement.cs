@@ -44,6 +44,8 @@ namespace MagicWorld.DynamicLevelContent
 
         private Vector2 oldPosition = Vector2.Zero;
 
+        protected bool positionChanged = true; // true if the position was changed but no new bounding box was calculated
+
         public Vector2 OldPosition
         {
             get { return oldPosition; }
@@ -55,7 +57,10 @@ namespace MagicWorld.DynamicLevelContent
             get { return position; }
             set {
                 oldPosition = position;
-                position = value; }
+                position = new Vector2((float)Math.Round(value.X), (float)Math.Round(value.Y));
+                positionChanged = true;
+
+            }
         }
 
         protected Vector2 velocity = Vector2.Zero;

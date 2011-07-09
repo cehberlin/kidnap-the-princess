@@ -57,7 +57,10 @@ namespace MagicWorld.StaticLevelContent
         {
             Vector2 lastPosition = Position;
             pushPullHandler.Update(gameTime, currentPathPosition, nextPathPosition, currentBounds);
-            lastMovement = Position - lastPosition;
+            if (level.Player.IsOnGround && level.CollisionManager.CollidateWithPlayer(this))
+            {
+                level.Player.Position += Position - lastPosition;
+            }
         }
 
         #endregion
