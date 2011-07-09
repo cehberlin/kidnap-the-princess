@@ -9,6 +9,7 @@ using System.Diagnostics;
 using MagicWorld.Spells;
 using MagicWorld.HelperClasses;
 using MagicWorld.Constants;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -178,7 +179,8 @@ namespace MagicWorld
         {
             if (level.Game.MatterCreationParticleSystem.CurrentParticles() < 10)
             {
-                level.Game.MatterCreationParticleSystem.AddParticles(position);
+                Bounds bounds = Bounds;
+                level.Game.MatterCreationParticleSystem.AddParticles(new ParticleSetting(position, (bounds.Width+bounds.Height)/4+40));
             }
         }
 

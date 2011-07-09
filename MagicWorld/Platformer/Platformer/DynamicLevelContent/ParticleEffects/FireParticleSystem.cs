@@ -66,7 +66,7 @@ namespace ParticleEffects
         /// move have an initial velocity pointing up.
         /// </summary>
         /// <returns>a random direction which points basically up.</returns>
-        protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
+        protected override Vector2 PicDirection(ParticleSetting particleSetting, Vector2 startPosition)
         {
             // Point the particles somewhere between 80 and 100 degrees.
             // tweak this to make the smoke have more or less spread.
@@ -87,9 +87,9 @@ namespace ParticleEffects
         /// </summary>
         /// <param name="p">the particle to set up</param>
         /// <param name="where">where the particle should be placed</param>
-        protected override void InitializeParticle(Particle p, Vector2 where)
+        protected override void InitializeParticle(Particle p, ParticleSetting particleSetting)
         {
-            base.InitializeParticle(p, where);
+            base.InitializeParticle(p, particleSetting);
 
             // the base is mostly good, but we want to simulate a little bit of wind
             // heading to the right.

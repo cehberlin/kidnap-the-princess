@@ -17,22 +17,6 @@ namespace ParticleEffects
     class MagicParticleSystem : ParticleSystem
     {
 
-        bool useRandomColor = true;
-        Color particleColor;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="game"></param>
-        /// <param name="howManyEffects"></param>
-        /// <param name="color">color for the particles</param>
-        public MagicParticleSystem(MagicWorldGame game, int howManyEffects,Color color)
-            : base(game, howManyEffects)
-        {
-            particleColor = color;
-            useRandomColor = false;
-        }
-
         /// <summary>
         /// this constructor sets color of the particles to random
         /// </summary>
@@ -83,9 +67,9 @@ namespace ParticleEffects
             DrawOrder = AdditiveDrawOrder;
         }
 
-        protected override void InitializeParticle(Particle p, Vector2 where)
+        protected override void InitializeParticle(Particle p, ParticleSetting particleSetting)
         {
-            base.InitializeParticle(p, where);
+            base.InitializeParticle(p, particleSetting);
             
             // The base works fine except for acceleration. Explosions move outwards,
             // then slow down and stop because of air resistance. Let's change
@@ -98,53 +82,6 @@ namespace ParticleEffects
             // velocity at time t = initial velocity + acceleration * t)
             // We'll solve the equation for a0, using t = p.Lifetime and vt = 0.
             p.Acceleration = -p.Velocity / p.Lifetime;
-        }
-        Random rnd = new Random(1415648);
-
-        protected override Color getParticleTextureColor()
-        {
-            if (!useRandomColor)
-            {
-                return particleColor;
-            }
-            Color color;            
-
-            switch (rnd.Next(0, 10))
-            {
-                case 0:
-                    color = Color.White;
-                    break;
-                case 1:
-                    color = Color.Red;
-                    break;
-                case 2:
-                    color = Color.Blue;
-                    break;
-                case 3:
-                    color = Color.Yellow;
-                    break;
-                case 4:
-                    color = Color.Green;
-                    break;
-                case 5:
-                    color = Color.Pink;
-                    break;
-                case 6:
-                    color = Color.Violet;
-                    break;
-                case 7:
-                    color = Color.LightCyan;
-                    break;
-                case 8:
-                    color = Color.LightBlue;
-                    break;
-                default:
-                    color = Color.White;
-                    break;
-            }
-
-
-            return color;
-        }
+        }       
     }
 }

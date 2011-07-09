@@ -59,9 +59,9 @@ namespace ParticleEffects
 
         }
 
-        protected override void InitializeParticle(Particle p, Vector2 where)
+        protected override void InitializeParticle(Particle p, ParticleSetting particleSetting)
         {
-            base.InitializeParticle(p, where);
+            base.InitializeParticle(p, particleSetting);
             
             // The base works fine except for acceleration. Explosions move outwards,
             // then slow down and stop because of air resistance. Let's change
@@ -77,7 +77,7 @@ namespace ParticleEffects
         }
 
 
-        protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
+        protected override Vector2 PicDirection(ParticleSetting particleSetting, Vector2 startPosition)
         {
             float angle = RandomBetween(0, MathHelper.PiOver4/2);
             return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));

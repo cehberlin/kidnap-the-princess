@@ -302,7 +302,7 @@ namespace MagicWorld
         {
             if (level.Game.MagicParticleSystem.CurrentParticles() < 10)
             {
-                level.Game.MagicParticleSystem.AddParticles(position);
+                level.Game.MagicParticleSystem.AddParticles(ParticleSetting.getWithRandomColor(position));
             }
         }
 

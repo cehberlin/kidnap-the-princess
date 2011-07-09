@@ -8,6 +8,7 @@ using MagicWorld.Constants;
 using System.Diagnostics;
 using MagicWorld.Services;
 using MagicWorld.Gleed2dLevelContent;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -169,7 +170,7 @@ namespace MagicWorld
 
                 if (currentParticles % 4 == 0) //only every 4 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20)));
                 }
             }
 

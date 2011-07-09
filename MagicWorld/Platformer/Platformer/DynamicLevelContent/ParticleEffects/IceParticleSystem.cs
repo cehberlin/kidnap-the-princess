@@ -60,9 +60,9 @@ namespace ParticleEffects
             DrawOrder = AdditiveDrawOrder;
         }
 
-        protected override void InitializeParticle(Particle p, Vector2 where)
+        protected override void InitializeParticle(Particle p, ParticleSetting particleSetting)
         {
-            base.InitializeParticle(p, where);
+            base.InitializeParticle(p, particleSetting);
             
             // The base works fine except for acceleration. Explosions move outwards,
             // then slow down and stop because of air resistance. Let's change

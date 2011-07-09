@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using ParticleEffects;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
@@ -60,8 +61,8 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             {
                 if (currentParticles % 12 == 0) //only every .. update cycle
                 {
-                    level.Game.SmokeParticleSystem.AddParticles(Position + new Vector2(Width / 2, -20));
-                    level.Game.FireParticleSystem.AddParticles(Position + new Vector2(Width / 2, -20));
+                    level.Game.SmokeParticleSystem.AddParticles(new ParticleSetting(Position + new Vector2(Width / 2, -20)));
+                    level.Game.FireParticleSystem.AddParticles(new ParticleSetting(Position + new Vector2(Width / 2, -20)));
                 }
                 currentParticles++;
             }

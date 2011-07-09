@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Spells;
 using MagicWorld.Constants;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -45,8 +46,8 @@ namespace MagicWorld
         /// </summary>
         protected override void OnRemove()
         {
-            level.Game.ExplosionParticleSystem.AddParticles(Position);
-            level.Game.ExplosionSmokeParticleSystem.AddParticles(Position);
+            level.Game.ExplosionParticleSystem.AddParticles(new ParticleSetting(position));
+            level.Game.ExplosionSmokeParticleSystem.AddParticles(new ParticleSetting(position));
             base.OnRemove();
         }
 
@@ -64,9 +65,9 @@ namespace MagicWorld
         /// </summary>
         public override void AddOnCreationParticles()
         {
-            if (level.Game.FireMagicParticleSystem.CurrentParticles() < 10)
+            if (level.Game.MagicParticleSystem.CurrentParticles() < 10)
             {
-                level.Game.FireMagicParticleSystem.AddParticles(position);
+                level.Game.MagicParticleSystem.AddParticles(new ParticleSetting(position,Color.Red));
             }
         }
     }

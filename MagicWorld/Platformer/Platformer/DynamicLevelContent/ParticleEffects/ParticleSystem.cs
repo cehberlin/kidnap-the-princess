@@ -7,7 +7,7 @@ using MagicWorld.Services;
 
 namespace ParticleEffects
 {
-    /// <summary>
+     /// <summary>
     /// ParticleSystem is an abstract class that provides the basic functionality to
     /// create a particle effect. Different subclasses will have different effects,
     /// such as fire, explosions, and plumes of smoke. To use these subclasses, 
@@ -233,7 +233,7 @@ namespace ParticleEffects
         /// AddParticles will have no effect.
         /// </summary>
         /// <param name="pos_center">where the particle effect should be created</param>
-        public virtual void AddParticles(Vector2 pos_center)
+        public virtual void AddParticles(ParticleSetting particleSetting)
         {
             // the number of particles we want for this effect is a random number
             // somewhere between the two constants specified by the subclasses.
@@ -245,7 +245,7 @@ namespace ParticleEffects
             {
                 // grab a particle from the freeParticles queue, and Initialize it.
                 Particle p = freeParticles.Dequeue();
-                InitializeParticle(p, pos_center);
+                InitializeParticle(p, particleSetting);
             }
         }
 
@@ -259,12 +259,12 @@ namespace ParticleEffects
         /// <param name="p">the particle to initialize</param>
         /// <param name="pos_center">the position on the screen that the particle should be
         /// </param>
-        protected virtual void InitializeParticle(Particle p, Vector2 pos_center)
+        protected virtual void InitializeParticle(Particle p, ParticleSetting particleSetting)
         {
-            Vector2 startPosition = getStartPositionRelativeToCenter(pos_center);
+            Vector2 startPosition = getStartPositionRelativeToCenter(particleSetting);
             // first, call PickRandomDirection to figure out which way the particle
             // will be moving. velocity and acceleration's values will come from this.
-            Vector2 direction = PickRandomDirection(pos_center, startPosition);
+            Vector2 direction = PicDirection(particleSetting, startPosition);
 
             // pick some random values for our particle
             float velocity =
@@ -282,12 +282,12 @@ namespace ParticleEffects
             // and make sure it is marked as active.
             p.Initialize(
                 startPosition, velocity * direction, acceleration * direction,
-                lifetime, scale, rotationSpeed, getParticleTextureColor());
+                lifetime, scale, rotationSpeed,particleSetting.color);
         }
 
-        protected virtual Vector2 getStartPositionRelativeToCenter(Vector2 pos_center)
+        protected virtual Vector2 getStartPositionRelativeToCenter(ParticleSetting particleSetting)
         {
-            return pos_center;
+            return particleSetting.position;
         }
 
         /// <summary>
@@ -295,7 +295,7 @@ namespace ParticleEffects
         /// particles will move. The default implementation is a random vector in a
         /// circular pattern.
         /// </summary>
-        protected virtual Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
+        protected virtual Vector2 PicDirection(ParticleSetting particleSetting, Vector2 startPosition)
         {
             float angle = RandomBetween(0, MathHelper.TwoPi);
             return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
@@ -328,13 +328,6 @@ namespace ParticleEffects
             }
             base.Update(gameTime);
         }
-
-
-        protected virtual Color getParticleTextureColor()
-        {
-            return Color.White;
-        }
-
 
         #region Helper Functions
 
