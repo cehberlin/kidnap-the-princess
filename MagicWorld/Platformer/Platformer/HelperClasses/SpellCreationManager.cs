@@ -7,6 +7,7 @@ using MagicWorld.DynamicLevelContent.Player;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using MagicWorld.Constants;
+using MagicWorld.Audio;
 
 namespace MagicWorld.HelperClasses
 {
@@ -20,6 +21,7 @@ namespace MagicWorld.HelperClasses
         /// <returns>true if casting started successfull</returns>
         public static bool tryStartCasting(Player player, SpellType type, Level level)
         {
+           IAudioService audioservice = (IAudioService)level.Game.Services.GetService(typeof(IAudioService));
            int basicCastingCost = SpellConstantsFactory.getSpellConstants(type).BasicCastingCost;
            if(player.Mana.CurrentMana > basicCastingCost)
            {
@@ -48,7 +50,8 @@ namespace MagicWorld.HelperClasses
                direction.Normalize();
                player.CurrentSpell.Direction = direction;
                player.CurrentSpell.Rotation =  -(float)(level.Player.SpellAimAngle + Math.PI / 2);
-               player.SpellSound.Play();               
+               //player.SpellSound.Play();
+               audioservice.playSound(SoundType.createSpell);  
                level.addSpell(player.CurrentSpell);
                player.CurrentSpell.UsedMana = basicCastingCost;
                return true;

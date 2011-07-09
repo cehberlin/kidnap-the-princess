@@ -68,6 +68,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="Audio\IAudioService.cs" />
     <Compile Include="BlendInClasses\IcedVisibility.cs" />
     <Compile Include="BlendInClasses\IIcedVisibility.cs" />
     <Compile Include="Constants\ConstantChanger\ConstantChanger.cs" />

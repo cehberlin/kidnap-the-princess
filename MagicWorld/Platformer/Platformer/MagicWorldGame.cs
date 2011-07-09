@@ -15,6 +15,7 @@ using MagicWorld.Services;
 using MagicWorld.HelperClasses.Animation;
 using MagicWorld.Controls;
 using System.Collections.Generic;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -200,6 +201,8 @@ namespace MagicWorld
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
 
+            AudioManager audiomanager = new AudioManager(this);
+            audiomanager.Initialize();
             ice = new IcedVisibility(this);
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
