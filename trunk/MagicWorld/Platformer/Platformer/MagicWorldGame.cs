@@ -203,7 +203,7 @@ namespace MagicWorld
 
             AudioManager audiomanager = new AudioManager(this);
             audiomanager.Initialize();
-            Services.AddService(typeof(AudioManager), audiomanager);
+            Services.AddService(typeof(IAudioService), audiomanager);
             ice = new IcedVisibility(this);
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
