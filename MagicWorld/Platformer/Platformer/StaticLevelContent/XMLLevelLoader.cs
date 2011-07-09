@@ -702,7 +702,6 @@ namespace MagicWorld.StaticLevelContent
             {
                 foreach (Item item in l.Items)
                 {
-                    //TODO: Make a real check if we found a tutorial instruction.
                     if (item.CustomProperties.ContainsKey("Instruction"))
                     {
                         RectangleItem r = (RectangleItem)item;

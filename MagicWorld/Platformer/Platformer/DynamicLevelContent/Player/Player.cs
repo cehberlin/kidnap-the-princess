@@ -35,7 +35,6 @@ namespace MagicWorld
 
         #region "Animation & sound"
         // Animations
-        //TODO: Draw the die Animation :(
         private Animation dieAnimation;
         private SpriteEffects flip = SpriteEffects.None;
         private AnimationPlayer sprite;
@@ -330,7 +329,6 @@ namespace MagicWorld
             }
             else if (Math.Abs(gamePadState.ThumbSticks.Left.X) > 0.5f)
             {
-                //TODO: Fix moonwalk
                 movementX = gamePadState.ThumbSticks.Left.X;
             }
             else
@@ -720,7 +718,6 @@ namespace MagicWorld
                         {
                             SpellCreationManager.morePower(this, this.level, gameTime);
                         }
-                        //TODO spell casting
                     }
                     else if (gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell))
                     {
