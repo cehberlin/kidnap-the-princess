@@ -32,12 +32,33 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
         public override void Update(GameTime gameTime)
         {
-            if(Activated){
-                currentParticles++;
-
-                if (currentParticles % 4 == 0) //only every 4 update cycle
+            foreach (IActivation switchable in SwitchableObjects)
+            {
+                if (switchable.GetType() == typeof(SwitchableMoveablePlatform))
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                    SwitchableMoveablePlatform platform = (SwitchableMoveablePlatform)switchable;
+                    if (platform.getMove())
+                    {
+                        currentParticles++;
+
+                        if (currentParticles % 4 == 0) //only every 4 update cycle
+                        {
+                            level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                        }
+                    }
+                } 
+                else if (switchable.GetType() == typeof(MoveablePlatform))
+                {
+                    MoveablePlatform platform = (MoveablePlatform)switchable;
+                    if (platform.isMoving)
+                    {
+                        currentParticles++;
+
+                        if (currentParticles % 4 == 0) //only every 4 update cycle
+                        {
+                            level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                        }
+                    }
                 }
             }
         }
