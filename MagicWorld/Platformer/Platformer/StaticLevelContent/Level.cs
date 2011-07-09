@@ -16,6 +16,7 @@ using MagicWorld.Services;
 using System.Diagnostics;
 using MagicWorld.Constants;
 using MagicWorld.Ingredients;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -152,8 +153,6 @@ namespace MagicWorld
             set { levelBounds = value; }
         }
 
-        private SoundEffect exitReachedSound;
-
         protected ILevelLoader levelLoader;
 
         public ILevelLoader LevelLoader
@@ -187,6 +186,8 @@ namespace MagicWorld
 
         ICameraService camera;
 
+        protected IAudioService audioService;
+
         #endregion
 
         #region Loading
@@ -217,6 +218,7 @@ namespace MagicWorld
         {
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             base.LoadContent();
+            audioService = (IAudioService)Game.Services.GetService(typeof(IAudioService));
         }
 
 
@@ -294,8 +296,6 @@ namespace MagicWorld
 
             reachedExit = false;
 
-            // Load sounds.
-            exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
 
             simpleAnimator = (ISimpleAnimator)game.Services.GetService(typeof(ISimpleAnimator));
             //TODO: add portals to the service/ask christopher about the best way to "get" them
@@ -435,7 +435,7 @@ namespace MagicWorld
         /// </summary>
         public void OnExitReached()
         {
-            //exitReachedSound.Play();
+            audioService.playSound(SoundType.exitreached);
             reachedExit = true;
         }
 

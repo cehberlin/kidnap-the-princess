@@ -49,14 +49,6 @@ namespace MagicWorld
         private Animation idleAnimationFacingLeft;
         private Animation celebrateAnimation;
 
-        // Sounds
-        private SoundEffect killedSound;
-        private SoundEffect jumpSound;
-        private SoundEffect fallSound;
-        private SoundEffect spellSound;
-
-        public SoundEffect SpellSound { get { return spellSound; } }
-
         #endregion
 
         public bool IsAlive
@@ -200,12 +192,6 @@ namespace MagicWorld
             //TODO: Use the real animations
             dieAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
             celebrateAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
-
-            // Load sounds.            
-            killedSound = level.Content.Load<SoundEffect>("Sounds/PlayerKilled");
-            jumpSound = level.Content.Load<SoundEffect>("Sounds/PlayerJump");
-            fallSound = level.Content.Load<SoundEffect>("Sounds/PlayerFall");
-            spellSound = level.Content.Load<SoundEffect>("Sounds/CreateSpell");
 
             enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
             base.LoadContent("");
@@ -490,7 +476,7 @@ namespace MagicWorld
                 if ((!wasJumping && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0))) || jumpTime > 0.0f)
                 {
                     if (jumpTime == 0.0f)
-                        jumpSound.Play();
+                        audioService.playSound(Audio.SoundType.playerjump);
 
                     jumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (!isFacingLeft)
@@ -578,9 +564,9 @@ namespace MagicWorld
             if (isAlive)
             {
                 if (killedBy != null)
-                    killedSound.Play();
+                    audioService.playSound(Audio.SoundType.playerkilled);
                 else
-                    fallSound.Play();
+                    audioService.playSound(Audio.SoundType.playerfall);
 
                 sprite.PlayAnimation(dieAnimation);
             }
