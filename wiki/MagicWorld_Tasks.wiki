@@ -26,7 +26,6 @@
      * make messagebox convenient to menu design, also check text
   # Better looking torch texture -> Pascal
   # Another texture for moveable platforms -> Pascal
-  # Use die animation -> John
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
