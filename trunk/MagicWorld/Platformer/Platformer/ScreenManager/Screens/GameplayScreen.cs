@@ -72,6 +72,9 @@ namespace MagicWorld
             camera = (ICameraService)ScreenManager.Game.Services.GetService(typeof(ICameraService));
             ice = (IVisibility)ScreenManager.Game.Services.GetService(typeof(IVisibility));
             ice.Init();
+            ISimpleAnimator s = (ISimpleAnimator)ScreenManager.Game.Services.GetService(typeof(ISimpleAnimator));
+            //s.AddItem(0, new Vector2(-900, -100));
+            s.InitCamera();
 
             if (ScreenManager.Game.Services.GetService(typeof(GameplayScreen)) == null)
             {

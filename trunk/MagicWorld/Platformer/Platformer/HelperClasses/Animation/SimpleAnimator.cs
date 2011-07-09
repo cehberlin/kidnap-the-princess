@@ -22,13 +22,21 @@ namespace MagicWorld.HelperClasses.Animation
 
         ContentManager content;
         SpriteBatch spriteBatch;
-        Dictionary<AnimationPlayer, List<Vector2>> animations;
+        //Dictionary<AnimationPlayer, List<Vector2>> animations;
+        //List<AnimationPlayer> players;
+        //List<List<Vector2>> positions;
+        AnimationPlayer player;
+        List<Vector2> positions;
         ICameraService camera;
 
         public SimpleAnimator(Game game)
             : base(game)
         {
-            animations = new Dictionary<AnimationPlayer, List<Vector2>>();
+            //animations = new Dictionary<AnimationPlayer, List<Vector2>>();
+            //players = new List<AnimationPlayer>();
+            //positions = new List<List<Vector2>>();
+            player = new AnimationPlayer();
+            positions = new List<Vector2>();
             content = game.Content;
             game.Components.Add(this);
             game.Services.AddService(typeof(ISimpleAnimator), this);
@@ -36,7 +44,7 @@ namespace MagicWorld.HelperClasses.Animation
 
         protected override void LoadContent()
         {
-            portalAnimation = new MagicWorld.Animation("Content/LevelContent/Common/PortalSpriteSheet", 0.2f, 12, content.Load<Texture2D>("LevelContent/Common/PortalSpriteSheet"), 0);
+            portalAnimation = new MagicWorld.Animation("Content/LevelContent/Common/PortalSpriteSheet", 0.2f, 12, content.Load<Texture2D>("LevelContent/Common/PortalSpriteSheet"),0);
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             InitPlayers();
             base.LoadContent();
@@ -45,24 +53,31 @@ namespace MagicWorld.HelperClasses.Animation
         {
             portalPlayer = new AnimationPlayer();
             portalPlayer.PlayAnimation(portalAnimation);
-            animations.Add(portalPlayer, new List<Vector2>());
+            player = portalPlayer;
+            //animations.Add(portalPlayer, new List<Vector2>());
+            //players.Add(portalPlayer);
+            //positions.Add(new List<Vector2>());
         }
 
         public void Clear()
         {
-            animations.Clear();
+            //animations.Clear();
+            positions.Clear();
+            //players.Clear();
             InitPlayers();
         }
 
         public void AddItem(int type, Vector2 pos)
         {
-            List<Vector2> positionList;
+            //List<Vector2> positionList;
             switch (type)
             {
                 case 0://portals
-                    animations.TryGetValue(portalPlayer, out positionList);
-                    positionList.Add(pos);
-                    animations[portalPlayer] = positionList;
+                    //animations.TryGetValue(portalPlayer, out positionList);
+                    //positions[0].Add(pos);
+                    positions.Add(pos);
+                    //positionList.Add(pos);
+                    //animations[portalPlayer] = positionList;
                     break;
                 default:
                     throw new NotImplementedException();
@@ -85,12 +100,23 @@ namespace MagicWorld.HelperClasses.Animation
                     null,
                     camera.TransformationMatrix);
 
-                foreach (KeyValuePair<AnimationPlayer, List<Vector2>> keyPair in animations)//For every animation
+                //foreach (KeyValuePair<AnimationPlayer, List<Vector2>> keyPair in animations)//For every animation
+                //{
+                //    foreach (Vector2 pos in keyPair.Value)//Draw the animation at each position
+                //    {
+                //        keyPair.Key.Draw(gameTime, spriteBatch, pos, SpriteEffects.None);
+                //    }
+                //}
+                //for (int i = 0; i < players.Count;i++ )
+                //{
+                //    foreach (Vector2 pos in positions[i])
+                //    {
+                //        players[i].Draw(gameTime, spriteBatch, pos, SpriteEffects.None);
+                //    }
+                //}
+                foreach (Vector2 pos in positions)
                 {
-                    foreach (Vector2 pos in keyPair.Value)//Draw the animation at each position
-                    {
-                        keyPair.Key.Draw(gameTime, spriteBatch, pos, SpriteEffects.None);
-                    }
+                    player.Draw(gameTime, spriteBatch, pos, SpriteEffects.None);
                 }
 
                 spriteBatch.End();

@@ -189,8 +189,8 @@ namespace MagicWorld
 
             idleAnimationFacingLeft = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 1f, 1, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 29);
 
-            //TODO: Use the real animations
-            dieAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
+            dieAnimation = new Animation("Content/Sprites/Player/dieSpriteSheet", 0.1f, 8, level.Content.Load<Texture2D>("Sprites/Player/dieSpriteSheet"), 0);
+            //Celebrate wont be necessary if the exit will be added properly
             celebrateAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
 
             enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
