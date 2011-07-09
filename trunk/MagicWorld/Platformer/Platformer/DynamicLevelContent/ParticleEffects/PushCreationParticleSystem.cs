@@ -14,11 +14,11 @@ namespace ParticleEffects
     /// MatterCreationParticleSystem is a specialization of ParticleSystem which creates a
     /// imploding matter creation effect
     /// </summary>
-    class MatterCreationParticleSystem : ParticleSystem
+    class PushCreationParticleSystem : ParticleSystem
     {
         float radius;
 
-        public MatterCreationParticleSystem(MagicWorldGame game, int howManyEffects,float radius)
+        public PushCreationParticleSystem(MagicWorldGame game, int howManyEffects, float radius)
             : base(game, howManyEffects)
         {
             this.radius = radius;
@@ -30,7 +30,7 @@ namespace ParticleEffects
         /// </summary>
         protected override void InitializeConstants()
         {
-            textureFilename = "matterCreation";
+            textureFilename = "pushPullCreation";
 
             // high initial speed with lots of variance.  make the values closer
             // together to have more consistently circular explosions.
@@ -71,15 +71,15 @@ namespace ParticleEffects
             p.Acceleration = p.Velocity*p.Lifetime*0.1f;
         }
 
-
         protected override Vector2 getStartPositionRelativeToCenter(Vector2 pos_center)
         {
-            return GeometryCalculationHelper.getRandomPositionOnCycleBow(pos_center,radius);
+            return GeometryCalculationHelper.getRandomPositionOnCycleBow(pos_center, radius);
         }
 
         protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
         {
-            return pos_center - startPosition;
+            return startPosition -  pos_center ;
         }
+
     }
 }

@@ -71,7 +71,15 @@ namespace MagicWorld.Spells
         {
             level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
             SpellState = State.REMOVE;
-        } 
+        }
+
+        public override void AddOnCreationParticles()
+        {
+            if (level.Game.PushCreationParticleSystem.CurrentParticles() < 10)
+            {
+                level.Game.PushCreationParticleSystem.AddParticles(position);
+            }
+        }
 
     }
 }

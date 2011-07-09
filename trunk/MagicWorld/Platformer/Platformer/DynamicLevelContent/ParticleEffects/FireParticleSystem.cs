@@ -58,7 +58,7 @@ namespace ParticleEffects
 
             baseOpacity = 0.5f;
 
-            //DrawOrder = AlphaBlendDrawOrder;
+            DrawOrder = AlphaBlendDrawOrder;
         }
 
         /// <summary>

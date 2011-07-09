@@ -58,5 +58,15 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
         {
             return new IceParticleSystem(game, howManyEffectsMax);
         }
+
+        public static ParticleSystem getPush(MagicWorldGame game, int howManyEffectsMax)
+        {
+            return new PushCreationParticleSystem(game, howManyEffectsMax,75f);
+        }
+
+        public static ParticleSystem getPull(MagicWorldGame game, int howManyEffectsMax)
+        {
+            return new PullCreationParticleSystem(game, howManyEffectsMax, 130f);
+        }
     }
 }

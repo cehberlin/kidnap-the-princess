@@ -139,8 +139,23 @@ namespace MagicWorld
         {
             get { return lightningCreationParticleSystem; }
             set { lightningCreationParticleSystem = value; }
-        } 
+        }
 
+        ParticleSystem pushCreationParticleSystem;
+
+        public ParticleSystem PushCreationParticleSystem
+        {
+            get { return pushCreationParticleSystem; }
+            set { pushCreationParticleSystem = value; }
+        }
+
+        ParticleSystem pullCreationParticleSystem;
+
+        public ParticleSystem PullCreationParticleSystem
+        {
+            get { return pullCreationParticleSystem; }
+            set { pullCreationParticleSystem = value; }
+        }
 
         // Resources for drawing.
         public GraphicsDeviceManager graphics;
@@ -207,6 +222,8 @@ namespace MagicWorld
             fireParticleSystem = ParticleSystemFactory.getFire(this, 10);
             lightningCreationParticleSystem = ParticleSystemFactory.getLightning(this, 100);
             iceParticleSystem = ParticleSystemFactory.getIce(this, 10);
+            pullCreationParticleSystem = ParticleSystemFactory.getPull(this, 20);
+            pushCreationParticleSystem = ParticleSystemFactory.getPush(this, 20);
 
             Components.Add(explosionParticleSystem);
             Components.Add(iceParticleSystem);
@@ -218,6 +235,8 @@ namespace MagicWorld
             Components.Add(matterCreationParticleSystem);
             Components.Add(fireParticleSystem);
             Components.Add(lightningCreationParticleSystem);
+            Components.Add(pullCreationParticleSystem);
+            Components.Add(pushCreationParticleSystem);
 
 #if DEBUG
             constantChanger = new ConstantChanger(this);
