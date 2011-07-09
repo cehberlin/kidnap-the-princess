@@ -19,6 +19,9 @@ namespace MagicWorld
     /// </summary>
     class GameplayScreen : GameScreen, IServiceProvider
     {
+        private TimeSpan currentAnimationTime = new TimeSpan(0, 0, 0);
+        public  TimeSpan maxAnimationTime = new TimeSpan(0, 0, 2);
+
         ICameraService camera;
         IVisibility ice;
         #region Fields
@@ -116,7 +119,12 @@ namespace MagicWorld
             {
                 if (!level.Player.IsAlive)
                 {
-                    ReloadCurrentLevel();
+                    currentAnimationTime = currentAnimationTime.Add(gameTime.ElapsedGameTime);
+                    if (currentAnimationTime >= maxAnimationTime)
+                    {
+                        ReloadCurrentLevel();
+                        currentAnimationTime = new TimeSpan(0, 0, 0);
+                    }
                 }
                 else if (level.ReachedExit && level.CollectedIngredients.Count >= level.NeededIngredients)
                 {
