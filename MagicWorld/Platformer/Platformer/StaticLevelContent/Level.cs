@@ -210,8 +210,6 @@ namespace MagicWorld
             collisionManager = new CollisionManager(this);
 
             physicsManager = new PhysicsManager(this);
-
-            visibilityService = (IVisibility)game.Services.GetService(typeof(IVisibility));
         }
 
         protected override void LoadContent()
@@ -224,6 +222,9 @@ namespace MagicWorld
 
         public void initLevel(ILevelLoader levelLoader)
         {
+
+            visibilityService = (IVisibility)game.Services.GetService(typeof(IVisibility));
+
             camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
 
             this.levelLoader = levelLoader;
