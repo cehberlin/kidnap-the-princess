@@ -16,6 +16,9 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         
         CollisionManager.OnCollisionWithCallback collisionCallback;
 
+        Vector2 pushDownPosition;
+        Vector2 pushUpPosition;
+
         public PushDownSwitch(String texture, Level level, Vector2 position, string id)
             :base(texture,CollisionType.Passable,level,position, id)
         {
@@ -31,6 +34,8 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
             //set callback for collision
             collisionCallback = HandleCollisionWithSingleObject;
+            pushUpPosition = position;
+            pushDownPosition = position + new Vector2(0, 15);
         }
 
 
@@ -52,6 +57,18 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     }
                     collisionOccured = true;
                 }           
+        }
+
+        public override void Activate()
+        {
+            Position = pushDownPosition;
+            base.Activate();
+        }
+
+        public override void Deactivate()
+        {
+            Position = pushUpPosition;
+            base.Deactivate();
         }
 
         /// <summary>
