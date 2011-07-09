@@ -6,6 +6,7 @@ using MagicWorld.Constants;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
+using ParticleEffects;
 
 namespace MagicWorld.Spells
 {
@@ -16,14 +17,19 @@ namespace MagicWorld.Spells
         {
             get
             {
-                float radius = 0;
-                if (sprite.Animation != null)
-                {
-                    // Calculate bounds within texture size.
-                    radius = (sprite.Animation.FrameWidth) / 2 * 1f * currentScale;
-                }
-                return new Bounds(Position, radius);
+                return new Bounds(Position, getRadius());
             }
+        }
+
+        protected float getRadius()
+        {
+            float radius = 0;
+            if (sprite.Animation != null)
+            {
+                // Calculate bounds within texture size.
+                radius = (sprite.Animation.FrameWidth) / 2 * 1f * currentScale;
+            }
+            return radius;
         }
 
 
@@ -78,7 +84,7 @@ namespace MagicWorld.Spells
         {
             if (level.Game.PullCreationParticleSystem.CurrentParticles() < 10)
             {
-                level.Game.PullCreationParticleSystem.AddParticles(position);
+                level.Game.PullCreationParticleSystem.AddParticles(new ParticleSetting(position,getRadius()));
             }
         }
 

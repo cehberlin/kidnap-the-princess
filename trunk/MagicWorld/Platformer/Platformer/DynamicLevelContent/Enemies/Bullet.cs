@@ -7,6 +7,7 @@ using MagicWorld.Constants;
 using MagicWorld.HelperClasses;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.Spells;
+using ParticleEffects;
 
 namespace MagicWorld.DynamicLevelContent.Enemies
 {
@@ -81,8 +82,8 @@ namespace MagicWorld.DynamicLevelContent.Enemies
             if (element.GetType() != typeof(BulletLauncher))//no collision handling with launcher
             {
                 isRemovable = true;
-                level.Game.ExplosionParticleSystem.AddParticles(position);
-                level.Game.ExplosionSmokeParticleSystem.AddParticles(position);
+                level.Game.ExplosionParticleSystem.AddParticles(new ParticleSetting(position));
+                level.Game.ExplosionSmokeParticleSystem.AddParticles(new ParticleSetting(position));
                 if (isFroozen)
                 {
                     level.visibilityService.Remove(this);

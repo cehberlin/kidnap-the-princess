@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using MagicWorld.Spells;
 using MagicWorld.Constants;
 using MagicWorld.HelperClasses;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -39,7 +40,7 @@ namespace MagicWorld
             {
                 if (currentParticles%4==0) //only every 4 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(position);
+                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position));
                 }
             }
             else
@@ -47,7 +48,7 @@ namespace MagicWorld
 
                 if (currentParticles % 2 == 0) //only every 2 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(position);
+                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position));
                 }
             }
             base.Update(gameTime);

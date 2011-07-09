@@ -5,6 +5,7 @@ using System.Text;
 using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework;
 using MagicWorld.HelperClasses;
+using ParticleEffects;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
@@ -43,7 +44,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
                         if (currentParticles % 4 == 0) //only every 4 update cycle
                         {
-                            level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                            level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20)));
                         }
                     }
                 } 
@@ -56,7 +57,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
                         if (currentParticles % 4 == 0) //only every 4 update cycle
                         {
-                            level.Game.LightningCreationParticleSystem.AddParticles(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20));
+                            level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 20)));
                         }
                     }
                 }

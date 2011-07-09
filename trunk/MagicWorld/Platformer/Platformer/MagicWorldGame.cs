@@ -92,20 +92,6 @@ namespace MagicWorld
             set { magicParticleSystem = value; }
         }
 
-        ParticleSystem iceMagicParticleSystem;
-        public ParticleSystem IceMagicParticleSystem
-        {
-            get { return iceMagicParticleSystem; }
-            set { iceMagicParticleSystem = value; }
-        }
-
-        ParticleSystem fireMagicParticleSystem;
-        public ParticleSystem FireMagicParticleSystem
-        {
-            get { return fireMagicParticleSystem; }
-            set { fireMagicParticleSystem = value; }
-        }
-
         ParticleSystem smokeParticleSystem;
         public ParticleSystem SmokeParticleSystem
         {
@@ -213,9 +199,7 @@ namespace MagicWorld
             //Components.Add(simpleAnimator);
                         
             explosionParticleSystem = ParticleSystemFactory.getExplosion(this, 10);
-            magicParticleSystem = ParticleSystemFactory.getMagic(this, 10);
-            iceMagicParticleSystem = ParticleSystemFactory.getIceMagic(this, 10);
-            fireMagicParticleSystem = ParticleSystemFactory.getFireMagic(this, 10);
+            magicParticleSystem = ParticleSystemFactory.getMagic(this, 30);
             smokeParticleSystem = ParticleSystemFactory.getSmoke(this, 10);
             explosionSmokeParticleSystem = ParticleSystemFactory.getExplosionSmoke(this, 10);
             matterCreationParticleSystem = ParticleSystemFactory.getMatterCreation(this, 10);
@@ -228,8 +212,6 @@ namespace MagicWorld
             Components.Add(explosionParticleSystem);
             Components.Add(iceParticleSystem);
             Components.Add(magicParticleSystem);
-            Components.Add(iceMagicParticleSystem);
-            Components.Add(fireMagicParticleSystem);
             Components.Add(smokeParticleSystem);
             Components.Add(explosionSmokeParticleSystem);
             Components.Add(matterCreationParticleSystem);

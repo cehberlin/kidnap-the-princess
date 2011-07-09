@@ -6,6 +6,7 @@ using MagicWorld.DynamicLevelContent;
 using MagicWorld.HelperClasses;
 using System.Collections.Generic;
 using MagicWorld.Services;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -107,7 +108,7 @@ namespace MagicWorld
             {
                 IcecicleState = IcecicleState.DESTROYED;
             }
-            level.Game.IceParticleSystem.AddParticles(position);
+            level.Game.IceParticleSystem.AddParticles(new ParticleSetting(position));
         }
 
         /// <summary>

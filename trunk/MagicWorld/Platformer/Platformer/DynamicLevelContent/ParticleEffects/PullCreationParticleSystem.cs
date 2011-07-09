@@ -18,10 +18,9 @@ namespace ParticleEffects
     {
         float radius;
 
-        public PullCreationParticleSystem(MagicWorldGame game, int howManyEffects, float radius)
+        public PullCreationParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game, howManyEffects)
         {
-            this.radius = radius;
         }
 
         /// <summary>
@@ -64,21 +63,21 @@ namespace ParticleEffects
             DrawOrder = AdditiveDrawOrder;
         }
 
-        protected override void InitializeParticle(Particle p, Vector2 where)
+        protected override void InitializeParticle(Particle p, ParticleSetting particleSetting)
         {
-            base.InitializeParticle(p, where);
+            base.InitializeParticle(p, particleSetting);
 
             p.Acceleration = p.Velocity*p.Lifetime*0.1f;
         }
 
-        protected override Vector2 getStartPositionRelativeToCenter(Vector2 pos_center)
+        protected override Vector2 getStartPositionRelativeToCenter(ParticleSetting particleSetting)
         {
-            return GeometryCalculationHelper.getRandomPositionOnCycleBow(pos_center, radius);
+            return GeometryCalculationHelper.getRandomPositionOnCycleBow(particleSetting.position, particleSetting.distance);
         }
 
-        protected override Vector2 PickRandomDirection(Vector2 pos_center, Vector2 startPosition)
+        protected override Vector2 PicDirection(ParticleSetting particleSetting, Vector2 startPosition)
         {
-            return  pos_center - startPosition;
+            return  particleSetting.position - startPosition;
         }
     }
 }

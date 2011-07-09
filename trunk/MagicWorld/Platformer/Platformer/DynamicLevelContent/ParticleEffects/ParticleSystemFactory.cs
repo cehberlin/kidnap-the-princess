@@ -14,16 +14,6 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
             return new MagicParticleSystem(game, howManyEffectsMax);
         }
 
-        public static ParticleSystem getIceMagic(MagicWorldGame game, int howManyEffectsMax)
-        {
-            return new MagicParticleSystem(game, howManyEffectsMax, Color.LightCyan);
-        }
-
-        public static ParticleSystem getFireMagic(MagicWorldGame game, int howManyEffectsMax)
-        {
-            return new MagicParticleSystem(game, howManyEffectsMax, Color.Red);
-        }
-
         public static ParticleSystem getExplosion(MagicWorldGame game, int howManyEffectsMax)
         {
             return new ExplosionParticleSystem(game, howManyEffectsMax);
@@ -41,7 +31,7 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
 
         public static ParticleSystem getMatterCreation(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new MatterCreationParticleSystem(game, howManyEffectsMax,100f);
+            return new MatterCreationParticleSystem(game, howManyEffectsMax);
         }
 
         public static ParticleSystem getFire(MagicWorldGame game, int howManyEffectsMax)
@@ -61,12 +51,12 @@ namespace MagicWorld.DynamicLevelContent.ParticleEffects
 
         public static ParticleSystem getPush(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new PushCreationParticleSystem(game, howManyEffectsMax,75f);
+            return new PushCreationParticleSystem(game, howManyEffectsMax);
         }
 
         public static ParticleSystem getPull(MagicWorldGame game, int howManyEffectsMax)
         {
-            return new PullCreationParticleSystem(game, howManyEffectsMax, 130f);
+            return new PullCreationParticleSystem(game, howManyEffectsMax);
         }
     }
 }
