@@ -15,8 +15,6 @@ namespace MagicWorld
     {
         IEnemyService enemyService;
 
-        private SoundEffect hitSound;
-
         private IcecicleState icecicleState;
 
         public IcecicleState IcecicleState
@@ -43,7 +41,6 @@ namespace MagicWorld
         public override void LoadContent(string spriteSet)
         {           
             base.LoadContent(spriteSet);
-            hitSound = level.Content.Load<SoundEffect>("Sounds/Icehit");
         }
 
      
@@ -51,7 +48,6 @@ namespace MagicWorld
         {
             if (spell.GetType() == typeof(WarmSpell))
             {
-                hitSound.Play();
                 icecicleState = IcecicleState.FALLING;                
                 return true;
             }
@@ -99,7 +95,7 @@ namespace MagicWorld
                 if (! e.isFroozen)//enemyService.IsFroozen)
                 {
                     //destroy enemy
-                    hitSound.Play();
+                    audioService.playSound(Audio.SoundType.icehit);
                     IcecicleState = IcecicleState.DESTROYED;
                     e.IsRemovable = true;
                 }

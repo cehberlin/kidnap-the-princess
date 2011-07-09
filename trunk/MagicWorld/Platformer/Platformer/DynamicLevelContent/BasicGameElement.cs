@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using MagicWorld.HelperClasses;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.Constants;
+using MagicWorld.Audio;
 
 namespace MagicWorld.DynamicLevelContent
 {
@@ -121,12 +122,15 @@ namespace MagicWorld.DynamicLevelContent
             set { isRemovable = value; }
         }
 
+        protected IAudioService audioService;
+
         #region IAutonomusGameObject Member
 
         public virtual void LoadContent(string spriteSet)
         {
             debugTexture = level.Content.Load<Texture2D>("Sprites\\white");
             debugTextureCycle = level.Content.Load<Texture2D>("Sprites\\Circle");
+            audioService = (IAudioService)level.Game.Services.GetService(typeof(IAudioService));
         }
 
         public virtual void Draw(GameTime gameTime, Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)

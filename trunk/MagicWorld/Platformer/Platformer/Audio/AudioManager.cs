@@ -16,38 +16,40 @@ namespace MagicWorld.Audio
         gemCollected,
         icehit,
         monsterkill,
+        playerfall,
         playerjump,
         playerkilled,
         powerup
     }
 
+    //TODO add MediaPlayer/loop sounds for backgroundmusic
     class AudioManager : GameComponent, IAudioService
     {
         String path = "Sounds/";
-        Hashtable hashtable;
+        Hashtable sounds;
+
+        bool isEffectMuted = false;
+
+        bool isMusicMuted = false;
 
         public AudioManager(Game game)
             : base(game)
         {
-            hashtable = new Hashtable(); ;
+            sounds = new Hashtable(); ;
             game.Services.AddService(typeof(IAudioService), this);
         }
 
-        public void Initialize()
+        public new void Initialize()
         {
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "CreateSpell"));
-            SoundEffect s = Game.Content.Load<SoundEffect>(path + "CreateSpell");
-            hashtable.Add(SoundType.createSpell, s);
-            //sounds.Add(s);
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "ExitReached"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "GemCollected"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "Icehit"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "Monsterkilled"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "PlayerFall"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "PlayerJump"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "PlayerKilled"));
-            //sounds.Add(Game.Content.Load<SoundEffect>(path + "Powerup"));
-            //base.Initialize();
+            //TODO add all new sounds and add also calls into corresponding gamecode, all basicgameelemts have a reference to this service
+            sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "CreateSpell"));
+            sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "GemCollected"));
+            sounds.Add(SoundType.gemCollected, Game.Content.Load<SoundEffect>(path + "Icehit"));
+            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Monsterkilled"));
+            sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall"));
+            sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "PlayerJump"));
+            sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "PlayerKilled"));
+            sounds.Add(SoundType.powerup, Game.Content.Load<SoundEffect>(path + "Powerup"));
         }
 
         public object GetService(Type serviceType)
@@ -57,21 +59,52 @@ namespace MagicWorld.Audio
 
         public void playSound(SoundType soundType)
         {
-            SoundEffect soundEffect = null;
-
-            IDictionaryEnumerator enumerator = hashtable.GetEnumerator();
-            while (enumerator.MoveNext())
+            if (!IsEffectMuted)
             {
-                if (enumerator.Key.Equals(soundType))
+                SoundEffect soundEffect = null;
+
+                soundEffect = (SoundEffect)sounds[soundType];
+
+                if (soundEffect != null)
                 {
-                    soundEffect = (SoundEffect)enumerator.Value;
+                    soundEffect.Play();
                 }
-                break;
-            }
-            if(soundEffect != null){
-                soundEffect.Play();
             }
         }
+
+        #region IAudioService Member
+
+
+        public bool IsEffectMuted
+        {
+            get
+            {
+                return isEffectMuted;
+            }
+            set
+            {
+                isEffectMuted = value;
+            }
+        }
+
+        #endregion
+
+        #region IAudioService Member
+
+
+        public bool IsMusicMuted
+        {
+            get
+            {
+                return isMusicMuted;
+            }
+            set
+            {
+                isMusicMuted = value;
+            }
+        }
+
+        #endregion
     }
 }
 

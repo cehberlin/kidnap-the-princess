@@ -8,5 +8,9 @@ namespace MagicWorld.Audio
     public interface IAudioService : IServiceProvider
     {
         void playSound(SoundType soundType);
+
+        bool IsEffectMuted { get; set; }
+
+        bool IsMusicMuted { get; set; }
     }
 }
