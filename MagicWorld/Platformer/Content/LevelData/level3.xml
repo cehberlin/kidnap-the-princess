@@ -1177,22 +1177,6 @@
                         <PackedValue>2445279424</PackedValue>
                     </FillColor>
                 </Item>
-                <Item xsi:type="RectangleItem" Name="bottomRight" Visible="true">
-                    <Position>
-                        <X>3258</X>
-                        <Y>125</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Width>10</Width>
-                    <Height>10</Height>
-                    <FillColor>
-                        <R>192</R>
-                        <G>0</G>
-                        <B>192</B>
-                        <A>145</A>
-                        <PackedValue>2445279424</PackedValue>
-                    </FillColor>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0146" Visible="true">
                     <Position>
                         <X>-981</X>
@@ -1292,6 +1276,22 @@
                     </CustomProperties>
                     <Width>448</Width>
                     <Height>448</Height>
+                    <FillColor>
+                        <R>192</R>
+                        <G>0</G>
+                        <B>192</B>
+                        <A>145</A>
+                        <PackedValue>2445279424</PackedValue>
+                    </FillColor>
+                </Item>
+                <Item xsi:type="RectangleItem" Name="bottomRight" Visible="true">
+                    <Position>
+                        <X>3785</X>
+                        <Y>205</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Width>113</Width>
+                    <Height>61</Height>
                     <FillColor>
                         <R>192</R>
                         <G>0</G>
@@ -1647,10 +1647,45 @@
                         <Y>165</Y>
                     </Origin>
                 </Item>
+            </Items>
+            <ScrollSpeed>
+                <X>1</X>
+                <Y>1</Y>
+            </ScrollSpeed>
+        </Layer>
+        <Layer Name="Front" Visible="true">
+            <Items>
                 <Item xsi:type="TextureItem" Name="Texture_0127" Visible="true">
                     <Position>
                         <X>-852</X>
                         <Y>401</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\frontbig.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\frontbig</asset_name>
+                    <Origin>
+                        <X>54</X>
+                        <Y>172</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0131" Visible="true">
+                    <Position>
+                        <X>-482</X>
+                        <Y>287</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1755,33 +1790,6 @@
                         <Y>172</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0131" Visible="true">
-                    <Position>
-                        <X>-482</X>
-                        <Y>287</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Front\frontbig.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Front\frontbig</asset_name>
-                    <Origin>
-                        <X>54</X>
-                        <Y>172</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0132" Visible="true">
                     <Position>
                         <X>-382</X>
@@ -1809,10 +1817,10 @@
                         <Y>172</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0133" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0134" Visible="true">
                     <Position>
-                        <X>-278</X>
-                        <Y>319</Y>
+                        <X>-192</X>
+                        <Y>373</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1836,10 +1844,10 @@
                         <Y>172</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0134" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0133" Visible="true">
                     <Position>
-                        <X>-192</X>
-                        <Y>373</Y>
+                        <X>-278</X>
+                        <Y>319</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1917,10 +1925,10 @@
                         <Y>172</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0137" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0138" Visible="true">
                     <Position>
-                        <X>-694</X>
-                        <Y>473</Y>
+                        <X>-620</X>
+                        <Y>471</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1944,10 +1952,10 @@
                         <Y>172</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0138" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0137" Visible="true">
                     <Position>
-                        <X>-620</X>
-                        <Y>471</Y>
+                        <X>-694</X>
+                        <Y>473</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2160,14 +2168,6 @@
                         <Y>172</Y>
                     </Origin>
                 </Item>
-            </Items>
-            <ScrollSpeed>
-                <X>1</X>
-                <Y>1</Y>
-            </ScrollSpeed>
-        </Layer>
-        <Layer Name="Front" Visible="true">
-            <Items>
                 <Item xsi:type="TextureItem" Name="Texture_0040" Visible="true">
                     <Position>
                         <X>-576</X>
@@ -2487,11 +2487,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>163</NextItemNumber>
-        <ContentRootFolder>C:\NOREFACTOR\Platformer\Content</ContentRootFolder>
+        <NextItemNumber>164</NextItemNumber>
+        <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>-566.657349</X>
-            <Y>-150.0011</Y>
+            <X>2925.01</X>
+            <Y>266.666321</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
