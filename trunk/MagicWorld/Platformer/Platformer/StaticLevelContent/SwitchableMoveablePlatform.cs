@@ -21,7 +21,7 @@ namespace MagicWorld.StaticLevelContent
         private int pathPosition = 0;
         private int nextPosition = 1;
         private float steps = 0;
-        private const float MoveSpeed = 64.0f;
+        private const float MoveSpeed = LevelElements.MoveablePlatformSpeed;
         private float movementSpeedX = 0;
         private float movementSpeedY = 0;
         private PathItem path = null;
