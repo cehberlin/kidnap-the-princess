@@ -68,14 +68,14 @@ namespace MagicWorld.Spells
                     sprite.PlayAnimation(idleAnimation);
                 }
             }
+            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
         }
 
         /// <summary>
         /// only check collision after casting is over then remove spell
         /// </summary>
         protected override void OnWorkingStart()
-        {
-            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
+        {            
             SpellState = State.REMOVE;
         }
 

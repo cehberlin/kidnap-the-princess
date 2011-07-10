@@ -211,6 +211,11 @@ namespace MagicWorld.Constants
         }
         static ConstantChangerItemFloat pushpull_default_acceleration_change_factor = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR", -0.2f, 0.001f);
 
+        /// <summary>
+        /// particle color for push pull influenced objects
+        /// </summary>
+        public static Color PUSH_COLOR = Color.Crimson;
+        public static Color PULL_COLOR = Color.DarkGoldenrod;
 
     }
 }

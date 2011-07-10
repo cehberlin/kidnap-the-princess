@@ -9,6 +9,7 @@ using MagicWorld.HelperClasses;
 using MagicWorld.Constants;
 using MagicWorld.StaticLevelContent;
 using MagicWorld.Spells;
+using ParticleEffects;
 
 namespace MagicWorld.DynamicLevelContent
 {
@@ -18,7 +19,7 @@ namespace MagicWorld.DynamicLevelContent
     /// </summary>
     class PushPullElement : GravityElement
     {
-      
+
         protected PushPullHandler pushPullHandler = new PushPullHandler();
 
         /// <summary>
@@ -29,8 +30,8 @@ namespace MagicWorld.DynamicLevelContent
         /// <param name="level">reference to level</param>
         /// <param name="position">startposition</param>
         /// <param name="enableGravity">true=object is influenced by gravity; false only influence by push and pull</param>
-        public PushPullElement(String texture, CollisionType collision, Level level, Vector2 position,Color drawColor,bool enableGravity=true)
-            : base (texture, collision, level, position,drawColor,true,enableGravity)
+        public PushPullElement(String texture, CollisionType collision, Level level, Vector2 position, Color drawColor, bool enableGravity = true)
+            : base(texture, collision, level, position, drawColor, true, enableGravity)
         {
         }
 
@@ -42,7 +43,7 @@ namespace MagicWorld.DynamicLevelContent
         /// <param name="level">reference to level</param>
         /// <param name="position">startposition</param>
         /// <param name="enableGravity">true=object is influenced by gravity; false only influence by push and pull</param>
-        public PushPullElement(String texture, CollisionType collision, Level level, Vector2 position,  bool enableGravity = true)
+        public PushPullElement(String texture, CollisionType collision, Level level, Vector2 position, bool enableGravity = true)
             : this(texture, collision, level, position, Color.White, enableGravity)
         {
         }
@@ -54,6 +55,8 @@ namespace MagicWorld.DynamicLevelContent
             base.Update(gameTime);
         }
 
+        int pushPullParticleCounter = 0;
+
         /// <summary>
         /// cold spell increases lifetime warm spell shortens on 10%
         /// </summary>
@@ -63,23 +66,41 @@ namespace MagicWorld.DynamicLevelContent
         {
             if (spell.SpellType == SpellType.PullSpell)
             {
-                Vector2 pull = spell.Position - this.Bounds.Center;
-                pull.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.start(this, 2000, pull);
+                if (spell.SpellState == MagicWorld.Spell.State.WORKING)
+                {
+                    Vector2 pull = spell.Position - this.Bounds.Center;
+                    pull.Normalize();
+                    pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.start(this, 2000, pull);
+                }
+                else if (pushPullParticleCounter % 20 == 0)
+                {
+                    Bounds bounds = Bounds;
+                    level.Game.PullCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PULL_COLOR, bounds.Width));
+                }
+                pushPullParticleCounter++;
                 return false;
             }
             else if (spell.SpellType == SpellType.PushSpell)
             {
-                Vector2 push = this.Bounds.Center - spell.Position;
-                push.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.start(this, 2000, push);
+                if (spell.SpellState == MagicWorld.Spell.State.WORKING)
+                {
+                    Vector2 push = this.Bounds.Center - spell.Position;
+                    push.Normalize();
+                    pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.start(this, 2000, push);
+                }
+                else if (pushPullParticleCounter % 20 == 0)
+                {
+                    Bounds bounds = Bounds;
+                    level.Game.PushCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PUSH_COLOR, bounds.Width / 2));
+                }
+                pushPullParticleCounter++;
                 return false;
             }
             return base.SpellInfluenceAction(spell);
-        }      
+        }
     }
 }
