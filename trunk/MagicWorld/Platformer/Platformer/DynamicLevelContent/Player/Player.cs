@@ -234,6 +234,11 @@ namespace MagicWorld
             KeyboardState keyboardState,
             GamePadState gamePadState)
         {
+            if (level.Pause)
+            {
+                return;
+            }
+
             if (isAlive)
             {
                 if (collisionManager.CollidateWithLevelExit(this))

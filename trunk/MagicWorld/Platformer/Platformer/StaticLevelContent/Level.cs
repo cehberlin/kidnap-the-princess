@@ -27,9 +27,8 @@ namespace MagicWorld
     /// conditions as well as scoring.
     /// </summary>
     public class Level : DrawableGameComponent
-    {
-        public bool Pause = false; //DUMMY
-        public Vector2 StartPoint { get { return startPoint; } } //DUMMY
+    {        
+       
         #region properties
         // Entities in the level.
         public Player Player
@@ -167,6 +166,13 @@ namespace MagicWorld
         {
             set { levelNumer = value; }
             get {return levelNumer;}
+        }
+
+        private bool bPause;
+        public bool Pause
+        {
+            set { bPause = value; }
+            get { return bPause; }
         }
 
         private MagicWorldGame game;
@@ -338,6 +344,11 @@ namespace MagicWorld
         /// </summary>
         public override void Update(GameTime gameTime)
         {
+            if (bPause)
+            {
+                return;
+            }
+
             if (Visible)
             {
                 inputState.Update();

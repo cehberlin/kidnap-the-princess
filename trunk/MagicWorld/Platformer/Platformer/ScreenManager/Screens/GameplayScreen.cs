@@ -269,7 +269,7 @@ namespace MagicWorld
             // Load the level.
             level.initLevel(LevelLoaderFactory.getLevel(num));
             level.LevelNumber = num;
-            camera.Position = level.StartPoint;//level.LevelLoader.getPlayerStartPosition();
+            camera.Position = level.LevelLoader.getPlayerStartPosition();
             level.Pause = true;
 
             //load info screen
