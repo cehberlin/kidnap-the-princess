@@ -229,6 +229,7 @@ namespace MagicWorld
 
         public void initLevel(ILevelLoader levelLoader)
         {
+            ingredients.Clear();
 
             visibilityService = (IVisibility)game.Services.GetService(typeof(IVisibility));
 
