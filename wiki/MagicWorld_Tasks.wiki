@@ -7,6 +7,7 @@
 == Final (13.07) ==
 
   # BUG: push/pull moves Matter through walls --> seems to be fixed for push pull elements; maybe still a problem for selfcreated matter, but that maybe not fixable at the moment
+  # BUG: If you use Pull to an Pull Object and use ist afterward again and hold the button while object is moving, the object still moves.
   # show intro video in game
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
