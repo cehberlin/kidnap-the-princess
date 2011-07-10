@@ -20,7 +20,7 @@ namespace MagicWorld.StaticLevelContent
         public LevelExit(String texture, Level level,Vector2 position)
             : base(texture, CollisionType.Passable, level, position)
         {
-            calcBoundsAndDrawRec()
+            calcBoundsAndDrawRec();
         }
 
         public override int Height
