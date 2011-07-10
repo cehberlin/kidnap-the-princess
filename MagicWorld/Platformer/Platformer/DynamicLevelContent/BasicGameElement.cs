@@ -122,7 +122,7 @@ namespace MagicWorld.DynamicLevelContent
             set { isRemovable = value; }
         }
 
-        protected IAudioService audioService;
+        public IAudioService audioService;
 
         #region IAutonomusGameObject Member
 

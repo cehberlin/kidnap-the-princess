@@ -49,8 +49,9 @@ namespace MagicWorld.Constants
 
             Constants.AddRange(SpellConstantsValues.getChangeableConstants());
             Constants.AddRange(PhysicValues.getChangeableConstants());
-            Constants.AddRange(SpellInfluenceValues.getChangeableConstants());  
+            Constants.AddRange(SpellInfluenceValues.getChangeableConstants());
 
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
 
         ~ConstantChanger()
@@ -119,20 +120,16 @@ namespace MagicWorld.Constants
         }
 
         public override void Draw(GameTime gameTime)
-        {
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
-            if (playerService!=null)
+        {            
+            if (playerService.IsAlive && Constants.Count>0)
             {
-                if (playerService.IsAlive && Constants.Count>0)
-                {
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
-                    spriteBatch.DrawString(font, Constants[currentGroupIdx].groupName, positionGroupName, Color.Red * transparencyFactor);
+                spriteBatch.DrawString(font, Constants[currentGroupIdx].groupName, positionGroupName, Color.Red * transparencyFactor);
 
-                    Constants[currentGroupIdx].ConstantValues[currentGroupItemIdx].Draw(spriteBatch, positionValue, font,Color.White*transparencyFactor);
+                Constants[currentGroupIdx].ConstantValues[currentGroupItemIdx].Draw(spriteBatch, positionValue, font,Color.White*transparencyFactor);
 
-                    spriteBatch.End();
-                }
+                spriteBatch.End();
             }
             base.Draw(gameTime);
         }

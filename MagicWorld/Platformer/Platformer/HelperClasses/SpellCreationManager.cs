@@ -21,7 +21,7 @@ namespace MagicWorld.HelperClasses
         /// <returns>true if casting started successfull</returns>
         public static bool tryStartCasting(Player player, SpellType type, Level level)
         {
-           IAudioService audioservice = (IAudioService)level.Game.Services.GetService(typeof(IAudioService));
+           IAudioService audioservice = player.audioService;
            int basicCastingCost = SpellConstantsFactory.getSpellConstants(type).BasicCastingCost;
            if(player.Mana.CurrentMana > basicCastingCost)
            {

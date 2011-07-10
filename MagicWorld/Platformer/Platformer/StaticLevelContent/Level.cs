@@ -186,7 +186,7 @@ namespace MagicWorld
 
         ICameraService camera;
 
-        protected IAudioService audioService;
+        protected IAudioService audioService;               
 
         #endregion
 
@@ -210,6 +210,12 @@ namespace MagicWorld
             collisionManager = new CollisionManager(this);
 
             physicsManager = new PhysicsManager(this);
+
+            player = new Player(this, Vector2.Zero);
+
+            Visible = false;
+
+            this.game.Services.AddService(typeof(Level), this);
         }
 
         protected override void LoadContent()
@@ -269,16 +275,8 @@ namespace MagicWorld
             }
             Debug.WriteLine("");
 #endif
-            if (player == null)
-            {
-                player = new Player(this, startPoint, levelLoader.UsableSpells);
-            }
-            else
-            {
-                player.Reset(startPoint);
-                player.UsableSpells = levelLoader.UsableSpells;
-            }
-
+            player.Reset(startPoint);          
+            
             endPoint = levelLoader.getLevelExit();
 
             levelBounds = levelLoader.getLevelBounds();
@@ -297,13 +295,14 @@ namespace MagicWorld
 
             reachedExit = false;
 
-
             simpleAnimator = (ISimpleAnimator)game.Services.GetService(typeof(ISimpleAnimator));
             //TODO: add portals to the service/ask christopher about the best way to "get" them
 
             tutManager = (TutorialManager)Game.Services.GetService(typeof(TutorialManager));
             tutManager.Initialize();
             tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
+
+            Visible = true;
         }
 
 
@@ -334,7 +333,7 @@ namespace MagicWorld
         /// </summary>
         public override void Update(GameTime gameTime)
         {
-            if (player != null)
+            if (Visible)
             {
                 inputState.Update();
                 if (player.IsAlive && !reachedExit)
@@ -508,8 +507,6 @@ namespace MagicWorld
 
         public override void Draw(GameTime gameTime)
         {
-            if (camera != null)
-            {
                 //Draw Background
                 spriteBatch.Begin(SpriteSortMode.Immediate,
                 BlendState.AlphaBlend,
@@ -574,7 +571,6 @@ namespace MagicWorld
                 DrawForeground(gameTime, spriteBatch);
 
                 spriteBatch.End();
-            }
             base.Draw(gameTime);
         }
 

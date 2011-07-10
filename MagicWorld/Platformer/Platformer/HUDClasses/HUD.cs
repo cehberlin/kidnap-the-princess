@@ -91,14 +91,19 @@ namespace MagicWorld.HUDClasses
         #endregion
         IPlayerService playerService;
 
+        Level level;
+
 
         public HUD(Game game)
             : base(game)
         {
-            position = new Vector2(10, 10);           
+            position = new Vector2(10, 10);
             content = Game.Content;
             visible = false;
             screenManager = (ScreenManager)game.Services.GetService(typeof(ScreenManager));
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
+            level = (Level)Game.Services.GetService(typeof(Level));
+
             manaBar = new ManaBar(position);
             ingredientBar = new IngredientBar(new Vector2(80, 10));
             refreshSpellBarPosition();
@@ -136,34 +141,32 @@ namespace MagicWorld.HUDClasses
 
             leftSpell = cold;
             rightSpell = heat;
+
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             if (visible)
             {
-                if ( playerService!= null)
+                if (playerService.IsCasting)
                 {
-                    if (playerService.IsCasting) {
-                        manaBar.Update(playerService.Mana.TempMana, SpellConstantsValues.MAX_MANA);
-                    } else {
-                        manaBar.Update(playerService.Mana.CurrentMana, SpellConstantsValues.MAX_MANA);
-                    }
-                    //TODO: Constant polling is not good, call back is better.
-                    spellBarLeft.Update(playerService.selectedSpell_A);                    
-                    spellBarRight.Update(playerService.selectedSpell_B);
-                    UpdateRunes(playerService.selectedSpell_A, ref leftSpell);
-                    UpdateRunes(playerService.selectedSpell_B, ref rightSpell);
+                    manaBar.Update(playerService.Mana.TempMana, SpellConstantsValues.MAX_MANA);
                 }
+                else
+                {
+                    manaBar.Update(playerService.Mana.CurrentMana, SpellConstantsValues.MAX_MANA);
+                }
+                //TODO: Constant polling is not good, call back is better.
+                spellBarLeft.Update(playerService.selectedSpell_A);
+                spellBarRight.Update(playerService.selectedSpell_B);
+                UpdateRunes(playerService.selectedSpell_A, ref leftSpell);
+                UpdateRunes(playerService.selectedSpell_B, ref rightSpell);
+                
                 refreshSpellBarPosition();
+               
+                ingredientBar.SetState(level.CollectedIngredients.Count, level.NeededIngredients, level.MaxIngredientsCount);
 
-                Level level = (Level)Game.Services.GetService(typeof(Level)); 
-                if (level != null)
-                {
-                    ingredientBar.SetState(level.CollectedIngredients.Count, level.NeededIngredients, level.MaxIngredientsCount);
-                }
 
                 if (!screenManager.IsGameplayScreenActive())
                 {

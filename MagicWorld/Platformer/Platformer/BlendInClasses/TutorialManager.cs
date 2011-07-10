@@ -24,19 +24,18 @@ namespace MagicWorld.BlendInClasses
             TutorialInstruction t = new TutorialInstruction(text, pos);
             t.Manager = this;
             instructions.Add(t);
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
 
         public void AddInstructionSet(List<TutorialInstruction> instructs)
         {
             instructions.AddRange(instructs);
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
 
         public TutorialManager(Game game)
             : base(game)
         {
             instructions = new List<TutorialInstruction>();
+            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
         }
 
         public override void Initialize()
@@ -49,44 +48,38 @@ namespace MagicWorld.BlendInClasses
         {
             font = Game.Content.Load<SpriteFont>("Instructions/InstructionFont");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
             bg = Game.Content.Load<Texture2D>("Instructions/InstructionBG");
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (playerService == null)
-                playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
-            else
+            for (int i = 0; i < instructions.Count; i++)
             {
-                for (int i = 0; i < instructions.Count; i++)
+                if (instructions[i].IsActive)
                 {
-                    if (instructions[i].IsActive)
-                    {
-                        if (instructions[i].DisplayTime <= TimeSpan.Zero)
-                            instructions.Remove(instructions[i]);//Check if the instruction has run for long enough
-                        else
-                        {
-                            instructions[i].DisplayTime = instructions[i].DisplayTime.Subtract(gameTime.ElapsedGameTime);
-                            instructions[i].Transparency = (float)(instructions[i].DisplayTime.TotalMilliseconds / instructions[i].InitialTime);
-                        }
-                    }
+                    if (instructions[i].DisplayTime <= TimeSpan.Zero)
+                        instructions.Remove(instructions[i]);//Check if the instruction has run for long enough
                     else
-                    {//Check if an instruction needs to be activated
-                        if (instructions[i].Position.Contains((int)playerService.Position.X, (int)playerService.Position.Y))
-                        {
-                            // set all other instructions inactive
-                            foreach (TutorialInstruction inst in instructions)
-                            {
-                                inst.IsActive = false;
-                            }
-                            //set new instructions active
-                            instructions[i].IsActive = true;
-                        }
+                    {
+                        instructions[i].DisplayTime = instructions[i].DisplayTime.Subtract(gameTime.ElapsedGameTime);
+                        instructions[i].Transparency = (float)(instructions[i].DisplayTime.TotalMilliseconds / instructions[i].InitialTime);
                     }
                 }
-            }
+                else
+                {//Check if an instruction needs to be activated
+                    if (instructions[i].Position.Contains((int)playerService.Position.X, (int)playerService.Position.Y))
+                    {
+                        // set all other instructions inactive
+                        foreach (TutorialInstruction inst in instructions)
+                        {
+                            inst.IsActive = false;
+                        }
+                        //set new instructions active
+                        instructions[i].IsActive = true;
+                    }
+                }
+            }            
             base.Update(gameTime);
         }
 

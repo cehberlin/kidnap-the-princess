@@ -152,26 +152,22 @@ namespace MagicWorld
         /// <summary>
         /// Constructors a new player.
         /// </summary>
-        public Player(Level level, Vector2 position, SpellType[] useableSpells)
+        public Player(Level level, Vector2 position)
             : base(level)
         {
             this.collisionManager = new CollisionManager(level);
-            level.Game.Services.RemoveService(typeof(IPlayerService));
-            this.UsableSpells = useableSpells;
             this.level = level;
 
             Mana = new Mana(this);
 
             LoadContent();
 
-            Reset(position);
-
             debugColor = Color.Violet;
             level.Game.Services.AddService(typeof(IPlayerService), this);
 
             collisionCallback = HandleCollisionForOneObject;
 
-            selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
+            Reset(position);
         }
 
         /// <summary>
@@ -192,7 +188,6 @@ namespace MagicWorld
             //Celebrate wont be necessary if the exit will be added properly
             celebrateAnimation = new Animation("Content/Sprites/Player/PlayerSpriteSheet", 0.04f, 24, level.Content.Load<Texture2D>("Sprites/Player/PlayerSpriteSheet"), 4);
 
-            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
             base.LoadContent("");
         }
 
@@ -202,6 +197,20 @@ namespace MagicWorld
         /// <param name="position">The position to come to life at.</param>
         public void Reset(Vector2 position)
         {
+            if (level.LevelLoader != null)
+            {
+                UsableSpells = level.LevelLoader.UsableSpells;
+            }
+            if (UsableSpells != null)
+            {
+                selectedSpellIndex_A = 0;
+                selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
+                if (selectedSpell_A == selectedSpell_B)
+                {
+                    selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
+                }
+            }
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
             Position = position;
             Velocity = Vector2.Zero;
             isAlive = true;
@@ -223,67 +232,70 @@ namespace MagicWorld
             KeyboardState keyboardState,
             GamePadState gamePadState)
         {
-            if (collisionManager.CollidateWithLevelExit(this))
+            if (isAlive)
             {
-                this.level.ReachedExit = true;
-            }
-            else
-            {
-                this.level.ReachedExit = false;
-            }
-
-
-            Mana.update(gameTime);
-            GetInput(keyboardState, gamePadState);
-
-
-            HandleSpellCreation(gameTime, keyboardState, gamePadState);
-
-
-            ApplyPhysics(gameTime);
-
-            if (IsAlive && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
-            {
-                if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
+                if (collisionManager.CollidateWithLevelExit(this))
                 {
-                    if (lastMovementRight) {
-                        if (isFacingLeft)
-                        {
-                            spellAimAngle = -spellAimAngle;
-                        }
-                        isFacingLeft = false;
-                        sprite.PlayAnimation(runRightAnimation);
-                        
-                    }
-                    else {
-                        if (!isFacingLeft)
-                        {
-                            spellAimAngle = -spellAimAngle;
-                        }
-                        isFacingLeft = true;
-                        sprite.PlayAnimation(runLeftAnimation);
-                    }
+                    this.level.ReachedExit = true;
                 }
                 else
                 {
-                    if (isFacingLeft)
+                    this.level.ReachedExit = false;
+                }
+
+
+                Mana.update(gameTime);
+                GetInput(keyboardState, gamePadState);
+
+
+                HandleSpellCreation(gameTime, keyboardState, gamePadState);
+
+
+                ApplyPhysics(gameTime);
+
+                if (IsAlive && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
+                {
+                    if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
                     {
-                        sprite.PlayAnimation(idleAnimationFacingLeft);
+                        if (lastMovementRight)
+                        {
+                            if (isFacingLeft)
+                            {
+                                spellAimAngle = -spellAimAngle;
+                            }
+                            isFacingLeft = false;
+                            sprite.PlayAnimation(runRightAnimation);
+
+                        }
+                        else
+                        {
+                            if (!isFacingLeft)
+                            {
+                                spellAimAngle = -spellAimAngle;
+                            }
+                            isFacingLeft = true;
+                            sprite.PlayAnimation(runLeftAnimation);
+                        }
                     }
                     else
                     {
-                        sprite.PlayAnimation(idleAnimation);
+                        if (isFacingLeft)
+                        {
+                            sprite.PlayAnimation(idleAnimationFacingLeft);
+                        }
+                        else
+                        {
+                            sprite.PlayAnimation(idleAnimation);
+                        }
                     }
                 }
+
+                gravityInfluenceMaxTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                // Clear input.
+                movementX = 0.0f;
+                isJumping = false;
             }
-
-            gravityInfluenceMaxTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
-
-            // Clear input.
-            movementX = 0.0f;
-            isJumping = false;
-
-            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService)); //TODO: looks unnecessary to always register the player again !
         }
 
         /// <summary>
