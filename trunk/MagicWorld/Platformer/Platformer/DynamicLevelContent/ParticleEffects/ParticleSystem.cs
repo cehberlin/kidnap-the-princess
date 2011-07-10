@@ -165,6 +165,7 @@ namespace ParticleEffects
         {
             this.game = game;
             this.howManyEffects = howManyEffects;
+            camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
         }
 
         /// <summary>
@@ -347,8 +348,7 @@ namespace ParticleEffects
         /// sprite batch to render all of the active particles.
         /// </summary>
         public override void Draw(GameTime gameTime)
-        {
-            camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
+        {            
             // tell sprite batch to begin, using the spriteBlendMode specified in
             // initializeConstants
             game.SpriteBatch.Begin(

@@ -20,13 +20,11 @@ namespace MagicWorld.BlendInClasses
         IPlayerService playerService;
         ICameraService cameraService;
         Vector2 origin;
-        bool servicesAcquired;
 
         public AimingAid(Game game)
             : base(game)
         {
             content = game.Content;
-            servicesAcquired = false;
         }
 
         protected override void LoadContent()
@@ -44,25 +42,18 @@ namespace MagicWorld.BlendInClasses
 
         public override void Update(GameTime gameTime)
         {
-            playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
-            cameraService = (ICameraService)Game.Services.GetService(typeof(ICameraService));
-            if (playerService != null && cameraService != null)
-                servicesAcquired = true;
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (servicesAcquired)
+            if (playerService.isAiming)
             {
-                if (playerService.isAiming)
-                {
-                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraService.TransformationMatrix);
-                    spriteBatch.Draw(circleTex, playerService.Position, null, Color.White * transparencyFactor, 0, origin, 1.0f, SpriteEffects.None, 0f);
-                    spriteBatch.Draw(arrowTex, playerService.Position, null, Color.White * transparencyFactor, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipHorizontally, 0f);
-                    spriteBatch.End();
-                }
-            }
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraService.TransformationMatrix);
+                spriteBatch.Draw(circleTex, playerService.Position, null, Color.White * transparencyFactor, 0, origin, 1.0f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(arrowTex, playerService.Position, null, Color.White * transparencyFactor, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipHorizontally, 0f);
+                spriteBatch.End();
+            }            
             base.Draw(gameTime);
         }
     }

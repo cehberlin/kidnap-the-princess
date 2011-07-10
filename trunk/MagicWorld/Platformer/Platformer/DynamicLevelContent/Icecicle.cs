@@ -36,6 +36,7 @@ namespace MagicWorld
             icecicleState = IcecicleState.NORMAL;
             collisionCallback = HandleCollisionForOneObject;
             fallVelocity = 500f;
+            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
         }
 
         public override void LoadContent(string spriteSet)
@@ -62,7 +63,6 @@ namespace MagicWorld
                 position.Y += (float)(gameTime.ElapsedGameTime.TotalSeconds* fallVelocity);          
             }            
             HandleCollision();
-            enemyService = (IEnemyService)level.Game.Services.GetService(typeof(IEnemyService));
         }
  
         #region collision

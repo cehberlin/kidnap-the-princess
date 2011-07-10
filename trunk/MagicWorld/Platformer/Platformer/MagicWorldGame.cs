@@ -182,6 +182,10 @@ namespace MagicWorld
 
         protected override void Initialize()
         {
+            AudioManager audiomanager = new AudioManager(this);
+            audiomanager.Initialize();
+            Services.AddService(typeof(IAudioService), audiomanager);
+
             //The camera needs access to the graphics device which is only loaded before LoadContent.
             Camera2d camera = new Camera2d(this);
             Components.Add(camera);
@@ -201,9 +205,6 @@ namespace MagicWorld
             screenManager.AddScreen(new BackgroundScreen(), null);
             screenManager.AddScreen(new MainMenuScreen(), null);
 
-            AudioManager audiomanager = new AudioManager(this);
-            audiomanager.Initialize();
-            Services.AddService(typeof(IAudioService), audiomanager);
             ice = new IcedVisibility(this);
             Components.Add(ice);
             Services.AddService(typeof(IVisibility),ice);
