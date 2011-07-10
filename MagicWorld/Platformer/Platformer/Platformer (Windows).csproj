@@ -81,6 +81,7 @@
     <Compile Include="Constants\ConstantChanger\ConstantChangerItemFloat.cs" />
     <Compile Include="Constants\ConstantChanger\ConstantChangerItemVector.cs" />
     <Compile Include="Constants\GeneralValues.cs" />
+    <Compile Include="Constants\LevelElements.cs" />
     <Compile Include="Constants\PhysicValues.cs" />
     <Compile Include="Constants\SpellConstantsValues.cs" />
     <Compile Include="Constants\SpellInfluenceValues.cs" />
