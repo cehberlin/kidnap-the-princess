@@ -6,7 +6,7 @@
 
 == Final (13.07) ==
 
-  # BUG: push/pull moves Matter through walls
+  # BUG: push/pull moves Matter through walls --> seems to be fixed for push pull elements; maybe still a problem for selfcreated matter, but that maybe not fixable at the moment
   # show intro video in game
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
@@ -30,8 +30,6 @@
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
-  # optional: highlight objects that are infuenced by push/pull while casting
-
 
 
  === optional ===
