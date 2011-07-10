@@ -68,7 +68,8 @@ namespace MagicWorld.Spells
                 {
                     sprite.PlayAnimation(idleAnimation);
                 }
-            }            
+            }
+            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
         }
 
         /// <summary>
@@ -76,7 +77,6 @@ namespace MagicWorld.Spells
         /// </summary>
         protected override void OnWorkingStart()
         {
-            level.CollisionManager.HandleCollisionWithoutRestrictions(this, collisionCallback);
             SpellState = State.REMOVE;
         }
 

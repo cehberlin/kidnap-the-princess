@@ -13,13 +13,13 @@ using ParticleEffects;
 
 namespace MagicWorld
 {
-    class MatterSpell:Spell 
-    {       
+    class MatterSpell : Spell
+    {
 
         Texture2D matterTexture;
 
         protected Boolean gravityIsSetOffBySpell = false;
-        
+
         protected PushPullHandler pushPullHandler = new PushPullHandler();
 
         protected double startSurvivalTime;
@@ -35,7 +35,7 @@ namespace MagicWorld
         {
             survivalTimeMs = SpellConstantsValues.MATTER_EXISTENCE_TIME;
             startSurvivalTime = survivalTimeMs;
-            MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;                        
+            MoveSpeed = SpellConstantsValues.CreateMatterSpell_MoveSpeed;
             accelarationChangeFactorX = SpellConstantsValues.CreateMatterSpell_accelarationChangeFactor;
             accelarationChangeFactorY = 0;
             this.Collision = CollisionType.Platform;
@@ -50,7 +50,7 @@ namespace MagicWorld
                 float width = (matterTexture.Width * 0.6f) * currentScale;
                 float height = (matterTexture.Height * 0.9f) * currentScale;
                 float left = (float)Math.Round(position.X - width / 2);
-                float top = (float)Math.Round(position.Y - height / 2); 
+                float top = (float)Math.Round(position.Y - height / 2);
                 return new Bounds(left, top, width, height);
             }
         }
@@ -61,11 +61,11 @@ namespace MagicWorld
         /// <returns></returns>
         Rectangle getDrawingRectagle()
         {
-                float width = (matterTexture.Width) * currentScale;
-                float height = (matterTexture.Height ) * currentScale;
-                float left = (float)Math.Round(position.X - width / 2);
-                float top = (float)Math.Round(position.Y - height / 2);
-                return new Rectangle((int)left, (int)top, (int)width, (int)height);
+            float width = (matterTexture.Width) * currentScale;
+            float height = (matterTexture.Height) * currentScale;
+            float left = (float)Math.Round(position.X - width / 2);
+            float top = (float)Math.Round(position.Y - height / 2);
+            return new Rectangle((int)left, (int)top, (int)width, (int)height);
         }
 
         public override void LoadContent(string spriteSet)
@@ -78,7 +78,7 @@ namespace MagicWorld
         double nogravityInfluenceTime = 0;
         bool isOnGround = false;
         public override void Update(GameTime gameTime)
-        {            
+        {
             if (SpellState == State.WORKING)
             {
                 pushPullHandler.Update(gameTime);
@@ -104,7 +104,7 @@ namespace MagicWorld
 
             if (SpellState == State.WORKING)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround,null,false,true,false);
+                level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround, null, false, true, false);
                 if (isOnGround)
                 {
                     ResetVelocity();
@@ -116,7 +116,7 @@ namespace MagicWorld
         {
             survivalTimeMs *= UsedMana;
             startSurvivalTime = survivalTimeMs;
-            Debug.WriteLine("Matter starts working TIme:" +survivalTimeMs);
+            Debug.WriteLine("Matter starts working TIme:" + survivalTimeMs);
             base.OnWorkingStart();
         }
 
@@ -132,6 +132,8 @@ namespace MagicWorld
         {
             velocity = Vector2.Zero;
         }
+
+        int pushPullParticleCounter = 0;
 
         /// <summary>
         /// cold spell increases lifetime warm spell shortens on 10%
@@ -157,18 +159,36 @@ namespace MagicWorld
             }
             else if (spell.SpellType == SpellType.PullSpell)
             {
-                Vector2 push = spell.Position - this.Position;
-                push.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.start(this, 1000, push);
+                if (spell.SpellState == State.WORKING)
+                {
+                    Vector2 push = spell.Position - this.Position;
+                    push.Normalize();
+                    pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.start(this, 1000, push);
+                }
+                else if (pushPullParticleCounter % 20 == 0)
+                {
+                    Bounds bounds = Bounds;
+                    level.Game.PullCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PULL_COLOR, bounds.Width / 2));
+                }
+                pushPullParticleCounter++;
                 return false;
             }
             else if (spell.SpellType == SpellType.PushSpell)
             {
-                Vector2 pull = this.Position - spell.Position;
-                pull.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.start(this, 1000, pull);
+                if (spell.SpellState == State.WORKING)
+                {
+                    Vector2 pull = this.Position - spell.Position;
+                    pull.Normalize();
+                    pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_DEFAULT_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.start(this, 1000, pull);
+                }
+                else if (pushPullParticleCounter%20==0)
+                {
+                    Bounds bounds = Bounds;
+                    level.Game.PushCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2),SpellConstantsValues.PUSH_COLOR, bounds.Width));
+                }
+                pushPullParticleCounter++;
                 return false;
             }
             return base.SpellInfluenceAction(spell);
@@ -180,12 +200,12 @@ namespace MagicWorld
             if (level.Game.MatterCreationParticleSystem.CurrentParticles() < 10)
             {
                 Bounds bounds = Bounds;
-                level.Game.MatterCreationParticleSystem.AddParticles(new ParticleSetting(position, (bounds.Width+bounds.Height)/4+40));
+                level.Game.MatterCreationParticleSystem.AddParticles(new ParticleSetting(position, (bounds.Width + bounds.Height) / 4 + 40));
             }
         }
 
         public override void HandleCollision()
-        {   
+        {
             //check if spells leaves the level
             HandleOutOfLevelCollision();
         }
