@@ -536,8 +536,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level2_leg.xml">
-      <Name>level2_leg</Name>
+    <None Include="LevelData\leg_level2_leg.xml">
+      <Name>leg_level2_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -557,8 +557,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level1_leg.xml">
-      <Name>level1_leg</Name>
+    <None Include="LevelData\leg_level1_leg.xml">
+      <Name>leg_level1_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -588,8 +588,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level3_leg.xml">
-      <Name>level3_leg</Name>
+    <None Include="LevelData\leg_level3_leg.xml">
+      <Name>leg_level3_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -708,8 +708,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level9.xml">
-      <Name>level9</Name>
+    <None Include="LevelData\leg_level9_leg.xml">
+      <Name>leg_level9_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -742,16 +742,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level6_leg.xml">
-      <Name>level6_leg</Name>
+    <None Include="LevelData\leg_level6_leg.xml">
+      <Name>leg_level6_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level7_leg.xml">
-      <Name>level7_leg</Name>
+    <None Include="LevelData\leg_level7_leg.xml">
+      <Name>leg_level7_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -765,8 +765,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level8.xml">
-      <Name>level8</Name>
+    <None Include="LevelData\leg_level8_leg.xml">
+      <Name>leg_level8_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -968,40 +968,40 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level11.xml">
-      <Name>level11</Name>
+    <None Include="LevelData\leg_level11_leg.xml">
+      <Name>leg_level11_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level12.xml">
-      <Name>level12</Name>
+    <None Include="LevelData\level8.xml">
+      <Name>level8</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level10.xml">
-      <Name>level10</Name>
+    <None Include="LevelData\leg_level10.xml">
+      <Name>leg_level10</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level13.xml">
-      <Name>level13</Name>
+    <None Include="LevelData\leg_level13_leg.xml">
+      <Name>leg_level13_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level14.xml">
-      <Name>level14</Name>
+    <None Include="LevelData\leg_level14_leg.xml">
+      <Name>leg_level14_leg</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1048,14 +1048,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="LevelData\level4.xml">
-      <Name>level4</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\Player\dieSpriteSheet.png">
       <Name>dieSpriteSheet</Name>
       <Importer>TextureImporter</Importer>
@@ -1067,14 +1059,6 @@
       <Processor>PassThroughProcessor</Processor>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LevelData\level7.xml">
-      <Name>level7</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1165,6 +1149,21 @@
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LevelData\level4.xml">
+      <Name>level4</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LevelData\level7.xml">
+      <Name>level7</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
