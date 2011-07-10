@@ -659,7 +659,7 @@ namespace MagicWorld.StaticLevelContent
 
         public BasicGameElement getLevelExit()
         {
-            BlockElement b = new BlockElement("LevelContent/Cave/exit", CollisionType.Passable, level, levelLoader.getItemByName("exit").Position);
+            LevelExit b = new LevelExit("LevelContent/Cave/exit", level, levelLoader.getItemByName("exit").Position);
             if (author == 1)
             {
                 return b;
