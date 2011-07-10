@@ -232,6 +232,7 @@ namespace MagicWorld
         {
             if (spell.SpellType == Spells.SpellType.WarmingSpell)
             {
+                level.visibilityService.Remove(this);
                 if (isFroozen)
                 {
                     isFroozen = false;
