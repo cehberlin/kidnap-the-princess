@@ -8,7 +8,6 @@
 
   # BUG: push/pull moves Matter through walls --> seems to be fixed for push pull elements; maybe still a problem for selfcreated matter, but that maybe not fixable at the moment --> still a bug for created matter 
   # BUG: If you use Pull to an Pull Object and use ist afterward again and hold the button while object is moving, the object still moves.
-  # show intro video in game
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
      * dying
@@ -25,13 +24,15 @@
   # Hide background color(blue) of levels at the edge --> may use of some big textures
   # KEYPAD MAPPING
   # BUG: if next level is loaded you can still see particle effects from the last level for a short periode of time
-
   # enhace menus appareance --> amauri
      * make messagebox convenient to menu design, also check text
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
   # Screen to play the film --> Amauri
+  # Level Design: Level 5 - use moveable Platform Textures --> John
+  # Level Design: Level 6 - better positioning of Switches  --> John
+  # better push/pull spell graphic
 
 
  === optional ===
