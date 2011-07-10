@@ -8,6 +8,7 @@
   # Level 3 put the stones in the moat to foreground layer --> Pascal
   # Audiomanager -> John
   # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
+  # BUG: Stop player falling after he died
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
      * dying
@@ -19,6 +20,7 @@
      * menu sound
      * laughter if enemy is killed by icicle
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
+  # Hide background color(blue) of levels at the edge --> may use of some big textures
   # KEYPAD MAPPING
   # Draw 3D level exit -> Pascal
   # enhace menus appareance --> amauri
