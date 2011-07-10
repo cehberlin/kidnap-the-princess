@@ -312,7 +312,7 @@ namespace MagicWorld
                 nextBound.Position = nextBound.Position + new Vector2(-this.Bounds.Width, 10);
             foreach (BasicGameElement b in level.GeneralColliadableGameElements)
             {
-                if (b.Bounds.Box.Intersects(nextBound.Box) && b.GetType() == typeof(BlockElement))
+                if (b.Bounds.Box.Intersects(nextBound.Box) && (b.GetType() == typeof(BlockElement) || b.GetType().IsSubclassOf(typeof(BlockElement))))
                 {
                     return false;
                 }
