@@ -81,7 +81,7 @@ namespace MagicWorld.StaticLevelContent
             int x = (int)Math.Round(position.X);
             int y = (int)Math.Round(position.Y);
 
-            this.shortBounds = new Bounds(x + 80 / 2, y + 20, 80, Height * 0.7f);
+            this.shortBounds = new Bounds(x + 120 / 2, y + 100, 45, 50);
             drawRec = new Rectangle(x, y, Width, Height);
         }
     }
