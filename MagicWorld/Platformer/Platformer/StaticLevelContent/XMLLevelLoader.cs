@@ -261,9 +261,10 @@ namespace MagicWorld.StaticLevelContent
                     
                     CollisionType collisionType = CollisionType.Impassable;
                     collisionType = getCollisionType(item, collisionType);
-                    PushPullElement pushPullElement = new PushPullElement(ti.asset_name, collisionType, level, item.Position, ti.TintColor, enablegravity);
+                    PushPullElement pushPullElement = new PushPullElement(ti.asset_name, collisionType, level, getCorrectedStartPosition(ti), ti.TintColor, enablegravity);
                     pushPullElement.isMagic = isMagic(item);
-
+                    pushPullElement.Width = (int)ti.Origin.X * 2;
+                    pushPullElement.Height = (int)ti.Origin.Y * 2;
                     elements.Add(pushPullElement);
                 }
             }
