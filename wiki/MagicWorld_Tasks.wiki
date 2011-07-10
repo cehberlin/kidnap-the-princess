@@ -18,7 +18,6 @@
      * spell hit enemy
      * menu sound
      * laughter if enemy is killed by icicle
- right to left is facing the wrong direction 
   # BUG: If you play 2 levels the number of Ingredients is wrong
   # Level 3 put the stones in the moat to foreground layer --> Pascal
   # Audiomanager -> John
