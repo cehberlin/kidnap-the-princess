@@ -191,6 +191,7 @@
     <Compile Include="StaticLevelContent\ILevelLoader.cs" />
     <Compile Include="Gleed2dLevelContent\Item.cs" />
     <Compile Include="Gleed2dLevelContent\Layer.cs" />
+    <Compile Include="StaticLevelContent\LevelExit.cs" />
     <Compile Include="StaticLevelContent\SwitchableMoveablePlatform.cs" />
     <Compile Include="StaticLevelContent\Level.cs" />
     <Compile Include="MagicWorldGame.cs" />

@@ -13,8 +13,10 @@ namespace MagicWorld
     {
         public Texture2D Texture;
 
-        public int Width = 0;
-        public int Height = 0;
+        private int width = 0;
+        public virtual int Width { get { return width; } set { width = value; } }
+        private int height = 0;
+        public virtual int Height { get { return height; } set { height = value; } }
             
         protected Color drawColor = Color.White;
 
