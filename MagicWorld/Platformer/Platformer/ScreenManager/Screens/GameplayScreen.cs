@@ -162,8 +162,9 @@ namespace MagicWorld
                                        input.GamePadWasConnected[playerIndex];
 
             if (input.IsPauseGame(ControllingPlayer) || gamePadDisconnected)
-            {
-                ScreenManager.AddScreen(new PauseMenuScreen(), ControllingPlayer);
+            {                
+                ScreenManager.AddScreen(new PauseMenuScreen(level), ControllingPlayer);
+                level.Pause = true;
             }
 
             IPlayerControl control = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
@@ -268,11 +269,14 @@ namespace MagicWorld
             // Load the level.
             level.initLevel(LevelLoaderFactory.getLevel(num));
             level.LevelNumber = num;
-            camera.Position = level.LevelLoader.getPlayerStartPosition();
+            camera.Position = level.StartPoint;//level.LevelLoader.getPlayerStartPosition();
+            level.Pause = true;
+
             //load info screen
             LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
             levelInfoTransition.Accepted += FinishLoadingLevel;
             ScreenManager.AddScreen(levelInfoTransition, ControllingPlayer);
+            
         }
 
         void FinishLoadingLevel(object sender, PlayerIndexEventArgs e)
@@ -292,6 +296,7 @@ namespace MagicWorld
 
             ice.Clear();
             loadingLevel = false;
+            level.Pause = false;
             // }
 
         }
@@ -324,9 +329,11 @@ namespace MagicWorld
         {
             if ((levelIndex + 1) > LevelLoaderFactory.NumberOfLevels)
             {
+                loadingLevel = true;
+                level.Pause = true;
                 CreditsScreen cred = new CreditsScreen(ScreenManager);
                 cred.Accepted += EventCreditScreen;
-                ScreenManager.AddScreen(cred, e.PlayerIndex);
+                ScreenManager.AddScreen(cred, ControllingPlayer);
             }
             else
             {

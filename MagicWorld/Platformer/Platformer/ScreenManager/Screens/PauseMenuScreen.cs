@@ -13,11 +13,11 @@ namespace MagicWorld
     {
         #region Initialization
 
-
+        Level level;
         /// <summary>
         /// Constructor.
         /// </summary>
-        public PauseMenuScreen()
+        public PauseMenuScreen(Level level)
             : base("Paused")
         {
             // Create our menu entries.
@@ -25,7 +25,9 @@ namespace MagicWorld
             MenuEntry quitGameMenuEntry = new MenuEntry("Main Menu");
             MenuEntry restartLevelMenuEntry = new MenuEntry("Restart Level");
             MenuEntry optionsGameMenuEntry = new MenuEntry("Options");
-            
+
+            this.level = level;
+
             // Hook up menu event handlers.
             resumeGameMenuEntry.Selected += OnCancel;
             quitGameMenuEntry.Selected += QuitGameMenuEntrySelected;
@@ -106,6 +108,11 @@ namespace MagicWorld
             ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
         }
 
+        protected override void OnCancel(PlayerIndex playerIndex)
+        {
+            level.Pause = false;
+            ExitScreen();
+        }
 
         #endregion
     }
