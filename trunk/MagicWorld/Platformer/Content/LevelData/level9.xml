@@ -2459,8 +2459,8 @@
             <Items>
                 <Item xsi:type="TextureItem" Name="Texture_0179" Visible="true">
                     <Position>
-                        <X>-810</X>
-                        <Y>451</Y>
+                        <X>-813</X>
+                        <Y>459</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2912,6 +2912,9 @@
                     <CustomProperties>
                         <Property Name="switch_torch_off" Type="string" Description="">
                             <string>hidden</string>
+                        </Property>
+                        <Property Name="Magic" Type="string" Description="">
+                            <string />
                         </Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
@@ -4349,41 +4352,6 @@
                         <Y>15</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0094" Visible="true">
-                    <Position>
-                        <X>1110</X>
-                        <Y>-226</Y>
-                    </Position>
-                    <CustomProperties>
-                        <Property Name="DelayTime" Type="string" Description="">
-                            <string>12000</string>
-                        </Property>
-                        <Property Name="Aim" Type="Item" Description="">aim3</Property>
-                        <Property Name="EnemyType" Type="string" Description="">
-                            <string>Bullet</string>
-                        </Property>
-                    </CustomProperties>
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Additional\vulcan.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Additional\vulcan</asset_name>
-                    <Origin>
-                        <X>56</X>
-                        <Y>15</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="CircleItem" Name="aim" Visible="true">
                     <Position>
                         <X>882</X>
@@ -4477,21 +4445,6 @@
                         <PackedValue>2445279424</PackedValue>
                     </FillColor>
                 </Item>
-                <Item xsi:type="CircleItem" Name="aim3" Visible="true">
-                    <Position>
-                        <X>1046</X>
-                        <Y>-507</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Radius>28.2842712</Radius>
-                    <FillColor>
-                        <R>192</R>
-                        <G>0</G>
-                        <B>192</B>
-                        <A>145</A>
-                        <PackedValue>2445279424</PackedValue>
-                    </FillColor>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0137" Visible="true">
                     <Position>
                         <X>1251</X>
@@ -4535,8 +4488,8 @@
         <NextItemNumber>226</NextItemNumber>
         <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>991.669556</X>
-            <Y>-341.667145</Y>
+            <X>-541.6677</X>
+            <Y>41.6668</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
