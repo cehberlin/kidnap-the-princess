@@ -27,7 +27,8 @@ namespace MagicWorld
     /// </summary>
     public class Level : DrawableGameComponent
     {
-
+        public bool Pause = false; //DUMMY
+        public Vector2 StartPoint { get { return startPoint; } } //DUMMY
         #region properties
         // Entities in the level.
         public Player Player
@@ -236,6 +237,8 @@ namespace MagicWorld
             this.levelLoader = levelLoader;
 
             game.GameData.Time = 0;
+
+            this.CollectedIngredients.Clear();
 
             levelLoader.init(this);
 
