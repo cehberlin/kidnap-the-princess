@@ -17,6 +17,7 @@ using System.Diagnostics;
 using MagicWorld.Constants;
 using MagicWorld.Ingredients;
 using MagicWorld.Audio;
+using MagicWorld.DynamicLevelContent;
 
 namespace MagicWorld
 {
@@ -549,6 +550,24 @@ namespace MagicWorld
                 DrawSpells(gameTime, spriteBatch);
 
                 spriteBatch.End();
+
+
+                foreach (BasicGameElement elem in generalColliadableGameElements){
+                    spriteBatch.Begin(SpriteSortMode.Immediate,
+                    BlendState.AlphaBlend,
+                    null,
+                    null,
+                    null,
+                    null,
+                    camera.TransformationMatrix);
+
+                    if(player.CurrentSpell != null)
+                    if (elem.GetType().Equals(typeof(SpellMoveablePlatform)) && elem.Bounds.Box.Intersects(player.CurrentSpell.Bounds.Sphere)
+                        || elem.GetType().Equals(typeof(PushPullElement)) && elem.Bounds.Box.Intersects(player.CurrentSpell.Bounds.Sphere))
+                        elem.Draw(gameTime, spriteBatch);
+
+                    spriteBatch.End();
+                }
 
                 //Draw Player
                 spriteBatch.Begin(SpriteSortMode.Immediate,
