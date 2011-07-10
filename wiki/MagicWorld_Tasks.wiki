@@ -5,9 +5,9 @@
 = TODO =
 
 == Final (13.07) ==
+  # BUG: push/pull moves Matter through walls
   # Level 3 put the stones in the moat to foreground layer --> Pascal
   # Audiomanager -> John
-  # BUG: push/pull bounding bounding box--> Where is the bug?its correct in my opinion!
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * jumping
      * dying
