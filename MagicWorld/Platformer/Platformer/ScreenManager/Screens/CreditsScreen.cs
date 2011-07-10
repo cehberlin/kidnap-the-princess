@@ -49,7 +49,7 @@ namespace MagicWorld
             message += "\n\n Developers";
             message += "\n\nChristopher Hrabia";
             message += "\nPascal Schwenke";
-            message += "\nJohn Carlo";
+            message += "\nJohn Calo";
             message += "\nMarian Volk";
             message += "\nAmauri Albuquerque";
                         
