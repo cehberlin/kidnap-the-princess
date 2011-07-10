@@ -62,6 +62,8 @@ namespace MagicWorld
         /// </summary>
         private Boolean isFacingLeft = false;
 
+        private Vector2 oldposition;
+
         public override Bounds Bounds
         {
             get
@@ -295,6 +297,7 @@ namespace MagicWorld
                 // Clear input.
                 movementX = 0.0f;
                 isJumping = false;
+                oldposition = position;
             }
         }
 
@@ -525,6 +528,7 @@ namespace MagicWorld
             if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
                 OnKilled(null);
+                position.Y = oldposition.Y;
             }
 
             // The player has reached the exit if they are standing on the ground and
