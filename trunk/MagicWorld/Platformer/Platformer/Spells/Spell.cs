@@ -244,16 +244,17 @@ namespace MagicWorld
                 currentAccelarationY = accelarationMinY;
             if (currentAccelarationY > accelarationMaxY)
                 currentAccelarationY = accelarationMaxY;
-
-                        
+         
             // Move in the current direction.
             velocity = new Vector2((float)velocity.X  * currentAccelarationX, (float)velocity.Y  * currentAccelarationY);
             
             Position = Position + velocity*elapsed;
                         base.Update(gameTime);
 
-            rotation = GeometryCalculationHelper.RotateToDirection(OldPosition, position);
-            Position = new Vector2((float)Math.Round(Position.X), (float)Math.Round(Position.Y));
+            if ((position - OldPosition).Length() > 0.5f)
+            {
+                rotation = GeometryCalculationHelper.RotateToDirection(OldPosition, position);
+            }
         }
 
         /// <summary>
