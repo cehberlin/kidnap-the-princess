@@ -106,6 +106,7 @@ namespace MagicWorld.HUDClasses
 
             manaBar = new ManaBar(position);
             ingredientBar = new IngredientBar(position+ new Vector2(70, 0));
+            ingredientBar.LoadContent(game);
             refreshSpellBarPosition();
         }
 
@@ -190,7 +191,7 @@ namespace MagicWorld.HUDClasses
                 spriteBatch.Begin();
                 spriteBatch.Draw(liquidTex, manaBar.Filling, manaBar.getTextureOverlay(gameTime));
                 spriteBatch.Draw(bottleTex, manaBar.Position, Color.White);
-                spriteBatch.DrawString(font, ingredientBar.IngredientString, ingredientBar.Position, ingredientsColor);
+                ingredientBar.Draw(spriteBatch);
                 spriteBatch.Draw(leftSpell, spellBarLeft.Position, Color.White);
                 spriteBatch.Draw(rightSpell, spellBarRight.Position, Color.White);
                 spriteBatch.End();
