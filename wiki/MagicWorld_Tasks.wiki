@@ -26,6 +26,7 @@
   # BUG: if next level is loaded you can still see particle effects from the last level for a short periode of time
   # enhace menus appareance --> amauri
      * make messagebox convenient to menu design, also check text
+  # improve/rewrite controls menu. Current one is not distributable ->amauri or marian?
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
