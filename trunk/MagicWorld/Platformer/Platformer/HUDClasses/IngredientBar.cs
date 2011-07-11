@@ -67,11 +67,11 @@ namespace MagicWorld.HUDClasses
                 {
                     if (i < current)
                     {
-                        spriteBatch.Draw(texture, getDrawRect(drawPos, MoreScale), Color.Green);
+                        spriteBatch.Draw(texture, getDrawRect(drawPos, MoreScale), Color.White);
                     }
                     else
                     {
-                        spriteBatch.Draw(texture, getDrawRect(drawPos, MoreScale), Color.White * 0.3f);
+                        spriteBatch.Draw(texture, getDrawRect(drawPos, MoreScale), Color.LightGreen * 0.3f);
                     }
                 }
             }

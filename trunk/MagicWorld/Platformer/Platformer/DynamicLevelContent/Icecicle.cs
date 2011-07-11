@@ -95,7 +95,7 @@ namespace MagicWorld
                 if (! e.isFroozen)//enemyService.IsFroozen)
                 {
                     //destroy enemy
-                    audioService.playSound(Audio.SoundType.icehit);
+                    //audioService.playSound(Audio.SoundType.icehit);
                     audioService.playSound(Audio.SoundType.monsterkill);
                     audioService.playSound(Audio.SoundType.laugh);
                     IcecicleState = IcecicleState.DESTROYED;

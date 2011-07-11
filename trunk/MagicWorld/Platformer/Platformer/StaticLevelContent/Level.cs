@@ -300,13 +300,8 @@ namespace MagicWorld
             //See http://social.msdn.microsoft.com/Forums/en/windowsphone7series/thread/c8a243d2-d360-46b1-96bd-62b1ef268c66
             //Which means its impossible to test this from VS.
             //So we have to catch the exception and throw it away
-            try
-            {
-                MediaPlayer.IsMuted = !game.GameStatus.PlayBackGroundMusic;
-                MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(levelLoader.getBackgroundMusic());
-            }
-            catch { }
+
+            audioService.playBackgroundmusic();
 
             reachedExit = false;
 
@@ -344,16 +339,8 @@ namespace MagicWorld
         /// </summary>
         public new void Dispose()
         {
-            StopBackgroundSound();
             Content.Unload();
             base.Dispose();
-        }
-
-        //Stop sound
-        public void StopBackgroundSound()
-        {
-            MediaPlayer.IsRepeating = false;
-            MediaPlayer.Stop();
         }
 
         #endregion

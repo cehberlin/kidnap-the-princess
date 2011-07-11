@@ -13,7 +13,10 @@ namespace MagicWorld
         #region Initialization
 
         bool playingBackMusic = false;
+        bool playingEffects = false;
+
         MenuEntry mnuPlayBackGroundMusic;
+        MenuEntry mnuPlayEffects;
         public IAudioService audioService;
         /// <summary>
         /// Constructor.
@@ -23,7 +26,9 @@ namespace MagicWorld
         {
             audioService = (IAudioService)screenManager.Game.Services.GetService(typeof(IAudioService));
             // Create our menu entries.
-            playingBackMusic = screenManager.Game.GameStatus.PlayBackGroundMusic;
+            playingBackMusic = !audioService.IsMusicMuted;
+            playingEffects=!audioService.IsEffectMuted;
+
             if (playingBackMusic)
             {
                 mnuPlayBackGroundMusic = new MenuEntry("Background Music <On>");
@@ -33,14 +38,25 @@ namespace MagicWorld
                 mnuPlayBackGroundMusic = new MenuEntry("Background Music <Off>");
             }
 
+            if (playingEffects)
+            {
+                mnuPlayEffects = new MenuEntry("Effects <On>");
+            }
+            else
+            {
+                mnuPlayEffects = new MenuEntry("Effects <Off>");
+            }
+
             MenuEntry back = new MenuEntry("Back");
 
             // Hook up menu event handlers.
             mnuPlayBackGroundMusic.Selected += PlayBackgroundMusic;
+            mnuPlayEffects.Selected += PlayEffects;
             back.Selected += OnCancel;
 
             // Add entries to the menu.
             MenuEntries.Add(mnuPlayBackGroundMusic);
+            MenuEntries.Add(mnuPlayEffects);
 
             MenuEntries.Add(back);
         }
@@ -65,9 +81,23 @@ namespace MagicWorld
                 audioService.IsMusicMuted = false;
             }
             audioService.playBackgroundmusic();
+        }
 
-            ScreenManager.Game.GameStatus.PlayBackGroundMusic = !audioService.IsMusicMuted;
-
+        /// <summary>
+        /// Event handler for when the Ungulate menu entry is selected.
+        /// </summary>
+        void PlayEffects(object sender, PlayerIndexEventArgs e)
+        {
+            if (!audioService.IsEffectMuted)
+            {
+                mnuPlayEffects.Text = "Effects <Off>";
+                audioService.IsEffectMuted = true;
+            }
+            else
+            {
+                mnuPlayEffects.Text = "Effects <On>";
+                audioService.IsEffectMuted = false;
+            }
         }
 
 
