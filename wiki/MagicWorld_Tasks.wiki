@@ -33,6 +33,7 @@ no_gravity_is_running.mp3 --> Amauri
   # presentation plan
   # Screen to play the film --> Amauri
   # Level Design: Level 5 - use moveable Platform Textures --> John
+  # Level Design: Level 5 - positioniere mal die pull platform so das sie einfacher zu erreichen ist --> John
   # Level Design: Level 6 - better positioning of Switches  --> John-->(comment john: Why??) --> the switch should slightly in the ground so you dont see
   # Level Design: Level 5 & 6 - only use Platforms from the "/platform/" Folder
   # BUG: bad linebreak in instructions
