@@ -347,6 +347,7 @@ namespace ParticleEffects
              foreach (Particle p in particles)
             {
                 p.Active = false;
+                freeParticles.Enqueue(p);
             }
         }
 
