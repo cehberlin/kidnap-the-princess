@@ -25,7 +25,7 @@ namespace MagicWorld.Spells
         protected float accelarationMaxY = 2.0f;
         protected float accelarationMinY = 0f;
 
-        float influenceTimeInMs;
+        double influenceTimeInMs;
 
         protected BasicGameElement element;
 
@@ -41,7 +41,7 @@ namespace MagicWorld.Spells
             start(null, 0, Vector2.Zero);
         }
 
-        public void start(BasicGameElement elem, float influenceTimeInMs, Vector2 startVelocity)
+        public void start(BasicGameElement elem, double influenceTimeInMs, Vector2 startVelocity)
         {
             this.influenceTimeInMs = influenceTimeInMs;
             this.element = elem;
@@ -90,7 +90,7 @@ namespace MagicWorld.Spells
                     element.Position += influenceVelocity*elapsed;
 
 
-                    influenceTimeInMs -= elapsed*1000;
+                    influenceTimeInMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
                 else
                 {
@@ -195,7 +195,7 @@ namespace MagicWorld.Spells
                         }
                     }
 
-                    influenceTimeInMs -= elapsed*1000;
+                    influenceTimeInMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
                 else
                 {
