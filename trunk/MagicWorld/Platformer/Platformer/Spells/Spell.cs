@@ -8,6 +8,7 @@ using MagicWorld.Spells;
 using ParticleEffects;
 using System.Diagnostics;
 using MagicWorld.Constants;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -31,6 +32,7 @@ namespace MagicWorld
 
             public SpellType SpellType { get; protected set; }
 
+            private bool startElectricSound = true;
 
             private int usedMana;
             /// <summary>
@@ -195,6 +197,11 @@ namespace MagicWorld
         {
             if (SpellState == State.WORKING)
             {
+                if (startElectricSound && SpellType == SpellType.ElectricSpell)
+                {
+                    audioService.playSoundLoop(SoundType.electric);
+                    startElectricSound = true;
+                }
                 HandleMovement(gameTime);
                 HandleLiveTime(gameTime);
                 //does not work proper dont know why at the moment
@@ -267,6 +274,11 @@ namespace MagicWorld
             if (survivalTimeMs < 0)
             {
                 this.SpellState = State.REMOVE;
+                if (SpellType == SpellType.ElectricSpell)
+                {
+                    audioService.stopSoundLoop(SoundType.electric);
+                    startElectricSound = true;
+                }
             }
             survivalTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
         }
@@ -335,6 +347,11 @@ namespace MagicWorld
             if (level.CollisionManager.CollidateWithLevelBounds(this))
             {
                 SpellState = State.REMOVE;
+                if (SpellType == SpellType.ElectricSpell)
+                {
+                    audioService.stopSoundLoop(SoundType.electric);
+                    startElectricSound = true;
+                }
             }
         }
 
