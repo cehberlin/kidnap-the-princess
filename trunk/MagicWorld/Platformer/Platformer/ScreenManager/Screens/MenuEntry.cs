@@ -2,6 +2,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MagicWorld.Audio;
 #endregion
 
 namespace MagicWorld
@@ -15,6 +16,8 @@ namespace MagicWorld
     class MenuEntry
     {
         #region Fields
+
+        MenuScreen screen;
 
         /// <summary>
         /// The text rendered for this entry.
@@ -78,6 +81,8 @@ namespace MagicWorld
         {
             if (Selected != null)
                 Selected(this, new PlayerIndexEventArgs(playerIndex));
+            IAudioService audioService = (IAudioService)screen.ScreenManager.Game.Services.GetService(typeof(IAudioService)); ;
+            audioService.playSound(SoundType.menuClick);
         }
 
 
@@ -120,6 +125,8 @@ namespace MagicWorld
                 selectionFade = Math.Min(selectionFade + fadeSpeed, 1);
             else
                 selectionFade = Math.Max(selectionFade - fadeSpeed, 0);
+
+            this.screen = screen;
         }
 
 

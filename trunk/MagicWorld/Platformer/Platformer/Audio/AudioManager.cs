@@ -25,7 +25,8 @@ namespace MagicWorld.Audio
         destroy,
         collect,
         enemy_hit,
-        rockslide
+        rockslide,
+        menuClick
     }
 
     //TODO add MediaPlayer/loop sounds for backgroundmusic
@@ -62,6 +63,7 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.collect, Game.Content.Load<SoundEffect>(path + "collect"));
             sounds.Add(SoundType.enemy_hit, Game.Content.Load<SoundEffect>(path + "spell_hits_creature"));
             sounds.Add(SoundType.rockslide, Game.Content.Load<SoundEffect>(path + "rockslide"));
+            sounds.Add(SoundType.menuClick, Game.Content.Load<SoundEffect>(path + "menuClick"));
         }
 
         public object GetService(Type serviceType)
