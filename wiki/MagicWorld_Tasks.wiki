@@ -22,8 +22,7 @@
   # Audiomanager -> John
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # Hide background color(blue) of levels at the edge --> may use of some big textures
-  # KEYPAD MAPPING
-  # pause game im game window looses focus or do not show the overlay on focus loose -->amauri
+  # KEYPAD MAPPING 
   # BUG: if next level is loaded you can still see particle effects from the last level for a short periode of time
   # enhace menus appareance --> amauri
      * make messagebox convenient to menu design, also check text
