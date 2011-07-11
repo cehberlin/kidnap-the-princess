@@ -271,7 +271,7 @@ namespace MagicWorld
             level.LevelNumber = num;
             camera.Position = level.LevelLoader.getPlayerStartPosition();
             level.Pause = true;
-
+            
             //load info screen
             LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
             levelInfoTransition.Accepted += FinishLoadingLevel;
@@ -304,7 +304,7 @@ namespace MagicWorld
         private void LoadNextLevel()
         {
 
-            //save the game
+            //save the game            
             loadingLevel = true;
             ScreenManager.Game.GameData.Level = levelIndex;
             ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;
@@ -331,6 +331,7 @@ namespace MagicWorld
             {
                 loadingLevel = true;
                 level.Pause = true;
+                ScreenManager.Game.Services.RemoveService(typeof(IPlayerService));
                 CreditsScreen cred = new CreditsScreen(ScreenManager);
                 cred.Accepted += EventCreditScreen;
                 ScreenManager.AddScreen(cred, ControllingPlayer);

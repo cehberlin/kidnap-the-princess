@@ -17,6 +17,8 @@ namespace MagicWorld
     {
         #region Fields
 
+       
+
         List<GameScreen> screens = new List<GameScreen>();
         List<GameScreen> screensToUpdate = new List<GameScreen>();
 
@@ -162,8 +164,8 @@ namespace MagicWorld
                 screensToUpdate.Add(screen);
 
             bool otherScreenHasFocus = !Game.IsActive;
-            
             bool coveredByOtherScreen = false;
+            
 
             // Loop as long as there are screens waiting to be updated.
             while (screensToUpdate.Count > 0)
@@ -193,6 +195,8 @@ namespace MagicWorld
                     if (!screen.IsPopup)
                         coveredByOtherScreen = true;
                 }
+
+                
             }
 
             // Print debug trace?
