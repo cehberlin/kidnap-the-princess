@@ -30,7 +30,7 @@
   # presentation plan
   # Screen to play the film --> Amauri
   # Level Design: Level 5 - use moveable Platform Textures --> John
-  # Level Design: Level 6 - better positioning of Switches  --> John
+  # Level Design: Level 6 - better positioning of Switches  --> John-->(comment john: Why??)
   # better push/pull spell graphic
 
 
