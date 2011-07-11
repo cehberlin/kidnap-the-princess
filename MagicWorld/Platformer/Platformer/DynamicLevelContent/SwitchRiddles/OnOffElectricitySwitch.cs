@@ -6,6 +6,7 @@ using MagicWorld.StaticLevelContent;
 using Microsoft.Xna.Framework;
 using MagicWorld.HelperClasses;
 using ParticleEffects;
+using MagicWorld.Audio;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
@@ -47,6 +48,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                             level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 20));
                         }
                     }
+                   // audioService.stopSoundLoop(SoundType.electric);
                 } 
                 else if (switchable.GetType() == typeof(MoveablePlatform))
                 {
@@ -60,6 +62,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                             level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 20));
                         }
                     }
+                   // audioService.stopSoundLoop(SoundType.electric);
                 }
             }
             base.Update(gameTime);
@@ -78,6 +81,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                 {
                     Activate();
                 }
+                audioService.stopSoundLoop(SoundType.electric);
                 return true;
             }
             return base.SpellInfluenceAction(spell);
