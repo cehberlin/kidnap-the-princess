@@ -278,6 +278,7 @@ namespace MagicWorld
                 currentElectrifiedTime = new TimeSpan(0, 0, 0);
                 spellDurationOfActionMs = spell.DurationOfActionMs;
                 audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.stopSoundLoop(Audio.SoundType.electric);
                 return true;
             }
 

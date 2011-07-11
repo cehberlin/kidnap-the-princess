@@ -2444,48 +2444,16 @@
         </Layer>
         <Layer Name="Moveable Platform" Visible="true">
             <Items>
-                <Item xsi:type="TextureItem" Name="Texture_0313" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0331" Visible="true">
                     <Position>
-                        <X>1472</X>
-                        <Y>0</Y>
+                        <X>448</X>
+                        <Y>192</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="Path" Type="Item" Description="">Path_0323</Property>
-                        <Property Name="Spell" Type="bool" Description="">
-                            <boolean>true</boolean>
-                        </Property>
-                    </CustomProperties>
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1d.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1d</asset_name>
-                    <Origin>
-                        <X>74</X>
-                        <Y>27</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0320" Visible="true">
-                    <Position>
-                        <X>704</X>
-                        <Y>64</Y>
-                    </Position>
-                    <CustomProperties>
-                        <Property Name="Path" Type="Item" Description="">Path_0310</Property>
                         <Property Name="Spell" Type="bool" Description="">
                             <boolean>false</boolean>
                         </Property>
+                        <Property Name="Path" Type="Item" Description="">Path_0216</Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
@@ -2501,23 +2469,23 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1d.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1d</asset_name>
+                    <texture_filename>LevelContent\Cave\moveablePlatform.png</texture_filename>
+                    <asset_name>LevelContent\Cave\moveablePlatform</asset_name>
                     <Origin>
                         <X>74</X>
-                        <Y>27</Y>
+                        <Y>19</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0321" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0332" Visible="true">
                     <Position>
                         <X>832</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="Path" Type="Item" Description="">Path_0330</Property>
                         <Property Name="Spell" Type="bool" Description="">
                             <boolean>true</boolean>
                         </Property>
+                        <Property Name="Path" Type="Item" Description="">Path_0330</Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
@@ -2533,23 +2501,23 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1d.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1d</asset_name>
+                    <texture_filename>LevelContent\Cave\moveablePlatform.png</texture_filename>
+                    <asset_name>LevelContent\Cave\moveablePlatform</asset_name>
                     <Origin>
                         <X>74</X>
-                        <Y>27</Y>
+                        <Y>19</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0322" Visible="true">
+                <Item xsi:type="TextureItem" Name="Texture_0333" Visible="true">
                     <Position>
-                        <X>448</X>
-                        <Y>191</Y>
+                        <X>704</X>
+                        <Y>64</Y>
                     </Position>
                     <CustomProperties>
-                        <Property Name="Path" Type="Item" Description="">Path_0216</Property>
                         <Property Name="Spell" Type="bool" Description="">
                             <boolean>false</boolean>
                         </Property>
+                        <Property Name="Path" Type="Item" Description="">Path_0310</Property>
                     </CustomProperties>
                     <Rotation>0</Rotation>
                     <Scale>
@@ -2565,11 +2533,43 @@
                     </TintColor>
                     <FlipHorizontally>false</FlipHorizontally>
                     <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1d.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1d</asset_name>
+                    <texture_filename>LevelContent\Cave\moveablePlatform.png</texture_filename>
+                    <asset_name>LevelContent\Cave\moveablePlatform</asset_name>
                     <Origin>
                         <X>74</X>
-                        <Y>27</Y>
+                        <Y>19</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0334" Visible="true">
+                    <Position>
+                        <X>1472</X>
+                        <Y>0</Y>
+                    </Position>
+                    <CustomProperties>
+                        <Property Name="Spell" Type="bool" Description="">
+                            <boolean>true</boolean>
+                        </Property>
+                        <Property Name="Path" Type="Item" Description="">Path_0323</Property>
+                    </CustomProperties>
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\moveablePlatform.png</texture_filename>
+                    <asset_name>LevelContent\Cave\moveablePlatform</asset_name>
+                    <Origin>
+                        <X>74</X>
+                        <Y>19</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -2974,11 +2974,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>330</NextItemNumber>
-        <ContentRootFolder>C:\NOREFACTOR\Platformer\Content</ContentRootFolder>
+        <NextItemNumber>334</NextItemNumber>
+        <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>766.6687</X>
-            <Y>91.66686</Y>
+            <X>1266.67114</X>
+            <Y>25.0000553</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
