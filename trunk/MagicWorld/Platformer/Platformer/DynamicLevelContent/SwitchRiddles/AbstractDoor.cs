@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using MagicWorld.Audio;
 
 namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 {
     /// <summary>
     /// general stuff for all doors
     /// </summary>
-    abstract class AbstractDoor:BlockElement,IActivation
+    abstract class AbstractDoor : BlockElement, IActivation
     {
 
         bool open;
@@ -27,14 +28,14 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         }
 
         public AbstractDoor(String texture, Level level, Vector2 position, bool opened = false)
-            :base(texture,CollisionType.Impassable,level,position)
+            : base(texture, CollisionType.Impassable, level, position)
         {
             closed = !opened;
             open = opened;
         }
 
         public override void Update(GameTime gameTime)
-        {           
+        {
             base.Update(gameTime);
         }
 
@@ -60,6 +61,14 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         {
             open = !open;
             closed = !closed;
+            if (open)
+            {
+                audioService.playSound(SoundType.doorOpen);
+            }
+            else
+            {
+                audioService.playSound(SoundType.doorClose);
+            }
         }
 
         #endregion
