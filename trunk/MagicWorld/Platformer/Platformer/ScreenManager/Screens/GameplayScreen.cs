@@ -268,15 +268,17 @@ namespace MagicWorld
             }
 
             loadingLevel = true;
+            level.Pause = true;
             levelIndex = num;
             Debug.WriteLine("load level " + num);
             // Unloads the content for the current level before loading the next one.
 
             // Load the level.
+            
             level.initLevel(LevelLoaderFactory.getLevel(num));
             level.LevelNumber = num;
             camera.Position = level.LevelLoader.getPlayerStartPosition();
-            level.Pause = true;
+            
             
             //load info screen
             LevelInfoScreen levelInfoTransition = new LevelInfoScreen("Info",level);
@@ -288,7 +290,7 @@ namespace MagicWorld
         void FinishLoadingLevel(object sender, PlayerIndexEventArgs e)
         {
             ScreenManager.Game.Services.RemoveService(typeof(Level));
-            ScreenManager.Game.Services.AddService(typeof(Level), level);
+            
              
             TutorialManager tutManager = (TutorialManager)ScreenManager.Game.Services.GetService(typeof(TutorialManager));
             tutManager.Enabled = true;
@@ -303,6 +305,7 @@ namespace MagicWorld
             ice.Clear();
             loadingLevel = false;
             level.Pause = false;
+            ScreenManager.Game.Services.AddService(typeof(Level), level);
             // }
 
         }
@@ -312,6 +315,7 @@ namespace MagicWorld
 
             //save the game            
             loadingLevel = true;
+            level.Pause = true;
             ScreenManager.Game.GameData.Level = levelIndex;
             ScreenManager.Game.GameData.ItemsCollected = level.CollectedIngredients.Count;
             ScreenManager.Game.GameData.Completed = "Accomplished";
@@ -334,9 +338,7 @@ namespace MagicWorld
         void ProceedNextLevel(object sender, PlayerIndexEventArgs e)
         {
             if ((levelIndex + 1) > LevelLoaderFactory.NumberOfLevels)
-            {
-                loadingLevel = true;
-                level.Pause = true;
+            {  
                 ScreenManager.Game.Services.RemoveService(typeof(IPlayerService));
                 CreditsScreen cred = new CreditsScreen(ScreenManager);
                 cred.Accepted += EventCreditScreen;
