@@ -16,9 +16,7 @@ Ausserdem wenn du pull auf die Platform in Level 4 machst aber den radius wieder
       --> Wenn du mit Push/Pull ein Objekt bewegst und dann (während das Objekt noch in Bewegung ist) wieder im casting mode gehst (wo eigentlich alles still stehen sollte) fliegt das Objekt mit voller Geschwindigkeit weiter
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * backgroung music --> make music.mp3 loopabel --> Amauri
-     * menu klick sound
      * open/close door
-     * stone hits floor
      * torch goes on/off
      * switch goes on/off
      * breaking exploding ice for ice spell destruction
