@@ -42,10 +42,10 @@ namespace MagicWorld.Constants
             : base(game)
         {
             content = game.Content;
-            positionGroupName.X = 250;
-            positionGroupName.Y = 10;
-            positionValue.X = 250;
-            positionValue.Y = 30;
+            positionGroupName.X = 290;
+            positionGroupName.Y = 40;
+            positionValue.X = 290;
+            positionValue.Y = 70;
 
             Constants.AddRange(SpellConstantsValues.getChangeableConstants());
             Constants.AddRange(PhysicValues.getChangeableConstants());

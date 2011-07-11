@@ -97,7 +97,7 @@ namespace MagicWorld.HUDClasses
         public HUD(Game game)
             : base(game)
         {
-            position = new Vector2(10, 10);
+            position = new Vector2(40, 40);
             content = Game.Content;
             visible = false;
             screenManager = (ScreenManager)game.Services.GetService(typeof(ScreenManager));
@@ -105,7 +105,7 @@ namespace MagicWorld.HUDClasses
             level = (Level)Game.Services.GetService(typeof(Level));
 
             manaBar = new ManaBar(position);
-            ingredientBar = new IngredientBar(new Vector2(80, 10));
+            ingredientBar = new IngredientBar(position+ new Vector2(70, 0));
             refreshSpellBarPosition();
         }
 
