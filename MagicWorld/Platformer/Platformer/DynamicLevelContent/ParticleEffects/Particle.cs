@@ -76,6 +76,7 @@ namespace ParticleEffects
         public bool Active
         {
             get { return TimeSinceStart < Lifetime; }
+            set { if (value) { TimeSinceStart = 0; } else { TimeSinceStart = Lifetime; } }
         }
 
                 // initialize is called by ParticleSystem to set up the particle, and prepares

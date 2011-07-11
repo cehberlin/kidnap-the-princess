@@ -313,6 +313,19 @@ namespace MagicWorld
             tutManager.Initialize();
             tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
 
+            //reset particle effects
+            game.ExplosionParticleSystem.Clear();
+            game.ExplosionSmokeParticleSystem.Clear();
+            game.FireParticleSystem.Clear();
+            game.IceParticleSystem.Clear();
+            game.LightningCreationParticleSystem.Clear();
+            game.MagicItemParticleSystem.Clear();
+            game.MagicParticleSystem.Clear();
+            game.MatterCreationParticleSystem.Clear();
+            game.PullCreationParticleSystem.Clear();
+            game.PushCreationParticleSystem.Clear();
+            game.SmokeParticleSystem.Clear();
+
             Visible = true;
         }
 
@@ -374,7 +387,7 @@ namespace MagicWorld
                 {
                     timeRemaining -= gameTime.ElapsedGameTime;
 
-                    Player.Update(gameTime, inputState.CurrentKeyboardStates[0], inputState.CurrentGamePadStates[0]);
+                    Player.Update(gameTime, inputState);
 
                     UpdateObjects(gameTime);
                 }
