@@ -16,6 +16,7 @@ using MagicWorld.HelperClasses.Animation;
 using MagicWorld.Controls;
 using System.Collections.Generic;
 using MagicWorld.Audio;
+using IndependentResolutionRendering;
 
 namespace MagicWorld
 {
@@ -172,6 +173,10 @@ namespace MagicWorld
         public MagicWorldGame()
         {
             graphics = new GraphicsDeviceManager(this);
+
+            Resolution.Init(ref graphics);
+
+            Resolution.SetVirtualResolution(800, 600);
 
             Content.RootDirectory = "Content";
            
