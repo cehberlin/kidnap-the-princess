@@ -8,7 +8,9 @@
 
   # BUG: push/pull moves Matter through walls --> seems to be fixed for push pull elements; maybe still a problem for selfcreated matter, but that maybe not fixable at the moment --> still a bug for created matter 
   # BUG: If you use Pull to an Pull Object and use ist afterward again and hold the button while object is moving, the object still moves.
-     DO NOT UNDERSTAND!! PLEASE EXPLAIN ME (Christopher)
+     DO NOT UNDERSTAND!! PLEASE EXPLAIN ME (Christopher).
+     Wenn du pull oder push benutzt z.b. beim Stein in level 8. Und dann danach nochmal benutzt aber gedrückt hälts fliegt der Stein weg.
+Ausserdem wenn du pull auf die Platform in Level 4 machst aber den radius wieder kleiner machst wird die Platform trotzdem angezogen obwohl der Kreis vom Pull nicht die Platform berührt.
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * backgroung music --> make music.mp3 loopabel --> Amauri
      * menu klick sound
