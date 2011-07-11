@@ -28,7 +28,9 @@ namespace MagicWorld.Audio
         rockslide,
         menuClick,
         rockHitGround,
-        iceHitEnemy
+        iceHitEnemy,
+        doorClose,
+        doorOpen
     }
 
     //TODO add MediaPlayer/loop sounds for backgroundmusic
@@ -68,6 +70,8 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.menuClick, Game.Content.Load<SoundEffect>(path + "menuClick"));
             sounds.Add(SoundType.rockHitGround, Game.Content.Load<SoundEffect>(path + "rockHitGround"));
             sounds.Add(SoundType.iceHitEnemy, Game.Content.Load<SoundEffect>(path + "iceHitEnemy"));
+            sounds.Add(SoundType.doorClose, Game.Content.Load<SoundEffect>(path + "doorClose"));
+            sounds.Add(SoundType.doorOpen, Game.Content.Load<SoundEffect>(path + "openDoor"));
         }
 
         public object GetService(Type serviceType)
