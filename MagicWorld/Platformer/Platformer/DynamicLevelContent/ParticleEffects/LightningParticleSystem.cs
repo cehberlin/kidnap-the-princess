@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld;
+using MagicWorld.HelperClasses;
 #endregion
 
 namespace ParticleEffects
@@ -81,6 +82,11 @@ namespace ParticleEffects
         {
             float angle = RandomBetween(0, MathHelper.PiOver4/2);
             return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+        }
+
+        protected override Vector2 getStartPositionRelativeToCenter(ParticleSetting particleSetting)
+        {
+            return GeometryCalculationHelper.getRandomPositionOnCycleBow(particleSetting.position, random.Next(0,(int)particleSetting.distance));
         }
 
     }

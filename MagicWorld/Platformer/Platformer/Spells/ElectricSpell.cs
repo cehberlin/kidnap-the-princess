@@ -18,7 +18,7 @@ namespace MagicWorld
         {
             get
             {
-                return new Bounds(Position, currentScale*20);
+                return new Bounds(Position, getRadius());
             }
         }
 
@@ -33,22 +33,26 @@ namespace MagicWorld
 
         int currentParticles = 0;
 
+        float getRadius()
+        {
+           return currentScale * 12;
+        }
+
         public override void Update(GameTime gameTime)
         {
             currentParticles++;
             if (SpellState == State.CREATING)
             {
-                if (currentParticles%4==0) //only every 4 update cycle
+                if (currentParticles%2==0) //only every 4 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position));
+                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, getRadius()));
                 }
             }
             else
             {
-
-                if (currentParticles % 2 == 0) //only every 2 update cycle
+                if (currentParticles % 1 == 0) //only every 2 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position));
+                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, getRadius()));
                 }
             }
             base.Update(gameTime);

@@ -163,7 +163,7 @@ namespace MagicWorld
 
                 if (currentParticles % 4 == 0) //only every 4 update cycle
                 {
-                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(GeometryCalculationHelper.getRandomPositionOnCycleBow(position, 40)));
+                    level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 40));
                 }
             }
 
