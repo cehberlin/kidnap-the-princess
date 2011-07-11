@@ -13,6 +13,7 @@ using MagicWorld.Controls;
 using MagicWorld.Constants;
 using MagicWorld.Services;
 using MagicWorld.StaticLevelContent;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -243,6 +244,10 @@ namespace MagicWorld
             {
                 if (collisionManager.CollidateWithLevelExit(this))
                 {
+                    if (!this.level.ReachedExit)
+                    {
+                        audioService.playSound(SoundType.exitreached);
+                    }
                     this.level.ReachedExit = true;
                 }
                 else
