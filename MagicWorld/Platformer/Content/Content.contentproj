@@ -1144,13 +1144,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Intro.wmv">
-      <Name>Intro</Name>
-      <Importer>WmvImporter</Importer>
-      <Processor>VideoProcessor</Processor>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="LevelData\level4.xml">
       <Name>level4</Name>
       <Importer>XmlImporter</Importer>

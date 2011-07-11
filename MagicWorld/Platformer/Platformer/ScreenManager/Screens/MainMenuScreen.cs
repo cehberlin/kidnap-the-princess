@@ -1,6 +1,15 @@
 #region Using Statements
+using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Media;
+
+
 #endregion
 
 namespace MagicWorld
@@ -11,6 +20,10 @@ namespace MagicWorld
     class MainMenuScreen : MenuScreen
     {                
         MenuEntry playGameMenuEntry;
+        //Video video;
+        //VideoPlayer player;
+        //Texture2D videoTexture;
+
        
         #region Initialization
 
@@ -25,43 +38,40 @@ namespace MagicWorld
             playGameMenuEntry = new MenuEntry("Play Game");            
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
-            //MenuEntry testMenuEntry = new MenuEntry("Test Credits");
+            
 
             // Hook up menu event handlers.
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;            
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
-            //testMenuEntry.Selected+=TestEntry;
+            
 
             // Add entries to the menu.
             MenuEntries.Add(playGameMenuEntry);            
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-            //MenuEntries.Add(testMenuEntry);
+           
             
         }
         
         #endregion       
 
-        void TestEntry(object sender, PlayerIndexEventArgs e)
+        public override void LoadContent()
         {
-            CreditsScreen cred = new CreditsScreen(ScreenManager);
-            cred.Accepted += confirmTest;
-            ScreenManager.AddScreen(cred, e.PlayerIndex);
-        }
+            //ContentManager content = ScreenManager.Game.Content;
+            //Texture2D teste = content.Load<Texture2D>("frozen");
 
-        void confirmTest(object sender, PlayerIndexEventArgs e)
-        {
-            LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
-                                                           new MainMenuScreen());
-        }
+            //video = content.Load<Video>("Video/Intro.wmv");
+            //player = new VideoPlayer();
+
+        }      
 
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new LoadGameScreen(ScreenManager), e.PlayerIndex);
+            ScreenManager.AddScreen(new LoadGameScreen(this.ScreenManager), e.PlayerIndex);
         }        
 
         /// <summary>
@@ -97,11 +107,48 @@ namespace MagicWorld
             ScreenManager.Game.Exit();
         }
 
-       
+        /*
+        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
+                                                        bool coveredByOtherScreen)
+        {
+            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
+            if (player.State == MediaState.Stopped)
+            {
+                player.IsLooped = true;
+                player.Play(video);
+            }
+
+
+        }
+         * */
 
         public override void Draw(GameTime gameTime)
         {
-            //ShowGameInfo();
+            /*
+            ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
+            Viewport viewPort = ScreenManager.GraphicsDevice.Viewport;
+
+            // Only call GetTexture if a video is playing or paused
+            if (player.State != MediaState.Stopped)
+                videoTexture = player.GetTexture();
+
+            // Drawing to the rectangle will stretch the 
+            // video to fill the screen
+            Rectangle screen = new Rectangle(viewPort.X,
+                viewPort.Y,
+                viewPort.Width,
+                viewPort.Height);
+
+            // Draw the video, if we have a texture to draw.
+            if (videoTexture != null)
+            {
+                ScreenManager.SpriteBatch.Begin();
+                ScreenManager.SpriteBatch.Draw(videoTexture, screen, Color.White);
+                ScreenManager.SpriteBatch.End();
+            }
+            */
+
+
             base.Draw(gameTime);
         }
 

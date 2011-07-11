@@ -55,6 +55,7 @@ namespace MagicWorld
             // Add entries to the menu.
             MenuEntries.Add(mnuLevel);            
             MenuEntries.Add(back);
+            //IsPopup = true;
             LoadFiles();
             
         }
