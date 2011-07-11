@@ -43,14 +43,14 @@ namespace MagicWorld
             currentParticles++;
             if (SpellState == State.CREATING)
             {
-                if (currentParticles%2==0) //only every 4 update cycle
+                if (currentParticles%8==0) //only every 4 update cycle
                 {
                     level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, getRadius()));
                 }
             }
             else
             {
-                if (currentParticles % 1 == 0) //only every 2 update cycle
+                if (currentParticles % 4 == 0) //only every 2 update cycle
                 {
                     level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, getRadius()));
                 }

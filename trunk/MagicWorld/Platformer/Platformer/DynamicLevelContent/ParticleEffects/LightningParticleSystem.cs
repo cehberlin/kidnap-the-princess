@@ -44,8 +44,8 @@ namespace ParticleEffects
             minLifetime = .5f;
             maxLifetime = 1f;
 
-            minScale = .005f;
-            maxScale = .10f;
+            minScale = .01f;
+            maxScale = .20f;
 
             baseOpacity = 1f;
 

@@ -161,7 +161,7 @@ namespace MagicWorld
 
                 currentParticles++;
 
-                if (currentParticles % 4 == 0) //only every 4 update cycle
+                if (currentParticles % 8 == 0) //only every 4 update cycle
                 {
                     level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 40));
                 }
