@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using IndependentResolutionRendering;
 
 namespace MagicWorld
 {
@@ -345,6 +346,7 @@ namespace MagicWorld
         /// </summary>
         public void setScreenResolution(int width, int height)
         {
+            Resolution.SetResolution(width, height, false);
             Graphics.PreferredBackBufferWidth = width;
             Graphics.PreferredBackBufferHeight = height;
             Graphics.ApplyChanges();

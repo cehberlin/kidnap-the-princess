@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MagicWorld.Services;
+using IndependentResolutionRendering;
 
 namespace MagicWorld.HelperClasses
 {
@@ -10,6 +11,7 @@ namespace MagicWorld.HelperClasses
         public Camera2d(Game game)
             : base(game)
         {
+
             zoom = 0.55f;
             game.Services.AddService(typeof(ICameraService), this);
         }
@@ -21,7 +23,8 @@ namespace MagicWorld.HelperClasses
         {
             get
             {
-                return Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
+                return  Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
+                    Resolution.getTransformationMatrix() *
                     Matrix.CreateRotationZ(rotation) *
                     Matrix.CreateScale(new Vector3(zoom, zoom, 0)) *
                     Matrix.CreateTranslation(new Vector3(graphicsDevice.Viewport.Width * 0.5f, graphicsDevice.Viewport.Height * 0.5f, 0));
