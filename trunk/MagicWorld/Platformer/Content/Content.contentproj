@@ -77,20 +77,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\ExitReached.wma">
-      <Name>ExitReached</Name>
-      <Importer>WmaImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sounds\GemCollected.wma">
-      <Name>GemCollected</Name>
-      <Importer>WmaImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sounds\MonsterKilled.wma">
       <Name>MonsterKilled</Name>
       <Importer>WmaImporter</Importer>
@@ -114,13 +100,6 @@
   <ItemGroup>
     <Compile Include="Sounds\PlayerKilled.wma">
       <Name>PlayerKilled</Name>
-      <Importer>WmaImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sounds\Powerup.wma">
-      <Name>Powerup</Name>
       <Importer>WmaImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
@@ -163,13 +142,6 @@
       <Name>Run</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Sounds\CreateSpell.wma">
-      <Name>CreateSpell</Name>
-      <Importer>WmaImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>

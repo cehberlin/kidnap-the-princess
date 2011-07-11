@@ -20,7 +20,6 @@ namespace MagicWorld.Audio
         playerfall,
         playerjump,
         playerkilled,
-        powerup,
         laugh,
         startFireAndIce,
         destroy,
@@ -57,7 +56,6 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall"));
             sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "jump"));
             sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "player_dies"));
-            sounds.Add(SoundType.powerup, Game.Content.Load<SoundEffect>(path + "Powerup"));
             sounds.Add(SoundType.laugh, Game.Content.Load<SoundEffect>(path + "laugh"));
             sounds.Add(SoundType.startFireAndIce, Game.Content.Load<SoundEffect>(path + "start_fire_and_ice_begin_sound"));
             sounds.Add(SoundType.destroy, Game.Content.Load<SoundEffect>(path + "destroy_fire_spell_and_destroy_switch"));
