@@ -343,6 +343,7 @@ namespace MagicWorld
                 CreditsScreen cred = new CreditsScreen(ScreenManager);
                 cred.Accepted += EventCreditScreen;
                 ScreenManager.AddScreen(cred, ControllingPlayer);
+                audioService.stopBackgroundmusic();
             }
             else
             {

@@ -11,6 +11,8 @@ namespace MagicWorld.Audio
 
         void playBackgroundmusic();
 
+        void stopBackgroundmusic();
+
         bool IsEffectMuted { get; set; }
 
         bool IsMusicMuted { get; set; }
