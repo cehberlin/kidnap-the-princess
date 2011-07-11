@@ -28,7 +28,6 @@ no_gravity_is_running.mp3 --> Amauri
   # KEYPAD MAPPING 
   # enhace menus appareance --> amauri
      * make messagebox convenient to menu design, also check text
-  # improve/rewrite controls menu. Current one is not distributable ->amauri or marian?
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
@@ -38,6 +37,7 @@ no_gravity_is_running.mp3 --> Amauri
   # Level Design: Level 5 & 6 - only use Platforms from the "/platform/" Folder
   # better push/pull spell graphic
   # BUG: different display solutions: evrything else then 800x600 shows parts of the level that shouldnt beet visible, so rescale the picture in a way that each resolution is showing the same image section or remove the different resolutions
+  # improve/rewrite controls menu -> amauri
 
 
  === optional ===
