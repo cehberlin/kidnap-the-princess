@@ -305,7 +305,6 @@ namespace MagicWorld
             catch { }
 
             reachedExit = false;
-            exitSoundPlayed = false;
 
             simpleAnimator = (ISimpleAnimator)game.Services.GetService(typeof(ISimpleAnimator));
             //TODO: add portals to the service/ask christopher about the best way to "get" them
@@ -447,18 +446,16 @@ namespace MagicWorld
             }
         }
 
-        private bool exitSoundPlayed = false;
 
         /// <summary>
         /// Called when the player reaches the level's exit.
         /// </summary>
         public void OnExitReached()
         {
-            if (!exitSoundPlayed)
-            {
-                audioService.playSound(SoundType.exitreached);
-                exitSoundPlayed = true;
-            }
+            //if (!reachedExit)
+            //{
+            //    audioService.playSound(SoundType.exitreached);
+            //}
             reachedExit = true;
         }
 
