@@ -16,8 +16,10 @@
      * stone hits floor
      * torch goes on/off
      * switch goes on/off
+     * breaking exploding ice for ice spell destruction
      * sound for electric spell
-     * sound for no_gravity -> may cut and loop the file no_gravity_is_running.mp3 --> Amauri
+     * sound for no_gravity -> may cut and loop the file
+no_gravity_is_running.mp3 --> Amauri
      * add SoundType.rockslide to spell moveable and switch moveable platforms as loop during movement, dont know where adding the call --> John
      * be creative finding more sounds...!!!
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
