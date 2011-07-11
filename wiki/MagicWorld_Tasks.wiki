@@ -18,7 +18,6 @@ Ausserdem wenn du pull auf die Platform in Level 4 machst aber den radius wieder
      * backgroung music --> make music.mp3 loopabel --> Amauri
      * torch goes on/off
      * switch goes on/off
-     * breaking exploding ice for ice spell destruction
      * sound for electric spell
      * sound for no_gravity -> may cut and loop the file
 no_gravity_is_running.mp3 --> Amauri
