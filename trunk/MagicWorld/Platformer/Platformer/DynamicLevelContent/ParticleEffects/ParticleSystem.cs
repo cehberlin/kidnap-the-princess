@@ -342,6 +342,14 @@ namespace ParticleEffects
 
         #endregion
 
+        public void Clear()
+        {
+             foreach (Particle p in particles)
+            {
+                p.Active = false;
+            }
+        }
+
 
         /// <summary>
         /// overriden from DrawableGameComponent, Draw will use ParticleSampleGame's 

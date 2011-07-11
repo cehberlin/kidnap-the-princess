@@ -218,6 +218,9 @@ namespace MagicWorld
             Velocity = Vector2.Zero;
             isAlive = true;
             sprite.PlayAnimation(idleAnimation);
+
+            controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
+
         }
 
         private CollisionManager collisionManager;
@@ -231,9 +234,7 @@ namespace MagicWorld
         /// we need to reverse our motion when the orientation is in the LandscapeRight orientation.
         /// </remarks>
         public void Update(
-            GameTime gameTime,
-            KeyboardState keyboardState,
-            GamePadState gamePadState)
+            GameTime gameTime,InputState input)
         {
             if (level.Pause)
             {
@@ -257,10 +258,10 @@ namespace MagicWorld
 
 
                 Mana.update(gameTime);
-                GetInput(keyboardState, gamePadState);
+                GetInput(input);
 
 
-                HandleSpellCreation(gameTime, keyboardState, gamePadState);
+                HandleSpellCreation(gameTime, input);
 
 
                 ApplyPhysics(gameTime);
@@ -311,14 +312,19 @@ namespace MagicWorld
             }
         }
 
+        IPlayerControl controls;
+
+        Boolean lastWasCasting = false;
+
         /// <summary>
         /// Gets player horizontal movement and jump commands from input.
         /// </summary>
-        private void GetInput(
-            KeyboardState keyboardState,
-            GamePadState gamePadState)
+        private void GetInput(InputState input)
         {
-            IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
+            GamePadState gamePadState = input.CurrentGamePadStates[0];
+            KeyboardState keyboardState = input.CurrentKeyboardStates[0];
+            GamePadState oldGamePadState = input.LastGamePadStates[0];
+            KeyboardState oldKeyboardState = input.LastKeyboardStates[0];
 
             // Get analog horizontal movement.
             movementX = gamePadState.ThumbSticks.Left.X * MoveStickScale;
@@ -364,14 +370,33 @@ namespace MagicWorld
             // Check if the player wants to jump.
             if (!this.IsCasting)
             {
-                isJumping =
-                    gamePadState.IsButtonDown(controls.GamePad_Jump) ||
-                    keyboardState.IsKeyDown(controls.Keys_Jump);
+                if (lastWasCasting)
+                {
+                    isJumping =
+                        oldGamePadState.IsButtonDown(controls.GamePad_Jump) && gamePadState.IsButtonUp(controls.GamePad_Jump) ||
+                        oldKeyboardState.IsKeyDown(controls.Keys_Jump) && keyboardState.IsKeyUp(controls.Keys_Jump);
+                }
+                else
+                {
+                    isJumping =
+                     gamePadState.IsButtonDown(controls.GamePad_Jump)||
+                     keyboardState.IsKeyDown(controls.Keys_Jump);
+                }
             }
-            //Check if the player press Down Button
-            isDown =
-                gamePadState.IsButtonDown(controls.GamePad_Down) ||
-                keyboardState.IsKeyDown(controls.Keys_Down);
+
+            if (lastWasCasting)
+            {
+                //Check if the player press Down Button
+                isDown =
+                        oldGamePadState.IsButtonDown(controls.GamePad_Down) && gamePadState.IsButtonUp(controls.GamePad_Down) ||
+                        oldKeyboardState.IsKeyDown(controls.Keys_Down) && keyboardState.IsKeyUp(controls.Keys_Down);
+            }
+            else
+            {
+                isDown =
+                        gamePadState.IsButtonDown(controls.GamePad_Down) ||
+                        keyboardState.IsKeyDown(controls.Keys_Down) ;
+            }
 
             if (!isJumping && !isDown && velocity.Y != 0.0f)
             {
@@ -380,6 +405,15 @@ namespace MagicWorld
             else
             {
                 isFalling = false;
+            }
+
+            if (IsCasting)
+            {
+                lastWasCasting = true;
+            }
+            else
+            {
+                lastWasCasting = false;
             }
         }
 
@@ -656,12 +690,12 @@ namespace MagicWorld
         /// <param name="gamePadState"></param>
         /// <param name="orientation"></param>
         private void HandleSpellCreation(GameTime gameTime,
-            KeyboardState keyboardState,
-            GamePadState gamePadState)
+            InputState input)
         {
+            GamePadState gamePadState = input.CurrentGamePadStates[0];
+            KeyboardState keyboardState = input.CurrentKeyboardStates[0];
             Boolean isCastingSpell = false;
 
-            IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
 
             if (currentSpell == null) // no spell casted?
             {
