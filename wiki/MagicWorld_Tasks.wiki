@@ -35,6 +35,7 @@ no_gravity_is_running.mp3 --> Amauri
   # Level Design: Level 5 - use moveable Platform Textures --> John
   # Level Design: Level 6 - better positioning of Switches  --> John-->(comment john: Why??) --> the switch should slightly in the ground so you dont see
   # Level Design: Level 5 & 6 - only use Platforms from the "/platform/" Folder
+  # BUG: bad linebreak in instructions
   # better push/pull spell graphic
   # BUG: different display solutions: evrything else then 800x600 shows parts of the level that shouldnt beet visible, so rescale the picture in a way that each resolution is showing the same image section or remove the different resolutions
   # improve/rewrite controls menu -> amauri
