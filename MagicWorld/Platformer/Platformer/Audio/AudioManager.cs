@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using System.Collections;
+using Microsoft.Xna.Framework.Media;
 
 namespace MagicWorld.Audio
 {
@@ -19,7 +20,8 @@ namespace MagicWorld.Audio
         playerfall,
         playerjump,
         playerkilled,
-        powerup
+        powerup,
+        laugh
     }
 
     //TODO add MediaPlayer/loop sounds for backgroundmusic
@@ -41,14 +43,15 @@ namespace MagicWorld.Audio
         public new void Initialize()
         {
             //TODO add all new sounds and add also calls into corresponding gamecode, all basicgameelemts have a reference to this service
-            sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "CreateSpell"));
+            sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "spellcast2"));
             sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "GemCollected"));
-            sounds.Add(SoundType.gemCollected, Game.Content.Load<SoundEffect>(path + "Icehit"));
-            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Monsterkilled"));
+            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Icehit"));
+            sounds.Add(SoundType.monsterkill, Game.Content.Load<SoundEffect>(path + "Monsterkilled"));
             sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall"));
             sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "PlayerJump"));
             sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "PlayerKilled"));
             sounds.Add(SoundType.powerup, Game.Content.Load<SoundEffect>(path + "Powerup"));
+            sounds.Add(SoundType.laugh, Game.Content.Load<SoundEffect>(path + "laugh"));
         }
 
         public object GetService(Type serviceType)
@@ -61,13 +64,29 @@ namespace MagicWorld.Audio
             if (!IsEffectMuted)
             {
                 SoundEffect soundEffect = null;
-
                 soundEffect = (SoundEffect)sounds[soundType];
-
                 if (soundEffect != null)
                 {
                     soundEffect.Play();
                 }
+            }
+        }
+
+        public void playBackgroundmusic()
+        {
+            if (isMusicMuted)
+            {
+                MediaPlayer.Stop();
+            }
+            else
+            {
+                try
+                {
+                    MediaPlayer.IsMuted = isMusicMuted;
+                    MediaPlayer.IsRepeating = true;
+                    MediaPlayer.Play(Game.Content.Load<Song>("Sounds/Backgroundmusic"));
+                }
+                catch { }
             }
         }
 
