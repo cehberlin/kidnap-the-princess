@@ -59,7 +59,7 @@ namespace DikiLib
             public static bool display_update_count = true;
             public static Color color = Color.Black;
             public static Color background_color = Color.White;
-            public static Vector2 position = new Vector2(72, 72);
+            public static Vector2 position = new Vector2(112, 112);
 
             ContentManager content;
    
@@ -164,7 +164,7 @@ namespace DikiLib
 
             public static Color color = Color.Black;
             public static Color background_color = Color.White;
-            public static Vector2 position = new Vector2(72, 100);
+            public static Vector2 position = new Vector2(112, 140);
 
             ContentManager content;
 
