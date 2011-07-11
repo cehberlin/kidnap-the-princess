@@ -310,7 +310,7 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0276" Visible="true">
                     <Position>
-                        <X>676</X>
+                        <X>642</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties />
@@ -337,7 +337,7 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0277" Visible="true">
                     <Position>
-                        <X>740</X>
+                        <X>706</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties />
@@ -472,7 +472,7 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0285" Visible="true">
                     <Position>
-                        <X>576</X>
+                        <X>542</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties />
@@ -499,7 +499,7 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0286" Visible="true">
                     <Position>
-                        <X>832</X>
+                        <X>798</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties />
@@ -796,7 +796,7 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0326" Visible="true">
                     <Position>
-                        <X>640</X>
+                        <X>606</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties />
@@ -823,7 +823,7 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0327" Visible="true">
                     <Position>
-                        <X>768</X>
+                        <X>734</X>
                         <Y>128</Y>
                     </Position>
                     <CustomProperties />
@@ -2116,7 +2116,7 @@
                 <Item xsi:type="TextureItem" Name="Texture_0208" Visible="true">
                     <Position>
                         <X>801</X>
-                        <Y>116</Y>
+                        <Y>97</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2478,8 +2478,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0332" Visible="true">
                     <Position>
-                        <X>832</X>
-                        <Y>128</Y>
+                        <X>796</X>
+                        <Y>126</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="Spell" Type="bool" Description="">
@@ -2931,8 +2931,8 @@
                 </Item>
                 <Item xsi:type="PathItem" Name="Path_0330" Visible="true">
                     <Position>
-                        <X>576</X>
-                        <Y>128</Y>
+                        <X>540</X>
+                        <Y>129</Y>
                     </Position>
                     <CustomProperties />
                     <LocalPoints>
@@ -2947,12 +2947,12 @@
                     </LocalPoints>
                     <WorldPoints>
                         <Vector2>
-                            <X>576</X>
-                            <Y>128</Y>
+                            <X>540</X>
+                            <Y>129</Y>
                         </Vector2>
                         <Vector2>
-                            <X>832</X>
-                            <Y>128</Y>
+                            <X>796</X>
+                            <Y>129</Y>
                         </Vector2>
                     </WorldPoints>
                     <IsPolygon>false</IsPolygon>
@@ -2977,8 +2977,8 @@
         <NextItemNumber>334</NextItemNumber>
         <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>1266.67114</X>
-            <Y>25.0000553</Y>
+            <X>766.6687</X>
+            <Y>125.000267</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
