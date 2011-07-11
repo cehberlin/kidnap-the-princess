@@ -82,7 +82,7 @@ namespace MagicWorld
             if (Selected != null)
                 Selected(this, new PlayerIndexEventArgs(playerIndex));
             IAudioService audioService = (IAudioService)screen.ScreenManager.Game.Services.GetService(typeof(IAudioService)); ;
-            audioService.playSound(SoundType.menuClick);
+            audioService.playSound(SoundType.menuValidate);
         }
 
 
