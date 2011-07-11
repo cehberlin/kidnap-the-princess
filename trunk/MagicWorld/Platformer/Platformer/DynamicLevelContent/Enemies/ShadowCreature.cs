@@ -268,7 +268,8 @@ namespace MagicWorld
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     currentFreezeTime = new TimeSpan(0, 0, 0);
                 }
-                audioService.playSound(Audio.SoundType.enemy_hit);
+                //audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.playSound(Audio.SoundType.iceHitEnemy);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ElectricSpell)
