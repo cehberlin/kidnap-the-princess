@@ -14,17 +14,18 @@ namespace MagicWorld.StaticLevelContent
         /// </summary>
         /// <param name="nr"></param>
         /// <returns></returns>
-        public static ILevelLoader getLevel(int nr){
+        public static ILevelLoader getLevel(int nr)
+        {
             //return new StaticLevelLoader(); //testing
             //return new XMLLevelLoader(5);//TEST
-            if (nr <= NumberOfLevels) 
+            if (nr <= NumberOfLevels)
             {
-                return new XMLLevelLoader(nr); 
-            } 
-            else 
-            {
-                return new XMLLevelLoader(1); 
+                return new XMLLevelLoader(nr);
             }
-    }
+            else
+            {
+                return new XMLLevelLoader(1);
+            }
+        }
     }
 }

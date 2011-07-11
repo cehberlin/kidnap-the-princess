@@ -38,20 +38,24 @@ namespace MagicWorld.Constants
 
         int currentGroupItemIdx = 0;
 
+        /// <summary>
+        /// The resolution of the game.
+        /// </summary>
+        Vector2 resolution;
+
         public ConstantChanger(Game game)
             : base(game)
         {
             content = game.Content;
-            positionGroupName.X = 290;
-            positionGroupName.Y = 40;
-            positionValue.X = 290;
-            positionValue.Y = 70;
+            positionGroupName.X = 60;
+            positionValue.X = positionGroupName.X;
 
             Constants.AddRange(SpellConstantsValues.getChangeableConstants());
             Constants.AddRange(PhysicValues.getChangeableConstants());
             Constants.AddRange(SpellInfluenceValues.getChangeableConstants());
 
             playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
+            refreshPosition();
         }
 
         ~ConstantChanger()
@@ -61,6 +65,18 @@ namespace MagicWorld.Constants
             FileStream str = new FileStream(@"currentChangeableConfiguration.xml", FileMode.Create);
             ser.Serialize(str, this);
             str.Close();
+        }
+
+        private void refreshPosition()
+        {
+            Vector2 newResolution = new Vector2(Game.GraphicsDevice.Viewport.Width, Game.GraphicsDevice.Viewport.Height);
+
+            if (newResolution != resolution)
+            {
+                resolution = newResolution;
+                positionGroupName = new Vector2(positionGroupName.X, resolution.Y - 60);
+                positionValue = positionGroupName + new Vector2(0, 25);
+            }
         }
 
         protected override void LoadContent()
@@ -113,6 +129,7 @@ namespace MagicWorld.Constants
         {
             input.Update();
             if(Constants.Count>0){
+                refreshPosition();
                 HandleInput(input.CurrentKeyboardStates[0],input.LastKeyboardStates[0]);
             }
 

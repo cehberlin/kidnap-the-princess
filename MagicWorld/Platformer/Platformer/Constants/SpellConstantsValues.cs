@@ -199,7 +199,7 @@ namespace MagicWorld.Constants
         {
             get { return pushpull_default_start_acceleration.value; }
         }
-        static ConstantChangerItemFloat pushpull_default_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_START_ACCELERATION", 1.12f, 0.01f);
+        static ConstantChangerItemFloat pushpull_default_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_START_ACCELERATION", 1f, 0.01f);
 
         /// <summary>
         /// start acceleration for push and pull handler, used default
@@ -208,7 +208,7 @@ namespace MagicWorld.Constants
         {
             get { return pushpull_moveabel_platforms_start_acceleration.value; }
         }
-        static ConstantChangerItemFloat pushpull_moveabel_platforms_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION", 1.1f, 0.01f);
+        static ConstantChangerItemFloat pushpull_moveabel_platforms_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION", 0.99f, 0.01f);
 
 
         /// <summary>
@@ -218,7 +218,7 @@ namespace MagicWorld.Constants
         {
             get { return pushpull_default_acceleration_change_factor.value; }
         }
-        static ConstantChangerItemFloat pushpull_default_acceleration_change_factor = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR", -0.2f, 0.001f);
+        static ConstantChangerItemFloat pushpull_default_acceleration_change_factor = new ConstantChangerItemFloat("PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR", -0.05f, 0.001f);
 
         /// <summary>
         /// particle color for push pull influenced objects
