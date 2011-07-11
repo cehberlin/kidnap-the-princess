@@ -30,6 +30,7 @@ namespace MagicWorld
             MenuEntry mnu1152x864 = new MenuEntry("1152X864");
             MenuEntry mnu1366x768 = new MenuEntry("1366X768");
             MenuEntry mnu1280x800 = new MenuEntry("1280x800");
+            MenuEntry mnu1680x1050 = new MenuEntry("1680x1050");
 
             MenuEntry back = new MenuEntry("Back");
 
@@ -40,6 +41,7 @@ namespace MagicWorld
             mnu1152x864.Selected += ResolutionMenu1152x864EntrySelected;
             mnu1366x768.Selected += ResolutionMenu1366x768EntrySelected;
             mnu1280x800.Selected += ResolutionMenu1280x800EntrySelected;
+            mnu1680x1050.Selected += ResolutionMenu1680x1050EntrySelected;
 
             back.Selected += OnCancel;
             
@@ -50,6 +52,7 @@ namespace MagicWorld
             MenuEntries.Add(mnu1152x864);
             MenuEntries.Add(mnu1280x800);
             MenuEntries.Add(mnu1366x768);
+            MenuEntries.Add(mnu1680x1050);
 
             
             MenuEntries.Add(back);
@@ -118,6 +121,13 @@ namespace MagicWorld
             ScreenManager.setScreenResolution(1280, 800);
             ScreenManager.Game.GameStatus.Resolution.X = 1280;
             ScreenManager.Game.GameStatus.Resolution.Y = 800;
+        }
+
+        void ResolutionMenu1680x1050EntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.setScreenResolution(1680, 1050);
+            ScreenManager.Game.GameStatus.Resolution.X = 1680;
+            ScreenManager.Game.GameStatus.Resolution.Y = 1050;
         }
 
         #endregion
