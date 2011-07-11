@@ -42,7 +42,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     {
                         currentParticles++;
 
-                        if (currentParticles % 4 == 0) //only every 4 update cycle
+                        if (currentParticles % 16 == 0) //only every .. update cycle
                         {
                             level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 20));
                         }
@@ -55,7 +55,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     {
                         currentParticles++;
 
-                        if (currentParticles % 4 == 0) //only every 4 update cycle
+                        if (currentParticles % 16 == 0) //only every .. update cycle
                         {
                             level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 20));
                         }
