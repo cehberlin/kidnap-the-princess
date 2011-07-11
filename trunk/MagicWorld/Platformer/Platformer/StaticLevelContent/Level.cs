@@ -171,7 +171,11 @@ namespace MagicWorld
         private bool bPause;
         public bool Pause
         {
-            set { bPause = value; }
+            set { bPause = value;
+            if (bPause) { 
+                clearAllParticles(); 
+            }
+            }
             get { return bPause; }
         }
 
@@ -314,6 +318,13 @@ namespace MagicWorld
             tutManager.AddInstructionSet(levelLoader.GetTutorialInstructions());
 
             //reset particle effects
+            clearAllParticles();
+
+            Visible = true;
+        }
+
+        private void clearAllParticles()
+        {
             game.ExplosionParticleSystem.Clear();
             game.ExplosionSmokeParticleSystem.Clear();
             game.FireParticleSystem.Clear();
@@ -325,8 +336,6 @@ namespace MagicWorld
             game.PullCreationParticleSystem.Clear();
             game.PushCreationParticleSystem.Clear();
             game.SmokeParticleSystem.Clear();
-
-            Visible = true;
         }
 
 
@@ -470,6 +479,7 @@ namespace MagicWorld
             //    audioService.playSound(SoundType.exitreached);
             //}
             reachedExit = true;
+            clearAllParticles();
         }
 
         /// <summary>
@@ -477,6 +487,7 @@ namespace MagicWorld
         /// </summary>
         public void StartNewLife()
         {
+            clearAllParticles();
             Player.Reset(startPoint);
         }
 
