@@ -85,6 +85,15 @@ namespace MagicWorld.Constants
         }
         static ConstantChangerItemFloat matterSpellGrowRate = new ConstantChangerItemFloat("MatterSpellGrowRate", 0.004f, 0.0001f);
 
+        /// <summary>
+        /// how fast the spell matter grows if more mana is pumped into it
+        /// </summary>
+        public static float NoGravitySpellGrowRate
+        {
+            get { return noGravitySpellGrowRate.value; }
+        }
+        static ConstantChangerItemFloat noGravitySpellGrowRate = new ConstantChangerItemFloat("MatterSpellGrowRate", 0.002f, 0.0001f);
+
 
         /// <summary>
         /// Max mana a player can have
