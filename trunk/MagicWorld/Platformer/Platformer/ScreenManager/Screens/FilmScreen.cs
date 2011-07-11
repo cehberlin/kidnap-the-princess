@@ -44,18 +44,24 @@ namespace MagicWorld
             ContentManager content = ScreenManager.Game.Content;
             video = content.Load<Video>("Intro");
             player = new VideoPlayer();
-        }      
+            player.IsLooped = false;
+        }
 
-       
+        private bool init = false;
         public override void Update(GameTime gameTime, bool otherScreenHasFocus,
                                                         bool coveredByOtherScreen)
         {
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-            if (player.State == MediaState.Stopped)
+            if(!init)
             {
-                player.IsLooped = false;
                 player.Play(video);
+                init = true;
             }
+            //if (player.State == MediaState.Stopped)
+            //{
+            //    player.IsLooped = false;
+            //    player.Play(video);
+            //}
 
         }
          
