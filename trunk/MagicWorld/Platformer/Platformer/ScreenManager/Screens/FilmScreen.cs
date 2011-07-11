@@ -42,7 +42,7 @@ namespace MagicWorld
         public override void LoadContent()
         {
             ContentManager content = ScreenManager.Game.Content;
-            video = content.Load<Video>("Intro.wmv");
+            video = content.Load<Video>("Intro");
             player = new VideoPlayer();
         }      
 
