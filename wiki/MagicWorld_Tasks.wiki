@@ -13,7 +13,6 @@
      * backgroung music --> make music.mp3 loopabel --> Amauri
      * torch goes on/off
      * switch goes on/off
-     * sound for electric spell
      * sound for no_gravity -> may cut and loop the file
 no_gravity_is_running.mp3 --> Amauri
      * add SoundType.rockslide to spell moveable and switch moveable platforms as loop during movement, dont know where adding the call --> John
