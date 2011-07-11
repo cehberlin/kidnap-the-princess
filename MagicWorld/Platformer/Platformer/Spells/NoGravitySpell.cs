@@ -39,6 +39,7 @@ namespace MagicWorld.Spells
             accelarationChangeFactorX = SpellConstantsValues.NoGravitationSpell_accelarationChangeFactor;
             accelarationChangeFactorY = SpellConstantsValues.NoGravitationSpell_accelarationChangeFactor;
             startSurvivalTime = survivalTimeMs;
+            growFactor = SpellConstantsValues.NoGravitySpellGrowRate;
         }
         
         public override void LoadContent(string spriteSet)
