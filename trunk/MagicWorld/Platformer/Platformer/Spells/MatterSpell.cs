@@ -10,11 +10,13 @@ using MagicWorld.Spells;
 using MagicWorld.HelperClasses;
 using MagicWorld.Constants;
 using ParticleEffects;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
     class MatterSpell : Spell
     {
+       bool rockHitGround = false;
 
         Texture2D matterTexture;
 
@@ -71,7 +73,6 @@ namespace MagicWorld
         public override void LoadContent(string spriteSet)
         {
             matterTexture = level.Content.Load<Texture2D>("Sprites\\MatterSpell\\matter");
-
             base.LoadContent(spriteSet);
         }
 
@@ -107,7 +108,13 @@ namespace MagicWorld
                 level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround, null, false, true, false);
                 if (isOnGround)
                 {
+                    if (!rockHitGround)
+                    {
+                        audioService.playSound(SoundType.rockHitGround);
+                        rockHitGround = true;
+                    }
                     ResetVelocity();
+
                 }
             }
         }
