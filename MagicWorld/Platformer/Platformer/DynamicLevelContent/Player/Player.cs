@@ -245,7 +245,7 @@ namespace MagicWorld
             {
                 if (collisionManager.CollidateWithLevelExit(this))
                 {
-                    if (!this.level.ReachedExit)
+                    if (!this.level.ReachedExit && level.NeededIngredients <= level.CollectedIngredients.Count)
                     {
                         audioService.playSound(SoundType.exitreached);
                     }
