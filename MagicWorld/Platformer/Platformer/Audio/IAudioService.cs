@@ -14,5 +14,9 @@ namespace MagicWorld.Audio
         bool IsEffectMuted { get; set; }
 
         bool IsMusicMuted { get; set; }
+
+        void stopSoundLoop(SoundType soundType);
+
+        void playSoundLoop(SoundType soundType);
     }
 }

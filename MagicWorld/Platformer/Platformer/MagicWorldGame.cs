@@ -39,6 +39,7 @@ namespace MagicWorld
     public class SaveGameStatus
     {
         public bool PlayBackGroundMusic=false;
+        public bool PlayEffects = false;
         public bool FullScreenMode=false;
         public Vector2 Resolution;
         public string Control;
@@ -163,6 +164,8 @@ namespace MagicWorld
         {
             get { return spriteBatch; }
         }
+
+        AudioManager audiomanager;
         
         #endregion
 
@@ -182,7 +185,7 @@ namespace MagicWorld
 
         protected override void Initialize()
         {
-            AudioManager audiomanager = new AudioManager(this);
+            audiomanager = new AudioManager(this);
             audiomanager.Initialize();
             Services.AddService(typeof(IAudioService), audiomanager);
 
@@ -509,6 +512,9 @@ namespace MagicWorld
         /// <param name="level"></param>
         public void SaveGameConfig()
         {
+            GameStatus.PlayEffects = !audiomanager.IsEffectMuted;
+            GameStatus.PlayBackGroundMusic = !audiomanager.IsMusicMuted;
+
             IAsyncResult result;
 
             string fileName = "Config.sav";
@@ -600,6 +606,9 @@ namespace MagicWorld
 
             // Dispose the container.
             container.Dispose();
+
+            audiomanager.IsEffectMuted = !GameStatus.PlayEffects;
+            audiomanager.IsMusicMuted = !GameStatus.PlayBackGroundMusic;
            
         }
 

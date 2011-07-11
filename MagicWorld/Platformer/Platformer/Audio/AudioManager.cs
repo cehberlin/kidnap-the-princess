@@ -29,6 +29,7 @@ namespace MagicWorld.Audio
     {
         String path = "Sounds/";
         Hashtable sounds;
+        Hashtable loopSounds;
 
         bool isEffectMuted = false;
 
@@ -36,8 +37,9 @@ namespace MagicWorld.Audio
 
         public AudioManager(Game game)
             : base(game)
-        {
-            sounds = new Hashtable(); ;
+        {            
+            sounds = new Hashtable();
+            loopSounds = new Hashtable();
         }
 
         public new void Initialize()
@@ -59,35 +61,58 @@ namespace MagicWorld.Audio
             return this;
         }
 
+        public void stopSoundLoop(SoundType soundType)
+        {
+            SoundEffectInstance sound = (SoundEffectInstance)loopSounds[soundType];
+            if (sound != null)
+            {
+                sound.Stop();
+                loopSounds.Remove(soundType);
+            }
+        }
+
+        public void playSoundLoop(SoundType soundType)
+        {
+            if (!IsEffectMuted)
+            {
+                if (!loopSounds.Contains(soundType))
+                {
+                    SoundEffect soundEffect = null;
+                    soundEffect = (SoundEffect)sounds[soundType];
+                    if (soundEffect != null)
+                    {
+                        SoundEffectInstance sound = soundEffect.CreateInstance();
+                        sound.IsLooped = true;
+                        sound.Play();
+                        loopSounds.Add(soundType, sound);
+                    }
+                }               
+            }
+        }
+
         public void playSound(SoundType soundType)
         {
             if (!IsEffectMuted)
             {
-                SoundEffect soundEffect = null;
-                soundEffect = (SoundEffect)sounds[soundType];
-                if (soundEffect != null)
-                {
-                    soundEffect.Play();
+
+                    SoundEffect soundEffect = null;
+                    soundEffect = (SoundEffect)sounds[soundType];
+                    if (soundEffect != null)
+                    {
+                        soundEffect.Play();
+                    }
                 }
-            }
         }
 
         public void playBackgroundmusic()
         {
-            if (isMusicMuted)
+            try
             {
-                MediaPlayer.Stop();
+                MediaPlayer.IsMuted = isMusicMuted;
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(Game.Content.Load<Song>("Sounds/Backgroundmusic"));
             }
-            else
-            {
-                try
-                {
-                    MediaPlayer.IsMuted = isMusicMuted;
-                    MediaPlayer.IsRepeating = true;
-                    MediaPlayer.Play(Game.Content.Load<Song>("Sounds/Backgroundmusic"));
-                }
-                catch { }
-            }
+            catch { }
         }
 
         #region IAudioService Member
@@ -119,6 +144,7 @@ namespace MagicWorld.Audio
             set
             {
                 isMusicMuted = value;
+                MediaPlayer.IsMuted = value;
             }
         }
 

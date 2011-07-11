@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using MagicWorld.Services;
 using System.Diagnostics;
 using MagicWorld.BlendInClasses;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -24,6 +25,9 @@ namespace MagicWorld
 
         ICameraService camera;
         IVisibility ice;
+
+        IAudioService audioService;
+
         #region Fields
 
         ContentManager content;
@@ -62,6 +66,7 @@ namespace MagicWorld
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
             LoadContent();
             level = ScreenManager.Game.Level;
+            audioService = (IAudioService)screenManager.Game.Services.GetService(typeof(IAudioService));
         }
 
         /// <summary>
@@ -174,7 +179,8 @@ namespace MagicWorld
             //Options
             if (keyboardState.IsKeyUp(GameOptionsControls.ToggleSound) && oldKeyboardState.IsKeyDown(GameOptionsControls.ToggleSound))
             {
-                MediaPlayer.IsMuted = !MediaPlayer.IsMuted;
+                audioService.IsEffectMuted = !audioService.IsEffectMuted;
+                audioService.IsMusicMuted = !audioService.IsMusicMuted;
             }
 
             if (keyboardState.IsKeyUp(GameOptionsControls.FullscreenToggleKey) && oldKeyboardState.IsKeyDown(GameOptionsControls.FullscreenToggleKey))
