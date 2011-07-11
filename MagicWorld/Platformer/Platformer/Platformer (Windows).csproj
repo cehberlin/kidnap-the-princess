@@ -121,6 +121,7 @@
     <Compile Include="HelperClasses\GcFpsCounter.cs" />
     <Compile Include="HelperClasses\GeometryCalculationHelper.cs" />
     <Compile Include="HelperClasses\Text.cs" />
+    <Compile Include="ScreenManager\Screens\FilmScreen.cs" />
     <Compile Include="ScreenManager\Screens\CreditsScreen.cs" />
     <Compile Include="ScreenManager\Screens\LevelInfoScreen.cs" />
     <Compile Include="ScreenManager\Screens\LoadGameScreen.cs" />

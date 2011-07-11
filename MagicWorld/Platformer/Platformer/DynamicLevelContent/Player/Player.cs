@@ -236,11 +236,7 @@ namespace MagicWorld
         public void Update(
             GameTime gameTime,InputState input)
         {
-            if (level.Pause)
-            {
-                return;
-            }
-
+            
             if (isAlive)
             {
                 if (collisionManager.CollidateWithLevelExit(this))
