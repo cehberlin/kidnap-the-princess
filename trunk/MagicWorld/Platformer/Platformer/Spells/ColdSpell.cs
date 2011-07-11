@@ -56,6 +56,7 @@ namespace MagicWorld
         {
             MoveSpeed = MoveSpeed * SpellConstantsValues.ColdSpell_MoveSpeedManaFactor * UsedMana;
             base.OnWorkingStart();
+            audioService.playSound(Audio.SoundType.startFireAndIce);
         } 
 
         /// <summary>

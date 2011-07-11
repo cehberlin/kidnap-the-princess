@@ -27,6 +27,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             {
                 Activate();
                 isRemovable = true;
+                audioService.playSound(Audio.SoundType.destroy);
                 return true;
             }
             return base.SpellInfluenceAction(spell);

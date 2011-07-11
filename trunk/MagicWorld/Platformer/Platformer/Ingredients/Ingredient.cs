@@ -84,6 +84,7 @@ namespace MagicWorld.Ingredients
             {
                 this.isRemovable = true;
                 level.CollectedIngredients.Add(this);
+                audioService.playSound(Audio.SoundType.collect);
             }
         }
         #endregion

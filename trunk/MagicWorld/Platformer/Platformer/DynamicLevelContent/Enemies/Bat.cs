@@ -385,6 +385,7 @@ namespace MagicWorld
                     idleAnimation.TextureColor = Color.Red;
                     runAnimation.TextureColor = Color.Red;
                 }
+                audioService.playSound(Audio.SoundType.enemy_hit);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ColdSpell)
@@ -404,12 +405,14 @@ namespace MagicWorld
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     currentFreezeTime = new TimeSpan(0, 0, 0);
                 }
+                audioService.playSound(Audio.SoundType.enemy_hit);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ElectricSpell)
             {
                 isElectrified = true;
                 currentElectrifiedTime = new TimeSpan(0, 0, 0);
+                audioService.playSound(Audio.SoundType.enemy_hit);
             }
 
             return false;
