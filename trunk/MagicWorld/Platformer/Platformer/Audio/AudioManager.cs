@@ -35,7 +35,6 @@ namespace MagicWorld.Audio
         electric
     }
 
-    //TODO add MediaPlayer/loop sounds for backgroundmusic
     class AudioManager : GameComponent, IAudioService
     {
         String path = "Sounds/";

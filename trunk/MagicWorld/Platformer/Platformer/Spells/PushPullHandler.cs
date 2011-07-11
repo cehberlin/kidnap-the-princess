@@ -45,7 +45,7 @@ namespace MagicWorld.Spells
         {
             this.influenceTimeInMs = influenceTimeInMs;
             this.element = elem;
-            influenceVelocity = startVelocity;
+            influenceVelocity = startVelocity*320;
         }
 
         public void setYAcceleration(float current, float min, float max, float changeFactor)
@@ -70,15 +70,15 @@ namespace MagicWorld.Spells
             {
                 if (influenceTimeInMs > 0)
                 {
-                    float elapsed = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
                     //accelaration
-                    currentAccelarationX += (float)elapsed / 1000 * accelarationChangeFactorX;
+                    currentAccelarationX += accelarationChangeFactorX * elapsed;
                     if (currentAccelarationX < accelarationMinX)
                         currentAccelarationX = accelarationMinX;
                     if (currentAccelarationX > accelarationMaxX)
                         currentAccelarationX = accelarationMaxX;
 
-                    currentAccelarationY += (float)elapsed / 1000 * accelarationChangeFactorY;
+                    currentAccelarationY += accelarationChangeFactorY * elapsed;
                     if (currentAccelarationY < accelarationMinY)
                         currentAccelarationY = accelarationMinY;
                     if (currentAccelarationY > accelarationMaxY)
@@ -87,10 +87,10 @@ namespace MagicWorld.Spells
                     // Move in the current direction.
                     influenceVelocity = new Vector2((float)influenceVelocity.X * currentAccelarationX, (float)influenceVelocity.Y * currentAccelarationY);
 
-                    element.Position += influenceVelocity;
+                    element.Position += influenceVelocity*elapsed;
 
 
-                    influenceTimeInMs -= elapsed;
+                    influenceTimeInMs -= elapsed*1000;
                 }
                 else
                 {
@@ -106,15 +106,15 @@ namespace MagicWorld.Spells
             {
                 if (influenceTimeInMs > 0)
                 {
-                    float elapsed = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
                     //accelaration
-                    currentAccelarationX += (float)elapsed / 1000 * accelarationChangeFactorX;
+                    currentAccelarationX += accelarationChangeFactorX * elapsed;
                     if (currentAccelarationX < accelarationMinX)
                         currentAccelarationX = accelarationMinX;
                     if (currentAccelarationX > accelarationMaxX)
                         currentAccelarationX = accelarationMaxX;
 
-                    currentAccelarationY += (float)elapsed / 1000 * accelarationChangeFactorY;
+                    currentAccelarationY += accelarationChangeFactorY * elapsed;
                     if (currentAccelarationY < accelarationMinY)
                         currentAccelarationY = accelarationMinY;
                     if (currentAccelarationY > accelarationMaxY)
@@ -130,14 +130,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.X < nextPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed;
                             }
                         }
                         else
                         {
                             if (element.Position.X < currentPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed;
                             }
                         }
                     }
@@ -148,14 +148,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.X > currentPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed;
                             }
                         }
                         else
                         {
                             if (element.Position.X > nextPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed;
                             }
                         }
                     }
@@ -166,14 +166,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.Y < currentPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed; ;
                             }
                         }
                         else
                         {
                             if (element.Position.Y <= nextPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed; ;
                             }
                         }
                     }//push y Axis
@@ -183,19 +183,19 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.Y > nextPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed; ;
                             }
                         }
                         else
                         {
                             if (element.Position.Y > currentPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity;
+                                element.Position += influenceVelocity * elapsed; ;
                             }
                         }
                     }
 
-                    influenceTimeInMs -= elapsed;
+                    influenceTimeInMs -= elapsed*1000;
                 }
                 else
                 {

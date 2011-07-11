@@ -9,6 +9,7 @@ using System.Diagnostics;
 using MagicWorld.Services;
 using MagicWorld.Gleed2dLevelContent;
 using MagicWorld.Spells;
+using ParticleEffects;
 
 namespace MagicWorld.StaticLevelContent
 {
@@ -90,7 +91,8 @@ namespace MagicWorld.StaticLevelContent
                 nextPosition++;
             }
             oldPosition = pathPosition - 1;
-            if(oldPosition <0){
+            if (oldPosition < 0)
+            {
                 oldPosition = 0;
             }
 
@@ -154,44 +156,64 @@ namespace MagicWorld.StaticLevelContent
 
         private TimeSpan currentPushingTime = new TimeSpan(0, 0, 0);
 
+        int pushPullParticleCounter = 0;
+
         public override Boolean SpellInfluenceAction(Spell spell)
         {
             if (spell.SpellType == SpellType.PushSpell)
-            {  
-                Vector2 push = calculatesVelocity(true);
-                push.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+            {
+                if (spell.SpellState == MagicWorld.Spell.State.WORKING)
+                {
+                    Vector2 push = calculatesVelocity(true);
+                    push.Normalize();
+                    pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
 
-                if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
-                {
-                    push.X = -push.X;
+                    if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
+                    {
+                        push.X = -push.X;
+                    }
+                    if (this.position.Y >= spell.Position.Y)
+                    {
+                        push.Y = -push.Y;
+                    }
+
+                    pushPullHandler.start(this, 1000, push);
                 }
-                if (this.position.Y >= spell.Position.Y)
+                else if (pushPullParticleCounter % 20 == 0)
                 {
-                    push.Y = -push.Y;
+                    Bounds bounds = Bounds;
+                    level.Game.PullCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PULL_COLOR, bounds.Width / 2));
                 }
-                
-                pushPullHandler.start(this,1000, push);
+                pushPullParticleCounter++;
                 return false;
             }
             else if (spell.SpellType == SpellType.PullSpell)
             {
-                Vector2 pull = calculatesVelocity(false);
-                pull.Normalize();
-                pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-                pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
-
-                if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
+                if (spell.SpellState == MagicWorld.Spell.State.WORKING)
                 {
-                    pull.X = -pull.X;
-                }
-                if (this.position.Y > spell.Position.Y)
-                {
-                    pull.Y = -pull.Y;
-                }
+                    Vector2 pull = calculatesVelocity(false);
+                    pull.Normalize();
+                    pushPullHandler.setXAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
+                    pushPullHandler.setYAcceleration(SpellConstantsValues.PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION, 0, 2f, SpellConstantsValues.PUSHPULL_DEFAULT_ACCELERATION_CHANGE_FACTOR);
 
-                pushPullHandler.start(this, 1000,pull);
+                    if (this.position.X + this.Bounds.Width / 2 < spell.Position.X)
+                    {
+                        pull.X = -pull.X;
+                    }
+                    if (this.position.Y > spell.Position.Y)
+                    {
+                        pull.Y = -pull.Y;
+                    }
+
+                    pushPullHandler.start(this, 1000, pull);
+                }
+                else if (pushPullParticleCounter % 20 == 0)
+                {
+                    Bounds bounds = Bounds;
+                    level.Game.PushCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PUSH_COLOR, bounds.Width/2));
+                }
+                pushPullParticleCounter++;
                 return false;
             }
             return base.SpellInfluenceAction(spell);
