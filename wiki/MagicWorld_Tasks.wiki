@@ -11,6 +11,7 @@
      DO NOT UNDERSTAND!! PLEASE EXPLAIN ME (Christopher).
      Wenn du pull oder push benutzt z.b. beim Stein in level 8. Und dann danach nochmal benutzt aber gedrückt hälts fliegt der Stein weg.
 Ausserdem wenn du pull auf die Platform in Level 4 machst aber den radius wieder kleiner machst wird die Platform trotzdem angezogen obwohl der Kreis vom Pull nicht die Platform berührt.
+      --> Wenn du mit Push/Pull ein Objekt bewegst und dann (während das Objekt noch in Bewegung ist) wieder im casting mode gehst (wo eigentlich alles still stehen sollte) fliegt das Objekt mit voller Geschwindigkeit weiter
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * backgroung music --> make music.mp3 loopabel --> Amauri
      * menu klick sound
