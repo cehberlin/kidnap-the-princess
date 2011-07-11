@@ -1,5 +1,8 @@
   = PAY ATTENTION TO PRIORITY !!! DELETE DONE WORK !!!  =
 ----
+  <h1> <font color="#FF0000"> don't do unnecessary work, our goal is now to polish all we have so everything looks and feels (nearly) perfect, so discard unnecessary stuff if its to much work and not vital for the game </font></h1>
+----
+
 = in Progress =
 
 = TODO =
