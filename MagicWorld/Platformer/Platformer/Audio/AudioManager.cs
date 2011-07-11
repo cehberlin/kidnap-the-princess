@@ -21,7 +21,11 @@ namespace MagicWorld.Audio
         playerjump,
         playerkilled,
         powerup,
-        laugh
+        laugh,
+        startFireAndIce,
+        destroy,
+        collect,
+        enemy_hit
     }
 
     //TODO add MediaPlayer/loop sounds for backgroundmusic
@@ -37,7 +41,7 @@ namespace MagicWorld.Audio
 
         public AudioManager(Game game)
             : base(game)
-        {            
+        {
             sounds = new Hashtable();
             loopSounds = new Hashtable();
         }
@@ -46,14 +50,18 @@ namespace MagicWorld.Audio
         {
             //TODO add all new sounds and add also calls into corresponding gamecode, all basicgameelemts have a reference to this service
             sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "spellcast2"));
-            sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "GemCollected"));
+            sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "level_exit1"));
             sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Icehit"));
-            sounds.Add(SoundType.monsterkill, Game.Content.Load<SoundEffect>(path + "Monsterkilled"));
+            sounds.Add(SoundType.monsterkill, Game.Content.Load<SoundEffect>(path + "enemy-dies"));
             sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall"));
-            sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "PlayerJump"));
-            sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "PlayerKilled"));
+            sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "jump"));
+            sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "player_dies"));
             sounds.Add(SoundType.powerup, Game.Content.Load<SoundEffect>(path + "Powerup"));
             sounds.Add(SoundType.laugh, Game.Content.Load<SoundEffect>(path + "laugh"));
+            sounds.Add(SoundType.startFireAndIce, Game.Content.Load<SoundEffect>(path + "start_fire_and_ice_begin_sound"));
+            sounds.Add(SoundType.destroy, Game.Content.Load<SoundEffect>(path + "destroy_fire_spell_and_destroy_switch"));
+            sounds.Add(SoundType.collect, Game.Content.Load<SoundEffect>(path + "collect"));
+            sounds.Add(SoundType.enemy_hit, Game.Content.Load<SoundEffect>(path + "spell_hits_creature"));
         }
 
         public object GetService(Type serviceType)
@@ -86,7 +94,7 @@ namespace MagicWorld.Audio
                         sound.Play();
                         loopSounds.Add(soundType, sound);
                     }
-                }               
+                }
             }
         }
 
@@ -94,14 +102,13 @@ namespace MagicWorld.Audio
         {
             if (!IsEffectMuted)
             {
-
-                    SoundEffect soundEffect = null;
-                    soundEffect = (SoundEffect)sounds[soundType];
-                    if (soundEffect != null)
-                    {
-                        soundEffect.Play();
-                    }
+                SoundEffect soundEffect = null;
+                soundEffect = (SoundEffect)sounds[soundType];
+                if (soundEffect != null)
+                {
+                    soundEffect.Play();
                 }
+            }
         }
 
         public void playBackgroundmusic()
@@ -110,7 +117,7 @@ namespace MagicWorld.Audio
             {
                 MediaPlayer.IsMuted = isMusicMuted;
                 MediaPlayer.IsRepeating = true;
-                MediaPlayer.Play(Game.Content.Load<Song>("Sounds/Backgroundmusic"));
+                MediaPlayer.Play(Game.Content.Load<Song>("Sounds/music"));
             }
             catch { }
         }

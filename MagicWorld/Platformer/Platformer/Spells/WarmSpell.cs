@@ -48,6 +48,7 @@ namespace MagicWorld
         {
             level.Game.ExplosionParticleSystem.AddParticles(new ParticleSetting(position));
             level.Game.ExplosionSmokeParticleSystem.AddParticles(new ParticleSetting(position));
+            audioService.playSound(Audio.SoundType.destroy);
             base.OnRemove();
         }
 
@@ -58,6 +59,7 @@ namespace MagicWorld
         {
             MoveSpeed = MoveSpeed * SpellConstantsValues.WarmSpell_MoveSpeedManaFactor * UsedMana;
  	        base.OnWorkingStart();
+            audioService.playSound(Audio.SoundType.startFireAndIce);
         }     
 
         /// <summary>
