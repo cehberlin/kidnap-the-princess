@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using MagicWorld.Services;
+using MagicWorld.Audio;
 
 namespace MagicWorld.BlendInClasses
 {
@@ -13,6 +14,8 @@ namespace MagicWorld.BlendInClasses
         SpriteBatch spriteBatch;
         ICameraService camera;
         IPlayerService playerService;
+        IAudioService audioService;
+
         List<IIcedVisibility> positions;
         Effect effect;
 
@@ -63,6 +66,7 @@ namespace MagicWorld.BlendInClasses
         public void Remove(IIcedVisibility obj)
         {
             positions.Remove(obj);
+            audioService.playSound(SoundType.icecrack);
         }
 
         public void Remove()
@@ -85,6 +89,7 @@ namespace MagicWorld.BlendInClasses
         {
             camera = (ICameraService)Game.Services.GetService(typeof(ICameraService));
             playerService = (IPlayerService)Game.Services.GetService(typeof(IPlayerService));
+            audioService = (IAudioService)Game.Services.GetService(typeof(IAudioService));
         }
     }
 }
