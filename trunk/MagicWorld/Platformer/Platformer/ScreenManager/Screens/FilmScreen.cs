@@ -53,7 +53,7 @@ namespace MagicWorld
             base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
             if (player.State == MediaState.Stopped)
             {
-                player.IsLooped = true;
+                player.IsLooped = false;
                 player.Play(video);
             }
 
@@ -77,17 +77,30 @@ namespace MagicWorld
                 viewPort.Width,
                 viewPort.Height);
 
+            ScreenManager.SpriteBatch.Begin();
             // Draw the video, if we have a texture to draw.
             if (videoTexture != null)
             {
-                ScreenManager.SpriteBatch.Begin();
                 ScreenManager.SpriteBatch.Draw(videoTexture, screen, Color.White);
-                ScreenManager.SpriteBatch.End();
             }
-            
+
+            SpriteBatch spriteBatch = ScreenManager.SpriteBatch;
+            Color color = Color.White * TransitionAlpha;
+            SpriteFont font = ScreenManager.Font;
+            DrawShadowedString(font, "press any key to skip...", textPos, color) ;
 
             base.Draw(gameTime);
+            ScreenManager.SpriteBatch.End();
         }
+
+        private Vector2 textPos = new Vector2();
+
+        
+        private void DrawShadowedString(SpriteFont font, string value, Vector2 position, Color color)
+        {
+            ScreenManager.SpriteBatch.DrawString(font, value, position + new Vector2(1.0f, 1.0f), Color.Black);
+            ScreenManager.SpriteBatch.DrawString(font, value, position, color);
+        } 
 
         public override void HandleInput(InputState input)
         {
