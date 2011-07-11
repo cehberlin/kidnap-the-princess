@@ -136,6 +136,15 @@ namespace MagicWorld.Audio
             catch { }
         }
 
+        public void stopBackgroundmusic()
+        {
+            try
+            {
+                MediaPlayer.Stop();
+            }
+            catch { }
+        }
+
         #region IAudioService Member
 
 
