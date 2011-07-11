@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using MagicWorld.Audio;
 
 namespace MagicWorld
 {
@@ -11,19 +12,21 @@ namespace MagicWorld
     {
         #region Initialization
 
-        bool playingBackMusic=false;
+        bool playingBackMusic = false;
         MenuEntry mnuPlayBackGroundMusic;
+        public IAudioService audioService;
         /// <summary>
         /// Constructor.
         /// </summary>
         public SoundMenuScreen(ScreenManager screenManager)
             : base("Options")
         {
+            audioService = (IAudioService)screenManager.Game.Services.GetService(typeof(IAudioService));
             // Create our menu entries.
             playingBackMusic = screenManager.Game.GameStatus.PlayBackGroundMusic;
             if (playingBackMusic)
             {
-                mnuPlayBackGroundMusic = new MenuEntry("Background Music <On>");            
+                mnuPlayBackGroundMusic = new MenuEntry("Background Music <On>");
             }
             else
             {
@@ -33,12 +36,12 @@ namespace MagicWorld
             MenuEntry back = new MenuEntry("Back");
 
             // Hook up menu event handlers.
-            mnuPlayBackGroundMusic.Selected += PlayBackgroundMusic;          
+            mnuPlayBackGroundMusic.Selected += PlayBackgroundMusic;
             back.Selected += OnCancel;
-            
+
             // Add entries to the menu.
             MenuEntries.Add(mnuPlayBackGroundMusic);
-            
+
             MenuEntries.Add(back);
         }
 
@@ -51,33 +54,22 @@ namespace MagicWorld
         /// </summary>
         void PlayBackgroundMusic(object sender, PlayerIndexEventArgs e)
         {
-            
-            //Known issue that you get exceptions if you use Media PLayer while connected to your PC
-            //See http://social.msdn.microsoft.com/Forums/en/windowsphone7series/thread/c8a243d2-d360-46b1-96bd-62b1ef268c66
-            //Which means its impossible to test this from VS.
-            //So we have to catch the exception and throw it away
-            if (playingBackMusic)
+            if (!audioService.IsMusicMuted)
             {
                 mnuPlayBackGroundMusic.Text = "Background Music <Off>";
-                MediaPlayer.Stop();
+                audioService.IsMusicMuted = true;
             }
             else
             {
                 mnuPlayBackGroundMusic.Text = "Background Music <On>";
-                try
-                {
-                    MediaPlayer.IsMuted = playingBackMusic;
-                    MediaPlayer.IsRepeating = true;
-                    MediaPlayer.Play(ScreenManager.ContentManager.Load<Song>("Sounds/Backgroundmusic"));
-                }
-                catch { }
+                audioService.IsMusicMuted = false;
             }
+            audioService.playBackgroundmusic();
 
-            playingBackMusic=!playingBackMusic;
-            ScreenManager.Game.GameStatus.PlayBackGroundMusic = playingBackMusic;
+            ScreenManager.Game.GameStatus.PlayBackGroundMusic = !audioService.IsMusicMuted;
 
         }
-       
+
 
         #endregion
     }

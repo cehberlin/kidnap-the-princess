@@ -9,6 +9,8 @@ namespace MagicWorld.Audio
     {
         void playSound(SoundType soundType);
 
+        void playBackgroundmusic();
+
         bool IsEffectMuted { get; set; }
 
         bool IsMusicMuted { get; set; }

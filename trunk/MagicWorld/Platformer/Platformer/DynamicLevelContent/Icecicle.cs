@@ -96,6 +96,8 @@ namespace MagicWorld
                 {
                     //destroy enemy
                     audioService.playSound(Audio.SoundType.icehit);
+                    audioService.playSound(Audio.SoundType.monsterkill);
+                    audioService.playSound(Audio.SoundType.laugh);
                     IcecicleState = IcecicleState.DESTROYED;
                     e.IsRemovable = true;
                 }
@@ -103,6 +105,7 @@ namespace MagicWorld
             else
             {
                 IcecicleState = IcecicleState.DESTROYED;
+                audioService.playSound(Audio.SoundType.icehit);
             }
             level.Game.IceParticleSystem.AddParticles(new ParticleSetting(position));
         }
