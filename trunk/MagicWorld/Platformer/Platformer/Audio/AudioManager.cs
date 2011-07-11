@@ -32,7 +32,9 @@ namespace MagicWorld.Audio
         doorClose,
         doorOpen,
         icecrack,
-        electric
+        electric,
+        menuSelect,
+        menuValidate
     }
 
     class AudioManager : GameComponent, IAudioService
@@ -75,6 +77,8 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.doorOpen, Game.Content.Load<SoundEffect>(path + "openDoor"));
             sounds.Add(SoundType.icecrack, Game.Content.Load<SoundEffect>(path + "icecrack"));
             sounds.Add(SoundType.electric, Game.Content.Load<SoundEffect>(path + "electric"));
+            sounds.Add(SoundType.menuSelect, Game.Content.Load<SoundEffect>(path + "menuSelect"));
+            sounds.Add(SoundType.menuValidate, Game.Content.Load<SoundEffect>(path + "menuValidate"));
            
         }
 

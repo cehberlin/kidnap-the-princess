@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Input;
 using MagicWorld.HelperClasses;
+using MagicWorld.Audio;
 #endregion
 
 namespace MagicWorld
@@ -24,7 +25,7 @@ namespace MagicWorld
         int selectedEntry = 0;
         string menuTitle;
         Texture2D gradientTexture;
-
+        IAudioService audioService;
 
         #endregion
 
@@ -78,6 +79,7 @@ namespace MagicWorld
         /// </summary>
         public override void HandleInput(InputState input)
         {
+            audioService = (IAudioService)ScreenManager.Game.Services.GetService(typeof(IAudioService));
             // Move to the previous menu entry?
             if (input.IsMenuUp(ControllingPlayer))
             {
@@ -85,6 +87,7 @@ namespace MagicWorld
 
                 if (selectedEntry < 0)
                     selectedEntry = menuEntries.Count - 1;
+                audioService.playSound(SoundType.menuSelect);
             }
 
             // Move to the next menu entry?
@@ -94,6 +97,7 @@ namespace MagicWorld
 
                 if (selectedEntry >= menuEntries.Count)
                     selectedEntry = 0;
+                audioService.playSound(SoundType.menuSelect);
             }
 
 
