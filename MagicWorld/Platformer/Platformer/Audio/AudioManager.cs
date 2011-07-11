@@ -31,7 +31,8 @@ namespace MagicWorld.Audio
         iceHitEnemy,
         doorClose,
         doorOpen,
-        icecrack
+        icecrack,
+        electric
     }
 
     //TODO add MediaPlayer/loop sounds for backgroundmusic
@@ -74,6 +75,8 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.doorClose, Game.Content.Load<SoundEffect>(path + "doorClose"));
             sounds.Add(SoundType.doorOpen, Game.Content.Load<SoundEffect>(path + "openDoor"));
             sounds.Add(SoundType.icecrack, Game.Content.Load<SoundEffect>(path + "icecrack"));
+            sounds.Add(SoundType.electric, Game.Content.Load<SoundEffect>(path + "electric"));
+           
         }
 
         public object GetService(Type serviceType)
