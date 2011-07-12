@@ -28,7 +28,10 @@
   # BUG: im slowmotion werden Feuerbälle von Vulkanen die von rechts nach links fliegen falsch angezeigt 
   # BUG: Materie mit (fast) gleicher größe kann nicht aufeinander 
 gestapelt werden.
-
+  # BUG: Back in Option Menue doesnt work if you selected Controls before
+  # rename and reconfig the two keyboard controls
+  # show change in COntrol Menu immediately
+  # Optional: second Controler Layout + Picture in Control Menu
 
  === optional ===
   # Draw 3D level exit -> Pascal
