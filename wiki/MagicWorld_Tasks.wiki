@@ -8,6 +8,8 @@
 = TODO =
 
 == Final (13.07) ==
+  # level Design: lvl 5 - reposition wall texture (because of changed texture) -> John
+  # level Design: lvl 8 - reposition wall texture (because of changed texture) -> John
   # BUG: gamepad aiming bug -> pascal(only gamepad) with support of christopher
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad) -> pascal(only gamepad) with support of christopher
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
