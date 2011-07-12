@@ -14,7 +14,7 @@
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * switch goes on/off
      * sound for no_gravity -> may cut and loop the file
-no_gravity_is_running.mp3 --> Amauri
+     * no_gravity_is_running.mp3 --> Amauri
      * add SoundType.rockslide to spell moveable and switch moveable platforms as loop during movement, dont know where adding the call --> John
      * be creative finding more sounds...!!!
   # Hide background color(blue) of levels at the edge --> may use of some big textures
