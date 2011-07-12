@@ -232,9 +232,9 @@ namespace MagicWorld
         {
             if (spell.SpellType == Spells.SpellType.WarmingSpell)
             {
-                level.visibilityService.Remove(this);
                 if (isFroozen)
                 {
+                    level.visibilityService.Remove(this);
                     isFroozen = false;
                     isBurning = false;
                     idleAnimation.TextureColor = Color.White;
@@ -245,8 +245,6 @@ namespace MagicWorld
                     isBurning = true;
                     currentBurningTime = new TimeSpan(0, 0, 0);
                     spellDurationOfActionMs = spell.DurationOfActionMs;
-                    idleAnimation.TextureColor = Color.Red;
-                    runAnimation.TextureColor = Color.Red;
                 }
                 audioService.playSound(Audio.SoundType.enemy_hit);
                 return true;
@@ -268,8 +266,7 @@ namespace MagicWorld
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     currentFreezeTime = new TimeSpan(0, 0, 0);
                 }
-                //audioService.playSound(Audio.SoundType.enemy_hit);
-                audioService.playSound(Audio.SoundType.iceHitEnemy);
+                audioService.playSound(Audio.SoundType.enemy_hit);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ElectricSpell)

@@ -374,11 +374,6 @@ namespace MagicWorld
                 if (level.Player.SpellInfluenceAction(this))
                 {
                     SpellState = State.REMOVE;
-                    if (startElectricSound && SpellType == SpellType.ElectricSpell)
-                    {
-                        audioService.stopSoundLoop(SoundType.electric);
-                        startElectricSound = true;
-                    }
                 }
             }
         }

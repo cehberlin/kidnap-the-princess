@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
 using MagicWorld.DynamicLevelContent;
 using System.Collections.Generic;
+using ParticleEffects;
+using MagicWorld.Constants;
 
 namespace MagicWorld.Ingredients
 {
@@ -16,6 +18,7 @@ namespace MagicWorld.Ingredients
 
         public int Width = 40;
         public int Height = 32;
+        public int particelCounter = 0;
 
         public override Vector2 Position
         {
@@ -26,9 +29,10 @@ namespace MagicWorld.Ingredients
         /// <summary>
         /// Constructs a new Igredient.
         /// </summary>
-        public Ingredient(String texture, CollisionType collision,Level level,Vector2 position):base(level)
+        public Ingredient(String texture, CollisionType collision, Level level, Vector2 position)
+            : base(level)
         {
-            this.level = level;            
+            this.level = level;
             Collision = collision;
             this.position = position;
             level.Ingredients.Add(this);
@@ -42,7 +46,7 @@ namespace MagicWorld.Ingredients
         /// Constructs a new Ingredient.
         /// </summary>
         public Ingredient(String texture, CollisionType collision, Level level, Vector2 position, int width, int height)
-            : this(texture,collision,level,position)
+            : this(texture, collision, level, position)
         {
             this.Width = width;
             this.Height = height;
@@ -56,7 +60,7 @@ namespace MagicWorld.Ingredients
                 int left = (int)Math.Round(position.X);
                 int top = (int)Math.Round(position.Y);
 
-                return new Bounds(left, top, Width,Height);
+                return new Bounds(left, top, Width, Height);
             }
         }
 
@@ -73,13 +77,19 @@ namespace MagicWorld.Ingredients
         {
             if (Texture != null)
             {
-                spriteBatch.Draw(Texture, Bounds.getRectangle(),Color.White);
+                spriteBatch.Draw(Texture, Bounds.getRectangle(), Color.White);
                 base.Draw(gameTime, spriteBatch);
-            }            
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
+            if (particelCounter % 2 == 0)
+            {
+                Bounds bounds = Bounds;
+                level.Game.MagicItemParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), Color.LightCyan));
+            }
+            particelCounter++;
             if (level.CollisionManager.CollidateWithPlayer(this))
             {
                 this.isRemovable = true;
