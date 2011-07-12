@@ -118,11 +118,11 @@ namespace MagicWorld
             // actually provided the input. We pass that through to our Accepted and
             // Cancelled events, so they can tell which player triggered them.
             if (input.IsMenuSelect(ControllingPlayer, out playerIndex))
-            {
-                //player.State = MediaState.Stopped;
+            {                
                 player.Stop();
-                ScreenManager.AddScreen(new BackgroundScreen(), null);
-                ScreenManager.AddScreen(new MainMenuScreen(), null);
+                BackgroundScreen backScreen = new BackgroundScreen();
+                ScreenManager.AddScreen(backScreen, null);
+                ScreenManager.AddScreen(new MainMenuScreen(backScreen), null);
                 ExitScreen();
             }
             
