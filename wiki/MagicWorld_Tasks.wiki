@@ -28,6 +28,7 @@ no_gravity_is_running.mp3 --> Amauri
   # BUG: bad linebreak in instructions
   # better push/pull spell graphic
   # improve/rewrite controls menu -> amauri
+  # BUG: wenn materie gepusht/gepullt wird und man während der Bewegung in den spellcasting modus wechselt und länger in diesem verbleibt kommt es zu einem Fehler in der Materien Bewegung. Die Materie bewegt sich zum anfang der Slow Motion noch und bremst dann in der luft ab, fällt jedoch nach längerer Zeit im Slow Motion modus auf den boden!
 
 
  === optional ===
