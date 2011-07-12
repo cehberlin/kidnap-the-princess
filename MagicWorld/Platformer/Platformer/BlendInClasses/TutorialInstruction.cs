@@ -7,6 +7,7 @@ namespace MagicWorld.BlendInClasses
     public class TutorialInstruction
     {
         TutorialManager manager;
+        int oldWhitespacposition = 0;
         public TutorialManager Manager
         {
             get { return manager; }
@@ -60,8 +61,23 @@ namespace MagicWorld.BlendInClasses
         private void SplitText()
         {
             int LineLength = 30;
-            for (int i = 0; i < text.Length / LineLength; i++)
-                text = text.Insert((i+1) * LineLength, "\n");
+            int whiteSpacePosition = 0;
+            string target = " ";
+            char[] whitespace = target.ToCharArray();
+            string temp;
+
+            for (int i = 0; i < text.Length / LineLength; i++ )
+            {
+                if (whiteSpacePosition + LineLength > text.Length)
+                {
+                    LineLength = text.Length-whiteSpacePosition;
+                }
+                temp = text.Substring(whiteSpacePosition, LineLength);
+                whiteSpacePosition = temp.LastIndexOfAny(whitespace);
+                text = text.Insert(whiteSpacePosition+oldWhitespacposition + 1, "\n");
+                oldWhitespacposition = whiteSpacePosition;
+            }
+            
         }
     }
 }

@@ -18,6 +18,8 @@ namespace MagicWorld.BlendInClasses
         IPlayerService playerService;
         Texture2D bg;
         Vector2 textOffset = new Vector2(20, 20);
+        ICameraService cameraService = null;
+        private Vector2 pos;
 
         public void AddInstruction(String text, Rectangle pos)
         {
@@ -49,11 +51,13 @@ namespace MagicWorld.BlendInClasses
             font = Game.Content.Load<SpriteFont>("Instructions/InstructionFont");
             spriteBatch = new SpriteBatch(Game.GraphicsDevice);
             bg = Game.Content.Load<Texture2D>("Instructions/InstructionBG");
+            cameraService = (ICameraService)Game.Services.GetService(typeof(ICameraService));
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
+            pos = new Vector2(Game.GraphicsDevice.Viewport.Width / 2 - bg.Width / 2, 30);
             for (int i = 0; i < instructions.Count; i++)
             {
                 if (instructions[i].IsActive)
@@ -82,8 +86,6 @@ namespace MagicWorld.BlendInClasses
             }            
             base.Update(gameTime);
         }
-
-        private Vector2 pos = new Vector2(200, 50);
 
         public override void Draw(GameTime gameTime)
         {
