@@ -40,6 +40,14 @@ namespace MagicWorld.DynamicLevelContent.Enemies
         {
             if (activated)
             {
+                if ((level.Player.Position - Position).Length() < 400)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.lava);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.lava);
+                }
                 currentDelay -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (currentDelay <= 0)
                 {
