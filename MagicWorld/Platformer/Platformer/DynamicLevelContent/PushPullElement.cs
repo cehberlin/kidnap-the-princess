@@ -50,9 +50,16 @@ namespace MagicWorld.DynamicLevelContent
 
         public override void Update(GameTime gameTime)
         {
+            Vector2 previousPosition = Position;
             pushPullHandler.Update(gameTime);
-
+                        
             base.Update(gameTime);
+
+            if (Position.X == previousPosition.X)
+                pushPullHandler.influenceVelocity.X = 0;
+
+            if (Position.Y == previousPosition.Y)
+                pushPullHandler.influenceVelocity.Y = 0;
         }
 
         int pushPullParticleCounter = 0;

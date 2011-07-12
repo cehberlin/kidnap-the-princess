@@ -80,12 +80,13 @@ namespace MagicWorld
         bool isOnGround = false;
         public override void Update(GameTime gameTime)
         {
+            Vector2 previousPosition = Position;
             if (SpellState == State.WORKING)
             {
                 pushPullHandler.Update(gameTime);
                 if (!gravityIsSetOffBySpell)
                 {
-                    level.PhysicsManager.ApplyGravity(this, PhysicValues.DEFAULT_GRAVITY, gameTime);
+                    level.PhysicsManager.ApplyGravity(this, PhysicValues.PUSHPULL_ELEMENT_GRAVITY, gameTime);
                 }
             }
 
@@ -102,10 +103,10 @@ namespace MagicWorld
             }
 
             base.Update(gameTime);
-
+            
             if (SpellState == State.WORKING)
             {
-                level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround, null, false, true, false);
+                level.CollisionManager.HandleGeneralCollisions(this, ref isOnGround, null, false, true, true);
                 if (isOnGround)
                 {
                     if (!rockHitGround)
@@ -114,8 +115,12 @@ namespace MagicWorld
                         rockHitGround = true;
                     }
                     ResetVelocity();
-
                 }
+                if (Position.X == previousPosition.X)
+                    pushPullHandler.influenceVelocity.X = 0;
+
+                if (Position.Y == previousPosition.Y)
+                    pushPullHandler.influenceVelocity.Y = 0;
             }
         }
 

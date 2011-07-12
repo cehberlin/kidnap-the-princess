@@ -191,6 +191,11 @@ namespace MagicWorld.HelperClasses
                         continue;
                     }
 
+                    if (elem.GetType()==typeof(MatterSpell) && t.GetType()==typeof(ShadowCreature))
+                    {
+                        continue;
+                    }
+
                     //get depth of intersection
                     Vector2 depth = CollisionManager.GetCollisionDepth(elem, t);
 

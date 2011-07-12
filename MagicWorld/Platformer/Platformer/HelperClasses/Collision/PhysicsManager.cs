@@ -38,7 +38,13 @@ namespace MagicWorld.HelperClasses.Collision
         /// <returns></returns>
         public virtual Vector2 getGravity( Vector2 acceleration, GameTime time)
         {
-            return acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
+            //only change acceleration if we are over a some elapsed time
+            //if we do not consider this special case the accelartion change factor gets to much influence in casting time
+            if (time.ElapsedGameTime.TotalSeconds > 0.01) //only change acceleration if we are over a some elapsed time
+            {
+                return acceleration * (float)time.ElapsedGameTime.TotalMilliseconds;
+            }
+            return Vector2.Zero;
         }
     }
         
