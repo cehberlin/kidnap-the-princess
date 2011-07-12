@@ -8,7 +8,6 @@
 = TODO =
 
 == Final (13.07) ==
-  # BUG: push/pull moves Matter through walls --> seems to be fixed for push pull elements; maybe still a problem for selfcreated matter, but that maybe not fixable at the moment --> still a bug for created matter 
   # BUG: gamepad aiming bug -> pascal(only gamepad) with support of christopher
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad) -> pascal(only gamepad) with support of christopher
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
@@ -23,8 +22,6 @@
   # presentation plan
   # better push/pull spell graphic
   # improve/rewrite controls menu -> amauri
-  # BUG: wenn materie gepusht/gepullt wird und man während der Bewegung in den spellcasting modus wechselt und länger in diesem verbleibt kommt es zu einem Fehler in der Materien Bewegung. Die Materie bewegt sich zum anfang der Slow Motion noch und bremst dann in der luft ab, fällt jedoch nach längerer Zeit im Slow Motion modus auf den boden!
-  # BUG: im slowmotion werden Feuerbälle von Vulkanen die von rechts nach links fliegen falsch angezeigt 
   # BUG: Materie mit (fast) gleicher größe kann nicht aufeinander 
 gestapelt werden.
   # BUG: after starting a level the background music dont stop if you go back to the main menu 
