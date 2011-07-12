@@ -217,8 +217,8 @@ namespace MagicWorld.HelperClasses
                             // If we crossed the top of a tile, we are on the ground.
                             if (obstacleRectangle.Top > elemRectangle.Bottom - 10 && (//is higher than colliding object 
                                 //and the x bounds are in the same area like the colliding object
-                                elemLeftXCorner > obstacleLeftXCorner && elemLeftXCorner < obstacleRightXCorner ||
-                                elemRightXCorner > obstacleLeftXCorner && elemRightXCorner < obstacleRightXCorner))
+                                elemLeftXCorner >= obstacleLeftXCorner && elemLeftXCorner <= obstacleRightXCorner ||
+                                elemRightXCorner >= obstacleLeftXCorner && elemRightXCorner <= obstacleRightXCorner))
                             {
                                 IsOnGround = true;
                                 localOnGround = true;
