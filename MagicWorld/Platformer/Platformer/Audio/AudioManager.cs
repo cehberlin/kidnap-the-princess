@@ -34,7 +34,8 @@ namespace MagicWorld.Audio
         icecrack,
         electric,
         menuSelect,
-        menuValidate
+        menuValidate,
+        noGravity
     }
 
     class AudioManager : GameComponent, IAudioService
@@ -79,6 +80,7 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.electric, Game.Content.Load<SoundEffect>(path + "electric"));
             sounds.Add(SoundType.menuSelect, Game.Content.Load<SoundEffect>(path + "menuSelect"));
             sounds.Add(SoundType.menuValidate, Game.Content.Load<SoundEffect>(path + "menuValidate"));
+            sounds.Add(SoundType.noGravity, Game.Content.Load<SoundEffect>(path + "no_gravity"));
            
         }
 
@@ -97,7 +99,7 @@ namespace MagicWorld.Audio
             }
         }
 
-        public void playSoundLoop(SoundType soundType)
+        public void playSoundLoop(SoundType soundType, float volume)
         {
             if (!IsEffectMuted)
             {
@@ -108,6 +110,7 @@ namespace MagicWorld.Audio
                     if (soundEffect != null)
                     {
                         SoundEffectInstance sound = soundEffect.CreateInstance();
+                        sound.Volume = volume;
                         sound.IsLooped = true;
                         sound.Play();
                         loopSounds.Add(soundType, sound);

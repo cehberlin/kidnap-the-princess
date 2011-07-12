@@ -19,6 +19,6 @@ namespace MagicWorld.Audio
 
         void stopSoundLoop(SoundType soundType);
 
-        void playSoundLoop(SoundType soundType);
+        void playSoundLoop(SoundType soundType, float volume);
     }
 }
