@@ -12,6 +12,7 @@ namespace MagicWorld
         {
             public static Color MAGIC_COLOR = Color.SpringGreen;
             public static int PointsParam1 = 1000;
+
         }
     }
 }

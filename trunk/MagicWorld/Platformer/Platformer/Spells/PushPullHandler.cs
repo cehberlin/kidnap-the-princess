@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using MagicWorld.DynamicLevelContent;
 using MagicWorld.HelperClasses;
+using MagicWorld.Constants;
+using System.Diagnostics;
 
 namespace MagicWorld.Spells
 {
@@ -15,12 +17,12 @@ namespace MagicWorld.Spells
     class PushPullHandler
     {
 
-        protected float currentAccelarationX = 1;
+        protected double currentAccelarationX = 1;
         protected float accelarationChangeFactorX = 0; //will be multiplyed be elaspes seconds
         protected float accelarationMaxX = 2.0f;
         protected float accelarationMinX = 0f;
 
-        protected float currentAccelarationY = 1;
+        protected double currentAccelarationY = 1;
         protected float accelarationChangeFactorY = 0; //will be multiplyed be elaspes seconds
         protected float accelarationMaxY = 2.0f;
         protected float accelarationMinY = 0f;
@@ -29,7 +31,7 @@ namespace MagicWorld.Spells
 
         protected BasicGameElement element;
 
-        protected Vector2 influenceVelocity;
+        public Vector2 influenceVelocity;
 
         public PushPullHandler(BasicGameElement elem, float influenceTimeInMs, Vector2 startVelocity)
         {
@@ -70,25 +72,30 @@ namespace MagicWorld.Spells
             {
                 if (influenceTimeInMs > 0)
                 {
-                    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    //accelaration
-                    currentAccelarationX += accelarationChangeFactorX * elapsed;
-                    if (currentAccelarationX < accelarationMinX)
-                        currentAccelarationX = accelarationMinX;
-                    if (currentAccelarationX > accelarationMaxX)
-                        currentAccelarationX = accelarationMaxX;
+                    double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
 
-                    currentAccelarationY += accelarationChangeFactorY * elapsed;
-                    if (currentAccelarationY < accelarationMinY)
-                        currentAccelarationY = accelarationMinY;
-                    if (currentAccelarationY > accelarationMaxY)
-                        currentAccelarationY = accelarationMaxY;
+                    //only change acceleration if we are over a some elapsed time
+                    //if we do not consider this special case the accelartion change factor gets to much influence
+                    // in casting time
+                    if (elapsed > 0.01) 
+                    {
+                        //accelaration
+                        currentAccelarationX += accelarationChangeFactorX * elapsed;
+                        if (currentAccelarationX < accelarationMinX)
+                            currentAccelarationX = accelarationMinX;
+                        if (currentAccelarationX > accelarationMaxX)
+                            currentAccelarationX = accelarationMaxX;
 
-                    // Move in the current direction.
-                    influenceVelocity = new Vector2((float)influenceVelocity.X * currentAccelarationX, (float)influenceVelocity.Y * currentAccelarationY);
+                        currentAccelarationY += accelarationChangeFactorY * elapsed;
+                        if (currentAccelarationY < accelarationMinY)
+                            currentAccelarationY = accelarationMinY;
+                        if (currentAccelarationY > accelarationMaxY)
+                            currentAccelarationY = accelarationMaxY;
+                    }
+                    
+                    influenceVelocity = new Vector2((float)(influenceVelocity.X * currentAccelarationX), (float)(influenceVelocity.Y * currentAccelarationY));
 
-                    element.Position += influenceVelocity*elapsed;
-
+                    element.Position += (float)elapsed * influenceVelocity;
 
                     influenceTimeInMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
@@ -106,22 +113,28 @@ namespace MagicWorld.Spells
             {
                 if (influenceTimeInMs > 0)
                 {
-                    float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    //accelaration
-                    currentAccelarationX += accelarationChangeFactorX * elapsed;
-                    if (currentAccelarationX < accelarationMinX)
-                        currentAccelarationX = accelarationMinX;
-                    if (currentAccelarationX > accelarationMaxX)
-                        currentAccelarationX = accelarationMaxX;
+                    double elapsed = gameTime.ElapsedGameTime.TotalSeconds;
 
-                    currentAccelarationY += accelarationChangeFactorY * elapsed;
-                    if (currentAccelarationY < accelarationMinY)
-                        currentAccelarationY = accelarationMinY;
-                    if (currentAccelarationY > accelarationMaxY)
-                        currentAccelarationY = accelarationMaxY;
+                    //only change acceleration if we are over a some elapsed time
+                    //if we do not consider this special case the accelartion change factor gets to much influence
+                    // in casting time
+                    if (elapsed > 0.01)
+                    {
+                        //accelaration
+                        currentAccelarationX += accelarationChangeFactorX * elapsed;
+                        if (currentAccelarationX < accelarationMinX)
+                            currentAccelarationX = accelarationMinX;
+                        if (currentAccelarationX > accelarationMaxX)
+                            currentAccelarationX = accelarationMaxX;
 
-                    // Move in the current direction.
-                    influenceVelocity = new Vector2((float)influenceVelocity.X * currentAccelarationX, (float)influenceVelocity.Y * currentAccelarationY);
+                        currentAccelarationY += accelarationChangeFactorY * elapsed;
+                        if (currentAccelarationY < accelarationMinY)
+                            currentAccelarationY = accelarationMinY;
+                        if (currentAccelarationY > accelarationMaxY)
+                            currentAccelarationY = accelarationMaxY;
+                    }
+                    
+                    influenceVelocity = new Vector2((float)(influenceVelocity.X * currentAccelarationX), (float)(influenceVelocity.Y * currentAccelarationY));
 
                     //pushing X Axis
                     if (influenceVelocity.X > 0)
@@ -130,14 +143,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.X < nextPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity * elapsed;
+                                element.Position += influenceVelocity *(float) elapsed;
                             }
                         }
                         else
                         {
                             if (element.Position.X < currentPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity * elapsed;
+                                element.Position += influenceVelocity * (float)elapsed;
                             }
                         }
                     }
@@ -148,14 +161,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.X > currentPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity * elapsed;
+                                element.Position += influenceVelocity * (float)elapsed;
                             }
                         }
                         else
                         {
                             if (element.Position.X > nextPath.X - bounds.Width / 2)
                             {
-                                element.Position += influenceVelocity * elapsed;
+                                element.Position += influenceVelocity * (float)elapsed;
                             }
                         }
                     }
@@ -166,14 +179,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.Y < currentPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity * elapsed; ;
+                                element.Position += influenceVelocity * (float)elapsed; ;
                             }
                         }
                         else
                         {
                             if (element.Position.Y <= nextPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity * elapsed; ;
+                                element.Position += influenceVelocity * (float)elapsed; ;
                             }
                         }
                     }//push y Axis
@@ -183,14 +196,14 @@ namespace MagicWorld.Spells
                         {
                             if (element.Position.Y > nextPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity * elapsed; ;
+                                element.Position += influenceVelocity * (float)elapsed; ;
                             }
                         }
                         else
                         {
                             if (element.Position.Y > currentPath.Y - bounds.Height / 2)
                             {
-                                element.Position += influenceVelocity * elapsed; ;
+                                element.Position += influenceVelocity * (float)elapsed; ;
                             }
                         }
                     }

@@ -208,7 +208,7 @@ namespace MagicWorld.Constants
         {
             get { return pushpull_moveabel_platforms_start_acceleration.value; }
         }
-        static ConstantChangerItemFloat pushpull_moveabel_platforms_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION", 0.99f, 0.01f);
+        static ConstantChangerItemFloat pushpull_moveabel_platforms_start_acceleration = new ConstantChangerItemFloat("PUSHPULL_MOVEABEL_PLATFORMS_START_ACCELERATION", 0.7f, 0.01f);
 
 
         /// <summary>
