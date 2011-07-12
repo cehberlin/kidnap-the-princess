@@ -59,30 +59,30 @@ namespace MagicWorld.Audio
         public new void Initialize()
         {
             //TODO add all new sounds and add also calls into corresponding gamecode, all basicgameelemts have a reference to this service
-            sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "spellcast2"));
-            sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "level_exit1"));
-            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Icehit"));
-            sounds.Add(SoundType.monsterkill, Game.Content.Load<SoundEffect>(path + "enemy-dies"));
-            sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall"));
-            sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "jump"));
-            sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "player_dies"));
-            sounds.Add(SoundType.laugh, Game.Content.Load<SoundEffect>(path + "laugh"));
-            sounds.Add(SoundType.startFireAndIce, Game.Content.Load<SoundEffect>(path + "start_fire_and_ice_begin_sound"));
-            sounds.Add(SoundType.destroy, Game.Content.Load<SoundEffect>(path + "destroy_fire_spell_and_destroy_switch"));
-            sounds.Add(SoundType.collect, Game.Content.Load<SoundEffect>(path + "collect"));
-            sounds.Add(SoundType.enemy_hit, Game.Content.Load<SoundEffect>(path + "spell_hits_creature"));
-            sounds.Add(SoundType.rockslide, Game.Content.Load<SoundEffect>(path + "rockslide"));
-            sounds.Add(SoundType.menuClick, Game.Content.Load<SoundEffect>(path + "menuClick"));
-            sounds.Add(SoundType.rockHitGround, Game.Content.Load<SoundEffect>(path + "rockHitGround"));
-            sounds.Add(SoundType.iceHitEnemy, Game.Content.Load<SoundEffect>(path + "iceHitEnemy"));
-            sounds.Add(SoundType.doorClose, Game.Content.Load<SoundEffect>(path + "doorClose"));
-            sounds.Add(SoundType.doorOpen, Game.Content.Load<SoundEffect>(path + "openDoor"));
-            sounds.Add(SoundType.icecrack, Game.Content.Load<SoundEffect>(path + "icecrack"));
-            sounds.Add(SoundType.electric, Game.Content.Load<SoundEffect>(path + "electric"));
-            sounds.Add(SoundType.menuSelect, Game.Content.Load<SoundEffect>(path + "menuSelect"));
-            sounds.Add(SoundType.menuValidate, Game.Content.Load<SoundEffect>(path + "menuValidate"));
-            sounds.Add(SoundType.noGravity, Game.Content.Load<SoundEffect>(path + "no_gravity"));
-            sounds.Add(SoundType.pause, Game.Content.Load<SoundEffect>(path + "pause"));
+            sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "spellcast2").CreateInstance());
+            sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "level_exit1").CreateInstance());
+            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Icehit").CreateInstance());
+            sounds.Add(SoundType.monsterkill, Game.Content.Load<SoundEffect>(path + "enemy-dies").CreateInstance());
+            sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall").CreateInstance());
+            sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "jump").CreateInstance());
+            sounds.Add(SoundType.playerkilled, Game.Content.Load<SoundEffect>(path + "player_dies").CreateInstance());
+            sounds.Add(SoundType.laugh, Game.Content.Load<SoundEffect>(path + "laugh").CreateInstance());
+            sounds.Add(SoundType.startFireAndIce, Game.Content.Load<SoundEffect>(path + "start_fire_and_ice_begin_sound").CreateInstance());
+            sounds.Add(SoundType.destroy, Game.Content.Load<SoundEffect>(path + "destroy_fire_spell_and_destroy_switch").CreateInstance());
+            sounds.Add(SoundType.collect, Game.Content.Load<SoundEffect>(path + "collect").CreateInstance());
+            sounds.Add(SoundType.enemy_hit, Game.Content.Load<SoundEffect>(path + "spell_hits_creature").CreateInstance());
+            sounds.Add(SoundType.rockslide, Game.Content.Load<SoundEffect>(path + "rockslide").CreateInstance());
+            sounds.Add(SoundType.menuClick, Game.Content.Load<SoundEffect>(path + "menuClick").CreateInstance());
+            sounds.Add(SoundType.rockHitGround, Game.Content.Load<SoundEffect>(path + "rockHitGround").CreateInstance());
+            sounds.Add(SoundType.iceHitEnemy, Game.Content.Load<SoundEffect>(path + "iceHitEnemy").CreateInstance());
+            sounds.Add(SoundType.doorClose, Game.Content.Load<SoundEffect>(path + "doorClose").CreateInstance());
+            sounds.Add(SoundType.doorOpen, Game.Content.Load<SoundEffect>(path + "openDoor").CreateInstance());
+            sounds.Add(SoundType.icecrack, Game.Content.Load<SoundEffect>(path + "icecrack").CreateInstance());
+            sounds.Add(SoundType.electric, Game.Content.Load<SoundEffect>(path + "electric").CreateInstance());
+            sounds.Add(SoundType.menuSelect, Game.Content.Load<SoundEffect>(path + "menuSelect").CreateInstance());
+            sounds.Add(SoundType.menuValidate, Game.Content.Load<SoundEffect>(path + "menuValidate").CreateInstance());
+            sounds.Add(SoundType.noGravity, Game.Content.Load<SoundEffect>(path + "no_gravity").CreateInstance());
+            sounds.Add(SoundType.pause, Game.Content.Load<SoundEffect>(path + "pause").CreateInstance());
         }
 
         public object GetService(Type serviceType)
@@ -95,7 +95,7 @@ namespace MagicWorld.Audio
             SoundEffectInstance sound = (SoundEffectInstance)loopSounds[soundType];
             if (sound != null)
             {
-                sound.Stop();
+                sound.Stop(false);
                 loopSounds.Remove(soundType);
             }
         }
@@ -106,28 +106,31 @@ namespace MagicWorld.Audio
             {
                 if (!loopSounds.Contains(soundType))
                 {
-                    SoundEffect soundEffect = null;
-                    soundEffect = (SoundEffect)sounds[soundType];
+                    SoundEffectInstance soundEffect = null;
+                    soundEffect = (SoundEffectInstance)sounds[soundType];
                     if (soundEffect != null)
                     {
-                        SoundEffectInstance sound = soundEffect.CreateInstance();
-                        sound.Volume = volume;
-                        sound.IsLooped = true;
-                        sound.Play();
-                        loopSounds.Add(soundType, sound);
+                        if (!soundEffect.IsLooped)
+                        {
+                            soundEffect.IsLooped = true;
+                        }
+                        soundEffect.Volume = volume;                        
+                        soundEffect.Play();                        
+                        loopSounds.Add(soundType, soundEffect);
                     }
                 }
             }
         }
 
-        public void playSound(SoundType soundType)
+        public void playSound(SoundType soundType,float volume)
         {
             if (!IsEffectMuted)
             {
-                SoundEffect soundEffect = null;
-                soundEffect = (SoundEffect)sounds[soundType];
+                SoundEffectInstance soundEffect = null;
+                soundEffect = (SoundEffectInstance)sounds[soundType];
                 if (soundEffect != null)
                 {
+                    soundEffect.Volume = volume;
                     soundEffect.Play();
                 }
             }
@@ -139,6 +142,7 @@ namespace MagicWorld.Audio
             {
                 MediaPlayer.IsMuted = isMusicMuted;
                 MediaPlayer.IsRepeating = true;
+                MediaPlayer.Volume = 0.8f;
                 MediaPlayer.Play(Game.Content.Load<Song>("Sounds/music"));
             }
             catch { }

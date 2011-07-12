@@ -7,7 +7,7 @@ namespace MagicWorld.Audio
 {
     public interface IAudioService : IServiceProvider
     {
-        void playSound(SoundType soundType);
+        void playSound(SoundType soundType,float volume=1.0f);
 
         void playBackgroundmusic();
 
@@ -19,7 +19,7 @@ namespace MagicWorld.Audio
 
         void stopSoundLoop(SoundType soundType);
 
-        void playSoundLoop(SoundType soundType, float volume);
+        void playSoundLoop(SoundType soundType, float volume=1.0f);
 
         void setBackgroundVolume(float volume);
     }

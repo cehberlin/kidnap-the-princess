@@ -111,7 +111,7 @@ namespace MagicWorld
                 {
                     if (!rockHitGround)
                     {
-                        audioService.playSound(SoundType.rockHitGround);
+                        audioService.playSound(SoundType.rockHitGround,0.6f);
                         rockHitGround = true;
                     }
                     ResetVelocity();
