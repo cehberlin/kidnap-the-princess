@@ -31,6 +31,7 @@ namespace MagicWorld
         int selectedFile = 0;
         SpriteFont font;
         IAudioService audioService;
+        BackgroundScreen backScreen;
    
         #endregion
 
@@ -40,9 +41,10 @@ namespace MagicWorld
         /// <summary>
         /// Constructor.
         /// </summary>
-        public LoadGameScreen(ScreenManager screenManager)
+        public LoadGameScreen(ScreenManager screenManager,BackgroundScreen backScreen)
             : base("Load Game")            
         {
+            this.backScreen = backScreen;
             ScreenManager = screenManager;
             font = ScreenManager.Font;
             // Create our menu entries.
@@ -221,6 +223,7 @@ namespace MagicWorld
             gameScreen.LoadLevel(selectedFile + 1);//selectedfile is always one number less levelnumber 
              
             ScreenManager.Game.ResetElapsedTime();
+            ScreenManager.RemoveScreen(backScreen);
         }        
 
   

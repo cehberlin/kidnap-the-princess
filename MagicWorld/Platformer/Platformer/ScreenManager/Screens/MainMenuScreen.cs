@@ -20,9 +20,7 @@ namespace MagicWorld
     class MainMenuScreen : MenuScreen
     {                
         MenuEntry playGameMenuEntry;
-        //Video video;
-        //VideoPlayer player;
-        //Texture2D videoTexture;
+        BackgroundScreen backScreen;
 
        
         #region Initialization
@@ -31,9 +29,10 @@ namespace MagicWorld
         /// <summary>
         /// Constructor fills in the menu contents.
         /// </summary>
-        public MainMenuScreen()
+        public MainMenuScreen(BackgroundScreen backScreen)
             : base("")
         {
+            this.backScreen = backScreen;
             // Create our menu entries.
             playGameMenuEntry = new MenuEntry("Play Game");            
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
@@ -55,22 +54,14 @@ namespace MagicWorld
         
         #endregion       
 
-        public override void LoadContent()
-        {
-            //ContentManager content = ScreenManager.Game.Content;
-            //Texture2D teste = content.Load<Texture2D>("frozen");
-
-            //video = content.Load<Video>("Video/Intro.wmv");
-            //player = new VideoPlayer();
-
-        }      
+       
 
         /// <summary>
         /// Event handler for when the Play Game menu entry is selected.
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new LoadGameScreen(this.ScreenManager), e.PlayerIndex);
+            ScreenManager.AddScreen(new LoadGameScreen(this.ScreenManager,backScreen), e.PlayerIndex);            
         }        
 
         /// <summary>
@@ -106,52 +97,6 @@ namespace MagicWorld
             ScreenManager.Game.Exit();
         }
 
-        /*
-        public override void Update(GameTime gameTime, bool otherScreenHasFocus,
-                                                        bool coveredByOtherScreen)
-        {
-            base.Update(gameTime, otherScreenHasFocus, coveredByOtherScreen);
-            if (player.State == MediaState.Stopped)
-            {
-                player.IsLooped = true;
-                player.Play(video);
-            }
-
-
-        }
-         * */
-
-        public override void Draw(GameTime gameTime)
-        {
-            /*
-            ScreenManager.GraphicsDevice.Clear(Color.CornflowerBlue);
-            Viewport viewPort = ScreenManager.GraphicsDevice.Viewport;
-
-            // Only call GetTexture if a video is playing or paused
-            if (player.State != MediaState.Stopped)
-                videoTexture = player.GetTexture();
-
-            // Drawing to the rectangle will stretch the 
-            // video to fill the screen
-            Rectangle screen = new Rectangle(viewPort.X,
-                viewPort.Y,
-                viewPort.Width,
-                viewPort.Height);
-
-            // Draw the video, if we have a texture to draw.
-            if (videoTexture != null)
-            {
-                ScreenManager.SpriteBatch.Begin();
-                ScreenManager.SpriteBatch.Draw(videoTexture, screen, Color.White);
-                ScreenManager.SpriteBatch.End();
-            }
-            */
-
-
-            base.Draw(gameTime);
-        }
-
        
-        
     }
 }

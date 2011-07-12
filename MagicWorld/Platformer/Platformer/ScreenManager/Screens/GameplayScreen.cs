@@ -369,8 +369,9 @@ namespace MagicWorld
 
         void EventCreditScreen(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, false, null, new BackgroundScreen(),
-                                                           new MainMenuScreen());
+            BackgroundScreen backScreen = new BackgroundScreen();
+            LoadingScreen.Load(ScreenManager, false, null, backScreen,
+                                                           new MainMenuScreen(backScreen));
         }
 
         #region IServiceProvider Member
