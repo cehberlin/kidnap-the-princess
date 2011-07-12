@@ -625,6 +625,7 @@ namespace MagicWorld
                 sprite.PlayAnimation(dieAnimation);
             }
             audioService.stopSoundLoop(SoundType.electric);
+            audioService.stopSoundLoop(SoundType.noGravity);
             isAlive = false;
         }
 

@@ -197,10 +197,17 @@ namespace MagicWorld
         {
             if (SpellState == State.WORKING)
             {
-                if (SpellType == SpellType.ElectricSpell)
+                if (level.Player.IsAlive)
                 {
-                    if(level.Player.IsAlive)
-                        audioService.playSoundLoop(SoundType.electric);
+                    if (SpellType == SpellType.ElectricSpell)
+                    {
+                        if (level.Player.IsAlive)
+                            audioService.playSoundLoop(SoundType.electric, 0.5f);
+                    }
+                    else if (SpellType == SpellType.NoGravitySpell)
+                    {
+                        audioService.playSoundLoop(SoundType.noGravity, 0.2f);
+                    }
                 }
                 HandleMovement(gameTime);
                 HandleLiveTime(gameTime);
@@ -277,7 +284,9 @@ namespace MagicWorld
                 if (SpellType == SpellType.ElectricSpell)
                 {
                     audioService.stopSoundLoop(SoundType.electric);
-                    //startElectricSound = true;
+                } else if (SpellType == SpellType.NoGravitySpell)
+                {
+                    audioService.stopSoundLoop(SoundType.noGravity);
                 }
             }
             survivalTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
