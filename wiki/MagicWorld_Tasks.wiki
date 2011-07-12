@@ -12,8 +12,6 @@
   # BUG: gamepad aiming bug
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
-     * backgroung music --> make music.mp3 loopabel --> Amauri
-     * torch goes on/off
      * switch goes on/off
      * sound for no_gravity -> may cut and loop the file
 no_gravity_is_running.mp3 --> Amauri
