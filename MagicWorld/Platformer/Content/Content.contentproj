@@ -1277,6 +1277,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MenuScreen\gamepad.png">
+      <Name>gamepad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Sounds\menuSelect.wav">
       <Name>menuSelect</Name>
       <Importer>WavImporter</Importer>
