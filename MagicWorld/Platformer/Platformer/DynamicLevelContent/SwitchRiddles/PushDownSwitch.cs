@@ -61,12 +61,14 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
 
         public override void Activate()
         {
+            audioService.playSound(Audio.SoundType.switch_pressed,0.3f);
             Position = pushDownPosition;
             base.Activate();
         }
 
         public override void Deactivate()
         {
+            audioService.playSound(Audio.SoundType.switch_pressed,0.3f);
             Position = pushUpPosition;
             base.Deactivate();
         }
