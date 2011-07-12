@@ -1284,8 +1284,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0117" Visible="true">
                     <Position>
-                        <X>755</X>
-                        <Y>299</Y>
+                        <X>757</X>
+                        <Y>297</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1306,13 +1306,13 @@
                     <asset_name>LevelContent\Cave\Walls\FrontPiece</asset_name>
                     <Origin>
                         <X>48</X>
-                        <Y>46</Y>
+                        <Y>49</Y>
                     </Origin>
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0118" Visible="true">
                     <Position>
-                        <X>956</X>
-                        <Y>299</Y>
+                        <X>957</X>
+                        <Y>301</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -1332,7 +1332,7 @@
                     <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
                     <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
                     <Origin>
-                        <X>153</X>
+                        <X>154</X>
                         <Y>53</Y>
                     </Origin>
                 </Item>
@@ -1489,11 +1489,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>139</NextItemNumber>
+        <NextItemNumber>141</NextItemNumber>
         <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>116.666855</X>
-            <Y>116.666916</Y>
+            <X>816.6688</X>
+            <Y>283.3338</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
