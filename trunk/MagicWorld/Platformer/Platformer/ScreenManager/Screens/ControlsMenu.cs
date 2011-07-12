@@ -5,6 +5,9 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MagicWorld.Controls;
+using MagicWorld.HelperClasses;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace MagicWorld
 {
@@ -12,7 +15,9 @@ namespace MagicWorld
     {
 
         MenuEntry defaultConfig;
-        MenuEntry laptopConfig;  
+        MenuEntry laptopConfig;
+        Texture2D gamePad;
+        ContentManager content;
         
         public ControlsMenu() 
             : base("Controls")
@@ -28,6 +33,15 @@ namespace MagicWorld
             //add to menu
             MenuEntries.Add(defaultConfig);
             MenuEntries.Add(laptopConfig);
+            
+        }
+
+        public override void LoadContent()
+        {            
+            content = ScreenManager.ContentManager;
+            gamePad = content.Load<Texture2D>("MenuScreen/gamepad");
+           // ScreenManager.Game.IsMouseVisible = true;
+
         }
 
         void defaultConfigSelected(object sender, PlayerIndexEventArgs e)
@@ -50,14 +64,53 @@ namespace MagicWorld
 
         public override void Draw(Microsoft.Xna.Framework.GameTime gameTime)
         {
+
+            MouseState mouseStateCurrent = Mouse.GetState();
+
             spriteBatch = ScreenManager.SpriteBatch;
             font = ScreenManager.Font;
-            position = new Vector2(100,250);
+            Viewport viewPort = ScreenManager.GraphicsDevice.Viewport;
+            position = new Vector2(viewPort.X/2 , laptopConfig.Position.Y+40);
+            Vector2 v_jump=new Vector2(621,421);
+            Vector2 v_up = new Vector2(10, 10);
+            Vector2 v_inc = new Vector2(611, 342);
+            Vector2 v_dec = new Vector2(612, 372);
+            Vector2 v_move = new Vector2(358, 421);
+            Vector2 v_cspa = new Vector2(625, 486);
+            Vector2 v_cspb = new Vector2(335, 490);
+            Vector2 v_sspa = new Vector2(619, 515);
+            Vector2 v_sspb = new Vector2(335, 515);
+            Vector2 v_pause = new Vector2(547, 334);
+            Vector2 v_back = new Vector2(335, 515);
+
+
+
+
 
             IPlayerControl controls = PlayerControlFactory.GET_INSTANCE().getPlayerControl();
 
             spriteBatch.Begin();
+            //gamepad
+            float fscale = 0.5f;
 
+            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "X " + mouseStateCurrent.X.ToString(), new Vector2(20, 20), Color.Black);
+            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Y " + mouseStateCurrent.Y.ToString(), new Vector2(20, 50), Color.Black);
+
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "GamePad", new Vector2(position.X + 430, position.Y), Color.Black, new Vector2(-50, 0), 0.7f);
+            spriteBatch.Draw(gamePad, new Rectangle((int)position.X+400, (int)position.Y+50, gamePad.Bounds.Width, gamePad.Bounds.Height), Color.White);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Jump", v_jump, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Decrease spell", v_dec, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Increase spell", v_inc, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Move", v_move, Color.Black, Vector2.Zero, fscale);            
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Cast spell A", v_cspa, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Cast spell B", v_cspb, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Select spell A", v_sspa, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Select spell B", v_sspb, Color.Black, Vector2.Zero, fscale);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Pause", v_pause, Color.Black, Vector2.Zero, fscale);
+
+
+
+            
             drawString("Action", "Keyboard", "Gamepad");
             drawString("Cast Spell A", controls.Keys_CastSelectedSpellA.ToString(), controls.GamePad_CastSelectedSpellA.ToString());
             drawString("Cast Spell B", controls.Keys_CastSelectedSpellB.ToString(), controls.GamePad_CastSelectedSpellB.ToString());
@@ -78,9 +131,11 @@ namespace MagicWorld
         
         private void drawString(String buttonType, String keyboard, String button)
         {
-            String str = buttonType + ": " + keyboard + " / " + button;
-            spriteBatch.DrawString(font, str, position, Color.Azure);
-            position.Y += 25;
+
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, buttonType, position, Color.Black, new Vector2(-50, 0), 0.7f);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, keyboard, position, Color.Black, new Vector2(-330, 0), 0.7f);
+           
+            position.Y += 30;
         }
 
     }
