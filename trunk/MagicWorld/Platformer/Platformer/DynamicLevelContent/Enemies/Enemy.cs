@@ -8,6 +8,7 @@ using MagicWorld.Constants;
 using System.Diagnostics;
 using MagicWorld.Services;
 using MagicWorld.BlendInClasses;
+using ParticleEffects;
 
 namespace MagicWorld
 {
@@ -154,11 +155,22 @@ namespace MagicWorld
 
         #region drawing
 
+        int currentParticles = 0;
+
         /// <summary>
         /// Draws the animated enemy.
         /// </summary>
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {  
+        {
+            if (isBurning)
+            {
+                if (currentParticles % 12 == 0) //only every .. update cycle
+                {
+                    level.Game.SmokeParticleSystem.AddParticles(new ParticleSetting(Position + new Vector2(this.Bounds.Width / 2, -20)));
+                    level.Game.FireParticleSystem.AddParticles(new ParticleSetting(Position + new Vector2(this.Bounds.Width / 2, -20)));
+                }
+                currentParticles++;
+            }
             //Draw facing the way the enemy is moving.
             SpriteEffects flip = velocity.X > 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             sprite.Draw(gameTime, spriteBatch, Position, flip);

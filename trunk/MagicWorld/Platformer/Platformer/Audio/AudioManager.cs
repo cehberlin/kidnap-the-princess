@@ -35,7 +35,8 @@ namespace MagicWorld.Audio
         electric,
         menuSelect,
         menuValidate,
-        noGravity
+        noGravity,
+        pause
     }
 
     class AudioManager : GameComponent, IAudioService
@@ -81,7 +82,7 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.menuSelect, Game.Content.Load<SoundEffect>(path + "menuSelect"));
             sounds.Add(SoundType.menuValidate, Game.Content.Load<SoundEffect>(path + "menuValidate"));
             sounds.Add(SoundType.noGravity, Game.Content.Load<SoundEffect>(path + "no_gravity"));
-           
+            sounds.Add(SoundType.pause, Game.Content.Load<SoundEffect>(path + "pause"));
         }
 
         public object GetService(Type serviceType)
@@ -141,6 +142,11 @@ namespace MagicWorld.Audio
                 MediaPlayer.Play(Game.Content.Load<Song>("Sounds/music"));
             }
             catch { }
+        }
+
+        public void setBackgroundVolume(float volume)
+        {
+            MediaPlayer.Volume = volume;
         }
 
         public void stopBackgroundmusic()

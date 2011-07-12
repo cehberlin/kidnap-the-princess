@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
-
+using MagicWorld.Audio;
 
 #endregion
 
@@ -50,7 +50,6 @@ namespace MagicWorld
             MenuEntries.Add(playGameMenuEntry);            
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
-           
             
         }
         

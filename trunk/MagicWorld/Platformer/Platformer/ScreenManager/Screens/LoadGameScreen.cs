@@ -11,6 +11,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MagicWorld.HelperClasses;
+using MagicWorld.Audio;
 #endregion
 
 namespace MagicWorld
@@ -29,6 +30,7 @@ namespace MagicWorld
         string[] files;        
         int selectedFile = 0;
         SpriteFont font;
+        IAudioService audioService;
    
         #endregion
 
@@ -162,7 +164,6 @@ namespace MagicWorld
         public override void HandleInput(InputState input)
         {
             
-            
             //check the selection of rigth and left when on "New game" menu
             if (input.IsMenuRight(ControllingPlayer))
             {
@@ -178,7 +179,6 @@ namespace MagicWorld
                         ScreenManager.Game.LoadGame(selectedFile + 1,false);
                         //best game
                         ScreenManager.Game.LoadGame(selectedFile + 1, true);
-                       
                     }
 
                 }
@@ -211,7 +211,8 @@ namespace MagicWorld
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-
+            audioService = (IAudioService)ScreenManager.Game.Services.GetService(typeof(IAudioService));
+            audioService.setBackgroundVolume(1f);
             GameplayScreen gameScreen = new GameplayScreen(ScreenManager);
             //gameScreen.ScreenManager = ScreenManager;
             //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);

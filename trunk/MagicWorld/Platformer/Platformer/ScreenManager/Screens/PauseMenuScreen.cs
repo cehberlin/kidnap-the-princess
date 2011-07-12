@@ -1,6 +1,7 @@
 #region Using Statements
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using MagicWorld.Audio;
 #endregion
 
 namespace MagicWorld
@@ -14,6 +15,7 @@ namespace MagicWorld
         #region Initialization
 
         Level level;
+        IAudioService audioService;
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -39,6 +41,7 @@ namespace MagicWorld
             MenuEntries.Add(restartLevelMenuEntry);
             MenuEntries.Add(optionsGameMenuEntry);
             MenuEntries.Add(quitGameMenuEntry);
+
         }
 
 
@@ -110,6 +113,9 @@ namespace MagicWorld
 
         protected override void OnCancel(PlayerIndex playerIndex)
         {
+            audioService = (IAudioService)ScreenManager.Game.Services.GetService(typeof(IAudioService));
+            audioService.playSound(SoundType.pause);
+            audioService.setBackgroundVolume(1f);
             level.Pause = false;
             ExitScreen();
         }

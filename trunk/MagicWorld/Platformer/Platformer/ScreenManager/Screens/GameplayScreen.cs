@@ -169,6 +169,8 @@ namespace MagicWorld
             if (input.IsPauseGame(ControllingPlayer) || gamePadDisconnected)
             {                
                 ScreenManager.AddScreen(new PauseMenuScreen(level), ControllingPlayer);
+                audioService.playSound(SoundType.pause);
+                audioService.setBackgroundVolume(0.3f);
                 level.Pause = true;
             }
 

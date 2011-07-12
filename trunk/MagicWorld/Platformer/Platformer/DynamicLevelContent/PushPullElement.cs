@@ -77,7 +77,7 @@ namespace MagicWorld.DynamicLevelContent
                 else if (pushPullParticleCounter % 20 == 0)
                 {
                     Bounds bounds = Bounds;
-                    level.Game.PullCreationParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PULL_COLOR, bounds.Width));
+                    level.Game.MagicParticleSystem.AddParticles(new ParticleSetting(position + new Vector2(bounds.Width / 2, bounds.Height / 2), SpellConstantsValues.PULL_COLOR, bounds.Width));
                 }
                 pushPullParticleCounter++;
                 return false;
