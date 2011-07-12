@@ -16,6 +16,7 @@ namespace MagicWorld
 
         MenuEntry defaultConfig;
         MenuEntry laptopConfig;
+        MenuEntry back;
         Texture2D gamePad;
         ContentManager content;
         
@@ -25,14 +26,17 @@ namespace MagicWorld
             //init
             defaultConfig = new MenuEntry("Default Config");
             laptopConfig = new MenuEntry("LaptopControl");
+            back = new MenuEntry("Back");
 
             //add handler
             defaultConfig.Selected += defaultConfigSelected;
             laptopConfig.Selected += laptopConfigSelected;
+            back.Selected +=OnCancel;
 
             //add to menu
             MenuEntries.Add(defaultConfig);
             MenuEntries.Add(laptopConfig);
+            MenuEntries.Add(back);
             
         }
 
@@ -46,17 +50,18 @@ namespace MagicWorld
 
         void defaultConfigSelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
+            //ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
             PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.defaultControl);
             ScreenManager.Game.GameStatus.Control = "Default";
         }
 
         void laptopConfigSelected(object sender, PlayerIndexEventArgs e)
         {
-            ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
+            //ScreenManager.AddScreen(new OptionsMenuScreen(), e.PlayerIndex);
             PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.laptopControl);
             ScreenManager.Game.GameStatus.Control = "Laptop";
         }
+
 
         private SpriteBatch spriteBatch;
         private Vector2 position;
@@ -70,7 +75,7 @@ namespace MagicWorld
             spriteBatch = ScreenManager.SpriteBatch;
             font = ScreenManager.Font;
             Viewport viewPort = ScreenManager.GraphicsDevice.Viewport;
-            position = new Vector2(viewPort.X/2 , laptopConfig.Position.Y+40);
+            position = new Vector2(viewPort.X/2 , laptopConfig.Position.Y+70);
             Vector2 v_jump=new Vector2(621,421);
             Vector2 v_up = new Vector2(10, 10);
             Vector2 v_inc = new Vector2(611, 342);
@@ -132,8 +137,8 @@ namespace MagicWorld
         private void drawString(String buttonType, String keyboard, String button)
         {
 
-            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, buttonType, position, Color.Black, new Vector2(-50, 0), 0.7f);
-            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, keyboard, position, Color.Black, new Vector2(-330, 0), 0.7f);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, buttonType, position, Color.Black, new Vector2(-50, 0), 0.6f);
+            Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, keyboard, position, Color.Black, new Vector2(-330, 0), 0.6f);
            
             position.Y += 30;
         }
