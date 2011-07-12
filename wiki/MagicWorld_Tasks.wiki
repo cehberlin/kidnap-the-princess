@@ -9,6 +9,8 @@
 
 == Final (13.07) ==
   # BUG: push/pull moves Matter through walls --> seems to be fixed for push pull elements; maybe still a problem for selfcreated matter, but that maybe not fixable at the moment --> still a bug for created matter 
+  # BUG: gamepad aiming bug
+  # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # Sounds for: REPLACE or ADD better fitting FREE sounds and music --> all (use dropbox to collect all sounds. At the end team will decide which to use) [tipps http://www.freesound.org/ http://www.sounddogs.com/)
      * backgroung music --> make music.mp3 loopabel --> Amauri
      * torch goes on/off
@@ -17,17 +19,14 @@
 no_gravity_is_running.mp3 --> Amauri
      * add SoundType.rockslide to spell moveable and switch moveable platforms as loop during movement, dont know where adding the call --> John
      * be creative finding more sounds...!!!
-  # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad)
   # Hide background color(blue) of levels at the edge --> may use of some big textures
-  # KEYPAD MAPPING 
-  # enhace menus appareance --> amauri
-     * make messagebox convenient to menu design, also check text
+  # gamepad button MAPPING 
+  # Texture Design: Wall texture ist nicht ganz gerade (schwebe effekt) -> Pascal
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
   # BUG: bad linebreak in instructions
   # better push/pull spell graphic
-  # BUG: different display solutions: evrything else then 800x600 shows parts of the level that shouldnt beet visible, so rescale the picture in a way that each resolution is showing the same image section or remove the different resolutions
   # improve/rewrite controls menu -> amauri
 
 
