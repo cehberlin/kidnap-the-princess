@@ -67,10 +67,11 @@ namespace MagicWorld
         /// </summary>
         public override void AddOnCreationParticles()
         {
-            if (level.Game.MagicParticleSystem.CurrentParticles() < 10)
+            if (particleCounter % 15 == 0)
             {
                 level.Game.MagicParticleSystem.AddParticles(new ParticleSetting(position,Color.Red));
             }
+            particleCounter++;
         }
     }
 }

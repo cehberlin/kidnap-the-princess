@@ -317,15 +317,18 @@ namespace MagicWorld
             }
         }
 
+        protected int particleCounter = 0;
+
         /// <summary>
         /// adds creation particles
         /// </summary>
         public virtual void AddOnCreationParticles()
         {
-            if (level.Game.MagicParticleSystem.CurrentParticles() < 10)
+            if (particleCounter%15==0)
             {
                 level.Game.MagicParticleSystem.AddParticles(ParticleSetting.getWithRandomColor(position));
             }
+            particleCounter++;
         }
 
         /// <summary>

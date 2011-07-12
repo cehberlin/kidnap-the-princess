@@ -37,7 +37,9 @@ namespace MagicWorld.Audio
         menuValidate,
         noGravity,
         pause,
-        switch_pressed
+        switch_pressed,
+        lava,
+        wings
     }
 
     class AudioManager : GameComponent, IAudioService
@@ -85,6 +87,8 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.noGravity, Game.Content.Load<SoundEffect>(path + "no_gravity").CreateInstance());
             sounds.Add(SoundType.pause, Game.Content.Load<SoundEffect>(path + "pause").CreateInstance());
             sounds.Add(SoundType.switch_pressed, Game.Content.Load<SoundEffect>(path + "switch_pressed").CreateInstance());
+            sounds.Add(SoundType.lava, Game.Content.Load<SoundEffect>(path + "lava").CreateInstance());
+            sounds.Add(SoundType.wings, Game.Content.Load<SoundEffect>(path + "wings").CreateInstance());
         }
 
         public object GetService(Type serviceType)

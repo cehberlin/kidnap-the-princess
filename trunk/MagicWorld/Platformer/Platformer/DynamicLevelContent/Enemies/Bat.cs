@@ -336,6 +336,14 @@ namespace MagicWorld
                 currentPathPosition = worldPoints[pathPosition];
                 nextPathPosition = worldPoints[nextPosition];
                 Position = Position + velocity * elapsed * acceleration;
+                if ((level.Player.Position - Position).Length() < 300)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.wings);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.wings);
+                }
             }
             //only handles physics collision
             //level.CollisionManager.HandleGeneralCollisions(this, velocity, ref oldBounds, ref isOnGround, collisionCallback);
