@@ -43,6 +43,10 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     audioService.stopSoundLoop(Audio.SoundType.torchBurning, false);
                 }
             }
+            else
+            {
+                audioService.stopSoundLoop(Audio.SoundType.torchBurning, true);
+            }
             base.Update(gameTime);
         }
 
