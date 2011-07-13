@@ -24,14 +24,11 @@
   # improve/rewrite controls menu -> amauri
   # BUG: after starting a level the background music dont stop if you go back to the main menu 
   # rename and reconfig the two keyboard controls (secont keyboard control should use the arrow keys)
-  # Optional: second Controler Layout + Picture in Control Menu
+  
 
  === optional ===
-  # Draw 3D level exit -> Pascal
-  # better boundings: big blockades have an ugly bounding box
-  # Bigger and better "wall" textures -> Pascal
   # button for spell under the rune in the HUD
-
+  # Optional: second Controler Layout + Picture in Control Menu
 
 == rejected To Dos ==
  * Implement different level bound behavior: Top, left, right are like bumping into an object while the bottom kills the player. -> This will be solved by placing impassable items at the left and right bounds so the player can't touch the. Also no platform will be put so high that the player can reach the top.
