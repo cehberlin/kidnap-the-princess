@@ -50,17 +50,17 @@ namespace MagicWorld
             message += "summer 2011" + "\n";
             message += "by Team \"INNOVATIVE ENTERTAINMENT\"" + "\n" + "\n" + "\n";
 
-            message += "GRAPHICS PROGRAMMER:" + "\n";
+            //message += "GRAPHICS PROGRAMMER:" + "\n";
             message += tab + "Christopher Hrabia" + "\n";
 
-            message += "CONTENT CREATOR:" + "\n";
+            //message += "CONTENT CREATOR:" + "\n";
             message += tab + "Pascal Schwenke" + "\n";
 
-            message += "GAMEPLAY PROGRAMMER:" + "\n";
+            //message += "GAMEPLAY PROGRAMMER:" + "\n";
             message += tab + "John Calo" + "\n";
             message += tab + "Amauri Albuquerque " + "\n";
 
-            message += "TEAM LEAD:" + "\n";
+            //message += "TEAM LEAD:" + "\n";
             message += tab + "Marian Volk" + "\n";
             
                         
