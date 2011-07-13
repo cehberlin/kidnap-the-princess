@@ -182,6 +182,15 @@ namespace MagicWorld.StaticLevelContent
                 int yOffset = 10;
                 this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
                 DrawRec = new Rectangle(left, top, Width, Height);
+
+                if ((level.Player.Position - this.position).Length() < 200 && !level.Player.IsCasting)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.rockslide, 1f);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.rockslide, false);
+                }
             }
             base.Update(gameTime);
         }

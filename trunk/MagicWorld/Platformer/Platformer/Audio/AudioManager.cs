@@ -210,7 +210,7 @@ namespace MagicWorld.Audio
         {
             foreach(SoundType st in System.Enum.GetValues( typeof(SoundType) ) )
             {
-                stopSoundLoop(st);
+                stopSoundLoop(st,true);
             }
         }
     }
