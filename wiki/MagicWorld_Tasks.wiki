@@ -9,7 +9,6 @@
 
 == Final (13.07) ==
   # fullscreen seems not to be loaded from savegame --> amauri
-  # level Design: 5, 8 - links und rechts vom level sollten noch elemente damit das level am rand nicht scheiße aussieht -> John
   # BUG: gamepad aiming bug -> pascal(only gamepad) with support of christopher
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad) -> pascal(only gamepad) with support of christopher
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
@@ -24,7 +23,6 @@
   # better push/pull spell graphic
   # improve/rewrite controls menu -> amauri
   # BUG: after starting a level the background music dont stop if you go back to the main menu 
-  # Level Design: lvl 2 - just at the beginning is nothing on the background layer (looks a little bit empty)
   # rename and reconfig the two keyboard controls (secont keyboard control should use the arrow keys)
   # Optional: second Controler Layout + Picture in Control Menu
 
