@@ -93,6 +93,8 @@ namespace MagicWorld.HUDClasses
 
         Level level;
 
+        SpriteFont sprite_font;
+
 
         public HUD(Game game)
             : base(game)
@@ -120,6 +122,8 @@ namespace MagicWorld.HUDClasses
 
         protected override void LoadContent()
         {
+            sprite_font = content.Load<SpriteFont>("Fonts/Hud");
+
             bottleTex = content.Load<Texture2D>("HUDTextures/bottle");
             liquidTex = content.Load<Texture2D>("HUDTextures/liquid");
             antigrav = content.Load<Texture2D>("SpellRunes/antigrav");
@@ -194,6 +198,9 @@ namespace MagicWorld.HUDClasses
                 ingredientBar.Draw(spriteBatch);
                 spriteBatch.Draw(leftSpell, spellBarLeft.Position, Color.White);
                 spriteBatch.Draw(rightSpell, spellBarRight.Position, Color.White);
+                float time = screenManager.Game.GameData.Time / 1000;
+                spriteBatch.DrawString(sprite_font, time.ToString("#0.0") + "s", position + new Vector2(80, 30), Color.White);
+
                 spriteBatch.End();
                 base.Draw(gameTime);
             }

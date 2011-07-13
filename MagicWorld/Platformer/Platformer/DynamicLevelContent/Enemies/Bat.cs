@@ -170,6 +170,7 @@ namespace MagicWorld
             }
             else if (isElectrified)
             {
+                acceleration = 0.4f;
                 if ((level.Player.Position - this.position).Length() < 300)
                 {
                     audioService.playSoundLoop(Audio.SoundType.electric, 0.2f);
