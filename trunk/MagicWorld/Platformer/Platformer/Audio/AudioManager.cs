@@ -39,7 +39,8 @@ namespace MagicWorld.Audio
         pause,
         switch_pressed,
         lava,
-        wings
+        wings, 
+        electricSwitch
     }
 
     class AudioManager : GameComponent, IAudioService
@@ -89,6 +90,7 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.switch_pressed, Game.Content.Load<SoundEffect>(path + "switch_pressed").CreateInstance());
             sounds.Add(SoundType.lava, Game.Content.Load<SoundEffect>(path + "lava").CreateInstance());
             sounds.Add(SoundType.wings, Game.Content.Load<SoundEffect>(path + "wings").CreateInstance());
+            sounds.Add(SoundType.electricSwitch, Game.Content.Load<SoundEffect>(path + "electric").CreateInstance());
         }
 
         public object GetService(Type serviceType)
@@ -96,12 +98,12 @@ namespace MagicWorld.Audio
             return this;
         }
 
-        public void stopSoundLoop(SoundType soundType)
+        public void stopSoundLoop(SoundType soundType, bool immediate)
         {
             SoundEffectInstance sound = (SoundEffectInstance)loopSounds[soundType];
             if (sound != null)
             {
-                sound.Stop(false);
+                sound.Stop(immediate);
                 loopSounds.Remove(soundType);
             }
         }

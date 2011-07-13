@@ -16,9 +16,11 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
     class OnOffElectricitySwitch : AbstractSwitch
     {
         int currentParticles = 0;
+        bool switchOn = false;
+        bool switchOn2 = false;
 
         public OnOffElectricitySwitch(String texture, Level level, Vector2 position, string id)
-            : base(texture, CollisionType.Platform, level, position,id)
+            : base(texture, CollisionType.Platform, level, position, id)
         {
 
             //calculate bounds
@@ -41,6 +43,15 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                     SwitchableMoveablePlatform platform = (SwitchableMoveablePlatform)switchable;
                     if (platform.getMove())
                     {
+                        switchOn = true;
+                        if ((level.Player.Position - this.position).Length() < 200)
+                        {
+                            audioService.playSoundLoop(Audio.SoundType.electricSwitch, 0.5f);
+                        }
+                        else
+                        {
+                            audioService.stopSoundLoop(Audio.SoundType.electricSwitch, true);
+                        }
                         currentParticles++;
 
                         if (currentParticles % 16 == 0) //only every .. update cycle
@@ -48,13 +59,27 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                             level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 20));
                         }
                     }
-                   // audioService.stopSoundLoop(SoundType.electric);
+                    else if (switchOn && !platform.getMove())
+                    {
+                        audioService.stopSoundLoop(Audio.SoundType.electricSwitch, true);
+                        switchOn = false;
+                    }
+
                 } 
                 else if (switchable.GetType() == typeof(MoveablePlatform))
                 {
                     MoveablePlatform platform = (MoveablePlatform)switchable;
                     if (platform.isMoving)
                     {
+                        switchOn2 = true;
+                        if ((level.Player.Position - this.position).Length() < 200)
+                        {
+                            audioService.playSoundLoop(Audio.SoundType.electricSwitch, 0.5f);
+                        }
+                        else
+                        {
+                            audioService.stopSoundLoop(Audio.SoundType.electricSwitch, true);
+                        }
                         currentParticles++;
 
                         if (currentParticles % 16 == 0) //only every .. update cycle
@@ -62,7 +87,11 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                             level.Game.LightningCreationParticleSystem.AddParticles(new ParticleSetting(position, 20));
                         }
                     }
-                   // audioService.stopSoundLoop(SoundType.electric);
+                    else if (switchOn2 && !platform.isMoving)
+                    {
+                        audioService.stopSoundLoop(Audio.SoundType.electricSwitch, true);
+                        switchOn2 = false;
+                    }
                 }
             }
             base.Update(gameTime);
@@ -81,7 +110,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                 {
                     Activate();
                 }
-                audioService.stopSoundLoop(SoundType.electric);
+                audioService.stopSoundLoop(Audio.SoundType.electric, true);
                 return true;
             }
             return base.SpellInfluenceAction(spell);
