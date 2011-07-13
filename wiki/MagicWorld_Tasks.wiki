@@ -9,7 +9,6 @@
 
 == Final (13.07) ==
   # fullscreen seems not to be loaded from savegame --> amauri
-  # level Design: lvl 5, 8 - reposition wall texture (because of changed texture)[vergiss nicht das sich die textur größen geändert haben und du deshalb die texur neu einfügen musst oder die origin koordinaten alle anpassen musst] -> John 
   # level Design: 5, 8 - links und rechts vom level sollten noch elemente damit das level am rand nicht scheiße aussieht -> John
   # BUG: gamepad aiming bug -> pascal(only gamepad) with support of christopher
   # BUG: aiming aid. warm and cold spell sometimes draw twice. (happens with game pad) -> pascal(only gamepad) with support of christopher
