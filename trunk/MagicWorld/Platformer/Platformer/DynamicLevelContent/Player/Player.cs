@@ -327,13 +327,12 @@ namespace MagicWorld
             movementX = gamePadState.ThumbSticks.Left.X * MoveStickScale;
 
             // Ignore small movements to prevent running in place.
-            if (Math.Abs(movementX) < 0.5f)
+            if (Math.Abs(movementX) < 0.1f)
                 movementX = 0.0f;
 
             // If any digital horizontal movement input is found, override the analog movement.
             if (gamePadState.IsButtonDown(controls.GamePad_Left) ||
-                keyboardState.IsKeyDown(controls.Keys_Left) ||
-                gamePadState.ThumbSticks.Left.X < 0
+                keyboardState.IsKeyDown(controls.Keys_Left)
                 )
             // ||keyboardState.IsKeyDown(LeftKeyAlternative))
             {
@@ -344,20 +343,14 @@ namespace MagicWorld
                 }
             }
             else if (gamePadState.IsButtonDown(controls.GamePad_Right) ||
-                     keyboardState.IsKeyDown(controls.Keys_Right) ||
-                gamePadState.ThumbSticks.Left.X > 0
+                     keyboardState.IsKeyDown(controls.Keys_Right)
                 )
-            //keyboardState.IsKeyDown(RightKeyAlternative))
             {
                 movementX = 1.0f;
                 if (!IsCasting)
                 {
                     lastMovementRight = true;
                 }
-            }
-            else if (Math.Abs(gamePadState.ThumbSticks.Left.X) > 0.5f)
-            {
-                movementX = gamePadState.ThumbSticks.Left.X;
             }
             else
             {
@@ -734,7 +727,7 @@ namespace MagicWorld
                 {
                     // casting angle
                     //Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
-                    if (keyboardState.IsKeyDown(controls.Keys_Up))
+                    if (keyboardState.IsKeyDown(controls.Keys_Up)||gamePadState.IsButtonDown(controls.GamePad_Up))
                     {
                         if (isFacingLeft)
                         {
@@ -743,7 +736,7 @@ namespace MagicWorld
                             spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                         }
                     }
-                    else if (keyboardState.IsKeyDown(controls.Keys_Down))
+                    else if (keyboardState.IsKeyDown(controls.Keys_Down) || gamePadState.IsButtonDown(controls.GamePad_Down))
                     {
                         if (!isFacingLeft)
                         {
@@ -752,13 +745,8 @@ namespace MagicWorld
                             spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                         }
                     }
-                    //Use Thumbstick to aim the spell
-                    if (gamePadState.ThumbSticks.Left.Length() > 0.1f)
-                    {
-                        spellAimAngle = Math.Atan2(gamePadState.ThumbSticks.Left.Y, gamePadState.ThumbSticks.Left.X) - 3 * Math.PI / 2;
-                    }
                     //casting power
-                    if (keyboardState.IsKeyDown(controls.Keys_Right) || gamePadState.IsButtonDown(controls.GamePad_Right)) // more power
+                    if (keyboardState.IsKeyDown(controls.Keys_Right) || gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell)) // more power
                     {
                         if (isPlayerFacingRight())
                         {
@@ -769,7 +757,7 @@ namespace MagicWorld
                             SpellCreationManager.lessPower(this, this.level, gameTime);
                         }
                     }
-                    else if (keyboardState.IsKeyDown(controls.Keys_Left) || gamePadState.IsButtonDown(controls.GamePad_Left)) // less power
+                    else if (keyboardState.IsKeyDown(controls.Keys_Left) || gamePadState.IsButtonDown(controls.GamePad_DecreaseSpell)) // less power
                     {
                         if (isPlayerFacingRight())
                         {
@@ -779,14 +767,6 @@ namespace MagicWorld
                         {
                             SpellCreationManager.morePower(this, this.level, gameTime);
                         }
-                    }
-                    else if (gamePadState.IsButtonDown(controls.GamePad_IncreaseSpell))
-                    {
-                        SpellCreationManager.morePower(this, this.level, gameTime);
-                    }
-                    else if (gamePadState.IsButtonDown(controls.GamePad_DecreaseSpell))
-                    {
-                        SpellCreationManager.lessPower(this, this.level, gameTime);
                     }
                 }
                 else

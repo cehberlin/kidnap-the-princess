@@ -111,12 +111,12 @@ namespace MagicWorld.Controls
 
         public Microsoft.Xna.Framework.Input.Buttons GamePad_IncreaseSpell
         {
-            get { return Microsoft.Xna.Framework.Input.Buttons.X; }
+            get { return Microsoft.Xna.Framework.Input.Buttons.A; }
         }
 
         public Microsoft.Xna.Framework.Input.Buttons GamePad_DecreaseSpell
         {
-            get { return Microsoft.Xna.Framework.Input.Buttons.Y; }
+            get { return Microsoft.Xna.Framework.Input.Buttons.B; }
         }
     }
 }
