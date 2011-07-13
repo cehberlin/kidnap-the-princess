@@ -105,7 +105,7 @@ namespace MagicWorld
             else
             {
                 IcecicleState = IcecicleState.DESTROYED;
-                audioService.playSound(Audio.SoundType.icehit);
+                audioService.playSound(Audio.SoundType.icehit, 0.2f);
             }
             level.Game.IceParticleSystem.AddParticles(new ParticleSetting(position));
         }

@@ -202,7 +202,7 @@ namespace MagicWorld
                 {
                     if (SpellType == SpellType.ElectricSpell)
                     {
-                            audioService.playSoundLoop(SoundType.electric, 0.5f);
+                            audioService.playSoundLoop(SoundType.electric, 0.17f);
                     }
                     else if (SpellType == SpellType.NoGravitySpell)
                     {

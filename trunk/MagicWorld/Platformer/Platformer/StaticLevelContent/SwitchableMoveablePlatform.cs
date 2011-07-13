@@ -154,7 +154,7 @@ namespace MagicWorld.StaticLevelContent
 
                 if ((level.Player.Position - this.position).Length() < 200)
                 {
-                    audioService.playSoundLoop(Audio.SoundType.rockslide, 1f);
+                    audioService.playSoundLoop(Audio.SoundType.rockslide, 0.4f);
                     movingStarted = true;
                 }
                 else

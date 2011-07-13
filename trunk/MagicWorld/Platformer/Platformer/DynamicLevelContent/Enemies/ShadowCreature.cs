@@ -154,9 +154,18 @@ namespace MagicWorld
             else if (isElectrified)
             {
                 currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
+                if ((level.Player.Position - this.position).Length() < 300)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.electric, 0.2f);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.electric, true);
+                }
                 if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
                 {
                     isElectrified = false;
+                    audioService.stopSoundLoop(Audio.SoundType.electric, true);
                 }
 
                 currentParticles++;
@@ -246,7 +255,7 @@ namespace MagicWorld
                     currentBurningTime = new TimeSpan(0, 0, 0);
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                 }
-                audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.playSound(Audio.SoundType.enemy_hit, 0.15f);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ColdSpell)
@@ -266,7 +275,7 @@ namespace MagicWorld
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                     currentFreezeTime = new TimeSpan(0, 0, 0);
                 }
-                audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.playSound(Audio.SoundType.enemy_hit, 0.15f);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ElectricSpell)
@@ -274,7 +283,7 @@ namespace MagicWorld
                 isElectrified = true;
                 currentElectrifiedTime = new TimeSpan(0, 0, 0);
                 spellDurationOfActionMs = spell.DurationOfActionMs;
-                audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.playSound(Audio.SoundType.enemy_hit, 0.15f);
                 audioService.stopSoundLoop(Audio.SoundType.electric, true);
                 return true;
             }
