@@ -30,9 +30,7 @@
   # Draw 3D level exit -> Pascal
   # better boundings: big blockades have an ugly bounding box
   # Bigger and better "wall" textures -> Pascal
-  # startgame - story from game (pictures or aimation)
   # button for spell under the rune in the HUD
-  # show level in background in the level selection screen
 
 
 == rejected To Dos ==
@@ -40,3 +38,4 @@
 
 Nicht mehr so wichtig wegen Zeit:
   # spider: only moves in defined web area (in all directions) --> John
+  # show level in background in the level selection screen
