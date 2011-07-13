@@ -9,6 +9,7 @@
 
 == Final (13.07) ==
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
+    * verpuffen Sound für Spell cancel.
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
