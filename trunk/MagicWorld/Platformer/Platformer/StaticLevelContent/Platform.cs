@@ -43,7 +43,7 @@ namespace MagicWorld.StaticLevelContent
                     int left = (int)Math.Round(position.X);
                     int top = (int)Math.Round(position.Y);
                     int yOffset = 10;
-                    this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
+                    this.bounds.Init(left + yOffset / 2, top, Width - yOffset, 20);
                     drawRec = new Rectangle(left, top, Width, Height);
                 }
                 return this.bounds;

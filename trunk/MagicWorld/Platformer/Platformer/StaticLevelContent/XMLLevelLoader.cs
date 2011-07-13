@@ -458,7 +458,7 @@ namespace MagicWorld.StaticLevelContent
                         try {
                             TextureItem tiDest = (TextureItem)destination;
                             destPos = getCorrectedStartPosition(tiDest);
-                        } catch(Exception e){
+                        } catch(Exception){
                             destPos = destination.Position;
                         }
 
