@@ -3547,6 +3547,33 @@
                         <Y>400</Y>
                     </Origin>
                 </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0228" Visible="true">
+                    <Position>
+                        <X>619</X>
+                        <Y>483</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Blockades\debugThingie.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Blockades\debugThingie</asset_name>
+                    <Origin>
+                        <X>20</X>
+                        <Y>16</Y>
+                    </Origin>
+                </Item>
             </Items>
             <ScrollSpeed>
                 <X>1</X>
@@ -3721,6 +3748,33 @@
         </Layer>
         <Layer Name="Front" Visible="true">
             <Items>
+                <Item xsi:type="TextureItem" Name="Texture_0227" Visible="true">
+                    <Position>
+                        <X>619</X>
+                        <Y>475</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Front\frontsmall.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Front\frontsmall</asset_name>
+                    <Origin>
+                        <X>31</X>
+                        <Y>25</Y>
+                    </Origin>
+                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0225" Visible="true">
                     <Position>
                         <X>-189</X>
@@ -4324,11 +4378,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>225</NextItemNumber>
+        <NextItemNumber>228</NextItemNumber>
         <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>-99.33389</X>
-            <Y>-311.334442</Y>
+            <X>759.0016</X>
+            <Y>413.666656</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>

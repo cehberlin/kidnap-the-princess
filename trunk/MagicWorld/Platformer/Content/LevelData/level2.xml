@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Level xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="Level_01" Visible="true">
     <Layers>
-        <Layer Name="Zero" Visible="false">
+        <Layer Name="Zero" Visible="true">
             <Items>
                 <Item xsi:type="TextureItem" Name="Texture_0001" Visible="true">
                     <Position>
@@ -937,33 +937,6 @@
                         <Y>19</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0063" Visible="true">
-                    <Position>
-                        <X>40</X>
-                        <Y>-271</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1d.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1d</asset_name>
-                    <Origin>
-                        <X>74</X>
-                        <Y>27</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0064" Visible="true">
                     <Position>
                         <X>203</X>
@@ -1178,6 +1151,33 @@
                     <Origin>
                         <X>44</X>
                         <Y>16</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0124" Visible="true">
+                    <Position>
+                        <X>67</X>
+                        <Y>-275</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Middle\platform1c.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Middle\platform1c</asset_name>
+                    <Origin>
+                        <X>67</X>
+                        <Y>19</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -2041,8 +2041,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0072" Visible="true">
                     <Position>
-                        <X>82</X>
-                        <Y>-248</Y>
+                        <X>100</X>
+                        <Y>-255</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2380,11 +2380,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>123</NextItemNumber>
-        <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content</ContentRootFolder>
+        <NextItemNumber>124</NextItemNumber>
+        <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>-533.328369</X>
-            <Y>-116.666855</Y>
+            <X>191.6728</X>
+            <Y>-266.667053</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
