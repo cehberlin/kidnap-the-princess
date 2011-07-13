@@ -87,7 +87,8 @@ namespace MagicWorld
                     // Calculate bounds within texture size.
                     radius = (sprite.Animation.FrameWidth + sprite.Animation.FrameHeight) / 2 * 0.3f * currentScale;
                 }
-                return new Bounds(position, radius);
+                bounds.Init(position, radius);
+                return bounds;
             }
         }
 

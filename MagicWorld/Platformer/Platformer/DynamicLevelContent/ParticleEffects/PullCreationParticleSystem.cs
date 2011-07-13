@@ -16,7 +16,6 @@ namespace ParticleEffects
     /// </summary>
     class PullCreationParticleSystem : ParticleSystem
     {
-        float radius;
 
         public PullCreationParticleSystem(MagicWorldGame game, int howManyEffects)
             : base(game, howManyEffects)

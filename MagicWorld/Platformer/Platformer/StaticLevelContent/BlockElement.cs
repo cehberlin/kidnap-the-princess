@@ -67,7 +67,7 @@ namespace MagicWorld
                 {
                     int left = (int)Math.Round(position.X);
                     int top = (int)Math.Round(position.Y);
-                    bounds = new Bounds(left, top, Width, Height);
+                    bounds.Init(left, top, Width, Height);
                 }
                 return bounds;
             }

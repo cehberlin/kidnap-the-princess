@@ -17,7 +17,8 @@ namespace MagicWorld.Spells
         {
             get
             {
-                return new Bounds(Position, getRadius());
+                bounds.Init(Position, getRadius());
+                return bounds;
             }
         }
 

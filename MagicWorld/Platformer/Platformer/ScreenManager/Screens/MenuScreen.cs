@@ -283,7 +283,6 @@ namespace MagicWorld
 
         #endregion
 
-        List<Animation> animations;
     }
 
     

@@ -73,7 +73,7 @@ namespace MagicWorld.DynamicLevelContent
         }
 
         //you need to set a Bound
-        protected Bounds bounds=null;
+        protected Bounds bounds=new Bounds();
         
 
         /// <summary>

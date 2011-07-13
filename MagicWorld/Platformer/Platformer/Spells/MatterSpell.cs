@@ -53,7 +53,8 @@ namespace MagicWorld
                 float height = (matterTexture.Height * 0.9f) * currentScale;
                 float left = (float)Math.Round(position.X - width / 2);
                 float top = (float)Math.Round(position.Y - height / 2);
-                return new Bounds(left, top, width, height);
+                bounds.Init(left, top, width, height);
+                return bounds;
             }
         }
 

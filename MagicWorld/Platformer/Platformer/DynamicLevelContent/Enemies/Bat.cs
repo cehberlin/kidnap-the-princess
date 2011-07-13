@@ -69,7 +69,8 @@ namespace MagicWorld
                     float height = (sprite.Animation.FrameHeight * 0.4f);
                     float left = (float)Math.Round(Position.X - width / 2);
                     float top = (float)Math.Round(Position.Y - height / 2);
-                    return new Bounds(left, top + 5, width, height);
+                    bounds.Init(left, top + 5, width, height);
+                    return bounds;
                 }
             }
         }

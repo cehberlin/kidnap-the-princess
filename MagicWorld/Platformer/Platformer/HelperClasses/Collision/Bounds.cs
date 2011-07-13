@@ -36,13 +36,14 @@ namespace MagicWorld.HelperClasses
             get { return sphere; }
         }
 
-        Vector3 position;
+        Vector3 position = Vector3.Zero;
 
         public Vector2 Position
         {
             get { return new Vector2(position.X,position.Y); }
             set { 
-                position = new Vector3(value,0);
+                position.X = value.X;
+                position.Y = value.Y;
                 updateBound();
             }
         }
@@ -88,24 +89,28 @@ namespace MagicWorld.HelperClasses
             }
         }
 
+        public Bounds()
+            : this(0, 0, 0, 0)
+        {
+        }
+
         /// <summary>
         /// create cycle bound
         /// </summary>
         /// <param name="position">center position</param>
         /// <param name="radius"></param>
-        public Bounds(Vector2 position, float radius) {
-            type = BoundType.SPHERE;
-            this.radius = radius;
-            this.Position = position;//calls indirekt updateBound
+        public Bounds(Vector2 position, float radius) 
+        {
+            Init(position, radius);
         }
 
         /// <summary>
         /// create cycle bound
         /// </summary>
         /// <param name="radius"></param>
-        public Bounds(float x,float y, float radius):
-            this(new Vector2(x,y),radius)
+        public Bounds(float x,float y, float radius)
         {
+            Init(x, y, radius);
         }
 
         /// <summary>
@@ -116,10 +121,7 @@ namespace MagicWorld.HelperClasses
         /// <param name="height"></param>
         public Bounds(Vector2 position, float width, float height)
         {
-            type = BoundType.BOX;
-            this.width = width;
-            this.height = height;
-            this.Position = position;//calls indirekt updateBound
+            Init(position, width, height);
         }
 
         /// <summary>
@@ -128,24 +130,77 @@ namespace MagicWorld.HelperClasses
         /// <param name="position">left upper corner position</param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Bounds(float left, float top, float width, float height)
+        public Bounds(float left, float top, float width, float height)            
+        {
+            Init(left, top, width, height);
+        }
+
+        /// <summary>
+        /// rectangle init
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public void Init(Vector2 position, float width, float height)
         {
             type = BoundType.BOX;
             this.width = width;
             this.height = height;
-            this.Position = new Vector2(left,top);//calls indirekt updateBound
+            this.Position = position;//calls indirekt updateBound
+        }
+
+        public void Init(float left, float top, float width, float height)
+        {
+            type = BoundType.BOX;
+            this.width = width;
+            this.height = height;
+            position.X = left;
+            position.Y = top;
+            updateBound();
+        }
+
+        /// <summary>
+        /// cycle init
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="radius"></param>
+        public void Init(Vector2 position, float radius)
+        {
+            sphere = new BoundingSphere();
+            type = BoundType.SPHERE;
+            this.radius = radius;
+            this.Position = position;//calls indirekt updateBound
         }
 
 
+        /// <summary>
+        /// cycle init
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="radius"></param>
+        public void Init(float left, float top, float radius)
+        {
+            sphere = new BoundingSphere();
+            type = BoundType.SPHERE;
+            this.radius = radius;
+            position.X = left;
+            position.Y = top;
+            updateBound();
+        }
+
+        private Vector3 boxCreationVector = Vector3.Zero;
         private void updateBound()
         {
             if (this.type == BoundType.BOX)
             {
-                box = new BoundingBox(position, position + new Vector3(width, height, 0));
+                boxCreationVector.X = width;
+                boxCreationVector.Y = height;
+                box = new BoundingBox(position, position + boxCreationVector);
             }
             else if (this.type == BoundType.SPHERE)
             {
-                sphere = new BoundingSphere(position, radius);
+                sphere.Center = position;
+                sphere.Radius = radius;
             }
         }
 
