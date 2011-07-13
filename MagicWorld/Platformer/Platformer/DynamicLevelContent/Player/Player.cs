@@ -237,7 +237,7 @@ namespace MagicWorld
         public void Update(
             GameTime gameTime,InputState input)
         {
-            
+            controls = Controls.PlayerControlFactory.GET_INSTANCE().getPlayerControl();
             if (isAlive)
             {
                 if (collisionManager.CollidateWithLevelExit(this))
