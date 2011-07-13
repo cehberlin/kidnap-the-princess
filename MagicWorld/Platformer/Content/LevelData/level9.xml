@@ -1639,33 +1639,6 @@
                         <Y>16</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0033" Visible="true">
-                    <Position>
-                        <X>-331</X>
-                        <Y>278</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1c.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1c</asset_name>
-                    <Origin>
-                        <X>67</X>
-                        <Y>19</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0061" Visible="true">
                     <Position>
                         <X>-960</X>
@@ -2422,33 +2395,6 @@
                         <Y>18</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0227" Visible="true">
-                    <Position>
-                        <X>-508</X>
-                        <Y>145</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Middle\platform1c.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Middle\platform1c</asset_name>
-                    <Origin>
-                        <X>67</X>
-                        <Y>19</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0228" Visible="true">
                     <Position>
                         <X>-426</X>
@@ -2474,6 +2420,60 @@
                     <Origin>
                         <X>25</X>
                         <Y>13</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0242" Visible="true">
+                    <Position>
+                        <X>-328</X>
+                        <Y>281</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Platforms\platformC.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Platforms\platformC</asset_name>
+                    <Origin>
+                        <X>67</X>
+                        <Y>18</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0243" Visible="true">
+                    <Position>
+                        <X>-520</X>
+                        <Y>145</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Platforms\platformC.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Platforms\platformC</asset_name>
+                    <Origin>
+                        <X>67</X>
+                        <Y>18</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -4724,8 +4724,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0080" Visible="true">
                     <Position>
-                        <X>128</X>
-                        <Y>-192</Y>
+                        <X>320</X>
+                        <Y>-256</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="EnemyType" Type="string" Description="">
@@ -4809,11 +4809,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>241</NextItemNumber>
+        <NextItemNumber>244</NextItemNumber>
         <ContentRootFolder>C:\Users\M\Documents\Visual Studio 2010\Projects\Magic World\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>1966.67432</X>
-            <Y>-1225.00415</Y>
+            <X>550.000732</X>
+            <Y>-275.0004</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
