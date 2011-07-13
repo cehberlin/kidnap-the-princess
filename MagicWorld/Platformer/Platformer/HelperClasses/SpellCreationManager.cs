@@ -50,7 +50,7 @@ namespace MagicWorld.HelperClasses
                direction.Normalize();
                player.CurrentSpell.Direction = direction;
                player.CurrentSpell.Rotation =  -(float)(level.Player.SpellAimAngle + Math.PI / 2);
-               audioservice.playSoundLoop(SoundType.createSpell, 0.3f);  
+               audioservice.playSoundLoop(SoundType.createSpell, 0.55f);  
                level.addSpell(player.CurrentSpell);
                player.CurrentSpell.UsedMana = basicCastingCost;
                return true;
