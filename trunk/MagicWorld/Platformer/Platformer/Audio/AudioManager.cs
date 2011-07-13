@@ -42,7 +42,8 @@ namespace MagicWorld.Audio
         wings, 
         electricSwitch,
         iceshatter,
-        changeSpell
+        changeSpell,
+        torchBurning
     }
 
     class AudioManager : GameComponent, IAudioService
@@ -95,6 +96,7 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.electricSwitch, Game.Content.Load<SoundEffect>(path + "electric").CreateInstance());
             sounds.Add(SoundType.iceshatter, Game.Content.Load<SoundEffect>(path + "iceshatter").CreateInstance());
             sounds.Add(SoundType.changeSpell, Game.Content.Load<SoundEffect>(path + "changeSpell").CreateInstance());
+            sounds.Add(SoundType.torchBurning, Game.Content.Load<SoundEffect>(path + "torchBurning").CreateInstance());
         }
 
         public object GetService(Type serviceType)
