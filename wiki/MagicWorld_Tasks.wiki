@@ -10,11 +10,9 @@
 == Final (13.07) ==
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
      * jump sound
-  # gamepad button MAPPING 
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
-  # first + second Controler Layout + Picture in Control Menu ->Pascal
   
 
  === optional ===
