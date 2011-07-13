@@ -14,7 +14,7 @@
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
      * enemy hit by fire/electricity
      * jump sound
-     * add SoundType.rockslide to spell moveable and switch moveable platforms as loop during movement, dont know where adding the call --> John
+     * add SoundType.rockslide to spell moveable and switch moveable 
   # sound volume balancing--> John
   # gamepad button MAPPING 
   # Manual
