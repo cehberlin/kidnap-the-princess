@@ -28,10 +28,11 @@ namespace MagicWorld
             MenuEntry mnu800x600 = new MenuEntry("800X600");
             MenuEntry mnu1024x768 = new MenuEntry("1024X768");
             MenuEntry mnu1152x864 = new MenuEntry("1152X864");
-            MenuEntry mnu1366x768 = new MenuEntry("1366X768");
-            MenuEntry mnu1280x800 = new MenuEntry("1280x800");
-            MenuEntry mnu1680x1050 = new MenuEntry("1680x1050");
             MenuEntry mnu1280x720 = new MenuEntry("1280x720");
+            MenuEntry mnu1280x800 = new MenuEntry("1280x800");
+            MenuEntry mnu1280x1024 = new MenuEntry("1280x1024");
+            MenuEntry mnu1366x768 = new MenuEntry("1366X768");
+            MenuEntry mnu1680x1050 = new MenuEntry("1680x1050");
             MenuEntry mnu1920x1080 = new MenuEntry("1920x1080");
             MenuEntry mnu1920x1200 = new MenuEntry("1920x1200");
 
@@ -50,17 +51,22 @@ namespace MagicWorld
             mnu1920x1080.Selected += ResolutionMenu1920x1080EntrySelected;
             mnu1920x1200.Selected += ResolutionMenu1920x1200EntrySelected;
 
+            mnu1280x1024.Selected += ResolutionMenu1280x1024EntrySelected;
+
             back.Selected += OnCancel;
             
+            // DO NOT ADD NEW ENTRIES, the menu will must be completly vissable at800x600
+
             // Add entries to the menu.
             MenuEntries.Add(mnuFullScreen);
             MenuEntries.Add(mnu800x600);
             MenuEntries.Add(mnu1024x768);
-            MenuEntries.Add(mnu1152x864);
-            MenuEntries.Add(mnu1280x800);
+            //MenuEntries.Add(mnu1152x864);
+            MenuEntries.Add(mnu1280x720);
+            //MenuEntries.Add(mnu1280x800);
+            MenuEntries.Add(mnu1280x1024);
             MenuEntries.Add(mnu1366x768);
             MenuEntries.Add(mnu1680x1050);
-            MenuEntries.Add(mnu1280x720);
             MenuEntries.Add(mnu1920x1080);
             //MenuEntries.Add(mnu1920x1200); 
 
@@ -161,6 +167,12 @@ namespace MagicWorld
             ScreenManager.Game.GameStatus.Resolution.Y = 1200;
         }
 
+        void ResolutionMenu1280x1024EntrySelected(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.setScreenResolution(1280, 1024);
+            ScreenManager.Game.GameStatus.Resolution.X = 1280;
+            ScreenManager.Game.GameStatus.Resolution.Y = 1024;
+        }
         #endregion
     }
 }
