@@ -1164,11 +1164,6 @@
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sounds\jump.mp3">
-      <Name>jump</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="Sounds\start_fire_and_ice_begin_sound.mp3">
       <Name>start_fire_and_ice_begin_sound</Name>
       <Importer>Mp3Importer</Importer>
@@ -1334,6 +1329,20 @@
     <Compile Include="Sounds\wings.wav">
       <Name>wings</Name>
       <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\iceshatter.wav">
+      <Name>iceshatter</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\jump.mp3">
+      <Name>jump</Name>
+      <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>

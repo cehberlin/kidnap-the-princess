@@ -45,6 +45,7 @@ namespace MagicWorld
         protected override void OnRemove()
         {
             level.Game.IceParticleSystem.AddParticles(new ParticleSetting(position));
+            audioService.playSound(Audio.SoundType.iceshatter);
             base.OnRemove();
         }
 
