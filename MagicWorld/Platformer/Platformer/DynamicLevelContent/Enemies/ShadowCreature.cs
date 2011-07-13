@@ -141,9 +141,18 @@ namespace MagicWorld
                     isOnFire = true;
                 }
 
+                if ((level.Player.Position - this.position).Length() < 300)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.torchBurning, 0.6f);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.torchBurning, true);
+                }
                 currentBurningTime = currentBurningTime.Add(gameTime.ElapsedGameTime);
                 if (currentBurningTime >= SpellInfluenceValues.maxBurningTime)
                 {
+                    audioService.stopSoundLoop(Audio.SoundType.torchBurning, true);
                     CurrentVelocity = new Vector2(-CurrentVelocity.X, 0);
                     isOnFire = false;
                     isBurning = false;
