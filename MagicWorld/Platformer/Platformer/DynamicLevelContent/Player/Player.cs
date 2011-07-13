@@ -612,9 +612,9 @@ namespace MagicWorld
             if (isAlive)
             {
                 if (killedBy != null)
-                    audioService.playSound(Audio.SoundType.playerkilled);
+                    audioService.playSound(Audio.SoundType.playerkilled, 0.3f);
                 else
-                    audioService.playSound(Audio.SoundType.playerfall);
+                    audioService.playSound(Audio.SoundType.playerfall, 0.5f);
 
                 sprite.PlayAnimation(dieAnimation);
             }

@@ -68,7 +68,7 @@ namespace MagicWorld.Audio
             //TODO add all new sounds and add also calls into corresponding gamecode, all basicgameelemts have a reference to this service
             sounds.Add(SoundType.createSpell, Game.Content.Load<SoundEffect>(path + "spellcast2").CreateInstance());
             sounds.Add(SoundType.exitreached, Game.Content.Load<SoundEffect>(path + "level_exit1").CreateInstance());
-            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "Icehit").CreateInstance());
+            sounds.Add(SoundType.icehit, Game.Content.Load<SoundEffect>(path + "iceshatter").CreateInstance());
             sounds.Add(SoundType.monsterkill, Game.Content.Load<SoundEffect>(path + "enemy-dies").CreateInstance());
             sounds.Add(SoundType.playerfall, Game.Content.Load<SoundEffect>(path + "PlayerFall").CreateInstance());
             sounds.Add(SoundType.playerjump, Game.Content.Load<SoundEffect>(path + "jump").CreateInstance());

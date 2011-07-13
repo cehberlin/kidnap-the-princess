@@ -46,7 +46,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                         switchOn = true;
                         if ((level.Player.Position - this.position).Length() < 200)
                         {
-                            audioService.playSoundLoop(Audio.SoundType.electricSwitch, 0.5f);
+                            audioService.playSoundLoop(Audio.SoundType.electricSwitch, 0.2f);
                         }
                         else
                         {
@@ -74,7 +74,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
                         switchOn2 = true;
                         if ((level.Player.Position - this.position).Length() < 200)
                         {
-                            audioService.playSoundLoop(Audio.SoundType.electricSwitch, 0.5f);
+                            audioService.playSoundLoop(Audio.SoundType.electricSwitch, 0.2f);
                         }
                         else
                         {

@@ -36,7 +36,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             {
                 if ((level.Player.Position - Position).Length() < 300)
                 {
-                    audioService.playSoundLoop(Audio.SoundType.torchBurning);
+                    audioService.playSoundLoop(Audio.SoundType.torchBurning, 0.6f);
                 }
                 else
                 {

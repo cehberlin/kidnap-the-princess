@@ -161,9 +161,18 @@ namespace MagicWorld
             }
             else if (isElectrified)
             {
+                if ((level.Player.Position - this.position).Length() < 300)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.electric, 0.2f);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.electric, true);
+                }
                 currentElectrifiedTime = currentElectrifiedTime.Add(gameTime.ElapsedGameTime);
                 if (currentElectrifiedTime >= SpellInfluenceValues.maxElectrifiedTime)
                 {
+                    audioService.stopSoundLoop(Audio.SoundType.electric, true);
                     isElectrified = false;
                 }
 
@@ -392,7 +401,7 @@ namespace MagicWorld
                     currentBurningTime = new TimeSpan(0, 0, 0);
                     spellDurationOfActionMs = spell.DurationOfActionMs;
                 }
-                audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.playSound(Audio.SoundType.enemy_hit, 0.15f);
                 return true;
             }
             if (spell.SpellType == Spells.SpellType.ColdSpell)
@@ -420,7 +429,7 @@ namespace MagicWorld
             {
                 isElectrified = true;
                 currentElectrifiedTime = new TimeSpan(0, 0, 0);
-                audioService.playSound(Audio.SoundType.enemy_hit);
+                audioService.playSound(Audio.SoundType.enemy_hit, 0.15f);
             }
 
             return false;

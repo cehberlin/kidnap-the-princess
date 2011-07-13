@@ -48,7 +48,7 @@ namespace MagicWorld
         {
             level.Game.ExplosionParticleSystem.AddParticles(new ParticleSetting(position));
             level.Game.ExplosionSmokeParticleSystem.AddParticles(new ParticleSetting(position));
-            audioService.playSound(Audio.SoundType.destroy);
+            audioService.playSound(Audio.SoundType.destroy, 0.3f);
             base.OnRemove();
         }
 
