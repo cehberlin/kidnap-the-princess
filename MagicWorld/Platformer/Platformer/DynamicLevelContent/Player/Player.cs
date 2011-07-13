@@ -523,7 +523,7 @@ namespace MagicWorld
                 if ((!wasJumping && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0))) || jumpTime > 0.0f)
                 {
                     if (jumpTime == 0.0f)
-                        audioService.playSound(Audio.SoundType.playerjump,0.6f);
+                        audioService.playSound(Audio.SoundType.playerjump,0.4f);
 
                     jumpTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                     if (!isFacingLeft)
