@@ -273,7 +273,7 @@ namespace MagicWorld
 
                 if (IsAlive && (IsOnGround || (disableGravity && gravityInfluenceMaxTime > 0)))
                 {
-                    if (Math.Abs(Velocity.X) - 0.02f > 0)//player is running and not just falling/sliding
+                    if (Math.Abs(Velocity.X) - 0.02f > 0 || IsCasting && Math.Abs(lastVelocity.X) - 0.02f > 0)//player is running and not just falling/sliding
                     {
                         if (lastMovementRight)
                         {
