@@ -106,12 +106,9 @@ namespace MagicWorld
             Viewport viewport = ScreenManager.GraphicsDevice.Viewport;
             Vector2 viewportSize = new Vector2(viewport.Width, viewport.Height);
             Vector2 textSize = font.MeasureString(tempString);
-            Vector2 textPosition = (viewportSize - textSize) / 2;
-            Vector2 vecIncrease = new Vector2(0, 30);
+            Vector2 textPosition = (viewportSize - textSize) / 2-new Vector2(0,100);
+            Vector2 vecIncrease = new Vector2(0, 50);
 
-            
-
-           
 
             // Fade the popup alpha during transitions.
             Color color = Color.White * TransitionAlpha;
@@ -119,15 +116,15 @@ namespace MagicWorld
             spriteBatch.Begin();            
 
             // Draw the message box text.
-            spriteBatch.DrawString(font, message, textPosition, color,0,Vector2.Zero,1.0f,SpriteEffects.None,0);
+            spriteBatch.DrawString(font, message, textPosition, Color.DarkOrange * TransitionAlpha, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             textPosition += vecIncrease*3;            
-            spriteBatch.DrawString(font, "Your performance", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-            textPosition += vecIncrease;
-            spriteBatch.DrawString(font, "Elapsed Time: " + ScreenManager.Game.GameData.Time.ToString("#0.0") + "s", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "Your performance:", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            textPosition += vecIncrease*2;
+            spriteBatch.DrawString(font, "Elapsed Time:     " + ScreenManager.Game.GameData.Time.ToString("#0.0") + "s", textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             textPosition += vecIncrease;
             spriteBatch.DrawString(font, "Items collected: " + ScreenManager.Game.GameData.ItemsCollected.ToString(), textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             textPosition += vecIncrease;
-            spriteBatch.DrawString(font, "Items available: " + ScreenManager.Game.GameData.TotalItems.ToString(), textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, "Items available:  " + ScreenManager.Game.GameData.TotalItems.ToString(), textPosition, color, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
 
 
             spriteBatch.End();
