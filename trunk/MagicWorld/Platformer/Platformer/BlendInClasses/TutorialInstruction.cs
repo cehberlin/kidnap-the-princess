@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace MagicWorld.BlendInClasses
 {
@@ -60,24 +61,42 @@ namespace MagicWorld.BlendInClasses
 
         private void SplitText()
         {
-            int LineLength = 30;
-            int whiteSpacePosition = 0;
-            string target = " ";
-            char[] whitespace = target.ToCharArray();
-            string temp;
+            const int LineLength = 30;
+            //int whiteSpacePosition = 0;
+            //string target = " ";
+            //char[] whitespace = target.ToCharArray();
+            //string temp;
 
-            for (int i = 0; i < text.Length / LineLength; i++ )
+            //for (int i = 0; i < text.Length / LineLength; i++)
+            //{
+            //    if (whiteSpacePosition + LineLength > text.Length)
+            //    {
+            //        LineLength = text.Length - whiteSpacePosition;
+            //    }
+            //    temp = text.Substring(whiteSpacePosition, LineLength);
+            //    whiteSpacePosition = temp.LastIndexOfAny(whitespace);
+            //    text = text.Insert(whiteSpacePosition + oldWhitespacposition + 1, "\n");
+            //    oldWhitespacposition = whiteSpacePosition;
+            //}
+            string[] words = text.Split(' ');
+            LinkedList<String> lines = new LinkedList<string>();
+            String temp = "";
+            foreach (String word in words)
             {
-                if (whiteSpacePosition + LineLength > text.Length)
+                if ((temp + word).Length > LineLength)
                 {
-                    LineLength = text.Length-whiteSpacePosition;
+                    lines.AddLast(temp);
+                    temp = word + " ";
                 }
-                temp = text.Substring(whiteSpacePosition, LineLength);
-                whiteSpacePosition = temp.LastIndexOfAny(whitespace);
-                text = text.Insert(whiteSpacePosition+oldWhitespacposition + 1, "\n");
-                oldWhitespacposition = whiteSpacePosition;
+                else
+                {
+                    temp += word + " ";
+                }
             }
-            
+            lines.AddLast(temp);
+
+            text = "";
+            foreach (String line in lines) { text += line + "\n"; }
         }
     }
 }
