@@ -18,11 +18,7 @@
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
-  # better push/pull spell graphic
   # first + second Controler Layout + Picture in Control Menu ->Pascal
-  # improve/rewrite controls menu -> amauri
-  # BUG: after starting a level the background music dont stop if you go back to the main menu 
-  # rename and reconfig the two keyboard controls (second keyboard control should use the arrow keys)
   
 
  === optional ===
