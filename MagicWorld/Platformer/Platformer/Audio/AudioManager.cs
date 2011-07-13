@@ -120,6 +120,13 @@ namespace MagicWorld.Audio
             {
                 if (!loopSounds.Contains(soundType))
                 {
+                    switch (soundType) //disabled sounds
+                    {
+                        case SoundType.lava: return;
+                        case SoundType.wings: return;
+                        default: break;
+                    }
+
                     SoundEffectInstance soundEffect = null;
                     soundEffect = (SoundEffectInstance)sounds[soundType];
                     if (soundEffect != null)
@@ -140,6 +147,14 @@ namespace MagicWorld.Audio
         {
             if (!IsEffectMuted)
             {
+
+                switch (soundType) //disabled sounds
+                {
+                    case SoundType.lava: return;
+                    case SoundType.wings: return;
+                    default: break;
+                }
+
                 SoundEffectInstance soundEffect = null;
                 soundEffect = (SoundEffectInstance)sounds[soundType];
                 if (soundEffect != null)
