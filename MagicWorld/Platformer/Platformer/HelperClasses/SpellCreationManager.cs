@@ -116,5 +116,17 @@ namespace MagicWorld.HelperClasses
             audioservice.stopSoundLoop(SoundType.createSpell, false);  
         }
 
+
+        public static void cancelSpell(Player player)
+        {
+            player.CurrentSpell.SpellState = Spell.State.REMOVE; //remove with effect
+            //player.CurrentSpell.IsRemovable = true; //remove without effect
+            player.CurrentSpell = null;
+            IAudioService audioservice = player.audioService;
+            
+            audioservice.stopSoundLoop(SoundType.createSpell, false);
+            //todo verpuffen sound
+        }
+
     }
 }

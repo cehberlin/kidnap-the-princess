@@ -32,8 +32,6 @@ namespace MagicWorld
 
             public SpellType SpellType { get; protected set; }
 
-            private bool startElectricSound = true;
-
             private int usedMana;
             /// <summary>
             /// Mana that is currently used for this spell

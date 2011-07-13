@@ -21,6 +21,8 @@ namespace MagicWorld.Constants
 
             //group spell casting
             List<IConstantChangerItem> grouptSpellCasting = new List<IConstantChangerItem>();
+            grouptSpellCasting.Add(maxcastingtimems);
+            grouptSpellCasting.Add(castingcooldowntimems);
             grouptSpellCasting.Add(spellAimingRotationSpeedInternal);
             grouptSpellCasting.Add(spellPowerUpDownSpeedInternal);
             grouptSpellCasting.Add(defaultSpellGrowRate);
@@ -66,6 +68,19 @@ namespace MagicWorld.Constants
         }
         static ConstantChangerItemDouble spellPowerUpDownSpeedInternal = new ConstantChangerItemDouble("spellPowerUpDownSpeed", 500, 5);
 
+        public static double MaxCastingTimeMS
+        {
+            get { return maxcastingtimems.value; }
+        }
+        static ConstantChangerItemDouble maxcastingtimems = new ConstantChangerItemDouble("MaxCastingTimeMS", 5000, 50);
+
+        public static double CastingCoolDownTimeMS
+        {
+            get { return castingcooldowntimems.value; }
+        }
+        static ConstantChangerItemDouble castingcooldowntimems = new ConstantChangerItemDouble("CastingCoolDownTimeMS", 2000, 20);
+
+        public static int AlertCastingTime = 1800;
 
         /// <summary>
         /// how fast the spell grows if more mana is pumped into it

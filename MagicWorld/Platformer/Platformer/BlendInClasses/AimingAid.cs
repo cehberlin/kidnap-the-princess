@@ -11,6 +11,22 @@ namespace MagicWorld.BlendInClasses
     {
         const float transparencyFactor = 0.4f;
 
+        /// <summary>
+        /// milliseconds blink interval
+        /// </summary>
+        const double COLOR_UPDATE_CYCLE = 400;
+
+        /// <summary>
+        /// default draw color
+        /// </summary>
+        static readonly Color DefaultColor = Color.White;
+        /// <summary>
+        /// toggling blink color
+        /// </summary>
+        static readonly Color BlinkColor = Color.Red;
+
+        Color currentColor = DefaultColor;
+
         ContentManager content;
         SpriteBatch spriteBatch;
 
@@ -40,8 +56,30 @@ namespace MagicWorld.BlendInClasses
             base.LoadContent();
         }
 
+        double colorUpdateCycle;
+
         public override void Update(GameTime gameTime)
         {
+            if (playerService.isNearCastingCancel)
+            {
+                if (colorUpdateCycle <= 0)
+                {
+                    if (currentColor == DefaultColor)
+                    {
+                        currentColor = BlinkColor;
+                    }
+                    else
+                    {
+                        currentColor = DefaultColor;
+                    }
+                    colorUpdateCycle = COLOR_UPDATE_CYCLE;
+                }
+                colorUpdateCycle -= gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
+            else
+            {
+                currentColor = DefaultColor;
+            }            
             base.Update(gameTime);
         }
 
@@ -50,8 +88,8 @@ namespace MagicWorld.BlendInClasses
             if (playerService.isAiming)
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraService.TransformationMatrix);
-                spriteBatch.Draw(circleTex, playerService.Position, null, Color.White * transparencyFactor, 0, origin, 1.0f, SpriteEffects.None, 0f);
-                spriteBatch.Draw(arrowTex, playerService.Position, null, Color.White * transparencyFactor, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipHorizontally, 0f);
+                spriteBatch.Draw(circleTex, playerService.Position, null, currentColor * transparencyFactor, 0, origin, 1.0f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(arrowTex, playerService.Position, null, currentColor * transparencyFactor, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipHorizontally, 0f);
                 spriteBatch.End();
             }            
             base.Draw(gameTime);
