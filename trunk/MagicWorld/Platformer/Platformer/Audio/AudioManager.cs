@@ -76,7 +76,7 @@ namespace MagicWorld.Audio
             sounds.Add(SoundType.laugh, Game.Content.Load<SoundEffect>(path + "laugh").CreateInstance());
             sounds.Add(SoundType.startFireAndIce, Game.Content.Load<SoundEffect>(path + "start_fire_and_ice_begin_sound").CreateInstance());
             sounds.Add(SoundType.destroy, Game.Content.Load<SoundEffect>(path + "destroy_fire_spell_and_destroy_switch").CreateInstance());
-            sounds.Add(SoundType.collect, Game.Content.Load<SoundEffect>(path + "collect").CreateInstance());
+            sounds.Add(SoundType.collect, Game.Content.Load<SoundEffect>(path + "iceHitEnemy").CreateInstance());
             sounds.Add(SoundType.enemy_hit, Game.Content.Load<SoundEffect>(path + "spell_hits_creature").CreateInstance());
             sounds.Add(SoundType.rockslide, Game.Content.Load<SoundEffect>(path + "rockslide").CreateInstance());
             sounds.Add(SoundType.menuClick, Game.Content.Load<SoundEffect>(path + "menuClick").CreateInstance());
