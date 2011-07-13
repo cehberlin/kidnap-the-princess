@@ -10,10 +10,7 @@
 == Final (13.07) ==
   # fullscreen seems not to be loaded from savegame --> amauri
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
-     * enemy hit by fire/electricity
      * jump sound
-     * add SoundType.rockslide to spell moveable and switch moveable 
-  # sound volume balancing--> John
   # gamepad button MAPPING 
   # Manual
   # 5 Screenshots, Groupname, Game Description
