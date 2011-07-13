@@ -1410,7 +1410,7 @@
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
-                            <string>Solve this riddel to get the bone.</string>
+                            <string>Solve this riddle to get the bone.</string>
                         </Property>
                     </CustomProperties>
                     <Width>72</Width>
@@ -1430,7 +1430,7 @@
                     </Position>
                     <CustomProperties>
                         <Property Name="Instruction" Type="string" Description="">
-                            <string>Your have to use this stone to get all the bones.</string>
+                            <string>You have to use this stone to get all the bones.</string>
                         </Property>
                     </CustomProperties>
                     <Width>72</Width>

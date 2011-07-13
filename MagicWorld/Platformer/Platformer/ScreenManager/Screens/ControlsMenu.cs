@@ -98,23 +98,8 @@ namespace MagicWorld
             //gamepad
             float fscale = 0.5f;
 
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "X " + mouseStateCurrent.X.ToString(), new Vector2(20, 20), Color.Black);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Y " + mouseStateCurrent.Y.ToString(), new Vector2(20, 50), Color.Black);
-
             Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "GamePad", new Vector2(position.X + 430, position.Y), Color.Black, new Vector2(-50, 0), 0.7f);
             spriteBatch.Draw(gamePad, new Rectangle((int)position.X+400, (int)position.Y+50, gamePad.Bounds.Width, gamePad.Bounds.Height), Color.White);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Jump", v_jump, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Decrease spell", v_dec, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Increase spell", v_inc, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Move", v_move, Color.Black, Vector2.Zero, fscale);            
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Cast spell A", v_cspa, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Cast spell B", v_cspb, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Select spell A", v_sspa, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Select spell B", v_sspb, Color.Black, Vector2.Zero, fscale);
-            //Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "Pause", v_pause, Color.Black, Vector2.Zero, fscale);
-
-
-
             
             drawString("Action", "Keyboard", "Gamepad");
             drawString("Cast Spell A", controls.Keys_CastSelectedSpellA.ToString(), controls.GamePad_CastSelectedSpellA.ToString());
