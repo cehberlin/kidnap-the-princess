@@ -96,7 +96,7 @@ namespace MagicWorld.Controls
 
         public Microsoft.Xna.Framework.Input.Buttons GamePad_Down
         {
-            get { return Microsoft.Xna.Framework.Input.Buttons.B; }
+            get { return Microsoft.Xna.Framework.Input.Buttons.DPadDown; }
         }
 
         public Microsoft.Xna.Framework.Input.Buttons GamePad_Left

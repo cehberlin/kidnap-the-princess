@@ -252,7 +252,7 @@ namespace MagicWorld
         {
             return IsNewKeyPress(controls.Keys_Pause, controllingPlayer, out playerIndex) ||
                    IsNewKeyPress(Keys.Escape, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(controls.GamePad_Pause, controllingPlayer, out playerIndex);            
+                   IsNewButtonPress(controls.GamePad_DecreaseSpell, controllingPlayer, out playerIndex);            
         }
 
 
