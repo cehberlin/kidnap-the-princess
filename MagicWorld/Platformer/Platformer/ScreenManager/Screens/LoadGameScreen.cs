@@ -213,12 +213,16 @@ namespace MagicWorld
         /// </summary>
         void PlayGameMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
+            //unload main menu screen
+            MainMenuScreen mainMenu = (MainMenuScreen)ScreenManager.GetMainMenuScreen();
+            ScreenManager.RemoveScreen(mainMenu);
             audioService = (IAudioService)ScreenManager.Game.Services.GetService(typeof(IAudioService));
             audioService.setBackgroundVolume(1f);
             GameplayScreen gameScreen = new GameplayScreen(ScreenManager);
             //gameScreen.ScreenManager = ScreenManager;
             //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex, gameScreen);
             gameScreen.LoadContent();
+            ScreenManager.RemoveScreen(this);
             ScreenManager.AddScreen(gameScreen, e.PlayerIndex);  
             gameScreen.LoadLevel(selectedFile + 1);//selectedfile is always one number less levelnumber 
              

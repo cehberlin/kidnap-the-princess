@@ -305,6 +305,18 @@ namespace MagicWorld
             return null;
         }
 
+        public GameScreen GetMainMenuScreen()
+        {
+            foreach (GameScreen screen in GetScreens())
+            {
+                if (screen.GetType().Equals(typeof(MainMenuScreen )))
+                {
+                    return screen;
+                }
+            }
+            return null;
+        }
+
 
         public bool IsGameplayScreenActive()
         {
