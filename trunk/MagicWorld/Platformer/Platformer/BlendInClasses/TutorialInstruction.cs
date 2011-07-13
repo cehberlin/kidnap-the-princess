@@ -8,7 +8,7 @@ namespace MagicWorld.BlendInClasses
     public class TutorialInstruction
     {
         TutorialManager manager;
-        int oldWhitespacposition = 0;
+
         public TutorialManager Manager
         {
             get { return manager; }

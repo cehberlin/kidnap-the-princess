@@ -96,7 +96,6 @@ namespace MagicWorld
 
             spriteBatch.Begin();
             //gamepad
-            float fscale = 0.5f;
 
             Text.DrawOutlinedText(ScreenManager.SpriteBatch, ScreenManager.Font, "GamePad", new Vector2(position.X + 430, position.Y), Color.Black, new Vector2(-50, 0), 0.7f);
             spriteBatch.Draw(gamePad, new Rectangle((int)position.X+400, (int)position.Y+50, gamePad.Bounds.Width, gamePad.Bounds.Height), Color.White);

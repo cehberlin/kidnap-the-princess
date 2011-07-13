@@ -57,6 +57,14 @@ namespace MagicWorld
         }
         bool isAlive;
 
+        public bool isNearCastingCancel
+        {
+            get
+            {
+                return (castingTimeMs < SpellConstantsValues.CastingCoolDownTimeMS + SpellConstantsValues.AlertCastingTime);
+            }
+        }
+
 
         /// <summary>
         /// true if player is Facing Left
@@ -671,6 +679,7 @@ namespace MagicWorld
             set { spellAimAngle = value; }
         }
 
+        double castingTimeMs = SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS;
 
         /// <summary>
         /// create the spells
@@ -687,11 +696,11 @@ namespace MagicWorld
             Boolean isCastingSpell = false;
 
 
-            if (currentSpell == null) // no spell casted?
+            if (currentSpell == null && castingTimeMs == SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS) // no spell casted?
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState)) //spell A casted ?
                 {
-                    isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_A, this.level);
+                    isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_A, this.level);                    
                 }
                 else if (this.isSpellBButtonPressed(controls, gamePadState, keyboardState)) //spell B casted ?
                 {
@@ -720,7 +729,7 @@ namespace MagicWorld
                     Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
                 }
             }
-            else
+            else  if (currentSpell != null)
             {
                 SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
@@ -768,11 +777,26 @@ namespace MagicWorld
                             SpellCreationManager.morePower(this, this.level, gameTime);
                         }
                     }
+
+                    if (castingTimeMs < SpellConstantsValues.CastingCoolDownTimeMS)
+                    {
+                            SpellCreationManager.cancelSpell(this);
+                    } 
                 }
                 else
                 {
                     SpellCreationManager.releaseSpell(this);
-                }
+                    castingTimeMs = SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS;
+                }                
+            }
+
+            if (castingTimeMs <= 0)
+            {
+                castingTimeMs = SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS;
+            }
+            else if (IsCasting || castingTimeMs < SpellConstantsValues.CastingCoolDownTimeMS)
+            {
+                castingTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
             oldKeyboardState = keyboardState;
