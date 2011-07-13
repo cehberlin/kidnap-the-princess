@@ -705,6 +705,8 @@ namespace MagicWorld
                 }
                 else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellA) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellA) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellA)) // spell A select
                 {
+                    if(this.UsableSpells.Length != 2)
+                        audioService.playSound(SoundType.changeSpell);
                     selectedSpellIndex_A = selectNextSpell(selectedSpellIndex_A);
                     if (selectedSpellIndex_A == selectedSpellIndex_B)
                     {
@@ -714,6 +716,8 @@ namespace MagicWorld
                 }
                 else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellB) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellB) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellB) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellB)) // spell B select
                 {
+                    if (this.UsableSpells.Length != 2)
+                        audioService.playSound(SoundType.changeSpell);
                     selectedSpellIndex_B = selectNextSpell(selectedSpellIndex_B);
                     if (selectedSpellIndex_A == selectedSpellIndex_B)
                     {
