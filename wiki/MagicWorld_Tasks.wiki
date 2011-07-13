@@ -9,7 +9,6 @@
 
 == Final (13.07) ==
   # Sounds for: [tipps http://www.freesound.org/ http://www.sounddogs.com/]
-     * jump sound
   # Manual
   # 5 Screenshots, Groupname, Game Description
   # presentation plan
