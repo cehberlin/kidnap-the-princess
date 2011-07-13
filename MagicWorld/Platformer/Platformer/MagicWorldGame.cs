@@ -210,10 +210,10 @@ namespace MagicWorld
             Services.AddService(typeof(ScreenManager), screenManager);
 
             // Activate the first screens.
-            //BackgroundScreen teste = new BackgroundScreen();
-            //screenManager.AddScreen(teste, null);
-            //screenManager.AddScreen(new MainMenuScreen(teste), null);
-            screenManager.AddScreen(new FilmScreen(screenManager), null);
+            BackgroundScreen teste = new BackgroundScreen();
+            screenManager.AddScreen(teste, null);
+            screenManager.AddScreen(new MainMenuScreen(teste), null);
+            //screenManager.AddScreen(new FilmScreen(screenManager), null);
 
             ice = new IcedVisibility(this);
             Components.Add(ice);
@@ -631,6 +631,8 @@ namespace MagicWorld
         {
             LoadGameConfig();
 
+            screenManager.setScreenResolution((int)GameStatus.Resolution.X, (int)GameStatus.Resolution.Y);
+
             if (GameStatus.FullScreenMode)
             {
                 graphics.ToggleFullScreen();
@@ -645,7 +647,7 @@ namespace MagicWorld
                 PlayerControlFactory.GET_INSTANCE().ChangeControl(ControlType.laptopControl);
             }
 
-            screenManager.setScreenResolution((int)GameStatus.Resolution.X, (int)GameStatus.Resolution.Y);
+            
         }
         #endregion
 
