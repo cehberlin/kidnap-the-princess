@@ -189,7 +189,7 @@ namespace MagicWorld.StaticLevelContent
                 }
                 else
                 {
-                    audioService.stopSoundLoop(Audio.SoundType.rockslide, false);
+                    audioService.stopSoundLoop(Audio.SoundType.rockslide, true);
                 }
             }
             base.Update(gameTime);
