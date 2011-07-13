@@ -24,8 +24,8 @@ namespace MagicWorld
             : base("Controls")
         {
             //init
-            defaultConfig = new MenuEntry("Default Config");
-            laptopConfig = new MenuEntry("LaptopControl");
+            defaultConfig = new MenuEntry("controls A");
+            laptopConfig = new MenuEntry("controls B");
             back = new MenuEntry("Back");
 
             //add handler
