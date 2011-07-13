@@ -245,29 +245,31 @@ namespace MagicWorld
         protected virtual void HandleMovement(GameTime gameTime)
         {
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            //accelaration
-            currentAccelarationX += (float)elapsed * accelarationChangeFactorX;
-            if (currentAccelarationX < accelarationMinX)
-                currentAccelarationX = accelarationMinX;
-            if (currentAccelarationX > accelarationMaxX)
-                currentAccelarationX = accelarationMaxX;
-
-            currentAccelarationY += (float)elapsed * accelarationChangeFactorY;
-            if (currentAccelarationY < accelarationMinY)
-                currentAccelarationY = accelarationMinY;
-            if (currentAccelarationY > accelarationMaxY)
-                currentAccelarationY = accelarationMaxY;
-         
-            // Move in the current direction.
-            velocity = new Vector2((float)velocity.X  * currentAccelarationX, (float)velocity.Y  * currentAccelarationY);
-            
-            Position = Position + velocity*elapsed;
-                        base.Update(gameTime);
-
-            if ((position - OldPosition).Length() > 0.5f)
+            if (elapsed > 0.01)
             {
-                rotation = GeometryCalculationHelper.RotateToDirection(OldPosition, position);
+                //accelaration
+                currentAccelarationX += (float)elapsed * accelarationChangeFactorX;
+                if (currentAccelarationX < accelarationMinX)
+                    currentAccelarationX = accelarationMinX;
+                if (currentAccelarationX > accelarationMaxX)
+                    currentAccelarationX = accelarationMaxX;
+
+                currentAccelarationY += (float)elapsed * accelarationChangeFactorY;
+                if (currentAccelarationY < accelarationMinY)
+                    currentAccelarationY = accelarationMinY;
+                if (currentAccelarationY > accelarationMaxY)
+                    currentAccelarationY = accelarationMaxY;
+         
+                // Move in the current direction.
+                velocity = new Vector2((float)velocity.X  * currentAccelarationX, (float)velocity.Y  * currentAccelarationY);
+            
+                Position = Position + velocity*elapsed;
+                            base.Update(gameTime);
+
+                if ((position - OldPosition).Length() > 0.5f)
+                {
+                    rotation = GeometryCalculationHelper.RotateToDirection(OldPosition, position);
+                }
             }
         }
 

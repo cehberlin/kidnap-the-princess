@@ -67,7 +67,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             }
             else
             {
-                audioService.playSound(SoundType.doorClose);
+                audioService.playSound(SoundType.doorClose,0.3f);
             }
         }
 

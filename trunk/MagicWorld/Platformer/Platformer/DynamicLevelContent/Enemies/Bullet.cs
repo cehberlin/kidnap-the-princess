@@ -169,15 +169,17 @@ namespace MagicWorld.DynamicLevelContent.Enemies
             }
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (!isFroozen)
+            if (elapsed > 0.01)
             {
-                Position = Position + velocity * elapsed;
-            }
-            else if (enable_gravity && !disableGravityBySpell) //only apply gravity
-            {
-                frozenVelocity += level.PhysicsManager.getGravity(SpellConstantsValues.WarmSpellGravity, gameTime);
-                Position = Position + frozenVelocity * elapsed;
+                if (!isFroozen)
+                {
+                    Position = Position + velocity * elapsed;
+                }
+                else if (enable_gravity && !disableGravityBySpell) //only apply gravity
+                {
+                    frozenVelocity += level.PhysicsManager.getGravity(SpellConstantsValues.WarmSpellGravity, gameTime);
+                    Position = Position + frozenVelocity * elapsed;
+                }
             }
 
             if ((position - OldPosition).Length() > 0.5f)
