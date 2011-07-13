@@ -142,7 +142,7 @@ namespace MagicWorld
 #endif
 
             // Draw the selected entry in yellow, otherwise white.
-            Color color = isSelected ? Color.Brown : Color.SaddleBrown;
+            Color color = isSelected ? Color.BurlyWood : Color.Chocolate;
 
             // Pulsate the size of the selected menu entry.
             double time = gameTime.TotalGameTime.TotalSeconds;
