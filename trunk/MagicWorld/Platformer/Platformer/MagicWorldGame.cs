@@ -210,10 +210,10 @@ namespace MagicWorld
             Services.AddService(typeof(ScreenManager), screenManager);
 
             // Activate the first screens.
-            BackgroundScreen teste = new BackgroundScreen();
-            screenManager.AddScreen(teste, null);
-            screenManager.AddScreen(new MainMenuScreen(teste), null);
-            //screenManager.AddScreen(new FilmScreen(screenManager), null);
+            //BackgroundScreen teste = new BackgroundScreen();
+           // screenManager.AddScreen(teste, null);
+            //screenManager.AddScreen(new MainMenuScreen(teste), null);
+            screenManager.AddScreen(new FilmScreen(screenManager), null);
 
             ice = new IcedVisibility(this);
             Components.Add(ice);
