@@ -61,7 +61,7 @@ namespace MagicWorld
         {
             get
             {
-                return (castingTimeMs < SpellConstantsValues.CastingCoolDownTimeMS + SpellConstantsValues.AlertCastingTime);
+                return (castingTimeMs <  SpellConstantsValues.AlertCastingTime);
             }
         }
 
