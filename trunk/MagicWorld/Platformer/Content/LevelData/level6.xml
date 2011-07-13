@@ -1258,8 +1258,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0373" Visible="true">
                     <Position>
-                        <X>1223</X>
-                        <Y>233</Y>
+                        <X>1225</X>
+                        <Y>224</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="switch_weight" Type="string" Description="">
@@ -1321,7 +1321,7 @@
                 <Item xsi:type="TextureItem" Name="Texture_0375" Visible="true">
                     <Position>
                         <X>1472</X>
-                        <Y>228</Y>
+                        <Y>224</Y>
                     </Position>
                     <CustomProperties>
                         <Property Name="switch_weight" Type="string" Description="">
@@ -1606,33 +1606,6 @@
                         <Y>376</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0279" Visible="true">
-                    <Position>
-                        <X>303</X>
-                        <Y>281</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
-                    <Origin>
-                        <X>153</X>
-                        <Y>53</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0301" Visible="true">
                     <Position>
                         <X>670</X>
@@ -1849,141 +1822,6 @@
                         <Y>400</Y>
                     </Origin>
                 </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0300" Visible="true">
-                    <Position>
-                        <X>577</X>
-                        <Y>282</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
-                    <Origin>
-                        <X>153</X>
-                        <Y>53</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0315" Visible="true">
-                    <Position>
-                        <X>1204</X>
-                        <Y>290</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Walls\FrontPiece.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Walls\FrontPiece</asset_name>
-                    <Origin>
-                        <X>48</X>
-                        <Y>46</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0316" Visible="true">
-                    <Position>
-                        <X>1402</X>
-                        <Y>290</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
-                    <Origin>
-                        <X>153</X>
-                        <Y>53</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0317" Visible="true">
-                    <Position>
-                        <X>1786</X>
-                        <Y>285</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
-                    <Origin>
-                        <X>153</X>
-                        <Y>53</Y>
-                    </Origin>
-                </Item>
-                <Item xsi:type="TextureItem" Name="Texture_0318" Visible="true">
-                    <Position>
-                        <X>1595</X>
-                        <Y>286</Y>
-                    </Position>
-                    <CustomProperties />
-                    <Rotation>0</Rotation>
-                    <Scale>
-                        <X>1</X>
-                        <Y>1</Y>
-                    </Scale>
-                    <TintColor>
-                        <R>255</R>
-                        <G>255</G>
-                        <B>255</B>
-                        <A>255</A>
-                        <PackedValue>4294967295</PackedValue>
-                    </TintColor>
-                    <FlipHorizontally>false</FlipHorizontally>
-                    <FlipVertically>false</FlipVertically>
-                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceSmall.png</texture_filename>
-                    <asset_name>LevelContent\Cave\Walls\MiddlePieceSmall</asset_name>
-                    <Origin>
-                        <X>47</X>
-                        <Y>50</Y>
-                    </Origin>
-                </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0322" Visible="true">
                     <Position>
                         <X>2718</X>
@@ -2040,8 +1878,8 @@
                 </Item>
                 <Item xsi:type="TextureItem" Name="Texture_0296" Visible="true">
                     <Position>
-                        <X>436</X>
-                        <Y>192</Y>
+                        <X>431</X>
+                        <Y>198</Y>
                     </Position>
                     <CustomProperties />
                     <Rotation>0</Rotation>
@@ -2063,6 +1901,141 @@
                     <Origin>
                         <X>47</X>
                         <Y>50</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0430" Visible="true">
+                    <Position>
+                        <X>578</X>
+                        <Y>284</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
+                    <Origin>
+                        <X>154</X>
+                        <Y>53</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0432" Visible="true">
+                    <Position>
+                        <X>311</X>
+                        <Y>284</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
+                    <Origin>
+                        <X>154</X>
+                        <Y>53</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0434" Visible="true">
+                    <Position>
+                        <X>1322</X>
+                        <Y>286</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
+                    <Origin>
+                        <X>154</X>
+                        <Y>53</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0436" Visible="true">
+                    <Position>
+                        <X>1785</X>
+                        <Y>288</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
+                    <Origin>
+                        <X>154</X>
+                        <Y>53</Y>
+                    </Origin>
+                </Item>
+                <Item xsi:type="TextureItem" Name="Texture_0435" Visible="true">
+                    <Position>
+                        <X>1607</X>
+                        <Y>288</Y>
+                    </Position>
+                    <CustomProperties />
+                    <Rotation>0</Rotation>
+                    <Scale>
+                        <X>1</X>
+                        <Y>1</Y>
+                    </Scale>
+                    <TintColor>
+                        <R>255</R>
+                        <G>255</G>
+                        <B>255</B>
+                        <A>255</A>
+                        <PackedValue>4294967295</PackedValue>
+                    </TintColor>
+                    <FlipHorizontally>false</FlipHorizontally>
+                    <FlipVertically>false</FlipVertically>
+                    <texture_filename>LevelContent\Cave\Walls\MiddlePieceNormal.png</texture_filename>
+                    <asset_name>LevelContent\Cave\Walls\MiddlePieceNormal</asset_name>
+                    <Origin>
+                        <X>154</X>
+                        <Y>53</Y>
                     </Origin>
                 </Item>
             </Items>
@@ -2968,11 +2941,11 @@
     </Layers>
     <CustomProperties />
     <EditorRelated>
-        <NextItemNumber>429</NextItemNumber>
+        <NextItemNumber>436</NextItemNumber>
         <ContentRootFolder>F:\Game Design\MagicWorld\Platformer\Content</ContentRootFolder>
         <CameraPosition>
-            <X>1991.67468</X>
-            <Y>341.6672</Y>
+            <X>1083.33691</X>
+            <Y>133.333618</Y>
         </CameraPosition>
         <Version>1.3.0.0</Version>
     </EditorRelated>
