@@ -92,7 +92,11 @@ namespace MagicWorld.DynamicLevelContent
             }
 
             float elapsed = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Position = Position + velocity * elapsed;
+
+            if (elapsed > 0.01)
+            {
+                Position = Position + velocity * elapsed;
+            }
 
             if (checkCollision)
             {
