@@ -9,27 +9,27 @@ namespace MagicWorld.Controls
     {
         public Microsoft.Xna.Framework.Input.Keys Keys_CastSelectedSpellA
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.NumPad1; }
+            get { return Microsoft.Xna.Framework.Input.Keys.A; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_CastSelectedSpellB
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.NumPad2; }
+            get { return Microsoft.Xna.Framework.Input.Keys.S; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_SelectedSpellA
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.NumPad4; }
+            get { return Microsoft.Xna.Framework.Input.Keys.Q; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_SelectedSpellB
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.NumPad5; }
+            get { return Microsoft.Xna.Framework.Input.Keys.W; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_Jump
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.W; }
+            get { return Microsoft.Xna.Framework.Input.Keys.Up; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_Pause
@@ -39,22 +39,22 @@ namespace MagicWorld.Controls
 
         public Microsoft.Xna.Framework.Input.Keys Keys_Up
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.W; }
+            get { return Microsoft.Xna.Framework.Input.Keys.Up; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_Down
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.S; }
+            get { return Microsoft.Xna.Framework.Input.Keys.Down; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_Left
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.A; }
+            get { return Microsoft.Xna.Framework.Input.Keys.Left; }
         }
 
         public Microsoft.Xna.Framework.Input.Keys Keys_Right
         {
-            get { return Microsoft.Xna.Framework.Input.Keys.D; }
+            get { return Microsoft.Xna.Framework.Input.Keys.Right; }
         }
 
         //Gamepad
