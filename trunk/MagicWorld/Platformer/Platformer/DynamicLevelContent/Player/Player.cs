@@ -679,7 +679,8 @@ namespace MagicWorld
             set { spellAimAngle = value; }
         }
 
-        double castingTimeMs = SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS;
+        double castingTimeMs = SpellConstantsValues.MaxCastingTimeMS;
+        double coolDownTimeMs=0;
 
         /// <summary>
         /// create the spells
@@ -696,15 +697,17 @@ namespace MagicWorld
             Boolean isCastingSpell = false;
 
 
-            if (currentSpell == null && castingTimeMs == SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS) // no spell casted?
+            if (currentSpell == null && coolDownTimeMs<=0) // no spell casted?
             {
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState)) //spell A casted ?
                 {
-                    isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_A, this.level);                    
+                    isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_A, this.level);
+                    castingTimeMs = SpellConstantsValues.MaxCastingTimeMS;
                 }
                 else if (this.isSpellBButtonPressed(controls, gamePadState, keyboardState)) //spell B casted ?
                 {
                     isCastingSpell = SpellCreationManager.tryStartCasting(this, selectedSpell_B, this.level);
+                    castingTimeMs = SpellConstantsValues.MaxCastingTimeMS;
                 }
                 else if (gamePadState.IsButtonUp(controls.GamePad_SelectedSpellA) && oldGamePadState.IsButtonDown(controls.GamePad_SelectedSpellA) || keyboardState.IsKeyUp(controls.Keys_SelectedSpellA) && oldKeyboardState.IsKeyDown(controls.Keys_SelectedSpellA)) // spell A select
                 {
@@ -729,19 +732,21 @@ namespace MagicWorld
                     Debug.WriteLine("changed selection for SpellSlot B: " + System.Enum.GetName(typeof(SpellType), selectedSpellIndex_B));
                 }
             }
-            else  if (currentSpell != null)
+            else if (currentSpell != null)
             {
                 SpellCreationManager.furtherSpellCasting(this, this.level, gameTime);
                 if (this.isSpellAButtonPressed(controls, gamePadState, keyboardState) || this.isSpellBButtonPressed(controls, gamePadState, keyboardState))
                 {
                     // casting angle
                     //Debug.WriteLine("SpellConstantsValues.spellAimingRotationSpeed " + SpellConstantsValues.spellAimingRotationSpeed);
-                    if (keyboardState.IsKeyDown(controls.Keys_Up)||gamePadState.IsButtonDown(controls.GamePad_Up))
+                    if (keyboardState.IsKeyDown(controls.Keys_Up) || gamePadState.IsButtonDown(controls.GamePad_Up))
                     {
                         if (isFacingLeft)
                         {
                             spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
-                        } else {
+                        }
+                        else
+                        {
                             spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                         }
                     }
@@ -750,7 +755,9 @@ namespace MagicWorld
                         if (!isFacingLeft)
                         {
                             spellAimAngle -= SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
-                        } else {
+                        }
+                        else
+                        {
                             spellAimAngle += SpellConstantsValues.spellAngleChangeStep * gameTime.ElapsedGameTime.TotalSeconds * SpellConstantsValues.spellAimingRotationSpeed;
                         }
                     }
@@ -778,25 +785,22 @@ namespace MagicWorld
                         }
                     }
 
-                    if (castingTimeMs < SpellConstantsValues.CastingCoolDownTimeMS)
+                    if (castingTimeMs < 0)
                     {
-                            SpellCreationManager.cancelSpell(this);
-                    } 
+                        SpellCreationManager.cancelSpell(this);
+                        coolDownTimeMs = SpellConstantsValues.CastingCoolDownTimeMS;
+                    }
+                    castingTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
                 else
                 {
                     SpellCreationManager.releaseSpell(this);
-                    castingTimeMs = SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS;
-                }                
+                    castingTimeMs = SpellConstantsValues.MaxCastingTimeMS;
+                }
             }
-
-            if (castingTimeMs <= 0)
+            else
             {
-                castingTimeMs = SpellConstantsValues.MaxCastingTimeMS + SpellConstantsValues.CastingCoolDownTimeMS;
-            }
-            else if (IsCasting || castingTimeMs < SpellConstantsValues.CastingCoolDownTimeMS)
-            {
-                castingTimeMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
+                coolDownTimeMs-=gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
             oldKeyboardState = keyboardState;
