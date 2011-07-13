@@ -342,7 +342,7 @@ namespace MagicWorld
                 }
                 else
                 {
-                    audioService.stopSoundLoop(Audio.SoundType.wings);
+                    audioService.stopSoundLoop(Audio.SoundType.wings, false);
                 }
             }
             //only handles physics collision

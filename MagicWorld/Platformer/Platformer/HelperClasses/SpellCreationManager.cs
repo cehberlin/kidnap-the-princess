@@ -113,7 +113,7 @@ namespace MagicWorld.HelperClasses
             player.CurrentSpell.FireUp();
             player.CurrentSpell = null;
             IAudioService audioservice = player.audioService;
-            audioservice.stopSoundLoop(SoundType.createSpell);  
+            audioservice.stopSoundLoop(SoundType.createSpell, false);  
         }
 
     }

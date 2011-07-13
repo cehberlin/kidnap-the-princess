@@ -46,7 +46,7 @@ namespace MagicWorld.DynamicLevelContent.Enemies
                 }
                 else
                 {
-                    audioService.stopSoundLoop(Audio.SoundType.lava);
+                    audioService.stopSoundLoop(Audio.SoundType.lava, false);
                 }
                 currentDelay -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (currentDelay <= 0)
