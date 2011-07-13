@@ -180,6 +180,7 @@ namespace MagicWorld.HelperClasses
             elemRectangle = elem.Bounds.getRectangle();
             int elemLeftXCorner = elemRectangle.X;
             int elemRightXCorner = elemLeftXCorner + elemRectangle.Width;
+            int elemCenter = elemLeftXCorner + elemRectangle.Width/2;
 
             foreach (BasicGameElement t in collisionObjects)
             {
@@ -218,7 +219,8 @@ namespace MagicWorld.HelperClasses
                             if (obstacleRectangle.Top > elemRectangle.Bottom - 10 && (//is higher than colliding object 
                                 //and the x bounds are in the same area like the colliding object
                                 elemLeftXCorner >= obstacleLeftXCorner && elemLeftXCorner <= obstacleRightXCorner ||
-                                elemRightXCorner >= obstacleLeftXCorner && elemRightXCorner <= obstacleRightXCorner))
+                                elemRightXCorner >= obstacleLeftXCorner && elemRightXCorner <= obstacleRightXCorner ||
+                                elemCenter >= obstacleLeftXCorner && elemCenter <= obstacleRightXCorner))
                             {
                                 IsOnGround = true;
                                 localOnGround = true;
