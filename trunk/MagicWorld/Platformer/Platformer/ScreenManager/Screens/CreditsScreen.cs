@@ -41,17 +41,27 @@ namespace MagicWorld
         public CreditsScreen(ScreenManager screenManager)
             
         {
-            message = "Magic World\n";            
-            message += "\n\nMade in Berlin";            
-            message += "\nGame Programming";
-            message += "\nTU-Berlin";
-            message += "\n\nCredits";
-            message += "\n\n Developers";
-            message += "\n\nChristopher Hrabia";
-            message += "\nPascal Schwenke";
-            message += "\nJohn Calo";
-            message += "\nMarian Volk";
-            message += "\nAmauri Albuquerque";
+            const String tab = "    ";
+
+            message = "   " + "MAGIC WORLD" + "\n";
+            message += "made at TU-Berlin" + "\n";
+            message += "for Game Programming" + "\n";
+            message += "summer 2011" + "\n";
+            message += "by Team \"INNOVATIVE ENTERTAINMENT\"" + "\n" + "\n";
+
+            message += "GRAPHICS PROGRAMMER:" + "\n";
+            message += tab + "Christopher Hrabia" + "\n";
+
+            message += "CONTENT CREATOR:" + "\n";
+            message += tab + "Pascal Schwenke" + "\n";
+
+            message += "GAMEPLAY PROGRAMMER:" + "\n";
+            message += tab + "John Calo" + "\n";
+            message += tab + "Amauri Albuquerque " + "\n";
+
+            message += "TEAM LEAD:" + "\n";
+            message += tab + "Marian Volk" + "\n";
+            
                         
             IsPopup = true;
 
