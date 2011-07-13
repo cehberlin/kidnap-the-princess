@@ -43,11 +43,12 @@ namespace MagicWorld
         {
             const String tab = "    ";
 
-            message = "   " + "MAGIC WORLD" + "\n";
+            message = "MAGIC WORLD" + "\n" + "\n" + "\n";
+
             message += "made at TU-Berlin" + "\n";
             message += "for Game Programming" + "\n";
             message += "summer 2011" + "\n";
-            message += "by Team \"INNOVATIVE ENTERTAINMENT\"" + "\n" + "\n";
+            message += "by Team \"INNOVATIVE ENTERTAINMENT\"" + "\n" + "\n" + "\n";
 
             message += "GRAPHICS PROGRAMMER:" + "\n";
             message += tab + "Christopher Hrabia" + "\n";
