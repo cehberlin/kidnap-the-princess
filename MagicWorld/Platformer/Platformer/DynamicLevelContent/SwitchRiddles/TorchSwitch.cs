@@ -19,7 +19,7 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
         /// </summary>
         public Boolean IsLit { get; set; }
 
-        public TorchSwitch(String texture, Level level, Vector2 position, String id, bool isLit=false)
+        public TorchSwitch(String texture, Level level, Vector2 position, String id, bool isLit = false)
             : base(texture, CollisionType.Platform, level, position, id)
         {
             this.IsLit = isLit;
@@ -32,6 +32,17 @@ namespace MagicWorld.DynamicLevelContent.SwitchRiddles
             //{
             //    Activate();
             //}
+            if (IsLit)
+            {
+                if ((level.Player.Position - Position).Length() < 300)
+                {
+                    audioService.playSoundLoop(Audio.SoundType.torchBurning);
+                }
+                else
+                {
+                    audioService.stopSoundLoop(Audio.SoundType.torchBurning, false);
+                }
+            }
             base.Update(gameTime);
         }
 
