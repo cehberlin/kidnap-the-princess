@@ -202,6 +202,15 @@ namespace MagicWorld.Audio
         }
 
         #endregion
+
+
+        public void clearAllSounds()
+        {
+            foreach(SoundType st in System.Enum.GetValues( typeof(SoundType) ) )
+            {
+                stopSoundLoop(st);
+            }
+        }
     }
 }
 

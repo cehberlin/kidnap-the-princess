@@ -22,5 +22,7 @@ namespace MagicWorld.Audio
         void playSoundLoop(SoundType soundType, float volume=1.0f);
 
         void setBackgroundVolume(float volume);
+
+        void clearAllSounds();
     }
 }

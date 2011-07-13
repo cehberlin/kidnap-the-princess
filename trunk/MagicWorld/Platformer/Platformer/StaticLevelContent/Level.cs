@@ -337,8 +337,7 @@ namespace MagicWorld
 
         private void clearAllSounds()
         {
-            audioService.stopSoundLoop(SoundType.electric);
-            audioService.stopSoundLoop(SoundType.noGravity);
+            audioService.clearAllSounds();
         }
 
         /// <summary>
