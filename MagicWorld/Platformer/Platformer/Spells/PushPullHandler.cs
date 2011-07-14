@@ -77,7 +77,7 @@ namespace MagicWorld.Spells
                     //only change acceleration if we are over a some elapsed time
                     //if we do not consider this special case the accelartion change factor gets to much influence
                     // in casting time
-                    if (elapsed > 0.01) 
+                    if (elapsed > 0.01) //no movement
                     {
                         //accelaration
                         currentAccelarationX += accelarationChangeFactorX * elapsed;
@@ -91,11 +91,13 @@ namespace MagicWorld.Spells
                             currentAccelarationY = accelarationMinY;
                         if (currentAccelarationY > accelarationMaxY)
                             currentAccelarationY = accelarationMaxY;
-                    }
                     
-                    influenceVelocity = new Vector2((float)(influenceVelocity.X * currentAccelarationX), (float)(influenceVelocity.Y * currentAccelarationY));
+                    
+                        influenceVelocity = new Vector2((float)(influenceVelocity.X * currentAccelarationX), (float)(influenceVelocity.Y * currentAccelarationY));
 
-                    element.Position += (float)elapsed * influenceVelocity;
+                        element.Position += (float)elapsed * influenceVelocity;
+
+                    }
 
                     influenceTimeInMs -= gameTime.ElapsedGameTime.TotalMilliseconds;
                 }
