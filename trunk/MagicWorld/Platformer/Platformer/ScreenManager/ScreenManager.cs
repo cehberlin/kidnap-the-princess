@@ -361,6 +361,7 @@ namespace MagicWorld
             Resolution.SetResolution(width, height, false);
             Graphics.PreferredBackBufferWidth = width;
             Graphics.PreferredBackBufferHeight = height;
+            Graphics.IsFullScreen = Game.GameStatus.FullScreenMode;
             Graphics.ApplyChanges();
         }
 
