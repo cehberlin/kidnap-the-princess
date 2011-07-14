@@ -96,7 +96,7 @@ namespace MagicWorld.BlendInClasses
                 spriteBatch.Draw(arrowTex, playerService.Position, null, currentColor * transparencyFactorWithDegree, -(float)playerService.SpellAimAngle, origin, 1.0f, SpriteEffects.FlipHorizontally, 0f);
                 spriteBatch.End();
             }
-            else if (playerService.IsCasting)//push and pulp
+            else if (playerService.IsCasting)//push and pull disable this if, if you don not like it
             {
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraService.TransformationMatrix);
                 spriteBatch.Draw(circleWithoutDegrees, playerService.CurrentSpell.Bounds.getRectangle(), currentColor * transparencyFactorWithoutDegree);         
