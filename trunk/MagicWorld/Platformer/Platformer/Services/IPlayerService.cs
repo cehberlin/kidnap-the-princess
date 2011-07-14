@@ -15,6 +15,8 @@ namespace MagicWorld.Services
 
         bool isNearCastingCancel { get; }
 
+        Spell CurrentSpell { get; }
+
         Mana Mana { get; }
         //int CollectedIngredients { get; }
 
