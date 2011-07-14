@@ -45,6 +45,7 @@ namespace MagicWorld.DynamicLevelContent
                 if (level.CollisionManager.CollidateWithPlayer(this))
                 {
                     level.Player.Position = portalDestination;
+                    level.Player.Velocity = Vector2.Zero;
                 }
             }
             base.Update(gameTime);
@@ -58,12 +59,14 @@ namespace MagicWorld.DynamicLevelContent
                     if (element.GetType() == typeof(PushPullElement))
                     {
                         element.Position = portalDestination;
+                        element.Velocity = Vector2.Zero;
                     }
                     break;
                 case PortalHandlingType.SHADOW_CREATURE:
                     if (element.GetType() == typeof(ShadowCreature))
                     {
                         element.Position = portalDestination;
+                        element.Velocity = Vector2.Zero;
                     }
                     break;
             }           
