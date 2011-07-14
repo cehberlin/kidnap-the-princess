@@ -66,7 +66,7 @@ namespace MagicWorld.BlendInClasses
         public void Remove(IIcedVisibility obj)
         {
             positions.Remove(obj);
-            audioService.playSound(SoundType.icecrack);
+            audioService.playSound(SoundType.icecrack, 0.2f);
         }
 
         public void Remove()
