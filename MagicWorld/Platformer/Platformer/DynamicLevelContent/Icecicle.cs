@@ -96,8 +96,8 @@ namespace MagicWorld
                 {
                     //destroy enemy
                     //audioService.playSound(Audio.SoundType.icehit);
-                    audioService.playSound(Audio.SoundType.monsterkill);
-                    audioService.playSound(Audio.SoundType.laugh);
+                    audioService.playSound(Audio.SoundType.monsterkill, 0.5f);
+                    audioService.playSound(Audio.SoundType.laugh, 0.3f);
                     IcecicleState = IcecicleState.DESTROYED;
                     e.IsRemovable = true;
                 }

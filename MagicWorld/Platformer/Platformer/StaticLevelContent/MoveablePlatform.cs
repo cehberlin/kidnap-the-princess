@@ -27,6 +27,7 @@ namespace MagicWorld.StaticLevelContent
         private PathItem path = null;
         private Bounds oldBounds = null;
         private float acceleration = 1;
+        bool movingStarted = false;
 
         public MoveablePlatform(String texture, CollisionType collision, Level level, Vector2 position, PathItem path, Color drawColor)
             : base(texture, collision, level, position, drawColor)
@@ -183,14 +184,15 @@ namespace MagicWorld.StaticLevelContent
                 this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
                 DrawRec = new Rectangle(left, top, Width, Height);
 
-                if ((level.Player.Position - this.position).Length() < 200 && !level.Player.IsCasting)
-                {
-                    audioService.playSoundLoop(Audio.SoundType.rockslide, 0.4f);
-                }
-                else
-                {
-                    audioService.stopSoundLoop(Audio.SoundType.rockslide, true);
-                }
+
+                audioService.playSoundLoop(Audio.SoundType.rockslide, 0.4f);
+                movingStarted = true;
+
+            }
+            else if (movingStarted)
+            {
+                audioService.stopSoundLoop(Audio.SoundType.rockslide, true);
+                movingStarted = false;
             }
             base.Update(gameTime);
         }
@@ -229,9 +231,10 @@ namespace MagicWorld.StaticLevelContent
             move = false;
         }
         private Boolean move = true;
-        public Boolean isMoving { 
+        public Boolean isMoving
+        {
             get { return move; }
-            set{move = value;} 
+            set { move = value; }
         }
     }
 }

@@ -152,7 +152,7 @@ namespace MagicWorld.StaticLevelContent
                 this.bounds = new Bounds(left + yOffset / 2, top, Width - yOffset, 20);
                 DrawRec = new Rectangle(left, top, Width, Height);
 
-                if ((level.Player.Position - this.position).Length() < 200)
+                if ((level.Player.Position - this.position).Length() < 400)
                 {
                     audioService.playSoundLoop(Audio.SoundType.rockslide, 0.4f);
                     movingStarted = true;
